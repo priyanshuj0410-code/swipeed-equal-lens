@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
@@ -11,6 +12,18 @@ import { DECK_BY_ID, resolveDeckCards, availableDecks } from "@/content/decks";
 import { POINTS, starsFor } from "@/lib/scoring";
 import { GroundScenery } from "@/components/scenery";
 import type { DeckId, DeckSummary } from "@/lib/types";
+
+// The 3D card game is client-only (three.js) — lazy-loaded so it never touches the
+// no-WebGL fallback bundle.
+const SwipeDeck3D = dynamic(() => import("@/components/swipe-deck-3d").then((m) => m.SwipeDeck3D), {
+  ssr: false,
+  loading: () => (
+    <div className="fixed inset-0 z-0 flex items-center justify-center bg-[#eaf6ff] text-sm text-muted-foreground">
+      <span className="size-5 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-primary" aria-hidden />
+      <span className="ml-2">Loading the game…</span>
+    </div>
+  ),
+});
 
 export function Play({ deckId }: { deckId: DeckId }) {
   const { profile, finishDeck } = useProfile();
@@ -39,6 +52,34 @@ export function Play({ deckId }: { deckId: DeckId }) {
   }
 
   const invalid = !deck || cards.length === 0;
+
+  // WebGL? (null = detecting -> optimistically render 3D; false = 2D fallback)
+  const [webgl, setWebgl] = useState<boolean | null>(null);
+  useEffect(() => {
+    try {
+      const c = document.createElement("canvas");
+      setWebgl(!!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))));
+    } catch {
+      setWebgl(false);
+    }
+  }, []);
+
+  // Immersive 3D card game for play/review when supported.
+  if (!invalid && webgl !== false && (stage === "play" || stage === "review")) {
+    const review = stage === "review";
+    return (
+      <SwipeDeck3D
+        key={review ? "review3d" : "main3d"}
+        cards={review ? summary?.missed ?? [] : cards}
+        deckId={deckId}
+        mode={review ? "review" : "score"}
+        onComplete={review ? () => setStage("debrief") : handleComplete}
+        labels={deck?.swipe}
+        backHref={backHref}
+        backLabel={backLabel}
+      />
+    );
+  }
 
   return (
     <div className="flex flex-1 flex-col px-5 py-6">
