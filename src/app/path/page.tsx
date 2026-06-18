@@ -21,7 +21,7 @@ export default function PathPage() {
   return (
     <>
       {/* full-viewport scene; fixed so R3F always has a definite size to measure */}
-      <div className="fixed inset-0 z-0 bg-[#d6ecfb]">
+      <div className="fixed inset-0 z-0 bg-[#bfe2fb]">
         <PathScene />
       </div>
       <Link
@@ -31,6 +31,11 @@ export default function PathPage() {
       >
         <ArrowLeft className="size-5" aria-hidden />
       </Link>
+      <div className="pointer-events-none fixed inset-x-0 bottom-6 z-40 flex justify-center px-4">
+        <span className="rounded-full bg-card/90 px-3 py-1.5 text-xs font-medium text-muted-foreground shadow-md ring-1 ring-border backdrop-blur">
+          Scroll or drag to travel the path
+        </span>
+      </div>
     </>
   );
 }
