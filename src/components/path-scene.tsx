@@ -256,14 +256,15 @@ function Mountains() {
     const block = (x: number, z: number, h: number, w: number, ry: number) =>
       arr.push(trs(x, -4, z, ry, w, (h + 4) / 2, w));
     const massif = (cx: number, cz: number, R: number, H: number) => {
-      const g = 3.2;
+      const g = 3.6;
       for (let gx = -R; gx <= R; gx += g) {
         for (let gz = -R; gz <= R; gz += g) {
           const d = Math.hypot(gx, gz) / R;
           if (d > 1) continue;
-          const hump = H * Math.cos(d * Math.PI * 0.5); // 1 at centre -> 0 at rim
-          const h = Math.max(3, hump + (rng() - 0.5) * H * 0.4);
-          const w = ((g * 1.5) / 2.08) * (0.9 + rng() * 0.3);
+          // gentle domed falloff -> wide skirt, gradual slope (low height over big radius)
+          const hump = H * Math.cos(d * Math.PI * 0.5) * Math.cos(d * Math.PI * 0.5);
+          const h = Math.max(2.5, hump + (rng() - 0.5) * H * 0.25);
+          const w = ((g * 1.55) / 2.08) * (0.9 + rng() * 0.3);
           block(cx + gx + (rng() - 0.5) * 1.4, cz + gz + (rng() - 0.5) * 1.4, h, w, rng() * 6.28);
         }
       }
@@ -279,8 +280,8 @@ function Mountains() {
         massif(cx, cz, R, Hmin + rng() * (Hmax - Hmin));
       }
     };
-    ring(9, 72, 108, 10, 16, 8, 20); // near green hills
-    ring(11, 132, 182, 12, 20, 14, 30); // far hazier ridge
+    ring(8, 68, 104, 16, 26, 6, 14); // near, wide gentle green hills
+    ring(10, 128, 182, 22, 36, 10, 22); // far, broad hazier range
     return arr;
   }, []);
   return <InstancedModel url="/models/block-grass-large-tall.glb" matrices={matrices} />;
