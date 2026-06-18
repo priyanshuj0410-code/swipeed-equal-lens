@@ -245,23 +245,42 @@ function Ground() {
   );
 }
 
-// Blocky grass mountains: two rings of tall grass blocks scaled up, sunk + fog-faded.
+// Blocky grass mountains: each "massif" is a cluster of many overlapping grass blocks
+// with a smooth height falloff, so they aggregate into rounded hills instead of lone
+// pillars. Rings of massifs around the scene give layered, fog-receding terrain.
 function Mountains() {
   const matrices = useMemo(() => {
     const rng = mulberry32(2024);
     const arr: THREE.Matrix4[] = [];
-    const ring = (count: number, rad: number, radJ: number, hMin: number, hMax: number) => {
-      for (let i = 0; i < count; i++) {
-        const ang = (i / count) * Math.PI * 2 + (rng() - 0.5) * 0.5;
-        const r = rad + (rng() - 0.5) * radJ;
-        const h = hMin + rng() * (hMax - hMin);
-        const sy = h / 2; // block-grass-large-tall is 2 units tall
-        const sxz = (2.6 + rng() * 2.5) / 2.08;
-        arr.push(trs(Math.cos(ang) * r, -4, -90 + Math.sin(ang) * r, rng() * 6.28, sxz, sy, sxz));
+    // one solid block rising from below ground (base sunk at -4) up to height h
+    const block = (x: number, z: number, h: number, w: number, ry: number) =>
+      arr.push(trs(x, -4, z, ry, w, (h + 4) / 2, w));
+    const massif = (cx: number, cz: number, R: number, H: number) => {
+      const g = 3.2;
+      for (let gx = -R; gx <= R; gx += g) {
+        for (let gz = -R; gz <= R; gz += g) {
+          const d = Math.hypot(gx, gz) / R;
+          if (d > 1) continue;
+          const hump = H * Math.cos(d * Math.PI * 0.5); // 1 at centre -> 0 at rim
+          const h = Math.max(3, hump + (rng() - 0.5) * H * 0.4);
+          const w = ((g * 1.5) / 2.08) * (0.9 + rng() * 0.3);
+          block(cx + gx + (rng() - 0.5) * 1.4, cz + gz + (rng() - 0.5) * 1.4, h, w, rng() * 6.28);
+        }
       }
     };
-    ring(22, 118, 22, 14, 30);
-    ring(26, 158, 28, 20, 42);
+    const ring = (count: number, radMin: number, radMax: number, Rmin: number, Rmax: number, Hmin: number, Hmax: number) => {
+      for (let i = 0; i < count; i++) {
+        const ang = (i / count) * Math.PI * 2 + (rng() - 0.5) * 0.55;
+        const rad = radMin + rng() * (radMax - radMin);
+        const cx = Math.cos(ang) * rad;
+        const cz = -90 + Math.sin(ang) * rad;
+        const R = Rmin + rng() * (Rmax - Rmin);
+        if (distToPathSq(cx, cz) < (R + 12) * (R + 12)) continue; // keep clear of the path
+        massif(cx, cz, R, Hmin + rng() * (Hmax - Hmin));
+      }
+    };
+    ring(9, 72, 108, 10, 16, 8, 20); // near green hills
+    ring(11, 132, 182, 12, 20, 14, 30); // far hazier ridge
     return arr;
   }, []);
   return <InstancedModel url="/models/block-grass-large-tall.glb" matrices={matrices} />;
@@ -558,7 +577,7 @@ export function PathScene() {
       style={{ width: "100%", height: "100%", display: "block" }}
     >
       <color attach="background" args={["#eaf6ff"]} />
-      <fog attach="fog" args={["#dbeefb", 34, 215]} />
+      <fog attach="fog" args={["#dbeefb", 40, 235]} />
       <SkyDome />
       <Clouds />
       <FollowCam progress={progress} />
