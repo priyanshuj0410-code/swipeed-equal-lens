@@ -15,7 +15,7 @@ export function FlagpediaView() {
   return (
     <div className="flex w-full max-w-sm flex-col gap-5">
       <header className="flex items-center gap-3">
-        <Link href="/" aria-label="Back" className={buttonVariants({ variant: "ghost", size: "icon" })}>
+        <Link href="/decks" aria-label="Back" className={buttonVariants({ variant: "ghost", size: "icon" })}>
           <ArrowLeft className="size-5" aria-hidden />
         </Link>
         <div>

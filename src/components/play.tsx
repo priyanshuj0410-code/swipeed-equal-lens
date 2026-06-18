@@ -39,7 +39,7 @@ export function Play({ deckId }: { deckId: DeckId }) {
   return (
     <div className="flex flex-1 flex-col px-5 py-6">
       <header className="mb-6 flex items-center gap-3">
-        <Link href="/" aria-label="Back" className={buttonVariants({ variant: "ghost", size: "icon" })}>
+        <Link href="/decks" aria-label="Back" className={buttonVariants({ variant: "ghost", size: "icon" })}>
           <ArrowLeft className="size-5" aria-hidden />
         </Link>
         <h1 className="text-base font-semibold">{deck?.title ?? "Deck"}</h1>
@@ -52,8 +52,8 @@ export function Play({ deckId }: { deckId: DeckId }) {
             {deck && !deck.schoolComfortSafe && profile.schoolComfort && (
               <p className="mt-2">It&apos;s hidden by School-Comfort Mode (see Settings).</p>
             )}
-            <Link href="/" className={buttonVariants({ variant: "outline", className: "mt-4" })}>
-              Back home
+            <Link href="/decks" className={buttonVariants({ variant: "outline", className: "mt-4" })}>
+              Back to decks
             </Link>
           </div>
         ) : stage === "play" ? (

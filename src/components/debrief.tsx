@@ -79,13 +79,13 @@ export function Debrief({
           </Link>
         ) : null}
         <Link
-          href="/"
+          href="/decks"
           className={buttonVariants({
             variant: nextDeck || summary.missed.length > 0 ? "outline" : "default",
             className: "h-12 gap-1.5 rounded-2xl font-bold",
           })}
         >
-          <Home className="size-4" aria-hidden /> Back home
+          <Home className="size-4" aria-hidden /> Back to decks
         </Link>
       </div>
     </Card>
