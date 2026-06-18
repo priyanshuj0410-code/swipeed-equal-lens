@@ -21,7 +21,7 @@ export default function PathPage() {
   return (
     <>
       {/* full-viewport scene; fixed so R3F always has a definite size to measure */}
-      <div className="fixed inset-0 z-0 bg-[#bfe2fb]">
+      <div className="fixed inset-0 z-0 touch-none overscroll-none bg-[#bfe2fb]">
         <PathScene />
       </div>
       <Link

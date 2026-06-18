@@ -170,6 +170,9 @@
   html {
     @apply font-sans;
   }
+  canvas {
+    touch-action: none;
+  }
   h1, h2, h3 {
     font-family: var(--font-fredoka), var(--font-nunito), ui-rounded, system-ui, sans-serif;
     letter-spacing: -0.01em;

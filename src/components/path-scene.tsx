@@ -138,7 +138,8 @@ export function PathScene() {
   // Scroll (desktop) / drag (touch) to travel along the path.
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
-      progress.current = clamp01(progress.current + e.deltaY * 0.0008);
+      // direct manipulation: swipe/scroll the world the way the gesture moves
+      progress.current = clamp01(progress.current - e.deltaY * 0.0008);
     };
     let lastY: number | null = null;
     let dragging = false;
