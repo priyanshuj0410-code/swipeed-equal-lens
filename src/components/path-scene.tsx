@@ -410,7 +410,7 @@ const PROP_MODELS: ModelCfg[] = [
   { url: "/models/mushrooms.glb", scale: 1.4, count: 16, seed: 127, clearance: 3, cast: false, tilt: 0.14 },
   { url: "/models/plant.glb", scale: 1.5, count: 26, seed: 131, clearance: 2.3, cast: false, tilt: 0.14 },
   { url: "/models/flowers.glb", scale: 1.1, count: 40, seed: 163, clearance: 2.3, cast: false, tilt: 0.12 },
-  { url: "/models/flowers-tall.glb", scale: 0.425, count: 12, seed: 149, clearance: 2.4, cast: false, tilt: 0.1 },
+  { url: "/models/flowers-tall.glb", scale: 1.5, count: 12, seed: 149, clearance: 2.4, cast: false, tilt: 0.1 },
   { url: "/models/sign.glb", scale: 2.2, count: 4, seed: 179, clearance: 3, cast: true, tilt: 0 },
   { url: "/models/flag.glb", scale: 2.4, count: 5, seed: 191, clearance: 3.5, cast: true, tilt: 0 },
 ];
