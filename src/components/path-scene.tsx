@@ -10,7 +10,6 @@ import {
   SMAA,
   HueSaturation,
   BrightnessContrast,
-  DepthOfField,
 } from "@react-three/postprocessing";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
@@ -320,55 +319,31 @@ function Grass() {
 type ModelCfg = { url: string; scale: number; minY: number; count: number; seed: number; clearance: number; cast: boolean };
 
 const TREE_MODELS: ModelCfg[] = [
-  { url: "/models/tree_a.glb", scale: 0.92, minY: -0.243, count: 5, seed: 11, clearance: 7.5, cast: true },
-  { url: "/models/tree_b.glb", scale: 0.72, minY: -0.243, count: 5, seed: 23, clearance: 7.5, cast: true },
-  { url: "/models/pine_a.glb", scale: 0.7, minY: -0.235, count: 4, seed: 37, clearance: 7.5, cast: true },
-  { url: "/models/pine_b.glb", scale: 0.78, minY: -0.235, count: 4, seed: 53, clearance: 7.5, cast: true },
-  { url: "/models/twisted.glb", scale: 0.42, minY: -0.2, count: 3, seed: 71, clearance: 9, cast: true },
+  { url: "/models/tree.glb", scale: 3.0, minY: 0, count: 14, seed: 11, clearance: 7.5, cast: true },
+  { url: "/models/tree-pine.glb", scale: 3.2, minY: 0, count: 10, seed: 23, clearance: 7.5, cast: true },
+  { url: "/models/tree-pine-small.glb", scale: 2.6, minY: 0, count: 8, seed: 37, clearance: 7, cast: true },
 ];
 const PROP_MODELS: ModelCfg[] = [
-  { url: "/models/rock_a.glb", scale: 0.8, minY: -0.316, count: 5, seed: 101, clearance: 4, cast: true },
-  { url: "/models/rock_b.glb", scale: 0.8, minY: -0.271, count: 5, seed: 113, clearance: 4, cast: true },
-  { url: "/models/pebble.glb", scale: 1.4, minY: -0.0078, count: 12, seed: 127, clearance: 2.4, cast: false },
-  { url: "/models/bush.glb", scale: 1.0, minY: -0.235, count: 6, seed: 131, clearance: 5, cast: true },
-  { url: "/models/bush_flowers.glb", scale: 1.0, minY: -0.235, count: 6, seed: 149, clearance: 5, cast: true },
-  { url: "/models/flowers.glb", scale: 0.42, minY: -0.057, count: 16, seed: 163, clearance: 2.6, cast: false },
-  { url: "/models/fern.glb", scale: 0.38, minY: -0.248, count: 9, seed: 179, clearance: 4, cast: false },
-  { url: "/models/mushroom.glb", scale: 0.95, minY: -0.0175, count: 10, seed: 191, clearance: 3, cast: false },
+  { url: "/models/rocks.glb", scale: 3.4, minY: 0, count: 12, seed: 101, clearance: 4, cast: true },
+  { url: "/models/stones.glb", scale: 3.8, minY: 0, count: 12, seed: 113, clearance: 2.4, cast: false },
+  { url: "/models/mushrooms.glb", scale: 3.0, minY: 0, count: 12, seed: 127, clearance: 3, cast: false },
+  { url: "/models/plant.glb", scale: 3.2, minY: 0, count: 18, seed: 131, clearance: 2.6, cast: false },
+  { url: "/models/flowers.glb", scale: 3.2, minY: 0, count: 24, seed: 163, clearance: 2.6, cast: false },
+  { url: "/models/flowers-tall.glb", scale: 2.6, minY: 0, count: 16, seed: 149, clearance: 2.6, cast: false },
+  { url: "/models/sign.glb", scale: 2.8, minY: 0, count: 4, seed: 179, clearance: 3, cast: true },
+  { url: "/models/flag.glb", scale: 3.0, minY: 0, count: 5, seed: 191, clearance: 3.5, cast: true },
 ];
 const ALL_MODELS = [...TREE_MODELS, ...PROP_MODELS];
 ALL_MODELS.forEach((m) => useGLTF.preload(m.url));
 
-function toToon(mat: THREE.MeshStandardMaterial) {
-  const t = new THREE.MeshToonMaterial({
-    map: mat.map ?? null,
-    normalMap: mat.normalMap ?? null,
-    color: mat.color ? mat.color.clone() : new THREE.Color("#ffffff"),
-    gradientMap: TOON_GRAD,
-  });
-  if (mat.transparent) {
-    // leaf / flower cards -> crisp alpha cutout so sorting & shading behave
-    t.alphaTest = 0.5;
-    t.transparent = false;
-    t.depthWrite = true;
-    t.side = THREE.DoubleSide;
-  }
-  return t;
-}
-
-// Re-shade a loaded model to toon once; shared across all its scattered clones.
+// Kenney models share one flat palette texture; keep their authored materials, just enable shadows.
 function usePreparedScene(url: string, cast: boolean) {
   const { scene } = useGLTF(url);
   return useMemo(() => {
     scene.traverse((o) => {
       const mesh = o as THREE.Mesh;
       if (!mesh.isMesh) return;
-      const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-      const wasTransparent = mats.some((m) => (m as THREE.MeshStandardMaterial).transparent);
-      mesh.material = Array.isArray(mesh.material)
-        ? mats.map((m) => toToon(m as THREE.MeshStandardMaterial))
-        : toToon(mesh.material as THREE.MeshStandardMaterial);
-      mesh.castShadow = cast && !wasTransparent;
+      mesh.castShadow = cast;
       mesh.receiveShadow = true;
     });
     return scene;
@@ -569,11 +544,10 @@ export function PathScene() {
       </Suspense>
       <Nodes reduced={reduced} />
       <EffectComposer multisampling={0}>
-        <DepthOfField focusDistance={0.012} focalLength={0.03} bokehScale={2} height={480} />
-        <Bloom luminanceThreshold={0.82} luminanceSmoothing={0.3} intensity={0.4} mipmapBlur radius={0.6} />
-        <BrightnessContrast brightness={0.0} contrast={0.07} />
-        <HueSaturation saturation={0.12} />
-        <Vignette offset={0.32} darkness={0.46} />
+        <Bloom luminanceThreshold={0.85} luminanceSmoothing={0.3} intensity={0.32} mipmapBlur radius={0.5} />
+        <BrightnessContrast brightness={0.0} contrast={0.05} />
+        <HueSaturation saturation={0.08} />
+        <Vignette offset={0.34} darkness={0.4} />
         <SMAA />
       </EffectComposer>
     </Canvas>
