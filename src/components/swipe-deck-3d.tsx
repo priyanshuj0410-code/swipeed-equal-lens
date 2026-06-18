@@ -106,10 +106,10 @@ function Card3D({ dx, exiting, children }: { dx: number; exiting: FlagType | nul
   });
   return (
     <group ref={group} position={[0, 2.6, 0]}>
-      <RoundedBox args={[3.4, 4.5, 0.18]} radius={0.22} smoothness={4} castShadow>
+      <RoundedBox args={[3.4, 4.5, 0.3]} radius={0.12} smoothness={4}>
         <meshStandardMaterial color="#ffffff" roughness={0.7} />
       </RoundedBox>
-      <Html transform position={[0, 0, 0.1]} distanceFactor={undefined} scale={0.0118} zIndexRange={[20, 0]} occlude={false}>
+      <Html transform position={[0, 0, 0.17]} scale={0.0118} zIndexRange={[20, 0]}>
         <div className="h-[380px] w-[286px] select-none">{children}</div>
       </Html>
     </group>
