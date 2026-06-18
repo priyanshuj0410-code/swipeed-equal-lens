@@ -10,12 +10,31 @@ import {
   SMAA,
   HueSaturation,
   BrightnessContrast,
+  DepthOfField,
 } from "@react-three/postprocessing";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-// Stylized open-world render pass (Arceus / BotW flavour): GPU wind grass across the
-// whole meadow, wildflowers, atmospheric-perspective mountain layers fading into haze,
-// drifting clouds under a gradient sky, and a cinematic post chain (bloom, grade, AA).
+// Stylized cel-shaded open-world pass (Arceus / BotW flavour): MeshToonMaterial with a
+// stepped gradient ramp, a sun with following cast/receive shadows, GPU wind grass +
+// wildflowers, atmospheric mountain layers, and a cinematic post chain (bloom, DoF, grade).
+
+// --- shared toon ramp: a few hard luminance steps -> crisp cel bands ---
+const TOON_GRAD = (() => {
+  const steps = [95, 150, 200, 245];
+  const data = new Uint8Array(steps.length * 4);
+  steps.forEach((v, i) => {
+    data[i * 4] = v;
+    data[i * 4 + 1] = v;
+    data[i * 4 + 2] = v;
+    data[i * 4 + 3] = 255;
+  });
+  const t = new THREE.DataTexture(data, steps.length, 1, THREE.RGBAFormat);
+  t.minFilter = THREE.NearestFilter;
+  t.magFilter = THREE.NearestFilter;
+  t.generateMipmaps = false;
+  t.needsUpdate = true;
+  return t;
+})();
 
 const CURVE = new THREE.CatmullRomCurve3(
   [
@@ -73,7 +92,6 @@ function groundHeight(x: number, z: number) {
 
 type Placement = { x: number; z: number; y: number; s: number; r: number };
 
-// Reject-sample across the grassland, clear of the path, dropped onto the terrain.
 function meadowScatter(count: number, seed: number, clearance: number): Placement[] {
   const rng = mulberry32(seed);
   const out: Placement[] = [];
@@ -176,8 +194,6 @@ function Clouds() {
   );
 }
 
-// Two rings of low-poly peaks; the far ring is lighter/bluer and fog turns them into
-// hazy silhouettes — cheap atmospheric perspective.
 function Mountains() {
   const { near, far } = useMemo(() => {
     const rng = mulberry32(2024);
@@ -203,7 +219,7 @@ function Mountains() {
   const Range = ({ d, color }: { d: typeof near; color: string }) => (
     <Instances limit={d.length}>
       <coneGeometry args={[1, 1, 5]} />
-      <meshStandardMaterial color={color} flatShading roughness={1} />
+      <meshToonMaterial color={color} gradientMap={TOON_GRAD} />
       {d.map((m, i) => (
         <Instance key={i} position={[m.x, m.y + m.h / 2, m.z]} scale={[m.w, m.h, m.w]} rotation={[0, m.r, 0]} />
       ))}
@@ -229,7 +245,7 @@ function Ground() {
     for (let i = 0; i < pos.count; i++) {
       const px = pos.getX(i);
       const py = pos.getY(i);
-      const disp = groundHeight(px, -py); // plane y -> world -z after the -90° rotation
+      const disp = groundHeight(px, -py);
       pos.setZ(i, disp);
       const n2 = Math.sin(px * 0.12) * Math.sin(py * 0.11) * 0.5 + 0.5;
       tmp.copy(base).lerp(light, n2 * 0.55);
@@ -241,8 +257,8 @@ function Ground() {
     return g;
   }, []);
   return (
-    <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]}>
-      <meshStandardMaterial vertexColors flatShading />
+    <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+      <meshToonMaterial vertexColors gradientMap={TOON_GRAD} />
     </mesh>
   );
 }
@@ -250,14 +266,13 @@ function Ground() {
 function StonePath() {
   const geo = useMemo(() => buildRibbon(CURVE, 2.1, 320), []);
   return (
-    <mesh geometry={geo} position={[0, 0.05, 0]}>
-      <meshStandardMaterial color="#d9cdb0" side={THREE.DoubleSide} roughness={0.95} />
+    <mesh geometry={geo} position={[0, 0.05, 0]} receiveShadow>
+      <meshToonMaterial color="#d9cdb0" gradientMap={TOON_GRAD} side={THREE.DoubleSide} />
     </mesh>
   );
 }
 
-// Wind injected into the standard-material vertex shader so it sways GPU-side: the tip
-// of each blade bends, phase driven by its instance world position.
+// Wind injected into the toon vertex shader so blades sway GPU-side; phase from instance pos.
 function useWind() {
   const u = useRef({ uTime: { value: 0 } });
   useFrame((s) => {
@@ -284,13 +299,13 @@ function useWind() {
 
 function Grass() {
   const onBeforeCompile = useWind();
-  const blades = useMemo(() => meadowScatter(5500, 321, 2.5), []);
+  const blades = useMemo(() => meadowScatter(6500, 321, 2.5), []);
   const even = useMemo(() => blades.filter((_, i) => i % 2 === 0), [blades]);
   const odd = useMemo(() => blades.filter((_, i) => i % 2 === 1), [blades]);
   const Blades = ({ data, color }: { data: Placement[]; color: string }) => (
     <Instances limit={data.length}>
       <coneGeometry args={[0.05, 0.55, 4]} />
-      <meshStandardMaterial color={color} flatShading onBeforeCompile={onBeforeCompile} />
+      <meshToonMaterial color={color} gradientMap={TOON_GRAD} onBeforeCompile={onBeforeCompile} />
       {data.map((b, i) => {
         const sc = 0.7 + b.s * 0.6;
         const hf = 1 + b.s * 1.1;
@@ -318,7 +333,7 @@ function Flowers() {
         return (
           <Instances key={ci} limit={data.length}>
             <icosahedronGeometry args={[0.16, 0]} />
-            <meshStandardMaterial color={color} roughness={0.8} emissive={color} emissiveIntensity={0.12} />
+            <meshToonMaterial color={color} gradientMap={TOON_GRAD} emissive={color} emissiveIntensity={0.14} />
             {data.map((f, i) => {
               const sc = 0.7 + f.s * 0.6;
               return <Instance key={i} position={[f.x, f.y + 0.32 * sc, f.z]} scale={sc} />;
@@ -338,53 +353,53 @@ function Trees() {
   return (
     <group>
       {/* --- pines: trunk + three tapering tiers --- */}
-      <Instances limit={pines.length}>
+      <Instances limit={pines.length} castShadow>
         <cylinderGeometry args={[0.14, 0.22, 1.0, 6]} />
-        <meshStandardMaterial color="#80603c" />
+        <meshToonMaterial color="#80603c" gradientMap={TOON_GRAD} />
         {pines.map((t, i) => (
           <Instance key={i} position={[t.x, t.y + 0.5 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
         ))}
       </Instances>
-      <Instances limit={pines.length}>
+      <Instances limit={pines.length} castShadow>
         <coneGeometry args={[1.3, 1.5, 7]} />
-        <meshStandardMaterial color="#4f9a3e" flatShading />
+        <meshToonMaterial color="#4f9a3e" gradientMap={TOON_GRAD} />
         {pines.map((t, i) => (
           <Instance key={i} position={[t.x, t.y + 1.65 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
         ))}
       </Instances>
-      <Instances limit={pines.length}>
+      <Instances limit={pines.length} castShadow>
         <coneGeometry args={[1.0, 1.4, 7]} />
-        <meshStandardMaterial color="#5aa847" flatShading />
+        <meshToonMaterial color="#5aa847" gradientMap={TOON_GRAD} />
         {pines.map((t, i) => (
           <Instance key={i} position={[t.x, t.y + 2.6 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
         ))}
       </Instances>
-      <Instances limit={pines.length}>
+      <Instances limit={pines.length} castShadow>
         <coneGeometry args={[0.7, 1.2, 7]} />
-        <meshStandardMaterial color="#67b552" flatShading />
+        <meshToonMaterial color="#67b552" gradientMap={TOON_GRAD} />
         {pines.map((t, i) => (
           <Instance key={i} position={[t.x, t.y + 3.5 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
         ))}
       </Instances>
 
-      {/* --- blob trees: trunk + clustered flat-shaded foliage --- */}
-      <Instances limit={blobs.length}>
+      {/* --- blob trees: trunk + clustered foliage --- */}
+      <Instances limit={blobs.length} castShadow>
         <cylinderGeometry args={[0.16, 0.24, 1.2, 6]} />
-        <meshStandardMaterial color="#7a5a3a" />
+        <meshToonMaterial color="#7a5a3a" gradientMap={TOON_GRAD} />
         {blobs.map((t, i) => (
           <Instance key={i} position={[t.x, t.y + 0.6 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
         ))}
       </Instances>
-      <Instances limit={blobs.length}>
+      <Instances limit={blobs.length} castShadow>
         <icosahedronGeometry args={[1.15, 1]} />
-        <meshStandardMaterial color="#6fb04a" flatShading />
+        <meshToonMaterial color="#6fb04a" gradientMap={TOON_GRAD} />
         {blobs.map((t, i) => (
           <Instance key={i} position={[t.x, t.y + 2.15 * sc(t), t.z]} scale={[sc(t), sc(t) * 0.92, sc(t)]} rotation={[t.r, t.r, 0]} />
         ))}
       </Instances>
-      <Instances limit={blobs.length}>
+      <Instances limit={blobs.length} castShadow>
         <icosahedronGeometry args={[0.8, 1]} />
-        <meshStandardMaterial color="#84c25c" flatShading />
+        <meshToonMaterial color="#84c25c" gradientMap={TOON_GRAD} />
         {blobs.map((t, i) => (
           <Instance key={i} position={[t.x + 0.55 * sc(t), t.y + 2.7 * sc(t), t.z + 0.35 * sc(t)]} scale={sc(t)} rotation={[t.r * 1.3, t.r, 0]} />
         ))}
@@ -396,9 +411,9 @@ function Trees() {
 function Rocks() {
   const rocks = useMemo(() => meadowScatter(28, 4242, 4), []);
   return (
-    <Instances limit={rocks.length}>
+    <Instances limit={rocks.length} castShadow receiveShadow>
       <dodecahedronGeometry args={[0.6, 0]} />
-      <meshStandardMaterial color="#a7a399" roughness={1} flatShading />
+      <meshToonMaterial color="#a7a399" gradientMap={TOON_GRAD} />
       {rocks.map((r, i) => {
         const s = 0.5 + r.s * 0.8;
         return <Instance key={i} position={[r.x, r.y + 0.3 * s, r.z]} scale={[s, s * 0.7, s]} rotation={[r.r, r.r * 1.3, 0]} />;
@@ -415,21 +430,21 @@ function Node({ position, phase, reduced }: { position: [number, number, number]
   });
   return (
     <group position={position}>
-      <mesh position={[0, -1.1, 0]}>
+      <mesh position={[0, -1.1, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[0.95, 1.05, 0.36, 24]} />
-        <meshStandardMaterial color="#3f6fcf" roughness={0.6} />
+        <meshToonMaterial color="#3f6fcf" gradientMap={TOON_GRAD} />
       </mesh>
       <mesh position={[0, -0.9, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <torusGeometry args={[1.05, 0.07, 8, 32]} />
-        <meshStandardMaterial color="#cfe0ff" roughness={0.5} emissive="#9cc0ff" emissiveIntensity={0.25} />
+        <meshToonMaterial color="#cfe0ff" gradientMap={TOON_GRAD} emissive="#9cc0ff" emissiveIntensity={0.3} />
       </mesh>
-      <mesh ref={ball}>
+      <mesh ref={ball} castShadow>
         <icosahedronGeometry args={[0.82, 1]} />
-        <meshStandardMaterial color="#5b8def" roughness={0.3} flatShading emissive="#2f5fd0" emissiveIntensity={0.15} />
+        <meshToonMaterial color="#5b8def" gradientMap={TOON_GRAD} emissive="#2f5fd0" emissiveIntensity={0.18} />
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.28, 0]}>
         <circleGeometry args={[0.95, 24]} />
-        <meshBasicMaterial color="#000000" transparent opacity={0.16} />
+        <meshBasicMaterial color="#000000" transparent opacity={0.14} />
       </mesh>
     </group>
   );
@@ -446,6 +461,40 @@ function Nodes({ reduced }: { reduced: boolean }) {
         <Node key={i} position={[p.x, 1.35, p.z]} phase={i * 0.7} reduced={reduced} />
       ))}
     </>
+  );
+}
+
+// Sun: warm directional key light whose shadow camera follows the path so shadows stay crisp.
+function SunLight({ progress }: { progress: React.MutableRefObject<number> }) {
+  const light = useRef<THREE.DirectionalLight>(null);
+  const scene = useThree((s) => s.scene);
+  const target = useMemo(() => new THREE.Object3D(), []);
+  useEffect(() => {
+    scene.add(target);
+    if (light.current) light.current.target = target;
+    return () => {
+      scene.remove(target);
+    };
+  }, [scene, target]);
+  useFrame(() => {
+    const p = CURVE.getPointAt(clamp01(progress.current));
+    target.position.set(p.x, 0, p.z);
+    target.updateMatrixWorld();
+    if (light.current) light.current.position.set(p.x + 16, 24, p.z + 14);
+  });
+  return (
+    <directionalLight
+      ref={light}
+      intensity={1.25}
+      color="#fff3da"
+      castShadow
+      shadow-mapSize-width={2048}
+      shadow-mapSize-height={2048}
+      shadow-bias={-0.0004}
+      shadow-normalBias={0.05}
+    >
+      <orthographicCamera attach="shadow-camera" args={[-32, 32, 32, -32, 1, 95]} />
+    </directionalLight>
   );
 }
 
@@ -522,6 +571,7 @@ export function PathScene() {
 
   return (
     <Canvas
+      shadows
       dpr={[1, 2]}
       gl={{ antialias: false, toneMappingExposure: 1.05 }}
       camera={{ position: [0, 6, 30], fov: 48 }}
@@ -533,9 +583,9 @@ export function PathScene() {
       <Clouds />
       <Mountains />
       <FollowCam progress={progress} />
-      <hemisphereLight args={["#dcefff", "#83ad5e", 0.55]} />
-      <ambientLight intensity={0.32} />
-      <directionalLight position={[12, 16, 8]} intensity={1.1} color="#fff3da" />
+      <SunLight progress={progress} />
+      <hemisphereLight args={["#dcefff", "#83ad5e", 0.5]} />
+      <ambientLight intensity={0.35} />
       <Ground />
       <StonePath />
       <Grass />
@@ -544,6 +594,7 @@ export function PathScene() {
       <Trees />
       <Nodes reduced={reduced} />
       <EffectComposer multisampling={0}>
+        <DepthOfField focusDistance={0.012} focalLength={0.03} bokehScale={2} height={480} />
         <Bloom luminanceThreshold={0.82} luminanceSmoothing={0.3} intensity={0.4} mipmapBlur radius={0.6} />
         <BrightnessContrast brightness={0.0} contrast={0.07} />
         <HueSaturation saturation={0.12} />
