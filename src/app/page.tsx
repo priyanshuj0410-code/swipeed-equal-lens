@@ -12,6 +12,7 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { useProfile } from "@/lib/store";
 import { availableDecks } from "@/content/decks";
+import { Logo } from "@/components/logo";
 
 function Stars({
   value,
@@ -44,15 +45,15 @@ export default function HomePage() {
   const themed = decks.filter((d) => !d.isDaily);
 
   return (
-    <div className="mx-auto flex w-full max-w-md flex-1 flex-col gap-5 px-5 py-6 pb-24">
+    <div className="mx-auto flex w-full max-w-md flex-1 flex-col gap-5 px-5 py-6 pb-24 animate-in fade-in duration-300">
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span className="grid size-11 place-items-center rounded-2xl bg-primary/15 text-2xl shadow-sm">
             {profile.avatar}
           </span>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">
-              Green Light / Red Light
+            <p className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-primary">
+              <Logo className="size-3.5" /> Green Light / Red Light
             </p>
             <h1 className="text-xl font-bold tracking-tight">Hi, {profile.name || "there"} 👋</h1>
           </div>
@@ -94,13 +95,14 @@ export default function HomePage() {
 
       <div className="flex flex-col gap-3">
         <p className="px-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Decks</p>
-        {themed.map((d) => {
+        {themed.map((d, i) => {
           const st = profile.deckStars[d.id] ?? 0;
           return (
             <Link
               key={d.id}
               href={`/play/${d.id}`}
-              className="flex items-center gap-3 rounded-2xl bg-card p-3 shadow-sm ring-1 ring-border transition-all hover:-translate-y-0.5 hover:shadow-md"
+              style={{ animationDelay: `${i * 55}ms` }}
+              className="flex animate-in fade-in slide-in-from-bottom-2 fill-mode-both items-center gap-3 rounded-2xl bg-card p-3 shadow-sm ring-1 ring-border transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
             >
               <span
                 className="grid size-12 shrink-0 place-items-center rounded-2xl text-2xl"

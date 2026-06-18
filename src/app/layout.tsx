@@ -21,7 +21,13 @@ export const metadata: Metadata = {
     "Swipe right on the green flags, left on the red ones — and learn to read a relationship before you're in one. A swipe game for spotting healthy & unhealthy relationships.",
   manifest: "/manifest.webmanifest",
   appleWebApp: { capable: true, statusBarStyle: "default", title: "Green Light / Red Light" },
-  icons: { icon: "/icon-192.png", apple: "/icon-192.png" },
+  icons: {
+    icon: [
+      { url: "/logo.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: "/apple-icon.png",
+  },
 };
 
 export const viewport: Viewport = {

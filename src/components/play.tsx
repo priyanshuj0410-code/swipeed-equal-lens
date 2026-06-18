@@ -7,7 +7,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { SwipeDeck } from "@/components/swipe-deck";
 import { Debrief } from "@/components/debrief";
 import { useProfile } from "@/lib/store";
-import { DECK_BY_ID, resolveDeckCards } from "@/content/decks";
+import { DECK_BY_ID, resolveDeckCards, availableDecks } from "@/content/decks";
 import { POINTS, starsFor } from "@/lib/scoring";
 import type { DeckId, DeckSummary } from "@/lib/types";
 
@@ -15,6 +15,9 @@ export function Play({ deckId }: { deckId: DeckId }) {
   const { profile, finishDeck } = useProfile();
   const deck = DECK_BY_ID[deckId];
   const [cards] = useState(() => resolveDeckCards(deckId, profile.schoolComfort));
+  const list = availableDecks(profile.schoolComfort);
+  const here = list.findIndex((d) => d.id === deckId);
+  const nextDeck = here >= 0 ? list[here + 1] : undefined;
   const [stage, setStage] = useState<"play" | "debrief" | "review">("play");
   const [summary, setSummary] = useState<DeckSummary | null>(null);
   const [stars, setStars] = useState(0);
@@ -68,6 +71,7 @@ export function Play({ deckId }: { deckId: DeckId }) {
             summary={summary}
             stars={stars}
             deckTitle={deck!.title}
+            nextDeck={nextDeck ? { id: nextDeck.id, title: nextDeck.title, emoji: nextDeck.emoji } : undefined}
             onReview={() => setStage("review")}
           />
         ) : null}

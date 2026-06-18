@@ -1,5 +1,5 @@
 // SwipeEd service worker — minimal offline shell for the PWA.
-const CACHE = "glrl-v1";
+const CACHE = "glrl-v2";
 const PRECACHE = ["/", "/flagpedia", "/settings", "/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {

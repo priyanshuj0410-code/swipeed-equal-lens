@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useProfile } from "@/lib/store";
+import { Logo } from "@/components/logo";
 
 const AVATARS = ["🦊", "🐼", "🦉", "🐯", "🐸", "🐙", "🦄", "🐱"];
 
@@ -17,8 +18,8 @@ export function Onboarding() {
     <div className="flex flex-1 flex-col items-center justify-center px-5 py-10">
       <Card className="flex w-full max-w-sm flex-col gap-5 rounded-[1.75rem] p-7 shadow-xl">
         <div className="flex flex-col items-center gap-2 text-center">
-          <span className="grid size-16 place-items-center rounded-3xl bg-primary/15 text-4xl shadow-sm">
-            🚦
+          <span className="grid size-16 place-items-center rounded-3xl bg-primary/15 shadow-sm">
+            <Logo className="size-10" />
           </span>
           <span className="text-xs font-semibold uppercase tracking-wide text-primary">
             Green Light / Red Light
