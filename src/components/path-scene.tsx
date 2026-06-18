@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { Instances, Instance, useGLTF, Clone } from "@react-three/drei";
+import { useGLTF, Clone } from "@react-three/drei";
 import {
   EffectComposer,
   Bloom,
@@ -13,13 +13,12 @@ import {
 } from "@react-three/postprocessing";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-// Cel-shaded open-world pass (Arceus / BotW flavour). Stylized CC0 GLB nature models
-// (Quaternius MegaKit) re-shaded to toon, on a terrain with a sun + following shadows,
-// GPU wind grass, atmospheric mountain layers, and a cinematic post chain.
+// Kenney "Platformer Kit" world (CC0): tiled grass-block land, blocky grass mountains, a
+// planked winding path (platform tiles), Kenney grass tufts with GPU wind, Kenney clouds,
+// stylized props, a following-shadow sun, and a light cinematic post chain.
 
-// --- shared toon ramp: a few hard luminance steps -> crisp cel bands ---
 const TOON_GRAD = (() => {
-  const steps = [95, 150, 200, 245];
+  const steps = [110, 165, 210, 245];
   const data = new Uint8Array(steps.length * 4);
   steps.forEach((v, i) => {
     data[i * 4] = v;
@@ -80,56 +79,83 @@ function distToPathSq(x: number, z: number) {
   return m;
 }
 
-const CORRIDOR = 7;
-function groundHeight(x: number, z: number) {
-  const d = Math.sqrt(distToPathSq(x, z));
-  if (d <= CORRIDOR) return 0;
-  const t = Math.min((d - CORRIDOR) / 16, 1);
-  const n = 0.5 * Math.sin(x * 0.06) * Math.cos(z * 0.052) + 0.5 * Math.sin((x + z) * 0.028);
-  return n * t * 5.5;
-}
+type Placement = { x: number; z: number; s: number; r: number };
 
-type Placement = { x: number; z: number; y: number; s: number; r: number };
-
+// Reject-sample across the (flat) field, clear of the path.
 function meadowScatter(count: number, seed: number, clearance: number): Placement[] {
   const rng = mulberry32(seed);
   const out: Placement[] = [];
   let tries = 0;
   while (out.length < count && tries < count * 30) {
     tries++;
-    const x = (rng() * 2 - 1) * 54;
-    const z = 24 - rng() * 232;
+    const x = (rng() * 2 - 1) * 50;
+    const z = 26 - rng() * 236;
     if (distToPathSq(x, z) < clearance * clearance) continue;
-    out.push({ x, z, y: groundHeight(x, z), s: rng(), r: rng() * Math.PI * 2 });
+    out.push({ x, z, s: rng(), r: rng() * Math.PI * 2 });
   }
   return out;
 }
 
-function buildRibbon(curve: THREE.CatmullRomCurve3, halfWidth: number, segs: number) {
-  const up = new THREE.Vector3(0, 1, 0);
-  const pos: number[] = [];
-  const idx: number[] = [];
-  for (let i = 0; i <= segs; i++) {
-    const t = i / segs;
-    const p = curve.getPointAt(t);
-    const tan = curve.getTangentAt(t);
-    tan.y = 0;
-    tan.normalize();
-    const n = new THREE.Vector3().crossVectors(up, tan).normalize();
-    pos.push(p.x + n.x * halfWidth, 0, p.z + n.z * halfWidth);
-    pos.push(p.x - n.x * halfWidth, 0, p.z - n.z * halfWidth);
-  }
-  for (let i = 0; i < segs; i++) {
-    const a = i * 2;
-    idx.push(a, a + 2, a + 1, a + 1, a + 2, a + 3);
-  }
-  const g = new THREE.BufferGeometry();
-  g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
-  g.setIndex(idx);
-  g.computeVertexNormals();
-  return g;
+// --- GLB helpers -----------------------------------------------------------------------
+function bakedMesh(scene: THREE.Object3D) {
+  let geometry: THREE.BufferGeometry | null = null;
+  let material: THREE.Material | null = null;
+  scene.updateMatrixWorld(true);
+  scene.traverse((o) => {
+    const mesh = o as THREE.Mesh;
+    if (mesh.isMesh && !geometry) {
+      geometry = mesh.geometry.clone();
+      geometry.applyMatrix4(mesh.matrixWorld); // bake local transform -> base at origin
+      material = mesh.material as THREE.Material;
+    }
+  });
+  return { geometry: geometry!, material: material! };
 }
 
+function InstancedModel({
+  url,
+  matrices,
+  castShadow = false,
+  receiveShadow = false,
+}: {
+  url: string;
+  matrices: THREE.Matrix4[];
+  castShadow?: boolean;
+  receiveShadow?: boolean;
+}) {
+  const { scene } = useGLTF(url);
+  const { geometry, material } = useMemo(() => bakedMesh(scene), [scene]);
+  const ref = useRef<THREE.InstancedMesh>(null);
+  useEffect(() => {
+    const im = ref.current;
+    if (!im) return;
+    matrices.forEach((m, i) => im.setMatrixAt(i, m));
+    im.instanceMatrix.needsUpdate = true;
+  }, [matrices, geometry]);
+  return (
+    <instancedMesh
+      ref={ref}
+      args={[geometry, material, matrices.length]}
+      castShadow={castShadow}
+      receiveShadow={receiveShadow}
+      frustumCulled={false}
+    />
+  );
+}
+
+const _q = new THREE.Quaternion();
+const _e = new THREE.Euler();
+const _p = new THREE.Vector3();
+const _s = new THREE.Vector3();
+function trs(x: number, y: number, z: number, ry: number, sx: number, sy: number, sz: number) {
+  _e.set(0, ry, 0);
+  _q.setFromEuler(_e);
+  _p.set(x, y, z);
+  _s.set(sx, sy, sz);
+  return new THREE.Matrix4().compose(_p, _q, _s);
+}
+
+// --- sky / clouds ----------------------------------------------------------------------
 function SkyDome() {
   const mat = useMemo(
     () =>
@@ -137,42 +163,38 @@ function SkyDome() {
         side: THREE.BackSide,
         depthWrite: false,
         uniforms: {
-          top: { value: new THREE.Color("#a6d4ff") },
-          bottom: { value: new THREE.Color("#eef6fc") },
+          top: { value: new THREE.Color("#79bdf7") },
+          bottom: { value: new THREE.Color("#eaf6ff") },
         },
         vertexShader: `varying vec3 vP; void main(){ vP = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
         fragmentShader: `varying vec3 vP; uniform vec3 top; uniform vec3 bottom;
-          void main(){ float h = normalize(vP).y * 0.5 + 0.5; vec3 c = mix(bottom, top, smoothstep(0.0, 0.8, h)); gl_FragColor = vec4(c, 1.0); }`,
+          void main(){ float h = normalize(vP).y * 0.5 + 0.5; vec3 c = mix(bottom, top, smoothstep(0.0, 0.82, h)); gl_FragColor = vec4(c, 1.0); }`,
       }),
     []
   );
   return (
     <mesh material={mat} position={[0, 0, -90]}>
-      <sphereGeometry args={[500, 32, 16]} />
+      <sphereGeometry args={[520, 32, 16]} />
     </mesh>
   );
 }
 
 function Clouds() {
   const ref = useRef<THREE.Group>(null);
-  const puffs = useMemo(() => {
+  const matrices = useMemo(() => {
     const rng = mulberry32(77);
-    const arr: { x: number; y: number; z: number; s: number }[] = [];
-    for (let c = 0; c < 16; c++) {
+    const arr: THREE.Matrix4[] = [];
+    for (let c = 0; c < 14; c++) {
       const ang = rng() * Math.PI * 2;
-      const rad = 100 + rng() * 160;
+      const rad = 95 + rng() * 150;
       const cx = Math.cos(ang) * rad;
       const cz = -90 + Math.sin(ang) * rad;
-      const cy = 46 + rng() * 40;
-      const blobs = 4 + Math.floor(rng() * 4);
-      const base = 7 + rng() * 8;
-      for (let b = 0; b < blobs; b++) {
-        arr.push({
-          x: cx + (rng() - 0.5) * base * 2.4,
-          y: cy + (rng() - 0.5) * 4,
-          z: cz + (rng() - 0.5) * base * 1.5,
-          s: base * (0.6 + rng() * 0.7),
-        });
+      const cy = 44 + rng() * 36;
+      const puffs = 3 + Math.floor(rng() * 3);
+      const base = 7 + rng() * 6;
+      for (let b = 0; b < puffs; b++) {
+        const s = base * (0.7 + rng() * 0.7);
+        arr.push(trs(cx + (rng() - 0.5) * base * 2.2, cy + (rng() - 0.5) * 3, cz + (rng() - 0.5) * base * 1.4, rng() * 6.28, s, s * 0.8, s));
       }
     }
     return arr;
@@ -182,161 +204,161 @@ function Clouds() {
   });
   return (
     <group ref={ref}>
-      <Instances limit={puffs.length}>
-        <icosahedronGeometry args={[1, 2]} />
-        <meshStandardMaterial color="#ffffff" roughness={1} transparent opacity={0.92} fog={false} />
-        {puffs.map((p, i) => (
-          <Instance key={i} position={[p.x, p.y, p.z]} scale={[p.s, p.s * 0.6, p.s]} />
-        ))}
-      </Instances>
+      <InstancedModel url="/models/cloud.glb" matrices={matrices} />
     </group>
   );
 }
 
+// --- land: filler plane + tiled grass blocks ------------------------------------------
+function GroundPlane() {
+  return (
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.9, 0]} receiveShadow>
+      <planeGeometry args={[700, 700]} />
+      <meshStandardMaterial color="#74bb44" />
+    </mesh>
+  );
+}
+
+function Land() {
+  const matrices = useMemo(() => {
+    const arr: THREE.Matrix4[] = [];
+    const step = 2.04;
+    for (let x = -38; x <= 38; x += step) {
+      for (let z = 28; z >= -212; z -= step) {
+        arr.push(trs(x, -1, z, 0, 1, 1, 1)); // block top at y=0
+      }
+    }
+    return arr;
+  }, []);
+  return <InstancedModel url="/models/block-grass-large.glb" matrices={matrices} receiveShadow />;
+}
+
+// Blocky grass mountains: two rings of tall grass blocks scaled up, sunk + fog-faded.
 function Mountains() {
-  const { near, far } = useMemo(() => {
+  const matrices = useMemo(() => {
     const rng = mulberry32(2024);
-    const make = (count: number, rad: number, radJ: number, hMin: number, hMax: number, base: number) => {
-      const a: { x: number; z: number; y: number; w: number; h: number; r: number }[] = [];
+    const arr: THREE.Matrix4[] = [];
+    const ring = (count: number, rad: number, radJ: number, hMin: number, hMax: number) => {
       for (let i = 0; i < count; i++) {
-        const ang = (i / count) * Math.PI * 2 + (rng() - 0.5) * 0.4;
+        const ang = (i / count) * Math.PI * 2 + (rng() - 0.5) * 0.5;
         const r = rad + (rng() - 0.5) * radJ;
         const h = hMin + rng() * (hMax - hMin);
-        a.push({ x: Math.cos(ang) * r, z: -90 + Math.sin(ang) * r, y: base, h, w: h * (0.55 + rng() * 0.3), r: rng() * Math.PI });
+        const sy = h / 2; // block-grass-large-tall is 2 units tall
+        const sxz = (2.6 + rng() * 2.5) / 2.08;
+        arr.push(trs(Math.cos(ang) * r, -4, -90 + Math.sin(ang) * r, rng() * 6.28, sxz, sy, sxz));
       }
-      return a;
     };
-    return { near: make(16, 122, 20, 26, 48, -3), far: make(20, 162, 26, 36, 64, -5) };
+    ring(22, 118, 22, 14, 30);
+    ring(26, 158, 28, 20, 42);
+    return arr;
   }, []);
-  const Range = ({ d, color }: { d: typeof near; color: string }) => (
-    <Instances limit={d.length}>
-      <coneGeometry args={[1, 1, 5]} />
-      <meshToonMaterial color={color} gradientMap={TOON_GRAD} />
-      {d.map((m, i) => (
-        <Instance key={i} position={[m.x, m.y + m.h / 2, m.z]} scale={[m.w, m.h, m.w]} rotation={[0, m.r, 0]} />
-      ))}
-    </Instances>
-  );
-  return (
-    <group>
-      <Range d={far} color="#aac6d2" />
-      <Range d={near} color="#82ab8d" />
-    </group>
-  );
+  return <InstancedModel url="/models/block-grass-large-tall.glb" matrices={matrices} />;
 }
 
-function Ground() {
-  const geo = useMemo(() => {
-    const g = new THREE.PlaneGeometry(600, 600, 140, 140);
-    const pos = g.attributes.position;
-    const colors: number[] = [];
-    const base = new THREE.Color("#7cbf57");
-    const light = new THREE.Color("#9fd47a");
-    const dark = new THREE.Color("#5d9c45");
-    const tmp = new THREE.Color();
-    for (let i = 0; i < pos.count; i++) {
-      const px = pos.getX(i);
-      const py = pos.getY(i);
-      const disp = groundHeight(px, -py);
-      pos.setZ(i, disp);
-      const n2 = Math.sin(px * 0.12) * Math.sin(py * 0.11) * 0.5 + 0.5;
-      tmp.copy(base).lerp(light, n2 * 0.55);
-      if (disp < 0) tmp.lerp(dark, Math.min(-disp / 5, 1) * 0.4);
-      colors.push(tmp.r, tmp.g, tmp.b);
+// --- planked path ----------------------------------------------------------------------
+function PlankPath() {
+  const matrices = useMemo(() => {
+    const len = CURVE.getLength();
+    const N = Math.max(2, Math.ceil(len / 0.9));
+    const pts = CURVE.getSpacedPoints(N);
+    const arr: THREE.Matrix4[] = [];
+    for (let i = 0; i <= N; i++) {
+      const p = pts[i];
+      const a = pts[Math.max(0, i - 1)];
+      const b = pts[Math.min(N, i + 1)];
+      const dx = b.x - a.x;
+      const dz = b.z - a.z;
+      const ry = Math.atan2(dx, dz); // local +z -> path direction
+      arr.push(trs(p.x, 0.06, p.z, ry, 3.6, 1, 1.05));
     }
-    g.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
-    g.computeVertexNormals();
-    return g;
+    return arr;
   }, []);
-  return (
-    <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-      <meshToonMaterial vertexColors gradientMap={TOON_GRAD} />
-    </mesh>
-  );
+  return <InstancedModel url="/models/platform.glb" matrices={matrices} receiveShadow />;
 }
 
-function StonePath() {
-  const geo = useMemo(() => buildRibbon(CURVE, 2.1, 320), []);
-  return (
-    <mesh geometry={geo} position={[0, 0.05, 0]} receiveShadow>
-      <meshToonMaterial color="#d9cdb0" gradientMap={TOON_GRAD} side={THREE.DoubleSide} />
-    </mesh>
-  );
-}
-
-// Wind injected into the toon vertex shader so blades sway GPU-side; phase from instance pos.
-function useWind() {
+// --- grass tufts (Kenney) with GPU wind ------------------------------------------------
+function useWind(maxY: number) {
   const u = useRef({ uTime: { value: 0 } });
   useFrame((s) => {
     u.current.uTime.value = s.clock.elapsedTime;
   });
-  return useCallback((shader: THREE.WebGLProgramParametersWithUniforms) => {
-    shader.uniforms.uTime = u.current.uTime;
-    shader.vertexShader =
-      "uniform float uTime;\n" +
-      shader.vertexShader.replace(
-        "#include <begin_vertex>",
-        `#include <begin_vertex>
-        #ifdef USE_INSTANCING
-          vec3 wp = instanceMatrix[3].xyz;
-          float ph = wp.x * 0.28 + wp.z * 0.28;
-          float w = sin(uTime * 1.3 + ph) + 0.35 * sin(uTime * 2.7 + ph * 1.7);
-          float bend = clamp((position.y + 0.275) / 0.55, 0.0, 1.0);
-          transformed.x += w * 0.16 * bend;
-          transformed.z += w * 0.09 * bend;
-        #endif`
-      );
-  }, []);
-}
-
-function Grass() {
-  const onBeforeCompile = useWind();
-  const blades = useMemo(() => meadowScatter(6500, 321, 2.5), []);
-  const even = useMemo(() => blades.filter((_, i) => i % 2 === 0), [blades]);
-  const odd = useMemo(() => blades.filter((_, i) => i % 2 === 1), [blades]);
-  const Blades = ({ data, color }: { data: Placement[]; color: string }) => (
-    <Instances limit={data.length}>
-      <coneGeometry args={[0.05, 0.55, 4]} />
-      <meshToonMaterial color={color} gradientMap={TOON_GRAD} onBeforeCompile={onBeforeCompile} />
-      {data.map((b, i) => {
-        const sc = 0.7 + b.s * 0.6;
-        const hf = 1 + b.s * 1.1;
-        return (
-          <Instance key={i} position={[b.x, b.y + 0.275 * sc * hf, b.z]} scale={[sc, sc * hf, sc]} rotation={[0, b.r, 0]} />
+  return useCallback(
+    (shader: THREE.WebGLProgramParametersWithUniforms) => {
+      shader.uniforms.uTime = u.current.uTime;
+      shader.vertexShader =
+        `uniform float uTime;\n` +
+        shader.vertexShader.replace(
+          "#include <begin_vertex>",
+          `#include <begin_vertex>
+          #ifdef USE_INSTANCING
+            vec3 wp = instanceMatrix[3].xyz;
+            float ph = wp.x * 0.28 + wp.z * 0.28;
+            float w = sin(uTime * 1.3 + ph) + 0.35 * sin(uTime * 2.7 + ph * 1.7);
+            float bend = clamp(position.y / ${maxY.toFixed(3)}, 0.0, 1.0);
+            transformed.x += w * 0.12 * bend;
+            transformed.z += w * 0.07 * bend;
+          #endif`
         );
-      })}
-    </Instances>
-  );
-  return (
-    <group>
-      <Blades data={even} color="#6fb84a" />
-      <Blades data={odd} color="#86cb5f" />
-    </group>
+    },
+    [maxY]
   );
 }
 
-// --- stylized CC0 models (Quaternius "Stylized Nature MegaKit", CC0) -------------------
-type ModelCfg = { url: string; scale: number; minY: number; count: number; seed: number; clearance: number; cast: boolean };
+function GrassTufts() {
+  const { scene } = useGLTF("/models/grass.glb");
+  const onBeforeCompile = useWind(0.31);
+  const { geometry, material } = useMemo(() => {
+    const b = bakedMesh(scene);
+    const mat = (b.material as THREE.MeshStandardMaterial).clone();
+    mat.onBeforeCompile = onBeforeCompile;
+    mat.customProgramCacheKey = () => "kenney-grass-wind";
+    return { geometry: b.geometry, material: mat };
+  }, [scene, onBeforeCompile]);
+  const matrices = useMemo(() => {
+    const places = meadowScatter(3600, 321, 2.3);
+    return places.map((p) => {
+      const s = 1.7 + p.s * 1.3;
+      return trs(p.x, 0, p.z, p.r, s, s * (0.9 + p.s * 0.5), s);
+    });
+  }, []);
+  const ref = useRef<THREE.InstancedMesh>(null);
+  useEffect(() => {
+    const im = ref.current;
+    if (!im) return;
+    matrices.forEach((m, i) => im.setMatrixAt(i, m));
+    im.instanceMatrix.needsUpdate = true;
+  }, [matrices, geometry]);
+  return <instancedMesh ref={ref} args={[geometry, material, matrices.length]} frustumCulled={false} />;
+}
+
+// --- scattered stylized props (Clone) --------------------------------------------------
+type ModelCfg = { url: string; scale: number; count: number; seed: number; clearance: number; cast: boolean };
 
 const TREE_MODELS: ModelCfg[] = [
-  { url: "/models/tree.glb", scale: 3.0, minY: 0, count: 14, seed: 11, clearance: 7.5, cast: true },
-  { url: "/models/tree-pine.glb", scale: 3.2, minY: 0, count: 10, seed: 23, clearance: 7.5, cast: true },
-  { url: "/models/tree-pine-small.glb", scale: 2.6, minY: 0, count: 8, seed: 37, clearance: 7, cast: true },
+  { url: "/models/tree.glb", scale: 2.6, count: 14, seed: 11, clearance: 7.5, cast: true },
+  { url: "/models/tree-pine.glb", scale: 2.6, count: 10, seed: 23, clearance: 7.5, cast: true },
+  { url: "/models/tree-pine-small.glb", scale: 2.4, count: 8, seed: 37, clearance: 7, cast: true },
 ];
 const PROP_MODELS: ModelCfg[] = [
-  { url: "/models/rocks.glb", scale: 3.4, minY: 0, count: 12, seed: 101, clearance: 4, cast: true },
-  { url: "/models/stones.glb", scale: 3.8, minY: 0, count: 12, seed: 113, clearance: 2.4, cast: false },
-  { url: "/models/mushrooms.glb", scale: 3.0, minY: 0, count: 12, seed: 127, clearance: 3, cast: false },
-  { url: "/models/plant.glb", scale: 3.2, minY: 0, count: 18, seed: 131, clearance: 2.6, cast: false },
-  { url: "/models/flowers.glb", scale: 3.2, minY: 0, count: 24, seed: 163, clearance: 2.6, cast: false },
-  { url: "/models/flowers-tall.glb", scale: 2.6, minY: 0, count: 16, seed: 149, clearance: 2.6, cast: false },
-  { url: "/models/sign.glb", scale: 2.8, minY: 0, count: 4, seed: 179, clearance: 3, cast: true },
-  { url: "/models/flag.glb", scale: 3.0, minY: 0, count: 5, seed: 191, clearance: 3.5, cast: true },
+  { url: "/models/rocks.glb", scale: 2.2, count: 12, seed: 101, clearance: 4, cast: true },
+  { url: "/models/stones.glb", scale: 2.6, count: 14, seed: 113, clearance: 2.3, cast: false },
+  { url: "/models/mushrooms.glb", scale: 1.7, count: 12, seed: 127, clearance: 3, cast: false },
+  { url: "/models/plant.glb", scale: 2.0, count: 18, seed: 131, clearance: 2.4, cast: false },
+  { url: "/models/flowers.glb", scale: 1.3, count: 22, seed: 163, clearance: 2.4, cast: false },
+  { url: "/models/flowers-tall.glb", scale: 1.5, count: 14, seed: 149, clearance: 2.4, cast: false },
+  { url: "/models/sign.glb", scale: 2.2, count: 4, seed: 179, clearance: 3, cast: true },
+  { url: "/models/flag.glb", scale: 2.4, count: 5, seed: 191, clearance: 3.5, cast: true },
 ];
-const ALL_MODELS = [...TREE_MODELS, ...PROP_MODELS];
-ALL_MODELS.forEach((m) => useGLTF.preload(m.url));
+const PROP_URLS = [...TREE_MODELS, ...PROP_MODELS].map((m) => m.url);
+const ENV_URLS = [
+  "/models/block-grass-large.glb",
+  "/models/block-grass-large-tall.glb",
+  "/models/platform.glb",
+  "/models/grass.glb",
+  "/models/cloud.glb",
+];
+[...PROP_URLS, ...ENV_URLS].forEach((u) => useGLTF.preload(u));
 
-// Kenney models share one flat palette texture; keep their authored materials, just enable shadows.
 function usePreparedScene(url: string, cast: boolean) {
   const { scene } = useGLTF(url);
   return useMemo(() => {
@@ -350,29 +372,30 @@ function usePreparedScene(url: string, cast: boolean) {
   }, [scene, cast]);
 }
 
-function Prop({ url, scale, minY, count, seed, clearance, cast }: ModelCfg) {
+function Prop({ url, scale, count, seed, clearance, cast }: ModelCfg) {
   const scene = usePreparedScene(url, cast);
   const places = useMemo(() => meadowScatter(count, seed, clearance), [count, seed, clearance]);
   return (
     <>
       {places.map((p, i) => {
-        const s = scale * (0.82 + p.s * 0.4);
-        return <Clone key={i} object={scene} position={[p.x, p.y - minY * s, p.z]} rotation={[0, p.r, 0]} scale={s} />;
+        const s = scale * (0.85 + p.s * 0.3);
+        return <Clone key={i} object={scene} position={[p.x, 0, p.z]} rotation={[0, p.r, 0]} scale={s} />;
       })}
     </>
   );
 }
 
-function Vegetation() {
+function Props() {
   return (
     <>
-      {ALL_MODELS.map((m) => (
+      {[...TREE_MODELS, ...PROP_MODELS].map((m) => (
         <Prop key={m.url} {...m} />
       ))}
     </>
   );
 }
 
+// --- node markers ----------------------------------------------------------------------
 function Node({ position, phase, reduced }: { position: [number, number, number]; phase: number; reduced: boolean }) {
   const ball = useRef<THREE.Mesh>(null);
   useFrame((s) => {
@@ -381,21 +404,17 @@ function Node({ position, phase, reduced }: { position: [number, number, number]
   });
   return (
     <group position={position}>
-      <mesh position={[0, -1.1, 0]} castShadow receiveShadow>
+      <mesh position={[0, -1.0, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[0.95, 1.05, 0.36, 24]} />
         <meshToonMaterial color="#3f6fcf" gradientMap={TOON_GRAD} />
       </mesh>
-      <mesh position={[0, -0.9, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh position={[0, -0.8, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <torusGeometry args={[1.05, 0.07, 8, 32]} />
         <meshToonMaterial color="#cfe0ff" gradientMap={TOON_GRAD} emissive="#9cc0ff" emissiveIntensity={0.3} />
       </mesh>
       <mesh ref={ball} castShadow>
         <icosahedronGeometry args={[0.82, 1]} />
         <meshToonMaterial color="#5b8def" gradientMap={TOON_GRAD} emissive="#2f5fd0" emissiveIntensity={0.18} />
-      </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.28, 0]}>
-        <circleGeometry args={[0.95, 24]} />
-        <meshBasicMaterial color="#000000" transparent opacity={0.14} />
       </mesh>
     </group>
   );
@@ -409,7 +428,7 @@ function Nodes({ reduced }: { reduced: boolean }) {
   return (
     <>
       {points.map((p, i) => (
-        <Node key={i} position={[p.x, 1.35, p.z]} phase={i * 0.7} reduced={reduced} />
+        <Node key={i} position={[p.x, 1.5, p.z]} phase={i * 0.7} reduced={reduced} />
       ))}
     </>
   );
@@ -443,7 +462,7 @@ function SunLight({ progress }: { progress: React.MutableRefObject<number> }) {
       shadow-bias={-0.0004}
       shadow-normalBias={0.05}
     >
-      <orthographicCamera attach="shadow-camera" args={[-32, 32, 32, -32, 1, 95]} />
+      <orthographicCamera attach="shadow-camera" args={[-30, 30, 30, -30, 1, 95]} />
     </directionalLight>
   );
 }
@@ -527,24 +546,25 @@ export function PathScene() {
       camera={{ position: [0, 6, 30], fov: 48 }}
       style={{ width: "100%", height: "100%", display: "block" }}
     >
-      <color attach="background" args={["#e6f2fb"]} />
-      <fog attach="fog" args={["#dfeefb", 30, 200]} />
+      <color attach="background" args={["#eaf6ff"]} />
+      <fog attach="fog" args={["#dbeefb", 34, 215]} />
       <SkyDome />
       <Clouds />
-      <Mountains />
       <FollowCam progress={progress} />
       <SunLight progress={progress} />
-      <hemisphereLight args={["#dcefff", "#83ad5e", 0.5]} />
-      <ambientLight intensity={0.35} />
-      <Ground />
-      <StonePath />
-      <Grass />
+      <hemisphereLight args={["#dcefff", "#8fc06a", 0.5]} />
+      <ambientLight intensity={0.4} />
+      <GroundPlane />
       <Suspense fallback={null}>
-        <Vegetation />
+        <Land />
+        <Mountains />
+        <PlankPath />
+        <GrassTufts />
+        <Props />
       </Suspense>
       <Nodes reduced={reduced} />
       <EffectComposer multisampling={0}>
-        <Bloom luminanceThreshold={0.85} luminanceSmoothing={0.3} intensity={0.32} mipmapBlur radius={0.5} />
+        <Bloom luminanceThreshold={0.85} luminanceSmoothing={0.3} intensity={0.3} mipmapBlur radius={0.5} />
         <BrightnessContrast brightness={0.0} contrast={0.05} />
         <HueSaturation saturation={0.08} />
         <Vignette offset={0.34} darkness={0.4} />
