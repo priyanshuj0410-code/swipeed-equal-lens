@@ -209,28 +209,40 @@ function Clouds() {
   );
 }
 
-// --- land: filler plane + tiled grass blocks ------------------------------------------
-function GroundPlane() {
+// --- land: one continuous grass field (no tiled-block seams) ---------------------------
+// Coloured with the exact Kenney grass-top palette greens, varied by smooth noise so it
+// reads as a living field rather than a flat sheet or a visible tile grid.
+function Ground() {
+  const geo = useMemo(() => {
+    const g = new THREE.PlaneGeometry(700, 700, 180, 180);
+    const pos = g.attributes.position;
+    const colors: number[] = [];
+    const BASE = new THREE.Color("#3da679");
+    const LIGHT = new THREE.Color("#59c387");
+    const DARK = new THREE.Color("#20896b");
+    const tmp = new THREE.Color();
+    const fbm = (x: number, z: number) =>
+      (Math.sin(x * 0.08) * Math.cos(z * 0.07) +
+        0.5 * Math.sin(x * 0.17 + 1.3) * Math.cos(z * 0.19 - 0.7) +
+        0.25 * Math.sin(x * 0.31 - 2.1) * Math.cos(z * 0.29 + 1.1)) /
+      1.75;
+    for (let i = 0; i < pos.count; i++) {
+      const x = pos.getX(i);
+      const z = -pos.getY(i); // plane y -> world -z after the -90° rotation
+      const t = fbm(x, z) * 0.5 + 0.5;
+      tmp.copy(BASE);
+      if (t > 0.5) tmp.lerp(LIGHT, (t - 0.5) * 2 * 0.6);
+      else tmp.lerp(DARK, (0.5 - t) * 2 * 0.5);
+      colors.push(tmp.r, tmp.g, tmp.b);
+    }
+    g.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
+    return g;
+  }, []);
   return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.9, 0]} receiveShadow>
-      <planeGeometry args={[700, 700]} />
-      <meshStandardMaterial color="#74bb44" />
+    <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+      <meshStandardMaterial vertexColors />
     </mesh>
   );
-}
-
-function Land() {
-  const matrices = useMemo(() => {
-    const arr: THREE.Matrix4[] = [];
-    const step = 2.04;
-    for (let x = -38; x <= 38; x += step) {
-      for (let z = 28; z >= -212; z -= step) {
-        arr.push(trs(x, -1, z, 0, 1, 1, 1)); // block top at y=0
-      }
-    }
-    return arr;
-  }, []);
-  return <InstancedModel url="/models/block-grass-large.glb" matrices={matrices} receiveShadow />;
 }
 
 // Blocky grass mountains: two rings of tall grass blocks scaled up, sunk + fog-faded.
@@ -351,7 +363,6 @@ const PROP_MODELS: ModelCfg[] = [
 ];
 const PROP_URLS = [...TREE_MODELS, ...PROP_MODELS].map((m) => m.url);
 const ENV_URLS = [
-  "/models/block-grass-large.glb",
   "/models/block-grass-large-tall.glb",
   "/models/platform.glb",
   "/models/grass.glb",
@@ -554,9 +565,8 @@ export function PathScene() {
       <SunLight progress={progress} />
       <hemisphereLight args={["#dcefff", "#8fc06a", 0.5]} />
       <ambientLight intensity={0.4} />
-      <GroundPlane />
+      <Ground />
       <Suspense fallback={null}>
-        <Land />
         <Mountains />
         <PlankPath />
         <GrassTufts />
