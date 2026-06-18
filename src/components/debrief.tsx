@@ -16,12 +16,16 @@ export function Debrief({
   stars,
   deckTitle,
   nextDeck,
+  backHref = "/decks",
+  backLabel = "Back to decks",
   onReview,
 }: {
   summary: DeckSummary;
   stars: number;
   deckTitle: string;
   nextDeck?: { id: string; title: string; emoji: string };
+  backHref?: string;
+  backLabel?: string;
   onReview: () => void;
 }) {
   useEffect(() => {
@@ -79,13 +83,13 @@ export function Debrief({
           </Link>
         ) : null}
         <Link
-          href="/decks"
+          href={backHref}
           className={buttonVariants({
             variant: nextDeck || summary.missed.length > 0 ? "outline" : "default",
             className: "h-12 gap-1.5 rounded-2xl font-bold",
           })}
         >
-          <Home className="size-4" aria-hidden /> Back to decks
+          <Home className="size-4" aria-hidden /> {backLabel}
         </Link>
       </div>
     </Card>

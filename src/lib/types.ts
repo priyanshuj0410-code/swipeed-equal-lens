@@ -40,7 +40,8 @@ export type DeckId =
   | "family"
   | "peer"
   | "norm-busters"
-  | "crushes";
+  | "crushes"
+  | "mythbuster";
 
 export type Deck = {
   id: DeckId;
@@ -51,6 +52,10 @@ export type Deck = {
   /** Decks that are NOT school-comfort-safe (romantic framing) are hidden when School-Comfort Mode is on. */
   schoolComfortSafe: boolean;
   isDaily?: boolean;
+  /** Its own game, not a Green Light/Red Light deck — hidden from the GL/RL hub. */
+  standalone?: boolean;
+  /** Swipe semantics for this deck. Defaults to red/green flags. */
+  swipe?: { left: string; right: string };
 };
 
 export type Card = {

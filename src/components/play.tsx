@@ -9,11 +9,15 @@ import { Debrief } from "@/components/debrief";
 import { useProfile } from "@/lib/store";
 import { DECK_BY_ID, resolveDeckCards, availableDecks } from "@/content/decks";
 import { POINTS, starsFor } from "@/lib/scoring";
+import { GroundScenery } from "@/components/scenery";
 import type { DeckId, DeckSummary } from "@/lib/types";
 
 export function Play({ deckId }: { deckId: DeckId }) {
   const { profile, finishDeck } = useProfile();
   const deck = DECK_BY_ID[deckId];
+  const standalone = !!deck?.standalone;
+  const backHref = standalone ? "/" : "/decks";
+  const backLabel = standalone ? "Back to path" : "Back to decks";
   const [cards] = useState(() => resolveDeckCards(deckId, profile.schoolComfort));
   const list = availableDecks(profile.schoolComfort);
   const here = list.findIndex((d) => d.id === deckId);
@@ -39,7 +43,7 @@ export function Play({ deckId }: { deckId: DeckId }) {
   return (
     <div className="flex flex-1 flex-col px-5 py-6">
       <header className="mb-6 flex items-center gap-3">
-        <Link href="/decks" aria-label="Back" className={buttonVariants({ variant: "ghost", size: "icon" })}>
+        <Link href={backHref} aria-label="Back" className={buttonVariants({ variant: "ghost", size: "icon" })}>
           <ArrowLeft className="size-5" aria-hidden />
         </Link>
         <h1 className="text-base font-semibold">{deck?.title ?? "Deck"}</h1>
@@ -52,12 +56,12 @@ export function Play({ deckId }: { deckId: DeckId }) {
             {deck && !deck.schoolComfortSafe && profile.schoolComfort && (
               <p className="mt-2">It&apos;s hidden by School-Comfort Mode (see Settings).</p>
             )}
-            <Link href="/decks" className={buttonVariants({ variant: "outline", className: "mt-4" })}>
-              Back to decks
+            <Link href={backHref} className={buttonVariants({ variant: "outline", className: "mt-4" })}>
+              {backLabel}
             </Link>
           </div>
         ) : stage === "play" ? (
-          <SwipeDeck key="main" cards={cards} deckId={deckId} mode="score" onComplete={handleComplete} />
+          <SwipeDeck key="main" cards={cards} deckId={deckId} mode="score" onComplete={handleComplete} labels={deck?.swipe} />
         ) : stage === "review" && summary ? (
           <SwipeDeck
             key="review"
@@ -65,6 +69,7 @@ export function Play({ deckId }: { deckId: DeckId }) {
             deckId={deckId}
             mode="review"
             onComplete={() => setStage("debrief")}
+            labels={deck?.swipe}
           />
         ) : summary ? (
           <Debrief
@@ -72,10 +77,13 @@ export function Play({ deckId }: { deckId: DeckId }) {
             stars={stars}
             deckTitle={deck!.title}
             nextDeck={nextDeck ? { id: nextDeck.id, title: nextDeck.title, emoji: nextDeck.emoji } : undefined}
+            backHref={backHref}
+            backLabel={backLabel}
             onReview={() => setStage("review")}
           />
         ) : null}
       </div>
+      <GroundScenery className="-mx-5 mt-4" />
     </div>
   );
 }

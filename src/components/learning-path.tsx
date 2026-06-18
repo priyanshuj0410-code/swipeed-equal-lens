@@ -6,6 +6,7 @@ import { Lock, Settings as SettingsIcon, Flame, Star } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { useProfile } from "@/lib/store";
 import { Logo } from "@/components/logo";
+import { EnvProp } from "@/components/scenery";
 import { PATH, type PathNode } from "@/content/path";
 
 type Pt = { x: number; y: number };
@@ -60,6 +61,9 @@ export function LearningPath() {
   const [grassD, setGrassD] = useState("");
   const [dims, setDims] = useState({ w: 0, h: 0 });
   const [tiles, setTiles] = useState<Tile[]>([]);
+  const [env, setEnv] = useState<
+    Array<{ x: number; y: number; type: "tree" | "bush" | "rock" | "flower" | "tuft"; scale: number; flip: boolean; key: number }>
+  >([]);
 
   useEffect(() => {
     function measure() {
@@ -154,6 +158,31 @@ export function LearningPath() {
       i += 1;
     }
     setTiles(out);
+
+    // --- roadside scenery (trees, bushes, flowers, rocks, tufts) ---
+    const TYPES = ["tree", "bush", "flower", "rock", "tuft"] as const;
+    const envOut: Array<{ x: number; y: number; type: (typeof TYPES)[number]; scale: number; flip: boolean; key: number }> = [];
+    let ep = 64;
+    let ei = 0;
+    while (ep < len - 16) {
+      const p = path.getPointAtLength(ep);
+      const { tx, ty } = tangent(ep);
+      const nx = -ty;
+      const ny = tx;
+      const side = ei % 2 === 0 ? 1 : -1;
+      const off = HALF + 22 + rnd(ei, 6) * 30;
+      envOut.push({
+        x: +(p.x + nx * side * off).toFixed(1),
+        y: +(p.y + ny * side * off).toFixed(1),
+        type: TYPES[Math.floor(rnd(ei, 7) * TYPES.length)],
+        scale: +(0.8 + rnd(ei, 8) * 0.55).toFixed(2),
+        flip: side < 0,
+        key: ei,
+      });
+      ep += 92 + rnd(ei, 9) * 70;
+      ei += 1;
+    }
+    setEnv(envOut);
   }, [pathD, dims.w, dims.h]);
 
   let gi = -1;
@@ -207,6 +236,9 @@ export function LearningPath() {
               </g>
             </g>
           ))}
+          {env.map((e) => (
+            <EnvProp key={e.key} x={e.x} y={e.y} type={e.type} scale={e.scale} flip={e.flip} />
+          ))}
         </svg>
 
         {PATH.map((section) => (
@@ -254,7 +286,7 @@ function NodeRow({
     <div className="relative flex flex-col items-center gap-1.5">
       {isActive && (
         <span className="absolute -top-7 z-10 animate-bounce rounded-full bg-primary px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-primary-foreground shadow-md">
-          Start
+          {node.id === "glrl" ? "Start" : "Play"}
         </span>
       )}
       <div className="relative">
@@ -275,7 +307,7 @@ function NodeRow({
           {node.id === "glrl" ? (
             <Logo className="size-11" />
           ) : (
-            <span className="text-3xl opacity-50 grayscale" aria-hidden>
+            <span className={`text-3xl ${isActive ? "" : "opacity-50 grayscale"}`} aria-hidden>
               {node.emoji}
             </span>
           )}
@@ -290,6 +322,11 @@ function NodeRow({
         {node.title}
       </span>
       <span className="text-[10px] uppercase tracking-wide text-muted-foreground">{isActive ? node.kind : "Soon"}</span>
+      {node.tag === "gender" && (
+        <span className="rounded-full bg-primary/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-primary">
+          Equality
+        </span>
+      )}
     </div>
   );
 

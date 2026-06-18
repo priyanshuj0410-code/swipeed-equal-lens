@@ -1,16 +1,18 @@
-// The SwipeEd learning path (a slice of the ages 3–18 curriculum from the spec).
-// Only Green Light / Red Light is built, so it's the single "active" node;
-// everything else is "locked" until we build those engines.
+// The SwipeEd learning path (ages 3–18), weaving the core suite with the
+// Gender Equality Game Pack. Today only the swipe engine is built, so the two
+// swipe-native games are "active" (playable): Green Light / Red Light and
+// MythBuster: Gender. Everything else is "locked" until its engine ships.
 
-export type PathStatus = "active" | "locked" | "done";
+export type PathStatus = "active" | "locked";
 
 export type PathNode = {
   id: string;
   title: string;
   emoji: string;
-  kind: string; // the lesson engine, e.g. "Swipe", "Story"
+  kind: string; // lesson engine: Swipe, Sort, Story, Sim, Tap…
   status: PathStatus;
   href?: string;
+  tag?: "gender"; // part of the Gender Equality pack
 };
 
 export type PathSection = {
@@ -21,24 +23,49 @@ export type PathSection = {
 
 export const PATH: PathSection[] = [
   {
-    title: "Ages 9–12 · You & Others",
-    subtitle: "Reading people, on and offline",
+    title: "Ages 3–6 · Everyone is equal",
+    subtitle: "Feelings, fairness & body-safety",
     nodes: [
-      { id: "glrl", title: "Green Light / Red Light", emoji: "🚦", kind: "Swipe", status: "active", href: "/decks" },
-      { id: "boundary-bot", title: "Boundary Bot", emoji: "🤖", kind: "Sim", status: "locked" },
-      { id: "crossroads", title: "Crossroads", emoji: "🛣️", kind: "Story", status: "locked" },
-      { id: "puberty-quest", title: "Puberty Quest", emoji: "🌱", kind: "Myth-bust", status: "locked" },
-      { id: "defenders", title: "Defenders of the Body", emoji: "🛡️", kind: "Mini-sim", status: "locked" },
+      { id: "same-same", title: "Same Same, Different", emoji: "🧒", kind: "Tap", status: "locked", tag: "gender" },
+      { id: "my-body", title: "My Body, My Rules", emoji: "🛡️", kind: "Tap", status: "locked" },
+      { id: "can-do", title: "Can-Do Kids", emoji: "🦸", kind: "Role-play", status: "locked", tag: "gender" },
     ],
   },
   {
-    title: "Ages 12–15 · Going Deeper",
-    subtitle: "Consent, choices & wellbeing",
+    title: "Ages 6–9 · Fair is fair",
+    subtitle: "Sharing, allies & speaking up",
     nodes: [
-      { id: "lines-limits", title: "Lines & Limits", emoji: "✋", kind: "Story", status: "locked" },
+      { id: "fair-play", title: "Fair Play World", emoji: "⚖️", kind: "Sort", status: "locked", tag: "gender" },
+      { id: "trust-detectives", title: "Trust Detectives", emoji: "🕵️", kind: "Sort", status: "locked" },
+      { id: "not-funny", title: "Not Fair, Not Funny", emoji: "🙅", kind: "Choose", status: "locked", tag: "gender" },
+    ],
+  },
+  {
+    title: "Ages 9–12 · Reading people",
+    subtitle: "Flags, scripts & getting help",
+    nodes: [
+      { id: "puberty-quest", title: "Puberty Quest", emoji: "🌱", kind: "Myth-bust", status: "locked" },
+      { id: "glrl", title: "Green Light / Red Light", emoji: "🚦", kind: "Swipe", status: "active", href: "/decks" },
+      { id: "flip-script", title: "Flip the Script", emoji: "🎬", kind: "Remix", status: "locked", tag: "gender" },
+      { id: "speak-up", title: "Speak Up", emoji: "📣", kind: "Scenario", status: "locked", tag: "gender" },
+    ],
+  },
+  {
+    title: "Ages 12–15 · Going deeper",
+    subtitle: "Myths, consent & standing up",
+    nodes: [
+      { id: "mythbuster", title: "MythBuster: Gender", emoji: "💡", kind: "Swipe", status: "active", href: "/play/mythbuster", tag: "gender" },
       { id: "plan-it", title: "Plan It", emoji: "🗓️", kind: "Sim", status: "locked" },
-      { id: "real-talk", title: "Real Talk: Bodies", emoji: "💬", kind: "Cards", status: "locked" },
-      { id: "change-makers", title: "Change Makers", emoji: "🌍", kind: "Mini-sim", status: "locked" },
+      { id: "stand-up", title: "Stand Up", emoji: "✊", kind: "Scenario", status: "locked", tag: "gender" },
+    ],
+  },
+  {
+    title: "Ages 15–18 · Change the system",
+    subtitle: "Work, rights & redress",
+    nodes: [
+      { id: "lead-the-way", title: "Lead the Way", emoji: "💼", kind: "Sim", status: "locked", tag: "gender" },
+      { id: "change-makers", title: "Change Makers", emoji: "🌍", kind: "Campaign", status: "locked", tag: "gender" },
+      { id: "justice-league", title: "Justice League: Rights", emoji: "⚖️", kind: "Cases", status: "locked", tag: "gender" },
     ],
   },
 ];

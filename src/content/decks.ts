@@ -1,5 +1,5 @@
 import type { Card, Deck, DeckId } from "@/lib/types";
-import { CARDS } from "@/content/cards";
+import { CARDS, MYTHBUSTER_CARDS } from "@/content/cards";
 
 // Deck registry. Display order = MVP focus first (Daily, Online, Friendships), then
 // the rest, with the romantic "Crushes & Dating" deck last (hidden in School-Comfort Mode).
@@ -11,6 +11,7 @@ export const DECKS: Deck[] = [
   { id: "peer", title: "Peer, Group & Self", blurb: "Pressure, moods and being yourself", emoji: "🫂", accent: "oklch(0.68 0.16 300)", schoolComfortSafe: true },
   { id: "norm-busters", title: "Norm-Busters", blurb: "Challenge the things people normalise", emoji: "💥", accent: "oklch(0.74 0.15 50)", schoolComfortSafe: true },
   { id: "crushes", title: "Crushes & Dating", blurb: "Early romance: pace, respect and control", emoji: "💞", accent: "oklch(0.72 0.16 0)", schoolComfortSafe: false },
+  { id: "mythbuster", title: "MythBuster: Gender", blurb: "Swipe myth or fact — bust gender stereotypes", emoji: "💡", accent: "oklch(0.7 0.16 300)", schoolComfortSafe: true, standalone: true, swipe: { left: "Myth", right: "Fact" } },
 ];
 
 export const DECK_BY_ID: Record<DeckId, Deck> = Object.fromEntries(
@@ -22,9 +23,9 @@ export function cardsForDeck(deckId: DeckId): Card[] {
   return CARDS.filter((c) => c.deck === deckId);
 }
 
-/** Decks visible given School-Comfort Mode. */
+/** Decks shown in the Green Light / Red Light hub (excludes standalone games). */
 export function availableDecks(schoolComfort: boolean): Deck[] {
-  return DECKS.filter((d) => !schoolComfort || d.schoolComfortSafe);
+  return DECKS.filter((d) => !d.standalone && (!schoolComfort || d.schoolComfortSafe));
 }
 
 // Deterministic shuffle (mulberry32) so the Daily Deck is stable within a day.
@@ -54,7 +55,8 @@ export function dailyCards(schoolComfort: boolean, date = new Date()): Card[] {
   return seededShuffle(pool, seed).slice(0, 10);
 }
 
-/** Resolve the playable card list for any deck id (handles the synthetic Daily deck). */
+/** Resolve the playable card list for any deck id (handles Daily + standalone games). */
 export function resolveDeckCards(deckId: DeckId, schoolComfort: boolean): Card[] {
+  if (deckId === "mythbuster") return MYTHBUSTER_CARDS;
   return deckId === "daily" ? dailyCards(schoolComfort) : cardsForDeck(deckId);
 }

@@ -15,6 +15,7 @@ type Props = {
   deckId: DeckSummary["deckId"];
   mode?: "score" | "review";
   onComplete: (summary: DeckSummary) => void;
+  labels?: { left: string; right: string };
 };
 
 const COMMIT_FRACTION = 0.35;
@@ -31,10 +32,11 @@ function vibrate(pattern: number | number[]) {
   }
 }
 
-export function SwipeDeck({ cards, deckId, mode = "score", onComplete }: Props) {
+export function SwipeDeck({ cards, deckId, mode = "score", onComplete, labels }: Props) {
   const { recordCard } = useProfile();
   const scoring = mode === "score";
   const deckEmoji = DECK_BY_ID[deckId]?.emoji ?? "💡";
+  const L = labels ?? { left: "Red flag", right: "Green flag" };
 
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<"play" | "reveal">("play");
@@ -183,10 +185,10 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete }: Props) 
           <p className="flex flex-1 items-center text-balance text-center font-display text-[1.7rem] font-semibold leading-snug">{card.scenario_text}</p>
 
           <span className="pointer-events-none absolute right-5 top-16 flex items-center gap-1 rounded-lg border-2 px-2 py-0.5 text-xs font-extrabold uppercase" style={{ opacity: greenHint, color: "var(--flag-green)", borderColor: "var(--flag-green)", transform: "rotate(12deg)" }}>
-            <Check className="size-3.5" aria-hidden /> Green
+            <Check className="size-3.5" aria-hidden /> {L.right}
           </span>
           <span className="pointer-events-none absolute left-5 top-16 flex items-center gap-1 rounded-lg border-2 px-2 py-0.5 text-xs font-extrabold uppercase" style={{ opacity: redHint, color: "var(--flag-red)", borderColor: "var(--flag-red)", transform: "rotate(-12deg)" }}>
-            <Flag className="size-3.5" aria-hidden /> Red
+            <Flag className="size-3.5" aria-hidden /> {L.left}
           </span>
 
           {index === 0 && mode === "score" ? (
@@ -217,7 +219,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete }: Props) 
           onClick={() => commit("red")}
           style={{ background: "color-mix(in oklab, var(--flag-red) 14%, var(--card))", color: "var(--flag-red)", border: "2px solid color-mix(in oklab, var(--flag-red) 35%, transparent)" }}
         >
-          <Flag className="size-5" aria-hidden /> Red flag
+          <Flag className="size-5" aria-hidden /> {L.left}
         </Button>
         <Button
           size="lg"
@@ -226,7 +228,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete }: Props) 
           onClick={() => commit("green")}
           style={{ background: "color-mix(in oklab, var(--flag-green) 14%, var(--card))", color: "var(--flag-green)", border: "2px solid color-mix(in oklab, var(--flag-green) 35%, transparent)" }}
         >
-          <Check className="size-5" aria-hidden /> Green flag
+          <Check className="size-5" aria-hidden /> {L.right}
         </Button>
       </div>
     </div>

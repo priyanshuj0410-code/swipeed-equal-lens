@@ -5,6 +5,7 @@ import { ArrowLeft, BookHeart, Flame, Star, ChevronRight, Play } from "lucide-re
 import { buttonVariants } from "@/components/ui/button";
 import { useProfile } from "@/lib/store";
 import { availableDecks } from "@/content/decks";
+import { GroundScenery } from "@/components/scenery";
 
 function Stars({ value, className = "", light = false }: { value: number; className?: string; light?: boolean }) {
   return (
@@ -102,6 +103,7 @@ export function DeckHub() {
       <Link href="/flagpedia" className={buttonVariants({ variant: "outline", className: "gap-2 rounded-full" })}>
         <BookHeart className="size-4" aria-hidden /> Flag-pedia · the 20 signs
       </Link>
+      <GroundScenery className="-mx-5 mt-3" />
     </div>
   );
 }

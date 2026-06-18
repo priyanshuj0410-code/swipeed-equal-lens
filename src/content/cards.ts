@@ -71,3 +71,20 @@ export const CARDS: Card[] = [
 export const CARD_BY_ID: Record<string, Card> = Object.fromEntries(
   CARDS.map((c) => [c.id, c])
 );
+
+// MythBuster: Gender — a swipe-native game from the Gender Equality pack.
+// Swipe right = Fact (green), left = Myth (red). Even-handed: also busts myths about boys.
+export const MYTHBUSTER_CARDS: Card[] = [
+  { id: "myth_01", deck: "mythbuster", context_tag: "Myth or fact?", scenario_text: "Boys are naturally better leaders.", correct_flag: "red", sign: "Myth", difficulty: 1, is_disguised: false, is_safeguarding: false, feedback_short: "Leadership is a skill anyone can learn — not a gender.", locale: L },
+  { id: "myth_02", deck: "mythbuster", context_tag: "Myth or fact?", scenario_text: "Housework is everyone's job.", correct_flag: "green", sign: "Fact", difficulty: 1, is_disguised: false, is_safeguarding: false, feedback_short: "Cooking, cleaning and care belong to everyone at home.", locale: L },
+  { id: "myth_03", deck: "mythbuster", context_tag: "Myth or fact?", scenario_text: "Girls are just worse at maths.", correct_flag: "red", sign: "Myth", difficulty: 1, is_disguised: false, is_safeguarding: false, feedback_short: "There's no 'maths gene' for a gender — it's practice, not biology.", locale: L },
+  { id: "myth_04", deck: "mythbuster", context_tag: "Myth or fact?", scenario_text: "Boys shouldn't cry.", correct_flag: "red", sign: "Myth", difficulty: 1, is_disguised: false, is_safeguarding: false, feedback_short: "Everyone has feelings — crying is human, not weak.", locale: L },
+  { id: "myth_05", deck: "mythbuster", context_tag: "Myth or fact?", scenario_text: "A woman who works neglects her family.", correct_flag: "red", sign: "Myth", difficulty: 2, is_disguised: false, is_safeguarding: false, feedback_short: "Working and caring aren't opposites — and care is shared.", locale: L },
+  { id: "myth_06", deck: "mythbuster", context_tag: "Myth or fact?", scenario_text: "Anyone can be a great cook, doctor or pilot.", correct_flag: "green", sign: "Fact", difficulty: 1, is_disguised: false, is_safeguarding: false, feedback_short: "A job has no gender — only skill and interest.", locale: L },
+  { id: "myth_07", deck: "mythbuster", context_tag: "What people say", scenario_text: "A daughter is a burden on the family.", correct_flag: "red", sign: "Myth", difficulty: 2, is_disguised: false, is_safeguarding: false, feedback_short: "Every child has equal worth and equal potential.", locale: L },
+  { id: "myth_08", deck: "mythbuster", context_tag: "What people say", scenario_text: "You need a son to secure your old age.", correct_flag: "red", sign: "Myth", difficulty: 2, is_disguised: false, is_safeguarding: false, feedback_short: "Daughters provide and care just as much — son-preference is a habit, not a fact.", locale: L },
+  { id: "myth_09", deck: "mythbuster", context_tag: "Myth or fact?", scenario_text: "“Boys will be boys” excuses bad behaviour.", correct_flag: "red", sign: "Myth", difficulty: 2, is_disguised: true, is_safeguarding: false, feedback_short: "Everyone is responsible for how they treat others.", locale: L },
+  { id: "myth_10", deck: "mythbuster", context_tag: "Myth or fact?", scenario_text: "Girls and boys have an equal right to school.", correct_flag: "green", sign: "Fact", difficulty: 1, is_disguised: false, is_safeguarding: false, feedback_short: "Education is every child's right — full stop.", locale: L },
+  { id: "myth_11", deck: "mythbuster", context_tag: "What people say", scenario_text: "“Good girls” must stay home after dark.", correct_flag: "red", sign: "Myth", difficulty: 2, is_disguised: true, is_safeguarding: false, feedback_short: "Safety is everyone's right — freedom isn't a 'reward' for girls.", locale: L },
+  { id: "myth_12", deck: "mythbuster", context_tag: "Myth or fact?", scenario_text: "Caring for a baby is a skill anyone can learn.", correct_flag: "green", sign: "Fact", difficulty: 1, is_disguised: false, is_safeguarding: false, feedback_short: "Dads, brothers and uncles can all be brilliant carers.", locale: L },
+];
