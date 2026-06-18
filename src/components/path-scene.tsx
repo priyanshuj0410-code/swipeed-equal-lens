@@ -2,7 +2,8 @@
 
 import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, Html } from "@react-three/drei";
+import { Check, Lock, Play } from "lucide-react";
 import {
   EffectComposer,
   Bloom,
@@ -56,7 +57,22 @@ const CURVE = new THREE.CatmullRomCurve3(
   0.5
 );
 
-const NODE_COUNT = 9;
+export type NodeState = "completed" | "current" | "locked";
+export type SceneNode = { id: string; label: string; state: NodeState; href?: string };
+
+// Lesson nodes along the path. (Phase 4 will wire these to real progress data.)
+const NODES: SceneNode[] = [
+  { id: "intro", label: "Getting started", state: "completed", href: "/decks" },
+  { id: "glrl", label: "Green Light / Red Light", state: "current", href: "/decks" },
+  { id: "redflags", label: "Spotting red flags", state: "locked" },
+  { id: "online", label: "Online & DMs", state: "locked" },
+  { id: "friends", label: "Friendships", state: "locked" },
+  { id: "pressure", label: "Pressure & consent", state: "locked" },
+  { id: "help", label: "Getting help", state: "locked" },
+  { id: "healthy", label: "Healthy you", state: "locked" },
+  { id: "recap", label: "Recap quest", state: "locked" },
+];
+const NODE_COUNT = NODES.length;
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 const PATH_PTS = Array.from({ length: 90 }, (_, i) => CURVE.getPointAt(i / 89));
 
@@ -477,39 +493,94 @@ function Props() {
 }
 
 // --- node markers ----------------------------------------------------------------------
-function Node({ position, phase, reduced }: { position: [number, number, number]; phase: number; reduced: boolean }) {
+const STATE_STYLE: Record<NodeState, { gem: string; ring: string; pedestal: string; emissive: number; badge: string }> = {
+  completed: { gem: "#57b85a", ring: "#bfe9c0", pedestal: "#3f9a47", emissive: 0.16, badge: "#3f9a47" },
+  current: { gem: "#5b8def", ring: "#ffe08a", pedestal: "#3f6fcf", emissive: 0.22, badge: "#2f5fd0" },
+  locked: { gem: "#9aa3ad", ring: "#7c8694", pedestal: "#5a6470", emissive: 0, badge: "#7c8694" },
+};
+
+function NodeIcon({ state }: { state: NodeState }) {
+  if (state === "completed") return <Check className="size-4" strokeWidth={3} aria-hidden />;
+  if (state === "current") return <Play className="size-4 translate-x-px" fill="currentColor" strokeWidth={0} aria-hidden />;
+  return <Lock className="size-[0.85rem]" aria-hidden />;
+}
+
+function Node({
+  node,
+  u,
+  progress,
+  onSelect,
+  reduced,
+}: {
+  node: SceneNode;
+  u: number;
+  progress: React.MutableRefObject<number>;
+  onSelect?: (n: SceneNode) => void;
+  reduced: boolean;
+}) {
+  const pos = useMemo(() => CURVE.getPointAt(u), [u]);
   const ball = useRef<THREE.Mesh>(null);
+  const st = STATE_STYLE[node.state];
+  const isCurrent = node.state === "current";
+  const locked = node.state === "locked";
   useFrame((s) => {
     if (!ball.current) return;
-    ball.current.position.y = reduced ? 0 : Math.sin(s.clock.elapsedTime * 1.4 + phase) * 0.16;
+    ball.current.position.y = isCurrent && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0;
   });
+  const focus = () => {
+    progress.current = u; // camera glides to a focused/selected node
+  };
+  const select = () => {
+    progress.current = u;
+    if (!locked) onSelect?.(node);
+  };
   return (
-    <group position={position}>
+    <group position={[pos.x, 1.5, pos.z]}>
       <mesh position={[0, -1.0, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[0.95, 1.05, 0.36, 24]} />
-        <meshToonMaterial color="#3f6fcf" gradientMap={TOON_GRAD} />
+        <meshToonMaterial color={st.pedestal} gradientMap={TOON_GRAD} />
       </mesh>
       <mesh position={[0, -0.8, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <torusGeometry args={[1.05, 0.07, 8, 32]} />
-        <meshToonMaterial color="#cfe0ff" gradientMap={TOON_GRAD} emissive="#9cc0ff" emissiveIntensity={0.3} />
+        <meshToonMaterial color={st.ring} gradientMap={TOON_GRAD} emissive={st.ring} emissiveIntensity={locked ? 0 : 0.3} />
       </mesh>
       <mesh ref={ball} castShadow>
         <icosahedronGeometry args={[0.82, 1]} />
-        <meshToonMaterial color="#5b8def" gradientMap={TOON_GRAD} emissive="#2f5fd0" emissiveIntensity={0.18} />
+        <meshToonMaterial color={st.gem} gradientMap={TOON_GRAD} emissive={locked ? "#000000" : st.gem} emissiveIntensity={st.emissive} />
       </mesh>
+      {/* accessible DOM button overlay: tap / keyboard target + colour-blind-safe icon */}
+      <Html center position={[0, 1.05, 0]} distanceFactor={11} zIndexRange={[30, 0]}>
+        <button
+          type="button"
+          aria-label={`${node.label} — ${node.state}`}
+          title={node.label}
+          disabled={locked}
+          onPointerDown={(e) => e.stopPropagation()}
+          onFocus={focus}
+          onClick={select}
+          style={{ background: st.badge }}
+          className="pointer-events-auto flex size-8 items-center justify-center rounded-full text-white shadow-md ring-2 ring-white/85 transition-transform hover:scale-110 focus:outline-none focus-visible:scale-110 focus-visible:ring-4 focus-visible:ring-white disabled:cursor-default disabled:opacity-95"
+        >
+          <NodeIcon state={node.state} />
+        </button>
+      </Html>
     </group>
   );
 }
 
-function Nodes({ reduced }: { reduced: boolean }) {
-  const points = useMemo(
-    () => Array.from({ length: NODE_COUNT }, (_, i) => CURVE.getPointAt((i + 0.5) / NODE_COUNT)),
-    []
-  );
+function Nodes({
+  progress,
+  onSelect,
+  reduced,
+}: {
+  progress: React.MutableRefObject<number>;
+  onSelect?: (n: SceneNode) => void;
+  reduced: boolean;
+}) {
   return (
     <>
-      {points.map((p, i) => (
-        <Node key={i} position={[p.x, 1.5, p.z]} phase={i * 0.7} reduced={reduced} />
+      {NODES.map((node, i) => (
+        <Node key={node.id} node={node} u={(i + 0.5) / NODE_COUNT} progress={progress} onSelect={onSelect} reduced={reduced} />
       ))}
     </>
   );
@@ -575,7 +646,7 @@ function FollowCam({ progress }: { progress: React.MutableRefObject<number> }) {
   return null;
 }
 
-export function PathScene() {
+export function PathScene({ onSelectNode }: { onSelectNode?: (n: SceneNode) => void }) {
   const progress = useRef(0);
   const [reduced, setReduced] = useState(false);
 
@@ -644,7 +715,7 @@ export function PathScene() {
         <WindFlowers />
         <Props />
       </Suspense>
-      <Nodes reduced={reduced} />
+      <Nodes progress={progress} onSelect={onSelectNode} reduced={reduced} />
       <EffectComposer multisampling={0}>
         {/* soft contact-darkening where grass/rocks/trees/path meet the ground */}
         <N8AO halfRes aoRadius={1.6} distanceFalloff={1} intensity={0.6} quality="performance" />
