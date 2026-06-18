@@ -60,19 +60,15 @@ const CURVE = new THREE.CatmullRomCurve3(
 export type NodeState = "completed" | "current" | "locked";
 export type SceneNode = { id: string; label: string; state: NodeState; href?: string };
 
-// Lesson nodes along the path. (Phase 4 will wire these to real progress data.)
-const NODES: SceneNode[] = [
-  { id: "intro", label: "Getting started", state: "completed", href: "/decks" },
+// Fallback nodes if the host doesn't pass real ones (the /path page derives them from
+// PATH content + saved progress and passes them in).
+const DEFAULT_NODES: SceneNode[] = [
   { id: "glrl", label: "Green Light / Red Light", state: "current", href: "/decks" },
-  { id: "redflags", label: "Spotting red flags", state: "locked" },
-  { id: "online", label: "Online & DMs", state: "locked" },
-  { id: "friends", label: "Friendships", state: "locked" },
-  { id: "pressure", label: "Pressure & consent", state: "locked" },
-  { id: "help", label: "Getting help", state: "locked" },
-  { id: "healthy", label: "Healthy you", state: "locked" },
-  { id: "recap", label: "Recap quest", state: "locked" },
+  { id: "n2", label: "Coming soon", state: "locked" },
+  { id: "n3", label: "Coming soon", state: "locked" },
+  { id: "n4", label: "Coming soon", state: "locked" },
+  { id: "n5", label: "Coming soon", state: "locked" },
 ];
-const NODE_COUNT = NODES.length;
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 const PATH_PTS = Array.from({ length: 90 }, (_, i) => CURVE.getPointAt(i / 89));
 
@@ -569,18 +565,20 @@ function Node({
 }
 
 function Nodes({
+  nodes,
   progress,
   onSelect,
   reduced,
 }: {
+  nodes: SceneNode[];
   progress: React.MutableRefObject<number>;
   onSelect?: (n: SceneNode) => void;
   reduced: boolean;
 }) {
   return (
     <>
-      {NODES.map((node, i) => (
-        <Node key={node.id} node={node} u={(i + 0.5) / NODE_COUNT} progress={progress} onSelect={onSelect} reduced={reduced} />
+      {nodes.map((node, i) => (
+        <Node key={node.id} node={node} u={(i + 0.5) / nodes.length} progress={progress} onSelect={onSelect} reduced={reduced} />
       ))}
     </>
   );
@@ -646,8 +644,13 @@ function FollowCam({ progress }: { progress: React.MutableRefObject<number> }) {
   return null;
 }
 
-export function PathScene({ onSelectNode }: { onSelectNode?: (n: SceneNode) => void }) {
-  const progress = useRef(0);
+export function PathScene({ nodes = DEFAULT_NODES, onSelectNode }: { nodes?: SceneNode[]; onSelectNode?: (n: SceneNode) => void }) {
+  // start the camera at the current lesson (or the first locked one if none current)
+  const startU = useMemo(() => {
+    const i = nodes.findIndex((n) => n.state === "current");
+    return i >= 0 ? (i + 0.5) / nodes.length : 0;
+  }, [nodes]);
+  const progress = useRef(startU);
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
@@ -715,7 +718,7 @@ export function PathScene({ onSelectNode }: { onSelectNode?: (n: SceneNode) => v
         <WindFlowers />
         <Props />
       </Suspense>
-      <Nodes progress={progress} onSelect={onSelectNode} reduced={reduced} />
+      <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />
       <EffectComposer multisampling={0}>
         {/* soft contact-darkening where grass/rocks/trees/path meet the ground */}
         <N8AO halfRes aoRadius={1.6} distanceFalloff={1} intensity={0.6} quality="performance" />
