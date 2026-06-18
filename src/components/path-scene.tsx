@@ -397,7 +397,7 @@ function GrassTufts() {
 }
 
 // --- scattered stylized props (Clone) --------------------------------------------------
-type ModelCfg = { url: string; scale: number; count: number; seed: number; clearance: number; cast: boolean; tilt: number; minY?: number };
+type ModelCfg = { url: string; scale: number; count: number; seed: number; clearance: number; cast: boolean; tilt: number };
 
 const TREE_MODELS: ModelCfg[] = [
   { url: "/models/tree.glb", scale: 5.2, count: 14, seed: 11, clearance: 7.5, cast: true, tilt: 0.05 },
@@ -410,9 +410,7 @@ const PROP_MODELS: ModelCfg[] = [
   { url: "/models/mushrooms.glb", scale: 1.4, count: 16, seed: 127, clearance: 3, cast: false, tilt: 0.14 },
   { url: "/models/plant.glb", scale: 1.5, count: 26, seed: 131, clearance: 2.3, cast: false, tilt: 0.14 },
   { url: "/models/flowers.glb", scale: 1.1, count: 40, seed: 163, clearance: 2.3, cast: false, tilt: 0.12 },
-  // red flowers (Kenney Nature Kit) replace the tall yellow torch-lily; base sits at y=-0.05
-  { url: "/models/red-flower-a.glb", scale: 2.0, count: 16, seed: 149, clearance: 2.3, cast: false, tilt: 0.16, minY: -0.05 },
-  { url: "/models/red-flower-b.glb", scale: 2.1, count: 12, seed: 211, clearance: 2.3, cast: false, tilt: 0.16, minY: -0.05 },
+  { url: "/models/flowers-tall.glb", scale: 0.425, count: 12, seed: 149, clearance: 2.4, cast: false, tilt: 0.1 },
   { url: "/models/sign.glb", scale: 2.2, count: 4, seed: 179, clearance: 3, cast: true, tilt: 0 },
   { url: "/models/flag.glb", scale: 2.4, count: 5, seed: 191, clearance: 3.5, cast: true, tilt: 0 },
 ];
@@ -428,16 +426,9 @@ const ENV_URLS = [
 function usePreparedScene(url: string, cast: boolean) {
   const { scene } = useGLTF(url);
   return useMemo(() => {
-    // unlit (MeshBasicMaterial, e.g. Nature Kit flowers) -> lit standard so they take
-    // the scene's light, fog and shadows like every other prop.
-    const conv = (m: THREE.Material) =>
-      (m as THREE.MeshBasicMaterial).isMeshBasicMaterial
-        ? new THREE.MeshStandardMaterial({ color: (m as THREE.MeshBasicMaterial).color.clone(), roughness: 0.8 })
-        : m;
     scene.traverse((o) => {
       const mesh = o as THREE.Mesh;
       if (!mesh.isMesh) return;
-      mesh.material = Array.isArray(mesh.material) ? mesh.material.map(conv) : conv(mesh.material);
       mesh.castShadow = cast;
       mesh.receiveShadow = true;
     });
@@ -445,7 +436,7 @@ function usePreparedScene(url: string, cast: boolean) {
   }, [scene, cast]);
 }
 
-function Prop({ url, scale, count, seed, clearance, cast, tilt, minY = 0 }: ModelCfg) {
+function Prop({ url, scale, count, seed, clearance, cast, tilt }: ModelCfg) {
   const scene = usePreparedScene(url, cast);
   const places = useMemo(() => organicScatter(count, seed, clearance, 0.07), [count, seed, clearance]);
   return (
@@ -453,7 +444,7 @@ function Prop({ url, scale, count, seed, clearance, cast, tilt, minY = 0 }: Mode
       {places.map((p, i) => {
         const s = scale * (0.85 + p.s * 0.3);
         return (
-          <Clone key={i} object={scene} position={[p.x, -minY * s, p.z]} rotation={[p.tx * tilt, p.r, p.tz * tilt]} scale={s} />
+          <Clone key={i} object={scene} position={[p.x, 0, p.z]} rotation={[p.tx * tilt, p.r, p.tz * tilt]} scale={s} />
         );
       })}
     </>
