@@ -79,19 +79,44 @@ function distToPathSq(x: number, z: number) {
   return m;
 }
 
-type Placement = { x: number; z: number; s: number; r: number };
+type Placement = { x: number; z: number; s: number; r: number; tx: number; tz: number };
 
-// Reject-sample across the (flat) field, clear of the path.
-function meadowScatter(count: number, seed: number, clearance: number): Placement[] {
+// Smooth value noise -> organic density field (clumps + clearings).
+function hash2(x: number, z: number) {
+  const h = Math.sin(x * 127.1 + z * 311.7) * 43758.5453;
+  return h - Math.floor(h);
+}
+function valueNoise(x: number, z: number) {
+  const xi = Math.floor(x);
+  const zi = Math.floor(z);
+  const xf = x - xi;
+  const zf = z - zi;
+  const u = xf * xf * (3 - 2 * xf);
+  const v = zf * zf * (3 - 2 * zf);
+  const n00 = hash2(xi, zi);
+  const n10 = hash2(xi + 1, zi);
+  const n01 = hash2(xi, zi + 1);
+  const n11 = hash2(xi + 1, zi + 1);
+  return n00 * (1 - u) * (1 - v) + n10 * u * (1 - v) + n01 * (1 - u) * v + n11 * u * v;
+}
+function densityNoise(x: number, z: number) {
+  return 0.6 * valueNoise(x, z) + 0.3 * valueNoise(x * 2.1 + 5.2, z * 2.1 + 1.3) + 0.15 * valueNoise(x * 4.3 - 2.1, z * 4.3 + 7.7);
+}
+
+// Organic scatter: denser where the noise field is high, with bare patches where it's
+// low; random rotation + lean (tx/tz) per instance so nothing lines up in rows.
+function organicScatter(count: number, seed: number, clearance: number, freq: number): Placement[] {
   const rng = mulberry32(seed);
   const out: Placement[] = [];
   let tries = 0;
-  while (out.length < count && tries < count * 30) {
+  while (out.length < count && tries < count * 80) {
     tries++;
     const x = (rng() * 2 - 1) * 50;
     const z = 26 - rng() * 236;
     if (distToPathSq(x, z) < clearance * clearance) continue;
-    out.push({ x, z, s: rng(), r: rng() * Math.PI * 2 });
+    const dens = densityNoise(x * freq, z * freq);
+    if (rng() > dens * dens * 1.8) continue; // accept ∝ density² -> clumps + clearings
+    out.push({ x, z, s: rng(), r: rng() * Math.PI * 2, tx: rng() - 0.5, tz: rng() - 0.5 });
   }
   return out;
 }
@@ -149,6 +174,13 @@ const _p = new THREE.Vector3();
 const _s = new THREE.Vector3();
 function trs(x: number, y: number, z: number, ry: number, sx: number, sy: number, sz: number) {
   _e.set(0, ry, 0);
+  _q.setFromEuler(_e);
+  _p.set(x, y, z);
+  _s.set(sx, sy, sz);
+  return new THREE.Matrix4().compose(_p, _q, _s);
+}
+function trsTilt(x: number, y: number, z: number, ex: number, ey: number, ez: number, sx: number, sy: number, sz: number) {
+  _e.set(ex, ey, ez);
   _q.setFromEuler(_e);
   _p.set(x, y, z);
   _s.set(sx, sy, sz);
@@ -347,10 +379,11 @@ function GrassTufts() {
     return { geometry: b.geometry, material: mat };
   }, [scene, onBeforeCompile]);
   const matrices = useMemo(() => {
-    const places = meadowScatter(3600, 321, 2.3);
+    const places = organicScatter(5200, 321, 2.0, 0.05);
     return places.map((p) => {
-      const s = 1.7 + p.s * 1.3;
-      return trs(p.x, 0, p.z, p.r, s, s * (0.9 + p.s * 0.5), s);
+      const s = 0.9 + p.s * 0.6; // low carpet, not big tufts
+      const hy = s * (0.85 + p.s * 0.4);
+      return trsTilt(p.x, 0, p.z, p.tx * 0.45, p.r, p.tz * 0.45, s, hy, s);
     });
   }, []);
   const ref = useRef<THREE.InstancedMesh>(null);
@@ -364,22 +397,22 @@ function GrassTufts() {
 }
 
 // --- scattered stylized props (Clone) --------------------------------------------------
-type ModelCfg = { url: string; scale: number; count: number; seed: number; clearance: number; cast: boolean };
+type ModelCfg = { url: string; scale: number; count: number; seed: number; clearance: number; cast: boolean; tilt: number };
 
 const TREE_MODELS: ModelCfg[] = [
-  { url: "/models/tree.glb", scale: 2.6, count: 14, seed: 11, clearance: 7.5, cast: true },
-  { url: "/models/tree-pine.glb", scale: 2.6, count: 10, seed: 23, clearance: 7.5, cast: true },
-  { url: "/models/tree-pine-small.glb", scale: 2.4, count: 8, seed: 37, clearance: 7, cast: true },
+  { url: "/models/tree.glb", scale: 2.6, count: 14, seed: 11, clearance: 7.5, cast: true, tilt: 0.05 },
+  { url: "/models/tree-pine.glb", scale: 2.6, count: 10, seed: 23, clearance: 7.5, cast: true, tilt: 0.04 },
+  { url: "/models/tree-pine-small.glb", scale: 2.4, count: 8, seed: 37, clearance: 7, cast: true, tilt: 0.06 },
 ];
 const PROP_MODELS: ModelCfg[] = [
-  { url: "/models/rocks.glb", scale: 2.2, count: 12, seed: 101, clearance: 4, cast: true },
-  { url: "/models/stones.glb", scale: 2.6, count: 14, seed: 113, clearance: 2.3, cast: false },
-  { url: "/models/mushrooms.glb", scale: 1.7, count: 12, seed: 127, clearance: 3, cast: false },
-  { url: "/models/plant.glb", scale: 2.0, count: 18, seed: 131, clearance: 2.4, cast: false },
-  { url: "/models/flowers.glb", scale: 1.3, count: 22, seed: 163, clearance: 2.4, cast: false },
-  { url: "/models/flowers-tall.glb", scale: 1.5, count: 14, seed: 149, clearance: 2.4, cast: false },
-  { url: "/models/sign.glb", scale: 2.2, count: 4, seed: 179, clearance: 3, cast: true },
-  { url: "/models/flag.glb", scale: 2.4, count: 5, seed: 191, clearance: 3.5, cast: true },
+  { url: "/models/rocks.glb", scale: 2.0, count: 26, seed: 101, clearance: 3.5, cast: true, tilt: 0.22 },
+  { url: "/models/stones.glb", scale: 2.6, count: 20, seed: 113, clearance: 2.2, cast: false, tilt: 0.12 },
+  { url: "/models/mushrooms.glb", scale: 1.4, count: 16, seed: 127, clearance: 3, cast: false, tilt: 0.14 },
+  { url: "/models/plant.glb", scale: 1.5, count: 26, seed: 131, clearance: 2.3, cast: false, tilt: 0.14 },
+  { url: "/models/flowers.glb", scale: 1.1, count: 40, seed: 163, clearance: 2.3, cast: false, tilt: 0.12 },
+  { url: "/models/flowers-tall.glb", scale: 0.9, count: 12, seed: 149, clearance: 2.4, cast: false, tilt: 0.1 },
+  { url: "/models/sign.glb", scale: 2.2, count: 4, seed: 179, clearance: 3, cast: true, tilt: 0 },
+  { url: "/models/flag.glb", scale: 2.4, count: 5, seed: 191, clearance: 3.5, cast: true, tilt: 0 },
 ];
 const PROP_URLS = [...TREE_MODELS, ...PROP_MODELS].map((m) => m.url);
 const ENV_URLS = [
@@ -403,14 +436,16 @@ function usePreparedScene(url: string, cast: boolean) {
   }, [scene, cast]);
 }
 
-function Prop({ url, scale, count, seed, clearance, cast }: ModelCfg) {
+function Prop({ url, scale, count, seed, clearance, cast, tilt }: ModelCfg) {
   const scene = usePreparedScene(url, cast);
-  const places = useMemo(() => meadowScatter(count, seed, clearance), [count, seed, clearance]);
+  const places = useMemo(() => organicScatter(count, seed, clearance, 0.07), [count, seed, clearance]);
   return (
     <>
       {places.map((p, i) => {
         const s = scale * (0.85 + p.s * 0.3);
-        return <Clone key={i} object={scene} position={[p.x, 0, p.z]} rotation={[0, p.r, 0]} scale={s} />;
+        return (
+          <Clone key={i} object={scene} position={[p.x, 0, p.z]} rotation={[p.tx * tilt, p.r, p.tz * tilt]} scale={s} />
+        );
       })}
     </>
   );
