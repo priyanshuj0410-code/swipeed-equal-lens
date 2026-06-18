@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { useGLTF, Clone } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import {
   EffectComposer,
   Bloom,
@@ -453,39 +453,24 @@ const ENV_URLS = [
 ];
 [...PROP_URLS, ...ENV_URLS].forEach((u) => useGLTF.preload(u));
 
-function usePreparedScene(url: string, cast: boolean) {
-  const { scene } = useGLTF(url);
-  return useMemo(() => {
-    scene.traverse((o) => {
-      const mesh = o as THREE.Mesh;
-      if (!mesh.isMesh) return;
-      mesh.castShadow = cast;
-      mesh.receiveShadow = true;
+// One instanced draw call per prop model (single-mesh Kenney models), placed with the
+// same organic scatter + lean as before — same look, ~10 draw calls instead of ~110.
+function InstancedProp({ url, scale, count, seed, clearance, cast, tilt }: ModelCfg) {
+  const matrices = useMemo(() => {
+    const places = organicScatter(count, seed, clearance, 0.07);
+    return places.map((p) => {
+      const s = scale * (0.85 + p.s * 0.3);
+      return trsTilt(p.x, 0, p.z, p.tx * tilt, p.r, p.tz * tilt, s, s, s);
     });
-    return scene;
-  }, [scene, cast]);
-}
-
-function Prop({ url, scale, count, seed, clearance, cast, tilt }: ModelCfg) {
-  const scene = usePreparedScene(url, cast);
-  const places = useMemo(() => organicScatter(count, seed, clearance, 0.07), [count, seed, clearance]);
-  return (
-    <>
-      {places.map((p, i) => {
-        const s = scale * (0.85 + p.s * 0.3);
-        return (
-          <Clone key={i} object={scene} position={[p.x, 0, p.z]} rotation={[p.tx * tilt, p.r, p.tz * tilt]} scale={s} />
-        );
-      })}
-    </>
-  );
+  }, [scale, count, seed, clearance, tilt]);
+  return <InstancedModel url={url} matrices={matrices} castShadow={cast} receiveShadow />;
 }
 
 function Props() {
   return (
     <>
       {[...TREE_MODELS, ...PROP_MODELS].map((m) => (
-        <Prop key={m.url} {...m} />
+        <InstancedProp key={m.url} {...m} />
       ))}
     </>
   );
@@ -638,7 +623,7 @@ export function PathScene() {
   return (
     <Canvas
       shadows
-      dpr={[1, 2]}
+      dpr={[1, 1.8]}
       gl={{ antialias: false, toneMappingExposure: 1.05 }}
       camera={{ position: [0, 6, 30], fov: 48 }}
       style={{ width: "100%", height: "100%", display: "block" }}

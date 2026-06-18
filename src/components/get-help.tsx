@@ -24,7 +24,7 @@ export function GetHelp() {
         className={buttonVariants({
           variant: "secondary",
           size: "sm",
-          className: "fixed bottom-4 right-4 z-50 gap-1.5 rounded-full shadow-md",
+          className: "fixed top-4 right-4 z-50 gap-1.5 rounded-full shadow-md",
         })}
       >
         <LifeBuoy className="size-4" aria-hidden />
