@@ -141,31 +141,36 @@ export function PathScene() {
       progress.current = clamp01(progress.current + e.deltaY * 0.0008);
     };
     let lastY: number | null = null;
-    const onTouchStart = (e: TouchEvent) => {
-      lastY = e.touches[0]?.clientY ?? null;
+    let dragging = false;
+    const onDown = (e: PointerEvent) => {
+      dragging = true;
+      lastY = e.clientY;
     };
-    const onTouchMove = (e: TouchEvent) => {
-      const y = e.touches[0]?.clientY;
-      if (lastY != null && y != null) {
-        progress.current = clamp01(progress.current + (lastY - y) * 0.0022);
-        lastY = y;
+    const onMove = (e: PointerEvent) => {
+      if (dragging && lastY != null) {
+        // direct manipulation: the world follows the drag (down → world down, up → world up)
+        progress.current = clamp01(progress.current + (e.clientY - lastY) * 0.0012);
+        lastY = e.clientY;
       }
     };
-    const onTouchEnd = () => {
+    const onUp = () => {
+      dragging = false;
       lastY = null;
     };
     window.addEventListener("wheel", onWheel, { passive: true });
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
-    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    window.addEventListener("pointerdown", onDown, { passive: true });
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerup", onUp, { passive: true });
+    window.addEventListener("pointercancel", onUp, { passive: true });
     const fire = () => window.dispatchEvent(new Event("resize"));
     const raf = requestAnimationFrame(fire);
     const timers = [setTimeout(fire, 80), setTimeout(fire, 300)];
     return () => {
       window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchmove", onTouchMove);
-      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
       cancelAnimationFrame(raf);
       timers.forEach(clearTimeout);
     };
