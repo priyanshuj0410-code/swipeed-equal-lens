@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Lock, Settings as SettingsIcon, Flame, Star } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
@@ -7,11 +8,52 @@ import { useProfile } from "@/lib/store";
 import { Logo } from "@/components/logo";
 import { PATH, type PathNode } from "@/content/path";
 
-// Gentle left/right weave for the path spine.
-const OFFSETS = [0, 54, 76, 54, 0, -54, -76, -54];
+// Gentle serpentine: the nodes weave, and the dotted connector is drawn to follow them.
+const OFFSETS = [0, 58, 30, -34, -64, -34, 30, 58];
 
 export function LearningPath() {
   const { profile } = useProfile();
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const circleRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const [pathD, setPathD] = useState("");
+  const [dims, setDims] = useState({ w: 0, h: 0 });
+
+  useEffect(() => {
+    function measure() {
+      const wrap = wrapRef.current;
+      if (!wrap) return;
+      const wr = wrap.getBoundingClientRect();
+      const pts = circleRefs.current
+        .filter((el): el is HTMLDivElement => Boolean(el))
+        .map((el) => {
+          const r = el.getBoundingClientRect();
+          return { x: r.left - wr.left + r.width / 2, y: r.top - wr.top + r.height / 2 };
+        });
+      if (pts.length < 2) return;
+      // Smooth S-curve through every node centre (control points at the vertical midpoint).
+      let d = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+      for (let i = 1; i < pts.length; i++) {
+        const a = pts[i - 1];
+        const b = pts[i];
+        const my = ((a.y + b.y) / 2).toFixed(1);
+        d += ` C ${a.x.toFixed(1)} ${my}, ${b.x.toFixed(1)} ${my}, ${b.x.toFixed(1)} ${b.y.toFixed(1)}`;
+      }
+      setPathD(d);
+      setDims({ w: wr.width, h: wr.height });
+    }
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (wrapRef.current) ro.observe(wrapRef.current);
+    window.addEventListener("resize", measure);
+    // re-measure once fonts settle (they change row heights)
+    const t = setTimeout(measure, 350);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+      clearTimeout(t);
+    };
+  }, []);
+
   let gi = -1;
 
   return (
@@ -37,11 +79,27 @@ export function LearningPath() {
         </div>
       </header>
 
-      <div className="relative flex flex-col gap-1">
-        <div className="pointer-events-none absolute inset-y-3 left-1/2 -translate-x-1/2 border-l-[3px] border-dashed border-primary/25" aria-hidden />
+      <div ref={wrapRef} className="relative isolate flex flex-col gap-1">
+        <svg
+          width={dims.w}
+          height={dims.h}
+          className="pointer-events-none absolute left-0 top-0 z-0"
+          aria-hidden
+        >
+          <path
+            d={pathD}
+            fill="none"
+            stroke="var(--primary)"
+            strokeOpacity={0.35}
+            strokeWidth={5}
+            strokeLinecap="round"
+            strokeDasharray="0.5 16"
+          />
+        </svg>
+
         {PATH.map((section) => (
-          <div key={section.title} className="flex flex-col gap-1">
-            <div className="relative my-3 flex flex-col items-center gap-0.5 text-center">
+          <div key={section.title} className="relative z-10 flex flex-col gap-1">
+            <div className="my-3 flex flex-col items-center gap-0.5 text-center">
               <span className="rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground shadow-sm">
                 {section.title}
               </span>
@@ -49,17 +107,35 @@ export function LearningPath() {
             </div>
             {section.nodes.map((node) => {
               gi += 1;
-              return <NodeRow key={node.id} node={node} offset={OFFSETS[gi % OFFSETS.length]} />;
+              const index = gi;
+              return (
+                <NodeRow
+                  key={node.id}
+                  node={node}
+                  offset={OFFSETS[index % OFFSETS.length]}
+                  registerRef={(el) => {
+                    circleRefs.current[index] = el;
+                  }}
+                />
+              );
             })}
           </div>
         ))}
-        <p className="relative mt-5 text-center text-xs text-muted-foreground">More lessons are on the way ✨</p>
+        <p className="relative z-10 mt-5 text-center text-xs text-muted-foreground">More lessons are on the way ✨</p>
       </div>
     </div>
   );
 }
 
-function NodeRow({ node, offset }: { node: PathNode; offset: number }) {
+function NodeRow({
+  node,
+  offset,
+  registerRef,
+}: {
+  node: PathNode;
+  offset: number;
+  registerRef: (el: HTMLDivElement | null) => void;
+}) {
   const isActive = node.status === "active";
 
   const bubble = (
@@ -70,15 +146,27 @@ function NodeRow({ node, offset }: { node: PathNode; offset: number }) {
         </span>
       )}
       <div className="relative">
-        {isActive && <span className="absolute inset-0 -m-1 animate-ping rounded-full bg-primary/30" aria-hidden />}
+        {isActive && <span className="absolute inset-0 -m-1 animate-ping rounded-full bg-primary/25" aria-hidden />}
         <div
+          ref={registerRef}
           className={
             isActive
-              ? "relative grid size-20 place-items-center rounded-full bg-card shadow-[0_14px_32px_-10px_var(--primary)] ring-4 ring-primary transition-transform group-active:scale-95"
-              : "relative grid size-20 place-items-center rounded-full bg-muted text-3xl opacity-60 ring-1 ring-border"
+              ? "relative grid size-20 place-items-center rounded-full border-4 border-primary bg-card transition-transform group-active:translate-y-0.5"
+              : "relative grid size-20 place-items-center rounded-full border border-border bg-muted"
+          }
+          style={
+            isActive
+              ? { boxShadow: "0 7px 0 0 color-mix(in oklab, var(--primary) 72%, black), 0 18px 34px -12px var(--primary)" }
+              : { boxShadow: "0 6px 0 0 color-mix(in oklab, var(--border) 55%, black)" }
           }
         >
-          {node.id === "glrl" ? <Logo className="size-11" /> : <span aria-hidden>{node.emoji}</span>}
+          {node.id === "glrl" ? (
+            <Logo className="size-11" />
+          ) : (
+            <span className="text-3xl opacity-50 grayscale" aria-hidden>
+              {node.emoji}
+            </span>
+          )}
           {!isActive && (
             <span className="absolute -bottom-1 -right-1 grid size-6 place-items-center rounded-full bg-background text-muted-foreground ring-1 ring-border">
               <Lock className="size-3.5" aria-hidden />
@@ -86,7 +174,7 @@ function NodeRow({ node, offset }: { node: PathNode; offset: number }) {
           )}
         </div>
       </div>
-      <span className={`max-w-[8.5rem] text-center text-xs font-semibold leading-tight ${isActive ? "" : "text-muted-foreground"}`}>
+      <span className={`max-w-[8.5rem] text-center text-xs font-bold leading-tight ${isActive ? "" : "text-muted-foreground"}`}>
         {node.title}
       </span>
       <span className="text-[10px] uppercase tracking-wide text-muted-foreground">{isActive ? node.kind : "Soon"}</span>
@@ -94,7 +182,7 @@ function NodeRow({ node, offset }: { node: PathNode; offset: number }) {
   );
 
   return (
-    <div className="relative flex justify-center py-1" style={{ transform: `translateX(${offset}px)` }}>
+    <div className="relative z-10 flex justify-center py-2" style={{ transform: `translateX(${offset}px)` }}>
       {isActive && node.href ? (
         <Link href={node.href} className="group" aria-label={`${node.title} — start`}>
           {bubble}
