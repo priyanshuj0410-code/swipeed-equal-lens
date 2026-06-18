@@ -4,7 +4,6 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { useProfile } from "@/lib/store";
 import { PATH } from "@/content/path";
@@ -67,7 +66,7 @@ export default function PathPage() {
             <p className="max-w-xs text-sm text-muted-foreground">
               The 3D path isn&apos;t supported on this device, but you can use the classic view.
             </p>
-            <Link href="/" className={buttonVariants({})}>
+            <Link href="/classic" className={buttonVariants({})}>
               Open the classic path
             </Link>
           </div>
@@ -75,13 +74,6 @@ export default function PathPage() {
           <PathScene nodes={nodes} onSelectNode={handleSelect} />
         )}
       </div>
-      <Link
-        href="/"
-        aria-label="Back"
-        className={buttonVariants({ variant: "secondary", size: "icon", className: "fixed left-4 top-4 z-50 rounded-full shadow-md" })}
-      >
-        <ArrowLeft className="size-5" aria-hidden />
-      </Link>
       {webgl !== false && (
         <div className="pointer-events-none fixed inset-x-0 bottom-6 z-40 flex justify-center px-4">
           <span className="rounded-full bg-card/90 px-3 py-1.5 text-xs font-medium text-muted-foreground shadow-md ring-1 ring-border backdrop-blur">

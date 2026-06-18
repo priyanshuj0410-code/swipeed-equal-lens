@@ -1,5 +1,6 @@
-import { LearningPath } from "@/components/learning-path";
+import { redirect } from "next/navigation";
 
+// The 3D learning path is the default landing.
 export default function Home() {
-  return <LearningPath />;
+  redirect("/path");
 }

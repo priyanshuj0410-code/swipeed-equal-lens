@@ -16,7 +16,7 @@ export function Play({ deckId }: { deckId: DeckId }) {
   const { profile, finishDeck } = useProfile();
   const deck = DECK_BY_ID[deckId];
   const standalone = !!deck?.standalone;
-  const backHref = standalone ? "/" : "/decks";
+  const backHref = standalone ? "/path" : "/decks";
   const backLabel = standalone ? "Back to path" : "Back to decks";
   const [cards] = useState(() => resolveDeckCards(deckId, profile.schoolComfort));
   const list = availableDecks(profile.schoolComfort);

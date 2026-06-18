@@ -32,7 +32,7 @@ export function DeckHub() {
   return (
     <div className="mx-auto flex w-full max-w-md flex-1 flex-col gap-5 px-5 py-6 pb-24 animate-in fade-in slide-in-from-right-2 duration-300">
       <header className="flex items-center gap-3">
-        <Link href="/" aria-label="Back to path" className={buttonVariants({ variant: "ghost", size: "icon" })}>
+        <Link href="/path" aria-label="Back to path" className={buttonVariants({ variant: "ghost", size: "icon" })}>
           <ArrowLeft className="size-5" aria-hidden />
         </Link>
         <div>

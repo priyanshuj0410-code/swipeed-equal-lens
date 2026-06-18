@@ -665,13 +665,21 @@ function FollowCam({ progress }: { progress: React.MutableRefObject<number> }) {
   return null;
 }
 
+const PROGRESS_KEY = "glrl.path.progress";
+function readSavedProgress(fallback: number) {
+  if (typeof window === "undefined") return fallback;
+  const v = parseFloat(localStorage.getItem(PROGRESS_KEY) ?? "");
+  return Number.isFinite(v) ? clamp01(v) : fallback;
+}
+
 export function PathScene({ nodes = DEFAULT_NODES, onSelectNode }: { nodes?: SceneNode[]; onSelectNode?: (n: SceneNode) => void }) {
   // start the camera at the current lesson (or the first locked one if none current)
   const startU = useMemo(() => {
     const i = nodes.findIndex((n) => n.state === "current");
     return i >= 0 ? (i + 0.5) / nodes.length : 0;
   }, [nodes]);
-  const progress = useRef(startU);
+  // resume where the player left off, falling back to the current lesson
+  const progress = useRef(readSavedProgress(startU));
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
@@ -712,6 +720,29 @@ export function PathScene({ nodes = DEFAULT_NODES, onSelectNode }: { nodes?: Sce
       window.removeEventListener("pointercancel", onUp);
       cancelAnimationFrame(raf);
       timers.forEach(clearTimeout);
+    };
+  }, []);
+
+  // persist camera position so returning to /path resumes where you left off
+  useEffect(() => {
+    const save = () => {
+      try {
+        localStorage.setItem(PROGRESS_KEY, progress.current.toFixed(4));
+      } catch {
+        /* storage may be unavailable */
+      }
+    };
+    const timer = window.setInterval(save, 1200);
+    const onHide = () => {
+      if (document.hidden) save();
+    };
+    window.addEventListener("pagehide", save);
+    document.addEventListener("visibilitychange", onHide);
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener("pagehide", save);
+      document.removeEventListener("visibilitychange", onHide);
+      save();
     };
   }, []);
 
