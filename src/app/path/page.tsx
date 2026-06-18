@@ -50,6 +50,7 @@ export default function PathPage() {
       label: n.title,
       state: isDone(n.id) ? "completed" : n.status === "active" ? "current" : "locked",
       href: n.href,
+      emoji: n.emoji,
     }));
   }, [profile.deckStars]);
 

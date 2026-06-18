@@ -58,16 +58,16 @@ const CURVE = new THREE.CatmullRomCurve3(
 );
 
 export type NodeState = "completed" | "current" | "locked";
-export type SceneNode = { id: string; label: string; state: NodeState; href?: string };
+export type SceneNode = { id: string; label: string; state: NodeState; href?: string; emoji: string };
 
 // Fallback nodes if the host doesn't pass real ones (the /path page derives them from
 // PATH content + saved progress and passes them in).
 const DEFAULT_NODES: SceneNode[] = [
-  { id: "glrl", label: "Green Light / Red Light", state: "current", href: "/decks" },
-  { id: "n2", label: "Coming soon", state: "locked" },
-  { id: "n3", label: "Coming soon", state: "locked" },
-  { id: "n4", label: "Coming soon", state: "locked" },
-  { id: "n5", label: "Coming soon", state: "locked" },
+  { id: "glrl", label: "Green Light / Red Light", state: "current", href: "/decks", emoji: "🚦" },
+  { id: "n2", label: "Coming soon", state: "locked", emoji: "🌱" },
+  { id: "n3", label: "Coming soon", state: "locked", emoji: "💬" },
+  { id: "n4", label: "Coming soon", state: "locked", emoji: "🤝" },
+  { id: "n5", label: "Coming soon", state: "locked", emoji: "⭐" },
 ];
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 const PATH_PTS = Array.from({ length: 90 }, (_, i) => CURVE.getPointAt(i / 89));
@@ -501,6 +501,26 @@ function NodeIcon({ state }: { state: NodeState }) {
   return <Lock className="size-[0.85rem]" aria-hidden />;
 }
 
+// Render an emoji to a canvas (system colour-emoji font) -> texture for a 3D billboard.
+function useEmojiTexture(emoji: string) {
+  const tex = useMemo(() => {
+    const size = 128;
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = size;
+    const ctx = canvas.getContext("2d")!;
+    ctx.font = `${Math.round(size * 0.78)}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(emoji, size / 2, size * 0.56);
+    const t = new THREE.CanvasTexture(canvas);
+    t.colorSpace = THREE.SRGBColorSpace;
+    t.anisotropy = 4;
+    return t;
+  }, [emoji]);
+  useEffect(() => () => tex.dispose(), [tex]);
+  return tex;
+}
+
 function Node({
   node,
   u,
@@ -515,13 +535,14 @@ function Node({
   reduced: boolean;
 }) {
   const pos = useMemo(() => CURVE.getPointAt(u), [u]);
-  const ball = useRef<THREE.Mesh>(null);
+  const spr = useRef<THREE.Sprite>(null);
+  const tex = useEmojiTexture(node.emoji);
   const st = STATE_STYLE[node.state];
   const isCurrent = node.state === "current";
   const locked = node.state === "locked";
   useFrame((s) => {
-    if (!ball.current) return;
-    ball.current.position.y = isCurrent && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0;
+    if (!spr.current) return;
+    spr.current.position.y = 0.2 + (isCurrent && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0);
   });
   const focus = () => {
     progress.current = u; // camera glides to a focused/selected node
@@ -540,12 +561,12 @@ function Node({
         <torusGeometry args={[1.05, 0.07, 8, 32]} />
         <meshToonMaterial color={st.ring} gradientMap={TOON_GRAD} emissive={st.ring} emissiveIntensity={locked ? 0 : 0.3} />
       </mesh>
-      <mesh ref={ball} castShadow>
-        <icosahedronGeometry args={[0.82, 1]} />
-        <meshToonMaterial color={st.gem} gradientMap={TOON_GRAD} emissive={locked ? "#000000" : st.gem} emissiveIntensity={st.emissive} />
-      </mesh>
-      {/* accessible DOM button overlay: tap / keyboard target + colour-blind-safe icon */}
-      <Html center position={[0, 1.05, 0]} distanceFactor={11} zIndexRange={[30, 0]}>
+      {/* lesson emoji billboard (replaces the gem); dimmed when locked */}
+      <sprite ref={spr} scale={[1.8, 1.8, 1.8]}>
+        <spriteMaterial map={tex} transparent depthWrite={false} opacity={locked ? 0.55 : 1} fog={false} />
+      </sprite>
+      {/* accessible DOM button overlay: tap / keyboard target + colour-blind-safe state badge */}
+      <Html center position={[0, 1.35, 0]} distanceFactor={11} zIndexRange={[30, 0]}>
         <button
           type="button"
           aria-label={`${node.label} — ${node.state}`}
