@@ -323,7 +323,8 @@ function Mountains() {
 function PlankPath() {
   const matrices = useMemo(() => {
     const len = CURVE.getLength();
-    const N = Math.max(2, Math.ceil(len / 0.9));
+    const step = 2.4; // chunkier, well-spaced boards instead of dense thin strips
+    const N = Math.max(2, Math.ceil(len / step));
     const pts = CURVE.getSpacedPoints(N);
     const arr: THREE.Matrix4[] = [];
     for (let i = 0; i <= N; i++) {
@@ -333,7 +334,7 @@ function PlankPath() {
       const dx = b.x - a.x;
       const dz = b.z - a.z;
       const ry = Math.atan2(dx, dz); // local +z -> path direction
-      arr.push(trs(p.x, 0.06, p.z, ry, 3.6, 1, 1.05));
+      arr.push(trs(p.x, 0.07, p.z, ry, 3.8, 1.3, 2.55)); // wide, slightly thicker, long boards
     }
     return arr;
   }, []);
