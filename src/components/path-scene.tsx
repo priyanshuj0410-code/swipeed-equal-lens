@@ -661,7 +661,7 @@ export function PathScene() {
       <Nodes reduced={reduced} />
       <EffectComposer multisampling={0}>
         {/* soft contact-darkening where grass/rocks/trees/path meet the ground */}
-        <N8AO halfRes aoRadius={1.6} distanceFalloff={1} intensity={2.2} quality="performance" />
+        <N8AO halfRes aoRadius={1.6} distanceFalloff={1} intensity={1.1} quality="performance" />
         <Bloom luminanceThreshold={0.85} luminanceSmoothing={0.3} intensity={0.3} mipmapBlur radius={0.5} />
         <BrightnessContrast brightness={0.0} contrast={0.05} />
         <HueSaturation saturation={0.08} />
