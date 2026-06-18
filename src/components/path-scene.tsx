@@ -3,11 +3,19 @@
 import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { Instances, Instance } from "@react-three/drei";
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  EffectComposer,
+  Bloom,
+  Vignette,
+  SMAA,
+  HueSaturation,
+  BrightnessContrast,
+} from "@react-three/postprocessing";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-// Phase 2 (richer art pass) — layered gradient sky + drifting clouds, rolling textured
-// terrain with grass lining the path, tiered + blobby tree variety, faceted gem markers.
-// Still a spline path with an on-rails follow camera.
+// Stylized open-world render pass (Arceus / BotW flavour): GPU wind grass across the
+// whole meadow, wildflowers, atmospheric-perspective mountain layers fading into haze,
+// drifting clouds under a gradient sky, and a cinematic post chain (bloom, grade, AA).
 
 const CURVE = new THREE.CatmullRomCurve3(
   [
@@ -54,7 +62,6 @@ function distToPathSq(x: number, z: number) {
   return m;
 }
 
-// Terrain height: flat in the path corridor, rolling hills as you move away from it.
 const CORRIDOR = 7;
 function groundHeight(x: number, z: number) {
   const d = Math.sqrt(distToPathSq(x, z));
@@ -66,17 +73,17 @@ function groundHeight(x: number, z: number) {
 
 type Placement = { x: number; z: number; y: number; s: number; r: number };
 
-// Scatter props across the grassland, kept clear of the path and dropped onto the terrain.
-function scatter(count: number, seed: number, clearance: number, minS: number, maxS: number): Placement[] {
+// Reject-sample across the grassland, clear of the path, dropped onto the terrain.
+function meadowScatter(count: number, seed: number, clearance: number): Placement[] {
   const rng = mulberry32(seed);
   const out: Placement[] = [];
   let tries = 0;
-  while (out.length < count && tries < count * 60) {
+  while (out.length < count && tries < count * 30) {
     tries++;
-    const x = (rng() * 2 - 1) * 58;
-    const z = 24 - rng() * 230;
+    const x = (rng() * 2 - 1) * 54;
+    const z = 24 - rng() * 232;
     if (distToPathSq(x, z) < clearance * clearance) continue;
-    out.push({ x, z, y: groundHeight(x, z), s: minS + rng() * (maxS - minS), r: rng() * Math.PI * 2 });
+    out.push({ x, z, y: groundHeight(x, z), s: rng(), r: rng() * Math.PI * 2 });
   }
   return out;
 }
@@ -114,11 +121,11 @@ function SkyDome() {
         depthWrite: false,
         uniforms: {
           top: { value: new THREE.Color("#a6d4ff") },
-          bottom: { value: new THREE.Color("#e6f2fb") },
+          bottom: { value: new THREE.Color("#eef6fc") },
         },
         vertexShader: `varying vec3 vP; void main(){ vP = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
         fragmentShader: `varying vec3 vP; uniform vec3 top; uniform vec3 bottom;
-          void main(){ float h = normalize(vP).y * 0.5 + 0.5; vec3 c = mix(bottom, top, smoothstep(0.0, 0.78, h)); gl_FragColor = vec4(c, 1.0); }`,
+          void main(){ float h = normalize(vP).y * 0.5 + 0.5; vec3 c = mix(bottom, top, smoothstep(0.0, 0.8, h)); gl_FragColor = vec4(c, 1.0); }`,
       }),
     []
   );
@@ -134,27 +141,27 @@ function Clouds() {
   const puffs = useMemo(() => {
     const rng = mulberry32(77);
     const arr: { x: number; y: number; z: number; s: number }[] = [];
-    for (let c = 0; c < 12; c++) {
+    for (let c = 0; c < 16; c++) {
       const ang = rng() * Math.PI * 2;
-      const rad = 110 + rng() * 150;
+      const rad = 100 + rng() * 160;
       const cx = Math.cos(ang) * rad;
       const cz = -90 + Math.sin(ang) * rad;
-      const cy = 52 + rng() * 34;
-      const blobs = 3 + Math.floor(rng() * 3);
-      const base = 6 + rng() * 7;
+      const cy = 46 + rng() * 40;
+      const blobs = 4 + Math.floor(rng() * 4);
+      const base = 7 + rng() * 8;
       for (let b = 0; b < blobs; b++) {
         arr.push({
-          x: cx + (rng() - 0.5) * base * 2.2,
-          y: cy + (rng() - 0.5) * 3,
-          z: cz + (rng() - 0.5) * base * 1.4,
-          s: base * (0.6 + rng() * 0.6),
+          x: cx + (rng() - 0.5) * base * 2.4,
+          y: cy + (rng() - 0.5) * 4,
+          z: cz + (rng() - 0.5) * base * 1.5,
+          s: base * (0.6 + rng() * 0.7),
         });
       }
     }
     return arr;
   }, []);
   useFrame((_, dt) => {
-    if (ref.current) ref.current.rotation.y += dt * 0.006;
+    if (ref.current) ref.current.rotation.y += dt * 0.005;
   });
   return (
     <group ref={ref}>
@@ -162,9 +169,50 @@ function Clouds() {
         <icosahedronGeometry args={[1, 2]} />
         <meshStandardMaterial color="#ffffff" roughness={1} transparent opacity={0.92} fog={false} />
         {puffs.map((p, i) => (
-          <Instance key={i} position={[p.x, p.y, p.z]} scale={[p.s, p.s * 0.62, p.s]} />
+          <Instance key={i} position={[p.x, p.y, p.z]} scale={[p.s, p.s * 0.6, p.s]} />
         ))}
       </Instances>
+    </group>
+  );
+}
+
+// Two rings of low-poly peaks; the far ring is lighter/bluer and fog turns them into
+// hazy silhouettes — cheap atmospheric perspective.
+function Mountains() {
+  const { near, far } = useMemo(() => {
+    const rng = mulberry32(2024);
+    const make = (count: number, rad: number, radJ: number, hMin: number, hMax: number, base: number) => {
+      const a: { x: number; z: number; y: number; w: number; h: number; r: number }[] = [];
+      for (let i = 0; i < count; i++) {
+        const ang = (i / count) * Math.PI * 2 + (rng() - 0.5) * 0.4;
+        const r = rad + (rng() - 0.5) * radJ;
+        const h = hMin + rng() * (hMax - hMin);
+        a.push({
+          x: Math.cos(ang) * r,
+          z: -90 + Math.sin(ang) * r,
+          y: base,
+          h,
+          w: h * (0.55 + rng() * 0.3),
+          r: rng() * Math.PI,
+        });
+      }
+      return a;
+    };
+    return { near: make(16, 122, 20, 26, 48, -3), far: make(20, 162, 26, 36, 64, -5) };
+  }, []);
+  const Range = ({ d, color }: { d: typeof near; color: string }) => (
+    <Instances limit={d.length}>
+      <coneGeometry args={[1, 1, 5]} />
+      <meshStandardMaterial color={color} flatShading roughness={1} />
+      {d.map((m, i) => (
+        <Instance key={i} position={[m.x, m.y + m.h / 2, m.z]} scale={[m.w, m.h, m.w]} rotation={[0, m.r, 0]} />
+      ))}
+    </Instances>
+  );
+  return (
+    <group>
+      <Range d={far} color="#aac6d2" />
+      <Range d={near} color="#82ab8d" />
     </group>
   );
 }
@@ -181,7 +229,7 @@ function Ground() {
     for (let i = 0; i < pos.count; i++) {
       const px = pos.getX(i);
       const py = pos.getY(i);
-      const disp = groundHeight(px, -py); // plane y maps to world -z after the -90° rotation
+      const disp = groundHeight(px, -py); // plane y -> world -z after the -90° rotation
       pos.setZ(i, disp);
       const n2 = Math.sin(px * 0.12) * Math.sin(py * 0.11) * 0.5 + 0.5;
       tmp.copy(base).lerp(light, n2 * 0.55);
@@ -208,36 +256,48 @@ function StonePath() {
   );
 }
 
-function Grass() {
-  const blades = useMemo(() => {
-    const rng = mulberry32(555);
-    const a: { x: number; z: number; s: number; hf: number; r: number }[] = [];
-    let tries = 0;
-    while (a.length < 2400 && tries < 22000) {
-      tries++;
-      const t = rng();
-      const p = CURVE.getPointAt(t);
-      const tan = CURVE.getTangentAt(t);
-      tan.y = 0;
-      tan.normalize();
-      const side = rng() < 0.5 ? -1 : 1;
-      const off = 2.3 + rng() * 4.4;
-      const x = p.x + -tan.z * off * side + (rng() - 0.5) * 1.3;
-      const z = p.z + tan.x * off * side + (rng() - 0.5) * 1.3;
-      if (groundHeight(x, z) !== 0) continue; // flat corridor only — stays planted
-      a.push({ x, z, s: 0.7 + rng() * 0.7, hf: 1 + rng() * 0.9, r: rng() * Math.PI });
-    }
-    return a;
+// Wind injected into the standard-material vertex shader so it sways GPU-side: the tip
+// of each blade bends, phase driven by its instance world position.
+function useWind() {
+  const u = useRef({ uTime: { value: 0 } });
+  useFrame((s) => {
+    u.current.uTime.value = s.clock.elapsedTime;
+  });
+  return useCallback((shader: THREE.WebGLProgramParametersWithUniforms) => {
+    shader.uniforms.uTime = u.current.uTime;
+    shader.vertexShader =
+      "uniform float uTime;\n" +
+      shader.vertexShader.replace(
+        "#include <begin_vertex>",
+        `#include <begin_vertex>
+        #ifdef USE_INSTANCING
+          vec3 wp = instanceMatrix[3].xyz;
+          float ph = wp.x * 0.28 + wp.z * 0.28;
+          float w = sin(uTime * 1.3 + ph) + 0.35 * sin(uTime * 2.7 + ph * 1.7);
+          float bend = clamp((position.y + 0.275) / 0.55, 0.0, 1.0);
+          transformed.x += w * 0.16 * bend;
+          transformed.z += w * 0.09 * bend;
+        #endif`
+      );
   }, []);
+}
+
+function Grass() {
+  const onBeforeCompile = useWind();
+  const blades = useMemo(() => meadowScatter(5500, 321, 2.5), []);
   const even = useMemo(() => blades.filter((_, i) => i % 2 === 0), [blades]);
   const odd = useMemo(() => blades.filter((_, i) => i % 2 === 1), [blades]);
-  const Blades = ({ data, color }: { data: typeof blades; color: string }) => (
+  const Blades = ({ data, color }: { data: Placement[]; color: string }) => (
     <Instances limit={data.length}>
       <coneGeometry args={[0.05, 0.55, 4]} />
-      <meshStandardMaterial color={color} flatShading />
-      {data.map((b, i) => (
-        <Instance key={i} position={[b.x, 0.275 * b.s * b.hf, b.z]} scale={[b.s, b.s * b.hf, b.s]} rotation={[0, b.r, 0]} />
-      ))}
+      <meshStandardMaterial color={color} flatShading onBeforeCompile={onBeforeCompile} />
+      {data.map((b, i) => {
+        const sc = 0.7 + b.s * 0.6;
+        const hf = 1 + b.s * 1.1;
+        return (
+          <Instance key={i} position={[b.x, b.y + 0.275 * sc * hf, b.z]} scale={[sc, sc * hf, sc]} rotation={[0, b.r, 0]} />
+        );
+      })}
     </Instances>
   );
   return (
@@ -248,10 +308,33 @@ function Grass() {
   );
 }
 
+function Flowers() {
+  const flowers = useMemo(() => meadowScatter(380, 7000, 2.6), []);
+  const palette = ["#fbfbf4", "#ffd84d", "#ff9ec7", "#c2a7ff"];
+  return (
+    <group>
+      {palette.map((color, ci) => {
+        const data = flowers.filter((_, i) => i % palette.length === ci);
+        return (
+          <Instances key={ci} limit={data.length}>
+            <icosahedronGeometry args={[0.16, 0]} />
+            <meshStandardMaterial color={color} roughness={0.8} emissive={color} emissiveIntensity={0.12} />
+            {data.map((f, i) => {
+              const sc = 0.7 + f.s * 0.6;
+              return <Instance key={i} position={[f.x, f.y + 0.32 * sc, f.z]} scale={sc} />;
+            })}
+          </Instances>
+        );
+      })}
+    </group>
+  );
+}
+
 function Trees() {
-  const trees = useMemo(() => scatter(26, 1337, 7, 0.8, 1.7), []);
+  const trees = useMemo(() => meadowScatter(40, 1337, 7.5), []);
   const pines = useMemo(() => trees.filter((_, i) => i % 2 === 0), [trees]);
   const blobs = useMemo(() => trees.filter((_, i) => i % 2 === 1), [trees]);
+  const sc = (p: Placement) => 0.85 + p.s * 0.9;
   return (
     <group>
       {/* --- pines: trunk + three tapering tiers --- */}
@@ -259,28 +342,28 @@ function Trees() {
         <cylinderGeometry args={[0.14, 0.22, 1.0, 6]} />
         <meshStandardMaterial color="#80603c" />
         {pines.map((t, i) => (
-          <Instance key={i} position={[t.x, t.y + 0.5 * t.s, t.z]} scale={t.s} rotation={[0, t.r, 0]} />
+          <Instance key={i} position={[t.x, t.y + 0.5 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
         ))}
       </Instances>
       <Instances limit={pines.length}>
         <coneGeometry args={[1.3, 1.5, 7]} />
         <meshStandardMaterial color="#4f9a3e" flatShading />
         {pines.map((t, i) => (
-          <Instance key={i} position={[t.x, t.y + 1.65 * t.s, t.z]} scale={t.s} rotation={[0, t.r, 0]} />
+          <Instance key={i} position={[t.x, t.y + 1.65 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
         ))}
       </Instances>
       <Instances limit={pines.length}>
         <coneGeometry args={[1.0, 1.4, 7]} />
         <meshStandardMaterial color="#5aa847" flatShading />
         {pines.map((t, i) => (
-          <Instance key={i} position={[t.x, t.y + 2.6 * t.s, t.z]} scale={t.s} rotation={[0, t.r, 0]} />
+          <Instance key={i} position={[t.x, t.y + 2.6 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
         ))}
       </Instances>
       <Instances limit={pines.length}>
         <coneGeometry args={[0.7, 1.2, 7]} />
         <meshStandardMaterial color="#67b552" flatShading />
         {pines.map((t, i) => (
-          <Instance key={i} position={[t.x, t.y + 3.5 * t.s, t.z]} scale={t.s} rotation={[0, t.r, 0]} />
+          <Instance key={i} position={[t.x, t.y + 3.5 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
         ))}
       </Instances>
 
@@ -289,21 +372,21 @@ function Trees() {
         <cylinderGeometry args={[0.16, 0.24, 1.2, 6]} />
         <meshStandardMaterial color="#7a5a3a" />
         {blobs.map((t, i) => (
-          <Instance key={i} position={[t.x, t.y + 0.6 * t.s, t.z]} scale={t.s} rotation={[0, t.r, 0]} />
+          <Instance key={i} position={[t.x, t.y + 0.6 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
         ))}
       </Instances>
       <Instances limit={blobs.length}>
         <icosahedronGeometry args={[1.15, 1]} />
         <meshStandardMaterial color="#6fb04a" flatShading />
         {blobs.map((t, i) => (
-          <Instance key={i} position={[t.x, t.y + 2.15 * t.s, t.z]} scale={[t.s, t.s * 0.92, t.s]} rotation={[t.r, t.r, 0]} />
+          <Instance key={i} position={[t.x, t.y + 2.15 * sc(t), t.z]} scale={[sc(t), sc(t) * 0.92, sc(t)]} rotation={[t.r, t.r, 0]} />
         ))}
       </Instances>
       <Instances limit={blobs.length}>
         <icosahedronGeometry args={[0.8, 1]} />
         <meshStandardMaterial color="#84c25c" flatShading />
         {blobs.map((t, i) => (
-          <Instance key={i} position={[t.x + 0.55 * t.s, t.y + 2.7 * t.s, t.z + 0.35 * t.s]} scale={t.s} rotation={[t.r * 1.3, t.r, 0]} />
+          <Instance key={i} position={[t.x + 0.55 * sc(t), t.y + 2.7 * sc(t), t.z + 0.35 * sc(t)]} scale={sc(t)} rotation={[t.r * 1.3, t.r, 0]} />
         ))}
       </Instances>
     </group>
@@ -311,27 +394,15 @@ function Trees() {
 }
 
 function Rocks() {
-  const rocks = useMemo(() => scatter(24, 4242, 4, 0.5, 1.3), []);
+  const rocks = useMemo(() => meadowScatter(28, 4242, 4), []);
   return (
     <Instances limit={rocks.length}>
       <dodecahedronGeometry args={[0.6, 0]} />
       <meshStandardMaterial color="#a7a399" roughness={1} flatShading />
-      {rocks.map((r, i) => (
-        <Instance key={i} position={[r.x, r.y + 0.3 * r.s, r.z]} scale={[r.s, r.s * 0.7, r.s]} rotation={[r.r, r.r * 1.3, 0]} />
-      ))}
-    </Instances>
-  );
-}
-
-function Tufts() {
-  const tufts = useMemo(() => scatter(30, 909, 3, 0.7, 1.5), []);
-  return (
-    <Instances limit={tufts.length}>
-      <coneGeometry args={[0.5, 0.85, 5]} />
-      <meshStandardMaterial color="#7cbf57" flatShading />
-      {tufts.map((t, i) => (
-        <Instance key={i} position={[t.x, t.y + 0.42 * t.s, t.z]} scale={[t.s, t.s * 1.2, t.s]} rotation={[0, t.r, 0]} />
-      ))}
+      {rocks.map((r, i) => {
+        const s = 0.5 + r.s * 0.8;
+        return <Instance key={i} position={[r.x, r.y + 0.3 * s, r.z]} scale={[s, s * 0.7, s]} rotation={[r.r, r.r * 1.3, 0]} />;
+      })}
     </Instances>
   );
 }
@@ -344,22 +415,18 @@ function Node({ position, phase, reduced }: { position: [number, number, number]
   });
   return (
     <group position={position}>
-      {/* pedestal coin */}
       <mesh position={[0, -1.1, 0]}>
         <cylinderGeometry args={[0.95, 1.05, 0.36, 24]} />
         <meshStandardMaterial color="#3f6fcf" roughness={0.6} />
       </mesh>
-      {/* halo ring around the base */}
       <mesh position={[0, -0.9, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <torusGeometry args={[1.05, 0.07, 8, 32]} />
-        <meshStandardMaterial color="#cfe0ff" roughness={0.5} />
+        <meshStandardMaterial color="#cfe0ff" roughness={0.5} emissive="#9cc0ff" emissiveIntensity={0.25} />
       </mesh>
-      {/* faceted gem marker */}
       <mesh ref={ball}>
         <icosahedronGeometry args={[0.82, 1]} />
-        <meshStandardMaterial color="#5b8def" roughness={0.32} flatShading />
+        <meshStandardMaterial color="#5b8def" roughness={0.3} flatShading emissive="#2f5fd0" emissiveIntensity={0.15} />
       </mesh>
-      {/* contact shadow */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.28, 0]}>
         <circleGeometry args={[0.95, 24]} />
         <meshBasicMaterial color="#000000" transparent opacity={0.16} />
@@ -456,24 +523,33 @@ export function PathScene() {
   return (
     <Canvas
       dpr={[1, 2]}
+      gl={{ antialias: false, toneMappingExposure: 1.05 }}
       camera={{ position: [0, 6, 30], fov: 48 }}
       style={{ width: "100%", height: "100%", display: "block" }}
     >
       <color attach="background" args={["#e6f2fb"]} />
-      <fog attach="fog" args={["#dfeefb", 24, 175]} />
+      <fog attach="fog" args={["#dfeefb", 30, 200]} />
       <SkyDome />
       <Clouds />
+      <Mountains />
       <FollowCam progress={progress} />
       <hemisphereLight args={["#dcefff", "#83ad5e", 0.55]} />
-      <ambientLight intensity={0.35} />
-      <directionalLight position={[12, 16, 8]} intensity={1.05} color="#fff3da" />
+      <ambientLight intensity={0.32} />
+      <directionalLight position={[12, 16, 8]} intensity={1.1} color="#fff3da" />
       <Ground />
       <StonePath />
       <Grass />
-      <Tufts />
+      <Flowers />
       <Rocks />
       <Trees />
       <Nodes reduced={reduced} />
+      <EffectComposer multisampling={0}>
+        <Bloom luminanceThreshold={0.82} luminanceSmoothing={0.3} intensity={0.4} mipmapBlur radius={0.6} />
+        <BrightnessContrast brightness={0.0} contrast={0.07} />
+        <HueSaturation saturation={0.12} />
+        <Vignette offset={0.32} darkness={0.46} />
+        <SMAA />
+      </EffectComposer>
     </Canvas>
   );
 }
