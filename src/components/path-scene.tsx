@@ -341,7 +341,7 @@ function PlankPath() {
 }
 
 // --- grass tufts (Kenney) with GPU wind ------------------------------------------------
-function useWind(maxY: number) {
+function useWind(maxY: number, amp = 1) {
   const u = useRef({ uTime: { value: 0 } });
   useFrame((s) => {
     u.current.uTime.value = s.clock.elapsedTime;
@@ -359,12 +359,12 @@ function useWind(maxY: number) {
             float ph = wp.x * 0.28 + wp.z * 0.28;
             float w = sin(uTime * 1.3 + ph) + 0.35 * sin(uTime * 2.7 + ph * 1.7);
             float bend = clamp(position.y / ${maxY.toFixed(3)}, 0.0, 1.0);
-            transformed.x += w * 0.12 * bend;
-            transformed.z += w * 0.07 * bend;
+            transformed.x += w * ${(0.12 * amp).toFixed(3)} * bend;
+            transformed.z += w * ${(0.07 * amp).toFixed(3)} * bend;
           #endif`
         );
     },
-    [maxY]
+    [maxY, amp]
   );
 }
 
@@ -396,6 +396,34 @@ function GrassTufts() {
   return <instancedMesh ref={ref} args={[geometry, material, matrices.length]} frustumCulled={false} />;
 }
 
+// Tall yellow flowers, instanced + wind-swayed and spread across the field.
+function WindFlowers() {
+  const { scene } = useGLTF("/models/flowers-tall.glb");
+  const onBeforeCompile = useWind(0.462, 0.6); // gentler sway than grass
+  const { geometry, material } = useMemo(() => {
+    const b = bakedMesh(scene);
+    const mat = (b.material as THREE.MeshStandardMaterial).clone();
+    mat.onBeforeCompile = onBeforeCompile;
+    mat.customProgramCacheKey = () => "flowers-tall-wind";
+    return { geometry: b.geometry, material: mat };
+  }, [scene, onBeforeCompile]);
+  const matrices = useMemo(() => {
+    const places = organicScatter(44, 149, 2.4, 0.09); // more of them, well spread
+    return places.map((p) => {
+      const s = 1.5 * (0.8 + p.s * 0.5);
+      return trsTilt(p.x, 0, p.z, p.tx * 0.12, p.r, p.tz * 0.12, s, s, s);
+    });
+  }, []);
+  const ref = useRef<THREE.InstancedMesh>(null);
+  useEffect(() => {
+    const im = ref.current;
+    if (!im) return;
+    matrices.forEach((m, i) => im.setMatrixAt(i, m));
+    im.instanceMatrix.needsUpdate = true;
+  }, [matrices, geometry]);
+  return <instancedMesh ref={ref} args={[geometry, material, matrices.length]} frustumCulled={false} />;
+}
+
 // --- scattered stylized props (Clone) --------------------------------------------------
 type ModelCfg = { url: string; scale: number; count: number; seed: number; clearance: number; cast: boolean; tilt: number };
 
@@ -410,7 +438,6 @@ const PROP_MODELS: ModelCfg[] = [
   { url: "/models/mushrooms.glb", scale: 1.4, count: 16, seed: 127, clearance: 3, cast: false, tilt: 0.14 },
   { url: "/models/plant.glb", scale: 1.5, count: 26, seed: 131, clearance: 2.3, cast: false, tilt: 0.14 },
   { url: "/models/flowers.glb", scale: 1.1, count: 40, seed: 163, clearance: 2.3, cast: false, tilt: 0.12 },
-  { url: "/models/flowers-tall.glb", scale: 1.5, count: 12, seed: 149, clearance: 2.4, cast: false, tilt: 0.1 },
   { url: "/models/sign.glb", scale: 2.2, count: 4, seed: 179, clearance: 3, cast: true, tilt: 0 },
   { url: "/models/flag.glb", scale: 2.4, count: 5, seed: 191, clearance: 3.5, cast: true, tilt: 0 },
 ];
@@ -420,6 +447,7 @@ const ENV_URLS = [
   "/models/platform.glb",
   "/models/grass.glb",
   "/models/cloud.glb",
+  "/models/flowers-tall.glb",
 ];
 [...PROP_URLS, ...ENV_URLS].forEach((u) => useGLTF.preload(u));
 
@@ -625,6 +653,7 @@ export function PathScene() {
         <Mountains />
         <PlankPath />
         <GrassTufts />
+        <WindFlowers />
         <Props />
       </Suspense>
       <Nodes reduced={reduced} />
