@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "SwipeEd — Active micro-learning",
-    short_name: "SwipeEd",
+    name: "Green Light / Red Light",
+    short_name: "Green/Red",
     description:
-      "Active micro-learning, one swipe at a time. The first game on the Praxis engine.",
+      "Swipe right on the green flags, left on the red ones — learn to spot healthy and unhealthy relationships.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

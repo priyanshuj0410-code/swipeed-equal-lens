@@ -59,6 +59,8 @@
   --brand-500: oklch(0.62 0.21 280);
   --brand-600: oklch(0.55 0.22 280);
   --brand-foreground: oklch(0.985 0 0);
+  --flag-green: oklch(0.62 0.16 150);
+  --flag-red: oklch(0.6 0.2 25);
 
   /* --- Semantic tokens --- */
   --background: oklch(1 0 0);
@@ -96,6 +98,8 @@
 }
 
 .dark {
+  --flag-green: oklch(0.72 0.16 150);
+  --flag-red: oklch(0.7 0.19 25);
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);

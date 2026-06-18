@@ -1,45 +1,46 @@
-# SwipeEd
+# Green Light / Red Light
 
 **The first game on the [Praxis](https://github.com/priyanshuj0410-code/praxis-engine) engine.**
+(Repo/deployment keep the historical `swipeed` name; this is the real game it always stood in for.)
 
-SwipeEd turns the swipe — the gesture most associated with passive "brainrot" scrolling — into
-**active micro-learning**: bite-sized cards you engage with, reveal, and self-assess. Swipe right if
-you know it, left to review.
+> "Swipe right on the green flags, left on the red ones — and learn to read a relationship before
+> you're in one."
 
-This is a standalone, deployable app used to validate the platform end-to-end and as the reference
-title for the per-game repo model. It lives in **its own repo** (separate from `praxis-engine`) per
-the platform's architecture.
+A fast, single-card **swipe game** that teaches 12–15-year-olds to recognise healthy and unhealthy
+behaviours in relationships (with friends, crushes, family and online). Read a short scenario, make
+a gut call — **swipe right = green flag, left = red flag** — then the reveal names the behaviour and
+explains why. Behaviour-only content; no sexual content; safeguarding-first.
 
 ## Stack
+- **Next.js (App Router)** + TypeScript + **Tailwind v4** + **vanilla shadcn/ui**
+- **Separate design token system** (`src/app/globals.css`) incl. `--flag-green` / `--flag-red`;
+  re-theme by token, never by editing components
+- **PWA** — installable, offline via service worker (`public/sw.js`)
+- Anonymous, **on-device** state (`src/lib/store.tsx`) — no accounts, no public leaderboards
 
-- **Next.js (App Router)** + **TypeScript** + **React**
-- **Tailwind CSS v4** + **vanilla shadcn/ui** (components are unmodified; all theming is token-driven)
-- **Separate design token system** — primitive → semantic CSS variables in `src/app/globals.css`;
-  re-theme by swapping token values, never by editing components
-- **PWA** — installable on mobile via `app/manifest.ts` + a service worker (`public/sw.js`)
+## How it's built (content is data, never hard-coded)
+- `src/content/signs.ts` — the One Love **20 signs** taxonomy
+- `src/content/cards.ts` — the card bank (seeded from the GDD sample; `locale`-keyed, i18n-ready)
+- `src/content/decks.ts` — deck registry + Daily Deck + School-Comfort filtering
+- `src/lib/scoring.ts` — points, streaks, stars (no speed reward, no fail-state)
+- `src/components/swipe-deck.tsx` — the swipe loop + reveal (+ unscored safeguarding screen)
 
-## Develop
+## Key design rules (from the GDD — requirements, not polish)
+- **No fail-state**; never reward speed/guessing; disguised cards score double.
+- **Safeguarding** cards are **never scored** → calm supportive screen; **Get Help** is on every screen.
+- **Behaviour-only**; **School-Comfort Mode** hides romantic decks.
+- **Accessibility**: every swipe has a button equivalent; colour is never the only signal (icon +
+  label + position); resizable text; works offline.
 
+## Develop & deploy
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # production build
+npm run build
 ```
+Deployed to Vercel (`vercel deploy --prod`) at https://swipeed.vercel.app.
 
-Regenerate placeholder PWA icons (solid brand colour):
-
-```bash
-node scripts/gen-icons.mjs
-```
-
-## Deploy
-
-Connected to **Vercel** with Git integration: every push to `main` ships a production deploy and
-every PR gets a preview URL.
-
-## Relationship to the Praxis engine
-
-Today SwipeEd self-contains its stack (its own tokens + shadcn). As the engine matures, the shared
-design system and Engine SDK will be published from `praxis-engine`, and SwipeEd will consume them and
-register with the engine's game registry — without forking the design system. See the engine's OKF
-docs: `architecture/repo-topology.md`, `architecture/design-system.md`, `architecture/frontend-stack.md`.
+## MVP scope
+Daily Deck + Online & DMs + Friendships (School-Comfort-safe), swipe + reveal + Flag-pedia + Get Help
++ School-Comfort toggle. Later (GDD Phase 2/3): The Switch story mode, Classroom Mode, Build-a-Card,
+Hindi + regional languages, full 250–400-card bank, audio narration.

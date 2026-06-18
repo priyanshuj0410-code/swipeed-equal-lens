@@ -1,28 +1,89 @@
-import { SwipeDeck } from "@/components/swipe-deck";
+"use client";
 
-export default function Home() {
+import Link from "next/link";
+import { BookHeart, Settings as SettingsIcon, Flame, Star, ChevronRight } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { buttonVariants } from "@/components/ui/button";
+import { useProfile } from "@/lib/store";
+import { availableDecks } from "@/content/decks";
+
+export default function HomePage() {
+  const { profile } = useProfile();
+  const decks = availableDecks(profile.schoolComfort);
+
   return (
-    <div className="flex flex-1 flex-col items-center justify-between gap-8 px-5 py-10">
-      <header className="flex flex-col items-center gap-2 text-center">
-        <div className="flex items-center gap-2">
-          <span className="grid size-8 place-items-center rounded-lg bg-primary font-bold text-primary-foreground">
-            S
+    <div className="mx-auto flex w-full max-w-sm flex-1 flex-col gap-5 px-5 py-6 pb-24">
+      <header className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <span className="grid size-10 place-items-center rounded-xl bg-primary/15 text-2xl">
+            {profile.avatar}
           </span>
-          <span className="text-xl font-semibold tracking-tight">SwipeEd</span>
+          <div>
+            <p className="text-xs text-muted-foreground">Green Light / Red Light</p>
+            <h1 className="text-lg font-semibold">Hi, {profile.name || "there"}</h1>
+          </div>
         </div>
-        <p className="max-w-xs text-sm text-muted-foreground">
-          Active micro-learning, one swipe at a time. Swipe right if you know it, left to review.
-        </p>
+        <Link
+          href="/settings"
+          aria-label="Settings"
+          className={buttonVariants({ variant: "ghost", size: "icon" })}
+        >
+          <SettingsIcon className="size-5" aria-hidden />
+        </Link>
       </header>
 
-      <main className="flex w-full flex-1 items-center justify-center">
-        <SwipeDeck />
-      </main>
+      <div className="grid grid-cols-2 gap-3 text-sm">
+        <Card className="flex items-center gap-2 p-3">
+          <Flame className="size-5" aria-hidden style={{ color: "var(--flag-red)" }} />
+          <span>
+            Best streak <span className="font-semibold">{profile.bestStreak}</span>
+          </span>
+        </Card>
+        <Card className="flex items-center gap-2 p-3">
+          <Star className="size-5" aria-hidden style={{ color: "var(--flag-green)" }} />
+          <span>
+            <span className="font-semibold">{profile.coins}</span> pts
+          </span>
+        </Card>
+      </div>
 
-      <footer className="text-center text-xs text-muted-foreground">
-        First game on the <span className="font-medium text-foreground">Praxis</span> engine ·
-        installable PWA
-      </footer>
+      <div className="flex flex-col gap-3">
+        {decks.map((d) => {
+          const st = profile.deckStars[d.id] ?? 0;
+          return (
+            <Link key={d.id} href={`/play/${d.id}`}>
+              <Card className="flex items-center justify-between gap-3 p-4 transition-colors hover:bg-accent">
+                <div className="min-w-0">
+                  <p className="font-medium">{d.title}</p>
+                  <p className="truncate text-xs text-muted-foreground">{d.blurb}</p>
+                </div>
+                {st > 0 ? (
+                  <span className="flex shrink-0 gap-0.5" aria-label={`${st} of 3 stars`}>
+                    {[0, 1, 2].map((i) => (
+                      <Star
+                        key={i}
+                        className="size-3.5"
+                        aria-hidden
+                        style={{ color: "var(--flag-green)" }}
+                        fill={i < st ? "currentColor" : "none"}
+                      />
+                    ))}
+                  </span>
+                ) : (
+                  <ChevronRight className="size-5 shrink-0 text-muted-foreground" aria-hidden />
+                )}
+              </Card>
+            </Link>
+          );
+        })}
+      </div>
+
+      <Link
+        href="/flagpedia"
+        className={buttonVariants({ variant: "outline", className: "gap-2" })}
+      >
+        <BookHeart className="size-4" aria-hidden /> Flag-pedia · the 20 signs
+      </Link>
     </div>
   );
 }

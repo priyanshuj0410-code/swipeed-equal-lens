@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AppShell } from "@/components/app-shell";
 import { ServiceWorkerRegister } from "@/components/service-worker-register";
 
 const geistSans = Geist({
@@ -14,12 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  applicationName: "SwipeEd",
-  title: "SwipeEd — Active micro-learning",
+  applicationName: "Green Light / Red Light",
+  title: "Green Light / Red Light",
   description:
-    "SwipeEd turns the swipe into active learning — bite-sized cards you engage with instead of passively scrolling. The first game on the Praxis engine.",
+    "Swipe right on the green flags, left on the red ones — and learn to read a relationship before you're in one. A swipe game for spotting healthy & unhealthy relationships.",
   manifest: "/manifest.webmanifest",
-  appleWebApp: { capable: true, statusBarStyle: "default", title: "SwipeEd" },
+  appleWebApp: { capable: true, statusBarStyle: "default", title: "Green Light / Red Light" },
   icons: { icon: "/icon-192.png", apple: "/icon-192.png" },
 };
 
@@ -41,8 +42,8 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        {children}
+      <body className="flex min-h-full flex-col">
+        <AppShell>{children}</AppShell>
         <ServiceWorkerRegister />
       </body>
     </html>
