@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { Instances, Instance } from "@react-three/drei";
+import { Instances, Instance, useGLTF, Clone } from "@react-three/drei";
 import {
   EffectComposer,
   Bloom,
@@ -12,11 +12,11 @@ import {
   BrightnessContrast,
   DepthOfField,
 } from "@react-three/postprocessing";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-// Stylized cel-shaded open-world pass (Arceus / BotW flavour): MeshToonMaterial with a
-// stepped gradient ramp, a sun with following cast/receive shadows, GPU wind grass +
-// wildflowers, atmospheric mountain layers, and a cinematic post chain (bloom, DoF, grade).
+// Cel-shaded open-world pass (Arceus / BotW flavour). Stylized CC0 GLB nature models
+// (Quaternius MegaKit) re-shaded to toon, on a terrain with a sun + following shadows,
+// GPU wind grass, atmospheric mountain layers, and a cinematic post chain.
 
 // --- shared toon ramp: a few hard luminance steps -> crisp cel bands ---
 const TOON_GRAD = (() => {
@@ -203,14 +203,7 @@ function Mountains() {
         const ang = (i / count) * Math.PI * 2 + (rng() - 0.5) * 0.4;
         const r = rad + (rng() - 0.5) * radJ;
         const h = hMin + rng() * (hMax - hMin);
-        a.push({
-          x: Math.cos(ang) * r,
-          z: -90 + Math.sin(ang) * r,
-          y: base,
-          h,
-          w: h * (0.55 + rng() * 0.3),
-          r: rng() * Math.PI,
-        });
+        a.push({ x: Math.cos(ang) * r, z: -90 + Math.sin(ang) * r, y: base, h, w: h * (0.55 + rng() * 0.3), r: rng() * Math.PI });
       }
       return a;
     };
@@ -323,102 +316,85 @@ function Grass() {
   );
 }
 
-function Flowers() {
-  const flowers = useMemo(() => meadowScatter(380, 7000, 2.6), []);
-  const palette = ["#fbfbf4", "#ffd84d", "#ff9ec7", "#c2a7ff"];
+// --- stylized CC0 models (Quaternius "Stylized Nature MegaKit", CC0) -------------------
+type ModelCfg = { url: string; scale: number; minY: number; count: number; seed: number; clearance: number; cast: boolean };
+
+const TREE_MODELS: ModelCfg[] = [
+  { url: "/models/tree_a.glb", scale: 0.92, minY: -0.243, count: 5, seed: 11, clearance: 7.5, cast: true },
+  { url: "/models/tree_b.glb", scale: 0.72, minY: -0.243, count: 5, seed: 23, clearance: 7.5, cast: true },
+  { url: "/models/pine_a.glb", scale: 0.7, minY: -0.235, count: 4, seed: 37, clearance: 7.5, cast: true },
+  { url: "/models/pine_b.glb", scale: 0.78, minY: -0.235, count: 4, seed: 53, clearance: 7.5, cast: true },
+  { url: "/models/twisted.glb", scale: 0.42, minY: -0.2, count: 3, seed: 71, clearance: 9, cast: true },
+];
+const PROP_MODELS: ModelCfg[] = [
+  { url: "/models/rock_a.glb", scale: 0.8, minY: -0.316, count: 5, seed: 101, clearance: 4, cast: true },
+  { url: "/models/rock_b.glb", scale: 0.8, minY: -0.271, count: 5, seed: 113, clearance: 4, cast: true },
+  { url: "/models/pebble.glb", scale: 1.4, minY: -0.0078, count: 12, seed: 127, clearance: 2.4, cast: false },
+  { url: "/models/bush.glb", scale: 1.0, minY: -0.235, count: 6, seed: 131, clearance: 5, cast: true },
+  { url: "/models/bush_flowers.glb", scale: 1.0, minY: -0.235, count: 6, seed: 149, clearance: 5, cast: true },
+  { url: "/models/flowers.glb", scale: 0.42, minY: -0.057, count: 16, seed: 163, clearance: 2.6, cast: false },
+  { url: "/models/fern.glb", scale: 0.38, minY: -0.248, count: 9, seed: 179, clearance: 4, cast: false },
+  { url: "/models/mushroom.glb", scale: 0.95, minY: -0.0175, count: 10, seed: 191, clearance: 3, cast: false },
+];
+const ALL_MODELS = [...TREE_MODELS, ...PROP_MODELS];
+ALL_MODELS.forEach((m) => useGLTF.preload(m.url));
+
+function toToon(mat: THREE.MeshStandardMaterial) {
+  const t = new THREE.MeshToonMaterial({
+    map: mat.map ?? null,
+    normalMap: mat.normalMap ?? null,
+    color: mat.color ? mat.color.clone() : new THREE.Color("#ffffff"),
+    gradientMap: TOON_GRAD,
+  });
+  if (mat.transparent) {
+    // leaf / flower cards -> crisp alpha cutout so sorting & shading behave
+    t.alphaTest = 0.5;
+    t.transparent = false;
+    t.depthWrite = true;
+    t.side = THREE.DoubleSide;
+  }
+  return t;
+}
+
+// Re-shade a loaded model to toon once; shared across all its scattered clones.
+function usePreparedScene(url: string, cast: boolean) {
+  const { scene } = useGLTF(url);
+  return useMemo(() => {
+    scene.traverse((o) => {
+      const mesh = o as THREE.Mesh;
+      if (!mesh.isMesh) return;
+      const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+      const wasTransparent = mats.some((m) => (m as THREE.MeshStandardMaterial).transparent);
+      mesh.material = Array.isArray(mesh.material)
+        ? mats.map((m) => toToon(m as THREE.MeshStandardMaterial))
+        : toToon(mesh.material as THREE.MeshStandardMaterial);
+      mesh.castShadow = cast && !wasTransparent;
+      mesh.receiveShadow = true;
+    });
+    return scene;
+  }, [scene, cast]);
+}
+
+function Prop({ url, scale, minY, count, seed, clearance, cast }: ModelCfg) {
+  const scene = usePreparedScene(url, cast);
+  const places = useMemo(() => meadowScatter(count, seed, clearance), [count, seed, clearance]);
   return (
-    <group>
-      {palette.map((color, ci) => {
-        const data = flowers.filter((_, i) => i % palette.length === ci);
-        return (
-          <Instances key={ci} limit={data.length}>
-            <icosahedronGeometry args={[0.16, 0]} />
-            <meshToonMaterial color={color} gradientMap={TOON_GRAD} emissive={color} emissiveIntensity={0.14} />
-            {data.map((f, i) => {
-              const sc = 0.7 + f.s * 0.6;
-              return <Instance key={i} position={[f.x, f.y + 0.32 * sc, f.z]} scale={sc} />;
-            })}
-          </Instances>
-        );
+    <>
+      {places.map((p, i) => {
+        const s = scale * (0.82 + p.s * 0.4);
+        return <Clone key={i} object={scene} position={[p.x, p.y - minY * s, p.z]} rotation={[0, p.r, 0]} scale={s} />;
       })}
-    </group>
+    </>
   );
 }
 
-function Trees() {
-  const trees = useMemo(() => meadowScatter(40, 1337, 7.5), []);
-  const pines = useMemo(() => trees.filter((_, i) => i % 2 === 0), [trees]);
-  const blobs = useMemo(() => trees.filter((_, i) => i % 2 === 1), [trees]);
-  const sc = (p: Placement) => 0.85 + p.s * 0.9;
+function Vegetation() {
   return (
-    <group>
-      {/* --- pines: trunk + three tapering tiers --- */}
-      <Instances limit={pines.length} castShadow>
-        <cylinderGeometry args={[0.14, 0.22, 1.0, 6]} />
-        <meshToonMaterial color="#80603c" gradientMap={TOON_GRAD} />
-        {pines.map((t, i) => (
-          <Instance key={i} position={[t.x, t.y + 0.5 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
-        ))}
-      </Instances>
-      <Instances limit={pines.length} castShadow>
-        <coneGeometry args={[1.3, 1.5, 7]} />
-        <meshToonMaterial color="#4f9a3e" gradientMap={TOON_GRAD} />
-        {pines.map((t, i) => (
-          <Instance key={i} position={[t.x, t.y + 1.65 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
-        ))}
-      </Instances>
-      <Instances limit={pines.length} castShadow>
-        <coneGeometry args={[1.0, 1.4, 7]} />
-        <meshToonMaterial color="#5aa847" gradientMap={TOON_GRAD} />
-        {pines.map((t, i) => (
-          <Instance key={i} position={[t.x, t.y + 2.6 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
-        ))}
-      </Instances>
-      <Instances limit={pines.length} castShadow>
-        <coneGeometry args={[0.7, 1.2, 7]} />
-        <meshToonMaterial color="#67b552" gradientMap={TOON_GRAD} />
-        {pines.map((t, i) => (
-          <Instance key={i} position={[t.x, t.y + 3.5 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
-        ))}
-      </Instances>
-
-      {/* --- blob trees: trunk + clustered foliage --- */}
-      <Instances limit={blobs.length} castShadow>
-        <cylinderGeometry args={[0.16, 0.24, 1.2, 6]} />
-        <meshToonMaterial color="#7a5a3a" gradientMap={TOON_GRAD} />
-        {blobs.map((t, i) => (
-          <Instance key={i} position={[t.x, t.y + 0.6 * sc(t), t.z]} scale={sc(t)} rotation={[0, t.r, 0]} />
-        ))}
-      </Instances>
-      <Instances limit={blobs.length} castShadow>
-        <icosahedronGeometry args={[1.15, 1]} />
-        <meshToonMaterial color="#6fb04a" gradientMap={TOON_GRAD} />
-        {blobs.map((t, i) => (
-          <Instance key={i} position={[t.x, t.y + 2.15 * sc(t), t.z]} scale={[sc(t), sc(t) * 0.92, sc(t)]} rotation={[t.r, t.r, 0]} />
-        ))}
-      </Instances>
-      <Instances limit={blobs.length} castShadow>
-        <icosahedronGeometry args={[0.8, 1]} />
-        <meshToonMaterial color="#84c25c" gradientMap={TOON_GRAD} />
-        {blobs.map((t, i) => (
-          <Instance key={i} position={[t.x + 0.55 * sc(t), t.y + 2.7 * sc(t), t.z + 0.35 * sc(t)]} scale={sc(t)} rotation={[t.r * 1.3, t.r, 0]} />
-        ))}
-      </Instances>
-    </group>
-  );
-}
-
-function Rocks() {
-  const rocks = useMemo(() => meadowScatter(28, 4242, 4), []);
-  return (
-    <Instances limit={rocks.length} castShadow receiveShadow>
-      <dodecahedronGeometry args={[0.6, 0]} />
-      <meshToonMaterial color="#a7a399" gradientMap={TOON_GRAD} />
-      {rocks.map((r, i) => {
-        const s = 0.5 + r.s * 0.8;
-        return <Instance key={i} position={[r.x, r.y + 0.3 * s, r.z]} scale={[s, s * 0.7, s]} rotation={[r.r, r.r * 1.3, 0]} />;
-      })}
-    </Instances>
+    <>
+      {ALL_MODELS.map((m) => (
+        <Prop key={m.url} {...m} />
+      ))}
+    </>
   );
 }
 
@@ -464,7 +440,6 @@ function Nodes({ reduced }: { reduced: boolean }) {
   );
 }
 
-// Sun: warm directional key light whose shadow camera follows the path so shadows stay crisp.
 function SunLight({ progress }: { progress: React.MutableRefObject<number> }) {
   const light = useRef<THREE.DirectionalLight>(null);
   const scene = useThree((s) => s.scene);
@@ -589,9 +564,9 @@ export function PathScene() {
       <Ground />
       <StonePath />
       <Grass />
-      <Flowers />
-      <Rocks />
-      <Trees />
+      <Suspense fallback={null}>
+        <Vegetation />
+      </Suspense>
       <Nodes reduced={reduced} />
       <EffectComposer multisampling={0}>
         <DepthOfField focusDistance={0.012} focalLength={0.03} bokehScale={2} height={480} />
