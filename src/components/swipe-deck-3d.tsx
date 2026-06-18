@@ -2,10 +2,10 @@
 
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Html, RoundedBox } from "@react-three/drei";
+import { RoundedBox } from "@react-three/drei";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Check, Flag, Flame, Sparkles, ArrowRight, LifeBuoy } from "lucide-react";
+import { Check, Flag, Flame, ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import type { Card as GameCard, DeckSummary, Flag as FlagType } from "@/lib/types";
 import { cardPoints, POINTS } from "@/lib/scoring";
@@ -13,12 +13,13 @@ import { DECK_BY_ID } from "@/content/decks";
 import { celebrate } from "@/lib/confetti";
 import { useProfile } from "@/lib/store";
 
+type Labels = { left: string; right: string };
 type Props = {
   cards: GameCard[];
   deckId: DeckSummary["deckId"];
   mode?: "score" | "review";
   onComplete: (summary: DeckSummary) => void;
-  labels?: { left: string; right: string };
+  labels?: Labels;
   backHref?: string;
   backLabel?: string;
 };
@@ -36,7 +37,152 @@ function vibrate(p: number | number[]) {
   }
 }
 
-// --- grassland backdrop -----------------------------------------------------------------
+// --- card face drawn to a canvas -> texture on the 3D card -----------------------------
+const C = { text: "#2d2a32", muted: "#6b7280", primary: "#4f6ef7", green: "#2e9e5b", red: "#e0564c" };
+
+function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+function wrap(ctx: CanvasRenderingContext2D, text: string, maxW: number) {
+  const words = text.split(" ");
+  const lines: string[] = [];
+  let line = "";
+  for (const w of words) {
+    const test = line ? line + " " + w : w;
+    if (ctx.measureText(test).width > maxW && line) {
+      lines.push(line);
+      line = w;
+    } else line = test;
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+function makeCardTexture(card: GameCard, phase: "play" | "reveal", correct: boolean, points: number, L: Labels) {
+  const W = 540;
+  const H = 720;
+  const cv = document.createElement("canvas");
+  cv.width = W;
+  cv.height = H;
+  const ctx = cv.getContext("2d")!;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = "#ffffff";
+  roundRect(ctx, 0, 0, W, H, 44);
+  ctx.fill();
+  const pad = 44;
+  const font = (s: number, w = 700) => `${w} ${s}px ui-rounded, "Segoe UI", system-ui, sans-serif`;
+
+  if (phase === "play") {
+    // context pill
+    ctx.font = font(22, 600);
+    const tag = card.context_tag.toUpperCase();
+    const tw = ctx.measureText(tag).width;
+    ctx.fillStyle = "rgba(79,110,247,0.12)";
+    roundRect(ctx, pad, pad, tw + 36, 42, 21);
+    ctx.fill();
+    ctx.fillStyle = C.primary;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    ctx.fillText(tag, pad + 18, pad + 22);
+    // scenario centred, auto-shrink to fit
+    ctx.fillStyle = C.text;
+    ctx.textAlign = "center";
+    let fs = 42;
+    let lines = wrap(ctx, card.scenario_text, W - pad * 2);
+    ctx.font = font(fs);
+    lines = wrap(ctx, card.scenario_text, W - pad * 2);
+    while (lines.length * fs * 1.25 > H - 280 && fs > 22) {
+      fs -= 2;
+      ctx.font = font(fs);
+      lines = wrap(ctx, card.scenario_text, W - pad * 2);
+    }
+    const lh = fs * 1.25;
+    let y = H / 2 - ((lines.length - 1) * lh) / 2;
+    for (const ln of lines) {
+      ctx.fillText(ln, W / 2, y);
+      y += lh;
+    }
+    // flag labels
+    ctx.font = font(22, 600);
+    ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = C.red;
+    ctx.textAlign = "left";
+    ctx.fillText("◀ " + L.left, pad, H - pad);
+    ctx.fillStyle = C.green;
+    ctx.textAlign = "right";
+    ctx.fillText(L.right + " ▶", W - pad, H - pad);
+  } else if (card.is_safeguarding) {
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    ctx.fillStyle = C.primary;
+    ctx.font = font(26, 800);
+    ctx.fillText("You matter", pad, pad);
+    ctx.fillStyle = C.text;
+    ctx.font = font(38, 800);
+    let y = pad + 56;
+    for (const ln of wrap(ctx, "This one is serious — and it's not your fault.", W - pad * 2)) {
+      ctx.fillText(ln, pad, y);
+      y += 48;
+    }
+    ctx.fillStyle = C.muted;
+    ctx.font = font(24, 400);
+    y += 16;
+    for (const ln of wrap(ctx, card.feedback_short, W - pad * 2)) {
+      ctx.fillText(ln, pad, y);
+      y += 34;
+    }
+    ctx.fillStyle = C.muted;
+    ctx.font = font(20, 600);
+    ctx.fillText("Talk to an adult you trust · Get Help", pad, H - pad);
+  } else {
+    const col = correct ? C.green : C.red;
+    ctx.fillStyle = col;
+    roundRect(ctx, 0, 0, W, 12, 6);
+    ctx.fill();
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    ctx.fillStyle = col;
+    ctx.font = font(26, 800);
+    ctx.fillText(correct ? "SPOT ON" : "LOOK AGAIN", pad, pad + 6);
+    if (correct && points > 0) {
+      ctx.textAlign = "right";
+      ctx.fillText("+" + points, W - pad, pad + 6);
+      ctx.textAlign = "left";
+    }
+    ctx.fillStyle = col;
+    ctx.font = font(46, 800);
+    let y = pad + 60;
+    for (const ln of wrap(ctx, card.sign, W - pad * 2)) {
+      ctx.fillText(ln, pad, y);
+      y += 52;
+    }
+    ctx.fillStyle = C.muted;
+    ctx.font = font(25, 400);
+    y += 14;
+    for (const ln of wrap(ctx, card.feedback_short, W - pad * 2)) {
+      ctx.fillText(ln, pad, y);
+      y += 36;
+    }
+    if (card.is_disguised) {
+      ctx.fillStyle = C.primary;
+      ctx.font = font(20, 700);
+      ctx.fillText("Disguised — nice catch", pad, H - pad);
+    }
+  }
+
+  const tex = new THREE.CanvasTexture(cv);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 8;
+  return tex;
+}
+
+// --- backdrop --------------------------------------------------------------------------
 function SkyDome() {
   const mat = useMemo(
     () =>
@@ -79,22 +225,39 @@ function Ground() {
     return g;
   }, []);
   return (
-    <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+    <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]}>
       <meshStandardMaterial vertexColors />
     </mesh>
   );
 }
 
-// gentle idle float + lean toward the dragged direction
-function Card3D({ dx, exiting, children }: { dx: number; exiting: FlagType | null; children: React.ReactNode }) {
+function Card3D({
+  dx,
+  exiting,
+  card,
+  phase,
+  correct,
+  points,
+  L,
+}: {
+  dx: number;
+  exiting: FlagType | null;
+  card: GameCard;
+  phase: "play" | "reveal";
+  correct: boolean;
+  points: number;
+  L: Labels;
+}) {
   const group = useRef<THREE.Group>(null);
   const target = useMemo(() => new THREE.Vector3(), []);
+  const texture = useMemo(() => makeCardTexture(card, phase, correct, points, L), [card, phase, correct, points, L]);
+  useEffect(() => () => texture.dispose(), [texture]);
   useFrame((s) => {
     const g = group.current;
     if (!g) return;
     const dir = exiting === "green" ? 1 : exiting === "red" ? -1 : 0;
     if (exiting) {
-      target.set(dir * 9, 2.6, 1);
+      target.set(dir * 9, 3.4, 1);
       g.position.lerp(target, 0.18);
       g.rotation.z = THREE.MathUtils.lerp(g.rotation.z, -dir * 0.5, 0.18);
     } else {
@@ -106,106 +269,44 @@ function Card3D({ dx, exiting, children }: { dx: number; exiting: FlagType | nul
   });
   return (
     <group ref={group} position={[0, 2.6, 0]}>
-      <RoundedBox args={[3.4, 4.5, 0.3]} radius={0.12} smoothness={4}>
+      <RoundedBox args={[3.4, 4.5, 0.28]} radius={0.12} smoothness={4}>
         <meshStandardMaterial color="#ffffff" roughness={0.7} />
       </RoundedBox>
-      <Html transform position={[0, 0, 0.17]} scale={0.0118} zIndexRange={[20, 0]}>
-        <div className="h-[380px] w-[286px] select-none">{children}</div>
-      </Html>
+      <mesh position={[0, 0, 0.151]}>
+        <planeGeometry args={[3.3, 4.4]} />
+        <meshBasicMaterial map={texture} toneMapped={false} transparent />
+      </mesh>
     </group>
   );
 }
 
-function Scene({ dx, exiting, face }: { dx: number; exiting: FlagType | null; face: React.ReactNode }) {
+function Scene(props: { dx: number; exiting: FlagType | null; card: GameCard; phase: "play" | "reveal"; correct: boolean; points: number; L: Labels }) {
   return (
-    <Canvas dpr={[1, 1.8]} camera={{ position: [0, 2.8, 7.4], fov: 42 }} gl={{ antialias: true }} style={{ width: "100%", height: "100%" }}>
+    <Canvas dpr={[1, 1.8]} camera={{ position: [0, 2.9, 7.4], fov: 42 }} style={{ width: "100%", height: "100%" }}>
       <color attach="background" args={["#eaf6ff"]} />
       <fog attach="fog" args={["#dbeefb", 24, 120]} />
       <SkyDome />
       <hemisphereLight args={["#dcefff", "#8fc06a", 0.6]} />
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[6, 10, 6]} intensity={1.1} color="#fff3da" />
+      <ambientLight intensity={0.55} />
+      <directionalLight position={[6, 10, 6]} intensity={1.05} color="#fff3da" />
       <Ground />
-      <Card3D dx={dx} exiting={exiting}>
-        {face}
-      </Card3D>
+      <Card3D {...props} />
     </Canvas>
   );
 }
 
-// --- card faces (DOM, rendered onto the 3D card) ---------------------------------------
-function PlayFace({ card, L }: { card: GameCard; L: { left: string; right: string } }) {
-  return (
-    <div className="flex h-full w-full flex-col gap-3 rounded-[1.6rem] bg-card p-5 text-card-foreground ring-1 ring-border">
-      <span className="flex w-fit items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary">
-        {card.context_tag}
-      </span>
-      <p className="flex flex-1 items-center text-balance text-center font-display text-[1.55rem] font-semibold leading-snug">
-        {card.scenario_text}
-      </p>
-      <div className="flex items-center justify-between text-[11px] font-medium text-muted-foreground">
-        <span className="flex items-center gap-1" style={{ color: "var(--flag-red)" }}>
-          <Flag className="size-3.5" aria-hidden /> {L.left}
-        </span>
-        <span className="flex items-center gap-1" style={{ color: "var(--flag-green)" }}>
-          {L.right} <Check className="size-3.5" aria-hidden />
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function RevealFace({ card, correct, points }: { card: GameCard; correct: boolean; points: number }) {
-  if (card.is_safeguarding) {
-    return (
-      <div className="flex h-full w-full flex-col gap-3 rounded-[1.6rem] bg-card p-5 text-card-foreground ring-1 ring-border">
-        <span className="flex items-center gap-1.5 text-sm font-extrabold uppercase tracking-wide text-primary">
-          <LifeBuoy className="size-5" aria-hidden /> You matter
-        </span>
-        <p className="font-display text-2xl font-bold leading-tight">This one&apos;s serious — and it&apos;s not your fault.</p>
-        <p className="flex-1 text-sm leading-relaxed text-muted-foreground">{card.feedback_short}</p>
-        <p className="text-xs text-muted-foreground">Talk to an adult you trust. Tap Get Help anytime.</p>
-      </div>
-    );
-  }
-  const color = correct ? "var(--flag-green)" : "var(--flag-red)";
-  return (
-    <div className="relative flex h-full w-full flex-col gap-2.5 overflow-hidden rounded-[1.6rem] bg-card p-5 text-card-foreground ring-1 ring-border">
-      <span className="absolute inset-x-0 top-0 h-1.5" style={{ background: color }} aria-hidden />
-      <div className="flex items-center justify-between pt-1">
-        <span className="flex items-center gap-1.5 text-sm font-extrabold uppercase tracking-wide" style={{ color }}>
-          {correct ? <Check className="size-5" aria-hidden /> : <Flag className="size-5" aria-hidden />}
-          {correct ? "Spot on" : "Look again"}
-        </span>
-        {correct && points > 0 && (
-          <span className="flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold text-white" style={{ background: color }}>
-            <Sparkles className="size-3" aria-hidden /> +{points}
-          </span>
-        )}
-      </div>
-      <p className="font-display text-[1.7rem] font-bold leading-tight" style={{ color }}>
-        {card.sign}
-      </p>
-      <p className="flex-1 text-sm leading-relaxed text-muted-foreground">{card.feedback_short}</p>
-      {card.is_disguised && (
-        <span className="w-fit rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-bold uppercase text-primary">Disguised — nice catch</span>
-      )}
-    </div>
-  );
-}
-
-// --- the game ---------------------------------------------------------------------------
+// --- the game --------------------------------------------------------------------------
 export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels, backHref = "/decks", backLabel = "Back" }: Props) {
   const { recordCard } = useProfile();
   const scoring = mode === "score";
-  const L = labels ?? { left: "Red flag", right: "Green flag" };
+  const L = useMemo<Labels>(() => labels ?? { left: "Red flag", right: "Green flag" }, [labels]);
   const deckTitle = DECK_BY_ID[deckId]?.title ?? "Deck";
 
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<"play" | "reveal">("play");
   const [chosen, setChosen] = useState<FlagType | null>(null);
   const [exiting, setExiting] = useState<FlagType | null>(null);
-  const [dx, setDx] = useState(0);
+  const [dx] = useState(0);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
   const [bestStreak, setBestStreak] = useState(0);
@@ -241,7 +342,6 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
     setLastPoints(pts);
     setChosen(flag);
     setExiting(flag);
-    setDx(0);
     exitTimer.current = setTimeout(() => {
       setExiting(null);
       setPhase("reveal");
@@ -261,18 +361,14 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
     setIndex((i) => i + 1);
     setChosen(null);
     setPhase("play");
-    setDx(0);
   }
 
-  const face =
-    phase === "reveal" && chosen ? <RevealFace card={card} correct={correct} points={lastPoints} /> : <PlayFace card={card} L={L} />;
   const busy = phase !== "play" || exiting !== null;
 
   return (
     <div className="fixed inset-0 z-0 touch-none overscroll-none bg-[#eaf6ff]">
-      <Scene dx={dx} exiting={exiting} face={face} />
+      <Scene dx={dx} exiting={exiting} card={card} phase={phase} correct={correct} points={lastPoints} L={L} />
 
-      {/* back */}
       <Link
         href={backHref}
         aria-label={backLabel}
@@ -281,7 +377,6 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
         <ArrowRight className="size-5 rotate-180" aria-hidden />
       </Link>
 
-      {/* progress + score */}
       <div className="fixed inset-x-0 top-4 z-40 flex flex-col items-center gap-1.5 px-16">
         <span className="rounded-full bg-card/95 px-3 py-1 text-xs font-semibold text-muted-foreground shadow-md ring-1 ring-border backdrop-blur">
           {deckTitle} · {Math.min(index + 1, cards.length)}/{cards.length}
@@ -298,7 +393,6 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
         )}
       </div>
 
-      {/* actions */}
       <div className="fixed inset-x-0 bottom-6 z-40 mx-auto flex w-full max-w-sm items-center gap-3 px-5">
         {phase === "reveal" ? (
           <button
