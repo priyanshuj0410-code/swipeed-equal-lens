@@ -64,9 +64,11 @@
   --flag-red: oklch(0.62 0.2 22);
   --flame: oklch(0.7 0.18 46);
   --accent-amber: oklch(0.82 0.15 82);
-  --path-fill: oklch(0.93 0.025 78);
-  --path-edge: oklch(0.85 0.04 75);
-  --path-line: oklch(0.8 0.045 75);
+  --path-fill: oklch(0.95 0.022 85);
+  --path-edge: oklch(0.86 0.035 78);
+  --path-line: oklch(0.82 0.04 78);
+  --grass: oklch(0.83 0.11 145);
+  --grass-edge: oklch(0.73 0.12 148);
   --app-bg:
     radial-gradient(115% 55% at 10% -8%, oklch(0.9 0.07 255 / 0.9) 0%, transparent 55%),
     radial-gradient(115% 55% at 106% -6%, oklch(0.93 0.08 82 / 0.8) 0%, transparent 48%),
@@ -112,9 +114,11 @@
   --flag-red: oklch(0.7 0.19 22);
   --flame: oklch(0.74 0.17 50);
   --accent-amber: oklch(0.84 0.14 84);
-  --path-fill: oklch(0.32 0.022 262);
-  --path-edge: oklch(0.41 0.03 262);
-  --path-line: oklch(0.52 0.03 262);
+  --path-fill: oklch(0.72 0.03 85);
+  --path-edge: oklch(0.6 0.03 80);
+  --path-line: oklch(0.55 0.03 80);
+  --grass: oklch(0.52 0.09 150);
+  --grass-edge: oklch(0.43 0.08 150);
   --app-bg:
     radial-gradient(115% 55% at 10% -8%, oklch(0.42 0.08 262 / 0.6) 0%, transparent 55%),
     radial-gradient(115% 55% at 106% -6%, oklch(0.44 0.06 82 / 0.35) 0%, transparent 48%),

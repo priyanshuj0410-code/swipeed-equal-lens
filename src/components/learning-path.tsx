@@ -8,16 +8,40 @@ import { useProfile } from "@/lib/store";
 import { Logo } from "@/components/logo";
 import { PATH, type PathNode } from "@/content/path";
 
-// Gentle serpentine: the nodes weave, and the dotted connector is drawn to follow them.
-const OFFSETS = [0, 58, 30, -34, -64, -34, 30, 58];
+type Pt = { x: number; y: number };
+type Tile = { x: number; y: number; angle: number; along: number; across: number; key: number };
+
+// Smooth winding offset (a gentle sine wave, both sides of centre).
+const offsetFor = (i: number) => Math.round(66 * Math.sin(i * 0.8));
+
+// Catmull-Rom spline through the points -> one smooth bezier (no kinks).
+function smoothPath(pts: Pt[]): string {
+  if (pts.length < 2) return "";
+  let d = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] ?? pts[i];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[i + 2] ?? p2;
+    const c1x = p1.x + (p2.x - p0.x) / 6;
+    const c1y = p1.y + (p2.y - p0.y) / 6;
+    const c2x = p2.x - (p3.x - p1.x) / 6;
+    const c2y = p2.y - (p3.y - p1.y) / 6;
+    d += ` C ${c1x.toFixed(1)} ${c1y.toFixed(1)}, ${c2x.toFixed(1)} ${c2y.toFixed(1)}, ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
+  }
+  return d;
+}
 
 export function LearningPath() {
   const { profile } = useProfile();
   const wrapRef = useRef<HTMLDivElement>(null);
+  const roadRef = useRef<SVGPathElement>(null);
   const circleRefs = useRef<Array<HTMLDivElement | null>>([]);
   const [pathD, setPathD] = useState("");
   const [dims, setDims] = useState({ w: 0, h: 0 });
+  const [tiles, setTiles] = useState<Tile[]>([]);
 
+  // 1) Measure node centres -> smooth spline.
   useEffect(() => {
     function measure() {
       const wrap = wrapRef.current;
@@ -30,22 +54,13 @@ export function LearningPath() {
           return { x: r.left - wr.left + r.width / 2, y: r.top - wr.top + r.height / 2 };
         });
       if (pts.length < 2) return;
-      // Smooth S-curve through every node centre (control points at the vertical midpoint).
-      let d = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
-      for (let i = 1; i < pts.length; i++) {
-        const a = pts[i - 1];
-        const b = pts[i];
-        const my = ((a.y + b.y) / 2).toFixed(1);
-        d += ` C ${a.x.toFixed(1)} ${my}, ${b.x.toFixed(1)} ${my}, ${b.x.toFixed(1)} ${b.y.toFixed(1)}`;
-      }
-      setPathD(d);
+      setPathD(smoothPath(pts));
       setDims({ w: wr.width, h: wr.height });
     }
     measure();
     const ro = new ResizeObserver(measure);
     if (wrapRef.current) ro.observe(wrapRef.current);
     window.addEventListener("resize", measure);
-    // re-measure once fonts settle (they change row heights)
     const t = setTimeout(measure, 350);
     return () => {
       ro.disconnect();
@@ -53,6 +68,47 @@ export function LearningPath() {
       clearTimeout(t);
     };
   }, []);
+
+  // 2) Lay cobblestone tiles along the real curve (varied sizes, slight jitter).
+  useEffect(() => {
+    const path = roadRef.current;
+    if (!path || !pathD) {
+      setTiles([]);
+      return;
+    }
+    let len = 0;
+    try {
+      len = path.getTotalLength();
+    } catch {
+      return;
+    }
+    if (!len) return;
+    const rnd = (i: number, n: number) => {
+      const x = Math.sin((i + 1) * 12.9898 + n * 78.233) * 43758.5453;
+      return x - Math.floor(x);
+    };
+    const out: Tile[] = [];
+    let pos = 16;
+    let i = 0;
+    while (pos < len - 8) {
+      const p = path.getPointAtLength(pos);
+      const p2 = path.getPointAtLength(Math.min(pos + 1, len));
+      const angle = (Math.atan2(p2.y - p.y, p2.x - p.x) * 180) / Math.PI;
+      const along = 30 + rnd(i, 1) * 16;
+      const across = 50 + rnd(i, 2) * 14;
+      out.push({
+        x: +p.x.toFixed(1),
+        y: +p.y.toFixed(1),
+        angle: +angle.toFixed(1),
+        along: +along.toFixed(1),
+        across: +across.toFixed(1),
+        key: i,
+      });
+      pos += along + 7 + rnd(i, 3) * 7;
+      i += 1;
+    }
+    setTiles(out);
+  }, [pathD, dims.w, dims.h]);
 
   let gi = -1;
 
@@ -80,15 +136,30 @@ export function LearningPath() {
       </header>
 
       <div ref={wrapRef} className="relative isolate flex flex-col gap-1">
-        <svg
-          width={dims.w}
-          height={dims.h}
-          className="pointer-events-none absolute left-0 top-0 z-0"
-          aria-hidden
-        >
-          <path d={pathD} fill="none" stroke="var(--path-edge)" strokeWidth={50} strokeLinecap="round" strokeLinejoin="round" />
-          <path d={pathD} fill="none" stroke="var(--path-fill)" strokeWidth={40} strokeLinecap="round" strokeLinejoin="round" />
-          <path d={pathD} fill="none" stroke="var(--path-line)" strokeWidth={4} strokeLinecap="round" strokeDasharray="2 18" strokeOpacity={0.75} />
+        <svg width={dims.w} height={dims.h} className="pointer-events-none absolute left-0 top-0 z-0" aria-hidden>
+          {/* grass bed */}
+          <path d={pathD} fill="none" stroke="var(--grass-edge)" strokeWidth={72} strokeLinecap="round" strokeLinejoin="round" />
+          <path ref={roadRef} d={pathD} fill="none" stroke="var(--grass)" strokeWidth={62} strokeLinecap="round" strokeLinejoin="round" />
+          {/* cobblestones (varied tiles, slight 3D lip) */}
+          {tiles.map((t) => (
+            <g key={t.key}>
+              <g transform={`translate(${t.x} ${t.y + 3.5}) rotate(${t.angle})`}>
+                <rect x={-t.along / 2} y={-t.across / 2} width={t.along} height={t.across} rx={10} fill="var(--path-edge)" />
+              </g>
+              <g transform={`translate(${t.x} ${t.y}) rotate(${t.angle})`}>
+                <rect
+                  x={-t.along / 2}
+                  y={-t.across / 2}
+                  width={t.along}
+                  height={t.across}
+                  rx={10}
+                  fill="var(--path-fill)"
+                  stroke="var(--path-line)"
+                  strokeWidth={1.5}
+                />
+              </g>
+            </g>
+          ))}
         </svg>
 
         {PATH.map((section) => (
@@ -106,7 +177,7 @@ export function LearningPath() {
                 <NodeRow
                   key={node.id}
                   node={node}
-                  offset={OFFSETS[index % OFFSETS.length]}
+                  offset={offsetFor(index)}
                   registerRef={(el) => {
                     circleRefs.current[index] = el;
                   }}
@@ -176,7 +247,7 @@ function NodeRow({
   );
 
   return (
-    <div className="relative z-10 flex justify-center py-2" style={{ transform: `translateX(${offset}px)` }}>
+    <div className="relative z-10 flex justify-center py-3" style={{ transform: `translateX(${offset}px)` }}>
       {isActive && node.href ? (
         <Link href={node.href} className="group" aria-label={`${node.title} — start`}>
           {bubble}
