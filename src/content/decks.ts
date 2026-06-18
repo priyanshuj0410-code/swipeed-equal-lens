@@ -4,13 +4,13 @@ import { CARDS } from "@/content/cards";
 // Deck registry. Display order = MVP focus first (Daily, Online, Friendships), then
 // the rest, with the romantic "Crushes & Dating" deck last (hidden in School-Comfort Mode).
 export const DECKS: Deck[] = [
-  { id: "daily", title: "Daily Deck", blurb: "10 mixed cards — your daily warm-up", schoolComfortSafe: true, isDaily: true },
-  { id: "online", title: "Online & DMs", blurb: "Spot red flags in chats, posts and DMs", schoolComfortSafe: true },
-  { id: "friendships", title: "Friendships", blurb: "Trust, loyalty and respect between friends", schoolComfortSafe: true },
-  { id: "family", title: "Family & Boundaries", blurb: "Care, privacy and 'your body, your rules'", schoolComfortSafe: true },
-  { id: "peer", title: "Peer, Group & Self", blurb: "Pressure, moods and being yourself", schoolComfortSafe: true },
-  { id: "norm-busters", title: "Norm-Busters", blurb: "Challenge the things people normalise", schoolComfortSafe: true },
-  { id: "crushes", title: "Crushes & Dating", blurb: "Early romance: pace, respect and control", schoolComfortSafe: false },
+  { id: "daily", title: "Daily Deck", blurb: "10 mixed cards — your daily warm-up", emoji: "☀️", accent: "oklch(0.8 0.15 80)", schoolComfortSafe: true, isDaily: true },
+  { id: "online", title: "Online & DMs", blurb: "Spot red flags in chats, posts and DMs", emoji: "💬", accent: "oklch(0.7 0.14 240)", schoolComfortSafe: true },
+  { id: "friendships", title: "Friendships", blurb: "Trust, loyalty and respect between friends", emoji: "🤝", accent: "oklch(0.72 0.14 165)", schoolComfortSafe: true },
+  { id: "family", title: "Family & Boundaries", blurb: "Care, privacy and 'your body, your rules'", emoji: "🏠", accent: "oklch(0.72 0.13 25)", schoolComfortSafe: true },
+  { id: "peer", title: "Peer, Group & Self", blurb: "Pressure, moods and being yourself", emoji: "🫂", accent: "oklch(0.68 0.16 300)", schoolComfortSafe: true },
+  { id: "norm-busters", title: "Norm-Busters", blurb: "Challenge the things people normalise", emoji: "💥", accent: "oklch(0.74 0.15 50)", schoolComfortSafe: true },
+  { id: "crushes", title: "Crushes & Dating", blurb: "Early romance: pace, respect and control", emoji: "💞", accent: "oklch(0.72 0.16 0)", schoolComfortSafe: false },
 ];
 
 export const DECK_BY_ID: Record<DeckId, Deck> = Object.fromEntries(

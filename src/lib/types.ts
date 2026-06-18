@@ -46,6 +46,8 @@ export type Deck = {
   id: DeckId;
   title: string;
   blurb: string;
+  emoji: string;
+  accent: string; // oklch accent colour used for the deck tile
   /** Decks that are NOT school-comfort-safe (romantic framing) are hidden when School-Comfort Mode is on. */
   schoolComfortSafe: boolean;
   isDaily?: boolean;

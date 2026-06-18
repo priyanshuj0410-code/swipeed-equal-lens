@@ -15,12 +15,16 @@ export function Onboarding() {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-5 py-10">
-      <Card className="flex w-full max-w-sm flex-col gap-5 p-6">
-        <div className="flex flex-col gap-1 text-center">
+      <Card className="flex w-full max-w-sm flex-col gap-5 rounded-[1.75rem] p-7 shadow-xl">
+        <div className="flex flex-col items-center gap-2 text-center">
+          <span className="grid size-16 place-items-center rounded-3xl bg-primary/15 text-4xl shadow-sm">
+            🚦
+          </span>
           <span className="text-xs font-semibold uppercase tracking-wide text-primary">
             Green Light / Red Light
           </span>
-          <h1 className="text-xl font-semibold">Let&apos;s set you up</h1>
+          <h1 className="text-2xl font-extrabold leading-tight">Learn to read the flags</h1>
+          <p className="text-sm text-muted-foreground">Swipe right on green, left on red. Let&apos;s set you up.</p>
         </div>
 
         <label className="flex flex-col gap-1.5 text-sm">
