@@ -19,15 +19,18 @@ const PathScene = dynamic(() => import("@/components/path-scene").then((m) => m.
 
 export default function PathPage() {
   return (
-    <div className="relative h-[100dvh] w-full overflow-hidden">
+    <>
+      {/* full-viewport scene; fixed so R3F always has a definite size to measure */}
+      <div className="fixed inset-0 z-0 bg-[#d6ecfb]">
+        <PathScene />
+      </div>
       <Link
         href="/"
         aria-label="Back"
-        className={buttonVariants({ variant: "secondary", size: "icon", className: "absolute left-4 top-4 z-50 rounded-full shadow-md" })}
+        className={buttonVariants({ variant: "secondary", size: "icon", className: "fixed left-4 top-4 z-50 rounded-full shadow-md" })}
       >
         <ArrowLeft className="size-5" aria-hidden />
       </Link>
-      <PathScene />
-    </div>
+    </>
   );
 }
