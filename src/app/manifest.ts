@@ -2,11 +2,11 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Green Light / Red Light",
-    short_name: "Green/Red",
+    name: "SwipeEd",
+    short_name: "SwipeEd",
     description:
       "Swipe right on the green flags, left on the red ones — learn to spot healthy and unhealthy relationships.",
-    start_url: "/",
+    start_url: "/path",
     display: "standalone",
     background_color: "#ffffff",
     theme_color: "#4f6ef7",

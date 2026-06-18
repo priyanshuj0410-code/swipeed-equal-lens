@@ -502,7 +502,7 @@ function NodeIcon({ state }: { state: NodeState }) {
 }
 
 // Render an emoji to a canvas (system colour-emoji font) -> texture for a 3D billboard.
-function useEmojiTexture(emoji: string) {
+function useEmojiTexture(emoji: string, grey = false) {
   const tex = useMemo(() => {
     const size = 128;
     const canvas = document.createElement("canvas");
@@ -511,12 +511,13 @@ function useEmojiTexture(emoji: string) {
     ctx.font = `${Math.round(size * 0.78)}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
+    if (grey) ctx.filter = "grayscale(1)"; // locked lessons render greyscale
     ctx.fillText(emoji, size / 2, size * 0.56);
     const t = new THREE.CanvasTexture(canvas);
     t.colorSpace = THREE.SRGBColorSpace;
     t.anisotropy = 4;
     return t;
-  }, [emoji]);
+  }, [emoji, grey]);
   useEffect(() => () => tex.dispose(), [tex]);
   return tex;
 }
@@ -536,7 +537,7 @@ function Node({
 }) {
   const pos = useMemo(() => CURVE.getPointAt(u), [u]);
   const spr = useRef<THREE.Sprite>(null);
-  const tex = useEmojiTexture(node.emoji);
+  const tex = useEmojiTexture(node.emoji, node.state === "locked");
   const st = STATE_STYLE[node.state];
   const isCurrent = node.state === "current";
   const locked = node.state === "locked";
@@ -565,21 +566,26 @@ function Node({
       <sprite ref={spr} scale={[1.8, 1.8, 1.8]}>
         <spriteMaterial map={tex} transparent depthWrite={false} opacity={locked ? 0.55 : 1} fog={false} />
       </sprite>
-      {/* accessible DOM button overlay: tap / keyboard target + colour-blind-safe state badge */}
+      {/* accessible DOM button overlay: tap / keyboard target + colour-blind-safe state badge.
+          The lesson name shows above on hover / focus. */}
       <Html center position={[0, 1.35, 0]} distanceFactor={11} zIndexRange={[30, 0]}>
-        <button
-          type="button"
-          aria-label={`${node.label} — ${node.state}`}
-          title={node.label}
-          disabled={locked}
-          onPointerDown={(e) => e.stopPropagation()}
-          onFocus={focus}
-          onClick={select}
-          style={{ background: st.badge }}
-          className="pointer-events-auto flex size-8 items-center justify-center rounded-full text-white shadow-md ring-2 ring-white/85 transition-transform hover:scale-110 focus:outline-none focus-visible:scale-110 focus-visible:ring-4 focus-visible:ring-white disabled:cursor-default disabled:opacity-95"
-        >
-          <NodeIcon state={node.state} />
-        </button>
+        <div className="relative flex flex-col items-center">
+          <button
+            type="button"
+            aria-label={`${node.label} — ${node.state}`}
+            disabled={locked}
+            onPointerDown={(e) => e.stopPropagation()}
+            onFocus={focus}
+            onClick={select}
+            style={{ background: st.badge }}
+            className="peer pointer-events-auto flex size-8 items-center justify-center rounded-full text-white shadow-md ring-2 ring-white/85 transition-transform hover:scale-110 focus:outline-none focus-visible:scale-110 focus-visible:ring-4 focus-visible:ring-white disabled:cursor-default disabled:opacity-95"
+          >
+            <NodeIcon state={node.state} />
+          </button>
+          <span className="pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded-md bg-card/95 px-2 py-0.5 text-[11px] font-semibold text-card-foreground opacity-0 shadow-md ring-1 ring-border backdrop-blur transition-opacity duration-150 peer-hover:opacity-100 peer-focus-visible:opacity-100">
+            {node.label}
+          </span>
+        </div>
       </Html>
     </group>
   );

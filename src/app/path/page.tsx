@@ -4,6 +4,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { Flame, Star } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { useProfile } from "@/lib/store";
 import { PATH } from "@/content/path";
@@ -74,6 +75,16 @@ export default function PathPage() {
           <PathScene nodes={nodes} onSelectNode={handleSelect} />
         )}
       </div>
+      {webgl !== false && (
+        <div className="fixed left-4 top-4 z-50 flex items-center gap-2">
+          <span className="flex items-center gap-1 rounded-full bg-card/95 px-2.5 py-1 text-xs font-bold shadow-md ring-1 ring-border backdrop-blur">
+            <Flame className="size-3.5" style={{ color: "var(--flame)" }} aria-hidden /> {profile.bestStreak}
+          </span>
+          <span className="flex items-center gap-1 rounded-full bg-card/95 px-2.5 py-1 text-xs font-bold shadow-md ring-1 ring-border backdrop-blur">
+            <Star className="size-3.5" style={{ color: "var(--accent-amber)" }} fill="currentColor" aria-hidden /> {profile.coins}
+          </span>
+        </div>
+      )}
       {webgl !== false && (
         <div className="pointer-events-none fixed inset-x-0 bottom-6 z-40 flex justify-center px-4">
           <span className="rounded-full bg-card/90 px-3 py-1.5 text-xs font-medium text-muted-foreground shadow-md ring-1 ring-border backdrop-blur">
