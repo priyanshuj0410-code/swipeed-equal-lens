@@ -86,15 +86,9 @@ export function LearningPath() {
           className="pointer-events-none absolute left-0 top-0 z-0"
           aria-hidden
         >
-          <path
-            d={pathD}
-            fill="none"
-            stroke="var(--primary)"
-            strokeOpacity={0.35}
-            strokeWidth={5}
-            strokeLinecap="round"
-            strokeDasharray="0.5 16"
-          />
+          <path d={pathD} fill="none" stroke="var(--path-edge)" strokeWidth={50} strokeLinecap="round" strokeLinejoin="round" />
+          <path d={pathD} fill="none" stroke="var(--path-fill)" strokeWidth={40} strokeLinecap="round" strokeLinejoin="round" />
+          <path d={pathD} fill="none" stroke="var(--path-line)" strokeWidth={4} strokeLinecap="round" strokeDasharray="2 18" strokeOpacity={0.75} />
         </svg>
 
         {PATH.map((section) => (
@@ -151,13 +145,13 @@ function NodeRow({
           ref={registerRef}
           className={
             isActive
-              ? "relative grid size-20 place-items-center rounded-full border-4 border-primary bg-card transition-transform group-active:translate-y-0.5"
-              : "relative grid size-20 place-items-center rounded-full border border-border bg-muted"
+              ? "relative grid size-20 place-items-center rounded-full border-4 border-primary bg-card transition-transform group-active:scale-95"
+              : "relative grid size-[4.25rem] place-items-center rounded-full border border-border bg-card"
           }
           style={
             isActive
-              ? { boxShadow: "0 7px 0 0 color-mix(in oklab, var(--primary) 72%, black), 0 18px 34px -12px var(--primary)" }
-              : { boxShadow: "0 6px 0 0 color-mix(in oklab, var(--border) 55%, black)" }
+              ? { boxShadow: "0 16px 32px -8px var(--primary)" }
+              : { boxShadow: "0 10px 22px -8px rgb(0 0 0 / 0.28)" }
           }
         >
           {node.id === "glrl" ? (
