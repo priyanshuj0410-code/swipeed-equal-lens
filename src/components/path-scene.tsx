@@ -185,6 +185,7 @@ const _q = new THREE.Quaternion();
 const _e = new THREE.Euler();
 const _p = new THREE.Vector3();
 const _s = new THREE.Vector3();
+const _nv = new THREE.Vector3();
 function trs(x: number, y: number, z: number, ry: number, sx: number, sy: number, sz: number) {
   _e.set(0, ry, 0);
   _q.setFromEuler(_e);
@@ -541,9 +542,21 @@ function Node({
   const st = STATE_STYLE[node.state];
   const isCurrent = node.state === "current";
   const locked = node.state === "locked";
+  const [inView, setInView] = useState(false);
+  const inViewRef = useRef(false);
   useFrame((s) => {
-    if (!spr.current) return;
-    spr.current.position.y = 0.2 + (isCurrent && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0);
+    if (spr.current) {
+      spr.current.position.y = 0.2 + (isCurrent && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0);
+    }
+    // reveal the name when the node is near & on-screen (hover isn't available on touch)
+    _nv.set(pos.x, 1.5, pos.z);
+    const dist = s.camera.position.distanceTo(_nv);
+    _nv.project(s.camera);
+    const vis = _nv.z < 1 && Math.abs(_nv.x) < 0.8 && _nv.y > -0.92 && _nv.y < 0.72 && dist < 34;
+    if (vis !== inViewRef.current) {
+      inViewRef.current = vis;
+      setInView(vis);
+    }
   });
   const focus = () => {
     progress.current = u; // camera glides to a focused/selected node
@@ -582,7 +595,11 @@ function Node({
           >
             <NodeIcon state={node.state} />
           </button>
-          <span className="pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded-md bg-card/95 px-2 py-0.5 text-[11px] font-semibold text-card-foreground opacity-0 shadow-md ring-1 ring-border backdrop-blur transition-opacity duration-150 peer-hover:opacity-100 peer-focus-visible:opacity-100">
+          <span
+            className={`pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded-md bg-card/95 px-2 py-0.5 text-[11px] font-semibold text-card-foreground shadow-md ring-1 ring-border backdrop-blur transition-opacity duration-150 ${
+              inView ? "opacity-100" : "opacity-0 peer-hover:opacity-100 peer-focus-visible:opacity-100"
+            }`}
+          >
             {node.label}
           </span>
         </div>
@@ -671,21 +688,14 @@ function FollowCam({ progress }: { progress: React.MutableRefObject<number> }) {
   return null;
 }
 
-const PROGRESS_KEY = "glrl.path.progress";
-function readSavedProgress(fallback: number) {
-  if (typeof window === "undefined") return fallback;
-  const v = parseFloat(localStorage.getItem(PROGRESS_KEY) ?? "");
-  return Number.isFinite(v) ? clamp01(v) : fallback;
-}
-
 export function PathScene({ nodes = DEFAULT_NODES, onSelectNode }: { nodes?: SceneNode[]; onSelectNode?: (n: SceneNode) => void }) {
-  // start the camera at the current lesson (or the first locked one if none current)
+  // focus the active level on load: the current lesson, else the first playable one
   const startU = useMemo(() => {
-    const i = nodes.findIndex((n) => n.state === "current");
+    let i = nodes.findIndex((n) => n.state === "current");
+    if (i < 0) i = nodes.findIndex((n) => n.href && n.state !== "locked");
     return i >= 0 ? (i + 0.5) / nodes.length : 0;
   }, [nodes]);
-  // resume where the player left off, falling back to the current lesson
-  const progress = useRef(readSavedProgress(startU));
+  const progress = useRef(startU);
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
@@ -726,29 +736,6 @@ export function PathScene({ nodes = DEFAULT_NODES, onSelectNode }: { nodes?: Sce
       window.removeEventListener("pointercancel", onUp);
       cancelAnimationFrame(raf);
       timers.forEach(clearTimeout);
-    };
-  }, []);
-
-  // persist camera position so returning to /path resumes where you left off
-  useEffect(() => {
-    const save = () => {
-      try {
-        localStorage.setItem(PROGRESS_KEY, progress.current.toFixed(4));
-      } catch {
-        /* storage may be unavailable */
-      }
-    };
-    const timer = window.setInterval(save, 1200);
-    const onHide = () => {
-      if (document.hidden) save();
-    };
-    window.addEventListener("pagehide", save);
-    document.addEventListener("visibilitychange", onHide);
-    return () => {
-      clearInterval(timer);
-      window.removeEventListener("pagehide", save);
-      document.removeEventListener("visibilitychange", onHide);
-      save();
     };
   }, []);
 

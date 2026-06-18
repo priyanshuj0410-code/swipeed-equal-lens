@@ -77,11 +77,11 @@ export default function PathPage() {
       </div>
       {webgl !== false && (
         <div className="fixed left-4 top-4 z-50 flex items-center gap-2">
-          <span className="flex items-center gap-1 rounded-full bg-card/95 px-2.5 py-1 text-xs font-bold shadow-md ring-1 ring-border backdrop-blur">
-            <Flame className="size-3.5" style={{ color: "var(--flame)" }} aria-hidden /> {profile.bestStreak}
+          <span className={buttonVariants({ variant: "secondary", size: "sm", className: "pointer-events-none gap-1.5 rounded-full font-bold shadow-md" })}>
+            <Flame className="size-4" style={{ color: "var(--flame)" }} aria-hidden /> {profile.bestStreak}
           </span>
-          <span className="flex items-center gap-1 rounded-full bg-card/95 px-2.5 py-1 text-xs font-bold shadow-md ring-1 ring-border backdrop-blur">
-            <Star className="size-3.5" style={{ color: "var(--accent-amber)" }} fill="currentColor" aria-hidden /> {profile.coins}
+          <span className={buttonVariants({ variant: "secondary", size: "sm", className: "pointer-events-none gap-1.5 rounded-full font-bold shadow-md" })}>
+            <Star className="size-4" style={{ color: "var(--accent-amber)" }} fill="currentColor" aria-hidden /> {profile.coins}
           </span>
         </div>
       )}
