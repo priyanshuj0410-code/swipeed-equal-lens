@@ -185,7 +185,6 @@ const _q = new THREE.Quaternion();
 const _e = new THREE.Euler();
 const _p = new THREE.Vector3();
 const _s = new THREE.Vector3();
-const _nv = new THREE.Vector3();
 function trs(x: number, y: number, z: number, ry: number, sx: number, sy: number, sz: number) {
   _e.set(0, ry, 0);
   _q.setFromEuler(_e);
@@ -548,11 +547,10 @@ function Node({
     if (spr.current) {
       spr.current.position.y = 0.2 + (isCurrent && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0);
     }
-    // reveal the name when the node is near & on-screen (hover isn't available on touch)
-    _nv.set(pos.x, 1.5, pos.z);
-    const dist = s.camera.position.distanceTo(_nv);
-    _nv.project(s.camera);
-    const vis = _nv.z < 1 && Math.abs(_nv.x) < 0.8 && _nv.y > -0.92 && _nv.y < 0.72 && dist < 34;
+    // reveal the name when the node is at / just ahead of the camera focus
+    // (touch has no hover, so on-screen nodes label themselves)
+    const ahead = u - progress.current;
+    const vis = ahead > -0.03 && ahead < 0.09;
     if (vis !== inViewRef.current) {
       inViewRef.current = vis;
       setInView(vis);
