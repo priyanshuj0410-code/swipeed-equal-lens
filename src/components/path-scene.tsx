@@ -400,9 +400,9 @@ function GrassTufts() {
 type ModelCfg = { url: string; scale: number; count: number; seed: number; clearance: number; cast: boolean; tilt: number };
 
 const TREE_MODELS: ModelCfg[] = [
-  { url: "/models/tree.glb", scale: 2.6, count: 14, seed: 11, clearance: 7.5, cast: true, tilt: 0.05 },
-  { url: "/models/tree-pine.glb", scale: 2.6, count: 10, seed: 23, clearance: 7.5, cast: true, tilt: 0.04 },
-  { url: "/models/tree-pine-small.glb", scale: 2.4, count: 8, seed: 37, clearance: 7, cast: true, tilt: 0.06 },
+  { url: "/models/tree.glb", scale: 3.9, count: 14, seed: 11, clearance: 7.5, cast: true, tilt: 0.05 },
+  { url: "/models/tree-pine.glb", scale: 3.9, count: 10, seed: 23, clearance: 7.5, cast: true, tilt: 0.04 },
+  { url: "/models/tree-pine-small.glb", scale: 3.6, count: 8, seed: 37, clearance: 7, cast: true, tilt: 0.06 },
 ];
 const PROP_MODELS: ModelCfg[] = [
   { url: "/models/rocks.glb", scale: 2.0, count: 26, seed: 101, clearance: 3.5, cast: true, tilt: 0.22 },
@@ -410,7 +410,7 @@ const PROP_MODELS: ModelCfg[] = [
   { url: "/models/mushrooms.glb", scale: 1.4, count: 16, seed: 127, clearance: 3, cast: false, tilt: 0.14 },
   { url: "/models/plant.glb", scale: 1.5, count: 26, seed: 131, clearance: 2.3, cast: false, tilt: 0.14 },
   { url: "/models/flowers.glb", scale: 1.1, count: 40, seed: 163, clearance: 2.3, cast: false, tilt: 0.12 },
-  { url: "/models/flowers-tall.glb", scale: 0.9, count: 12, seed: 149, clearance: 2.4, cast: false, tilt: 0.1 },
+  { url: "/models/flowers-tall.glb", scale: 0.85, count: 12, seed: 149, clearance: 2.4, cast: false, tilt: 0.1 },
   { url: "/models/sign.glb", scale: 2.2, count: 4, seed: 179, clearance: 3, cast: true, tilt: 0 },
   { url: "/models/flag.glb", scale: 2.4, count: 5, seed: 191, clearance: 3.5, cast: true, tilt: 0 },
 ];
