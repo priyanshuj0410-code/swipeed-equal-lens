@@ -46,7 +46,7 @@ export function Debrief({
             key={i}
             className="size-10 drop-shadow-sm"
             aria-hidden
-            style={{ color: "var(--flag-green)", animationDelay: `${i * 120}ms` }}
+            style={{ color: "var(--accent-amber)", animationDelay: `${i * 120}ms` }}
             fill={i < stars ? "currentColor" : "none"}
           />
         ))}

@@ -1,6 +1,6 @@
 import confetti from "canvas-confetti";
 
-const COLORS = ["#62b84b", "#e05c52", "#7c3aed", "#f5c518"];
+const COLORS = ["#62b84b", "#e05c52", "#4f6ef7", "#f5c518"];
 
 /** A small burst for a good moment; a big one for a great one. Respects reduced-motion. */
 export function celebrate(power: "small" | "big" = "small") {

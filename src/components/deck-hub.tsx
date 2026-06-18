@@ -14,7 +14,7 @@ function Stars({ value, className = "", light = false }: { value: number; classN
           key={i}
           className="size-4"
           aria-hidden
-          style={{ color: light ? "white" : "var(--flag-green)" }}
+          style={{ color: light ? "white" : "var(--accent-amber)" }}
           fill={i < value ? "currentColor" : "none"}
         />
       ))}
@@ -42,10 +42,10 @@ export function DeckHub() {
 
       <div className="flex gap-2">
         <span className="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-card py-2 text-sm font-semibold shadow-sm ring-1 ring-border">
-          <Flame className="size-4" style={{ color: "var(--flag-red)" }} aria-hidden /> {profile.bestStreak} streak
+          <Flame className="size-4" style={{ color: "var(--flame)" }} aria-hidden /> {profile.bestStreak} streak
         </span>
         <span className="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-card py-2 text-sm font-semibold shadow-sm ring-1 ring-border">
-          <Star className="size-4" style={{ color: "var(--flag-green)" }} aria-hidden /> {profile.coins} pts
+          <Star className="size-4" style={{ color: "var(--accent-amber)" }} fill="currentColor" aria-hidden /> {profile.coins} pts
         </span>
       </div>
 

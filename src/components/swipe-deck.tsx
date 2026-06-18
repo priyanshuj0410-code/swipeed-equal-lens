@@ -152,7 +152,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete }: Props) 
         {scoring ? (
           <div className="flex items-center gap-2">
             {streak >= 3 && (
-              <span className="flex animate-in zoom-in items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold text-white" style={{ background: "var(--flag-red)" }}>
+              <span className="flex animate-in zoom-in items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold text-white" style={{ background: "var(--flame)" }}>
                 <Flame className="size-3.5" aria-hidden /> {streak}
               </span>
             )}
@@ -180,7 +180,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete }: Props) 
             <span aria-hidden>{deckEmoji}</span> {card.context_tag}
           </span>
 
-          <p className="flex flex-1 items-center text-balance text-center text-2xl font-bold leading-snug">{card.scenario_text}</p>
+          <p className="flex flex-1 items-center text-balance text-center font-display text-[1.7rem] font-semibold leading-snug">{card.scenario_text}</p>
 
           <span className="pointer-events-none absolute right-5 top-16 flex items-center gap-1 rounded-lg border-2 px-2 py-0.5 text-xs font-extrabold uppercase" style={{ opacity: greenHint, color: "var(--flag-green)", borderColor: "var(--flag-green)", transform: "rotate(12deg)" }}>
             <Check className="size-3.5" aria-hidden /> Green
@@ -252,7 +252,7 @@ function ScoredReveal({ card, correct, points, onNext }: { card: GameCard; corre
           )}
         </div>
       </div>
-      <p className="animate-in slide-in-from-bottom-1 text-3xl font-extrabold leading-tight duration-300">{card.sign}</p>
+      <p className="animate-in slide-in-from-bottom-1 font-display text-3xl font-bold leading-tight duration-300" style={{ color }}>{card.sign}</p>
       <p className="flex-1 text-sm leading-relaxed text-muted-foreground">{card.feedback_short}</p>
       <div className="flex items-center justify-between">
         {card.learn_more_ref ? (
@@ -274,7 +274,7 @@ function SafeguardingReveal({ card, onNext }: { card: GameCard; onNext: () => vo
       <span className="flex items-center gap-1.5 text-sm font-semibold text-muted-foreground">
         <LifeBuoy className="size-4" aria-hidden /> This one matters
       </span>
-      <p className="text-2xl font-bold leading-tight">{card.sign}</p>
+      <p className="font-display text-2xl font-bold leading-tight">{card.sign}</p>
       <p className="flex-1 text-sm leading-relaxed text-muted-foreground">{card.feedback_short}</p>
       <p className="text-xs text-muted-foreground">
         Tap <span className="font-semibold text-foreground">Get Help</span> (bottom-right) any time. This isn&apos;t scored.

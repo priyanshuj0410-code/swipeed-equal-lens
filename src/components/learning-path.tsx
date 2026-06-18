@@ -25,11 +25,11 @@ export function LearningPath() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1 rounded-full bg-card px-2.5 py-1 text-xs font-semibold shadow-sm ring-1 ring-border">
-            <Flame className="size-3.5" style={{ color: "var(--flag-red)" }} aria-hidden /> {profile.bestStreak}
+          <span className="flex items-center gap-1 rounded-full bg-card px-2.5 py-1 text-xs font-bold shadow-sm ring-1 ring-border">
+            <Flame className="size-3.5" style={{ color: "var(--flame)" }} aria-hidden /> {profile.bestStreak}
           </span>
-          <span className="flex items-center gap-1 rounded-full bg-card px-2.5 py-1 text-xs font-semibold shadow-sm ring-1 ring-border">
-            <Star className="size-3.5" style={{ color: "var(--flag-green)" }} aria-hidden /> {profile.coins}
+          <span className="flex items-center gap-1 rounded-full bg-card px-2.5 py-1 text-xs font-bold shadow-sm ring-1 ring-border">
+            <Star className="size-3.5" style={{ color: "var(--accent-amber)" }} fill="currentColor" aria-hidden /> {profile.coins}
           </span>
           <Link href="/settings" aria-label="Settings" className={buttonVariants({ variant: "ghost", size: "icon" })}>
             <SettingsIcon className="size-5" aria-hidden />
@@ -38,7 +38,7 @@ export function LearningPath() {
       </header>
 
       <div className="relative flex flex-col gap-1">
-        <div className="pointer-events-none absolute inset-y-3 left-1/2 -translate-x-1/2 border-l-2 border-dashed border-border" aria-hidden />
+        <div className="pointer-events-none absolute inset-y-3 left-1/2 -translate-x-1/2 border-l-[3px] border-dashed border-primary/25" aria-hidden />
         {PATH.map((section) => (
           <div key={section.title} className="flex flex-col gap-1">
             <div className="relative my-3 flex flex-col items-center gap-0.5 text-center">
@@ -74,7 +74,7 @@ function NodeRow({ node, offset }: { node: PathNode; offset: number }) {
         <div
           className={
             isActive
-              ? "relative grid size-20 place-items-center rounded-full bg-card shadow-lg ring-4 ring-primary transition-transform group-active:scale-95"
+              ? "relative grid size-20 place-items-center rounded-full bg-card shadow-[0_14px_32px_-10px_var(--primary)] ring-4 ring-primary transition-transform group-active:scale-95"
               : "relative grid size-20 place-items-center rounded-full bg-muted text-3xl opacity-60 ring-1 ring-border"
           }
         >
