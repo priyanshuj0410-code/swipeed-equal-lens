@@ -1144,14 +1144,14 @@ function Companion({ progress }: { progress: React.MutableRefObject<number> }) {
     const g = grp.current;
     if (!g) return;
     const d = Math.min(dt, 0.05);
-    // target: right beside the focused node, a touch toward the camera
-    const u = clamp01(progress.current - 0.003);
+    // target: beside the focused node, set back a little from the camera
+    const u = clamp01(progress.current + 0.005);
     const p = CURVE.getPointAt(u);
     st.tan.copy(CURVE.getTangentAt(u));
     st.tan.y = 0;
     if (st.tan.lengthSq() === 0) st.tan.set(0, 0, -1);
     st.tan.normalize();
-    st.tgt.set(p.x - st.tan.z * 2.6, 0, p.z + st.tan.x * 2.6);
+    st.tgt.set(p.x - st.tan.z * 2.9, 0, p.z + st.tan.x * 2.9);
     if (!st.started) {
       st.started = true;
       st.pos.copy(st.tgt);
