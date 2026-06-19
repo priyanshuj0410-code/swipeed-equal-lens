@@ -81,6 +81,100 @@ function Rain({ count, strength }: { count: number; strength: MutableRefObject<n
   );
 }
 
+// ---- rain ripples (rainy chapter): expanding ring decals on the ground ----------------
+// One instanced mesh of flat ring sprites lying on the ground. A tiny shader gives each
+// instance its own alpha (`aAlpha`, updated per frame); JS grows + fades each ripple and
+// re-seeds it at a new random spot when it finishes, so they read as scattered impacts.
+const RIPPLE_VERT = `
+  attribute float aAlpha;
+  varying float vAlpha;
+  varying vec2 vUv;
+  void main() {
+    vAlpha = aAlpha;
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * instanceMatrix * vec4(position, 1.0);
+  }
+`;
+const RIPPLE_FRAG = `
+  uniform sampler2D uMap;
+  uniform vec3 uColor;
+  varying float vAlpha;
+  varying vec2 vUv;
+  void main() {
+    float a = texture2D(uMap, vUv).a * vAlpha;
+    if (a < 0.01) discard;
+    gl_FragColor = vec4(uColor, a);
+  }
+`;
+type Ripple = { x: number; z: number; t: number; life: number };
+function Ripples({ count, strength }: { count: number; strength: MutableRefObject<number> }) {
+  const ref = useRef<THREE.InstancedMesh>(null);
+  const area = 42;
+  const maxR = 1.7;
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+  const tex = useMemo(() => {
+    const c = document.createElement("canvas");
+    c.width = c.height = 64;
+    const g = c.getContext("2d")!;
+    const grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grad.addColorStop(0.0, "rgba(255,255,255,0)");
+    grad.addColorStop(0.55, "rgba(255,255,255,0)");
+    grad.addColorStop(0.72, "rgba(255,255,255,0.95)");
+    grad.addColorStop(0.88, "rgba(255,255,255,0)");
+    grad.addColorStop(1.0, "rgba(255,255,255,0)");
+    g.fillStyle = grad;
+    g.fillRect(0, 0, 64, 64);
+    return new THREE.CanvasTexture(c);
+  }, []);
+  useEffect(() => () => tex.dispose(), [tex]);
+  const alpha = useMemo(() => new Float32Array(count), [count]);
+  const drops = useMemo<Ripple[]>(
+    () =>
+      Array.from({ length: count }, () => {
+        const life = 0.9 + Math.random() * 0.7;
+        return { x: (Math.random() - 0.5) * area, z: (Math.random() - 0.5) * area, t: Math.random() * life, life };
+      }),
+    [count]
+  );
+  const uniforms = useMemo(() => ({ uMap: { value: tex }, uColor: { value: new THREE.Color("#dbeaf6") } }), [tex]);
+  useFrame((state, dt) => {
+    if (document.hidden) return;
+    const im = ref.current;
+    if (!im) return;
+    const d = dtClamp(dt);
+    const s = strength.current;
+    drops.forEach((r, i) => {
+      r.t += d;
+      let phase = r.t / r.life;
+      if (phase >= 1) {
+        r.x = (Math.random() - 0.5) * area;
+        r.z = (Math.random() - 0.5) * area;
+        r.life = 0.9 + Math.random() * 0.7;
+        r.t = 0;
+        phase = 0;
+      }
+      const ease = 1 - (1 - phase) * (1 - phase); // expand fast, then settle
+      const radius = 0.2 + (maxR - 0.2) * ease;
+      alpha[i] = (1 - phase) * 0.5 * s;
+      dummy.position.set(state.camera.position.x + r.x, 0.06, state.camera.position.z + r.z);
+      dummy.rotation.set(-Math.PI / 2, 0, 0);
+      dummy.scale.set(radius, radius, radius);
+      dummy.updateMatrix();
+      im.setMatrixAt(i, dummy.matrix);
+    });
+    im.instanceMatrix.needsUpdate = true;
+    im.geometry.getAttribute("aAlpha").needsUpdate = true;
+  });
+  return (
+    <instancedMesh ref={ref} args={[undefined, undefined, count]} frustumCulled={false}>
+      <planeGeometry args={[1, 1]}>
+        <instancedBufferAttribute attach="attributes-aAlpha" args={[alpha, 1]} />
+      </planeGeometry>
+      <shaderMaterial vertexShader={RIPPLE_VERT} fragmentShader={RIPPLE_FRAG} uniforms={uniforms} transparent depthWrite={false} toneMapped={false} />
+    </instancedMesh>
+  );
+}
+
 // ---- snow (winter chapter) ------------------------------------------------------------
 function Snow({ count, strength }: { count: number; strength: MutableRefObject<number> }) {
   const ref = useRef<THREE.Points>(null);
@@ -245,7 +339,13 @@ export function Weather() {
     }
   });
   if (scale === 0 || !shown) return null;
-  if (shown === "rain") return <Rain count={Math.round(2200 * scale)} strength={strength} />;
+  if (shown === "rain")
+    return (
+      <>
+        <Rain count={Math.round(2200 * scale)} strength={strength} />
+        <Ripples count={Math.round(20 * scale)} strength={strength} />
+      </>
+    );
   if (shown === "snow") return <Snow count={Math.round(1900 * scale)} strength={strength} />;
   if (shown === "leaves") return <FallingLeaves count={Math.round(380 * scale)} colors={["#d98a3d", "#c2622d", "#b5792f", "#e0701f"]} speed={2.6} strength={strength} />;
   if (shown === "petals") return <FallingLeaves count={Math.round(460 * scale)} colors={["#FFD1DC", "#FFDEE7", "#FFE8EF"]} speed={1.8} strength={strength} />;
