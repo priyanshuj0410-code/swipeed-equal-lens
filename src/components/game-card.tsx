@@ -11,6 +11,14 @@ const LGREEN = "#62e08f";
 const LRED = "#ff9085";
 const LBLUE = "#b3c8ff";
 
+// glass tint: neutral black, shifting toward dark green (right) / dark red (left) as you drag
+type RGBA = [number, number, number, number];
+const TINT_BASE: RGBA = [13, 16, 23, 0.32];
+const TINT_GREEN: RGBA = [14, 66, 36, 0.42];
+const TINT_RED: RGBA = [78, 18, 16, 0.42];
+const rgba = (c: RGBA) => `rgba(${Math.round(c[0])}, ${Math.round(c[1])}, ${Math.round(c[2])}, ${c[3].toFixed(3)})`;
+const mix = (a: RGBA, b: RGBA, t: number): RGBA => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t, a[3] + (b[3] - a[3]) * t];
+
 function PlayFace({ view, greenHint, redHint }: { view: GameView; greenHint: number; redHint: number }) {
   const c = view.card;
   return (
@@ -118,9 +126,25 @@ export function GameCard({ view, onCommit }: { view: GameView; onCommit: (f: Fla
 
   const dir = view.exiting === "green" ? 1 : view.exiting === "red" ? -1 : 0;
   const transform = view.exiting ? `translateX(${dir * 120}vw) rotate(${dir * 22}deg)` : `translateX(${dx}px) rotate(${dx / 24}deg)`;
-  const transition = view.exiting ? "transform 0.38s ease-in" : startX.current === null ? "transform 0.25s ease" : "none";
+  const transition = view.exiting
+    ? "transform 0.38s ease-in, background-color 0.25s"
+    : startX.current === null
+      ? "transform 0.25s ease, background-color 0.25s"
+      : "background-color 0.1s";
   const greenHint = Math.max(0, Math.min(1, dx / 120));
   const redHint = Math.max(0, Math.min(1, -dx / 120));
+
+  // tint toward green/red with the swipe
+  const t = Math.min(1, Math.abs(dx) / 140);
+  const tint = view.exiting
+    ? view.exiting === "green"
+      ? TINT_GREEN
+      : TINT_RED
+    : dx > 2
+      ? mix(TINT_BASE, TINT_GREEN, t)
+      : dx < -2
+        ? mix(TINT_BASE, TINT_RED, t)
+        : TINT_BASE;
 
   return (
     <div className="pointer-events-none fixed inset-0 z-30 flex items-center justify-center px-6">
@@ -130,8 +154,8 @@ export function GameCard({ view, onCommit }: { view: GameView; onCommit: (f: Fla
         onPointerMove={onMove}
         onPointerUp={onUp}
         onPointerCancel={onUp}
-        className="glass-card pointer-events-auto relative flex aspect-[3/4] w-full max-w-sm touch-none select-none flex-col p-6 backdrop-blur-xl backdrop-saturate-150"
-        style={{ transform, transition, cursor: playable ? "grab" : "default" }}
+        className="glass-card pointer-events-auto relative flex aspect-[3/4] w-full max-w-sm touch-none select-none flex-col p-6 backdrop-blur-[18px] backdrop-saturate-150"
+        style={{ transform, transition, background: rgba(tint), cursor: playable ? "grab" : "default" }}
       >
         {view.phase === "reveal" ? <RevealFace view={view} /> : <PlayFace view={view} greenHint={greenHint} redHint={redHint} />}
       </div>
