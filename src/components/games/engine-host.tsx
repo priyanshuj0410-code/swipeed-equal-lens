@@ -89,6 +89,9 @@ const GAMES: Record<string, EngineGame> = {
   "reality-check": dynamic(() => import("@/components/games/reality-check").then((m) => m.RealityCheckGame), {
     ssr: false,
   }),
+  "my-choices": dynamic(() => import("@/components/games/my-choices").then((m) => m.MyChoicesGame), {
+    ssr: false,
+  }),
   "flip-script": dynamic(() => import("@/components/games/flip-script").then((m) => m.FlipScriptGame), {
     ssr: false,
   }),
