@@ -959,7 +959,8 @@ export function PathScene({ nodes = DEFAULT_NODES, onSelectNode, gameView }: { n
         <WindFlowers />
         <Props />
       </Suspense>
-      <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />
+      {/* hide the checkpoints + their labels while a level is being played */}
+      {!gameView && <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />}
       {gameView && <GameCard view={gameView} />}
       <EffectComposer multisampling={0}>
         {/* soft contact-darkening where grass/rocks/trees/path meet the ground */}
