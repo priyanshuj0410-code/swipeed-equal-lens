@@ -5,12 +5,12 @@ import { Volume2, VolumeX, RotateCcw, ArrowRight, Wand2, Check } from "lucide-re
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { Sam } from "@/components/games/sam";
+import { MakeAKid } from "@/components/games/make-a-kid";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
-import { PAIRS, GARDEN_TARGET, SKINS, ACCESSORIES, CANDO, SAM } from "@/content/games/same-same";
+import { PAIRS, GARDEN_TARGET, SAM } from "@/content/games/same-same";
 
 const FLOWERS = ["🌸", "🌼", "🌷", "🌻", "🌺", "🪷"];
-const pick = <T,>(a: T[]) => a[Math.floor(Math.random() * a.length)];
 
 export function SameSameGame({ onExit }: { onExit: () => void }) {
   const [pairIdx, setPairIdx] = useState(0);
@@ -20,7 +20,6 @@ export function SameSameGame({ onExit }: { onExit: () => void }) {
   const [mythPopped, setMythPopped] = useState(false);
   const [friendships, setFriendships] = useState(0);
   const [mode, setMode] = useState<"play" | "make">("play");
-  const [made, setMade] = useState<{ skin: number; acc: number; cando: string } | null>(null);
   const [bubble, setBubble] = useState(SAM.greet);
   const [muted, setMuted] = useState(false);
   const [done, setDone] = useState(false);
@@ -37,7 +36,7 @@ export function SameSameGame({ onExit }: { onExit: () => void }) {
 
   const reset = () => {
     setPairIdx(0); setPhase("share"); setTappedSame(new Set()); setTappedDiff(new Set());
-    setMythPopped(false); setFriendships(0); setMode("play"); setMade(null); setDone(false);
+    setMythPopped(false); setFriendships(0); setMode("play"); setDone(false);
     say(SAM.greet);
   };
 
@@ -76,11 +75,6 @@ export function SameSameGame({ onExit }: { onExit: () => void }) {
     setPairIdx((p) => p + 1);
     setPhase("share"); setTappedSame(new Set()); setTappedDiff(new Set()); setMythPopped(false);
     say(SAM.next);
-  };
-
-  const finishMake = () => {
-    bloom();
-    say(`${SAM.friends} They can ${made?.cando ?? "do anything!"}`, () => { setMode("play"); });
   };
 
   const muteBtn = (
@@ -122,34 +116,16 @@ export function SameSameGame({ onExit }: { onExit: () => void }) {
     );
   }
 
-  // ---- Make-a-Friend ----
+  // ---- Make-a-Friend (shared inclusive builder) ----
   if (mode === "make") {
     return (
       <GameShell title="Same Same, Different" tools={tools} onExit={onExit}>
         <div className="flex w-full max-w-sm flex-col items-stretch gap-4">
           {SamSays}
-          <div className="glass-card flex flex-col items-center gap-2 rounded-2xl py-6 backdrop-blur-[12px] backdrop-saturate-150">
-            <span className="text-6xl" aria-hidden>{made ? `${SKINS[made.skin]}${ACCESSORIES[made.acc].emoji}` : "🧒"}</span>
-            {made && <span className="text-sm font-semibold text-white">They can {made.cando}</span>}
-          </div>
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-white/65">Skin</p>
-          <div className="grid grid-cols-3 gap-2">
-            {SKINS.map((s, i) => (
-              <button key={i} type="button" onClick={() => setMade((m) => ({ skin: i, acc: m?.acc ?? 0, cando: m?.cando ?? pick(CANDO) }))} className="glass-card rounded-2xl py-3 text-3xl backdrop-blur-[12px] transition-transform active:scale-95" style={made?.skin === i ? { boxShadow: "inset 0 0 0 2px #7C5CFC" } : undefined}>{s}</button>
-            ))}
-          </div>
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-white/65">Add</p>
-          <div className="grid grid-cols-4 gap-2">
-            {ACCESSORIES.map((a, i) => (
-              <button key={a.id} type="button" onClick={() => setMade((m) => ({ skin: m?.skin ?? 1, acc: i, cando: m?.cando ?? pick(CANDO) }))} className="glass-card flex flex-col items-center gap-0.5 rounded-2xl py-2.5 backdrop-blur-[12px] transition-transform active:scale-95" style={made?.acc === i ? { boxShadow: "inset 0 0 0 2px #7C5CFC" } : undefined}>
-                <span className="text-xl" aria-hidden>{a.emoji || "🙂"}</span>
-                <span className="text-[10px] font-bold text-white">{a.label}</span>
-              </button>
-            ))}
-          </div>
-          <button type="button" disabled={!made} onClick={finishMake} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
-            <Check className="size-5" aria-hidden /> Add my friend to the garden
-          </button>
+          <MakeAKid
+            ctaLabel="Add my friend to the garden"
+            onAdd={(cando) => { bloom(); say(`${SAM.friends} They can ${cando}`, () => setMode("play")); }}
+          />
         </div>
       </GameShell>
     );
@@ -207,7 +183,7 @@ export function SameSameGame({ onExit }: { onExit: () => void }) {
         {/* in the "different" celebration, offer Make-a-Friend + the next pair */}
         {phase === "diff" && (
           <div className="flex gap-2.5">
-            <button type="button" onClick={() => { setMade(null); setMode("make"); say(SAM.make); }} className="glass-pill flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl text-sm font-bold backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+            <button type="button" onClick={() => { setMode("make"); say(SAM.make); }} className="glass-pill flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl text-sm font-bold backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
               <Wand2 className="size-4" aria-hidden /> Make a Friend
             </button>
             <button type="button" onClick={nextPair} className="flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-white text-sm font-bold text-slate-900 transition-transform active:scale-95">
