@@ -710,28 +710,49 @@ function Node({
 }
 
 // Chapter region signs floating above the first node of each chapter (the single path
-// stays one path; these just label the 5 age-band regions along it).
-function ChapterBanners({ chapters, nodes }: { chapters: Chapter[]; nodes: SceneNode[] }) {
+// stays one path; these just label the 5 age-band regions along it). Each fades in only as
+// you approach its chapter boundary and out once you've entered, like the node labels.
+function ChapterBanner({ ch, u, p, progress }: { ch: Chapter; u: number; p: THREE.Vector3; progress: React.MutableRefObject<number> }) {
+  const [inView, setInView] = useState(false);
+  const ref = useRef(false);
+  useFrame(() => {
+    const ahead = u - progress.current;
+    const vis = ahead > -0.045 && ahead < 0.07; // near the boundary only
+    if (vis !== ref.current) {
+      ref.current = vis;
+      setInView(vis);
+    }
+  });
+  return (
+    <Html center position={[p.x, 4.4, p.z]} distanceFactor={17} zIndexRange={[20, 0]}>
+      <div
+        className={`glass-pill pointer-events-none flex select-none flex-col items-center whitespace-nowrap rounded-xl px-3 py-1 text-center backdrop-blur-md backdrop-saturate-150 transition-opacity duration-300 ${
+          inView ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <span className="text-xs font-bold leading-tight">{ch.title}</span>
+        <span className="text-[10px] font-medium leading-tight opacity-85">{ch.subtitle}</span>
+      </div>
+    </Html>
+  );
+}
+
+function ChapterBanners({ chapters, nodes, progress }: { chapters: Chapter[]; nodes: SceneNode[]; progress: React.MutableRefObject<number> }) {
   const marks = useMemo(() => {
     const total = nodes.length || 1;
     return chapters
       .map((ch) => {
         const idx = nodes.findIndex((n) => n.chapter === ch.key);
         if (idx < 0) return null;
-        const p = CURVE.getPointAt(clamp01((idx + 0.5) / total));
-        return { ch, p };
+        const u = clamp01((idx + 0.5) / total);
+        return { ch, u, p: CURVE.getPointAt(u) };
       })
-      .filter((m): m is { ch: Chapter; p: THREE.Vector3 } => m !== null);
+      .filter((m): m is { ch: Chapter; u: number; p: THREE.Vector3 } => m !== null);
   }, [chapters, nodes]);
   return (
     <>
-      {marks.map(({ ch, p }) => (
-        <Html key={ch.key} center position={[p.x, 4.4, p.z]} distanceFactor={17} zIndexRange={[20, 0]}>
-          <div className="glass-pill pointer-events-none flex select-none flex-col items-center whitespace-nowrap rounded-xl px-3 py-1 text-center backdrop-blur-md backdrop-saturate-150">
-            <span className="text-xs font-bold leading-tight">{ch.title}</span>
-            <span className="text-[10px] font-medium leading-tight opacity-85">{ch.subtitle}</span>
-          </div>
-        </Html>
+      {marks.map(({ ch, u, p }) => (
+        <ChapterBanner key={ch.key} ch={ch} u={u} p={p} progress={progress} />
       ))}
     </>
   );
@@ -943,7 +964,7 @@ export function PathScene({
       {/* phase 1: checkpoints + region signs (hidden while a level is being played) */}
       {phase >= 1 && !playing && (
         <>
-          <ChapterBanners chapters={chapters} nodes={nodes} />
+          <ChapterBanners chapters={chapters} nodes={nodes} progress={progress} />
           <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />
         </>
       )}
