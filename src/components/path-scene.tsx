@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { useGLTF, Html, useTexture } from "@react-three/drei";
+import { useGLTF, Html, useTexture, useAnimations } from "@react-three/drei";
 import { Check, Lock, Play, Trophy } from "lucide-react";
 import { NODES, CHAPTERS, type Chapter } from "@/content/path";
 import { SEASON_ORDER, SEASON_TARGET, SEASONS, seasonRT, type SeasonKey } from "@/lib/seasons";
@@ -597,6 +597,7 @@ const ENV_URLS = [
   "/models/flowers-tall.glb",
 ];
 [...PROP_URLS, ...ENV_URLS].forEach((u) => useGLTF.preload(u));
+useGLTF.preload("/models/characters/character-female-c.glb");
 
 // One streamed instanced layer per prop model (single-mesh Kenney models). Same organic
 // scatter + lean as before, but only the chunks near the camera are populated.
@@ -1092,7 +1093,7 @@ function SeasonDriver({
         const m = o as THREE.Mesh;
         if (!m.isMesh) return;
         const mat = m.material as THREE.MeshStandardMaterial;
-        if (!mat || mat.userData?.holiday) return; // Holiday props keep their own festive colormap
+        if (!mat || mat.userData?.holiday || mat.userData?.ownColormap) return; // keep their own colormap
         // round trees blossom pink in spring; everything else (grass/conifers/hills) takes the season map
         const target = mat.userData?.roundTree && spring ? blossom : map;
         if (mat.map && mat.map !== target) {
@@ -1105,6 +1106,46 @@ function SeasonDriver({
   });
 
   return null;
+}
+
+// A little companion (Kenney Mini Characters) that travels the path beside you, idle-
+// animated. Keeps its own skin colours (skipped by the seasonal recolour).
+function Companion({ progress }: { progress: React.MutableRefObject<number> }) {
+  const { scene, animations } = useGLTF("/models/characters/character-female-c.glb");
+  const grp = useRef<THREE.Group>(null);
+  const inner = useRef<THREE.Group>(null);
+  const { actions } = useAnimations(animations, inner);
+  useEffect(() => {
+    scene.traverse((o) => {
+      const m = o as THREE.Mesh;
+      if (m.isMesh && m.material) (m.material as THREE.Material).userData.ownColormap = true;
+    });
+  }, [scene]);
+  useEffect(() => {
+    const a = actions?.idle ?? Object.values(actions)[0];
+    a?.reset().fadeIn(0.3).play();
+    return () => {
+      a?.fadeOut(0.2);
+    };
+  }, [actions]);
+  useFrame(() => {
+    if (!grp.current) return;
+    const u = clamp01(progress.current + 0.012);
+    const p = CURVE.getPointAt(u);
+    const tan = CURVE.getTangentAt(u);
+    tan.y = 0;
+    if (tan.lengthSq() === 0) tan.set(0, 0, -1);
+    tan.normalize();
+    grp.current.position.set(p.x - tan.z * 3.4, 0, p.z + tan.x * 3.4); // beside the path
+    grp.current.rotation.y = Math.atan2(tan.x, tan.z); // walk along the path
+  });
+  return (
+    <group ref={grp}>
+      <group ref={inner} scale={2.6} position={[0, 0.98, 0]}>
+        <primitive object={scene} />
+      </group>
+    </group>
+  );
 }
 
 // Stars + a soft moon, faded in by the night factor (seasonRT.night). Follows the camera.
@@ -1310,6 +1351,9 @@ export function PathScene({
         <>
           <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />
           <ChapterBanners chapters={chapters} nodes={nodes} progress={progress} />
+          <Suspense fallback={null}>
+            <Companion progress={progress} />
+          </Suspense>
         </>
       )}
       <EffectComposer multisampling={0}>
