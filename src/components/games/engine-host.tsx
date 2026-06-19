@@ -101,6 +101,9 @@ const GAMES: Record<string, EngineGame> = {
   "spectrum": dynamic(() => import("@/components/games/spectrum").then((m) => m.SpectrumGame), {
     ssr: false,
   }),
+  "decoded": dynamic(() => import("@/components/games/decoded").then((m) => m.DecodedGame), {
+    ssr: false,
+  }),
   "flip-script": dynamic(() => import("@/components/games/flip-script").then((m) => m.FlipScriptGame), {
     ssr: false,
   }),
