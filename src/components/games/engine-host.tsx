@@ -17,6 +17,9 @@ const GAMES: Record<string, EngineGame> = {
   "fair-play": dynamic(() => import("@/components/games/fair-play").then((m) => m.FairPlayGame), {
     ssr: false,
   }),
+  "not-funny": dynamic(() => import("@/components/games/not-funny").then((m) => m.NotFunnyGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {

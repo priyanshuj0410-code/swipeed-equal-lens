@@ -37,7 +37,7 @@ export const PATH: PathSection[] = [
     nodes: [
       { id: "fair-play", title: "Fair Play World", emoji: "⚖️", kind: "Sort", status: "active", href: "/game/fair-play", tag: "gender" },
       { id: "trust-detectives", title: "Trust Detectives", emoji: "🕵️", kind: "Sort", status: "locked" },
-      { id: "not-funny", title: "Not Fair, Not Funny", emoji: "🙅", kind: "Choose", status: "locked", tag: "gender" },
+      { id: "not-funny", title: "Not Fair, Not Funny", emoji: "🙅", kind: "Choose", status: "active", href: "/game/not-funny", tag: "gender" },
     ],
   },
   {
