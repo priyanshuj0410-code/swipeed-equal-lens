@@ -6,6 +6,7 @@ import { useGLTF, Html, useTexture } from "@react-three/drei";
 import { Check, Lock, Play, Trophy } from "lucide-react";
 import { NODES, CHAPTERS, type Chapter } from "@/content/path";
 import { SEASON_ORDER, SEASON_TARGET, SEASONS, seasonRT, type SeasonKey } from "@/lib/seasons";
+import { Weather } from "@/components/weather";
 import {
   EffectComposer,
   Bloom,
@@ -1181,6 +1182,8 @@ export function PathScene({
         {/* phase 2: foliage, streamed to a window of chunks around the camera */}
         {phase >= 2 && <StreamedFoliage progress={progress} />}
       </Suspense>
+      {/* phase 2: weather — only the active season's emitter is mounted */}
+      {phase >= 2 && <Weather />}
       {/* phase 1: checkpoints + region signs (hidden while a level is being played).
           Nodes first so the chapter banners (rendered after) stack ABOVE the node labels. */}
       {phase >= 1 && !playing && (
