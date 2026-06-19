@@ -20,7 +20,7 @@ OUT = os.path.join(HERE, "..", "src", "content", "path.ts")
 
 # table node_id -> the dispatch id the app already knows (engine-host id, or glrl/mythbuster)
 GAME = {
-    "g01": "feelings", "g02": "my-body",
+    "g01": "feelings", "g02": "my-body", "g03": "family-garden",
     "g04": "same-same", "g05": "can-do", "g10": "fair-play", "g11": "not-funny",
     "g17": "flip-script", "g19": "speak-up", "g24": "glrl", "g25": "mythbuster",
     "g27": "stand-up", "g33": "lead-the-way", "g34": "change-makers", "g35": "justice-league",
