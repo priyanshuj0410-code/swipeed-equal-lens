@@ -1,10 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Volume2, VolumeX, Home, Wind } from "lucide-react";
+import { Volume2, VolumeX, Home, Wind, RotateCcw } from "lucide-react";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
-import { speak, stopSpeaking } from "@/lib/speak";
+import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import { Sam } from "@/components/games/sam";
 import { FEELINGS, FEELING_BY_ID, SCENES, BIG_NO, CALM_STEPS, CALM_CYCLES, SAM, type Scene } from "@/content/games/feelings-friends";
@@ -26,15 +26,15 @@ export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
   const calmTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const say = useCallback(
-    (t: string) => {
+    (t: string, onEnd?: () => void) => {
       setBubble(t);
-      if (!muted) speak(t);
+      speak(t, { muted, onEnd });
     },
     [muted]
   );
 
   useEffect(() => {
-    if (!muted) speak(SAM.greet);
+    speak(SAM.greet, { muted });
     return () => {
       if (calmTimer.current) clearTimeout(calmTimer.current);
       stopSpeaking();
@@ -115,17 +115,15 @@ export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
     if (!scene) return;
     const f = FEELING_BY_ID[feelingId];
     if (feelingId === scene.answer) {
-      say(`${f.name}. ${f.sam}`);
       collect(feelingId);
-      window.setTimeout(() => {
-        if (matchIdx + 1 >= matchScenes.length) {
-          say("You matched so many feelings! 💛");
-          window.setTimeout(() => go("home"), 1400);
-        } else {
+      // hold the transition until the praise finishes speaking
+      say(`${f.name}. ${f.sam}`, () => {
+        if (matchIdx + 1 >= matchScenes.length) say("You matched so many feelings! 💛", () => go("home"));
+        else {
           setMatchIdx((i) => i + 1);
           say(SAM.match);
         }
-      }, 1500);
+      });
     } else {
       // gentle nudge — never "wrong"
       say(`Maybe. When this happens, you might feel ${FEELING_BY_ID[scene.answer].name.toLowerCase()}.`);
@@ -141,6 +139,17 @@ export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
     >
       {muted ? <VolumeX className="size-4" aria-hidden /> : <Volume2 className="size-4" aria-hidden />}
     </button>
+  );
+
+  const tools = (
+    <span className="flex items-center gap-2">
+      {!muted && (
+        <button type="button" aria-label="Hear it again" onClick={() => replay()} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+          <RotateCcw className="size-4" aria-hidden />
+        </button>
+      )}
+      {muteBtn}
+    </span>
   );
 
   // Sam header with his spoken line shown as text (audio-first, but readable for the grown-up)
@@ -165,7 +174,7 @@ export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
 
   if (done) {
     return (
-      <GameShell title="Feelings Friends" tools={muteBtn} onExit={onExit}>
+      <GameShell title="Feelings Friends" tools={tools} onExit={onExit}>
         <GameDone
           gameId="feelings"
           stars={3}
@@ -200,7 +209,7 @@ export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
   );
 
   return (
-    <GameShell title="Feelings Friends" tools={muteBtn} onExit={onExit}>
+    <GameShell title="Feelings Friends" tools={tools} onExit={onExit}>
       <div className="flex w-full max-w-sm flex-col items-stretch gap-4">
         {SamSays}
 
@@ -209,8 +218,7 @@ export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
           FEEL_GRID((id) => {
             collect(id);
             const f = FEELING_BY_ID[id];
-            say(`${f.sam} ${SAM.checkInThanks}`);
-            window.setTimeout(() => go("home"), 1500);
+            say(`${f.sam} ${SAM.checkInThanks}`, () => go("home"));
           })}
 
         {/* ---- Home: the five modes ---- */}
