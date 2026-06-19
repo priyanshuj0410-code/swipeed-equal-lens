@@ -35,7 +35,7 @@ export const PATH: PathSection[] = [
     title: "Ages 6–9 · Fair is fair",
     subtitle: "Sharing, allies & speaking up",
     nodes: [
-      { id: "fair-play", title: "Fair Play World", emoji: "⚖️", kind: "Sort", status: "locked", tag: "gender" },
+      { id: "fair-play", title: "Fair Play World", emoji: "⚖️", kind: "Sort", status: "active", href: "/game/fair-play", tag: "gender" },
       { id: "trust-detectives", title: "Trust Detectives", emoji: "🕵️", kind: "Sort", status: "locked" },
       { id: "not-funny", title: "Not Fair, Not Funny", emoji: "🙅", kind: "Choose", status: "locked", tag: "gender" },
     ],
