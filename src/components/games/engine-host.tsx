@@ -98,6 +98,9 @@ const GAMES: Record<string, EngineGame> = {
   "mutual": dynamic(() => import("@/components/games/mutual").then((m) => m.MutualGame), {
     ssr: false,
   }),
+  "spectrum": dynamic(() => import("@/components/games/spectrum").then((m) => m.SpectrumGame), {
+    ssr: false,
+  }),
   "flip-script": dynamic(() => import("@/components/games/flip-script").then((m) => m.FlipScriptGame), {
     ssr: false,
   }),
