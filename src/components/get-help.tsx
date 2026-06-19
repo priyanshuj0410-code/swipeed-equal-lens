@@ -20,7 +20,7 @@ export function GetHelp() {
     <Dialog>
       <DialogTrigger
         aria-label="Get help"
-        className="glass-pill fixed right-4 top-4 z-50 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-semibold backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95"
+        className="glass-pill fixed right-4 top-4 z-50 flex h-9 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95"
       >
         <LifeBuoy className="size-4" aria-hidden />
         Get Help

@@ -110,27 +110,29 @@ export default function PathPage() {
       {game.view && <GameCard view={game.view} onCommit={game.commit} />}
       {hud && (
         <>
-          <button
-            type="button"
-            aria-label="Back to path"
-            onClick={game.quit}
-            className="glass-pill fixed left-4 top-4 z-50 flex size-10 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95"
-          >
-            <X className="size-5" aria-hidden />
-          </button>
-
-          <div className="fixed inset-x-0 top-4 z-40 flex flex-col items-center gap-1.5 px-16">
-            <span className="glass-pill rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur-md backdrop-saturate-150">
-              {hud.title} · {Math.min(hud.index + 1, hud.total)}/{hud.total}
+          {/* single equal-height row: close · deck · score (Get Help sits at the same height, far right) */}
+          <div className="fixed left-4 top-4 z-50 flex max-w-[calc(100%-6.75rem)] items-center gap-2">
+            <button
+              type="button"
+              aria-label="Back to path"
+              onClick={game.quit}
+              className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95"
+            >
+              <X className="size-5" aria-hidden />
+            </button>
+            <span className="glass-pill flex h-9 min-w-0 items-center rounded-full px-3 backdrop-blur-md backdrop-saturate-150">
+              <span className="min-w-0 truncate text-xs font-semibold">
+                {hud.title} · {Math.min(hud.index + 1, hud.total)}/{hud.total}
+              </span>
             </span>
-            <div className="flex items-center gap-2">
-              {hud.streak > 1 && (
-                <span className="glass-pill flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold backdrop-blur-md backdrop-saturate-150">
-                  <Flame className="size-3.5" style={{ color: "var(--flame)" }} aria-hidden /> {hud.streak}
-                </span>
-              )}
-              <span className="glass-pill rounded-full px-2.5 py-1 text-xs font-bold backdrop-blur-md backdrop-saturate-150">{hud.score} pts</span>
-            </div>
+            <span className="glass-pill flex h-9 shrink-0 items-center rounded-full px-3 text-xs font-bold backdrop-blur-md backdrop-saturate-150">
+              {hud.score} pts
+            </span>
+            {hud.streak > 1 && (
+              <span className="glass-pill flex h-9 shrink-0 items-center gap-1 rounded-full px-3 text-xs font-bold backdrop-blur-md backdrop-saturate-150">
+                <Flame className="size-3.5" style={{ color: "var(--flame)" }} aria-hidden /> {hud.streak}
+              </span>
+            )}
           </div>
 
           <div className="fixed inset-x-0 bottom-6 z-40 mx-auto flex w-full max-w-sm items-center gap-3 px-5">
