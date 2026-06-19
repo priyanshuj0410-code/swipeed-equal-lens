@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type MutableRefObject } from "react";
 import { SEASON_ORDER, SEASONS, seasonRT } from "@/lib/seasons";
 
 // Particle-count multiplier by device/motion tier: 0 = off (reduced-motion), ~0.55 on
@@ -24,7 +24,7 @@ function useParticleScale() {
 const dtClamp = (dt: number) => Math.min(dt, 0.05);
 
 // ---- rain (rainy chapter) -------------------------------------------------------------
-function Rain({ count }: { count: number }) {
+function Rain({ count, strength }: { count: number; strength: MutableRefObject<number> }) {
   const ref = useRef<THREE.Points>(null);
   const area = useMemo<[number, number, number]>(() => [52, 34, 52], []);
   const speed = 22;
@@ -69,19 +69,20 @@ function Rain({ count }: { count: number }) {
     im.geometry.attributes.position.needsUpdate = true;
     im.position.x = state.camera.position.x;
     im.position.z = state.camera.position.z;
+    (im.material as THREE.PointsMaterial).opacity = 0.55 * strength.current;
   });
   return (
     <points ref={ref} frustumCulled={false}>
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
-      <pointsMaterial map={tex} color="#a9c3df" size={0.18} sizeAttenuation transparent opacity={0.55} depthWrite={false} />
+      <pointsMaterial map={tex} color="#a9c3df" size={0.18} sizeAttenuation transparent opacity={0} depthWrite={false} />
     </points>
   );
 }
 
 // ---- snow (winter chapter) ------------------------------------------------------------
-function Snow({ count }: { count: number }) {
+function Snow({ count, strength }: { count: number; strength: MutableRefObject<number> }) {
   const ref = useRef<THREE.Points>(null);
   const area = useMemo<[number, number, number]>(() => [52, 34, 52], []);
   const speed = 2.4;
@@ -127,13 +128,14 @@ function Snow({ count }: { count: number }) {
     im.geometry.attributes.position.needsUpdate = true;
     im.position.x = state.camera.position.x;
     im.position.z = state.camera.position.z;
+    (im.material as THREE.PointsMaterial).opacity = 0.95 * strength.current;
   });
   return (
     <points ref={ref} frustumCulled={false}>
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
-      <pointsMaterial map={tex} color="#ffffff" size={0.13} sizeAttenuation transparent opacity={0.95} depthWrite={false} />
+      <pointsMaterial map={tex} color="#ffffff" size={0.13} sizeAttenuation transparent opacity={0} depthWrite={false} />
     </points>
   );
 }
@@ -154,7 +156,7 @@ type Leaf = {
   x: number; y: number; z: number; rx: number; ry: number; rz: number;
   spin: number; sway: number; phase: number; scale: number; ci: number;
 };
-function FallingLeaves({ count, colors, speed }: { count: number; colors: string[]; speed: number }) {
+function FallingLeaves({ count, colors, speed, strength }: { count: number; colors: string[]; speed: number; strength: MutableRefObject<number> }) {
   const ref = useRef<THREE.InstancedMesh>(null);
   const area = useMemo<[number, number, number]>(() => [48, 30, 48], []);
   const dummy = useMemo(() => new THREE.Object3D(), []);
@@ -213,31 +215,39 @@ function FallingLeaves({ count, colors, speed }: { count: number; colors: string
       im.setMatrixAt(i, dummy.matrix);
     });
     im.instanceMatrix.needsUpdate = true;
+    (im.material as THREE.MeshStandardMaterial).opacity = strength.current;
   });
   return (
     <instancedMesh ref={ref} args={[undefined, undefined, count]} frustumCulled={false}>
       <planeGeometry args={[1, 1]} />
-      <meshStandardMaterial map={tex} color="#ffffff" side={THREE.DoubleSide} transparent alphaTest={0.4} roughness={1} />
+      <meshStandardMaterial map={tex} color="#ffffff" side={THREE.DoubleSide} transparent opacity={0} alphaTest={0.1} depthWrite={false} roughness={1} />
     </instancedMesh>
   );
 }
 
-// ---- switcher: mounts only the active season's emitter (driven by seasonRT) -----------
+// ---- switcher: mounts the active season's emitter, crossfading at boundaries ----------
+// `shown` is the emitter currently mounted; `strength` (0..1, a ref so it costs no
+// re-renders) ramps it in. When the season's weather changes we ramp `strength` back to
+// 0, then swap `shown` to the new emitter so it fades in fresh — no hard pop at the line.
+const FADE = 0.6; // seconds per fade direction
 export function Weather() {
   const scale = useParticleScale();
-  const [weather, setWeather] = useState<string | null>(null);
-  const lastRef = useRef<string | null>(null);
-  useFrame(() => {
-    const w = SEASONS[SEASON_ORDER[seasonRT.index] ?? "summer"].weather;
-    if (w !== lastRef.current) {
-      lastRef.current = w;
-      setWeather(w);
+  const [shown, setShown] = useState<string | null>(null);
+  const strength = useRef(0);
+  useFrame((_, dt) => {
+    const target = SEASONS[SEASON_ORDER[seasonRT.index] ?? "summer"].weather;
+    const d = dtClamp(dt) / FADE;
+    if (shown === target) {
+      strength.current = Math.min(1, strength.current + d);
+    } else {
+      strength.current = Math.max(0, strength.current - d);
+      if (strength.current <= 0.001) setShown(target);
     }
   });
-  if (scale === 0 || !weather) return null;
-  if (weather === "rain") return <Rain count={Math.round(2200 * scale)} />;
-  if (weather === "snow") return <Snow count={Math.round(1900 * scale)} />;
-  if (weather === "leaves") return <FallingLeaves count={Math.round(380 * scale)} colors={["#d98a3d", "#c2622d", "#b5792f", "#e0701f"]} speed={2.6} />;
-  if (weather === "petals") return <FallingLeaves count={Math.round(460 * scale)} colors={["#FFD1DC", "#FFDEE7", "#FFE8EF"]} speed={1.8} />;
+  if (scale === 0 || !shown) return null;
+  if (shown === "rain") return <Rain count={Math.round(2200 * scale)} strength={strength} />;
+  if (shown === "snow") return <Snow count={Math.round(1900 * scale)} strength={strength} />;
+  if (shown === "leaves") return <FallingLeaves count={Math.round(380 * scale)} colors={["#d98a3d", "#c2622d", "#b5792f", "#e0701f"]} speed={2.6} strength={strength} />;
+  if (shown === "petals") return <FallingLeaves count={Math.round(460 * scale)} colors={["#FFD1DC", "#FFDEE7", "#FFE8EF"]} speed={1.8} strength={strength} />;
   return null;
 }
