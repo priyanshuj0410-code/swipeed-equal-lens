@@ -13,10 +13,14 @@ const OUTDIR = path.join(HERE, "..", "public", "models", "Textures");
 const TARGET = {
   summer: "#5BB54A",
   rainy: "#2F7D45",
-  autumn: "#B5792F", // golden-orange, between the grass/leaf targets
-  winter: "#E3ECF5", // snow white-blue
+  autumn: "#D2691E", // strong orange
+  winter: "#EEF4FA", // near-white snow
   spring: "#7ECB5A",
 };
+
+// how much of the original swatch's luminance variation to keep (lower = flatter toward
+// the target). Winter is low so foliage reads as uniform snow-white, not pale green.
+const LWEIGHT = { summer: 0.4, rainy: 0.4, autumn: 0.4, winter: 0.16, spring: 0.4 };
 
 const hexToRgb = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
 function rgbToHsl(r, g, b) {
@@ -62,8 +66,9 @@ for (const [season, hex] of Object.entries(TARGET)) {
     const r = out[i], g = out[i + 1], b = out[i + 2];
     if (!isGreen(r, g, b)) continue;
     const [, , l] = rgbToHsl(r, g, b);
-    // keep the season hue+sat; bias luminance toward the target but keep swatch variation
-    const newL = Math.max(0.06, Math.min(0.96, tL * 0.6 + l * 0.4));
+    // keep the season hue+sat; bias luminance toward the target but keep some swatch variation
+    const lw = LWEIGHT[season] ?? 0.4;
+    const newL = Math.max(0.06, Math.min(0.98, tL * (1 - lw) + l * lw));
     const [nr, ng, nb] = hslToRgb(tH, tS, newL);
     out[i] = nr; out[i + 1] = ng; out[i + 2] = nb;
     recoloured++;

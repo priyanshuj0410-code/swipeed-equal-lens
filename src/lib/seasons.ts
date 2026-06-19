@@ -40,15 +40,15 @@ export const SEASONS: Record<SeasonKey, SeasonDef> = {
   autumn: {
     skyTop: "#f4c98a", skyBottom: "#fcefd6", bg: "#fcefd6",
     fogColor: "#f3dcad", fogNear: 45, fogFar: 205,
-    sunColor: "#ffd89a", sunIntensity: 1.16, ambient: 0.46,
-    ground: { base: "#b2934a", light: "#d2b266", dark: "#8a6f35" },
+    sunColor: "#ffce8a", sunIntensity: 1.16, ambient: 0.46,
+    ground: { base: "#bf6a2c", light: "#e08a3e", dark: "#974f22" },
     colormap: "/models/Textures/colormap_autumn.png", weather: "leaves",
   },
   winter: {
-    skyTop: "#bcd2e8", skyBottom: "#eef4fb", bg: "#eef4fb",
-    fogColor: "#e6eef8", fogNear: 40, fogFar: 190,
-    sunColor: "#ffe9c9", sunIntensity: 1.0, ambient: 0.62,
-    ground: { base: "#e6edf6", light: "#f6fbff", dark: "#cad7e6" },
+    skyTop: "#cbdcec", skyBottom: "#f4f8fc", bg: "#f4f8fc",
+    fogColor: "#eef4fb", fogNear: 40, fogFar: 190,
+    sunColor: "#fff0d8", sunIntensity: 1.05, ambient: 0.66,
+    ground: { base: "#f1f6fb", light: "#ffffff", dark: "#dde7f1" },
     colormap: "/models/Textures/colormap_winter.png", weather: "snow",
   },
   spring: {
