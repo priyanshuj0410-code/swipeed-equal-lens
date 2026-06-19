@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { useGLTF, Html, useTexture } from "@react-three/drei";
 import { Check, Lock, Play, Trophy } from "lucide-react";
-import type { Chapter } from "@/content/path";
+import { NODES, CHAPTERS, type Chapter } from "@/content/path";
 import { SEASON_ORDER, SEASON_TARGET, SEASONS, seasonRT, type SeasonKey } from "@/lib/seasons";
 import {
   EffectComposer,
@@ -58,6 +58,17 @@ const PATH_START_Z = 22 * PATH_SCALE;
 const PATH_END_Z = -202 * PATH_SCALE;
 const PATH_MID_Z = (PATH_START_Z + PATH_END_Z) / 2;
 const PATH_SPAN_Z = PATH_START_Z - PATH_END_Z;
+
+// Chapter-4 (winter) path segment: Holiday-Kit props are scattered only here, and the
+// Platformer trees/flowers are excluded here (so winter reads festive, not white blobs).
+const _WINTER_CH = CHAPTERS.find((c) => /Ages 12/.test(c.title)) ?? CHAPTERS[3];
+const _wTotal = NODES.length || 1;
+const _clampU = (u: number) => Math.max(0, Math.min(1, u));
+const _wzA = CURVE.getPointAt(_clampU((_WINTER_CH.startOrder - 0.7) / _wTotal)).z;
+const _wzB = CURVE.getPointAt(_clampU((_WINTER_CH.endOrder - 0.3) / _wTotal)).z;
+const WINTER_Z_MAX = Math.max(_wzA, _wzB) + 26;
+const WINTER_Z_MIN = Math.min(_wzA, _wzB) - 26;
+const inWinter = (z: number) => z <= WINTER_Z_MAX && z >= WINTER_Z_MIN;
 
 export type NodeState = "completed" | "playable" | "soon";
 export type SceneNode = {
@@ -130,14 +141,14 @@ function densityNoise(x: number, z: number) {
 
 // Organic scatter: denser where the noise field is high, with bare patches where it's
 // low; random rotation + lean (tx/tz) per instance so nothing lines up in rows.
-function organicScatter(count: number, seed: number, clearance: number, freq: number): Placement[] {
+function organicScatter(count: number, seed: number, clearance: number, freq: number, zRange?: [number, number]): Placement[] {
   const rng = mulberry32(seed);
   const out: Placement[] = [];
   let tries = 0;
   while (out.length < count && tries < count * 80) {
     tries++;
     const x = (rng() * 2 - 1) * 52;
-    const z = PATH_START_Z + 18 - rng() * (PATH_SPAN_Z + 44);
+    const z = zRange ? zRange[0] + rng() * (zRange[1] - zRange[0]) : PATH_START_Z + 18 - rng() * (PATH_SPAN_Z + 44);
     if (distToPathSq(x, z) < clearance * clearance) continue;
     const dens = densityNoise(x * freq, z * freq);
     if (rng() > dens * dens * 1.8) continue; // accept ∝ density² -> clumps + clearings
@@ -433,10 +444,11 @@ const F_BEHIND = 1; // chunks kept behind the camera
 const F_AHEAD = 3; // chunks populated ahead (≈ the fog distance)
 const fchunkOf = (z: number) => Math.floor((PATH_START_Z + 24 - z) / FCHUNK);
 
-type ScatterCfg = { count: number; seed: number; clearance: number; freq: number };
-function bucketScatter({ count, seed, clearance, freq }: ScatterCfg): Map<number, Placement[]> {
+type ScatterCfg = { count: number; seed: number; clearance: number; freq: number; zRange?: [number, number] };
+function bucketScatter({ count, seed, clearance, freq, zRange }: ScatterCfg, zFilter?: (z: number) => boolean): Map<number, Placement[]> {
   const m = new Map<number, Placement[]>();
-  for (const p of organicScatter(count, seed, clearance, freq)) {
+  for (const p of organicScatter(count, seed, clearance, freq, zRange)) {
+    if (zFilter && !zFilter(p.z)) continue;
     const c = fchunkOf(p.z);
     let b = m.get(c);
     if (!b) m.set(c, (b = []));
@@ -510,23 +522,55 @@ function StreamLayer({
 }
 
 // --- scattered stylized props (Clone) --------------------------------------------------
-type ModelCfg = { url: string; scale: number; count: number; seed: number; clearance: number; cast: boolean; tilt: number };
+// `winterSwap`: this Platformer prop is excluded from the winter region (Holiday props
+// replace it there). `holiday`: this is a Holiday-Kit prop, scattered ONLY in winter and
+// kept with its own festive colormap (skipped by the seasonal recolour).
+type ModelCfg = {
+  url: string;
+  scale: number;
+  count: number;
+  seed: number;
+  clearance: number;
+  cast: boolean;
+  tilt: number;
+  winterSwap?: boolean;
+  holiday?: boolean;
+};
 
 const TREE_MODELS: ModelCfg[] = [
-  { url: "/models/tree.glb", scale: 5.2, count: 14, seed: 11, clearance: 7.5, cast: true, tilt: 0.05 },
-  { url: "/models/tree-pine.glb", scale: 5.2, count: 10, seed: 23, clearance: 7.5, cast: true, tilt: 0.04 },
-  { url: "/models/tree-pine-small.glb", scale: 4.8, count: 8, seed: 37, clearance: 7, cast: true, tilt: 0.06 },
+  { url: "/models/tree.glb", scale: 5.2, count: 14, seed: 11, clearance: 7.5, cast: true, tilt: 0.05, winterSwap: true },
+  { url: "/models/tree-pine.glb", scale: 5.2, count: 10, seed: 23, clearance: 7.5, cast: true, tilt: 0.04, winterSwap: true },
+  { url: "/models/tree-pine-small.glb", scale: 4.8, count: 8, seed: 37, clearance: 7, cast: true, tilt: 0.06, winterSwap: true },
 ];
 const PROP_MODELS: ModelCfg[] = [
   { url: "/models/rocks.glb", scale: 2.0, count: 26, seed: 101, clearance: 3.5, cast: true, tilt: 0.22 },
   { url: "/models/stones.glb", scale: 2.6, count: 20, seed: 113, clearance: 2.2, cast: false, tilt: 0.12 },
-  { url: "/models/mushrooms.glb", scale: 1.4, count: 16, seed: 127, clearance: 3, cast: false, tilt: 0.14 },
+  { url: "/models/mushrooms.glb", scale: 1.4, count: 16, seed: 127, clearance: 3, cast: false, tilt: 0.14, winterSwap: true },
   { url: "/models/plant.glb", scale: 1.5, count: 26, seed: 131, clearance: 2.3, cast: false, tilt: 0.14 },
-  { url: "/models/flowers.glb", scale: 1.1, count: 40, seed: 163, clearance: 2.3, cast: false, tilt: 0.12 },
+  { url: "/models/flowers.glb", scale: 1.1, count: 40, seed: 163, clearance: 2.3, cast: false, tilt: 0.12, winterSwap: true },
   { url: "/models/sign.glb", scale: 2.2, count: 4, seed: 179, clearance: 3, cast: true, tilt: 0 },
   { url: "/models/flag.glb", scale: 2.4, count: 5, seed: 191, clearance: 3.5, cast: true, tilt: 0 },
 ];
-const PROP_URLS = [...TREE_MODELS, ...PROP_MODELS].map((m) => m.url);
+// Holiday-Kit props for the winter region (counts are absolute — not ×PATH_SCALE — since
+// they only populate the winter band).
+const HOLIDAY_MODELS: ModelCfg[] = [
+  { url: "/models/holiday/tree-snow-a.glb", scale: 5.0, count: 9, seed: 701, clearance: 7.5, cast: true, tilt: 0.04, holiday: true },
+  { url: "/models/holiday/tree-snow-b.glb", scale: 5.0, count: 8, seed: 713, clearance: 7.5, cast: true, tilt: 0.04, holiday: true },
+  { url: "/models/holiday/tree-snow-c.glb", scale: 4.6, count: 6, seed: 727, clearance: 7, cast: true, tilt: 0.05, holiday: true },
+  { url: "/models/holiday/tree-decorated-snow.glb", scale: 5.0, count: 4, seed: 733, clearance: 8, cast: true, tilt: 0, holiday: true },
+  { url: "/models/holiday/present-a-cube.glb", scale: 1.9, count: 8, seed: 741, clearance: 2.2, cast: true, tilt: 0.04, holiday: true },
+  { url: "/models/holiday/present-a-round.glb", scale: 1.9, count: 6, seed: 747, clearance: 2.2, cast: true, tilt: 0.04, holiday: true },
+  { url: "/models/holiday/present-b-rectangle.glb", scale: 1.9, count: 6, seed: 753, clearance: 2.2, cast: true, tilt: 0.04, holiday: true },
+  { url: "/models/holiday/candy-cane-red.glb", scale: 2.4, count: 6, seed: 761, clearance: 2, cast: false, tilt: 0.04, holiday: true },
+  { url: "/models/holiday/candy-cane-green.glb", scale: 2.4, count: 5, seed: 767, clearance: 2, cast: false, tilt: 0.04, holiday: true },
+  { url: "/models/holiday/lantern.glb", scale: 2.6, count: 6, seed: 771, clearance: 2.4, cast: true, tilt: 0, holiday: true },
+  { url: "/models/holiday/lights-colored.glb", scale: 3.0, count: 4, seed: 777, clearance: 3, cast: false, tilt: 0, holiday: true },
+  { url: "/models/holiday/snowman.glb", scale: 3.0, count: 4, seed: 781, clearance: 3, cast: true, tilt: 0, holiday: true },
+  { url: "/models/holiday/snow-pile.glb", scale: 3.2, count: 12, seed: 787, clearance: 2.4, cast: false, tilt: 0.1, holiday: true },
+  { url: "/models/holiday/sled.glb", scale: 2.6, count: 3, seed: 791, clearance: 3, cast: true, tilt: 0.05, holiday: true },
+  { url: "/models/holiday/reindeer.glb", scale: 3.6, count: 3, seed: 797, clearance: 3.5, cast: true, tilt: 0, holiday: true },
+];
+const PROP_URLS = [...TREE_MODELS, ...PROP_MODELS, ...HOLIDAY_MODELS].map((m) => m.url);
 const ENV_URLS = [
   "/models/block-grass-large-tall.glb",
   "/models/platform.glb",
@@ -540,9 +584,23 @@ const ENV_URLS = [
 // scatter + lean as before, but only the chunks near the camera are populated.
 function PropStream({ cfg, active }: { cfg: ModelCfg; active: number[] }) {
   const { scene } = useGLTF(cfg.url);
-  const { geometry, material } = useMemo(() => bakedMesh(scene), [scene]);
+  const { geometry, material } = useMemo(() => {
+    const b = bakedMesh(scene);
+    if (cfg.holiday) (b.material as THREE.Material).userData.holiday = true; // keep its own festive colormap
+    return b;
+  }, [scene, cfg.holiday]);
   const buckets = useMemo(
-    () => bucketScatter({ count: Math.round(cfg.count * PATH_SCALE), seed: cfg.seed, clearance: cfg.clearance, freq: 0.07 }),
+    () =>
+      bucketScatter(
+        {
+          count: cfg.holiday ? cfg.count : Math.round(cfg.count * PATH_SCALE),
+          seed: cfg.seed,
+          clearance: cfg.clearance,
+          freq: 0.07,
+          zRange: cfg.holiday ? [WINTER_Z_MIN, WINTER_Z_MAX] : undefined,
+        },
+        cfg.winterSwap ? (z) => !inWinter(z) : undefined
+      ),
     [cfg]
   );
   const toMatrix = useCallback(
@@ -577,7 +635,8 @@ function StreamedFoliage({ progress }: { progress: React.MutableRefObject<number
     return { geometry: b.geometry, material: mat };
   }, [flowers.scene, flowerWind]);
   const grassB = useMemo(() => bucketScatter({ count: 9000, seed: 321, clearance: 2.0, freq: 0.05 }), []);
-  const flowerB = useMemo(() => bucketScatter({ count: 120, seed: 149, clearance: 2.4, freq: 0.09 }), []);
+  // tall flowers don't belong under snow — exclude them from the winter region
+  const flowerB = useMemo(() => bucketScatter({ count: 120, seed: 149, clearance: 2.4, freq: 0.09 }, (z) => !inWinter(z)), []);
 
   const [active, setActive] = useState<number[]>([]);
   const keyRef = useRef("");
@@ -597,7 +656,7 @@ function StreamedFoliage({ progress }: { progress: React.MutableRefObject<number
     <>
       <StreamLayer geometry={grassRes.geometry} material={grassRes.material} buckets={grassB} active={active} toMatrix={grassMatrix} />
       <StreamLayer geometry={flowerRes.geometry} material={flowerRes.material} buckets={flowerB} active={active} toMatrix={flowerMatrix} />
-      {[...TREE_MODELS, ...PROP_MODELS].map((m) => (
+      {[...TREE_MODELS, ...PROP_MODELS, ...HOLIDAY_MODELS].map((m) => (
         <PropStream key={m.url} cfg={m} active={active} />
       ))}
     </>
@@ -946,7 +1005,8 @@ function SeasonDriver({
         const m = o as THREE.Mesh;
         if (!m.isMesh) return;
         const mat = m.material as THREE.MeshStandardMaterial;
-        if (mat && mat.map && mat.map !== map) {
+        if (!mat || mat.userData?.holiday) return; // Holiday props keep their own festive colormap
+        if (mat.map && mat.map !== map) {
           mat.map = map;
           mat.needsUpdate = true;
         }
