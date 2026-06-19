@@ -12,7 +12,7 @@ import { GameCard } from "@/components/game-card";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { EngineGameHost, hasEngineGame } from "@/components/games/engine-host";
-import { PATH } from "@/content/path";
+import { NODES, CHAPTERS } from "@/content/path";
 import { DECK_BY_ID, resolveDeckCards, availableDecks } from "@/content/decks";
 import type { SceneNode } from "@/components/path-scene";
 
@@ -54,43 +54,49 @@ export default function PathPage() {
 
   const nodes = useMemo<SceneNode[]>(() => {
     const stars = profile.deckStars ?? {};
-    const isDone = (id: string) => {
-      if (id === "mythbuster") return stars["mythbuster"] != null;
-      // GLRL is "done" once any of its own swipe decks is cleared (engine games have
-      // their own ids and aren't in DECK_BY_ID, so they don't count here).
-      if (id === "glrl")
+    const isDone = (game?: string) => {
+      if (!game) return false;
+      if (game === "mythbuster") return stars["mythbuster"] != null;
+      // GLRL is "done" once any of its own swipe decks is cleared.
+      if (game === "glrl")
         return Object.keys(stars).some((k) => k !== "mythbuster" && DECK_BY_ID[k as keyof typeof DECK_BY_ID] != null);
-      return stars[id] != null;
+      return stars[game] != null;
     };
-    return PATH.flatMap((s) => s.nodes).map((n): SceneNode => ({
+    // All 41 nodes, in order. Built games are playable; everything else is "soon" (no gates).
+    return NODES.map((n): SceneNode => ({
       id: n.id,
-      label: n.title,
-      state: isDone(n.id) ? "completed" : n.status === "active" ? "current" : "locked",
+      label: n.label,
+      state: n.game ? (isDone(n.game) ? "completed" : "playable") : "soon",
       href: n.href,
       emoji: n.emoji,
+      hex: n.hex,
+      capstone: n.type === "capstone",
+      game: n.game,
+      chapter: n.chapter,
     }));
   }, [profile.deckStars]);
 
-  // Every game plays in place over the grassland — swipe decks via useSwipeGame, the
-  // tap/sort/choose/sim engines via EngineGameHost. None of them navigate away.
+  // Every built game plays in place over the grassland — swipe decks via useSwipeGame, the
+  // tap/sort/choose/sim engines via EngineGameHost. "soon" nodes have no game and don't act.
   const handleSelect = (node: SceneNode) => {
-    if (node.state === "locked") return;
-    if (node.id === "mythbuster") {
+    const gid = node.game;
+    if (!gid) return; // not built yet
+    if (gid === "mythbuster") {
       game.start("mythbuster", resolveDeckCards("mythbuster", profile.schoolComfort), DECK_BY_ID["mythbuster"]?.swipe);
       return;
     }
-    if (node.id === "glrl") {
+    if (gid === "glrl") {
       const first = availableDecks(profile.schoolComfort)[0];
       if (first) {
         game.start(first.id, resolveDeckCards(first.id, profile.schoolComfort), DECK_BY_ID[first.id]?.swipe);
         return;
       }
     }
-    if (hasEngineGame(node.id)) {
-      setEngineGame(node.id);
+    if (hasEngineGame(gid)) {
+      setEngineGame(gid);
       return;
     }
-    if (node.href) router.push(node.href); // not-yet-built engines fall back to their route
+    if (node.href) router.push(node.href);
   };
 
   const hud = game.hud;
@@ -107,7 +113,7 @@ export default function PathPage() {
             </Link>
           </div>
         ) : (
-          <PathScene nodes={nodes} onSelectNode={handleSelect} playing={playing} />
+          <PathScene nodes={nodes} chapters={CHAPTERS} onSelectNode={handleSelect} playing={playing} />
         )}
       </div>
 

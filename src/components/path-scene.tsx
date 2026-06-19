@@ -3,7 +3,8 @@
 import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { useGLTF, Html } from "@react-three/drei";
-import { Check, Lock, Play } from "lucide-react";
+import { Check, Lock, Play, Trophy } from "lucide-react";
+import type { Chapter } from "@/content/path";
 import {
   EffectComposer,
   Bloom,
@@ -58,17 +59,27 @@ const CURVE = new THREE.CatmullRomCurve3(
   0.5
 );
 
-export type NodeState = "completed" | "current" | "locked";
-export type SceneNode = { id: string; label: string; state: NodeState; href?: string; emoji: string };
+export type NodeState = "completed" | "playable" | "soon";
+export type SceneNode = {
+  id: string;
+  label: string;
+  state: NodeState;
+  href?: string;
+  emoji: string;
+  hex: string; // thread tint (one colour per node)
+  capstone?: boolean;
+  game?: string; // dispatch id when built
+  chapter?: string;
+};
 
 // Fallback nodes if the host doesn't pass real ones (the /path page derives them from
-// PATH content + saved progress and passes them in).
+// the node table + saved progress and passes them in).
 const DEFAULT_NODES: SceneNode[] = [
-  { id: "glrl", label: "Green Light / Red Light", state: "current", href: "/decks", emoji: "🚦" },
-  { id: "n2", label: "Coming soon", state: "locked", emoji: "🌱" },
-  { id: "n3", label: "Coming soon", state: "locked", emoji: "💬" },
-  { id: "n4", label: "Coming soon", state: "locked", emoji: "🤝" },
-  { id: "n5", label: "Coming soon", state: "locked", emoji: "⭐" },
+  { id: "glrl", label: "Green Light / Red Light", state: "playable", href: "/decks", emoji: "🚦", hex: "#5b8def" },
+  { id: "n2", label: "Coming soon", state: "soon", emoji: "🌱", hex: "#7C3AED" },
+  { id: "n3", label: "Coming soon", state: "soon", emoji: "💬", hex: "#EC4899" },
+  { id: "n4", label: "Coming soon", state: "soon", emoji: "🤝", hex: "#0EA5E9" },
+  { id: "n5", label: "Coming soon", state: "soon", emoji: "⭐", hex: "#EAB308" },
 ];
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 const PATH_PTS = Array.from({ length: 90 }, (_, i) => CURVE.getPointAt(i / 89));
@@ -490,16 +501,24 @@ function Props() {
 }
 
 // --- node markers ----------------------------------------------------------------------
-const STATE_STYLE: Record<NodeState, { gem: string; ring: string; pedestal: string; emissive: number; badge: string }> = {
-  completed: { gem: "#57b85a", ring: "#bfe9c0", pedestal: "#3f9a47", emissive: 0.16, badge: "#3f9a47" },
-  current: { gem: "#5b8def", ring: "#ffe08a", pedestal: "#3f6fcf", emissive: 0.22, badge: "#2f5fd0" },
-  locked: { gem: "#9aa3ad", ring: "#7c8694", pedestal: "#5a6470", emissive: 0, badge: "#7c8694" },
-};
+// Bubble colour comes from the node's thread hex; state changes the *treatment* (full vs
+// greyed) and the icon — colour carries the thread, per the single-path design.
+function nodeShades(hex: string, state: NodeState, capstone: boolean) {
+  const c = new THREE.Color(hex);
+  if (state === "soon") c.lerp(new THREE.Color("#8b93a0"), capstone ? 0.22 : 0.72); // capstones stay gold; not-built lessons grey out
+  const hx = (x: THREE.Color) => `#${x.getHexString()}`;
+  return {
+    badge: hx(c.clone().lerp(new THREE.Color("#000000"), 0.12)),
+    ring: hx(c.clone().lerp(new THREE.Color("#ffffff"), 0.55)),
+    pedestal: hx(c.clone().lerp(new THREE.Color("#000000"), 0.28)),
+  };
+}
 
-function NodeIcon({ state }: { state: NodeState }) {
+function NodeIcon({ state, capstone }: { state: NodeState; capstone: boolean }) {
+  if (capstone) return <Trophy className="size-4" aria-hidden />;
   if (state === "completed") return <Check className="size-4" strokeWidth={3} aria-hidden />;
-  if (state === "current") return <Play className="size-4 translate-x-px" fill="currentColor" strokeWidth={0} aria-hidden />;
-  return <Lock className="size-[0.85rem]" aria-hidden />;
+  if (state === "playable") return <Play className="size-4 translate-x-px" fill="currentColor" strokeWidth={0} aria-hidden />;
+  return <Lock className="size-[0.8rem]" aria-hidden />;
 }
 
 // Render an emoji to a canvas (system colour-emoji font) -> texture for a 3D billboard.
@@ -538,15 +557,18 @@ function Node({
 }) {
   const pos = useMemo(() => CURVE.getPointAt(u), [u]);
   const spr = useRef<THREE.Sprite>(null);
-  const tex = useEmojiTexture(node.emoji, node.state === "locked");
-  const st = STATE_STYLE[node.state];
-  const isCurrent = node.state === "current";
-  const locked = node.state === "locked";
+  const cap = !!node.capstone;
+  const soon = node.state === "soon";
+  const greyEmoji = soon && !cap; // capstones keep their gold; not-built lessons grey out
+  const tex = useEmojiTexture(node.emoji, greyEmoji);
+  const st = nodeShades(node.hex, node.state, cap);
+  const bob = node.state === "playable";
+  const sprScale = cap ? 2.5 : 1.8;
   const [inView, setInView] = useState(false);
   const inViewRef = useRef(false);
   useFrame((s) => {
     if (spr.current) {
-      spr.current.position.y = 0.2 + (isCurrent && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0);
+      spr.current.position.y = 0.2 + (bob && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0);
     }
     // reveal the name when the node is at / just ahead of the camera focus
     // (touch has no hover, so on-screen nodes label themselves)
@@ -562,37 +584,37 @@ function Node({
   };
   const select = () => {
     progress.current = u;
-    if (!locked) onSelect?.(node);
+    if (!soon) onSelect?.(node);
   };
   return (
     <group position={[pos.x, 1.5, pos.z]}>
-      <mesh position={[0, -1.0, 0]} castShadow receiveShadow>
+      <mesh position={[0, -1.0, 0]} castShadow receiveShadow scale={cap ? 1.22 : 1}>
         <cylinderGeometry args={[0.95, 1.05, 0.36, 24]} />
         <meshToonMaterial color={st.pedestal} gradientMap={TOON_GRAD} />
       </mesh>
-      <mesh position={[0, -0.8, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh position={[0, -0.8, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={cap ? 1.22 : 1}>
         <torusGeometry args={[1.05, 0.07, 8, 32]} />
-        <meshToonMaterial color={st.ring} gradientMap={TOON_GRAD} emissive={st.ring} emissiveIntensity={locked ? 0 : 0.3} />
+        <meshToonMaterial color={st.ring} gradientMap={TOON_GRAD} emissive={st.ring} emissiveIntensity={soon ? 0 : cap ? 0.45 : 0.3} />
       </mesh>
-      {/* lesson emoji billboard (replaces the gem); dimmed when locked */}
-      <sprite ref={spr} scale={[1.8, 1.8, 1.8]}>
-        <spriteMaterial map={tex} transparent depthWrite={false} opacity={locked ? 0.55 : 1} fog={false} />
+      {/* lesson emoji billboard (replaces the gem); dimmed when not built */}
+      <sprite ref={spr} scale={[sprScale, sprScale, sprScale]}>
+        <spriteMaterial map={tex} transparent depthWrite={false} opacity={greyEmoji ? 0.5 : cap && soon ? 0.92 : 1} fog={false} />
       </sprite>
       {/* accessible DOM button overlay: tap / keyboard target + colour-blind-safe state badge.
-          The lesson name shows above on hover / focus. */}
-      <Html center position={[0, 1.35, 0]} distanceFactor={11} zIndexRange={[30, 0]}>
+          The lesson name shows above on hover / focus / in-view. */}
+      <Html center position={[0, cap ? 1.7 : 1.35, 0]} distanceFactor={11} zIndexRange={[30, 0]}>
         <div className="relative flex flex-col items-center">
           <button
             type="button"
-            aria-label={`${node.label} — ${node.state}`}
-            disabled={locked}
+            aria-label={`${node.label} — ${cap ? "capstone, " : ""}${node.state === "soon" ? "not built yet" : node.state}`}
+            disabled={soon}
             onPointerDown={(e) => e.stopPropagation()}
             onFocus={focus}
             onClick={select}
             style={{ background: st.badge }}
-            className="peer pointer-events-auto flex size-8 items-center justify-center rounded-full text-white shadow-md ring-2 ring-white/85 transition-transform hover:scale-110 focus:outline-none focus-visible:scale-110 focus-visible:ring-4 focus-visible:ring-white disabled:cursor-default disabled:opacity-95"
+            className={`peer pointer-events-auto flex items-center justify-center rounded-full text-white shadow-md ring-2 ring-white/85 transition-transform hover:scale-110 focus:outline-none focus-visible:scale-110 focus-visible:ring-4 focus-visible:ring-white disabled:cursor-default disabled:opacity-95 ${cap ? "size-10" : "size-8"}`}
           >
-            <NodeIcon state={node.state} />
+            <NodeIcon state={node.state} capstone={cap} />
           </button>
           <span
             className={`glass-pill pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded-md px-2 py-0.5 text-[11px] font-semibold backdrop-blur-md backdrop-saturate-150 transition-opacity duration-150 ${
@@ -604,6 +626,34 @@ function Node({
         </div>
       </Html>
     </group>
+  );
+}
+
+// Chapter region signs floating above the first node of each chapter (the single path
+// stays one path; these just label the 5 age-band regions along it).
+function ChapterBanners({ chapters, nodes }: { chapters: Chapter[]; nodes: SceneNode[] }) {
+  const marks = useMemo(() => {
+    const total = nodes.length || 1;
+    return chapters
+      .map((ch) => {
+        const idx = nodes.findIndex((n) => n.chapter === ch.key);
+        if (idx < 0) return null;
+        const p = CURVE.getPointAt(clamp01((idx + 0.5) / total));
+        return { ch, p };
+      })
+      .filter((m): m is { ch: Chapter; p: THREE.Vector3 } => m !== null);
+  }, [chapters, nodes]);
+  return (
+    <>
+      {marks.map(({ ch, p }) => (
+        <Html key={ch.key} center position={[p.x, 4.4, p.z]} distanceFactor={17} zIndexRange={[20, 0]}>
+          <div className="glass-pill pointer-events-none flex select-none flex-col items-center whitespace-nowrap rounded-xl px-3 py-1 text-center backdrop-blur-md backdrop-saturate-150">
+            <span className="text-xs font-bold leading-tight">{ch.title}</span>
+            <span className="text-[10px] font-medium leading-tight opacity-85">{ch.subtitle}</span>
+          </div>
+        </Html>
+      ))}
+    </>
   );
 }
 
@@ -709,18 +759,20 @@ export type GameView = { card: GameCardT; phase: "play" | "reveal"; correct: boo
 
 export function PathScene({
   nodes = DEFAULT_NODES,
+  chapters = [],
   onSelectNode,
   playing = false,
 }: {
   nodes?: SceneNode[];
+  chapters?: Chapter[];
   onSelectNode?: (n: SceneNode) => void;
   /** true while ANY game (swipe or engine) is being played in place — freezes the camera & hides nodes */
   playing?: boolean;
 }) {
-  // focus the active level on load: the current lesson, else the first playable one
+  // focus on load: the first playable lesson, else the first completed one, else the start
   const startU = useMemo(() => {
-    let i = nodes.findIndex((n) => n.state === "current");
-    if (i < 0) i = nodes.findIndex((n) => n.href && n.state !== "locked");
+    let i = nodes.findIndex((n) => n.state === "playable");
+    if (i < 0) i = nodes.findIndex((n) => n.state === "completed");
     return i >= 0 ? (i + 0.5) / nodes.length : 0;
   }, [nodes]);
   const progress = useRef(startU);
@@ -795,8 +847,13 @@ export function PathScene({
         <WindFlowers />
         <Props />
       </Suspense>
-      {/* hide the checkpoints + their labels while a level is being played */}
-      {!playing && <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />}
+      {/* hide the checkpoints + region signs while a level is being played */}
+      {!playing && (
+        <>
+          <ChapterBanners chapters={chapters} nodes={nodes} />
+          <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />
+        </>
+      )}
       <EffectComposer multisampling={0}>
         {/* soft contact-darkening where grass/rocks/trees/path meet the ground */}
         <N8AO halfRes aoRadius={1.6} distanceFalloff={1} intensity={0.6} quality="performance" />
