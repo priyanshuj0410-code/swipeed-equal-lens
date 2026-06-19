@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import type { Profile, SignId } from "@/lib/types";
+import { setMuted as setJuiceMuted } from "@/lib/juice";
 
 const STORAGE_KEY = "glrl.profile.v1";
 
@@ -27,6 +28,7 @@ const DEFAULT_PROFILE: Profile = {
   disgSeen: 0,
   disgCorrect: 0,
   dailyRunOn: "",
+  muted: false,
 };
 
 type ProfileContextValue = {
@@ -39,6 +41,7 @@ type ProfileContextValue = {
   finishDeck: (deckId: string, stars: number, coins: number, bestStreak: number) => void;
   recordRun: (p: { deckId: string; disgSeen: number; disgCorrect: number; isStory: boolean }) => void;
   markDailyRun: (dateKey: string) => void;
+  setMuted: (v: boolean) => void;
   reset: () => void;
 };
 
@@ -68,6 +71,11 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
       /* storage may be unavailable */
     }
   }, [profile, ready]);
+
+  // Keep the shared juice layer's mute in sync with the saved preference (global across all games).
+  useEffect(() => {
+    setJuiceMuted(profile.muted ?? false);
+  }, [profile.muted]);
 
   // Apply text scaling to the document root (rem-based, so the whole UI scales).
   useEffect(() => {
@@ -125,6 +133,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     (dateKey: string) => setProfile((prev) => ({ ...prev, dailyRunOn: dateKey })),
     []
   );
+  const setMuted = useCallback((v: boolean) => setProfile((prev) => ({ ...prev, muted: v })), []);
   const reset = useCallback(() => setProfile(DEFAULT_PROFILE), []);
 
   return (
@@ -139,6 +148,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
         finishDeck,
         recordRun,
         markDailyRun,
+        setMuted,
         reset,
       }}
     >

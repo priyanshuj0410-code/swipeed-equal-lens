@@ -5,6 +5,7 @@ import type { Card, DeckId, Flag } from "@/lib/types";
 import type { GameView, GameLabels } from "@/components/path-scene";
 import { cardPoints, POINTS, starsFor } from "@/lib/scoring";
 import { celebrate } from "@/lib/confetti";
+import { sfx, haptic } from "@/lib/juice";
 import { useProfile } from "@/lib/store";
 import { DECK_BY_ID } from "@/content/decks";
 
@@ -74,11 +75,6 @@ export function useSwipeGame() {
         if (!prev || prev.done || prev.phase !== "play" || prev.exiting) return prev;
         const card = prev.cards[prev.index];
         const isCorrect = flag === card.correct_flag;
-        try {
-          navigator.vibrate?.(card.is_safeguarding ? [12, 40, 12] : 12);
-        } catch {
-          /* unsupported */
-        }
         let pts = 0;
         let streak = prev.streak;
         let best = prev.best;
@@ -92,7 +88,17 @@ export function useSwipeGame() {
           else missed = [...prev.missed, card];
           recordCard(card.signId, isCorrect);
         }
-        if (isCorrect && !card.is_safeguarding && (card.is_disguised || streak === 5 || streak === 10)) celebrate("small");
+        // shared per-card sound + haptic (mute / reduced-motion handled in the juice layer)
+        if (card.is_safeguarding) haptic("serious");
+        else if (isCorrect) {
+          sfx(card.is_disguised ? "shatter" : streak >= 2 ? "combo" : "green", streak);
+          haptic("tap");
+        } else {
+          sfx("red");
+          haptic("tap");
+        }
+        // confetti only here — the chime above already played (avoid double via { sound: false })
+        if (isCorrect && !card.is_safeguarding && (card.is_disguised || streak === 5 || streak === 10)) celebrate("small", { sound: false });
         if (timer.current) clearTimeout(timer.current);
         timer.current = setTimeout(() => setG((p) => (p ? { ...p, exiting: null, phase: "reveal", revealAt: Date.now() } : p)), EXIT_MS);
         return { ...prev, chosen: flag, exiting: flag, score: prev.score + pts, streak, best, correct, last: pts, missed };

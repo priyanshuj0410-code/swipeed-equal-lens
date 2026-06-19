@@ -14,7 +14,7 @@ const SCALES = [
 ];
 
 export default function SettingsPage() {
-  const { profile, setSchoolComfort, setTextScale, reset } = useProfile();
+  const { profile, setSchoolComfort, setTextScale, setMuted, reset } = useProfile();
 
   return (
     <div className="mx-auto flex w-full max-w-sm flex-1 flex-col gap-4 px-5 py-6 pb-24">
@@ -37,6 +37,18 @@ export default function SettingsPage() {
           checked={profile.schoolComfort}
           onCheckedChange={setSchoolComfort}
           aria-label="School-Comfort Mode"
+        />
+      </Card>
+
+      <Card className="flex items-center justify-between gap-4 p-4">
+        <div>
+          <p className="text-sm font-medium">Sound effects</p>
+          <p className="text-xs text-muted-foreground">Swipe, combo and celebration sounds across every game.</p>
+        </div>
+        <Switch
+          checked={!profile.muted}
+          onCheckedChange={(on) => setMuted(!on)}
+          aria-label="Sound effects"
         />
       </Card>
 
