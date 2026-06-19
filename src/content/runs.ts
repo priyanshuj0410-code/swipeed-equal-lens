@@ -108,6 +108,108 @@ export const RUN_DECKS: RunDeck[] = [
       reflect: "Some of those messages were more serious than they looked. Let's look again — and remember, Get Help is always one tap away.",
     },
   },
+  {
+    id: "controlling-partner",
+    title: "The Controlling Partner",
+    blurb: "The classic slide from 'caring' to control. Help Kabir see what's really going on.",
+    emoji: "🔗",
+    accent: "oklch(0.66 0.16 18)",
+    character: "kabir",
+    schoolComfortSafe: false,
+    bossCardId: "cp_10",
+    forks: [
+      {
+        afterStep: 4,
+        prompt: "“Share your location for me” — caring, or controlling? What does Kabir do?",
+        choices: [
+          { branch: "talk", label: "Talk it out", hint: "Say he'd rather not", teaches: "communication" },
+          { branch: "agree", label: "Agree", hint: "Turn it on to avoid a fuss", teaches: "(where it leads)" },
+          { branch: "ignore", label: "Dodge it", hint: "Avoid the question", teaches: "(reading the reaction)" },
+        ],
+      },
+      {
+        afterStep: 7,
+        prompt: "The tears and jealousy keep coming. How does Kabir respond?",
+        choices: [
+          { branch: "boundary", label: "Set a boundary", hint: "Say the jealousy isn't okay", teaches: "boundary-setting" },
+          { branch: "comfort", label: "Reassure them", hint: "Try to calm them down", teaches: "(why it never satisfies)" },
+          { branch: "give", label: "Give in", hint: "Explain every text", teaches: "(where giving in leads)" },
+        ],
+      },
+    ],
+    resolution: {
+      clear: "Kabir names it — control wearing the mask of love — and stops shrinking himself to keep the peace.",
+      reflect: "A lot of that 'love' was really control. No blame — let's run the ones we missed and look again.",
+    },
+  },
+  {
+    id: "family-boundaries",
+    title: "Family & Boundaries",
+    blurb: "Care vs boundary-crossing at home. Help Anaya tell the difference — kindly.",
+    emoji: "🏠",
+    accent: "oklch(0.72 0.13 145)",
+    character: "anaya",
+    schoolComfortSafe: true,
+    bossCardId: "fb_10",
+    forks: [
+      {
+        afterStep: 4,
+        prompt: "An aunt is reading her messages “to keep her safe.” What should Anaya do?",
+        choices: [
+          { branch: "tell", label: "Tell a parent", hint: "Ask a trusted adult to back her up", teaches: "help-seeking" },
+          { branch: "letgo", label: "Let it go", hint: "Say nothing", teaches: "(where snooping leads)" },
+          { branch: "confront", label: "Push back", hint: "Object to the aunt directly", teaches: "(reading the reaction)" },
+        ],
+      },
+      {
+        afterStep: 7,
+        prompt: "A relative's 'jokes' about her body won't stop. How does Anaya handle it?",
+        choices: [
+          { branch: "boundary", label: "Set a boundary", hint: "Say it hurts", teaches: "boundary-setting" },
+          { branch: "laugh", label: "Laugh it off", hint: "Keep the peace", teaches: "(what it teaches them)" },
+          { branch: "quiet", label: "Withdraw", hint: "Skip the gatherings", teaches: "(spotting isolation)" },
+        ],
+      },
+    ],
+    resolution: {
+      clear: "Anaya holds her boundaries kindly — and knows a caring family respects a 'no'.",
+      reflect: "Some of that 'care' overstepped. Let's look again — and remember Get Help is one tap away.",
+    },
+  },
+  {
+    id: "group-chat",
+    title: "The Group Chat",
+    blurb: "Belonging vs pile-ons, dares and image-pressure. Help Veer keep his head.",
+    emoji: "💬",
+    accent: "oklch(0.7 0.15 280)",
+    character: "veer",
+    schoolComfortSafe: true,
+    bossCardId: "gc_10",
+    forks: [
+      {
+        afterStep: 4,
+        prompt: "The group spun up a side-chat to mock someone. What does Veer do?",
+        choices: [
+          { branch: "speak", label: "Speak up", hint: "Say it's not cool", teaches: "standing up" },
+          { branch: "silent", label: "Stay silent", hint: "Keep scrolling", teaches: "(where silence leads)" },
+          { branch: "join", label: "Join in", hint: "Add a joke to fit in", teaches: "(reading the cost)" },
+        ],
+      },
+      {
+        afterStep: 7,
+        prompt: "“It's just a dare — don't be boring.” How does Veer respond?",
+        choices: [
+          { branch: "refuse", label: "Refuse", hint: "Say no clearly", teaches: "refusal" },
+          { branch: "stall", label: "Stall", hint: "Put it off", teaches: "(why pressure escalates)" },
+          { branch: "cave", label: "Cave", hint: "Do the dare", teaches: "(reading the betrayal)" },
+        ],
+      },
+    ],
+    resolution: {
+      clear: "Veer reads the difference between belonging and pressure — and the friends worth keeping show themselves.",
+      reflect: "Some of that 'fun' was pressure in disguise. Let's look again at the tricky ones.",
+    },
+  },
 ];
 
 /** The three playable story arcs (Boss Rush is a mode, not a story deck — kept out of this list). */
