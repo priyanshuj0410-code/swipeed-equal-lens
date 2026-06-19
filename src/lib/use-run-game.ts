@@ -110,7 +110,7 @@ export function useRunGame() {
   }, []);
 
   const commit = useCallback(
-    (flag: Flag) => {
+    (flag: Flag, fast = false) => {
       setR((prev) => {
         if (!prev || prev.phase !== "play" || prev.exiting) return prev;
         const card = prev.seq[prev.index];
@@ -146,6 +146,13 @@ export function useRunGame() {
           else {
             missed = [...prev.missed, card];
             wrongThisCard = true;
+          }
+          // gentle speed bonus: only a correct, confident read — and only once accuracy is high.
+          // Never punishes slowness (no Clarity loss); off under Calm Mind (fast stays false).
+          if (fast && isCorrect && correct / scored >= 0.7) {
+            const bonus = 5;
+            xp += bonus;
+            lastXp += bonus;
           }
           if (card.is_disguised) {
             disgSeen = prev.disgSeen + 1;
@@ -228,6 +235,8 @@ export function useRunGame() {
           timed: !r.perks.includes("calm-mind"),
           hintAfterMs: r.perks.includes("gut-check") ? 4000 : null,
           slowMo: r.perks.includes("slow-mo"),
+          // per-card reading budget for the gentle timer (Slow-Mo widens disguised cards)
+          timeBudgetMs: (r.seq[r.index].is_disguised && r.perks.includes("slow-mo") ? 12000 : 8000),
           truthSerum: r.phase === "reveal" && r.wrongThisCard && r.perks.includes("truth-serum"),
           // X-Ray: reveal the sign on the first disguised card (during play; you still choose the swipe)
           xrayHint: r.phase === "play" && r.seq[r.index].id === r.xrayCardId ? r.seq[r.index].sign : null,

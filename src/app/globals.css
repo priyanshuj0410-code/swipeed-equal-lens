@@ -248,3 +248,10 @@ html[data-playing="true"] .gethelp-label {
 @media (prefers-reduced-motion: reduce) {
   .juice-shake, .juice-pulse { animation: none; }
 }
+
+/* The gentle reading timer bar (GLRL 2.0 runs): shrinks over the card's time budget. Non-punitive —
+   running out costs nothing; a fast+accurate read just earns a small bonus. */
+@keyframes glrl-timer {
+  from { width: 100%; }
+  to { width: 0%; }
+}
