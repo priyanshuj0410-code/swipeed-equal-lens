@@ -724,7 +724,7 @@ function ChapterBanner({ ch, u, p, progress }: { ch: Chapter; u: number; p: THRE
     }
   });
   return (
-    <Html center position={[p.x, 6.4, p.z]} distanceFactor={13} zIndexRange={[60, 40]}>
+    <Html center position={[p.x, 5, p.z]} distanceFactor={13} zIndexRange={[60, 40]}>
       <div
         className={`glass-pill pointer-events-none flex select-none flex-col items-center whitespace-nowrap rounded-xl px-3 py-1 text-center backdrop-blur-md backdrop-saturate-150 transition-opacity duration-300 ${
           inView ? "opacity-100" : "opacity-0"
