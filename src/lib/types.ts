@@ -35,7 +35,13 @@ export type Sign = {
 
 /** The three 2.0 story-run decks (escalation arcs around a recurring character), plus the
  *  Boss Rush mode (a gauntlet of the hardest disguised/boss cards across all decks). */
-export type StoryDeckId = "new-crush" | "toxic-friend" | "in-dms";
+export type StoryDeckId =
+  | "new-crush"
+  | "toxic-friend"
+  | "in-dms"
+  | "controlling-partner"
+  | "family-boundaries"
+  | "group-chat";
 export type RunDeckId = StoryDeckId | "boss-rush";
 
 export type DeckId =
@@ -123,7 +129,7 @@ export type DeckSummary = {
 
 /** The small recurring, deliberately diverse cast whose relationships the player reads.
  *  `coach` is the framing mentor for non-story modes (Boss Rush), not a relationship arc. */
-export type CharacterId = "meera" | "aisha" | "rohan" | "kabir" | "coach";
+export type CharacterId = "meera" | "aisha" | "rohan" | "kabir" | "anaya" | "veer" | "coach";
 export type Character = {
   id: CharacterId;
   name: string;
