@@ -54,8 +54,17 @@ function hslToRgb(h, s, l) {
 // is this pixel a foliage green? (green clearly dominant; not brown/grey/blue/sky)
 const isGreen = (r, g, b) => g > 60 && g - r > 12 && g - b > 12;
 
+// The bright leaf swatch rgb(97,203,139) is what the trees' leaves sample (grass uses
+// darker greens). For spring we turn ONLY that swatch into blossom pink (cherry-blossom
+// trees) while the grass/hills stay green.
+const SPRING_BLOSSOM = "#F4B9D0";
+const isLeafSwatch = (r, g, b) => Math.abs(r - 97) <= 24 && Math.abs(g - 203) <= 22 && Math.abs(b - 139) <= 32;
+
 const { data, info } = await sharp(SRC).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
 const { width, height } = info;
+
+const [bpr, bpg, bpb] = hexToRgb(SPRING_BLOSSOM);
+const [bpH, bpS, bpL] = rgbToHsl(bpr, bpg, bpb);
 
 for (const [season, hex] of Object.entries(TARGET)) {
   const [tr, tg, tb] = hexToRgb(hex);
@@ -65,11 +74,15 @@ for (const [season, hex] of Object.entries(TARGET)) {
   for (let i = 0; i < out.length; i += 4) {
     const r = out[i], g = out[i + 1], b = out[i + 2];
     if (!isGreen(r, g, b)) continue;
+    // spring: the tree-leaf swatch becomes blossom pink; everything else takes the season green
+    const blossom = season === "spring" && isLeafSwatch(r, g, b);
+    const H = blossom ? bpH : tH;
+    const S = blossom ? bpS : tS;
+    const L0 = blossom ? bpL : tL;
+    const lw = blossom ? 0.35 : LWEIGHT[season] ?? 0.4;
     const [, , l] = rgbToHsl(r, g, b);
-    // keep the season hue+sat; bias luminance toward the target but keep some swatch variation
-    const lw = LWEIGHT[season] ?? 0.4;
-    const newL = Math.max(0.06, Math.min(0.98, tL * (1 - lw) + l * lw));
-    const [nr, ng, nb] = hslToRgb(tH, tS, newL);
+    const newL = Math.max(0.06, Math.min(0.98, L0 * (1 - lw) + l * lw));
+    const [nr, ng, nb] = hslToRgb(H, S, newL);
     out[i] = nr; out[i + 1] = ng; out[i + 2] = nb;
     recoloured++;
   }
