@@ -136,27 +136,39 @@ function Ripples({ count, strength }: { count: number; strength: MutableRefObjec
       }),
     [count]
   );
-  const uniforms = useMemo(() => ({ uMap: { value: tex }, uColor: { value: new THREE.Color("#dbeaf6") } }), [tex]);
+  const uniforms = useMemo(() => ({ uMap: { value: tex }, uColor: { value: new THREE.Color("#e6f0f8") } }), [tex]);
+  const seeded = useRef(false);
   useFrame((state, dt) => {
     if (document.hidden) return;
     const im = ref.current;
     if (!im) return;
     const d = dtClamp(dt);
     const s = strength.current;
+    const cx = state.camera.position.x;
+    const cz = state.camera.position.z;
+    // seed once around wherever the camera starts (positions are absolute world coords)
+    if (!seeded.current) {
+      drops.forEach((r) => {
+        r.x = cx + (Math.random() - 0.5) * area;
+        r.z = cz + (Math.random() - 0.5) * area;
+      });
+      seeded.current = true;
+    }
     drops.forEach((r, i) => {
       r.t += d;
       let phase = r.t / r.life;
       if (phase >= 1) {
-        r.x = (Math.random() - 0.5) * area;
-        r.z = (Math.random() - 0.5) * area;
+        // re-seed near the player, then stay pinned to that ground spot for its lifetime
+        r.x = cx + (Math.random() - 0.5) * area;
+        r.z = cz + (Math.random() - 0.5) * area;
         r.life = 0.9 + Math.random() * 0.7;
         r.t = 0;
         phase = 0;
       }
       const ease = 1 - (1 - phase) * (1 - phase); // expand fast, then settle
       const radius = 0.2 + (maxR - 0.2) * ease;
-      alpha[i] = (1 - phase) * 0.5 * s;
-      dummy.position.set(state.camera.position.x + r.x, 0.06, state.camera.position.z + r.z);
+      alpha[i] = (1 - phase) * 0.3 * s;
+      dummy.position.set(r.x, 0.05, r.z); // fixed world position — moves with the ground
       dummy.rotation.set(-Math.PI / 2, 0, 0);
       dummy.scale.set(radius, radius, radius);
       dummy.updateMatrix();
