@@ -1119,6 +1119,12 @@ function Companion({ progress }: { progress: React.MutableRefObject<number> }) {
     () => ({ pos: new THREE.Vector3(), tgt: new THREE.Vector3(), dir: new THREE.Vector3(), tan: new THREE.Vector3(), facing: 0, moving: false, started: false }),
     []
   );
+  const SCALE = 2.6;
+  // plant the model's lowest point on the ground (its origin is at the feet, so this ~0)
+  const lift = useMemo(() => {
+    const box = new THREE.Box3().setFromObject(scene);
+    return Number.isFinite(box.min.y) ? -box.min.y * SCALE : 0;
+  }, [scene]);
 
   useEffect(() => {
     scene.traverse((o) => {
@@ -1189,7 +1195,7 @@ function Companion({ progress }: { progress: React.MutableRefObject<number> }) {
 
   return (
     <group ref={grp}>
-      <group ref={inner} scale={2.6} position={[0, 0.98, 0]}>
+      <group ref={inner} scale={SCALE} position={[0, lift, 0]}>
         <primitive object={scene} />
       </group>
     </group>
