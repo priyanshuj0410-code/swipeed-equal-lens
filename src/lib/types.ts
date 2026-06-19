@@ -33,6 +33,9 @@ export type Sign = {
   definition: string;
 };
 
+/** The three 2.0 story-run decks (escalation arcs around a recurring character). */
+export type RunDeckId = "new-crush" | "toxic-friend" | "in-dms";
+
 export type DeckId =
   | "daily"
   | "online"
@@ -41,7 +44,8 @@ export type DeckId =
   | "peer"
   | "norm-busters"
   | "crushes"
-  | "mythbuster";
+  | "mythbuster"
+  | RunDeckId;
 
 export type Deck = {
   id: DeckId;
@@ -72,6 +76,11 @@ export type Card = {
   feedback_short: string; // one-line "why" on the reveal
   learn_more_ref?: string;
   locale: string;
+  // --- 2.0 (optional, so v1 cards still validate) ---
+  character?: CharacterId; // the recurring cast member this card belongs to
+  escalation_step?: number; // 1-based place in a run's arc
+  branch_id?: string; // which fork-branch it belongs to (omit = main line, shown to all)
+  illustration_ref?: string;
 };
 
 export type Profile = {
@@ -100,4 +109,55 @@ export type DeckSummary = {
   score: number;
   bestStreak: number;
   missed: Card[];
+};
+
+// ───────────────────────── 2.0: runs, characters, perks ─────────────────────────
+
+/** The small recurring, deliberately diverse cast whose relationships the player reads. */
+export type CharacterId = "meera" | "aisha" | "rohan" | "kabir";
+export type Character = {
+  id: CharacterId;
+  name: string;
+  avatar: string; // emoji stand-in until illustration_ref art lands
+  pronoun: "she" | "he" | "they";
+  blurb: string; // who they are — shown on the loadout / character chip
+};
+
+/** A branching choice at a fork. `branch` is the branch_id later cards are gated to. */
+export type ForkChoice = {
+  branch: string;
+  label: string; // "Talk it out"
+  hint: string; // a hint of the consequence
+  teaches: string; // the skill this branch models (communication / boundary / exit)
+};
+/** Twice per run the story forks on a choice that changes later cards + the ending. */
+export type Fork = {
+  afterStep: number; // shown after this escalation_step on the main line
+  prompt: string;
+  choices: ForkChoice[];
+};
+
+/** A story deck = an escalation arc around one character, with two forks + a boss. */
+export type RunDeck = {
+  id: RunDeckId;
+  title: string;
+  blurb: string;
+  emoji: string;
+  accent: string; // oklch tile accent
+  character: CharacterId;
+  schoolComfortSafe: boolean; // romantic arcs are hidden in School-Comfort Mode
+  forks: Fork[]; // two per run
+  bossCardId: string; // the climactic, most-disguised card
+  resolution: { clear: string; reflect: string }; // high- vs low-Clarity outcome copy
+};
+
+/** Insight perks are reading/learning aids — never auto-win, never purchased. */
+export type PerkId = "slow-mo" | "gut-check" | "truth-serum" | "calm-mind";
+export type Perk = {
+  id: PerkId;
+  name: string;
+  emoji: string;
+  effect: string; // player-facing description
+  tag: "read" | "learn" | "comfort"; // effect category (drives synergy hints)
+  unlock: string; // "Start" or an unlock condition (MVP perks are all Start)
 };
