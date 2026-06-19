@@ -64,7 +64,7 @@ export function Loadout({
   const tile = "glass-pill flex flex-col items-center justify-center gap-1.5 rounded-2xl py-5 backdrop-blur-md transition-transform active:scale-[0.97]";
 
   return (
-    <div className="fixed inset-0 z-30 flex items-start justify-center overflow-y-auto px-5 py-8">
+    <div className="fixed inset-0 z-30 flex items-center justify-center overflow-y-auto px-5 py-8">
       <div className="glass-card w-full max-w-sm p-5 backdrop-blur-[14px] backdrop-saturate-150" style={{ color: "#eef1f7" }}>
         {/* Step 1 — Mode */}
         {step === 1 && (
