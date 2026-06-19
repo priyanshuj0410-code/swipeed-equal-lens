@@ -83,6 +83,9 @@ const GAMES: Record<string, EngineGame> = {
   "equalize": dynamic(() => import("@/components/games/equalize").then((m) => m.EqualizeGame), {
     ssr: false,
   }),
+  "reality-check": dynamic(() => import("@/components/games/reality-check").then((m) => m.RealityCheckGame), {
+    ssr: false,
+  }),
   "flip-script": dynamic(() => import("@/components/games/flip-script").then((m) => m.FlipScriptGame), {
     ssr: false,
   }),
