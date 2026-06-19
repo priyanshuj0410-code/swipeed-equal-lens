@@ -834,52 +834,98 @@ function makeCardTexture(card: GameCardT, phase: "play" | "reveal", correct: boo
 }
 
 const _fwd = new THREE.Vector3();
-const _rt = new THREE.Vector3();
-function GameCard({ view }: { view: GameView }) {
+function GameCard({ view, dragRef }: { view: GameView; dragRef: React.MutableRefObject<number> }) {
   const camera = useThree((s) => s.camera);
   const group = useRef<THREE.Group>(null);
+  const card = useRef<THREE.Group>(null);
+  const glow = useRef<THREE.MeshBasicMaterial>(null);
   const texture = useMemo(() => makeCardTexture(view.card, view.phase, view.correct, view.points, view.labels), [view.card, view.phase, view.correct, view.points, view.labels]);
   useEffect(() => () => texture.dispose(), [texture]);
-  useFrame(() => {
+  const fly = useRef(0);
+  const spin = useRef(0);
+  const prevPhase = useRef(view.phase);
+  useEffect(() => {
+    if (view.phase === "reveal" && prevPhase.current === "play") spin.current = 1; // flip-in on reveal
+    prevPhase.current = view.phase;
+  }, [view.phase]);
+  useFrame((_, dt) => {
     const g = group.current;
-    if (!g) return;
+    const c = card.current;
+    if (!g || !c) return;
+    // keep the card centred in front of the camera, over the grassland
     camera.getWorldDirection(_fwd);
     g.position.copy(camera.position).addScaledVector(_fwd, 8);
     g.position.y += 0.1 + Math.sin(performance.now() * 0.0011) * 0.05;
-    if (view.exiting) {
-      _rt.setFromMatrixColumn(camera.matrixWorld, 0); // camera right
-      g.position.addScaledVector(_rt, (view.exiting === "green" ? 1 : -1) * 3);
-    }
     g.lookAt(camera.position);
-    if (view.exiting) g.rotateZ((view.exiting === "green" ? -1 : 1) * 0.35);
+
+    const drag = dragRef.current;
+    if (view.exiting) {
+      // fly off in 3D toward the chosen side
+      fly.current = Math.min(1, fly.current + dt * 3.2);
+      const dir = view.exiting === "green" ? 1 : -1;
+      c.position.x = dir * fly.current * 10;
+      c.position.y = fly.current * 1.6;
+      c.rotation.z = -dir * fly.current * 0.7;
+    } else {
+      // follow the drag (with snap-back when released)
+      fly.current = 0;
+      c.position.x = THREE.MathUtils.lerp(c.position.x, drag * 0.011, 0.3);
+      c.position.y = THREE.MathUtils.lerp(c.position.y, 0, 0.3);
+      c.rotation.z = THREE.MathUtils.lerp(c.rotation.z, -drag * 0.0008, 0.3);
+    }
+    if (spin.current > 0) spin.current = Math.max(0, spin.current - dt * 2.2);
+    c.rotation.y = spin.current * Math.PI * 2;
+
+    if (glow.current) {
+      const f = view.exiting ? 0 : Math.min(1, Math.abs(drag) / 170);
+      glow.current.opacity = f * 0.4;
+      glow.current.color.set(drag >= 0 ? "#37c46a" : "#e0564c");
+    }
   });
   return (
     <group ref={group} renderOrder={10}>
-      <RoundedBox args={[3.0, 4.0, 0.35]} radius={0.16} smoothness={6}>
-        <MeshTransmissionMaterial
-          transmission={1}
-          thickness={1.1}
-          roughness={0.16}
-          ior={1.25}
-          chromaticAberration={0.05}
-          anisotropicBlur={0.5}
-          distortion={0.1}
-          distortionScale={0.3}
-          temporalDistortion={0.08}
-          samples={6}
-          resolution={256}
-          backside
-        />
-      </RoundedBox>
-      <mesh position={[0, 0, 0.19]}>
-        <planeGeometry args={[2.9, 3.9]} />
-        <meshBasicMaterial map={texture} transparent toneMapped={false} />
-      </mesh>
+      <group ref={card}>
+        <RoundedBox args={[3.0, 4.0, 0.35]} radius={0.16} smoothness={6}>
+          <MeshTransmissionMaterial
+            transmission={1}
+            thickness={1.1}
+            roughness={0.16}
+            ior={1.25}
+            chromaticAberration={0.05}
+            anisotropicBlur={0.5}
+            distortion={0.1}
+            distortionScale={0.3}
+            temporalDistortion={0.08}
+            samples={6}
+            resolution={256}
+            backside
+          />
+        </RoundedBox>
+        <mesh position={[0, 0, 0.19]}>
+          <planeGeometry args={[2.9, 3.9]} />
+          <meshBasicMaterial map={texture} transparent toneMapped={false} />
+        </mesh>
+        {/* green/red drag hint */}
+        <mesh position={[0, 0, 0.24]}>
+          <planeGeometry args={[3.0, 4.0]} />
+          <meshBasicMaterial ref={glow} transparent opacity={0} depthWrite={false} toneMapped={false} />
+        </mesh>
+      </group>
     </group>
   );
 }
 
-export function PathScene({ nodes = DEFAULT_NODES, onSelectNode, gameView }: { nodes?: SceneNode[]; onSelectNode?: (n: SceneNode) => void; gameView?: GameView | null }) {
+export function PathScene({
+  nodes = DEFAULT_NODES,
+  onSelectNode,
+  gameView,
+  onSwipe,
+}: {
+  nodes?: SceneNode[];
+  onSelectNode?: (n: SceneNode) => void;
+  gameView?: GameView | null;
+  onSwipe?: (flag: FlagT) => void;
+}) {
   // focus the active level on load: the current lesson, else the first playable one
   const startU = useMemo(() => {
     let i = nodes.findIndex((n) => n.state === "current");
@@ -891,30 +937,55 @@ export function PathScene({ nodes = DEFAULT_NODES, onSelectNode, gameView }: { n
   // freeze the on-rails camera while a card game is being played
   const playingRef = useRef(false);
   playingRef.current = !!gameView;
+  const onSwipeRef = useRef(onSwipe);
+  onSwipeRef.current = onSwipe;
+  const canDragRef = useRef(false);
+  canDragRef.current = !!gameView && gameView.phase === "play" && !gameView.exiting;
+  const dragRef = useRef(0);
 
   useEffect(() => {
     setReduced(window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false);
 
+    let lastY: number | null = null;
+    let lastX: number | null = null;
+    let dragging = false;
     const onWheel = (e: WheelEvent) => {
       if (playingRef.current) return;
       progress.current = clamp01(progress.current - e.deltaY * 0.0008);
     };
-    let lastY: number | null = null;
-    let dragging = false;
     const onDown = (e: PointerEvent) => {
-      if (playingRef.current) return;
+      if (playingRef.current) {
+        if (canDragRef.current) {
+          dragging = true;
+          lastX = e.clientX;
+          dragRef.current = 0;
+        }
+        return;
+      }
       dragging = true;
       lastY = e.clientY;
     };
     const onMove = (e: PointerEvent) => {
-      if (dragging && lastY != null) {
+      if (!dragging) return;
+      if (playingRef.current) {
+        if (lastX != null) dragRef.current = e.clientX - lastX;
+        return;
+      }
+      if (lastY != null) {
         progress.current = clamp01(progress.current + (e.clientY - lastY) * 0.0012);
         lastY = e.clientY;
       }
     };
     const onUp = () => {
+      if (playingRef.current && dragging) {
+        const th = Math.min(window.innerWidth * 0.2, 180);
+        if (dragRef.current > th) onSwipeRef.current?.("green");
+        else if (dragRef.current < -th) onSwipeRef.current?.("red");
+        dragRef.current = 0;
+      }
       dragging = false;
       lastY = null;
+      lastX = null;
     };
     window.addEventListener("wheel", onWheel, { passive: true });
     window.addEventListener("pointerdown", onDown, { passive: true });
@@ -961,7 +1032,7 @@ export function PathScene({ nodes = DEFAULT_NODES, onSelectNode, gameView }: { n
       </Suspense>
       {/* hide the checkpoints + their labels while a level is being played */}
       {!gameView && <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />}
-      {gameView && <GameCard view={gameView} />}
+      {gameView && <GameCard view={gameView} dragRef={dragRef} />}
       <EffectComposer multisampling={0}>
         {/* soft contact-darkening where grass/rocks/trees/path meet the ground */}
         <N8AO halfRes aoRadius={1.6} distanceFalloff={1} intensity={0.6} quality="performance" />

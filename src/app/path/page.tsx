@@ -82,7 +82,7 @@ export default function PathPage() {
             </Link>
           </div>
         ) : (
-          <PathScene nodes={nodes} onSelectNode={handleSelect} gameView={game.view} />
+          <PathScene nodes={nodes} onSelectNode={handleSelect} gameView={game.view} onSwipe={game.commit} />
         )}
       </div>
 
