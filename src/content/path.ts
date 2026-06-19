@@ -56,7 +56,7 @@ export const PATH: PathSection[] = [
     nodes: [
       { id: "mythbuster", title: "MythBuster: Gender", emoji: "💡", kind: "Swipe", status: "active", href: "/play/mythbuster", tag: "gender" },
       { id: "plan-it", title: "Plan It", emoji: "🗓️", kind: "Sim", status: "locked" },
-      { id: "stand-up", title: "Stand Up", emoji: "✊", kind: "Scenario", status: "locked", tag: "gender" },
+      { id: "stand-up", title: "Stand Up", emoji: "✊", kind: "Scenario", status: "active", href: "/game/stand-up", tag: "gender" },
     ],
   },
   {
