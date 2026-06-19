@@ -50,7 +50,10 @@ export default function PathPage() {
     const stars = profile.deckStars ?? {};
     const isDone = (id: string) => {
       if (id === "mythbuster") return stars["mythbuster"] != null;
-      if (id === "glrl") return Object.keys(stars).some((k) => k !== "mythbuster");
+      // GLRL is "done" once any of its own swipe decks is cleared (engine games have
+      // their own ids and aren't in DECK_BY_ID, so they don't count here).
+      if (id === "glrl")
+        return Object.keys(stars).some((k) => k !== "mythbuster" && DECK_BY_ID[k as keyof typeof DECK_BY_ID] != null);
       return stars[id] != null;
     };
     return PATH.flatMap((s) => s.nodes).map((n): SceneNode => ({
@@ -62,20 +65,24 @@ export default function PathPage() {
     }));
   }, [profile.deckStars]);
 
-  // Clicking a playable node starts its deck *in place* on the grassland (no navigation).
   const handleSelect = (node: SceneNode) => {
     if (node.state === "locked") return;
-    if (webgl === false) {
-      if (node.href) router.push(node.href);
-      return;
-    }
-    if (node.id === "mythbuster") {
+
+    // The two swipe-native games play *in place* on the grassland (no navigation).
+    if (webgl !== false && node.id === "mythbuster") {
       game.start("mythbuster", resolveDeckCards("mythbuster", profile.schoolComfort), DECK_BY_ID["mythbuster"]?.swipe);
       return;
     }
-    const first = availableDecks(profile.schoolComfort)[0];
-    if (first) game.start(first.id, resolveDeckCards(first.id, profile.schoolComfort), DECK_BY_ID[first.id]?.swipe);
-    else if (node.href) router.push(node.href);
+    if (webgl !== false && node.id === "glrl") {
+      const first = availableDecks(profile.schoolComfort)[0];
+      if (first) {
+        game.start(first.id, resolveDeckCards(first.id, profile.schoolComfort), DECK_BY_ID[first.id]?.swipe);
+        return;
+      }
+    }
+
+    // Every other engine game (tap, sort, choose, sim…) lives at its own route.
+    if (node.href) router.push(node.href);
   };
 
   const hud = game.hud;
