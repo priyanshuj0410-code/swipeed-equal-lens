@@ -50,6 +50,9 @@ const GAMES: Record<string, EngineGame> = {
   "smart-screen": dynamic(() => import("@/components/games/smart-screen").then((m) => m.SmartScreenGame), {
     ssr: false,
   }),
+  "puberty-quest": dynamic(() => import("@/components/games/puberty-quest").then((m) => m.PubertyQuestGame), {
+    ssr: false,
+  }),
   "flip-script": dynamic(() => import("@/components/games/flip-script").then((m) => m.FlipScriptGame), {
     ssr: false,
   }),
