@@ -1,11 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Volume2, VolumeX, Home, ShieldCheck, Phone } from "lucide-react";
+import { Volume2, VolumeX, Home, ShieldCheck, Phone, RotateCcw } from "lucide-react";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { Sam } from "@/components/games/sam";
-import { speak, stopSpeaking } from "@/lib/speak";
+import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import { useProfile } from "@/lib/store";
 import {
@@ -42,10 +42,10 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
   const [touchCards, setTouchCards] = useState(() => shuffle(TOUCH_CARDS).slice(0, 6));
   const [net, setNet] = useState<string[]>([]); // a list (repeats allowed) so any family fits — incl. two mums / two dads
 
-  const say = useCallback((t: string) => { setBubble(t); if (!muted) speak(t); }, [muted]);
+  const say = useCallback((t: string, onEnd?: () => void) => { setBubble(t); speak(t, { muted, onEnd }); }, [muted]);
 
   useEffect(() => {
-    if (!muted) speak(SAM.greet);
+    speak(SAM.greet, { muted });
     return () => stopSpeaking();
     // greet once
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,22 +73,21 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
   const tapTouch = (kind: TouchKind) => {
     const card = touchCards[touchIdx];
     if (!card) return;
-    if (kind === card.kind) {
-      say(`${TOUCH_LABEL[card.kind]}. ${TOUCH_RULE[card.kind]}`);
-      if (card.kind === "safe") celebrate("small");
-    } else {
-      // never "wrong" — gently name the right kind and the rule
-      say(`This one is ${TOUCH_LABEL[card.kind].toLowerCase()}. ${TOUCH_RULE[card.kind]}`);
-    }
-    window.setTimeout(() => {
-      if (touchIdx + 1 >= touchCards.length) {
-        say("You're learning your body-safety rules so well! 🌟");
-        window.setTimeout(() => go("home"), 1600);
-      } else {
+    // advance only once the explanation has finished speaking
+    const onDone = () => {
+      if (touchIdx + 1 >= touchCards.length) say("You're learning your body-safety rules so well! 🌟", () => go("home"));
+      else {
         setTouchIdx((i) => i + 1);
         say(SAM.touch);
       }
-    }, 2200);
+    };
+    if (kind === card.kind) {
+      if (card.kind === "safe") celebrate("small");
+      say(`${TOUCH_LABEL[card.kind]}. ${TOUCH_RULE[card.kind]}`, onDone);
+    } else {
+      // never "wrong" — gently name the right kind and the rule
+      say(`This one is ${TOUCH_LABEL[card.kind].toLowerCase()}. ${TOUCH_RULE[card.kind]}`, onDone);
+    }
   };
 
   // additive: tap a grown-up to add them (again, if you like — two mums, two dads, two grandmas…)
@@ -111,6 +110,17 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
     </button>
   );
 
+  const tools = (
+    <span className="flex items-center gap-2">
+      {!muted && (
+        <button type="button" aria-label="Hear it again" onClick={() => replay()} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+          <RotateCcw className="size-4" aria-hidden />
+        </button>
+      )}
+      {muteBtn}
+    </span>
+  );
+
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
@@ -128,7 +138,7 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
 
   if (done) {
     return (
-      <GameShell title="My Body, My Rules" tools={muteBtn} onExit={onExit}>
+      <GameShell title="My Body, My Rules" tools={tools} onExit={onExit}>
         <GameDone
           gameId="my-body"
           stars={3}
@@ -143,7 +153,7 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
   }
 
   return (
-    <GameShell title="My Body, My Rules" tools={muteBtn} onExit={onExit}>
+    <GameShell title="My Body, My Rules" tools={tools} onExit={onExit}>
       <div className="flex w-full max-w-sm flex-col items-stretch gap-4">
         {SamSays}
 

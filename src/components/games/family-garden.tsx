@@ -1,11 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Volume2, VolumeX, Home } from "lucide-react";
+import { Volume2, VolumeX, Home, RotateCcw } from "lucide-react";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { Sam } from "@/components/games/sam";
-import { speak, stopSpeaking } from "@/lib/speak";
+import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import { MEMBERS, FLOWERS, GARDEN_TARGET, CARE_SCENES, FRIEND_ACTS, KIND_ACTS, LOVES, SAM, type Act } from "@/content/games/family-garden";
 
@@ -20,10 +20,10 @@ export function FamilyGardenGame({ onExit }: { onExit: () => void }) {
   const [family, setFamily] = useState<string[]>([]); // a list (repeats allowed) so any family is buildable — incl. two mums / two dads
   const [careIdx, setCareIdx] = useState(0);
 
-  const say = useCallback((t: string) => { setBubble(t); if (!muted) speak(t); }, [muted]);
+  const say = useCallback((t: string, onEnd?: () => void) => { setBubble(t); speak(t, { muted, onEnd }); }, [muted]);
 
   useEffect(() => {
-    if (!muted) speak(SAM.greet);
+    speak(SAM.greet, { muted });
     return () => stopSpeaking();
     // greet once
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,12 +74,12 @@ export function FamilyGardenGame({ onExit }: { onExit: () => void }) {
     const scene = CARE_SCENES[careIdx];
     if (!scene) return;
     if (caring) {
-      say(scene.sam);
       bloom();
-      window.setTimeout(() => {
+      // hold until the praise finishes speaking
+      say(scene.sam, () => {
         if (careIdx + 1 >= CARE_SCENES.length) go("home");
         else { setCareIdx((i) => i + 1); say(SAM.care); }
-      }, 1700);
+      });
     } else {
       const kind = scene.options.find((o) => o.caring);
       say(`The caring thing is to ${kind?.label.toLowerCase()}.`);
@@ -92,6 +92,17 @@ export function FamilyGardenGame({ onExit }: { onExit: () => void }) {
     <button type="button" aria-label={muted ? "Turn sound on" : "Turn sound off"} onClick={() => setMuted((m) => { const n = !m; if (n) stopSpeaking(); return n; })} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
       {muted ? <VolumeX className="size-4" aria-hidden /> : <Volume2 className="size-4" aria-hidden />}
     </button>
+  );
+
+  const tools = (
+    <span className="flex items-center gap-2">
+      {!muted && (
+        <button type="button" aria-label="Hear it again" onClick={() => replay()} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+          <RotateCcw className="size-4" aria-hidden />
+        </button>
+      )}
+      {muteBtn}
+    </span>
   );
 
   const SamSays = (
@@ -130,14 +141,14 @@ export function FamilyGardenGame({ onExit }: { onExit: () => void }) {
 
   if (done) {
     return (
-      <GameShell title="My Family Garden" tools={muteBtn} onExit={onExit}>
+      <GameShell title="My Family Garden" tools={tools} onExit={onExit}>
         <GameDone gameId="family-garden" stars={3} coins={15} title="Your Kindness Garden! 🌸" blurb="Every family is special, and kindness makes the world beautiful. 💛" onReplay={reset} onExit={onExit} />
       </GameShell>
     );
   }
 
   return (
-    <GameShell title="My Family Garden" tools={muteBtn} onExit={onExit}>
+    <GameShell title="My Family Garden" tools={tools} onExit={onExit}>
       <div className="flex w-full max-w-sm flex-col items-stretch gap-4">
         {SamSays}
 
