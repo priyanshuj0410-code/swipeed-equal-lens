@@ -63,7 +63,7 @@ export const PATH: PathSection[] = [
     title: "Ages 15–18 · Change the system",
     subtitle: "Work, rights & redress",
     nodes: [
-      { id: "lead-the-way", title: "Lead the Way", emoji: "💼", kind: "Sim", status: "locked", tag: "gender" },
+      { id: "lead-the-way", title: "Lead the Way", emoji: "💼", kind: "Sim", status: "active", href: "/game/lead-the-way", tag: "gender" },
       { id: "change-makers", title: "Change Makers", emoji: "🌍", kind: "Campaign", status: "locked", tag: "gender" },
       { id: "justice-league", title: "Justice League: Rights", emoji: "⚖️", kind: "Cases", status: "locked", tag: "gender" },
     ],
