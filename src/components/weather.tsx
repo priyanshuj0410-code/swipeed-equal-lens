@@ -75,7 +75,7 @@ function Rain({ count }: { count: number }) {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
-      <pointsMaterial map={tex} color="#a9c3df" size={0.7} sizeAttenuation transparent opacity={0.5} depthWrite={false} />
+      <pointsMaterial map={tex} color="#a9c3df" size={0.18} sizeAttenuation transparent opacity={0.55} depthWrite={false} />
     </points>
   );
 }
@@ -133,7 +133,7 @@ function Snow({ count }: { count: number }) {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
-      <pointsMaterial map={tex} color="#ffffff" size={0.5} sizeAttenuation transparent opacity={0.92} depthWrite={false} />
+      <pointsMaterial map={tex} color="#ffffff" size={0.13} sizeAttenuation transparent opacity={0.95} depthWrite={false} />
     </points>
   );
 }
@@ -172,7 +172,7 @@ function FallingLeaves({ count, colors, speed }: { count: number; colors: string
         spin: (Math.random() - 0.5) * 2.5,
         sway: 0.4 + Math.random() * 0.6,
         phase: Math.random() * Math.PI * 2,
-        scale: 0.42 + Math.random() * 0.26,
+        scale: 0.11 + Math.random() * 0.08,
         ci: Math.floor(Math.random() * colors.length),
       })),
     [count, colors, area]
@@ -235,9 +235,9 @@ export function Weather() {
     }
   });
   if (scale === 0 || !weather) return null;
-  if (weather === "rain") return <Rain count={Math.round(520 * scale)} />;
-  if (weather === "snow") return <Snow count={Math.round(440 * scale)} />;
-  if (weather === "leaves") return <FallingLeaves count={Math.round(120 * scale)} colors={["#d98a3d", "#c2622d", "#b5792f", "#e0701f"]} speed={2.6} />;
-  if (weather === "petals") return <FallingLeaves count={Math.round(150 * scale)} colors={["#f4b9d0", "#f7c9dc", "#fbd7e6"]} speed={1.8} />;
+  if (weather === "rain") return <Rain count={Math.round(2200 * scale)} />;
+  if (weather === "snow") return <Snow count={Math.round(1900 * scale)} />;
+  if (weather === "leaves") return <FallingLeaves count={Math.round(380 * scale)} colors={["#d98a3d", "#c2622d", "#b5792f", "#e0701f"]} speed={2.6} />;
+  if (weather === "petals") return <FallingLeaves count={Math.round(460 * scale)} colors={["#f4b9d0", "#f7c9dc", "#fbd7e6"]} speed={1.8} />;
   return null;
 }
