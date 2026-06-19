@@ -17,7 +17,7 @@ export function FamilyGardenGame({ onExit }: { onExit: () => void }) {
   const [bubble, setBubble] = useState<string>(SAM.greet);
   const [done, setDone] = useState(false);
   const [blooms, setBlooms] = useState(0);
-  const [family, setFamily] = useState<Set<string>>(new Set());
+  const [family, setFamily] = useState<string[]>([]); // a list (repeats allowed) so any family is buildable — incl. two mums / two dads
   const [careIdx, setCareIdx] = useState(0);
 
   const say = useCallback((t: string) => { setBubble(t); if (!muted) speak(t); }, [muted]);
@@ -42,7 +42,7 @@ export function FamilyGardenGame({ onExit }: { onExit: () => void }) {
 
   const reset = () => {
     setBlooms(0);
-    setFamily(new Set());
+    setFamily([]);
     setCareIdx(0);
     setDone(false);
     setMode("home");
@@ -59,15 +59,16 @@ export function FamilyGardenGame({ onExit }: { onExit: () => void }) {
     else say(SAM.home);
   };
 
-  const toggleMember = (id: string) => {
+  // additive: tap a member to add them (again, if you like — two mums, two dads, three cousins…)
+  const addMember = (id: string) => {
     setFamily((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else { next.add(id); celebrate("small"); }
-      if (next.size === 3) window.setTimeout(() => say(SAM.familyDone), 200);
+      const next = [...prev, id];
+      celebrate("small");
+      if (next.length === 3) window.setTimeout(() => say(SAM.familyDone), 200);
       return next;
     });
   };
+  const removeAt = (i: number) => setFamily((prev) => prev.filter((_, k) => k !== i));
 
   const tapCare = (caring: boolean) => {
     const scene = CARE_SCENES[careIdx];
@@ -161,26 +162,26 @@ export function FamilyGardenGame({ onExit }: { onExit: () => void }) {
           </>
         )}
 
-        {/* ---- Make My Family ---- */}
+        {/* ---- Make My Family (additive: build ANY family — two mums, two dads, anyone) ---- */}
         {mode === "family" && (
           <>
-            {family.size > 0 && (
-              <div className="glass-card flex flex-wrap justify-center gap-2 rounded-2xl p-3 backdrop-blur-[12px] backdrop-saturate-150">
-                {[...family].map((id) => (
-                  <span key={id} className="text-3xl animate-in zoom-in" aria-hidden>{MEMBERS.find((m) => m.id === id)?.emoji}</span>
+            {family.length > 0 && (
+              <div className="glass-card flex flex-wrap justify-center gap-1.5 rounded-2xl p-3 backdrop-blur-[12px] backdrop-saturate-150">
+                {family.map((id, i) => (
+                  <button key={i} type="button" onClick={() => removeAt(i)} aria-label={`Remove ${MEMBERS.find((m) => m.id === id)?.name}`} className="text-3xl animate-in zoom-in transition-transform active:scale-90">
+                    <span aria-hidden>{MEMBERS.find((m) => m.id === id)?.emoji}</span>
+                  </button>
                 ))}
               </div>
             )}
+            <p className="px-1 text-center text-xs text-white/75">Tap to add anyone who loves you — even two mums or two dads. 💛 (Tap someone above to remove.)</p>
             <div className="grid grid-cols-4 gap-2">
-              {MEMBERS.map((m) => {
-                const on = family.has(m.id);
-                return (
-                  <button key={m.id} type="button" onClick={() => toggleMember(m.id)} aria-pressed={on} className="glass-card flex flex-col items-center gap-0.5 rounded-2xl py-3 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-95" style={on ? { boxShadow: "inset 0 0 0 2px #EC4899" } : undefined}>
-                    <span className="text-2xl" aria-hidden>{m.emoji}</span>
-                    <span className="text-[10px] font-bold leading-tight text-white">{m.name}</span>
-                  </button>
-                );
-              })}
+              {MEMBERS.map((m) => (
+                <button key={m.id} type="button" onClick={() => addMember(m.id)} className="glass-card flex flex-col items-center gap-0.5 rounded-2xl py-3 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-95">
+                  <span className="text-2xl" aria-hidden>{m.emoji}</span>
+                  <span className="text-[10px] font-bold leading-tight text-white">{m.name}</span>
+                </button>
+              ))}
             </div>
             {HomeBtn}
           </>
