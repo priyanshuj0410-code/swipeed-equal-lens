@@ -29,6 +29,9 @@ const GAMES: Record<string, EngineGame> = {
   "capstone-4": dynamic(() => import("@/components/games/capstone-4").then((m) => m.CapstoneFourGame), {
     ssr: false,
   }),
+  "capstone-5": dynamic(() => import("@/components/games/capstone-5").then((m) => m.CapstoneFiveGame), {
+    ssr: false,
+  }),
   "body-lab": dynamic(() => import("@/components/games/body-lab").then((m) => m.BodyLabGame), {
     ssr: false,
   }),
