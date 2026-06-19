@@ -113,7 +113,7 @@ export function SameSameGame({ onExit }: { onExit: () => void }) {
     <GameShell title="Same Same, Different" progress={{ current: pairIdx + 1, total: pairs.length }} tools={muteBtn} onExit={onExit}>
       <div className="flex w-full max-w-sm flex-col items-center gap-4">
         {/* speech bubble */}
-        <div className="flex h-12 items-end">
+        <div className="flex min-h-12 items-end">
           {bubble && (
             <span className="glass-pill animate-in fade-in zoom-in rounded-2xl px-4 py-2 text-center text-sm font-bold backdrop-blur-md backdrop-saturate-150 duration-200">
               {bubble}

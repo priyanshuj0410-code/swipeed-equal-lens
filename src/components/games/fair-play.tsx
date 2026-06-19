@@ -148,7 +148,7 @@ export function FairPlayGame({ onExit }: { onExit: () => void }) {
         </div>
 
         {/* bubble (cheer / nudge) */}
-        <div className="flex h-12 items-end">
+        <div className="flex min-h-12 items-end">
           {bubble && (
             <span
               className="animate-in fade-in zoom-in rounded-2xl px-4 py-2 text-center text-sm font-bold backdrop-blur-md backdrop-saturate-150 duration-200"

@@ -136,7 +136,7 @@ export function FlipScriptGame({ onExit }: { onExit: () => void }) {
 
         {phase === "edit" ? (
           <>
-            <div className="flex h-10 items-end">
+            <div className="flex min-h-10 items-end">
               {nudge && (
                 <span
                   className="animate-in fade-in zoom-in rounded-2xl px-4 py-2 text-center text-sm font-bold backdrop-blur-md backdrop-saturate-150 duration-200"
