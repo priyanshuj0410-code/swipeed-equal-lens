@@ -92,6 +92,9 @@ const GAMES: Record<string, EngineGame> = {
   "my-choices": dynamic(() => import("@/components/games/my-choices").then((m) => m.MyChoicesGame), {
     ssr: false,
   }),
+  "status-know-it": dynamic(() => import("@/components/games/status-know-it").then((m) => m.StatusKnowItGame), {
+    ssr: false,
+  }),
   "flip-script": dynamic(() => import("@/components/games/flip-script").then((m) => m.FlipScriptGame), {
     ssr: false,
   }),
