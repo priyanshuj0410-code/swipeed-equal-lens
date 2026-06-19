@@ -311,7 +311,7 @@ function Mountains() {
     const block = (x: number, z: number, h: number, w: number, ry: number) =>
       arr.push(trs(x, -4, z, ry, w, (h + 4) / 2, w));
     const massif = (cx: number, cz: number, R: number, H: number) => {
-      const g = 3.6;
+      const g = 4.6; // coarser block grid — ~40% fewer instances for the same silhouette
       for (let gx = -R; gx <= R; gx += g) {
         for (let gz = -R; gz <= R; gz += g) {
           const d = Math.hypot(gx, gz) / R;
@@ -400,60 +400,89 @@ function useWind(maxY: number, amp = 1) {
   );
 }
 
-function GrassTufts() {
-  const { scene } = useGLTF("/models/grass.glb");
-  const onBeforeCompile = useWind(0.31);
-  const { geometry, material } = useMemo(() => {
-    const b = bakedMesh(scene);
-    const mat = (b.material as THREE.MeshStandardMaterial).clone();
-    mat.onBeforeCompile = onBeforeCompile;
-    mat.customProgramCacheKey = () => "kenney-grass-wind";
-    return { geometry: b.geometry, material: mat };
-  }, [scene, onBeforeCompile]);
-  const matrices = useMemo(() => {
-    const places = organicScatter(5200 * PATH_SCALE, 321, 2.0, 0.05);
-    return places.map((p) => {
-      const s = 0.9 + p.s * 0.6; // low carpet, not big tufts
-      const hy = s * (0.85 + p.s * 0.4);
-      return trsTilt(p.x, 0, p.z, p.tx * 0.45, p.r, p.tz * 0.45, s, hy, s);
-    });
-  }, []);
-  const ref = useRef<THREE.InstancedMesh>(null);
-  useEffect(() => {
-    const im = ref.current;
-    if (!im) return;
-    matrices.forEach((m, i) => im.setMatrixAt(i, m));
-    im.instanceMatrix.needsUpdate = true;
-  }, [matrices, geometry]);
-  return <instancedMesh ref={ref} args={[geometry, material, matrices.length]} frustumCulled={false} />;
+// ---- streamed foliage (mobile-friendly) -----------------------------------------------
+// Only a window of chunks around the camera is populated; the rest is "cleared" (not
+// drawn), so the GPU only ever holds a small, bounded number of instances. Each layer is a
+// single fixed-capacity InstancedMesh whose matrices we refill as the window slides.
+const FCHUNK = 72; // world-z units per foliage chunk
+const F_BEHIND = 1; // chunks kept behind the camera
+const F_AHEAD = 3; // chunks populated ahead (≈ the fog distance)
+const fchunkOf = (z: number) => Math.floor((PATH_START_Z + 24 - z) / FCHUNK);
+
+type ScatterCfg = { count: number; seed: number; clearance: number; freq: number };
+function bucketScatter({ count, seed, clearance, freq }: ScatterCfg): Map<number, Placement[]> {
+  const m = new Map<number, Placement[]>();
+  for (const p of organicScatter(count, seed, clearance, freq)) {
+    const c = fchunkOf(p.z);
+    let b = m.get(c);
+    if (!b) m.set(c, (b = []));
+    b.push(p);
+  }
+  return m;
 }
 
-// Tall yellow flowers, instanced + wind-swayed and spread across the field.
-function WindFlowers() {
-  const { scene } = useGLTF("/models/flowers-tall.glb");
-  const onBeforeCompile = useWind(0.462, 0.6); // gentler sway than grass
-  const { geometry, material } = useMemo(() => {
-    const b = bakedMesh(scene);
-    const mat = (b.material as THREE.MeshStandardMaterial).clone();
-    mat.onBeforeCompile = onBeforeCompile;
-    mat.customProgramCacheKey = () => "flowers-tall-wind";
-    return { geometry: b.geometry, material: mat };
-  }, [scene, onBeforeCompile]);
-  const matrices = useMemo(() => {
-    const places = organicScatter(44 * PATH_SCALE, 149, 2.4, 0.09); // more of them, well spread
-    return places.map((p) => {
-      const s = 1.5 * (0.8 + p.s * 0.5);
-      return trsTilt(p.x, 0, p.z, p.tx * 0.12, p.r, p.tz * 0.12, s, s, s);
-    });
-  }, []);
+const grassMatrix = (p: Placement) => {
+  const s = 0.9 + p.s * 0.6; // low carpet, not big tufts
+  const hy = s * (0.85 + p.s * 0.4);
+  return trsTilt(p.x, 0, p.z, p.tx * 0.45, p.r, p.tz * 0.45, s, hy, s);
+};
+const flowerMatrix = (p: Placement) => {
+  const s = 1.5 * (0.8 + p.s * 0.5);
+  return trsTilt(p.x, 0, p.z, p.tx * 0.12, p.r, p.tz * 0.12, s, s, s);
+};
+
+// One instanced layer sized to the most the active window can hold (allocated once); on
+// scroll we just refill 0..n from the active chunks and set `count` — out-of-view
+// instances are simply not drawn, so memory stays flat.
+function StreamLayer({
+  geometry,
+  material,
+  buckets,
+  active,
+  toMatrix,
+  castShadow = false,
+  receiveShadow = false,
+}: {
+  geometry: THREE.BufferGeometry;
+  material: THREE.Material;
+  buckets: Map<number, Placement[]>;
+  active: number[];
+  toMatrix: (p: Placement) => THREE.Matrix4;
+  castShadow?: boolean;
+  receiveShadow?: boolean;
+}) {
+  const capacity = useMemo(() => {
+    const keys = [...buckets.keys()];
+    if (!keys.length) return 1;
+    const lo = Math.min(...keys);
+    const hi = Math.max(...keys);
+    let max = 1;
+    for (let c = lo - F_AHEAD; c <= hi + F_BEHIND; c++) {
+      let s = 0;
+      for (let i = c - F_BEHIND; i <= c + F_AHEAD; i++) s += buckets.get(i)?.length ?? 0;
+      if (s > max) max = s;
+    }
+    return max;
+  }, [buckets]);
   const ref = useRef<THREE.InstancedMesh>(null);
   useEffect(() => {
     const im = ref.current;
     if (!im) return;
-    matrices.forEach((m, i) => im.setMatrixAt(i, m));
+    let n = 0;
+    for (const c of active) {
+      const b = buckets.get(c);
+      if (!b) continue;
+      for (const p of b) {
+        if (n >= capacity) break;
+        im.setMatrixAt(n++, toMatrix(p));
+      }
+    }
+    im.count = n;
     im.instanceMatrix.needsUpdate = true;
-  }, [matrices, geometry]);
-  return <instancedMesh ref={ref} args={[geometry, material, matrices.length]} frustumCulled={false} />;
+  }, [active, buckets, capacity, toMatrix]);
+  return (
+    <instancedMesh ref={ref} args={[geometry, material, capacity]} castShadow={castShadow} receiveShadow={receiveShadow} frustumCulled={false} />
+  );
 }
 
 // --- scattered stylized props (Clone) --------------------------------------------------
@@ -483,24 +512,69 @@ const ENV_URLS = [
 ];
 [...PROP_URLS, ...ENV_URLS].forEach((u) => useGLTF.preload(u));
 
-// One instanced draw call per prop model (single-mesh Kenney models), placed with the
-// same organic scatter + lean as before — same look, ~10 draw calls instead of ~110.
-function InstancedProp({ url, scale, count, seed, clearance, cast, tilt }: ModelCfg) {
-  const matrices = useMemo(() => {
-    const places = organicScatter(Math.round(count * PATH_SCALE), seed, clearance, 0.07);
-    return places.map((p) => {
-      const s = scale * (0.85 + p.s * 0.3);
-      return trsTilt(p.x, 0, p.z, p.tx * tilt, p.r, p.tz * tilt, s, s, s);
-    });
-  }, [scale, count, seed, clearance, tilt]);
-  return <InstancedModel url={url} matrices={matrices} castShadow={cast} receiveShadow />;
+// One streamed instanced layer per prop model (single-mesh Kenney models). Same organic
+// scatter + lean as before, but only the chunks near the camera are populated.
+function PropStream({ cfg, active }: { cfg: ModelCfg; active: number[] }) {
+  const { scene } = useGLTF(cfg.url);
+  const { geometry, material } = useMemo(() => bakedMesh(scene), [scene]);
+  const buckets = useMemo(
+    () => bucketScatter({ count: Math.round(cfg.count * PATH_SCALE), seed: cfg.seed, clearance: cfg.clearance, freq: 0.07 }),
+    [cfg]
+  );
+  const toMatrix = useCallback(
+    (p: Placement) => {
+      const s = cfg.scale * (0.85 + p.s * 0.3);
+      return trsTilt(p.x, 0, p.z, p.tx * cfg.tilt, p.r, p.tz * cfg.tilt, s, s, s);
+    },
+    [cfg]
+  );
+  return <StreamLayer geometry={geometry} material={material} buckets={buckets} active={active} toMatrix={toMatrix} castShadow={cfg.cast} receiveShadow />;
 }
 
-function Props() {
+// Grass + flowers + props, all streamed to a window of chunks around the camera. Loaded
+// last (after the land/mountains/path), and continuously cleared for areas out of view.
+function StreamedFoliage({ progress }: { progress: React.MutableRefObject<number> }) {
+  const grass = useGLTF("/models/grass.glb");
+  const flowers = useGLTF("/models/flowers-tall.glb");
+  const grassWind = useWind(0.31);
+  const flowerWind = useWind(0.462, 0.6); // gentler sway than grass
+  const grassRes = useMemo(() => {
+    const b = bakedMesh(grass.scene);
+    const mat = (b.material as THREE.MeshStandardMaterial).clone();
+    mat.onBeforeCompile = grassWind;
+    mat.customProgramCacheKey = () => "kenney-grass-wind";
+    return { geometry: b.geometry, material: mat };
+  }, [grass.scene, grassWind]);
+  const flowerRes = useMemo(() => {
+    const b = bakedMesh(flowers.scene);
+    const mat = (b.material as THREE.MeshStandardMaterial).clone();
+    mat.onBeforeCompile = flowerWind;
+    mat.customProgramCacheKey = () => "flowers-tall-wind";
+    return { geometry: b.geometry, material: mat };
+  }, [flowers.scene, flowerWind]);
+  const grassB = useMemo(() => bucketScatter({ count: 9000, seed: 321, clearance: 2.0, freq: 0.05 }), []);
+  const flowerB = useMemo(() => bucketScatter({ count: 120, seed: 149, clearance: 2.4, freq: 0.09 }), []);
+
+  const [active, setActive] = useState<number[]>([]);
+  const keyRef = useRef("");
+  useFrame(() => {
+    const z = CURVE.getPointAt(clamp01(progress.current)).z;
+    const c = fchunkOf(z);
+    const list: number[] = [];
+    for (let i = c - F_BEHIND; i <= c + F_AHEAD; i++) list.push(i);
+    const k = list.join(",");
+    if (k !== keyRef.current) {
+      keyRef.current = k;
+      setActive(list);
+    }
+  });
+
   return (
     <>
+      <StreamLayer geometry={grassRes.geometry} material={grassRes.material} buckets={grassB} active={active} toMatrix={grassMatrix} />
+      <StreamLayer geometry={flowerRes.geometry} material={flowerRes.material} buckets={flowerB} active={active} toMatrix={flowerMatrix} />
       {[...TREE_MODELS, ...PROP_MODELS].map((m) => (
-        <InstancedProp key={m.url} {...m} />
+        <PropStream key={m.url} cfg={m} active={active} />
       ))}
     </>
   );
@@ -723,8 +797,8 @@ function SunLight({ progress }: { progress: React.MutableRefObject<number> }) {
       color="#fff3da"
       castShadow
       shadow-intensity={0.55}
-      shadow-mapSize-width={2048}
-      shadow-mapSize-height={2048}
+      shadow-mapSize-width={1024}
+      shadow-mapSize-height={1024}
       shadow-bias={-0.0004}
       shadow-normalBias={0.05}
     >
@@ -783,9 +857,21 @@ export function PathScene({
   }, [nodes]);
   const progress = useRef(startU);
   const [reduced, setReduced] = useState(false);
+  // staged load (keeps mobile from uploading everything in one frame):
+  // 0 = sky + land + mountains, 1 = + the path & nodes, 2 = + streamed foliage.
+  const [phase, setPhase] = useState(0);
   // freeze the on-rails camera while a card game is being played
   const playingRef = useRef(false);
   playingRef.current = playing;
+
+  useEffect(() => {
+    const p1 = setTimeout(() => setPhase((p) => Math.max(p, 1)), 220);
+    const p2 = setTimeout(() => setPhase((p) => Math.max(p, 2)), 750);
+    return () => {
+      clearTimeout(p1);
+      clearTimeout(p2);
+    };
+  }, []);
 
   useEffect(() => {
     setReduced(window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false);
@@ -832,13 +918,14 @@ export function PathScene({
   return (
     <Canvas
       shadows
-      dpr={[1, 1.8]}
-      gl={{ antialias: false, toneMappingExposure: 1.05 }}
+      dpr={[1, 1.5]}
+      gl={{ antialias: false, toneMappingExposure: 1.05, powerPreference: "high-performance" }}
       camera={{ position: [0, 6, 30], fov: 48 }}
       style={{ width: "100%", height: "100%", display: "block" }}
     >
       <color attach="background" args={["#eaf6ff"]} />
       <fog attach="fog" args={["#dbeefb", 40, 235]} />
+      {/* phase 0: sky + land + mountains */}
       <SkyDome />
       <Clouds />
       <FollowCam progress={progress} />
@@ -848,13 +935,13 @@ export function PathScene({
       <Ground />
       <Suspense fallback={null}>
         <Mountains />
-        <PlankPath />
-        <GrassTufts />
-        <WindFlowers />
-        <Props />
+        {/* phase 1: the path itself */}
+        {phase >= 1 && <PlankPath />}
+        {/* phase 2: foliage, streamed to a window of chunks around the camera */}
+        {phase >= 2 && <StreamedFoliage progress={progress} />}
       </Suspense>
-      {/* hide the checkpoints + region signs while a level is being played */}
-      {!playing && (
+      {/* phase 1: checkpoints + region signs (hidden while a level is being played) */}
+      {phase >= 1 && !playing && (
         <>
           <ChapterBanners chapters={chapters} nodes={nodes} />
           <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />
