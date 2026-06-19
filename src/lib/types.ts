@@ -166,8 +166,17 @@ export type RunDeck = {
   resolution: { clear: string; reflect: string }; // high- vs low-Clarity outcome copy
 };
 
-/** Insight perks are reading/learning aids — never auto-win, never purchased. */
-export type PerkId = "slow-mo" | "gut-check" | "truth-serum" | "calm-mind";
+/** Insight perks ("powers") are reading/learning aids — never auto-win, never purchased. The first
+ *  four are available from the start; the rest unlock by play (see `isPerkUnlocked`). */
+export type PerkId =
+  | "slow-mo"
+  | "gut-check"
+  | "truth-serum"
+  | "calm-mind"
+  | "x-ray"
+  | "streak-shield"
+  | "combo-master"
+  | "boss-bane";
 export type Perk = {
   id: PerkId;
   name: string;
