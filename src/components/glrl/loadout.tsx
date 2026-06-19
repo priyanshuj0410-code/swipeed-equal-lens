@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { X, ChevronLeft, Play, Check, Star, Sparkles, CalendarDays, Feather, Flame } from "lucide-react";
+import { X, ChevronLeft, Play, Check, Star, Sparkles, CalendarDays, Feather, Flame, Lock } from "lucide-react";
 import type { PerkId, RunDeckId } from "@/lib/types";
 import { useProfile } from "@/lib/store";
 import { RUN_DECKS, todayKey } from "@/content/runs";
 import { CHARACTER_BY_ID } from "@/content/characters";
-import { PERKS, LOADOUT, STARTER_PERKS } from "@/content/perks";
+import { PERKS, LOADOUT, STARTER_PERKS, isPerkUnlocked } from "@/content/perks";
 
 // GLRL 2.0 entry, kept deliberately text-light: Step 1 pick a Mode (Daily / Story / Easy / Hard);
 // Story then asks Step 2 (which story) and Step 3 (which powers). Daily, Easy and Hard start in one
@@ -131,20 +131,28 @@ export function Loadout({
             <div className="mt-4 grid grid-cols-2 gap-2.5">
               {PERKS.map((p) => {
                 const on = perks.includes(p.id);
+                const unlocked = isPerkUnlocked(p.id, profile);
                 const full = !on && perks.length >= LOADOUT.max;
                 return (
                   <button
                     key={p.id}
                     type="button"
-                    onClick={() => togglePerk(p.id)}
-                    disabled={full}
-                    title={p.effect}
+                    onClick={() => unlocked && togglePerk(p.id)}
+                    disabled={full || !unlocked}
+                    title={unlocked ? p.effect : `Locked — ${p.unlock}`}
                     className="glass-pill flex items-center gap-2 rounded-2xl px-3 py-3 text-left backdrop-blur-md transition-transform active:scale-[0.97] disabled:opacity-40"
                     style={on ? { borderColor: "rgba(255,255,255,0.55)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.4)" } : undefined}
                     aria-pressed={on}
                   >
-                    <span className="text-xl leading-none" aria-hidden>{p.emoji}</span>
-                    <span className="text-xs font-bold">{p.name}</span>
+                    <span className="text-xl leading-none" aria-hidden>{unlocked ? p.emoji : "🔒"}</span>
+                    <span className="min-w-0">
+                      <span className="block text-xs font-bold">{p.name}</span>
+                      {!unlocked && (
+                        <span className="flex items-center gap-1 text-[10px] leading-tight text-white/55">
+                          <Lock className="size-2.5 shrink-0" aria-hidden /> {p.unlock}
+                        </span>
+                      )}
+                    </span>
                   </button>
                 );
               })}

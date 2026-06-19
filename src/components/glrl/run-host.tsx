@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { X, Flag, Check, Flame, Eraser, Pencil, Sparkles } from "lucide-react";
+import { X, Flag, Check, Flame, Eraser, Pencil, Sparkles, Search } from "lucide-react";
 import type { Flag as FlagType, PerkId, RunDeckId } from "@/lib/types";
 import { useRunGame } from "@/lib/use-run-game";
 import { GameCard } from "@/components/game-card";
@@ -140,7 +140,13 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
                 {hud.isBoss ? "See how it ends" : "Next"}
               </button>
             ) : (
-              <div className="flex items-center gap-3">
+              <>
+                {hud.xrayHint && (
+                  <div className="glass-pill flex items-center gap-1.5 self-center rounded-full px-3 py-1 text-xs font-semibold backdrop-blur-md backdrop-saturate-150" style={{ color: "#b3c8ff" }}>
+                    <Search className="size-3.5" aria-hidden /> X-Ray — this one&apos;s: {hud.xrayHint}
+                  </div>
+                )}
+                <div className="flex items-center gap-3">
                 <button
                   type="button"
                   disabled={hud.busy}
@@ -159,7 +165,8 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
                 >
                   <Check className="size-5" aria-hidden /> {view.labels.right}
                 </button>
-              </div>
+                </div>
+              </>
             )}
           </div>
         </>

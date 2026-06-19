@@ -41,6 +41,8 @@ type RState = {
   pendingFork: Fork | null;
   totalPlanned: number;
   wrongThisCard: boolean;
+  shieldUsed: boolean; // Streak Shield consumed?
+  xrayCardId: string | null; // X-Ray reveals the sign on this (first disguised) card
 };
 
 function fresh(deckId: RunDeckId, perks: PerkId[], cards?: Card[]): RState {
@@ -48,6 +50,7 @@ function fresh(deckId: RunDeckId, perks: PerkId[], cards?: Card[]): RState {
   const isRush = deckId === "boss-rush";
   const seq = cards ?? (isRush ? BOSS_RUSH_CARDS.slice() : assembleRun(deckId, [])); // main line only until forks resolve
   const mainLine = isRush ? BOSS_RUSH_CARDS.length : runCardPool(deckId).filter((c) => !c.branch_id).length;
+  const xrayCardId = perks.includes("x-ray") ? seq.find((c) => c.is_disguised && !c.is_safeguarding)?.id ?? null : null;
   return {
     deckId,
     perks,
@@ -73,6 +76,8 @@ function fresh(deckId: RunDeckId, perks: PerkId[], cards?: Card[]): RState {
     pendingFork: null,
     totalPlanned: cards ? cards.length : mainLine + deck.forks.length,
     wrongThisCard: false,
+    shieldUsed: false,
+    xrayCardId,
   };
 }
 
@@ -117,15 +122,25 @@ export function useRunGame() {
         } catch {
           /* unsupported */
         }
-        let { combo, bestCombo, correct, scored, disgSeen, disgCorrect, clarity, xp, bossCorrect, missed } = prev;
+        let { combo, bestCombo, correct, scored, disgSeen, disgCorrect, clarity, xp, bossCorrect, missed, shieldUsed } = prev;
         let lastXp = 0;
         let wrongThisCard = false;
+        const perks = prev.perks;
         if (!card.is_safeguarding) {
           combo = isCorrect ? prev.combo + 1 : 0;
           bestCombo = Math.max(prev.bestCombo, combo);
           lastXp = cardXp(card, isCorrect, combo);
           xp = prev.xp + lastXp;
-          clarity = clampClarity(prev.clarity + clarityDelta(card, isCorrect, isBoss));
+          // Clarity swing, modified by powers: Combo Master (×1.5 on a correct read),
+          // Boss Bane (+extra on a correct boss), Streak Shield (no loss on the first wrong read).
+          let cd = clarityDelta(card, isCorrect, isBoss);
+          if (isCorrect && perks.includes("combo-master")) cd = Math.round(cd * 1.5);
+          if (isCorrect && isBoss && perks.includes("boss-bane")) cd += 6;
+          if (!isCorrect && !shieldUsed && perks.includes("streak-shield")) {
+            cd = 0;
+            shieldUsed = true;
+          }
+          clarity = clampClarity(prev.clarity + cd);
           scored = prev.scored + 1;
           if (isCorrect) correct = prev.correct + 1;
           else {
@@ -145,7 +160,7 @@ export function useRunGame() {
           () => setR((p) => (p && p.exiting ? { ...p, exiting: null, phase: "reveal", revealAt: Date.now() } : p)),
           EXIT_MS
         );
-        return { ...prev, flag, exiting: flag, combo, bestCombo, correct, scored, disgSeen, disgCorrect, clarity, xp, lastXp, bossCorrect, missed, wrongThisCard };
+        return { ...prev, flag, exiting: flag, combo, bestCombo, correct, scored, disgSeen, disgCorrect, clarity, xp, lastXp, bossCorrect, missed, wrongThisCard, shieldUsed };
       });
     },
     [recordCard]
@@ -214,6 +229,8 @@ export function useRunGame() {
           hintAfterMs: r.perks.includes("gut-check") ? 4000 : null,
           slowMo: r.perks.includes("slow-mo"),
           truthSerum: r.phase === "reveal" && r.wrongThisCard && r.perks.includes("truth-serum"),
+          // X-Ray: reveal the sign on the first disguised card (during play; you still choose the swipe)
+          xrayHint: r.phase === "play" && r.seq[r.index].id === r.xrayCardId ? r.seq[r.index].sign : null,
         }
       : null;
 
