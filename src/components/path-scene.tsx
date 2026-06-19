@@ -443,6 +443,12 @@ const FCHUNK = 72; // world-z units per foliage chunk
 const F_BEHIND = 1; // chunks kept behind the camera
 const F_AHEAD = 3; // chunks populated ahead (≈ the fog distance)
 const fchunkOf = (z: number) => Math.floor((PATH_START_Z + 24 - z) / FCHUNK);
+// chunk indices that fall inside the winter band (Holiday props live here; Platformer
+// trees in these chunks are hidden once winter is the active season)
+const WINTER_CHUNK_LO = Math.min(fchunkOf(WINTER_Z_MAX), fchunkOf(WINTER_Z_MIN));
+const WINTER_CHUNK_HI = Math.max(fchunkOf(WINTER_Z_MAX), fchunkOf(WINTER_Z_MIN));
+const isWinterChunk = (c: number) => c >= WINTER_CHUNK_LO && c <= WINTER_CHUNK_HI;
+const WINTER_SEASON_INDEX = SEASON_ORDER.indexOf("winter");
 
 type ScatterCfg = { count: number; seed: number; clearance: number; freq: number; zRange?: [number, number] };
 function bucketScatter({ count, seed, clearance, freq, zRange }: ScatterCfg, zFilter?: (z: number) => boolean): Map<number, Placement[]> {
@@ -537,10 +543,13 @@ type ModelCfg = {
   holiday?: boolean;
 };
 
+// Trees populate the whole path (season-coloured); in the winter region they're shown only
+// while the active season ISN'T winter (so from autumn you see autumn-toned trees ahead),
+// and hidden in favour of the Holiday snow trees once winter is active.
 const TREE_MODELS: ModelCfg[] = [
-  { url: "/models/tree.glb", scale: 5.2, count: 14, seed: 11, clearance: 7.5, cast: true, tilt: 0.05, winterSwap: true },
-  { url: "/models/tree-pine.glb", scale: 5.2, count: 10, seed: 23, clearance: 7.5, cast: true, tilt: 0.04, winterSwap: true },
-  { url: "/models/tree-pine-small.glb", scale: 4.8, count: 8, seed: 37, clearance: 7, cast: true, tilt: 0.06, winterSwap: true },
+  { url: "/models/tree.glb", scale: 5.2, count: 14, seed: 11, clearance: 7.5, cast: true, tilt: 0.05 },
+  { url: "/models/tree-pine.glb", scale: 5.2, count: 10, seed: 23, clearance: 7.5, cast: true, tilt: 0.04 },
+  { url: "/models/tree-pine-small.glb", scale: 4.8, count: 8, seed: 37, clearance: 7, cast: true, tilt: 0.06 },
 ];
 const PROP_MODELS: ModelCfg[] = [
   { url: "/models/rocks.glb", scale: 2.0, count: 26, seed: 101, clearance: 3.5, cast: true, tilt: 0.22, winterSwap: true },
@@ -644,25 +653,39 @@ function StreamedFoliage({ progress }: { progress: React.MutableRefObject<number
   const flowerB = useMemo(() => bucketScatter({ count: 120, seed: 149, clearance: 2.4, freq: 0.09 }, (z) => !inWinter(z)), []);
 
   const [active, setActive] = useState<number[]>([]);
+  const [winterView, setWinterView] = useState(false);
   const keyRef = useRef("");
   useFrame(() => {
     const z = CURVE.getPointAt(clamp01(progress.current)).z;
     const c = fchunkOf(z);
     const list: number[] = [];
     for (let i = c - F_BEHIND; i <= c + F_AHEAD; i++) list.push(i);
-    const k = list.join(",");
+    const wv = seasonRT.index === WINTER_SEASON_INDEX;
+    const k = list.join(",") + "|" + (wv ? 1 : 0);
     if (k !== keyRef.current) {
       keyRef.current = k;
       setActive(list);
+      setWinterView(wv);
     }
   });
+
+  // trees: drop the winter-band chunks once winter is active (Holiday snow trees take over there)
+  const treeActive = useMemo(() => (winterView ? active.filter((c) => !isWinterChunk(c)) : active), [active, winterView]);
+  // Holiday props: only the winter-band chunks, and only while winter is the active season
+  const holidayActive = useMemo(() => (winterView ? active.filter((c) => isWinterChunk(c)) : []), [active, winterView]);
 
   return (
     <>
       <StreamLayer geometry={grassRes.geometry} material={grassRes.material} buckets={grassB} active={active} toMatrix={grassMatrix} />
       <StreamLayer geometry={flowerRes.geometry} material={flowerRes.material} buckets={flowerB} active={active} toMatrix={flowerMatrix} />
-      {[...TREE_MODELS, ...PROP_MODELS, ...HOLIDAY_MODELS].map((m) => (
+      {TREE_MODELS.map((m) => (
+        <PropStream key={m.url} cfg={m} active={treeActive} />
+      ))}
+      {PROP_MODELS.map((m) => (
         <PropStream key={m.url} cfg={m} active={active} />
+      ))}
+      {HOLIDAY_MODELS.map((m) => (
+        <PropStream key={m.url} cfg={m} active={holidayActive} />
       ))}
     </>
   );
