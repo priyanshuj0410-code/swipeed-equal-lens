@@ -5,6 +5,7 @@ import { RotateCcw, Repeat, Map, Sparkles } from "lucide-react";
 import { useProfile } from "@/lib/store";
 import { celebrate } from "@/lib/confetti";
 import { sfx } from "@/lib/juice";
+import { STORY_DECKS } from "@/content/runs";
 import type { RunResult } from "@/lib/use-run-game";
 import { ResolutionBeat } from "@/components/glrl/resolution";
 
@@ -24,10 +25,16 @@ export function RunDebrief({
   onReplayMissed: () => void;
   onExit: () => void;
 }) {
-  const { finishDeck } = useProfile();
+  const { finishDeck, recordRun } = useProfile();
 
   useEffect(() => {
     finishDeck(result.deckId, result.stars, result.xp, result.bestCombo);
+    recordRun({
+      deckId: result.deckId,
+      disgSeen: result.disgSeen,
+      disgCorrect: result.disgCorrect,
+      isStory: STORY_DECKS.some((d) => d.id === result.deckId),
+    });
     if (result.outcome === "clear") {
       celebrate("big");
       sfx("win");

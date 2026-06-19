@@ -8,6 +8,7 @@ export const CHARACTERS: Character[] = [
   { id: "aisha", name: "Aisha", avatar: "🧕🏽", pronoun: "she", blurb: "Your friend since Class 4 — until a newer friend started getting between you." },
   { id: "rohan", name: "Rohan", avatar: "👦🏾", pronoun: "he", blurb: "Lives half his life in the group chat. Someone in his DMs is getting too close." },
   { id: "kabir", name: "Kabir", avatar: "🧑🏻", pronoun: "he", blurb: "Quiet, loyal, a bit of a pushover — learning where his boundaries are." },
+  { id: "coach", name: "Coach", avatar: "🦉", pronoun: "they", blurb: "Your reading mentor. Sets the hardest, most-disguised cards to test your eye." },
 ];
 
 export const CHARACTER_BY_ID: Record<CharacterId, Character> = Object.fromEntries(

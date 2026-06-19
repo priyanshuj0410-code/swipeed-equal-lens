@@ -110,9 +110,44 @@ export const RUN_DECKS: RunDeck[] = [
   },
 ];
 
+/** The three playable story arcs (Boss Rush is a mode, not a story deck — kept out of this list). */
+export const STORY_DECKS = RUN_DECKS;
+
+// Boss Rush: a gauntlet of the hardest reads — every main-line disguised card (including the bosses)
+// across all decks, ordered easiest → hardest. No forks, no safeguarding cards; "Coach" frames it.
+export const BOSS_RUSH_CARDS: Card[] = RUN_CARDS.filter(
+  (c) => c.is_disguised && !c.branch_id && !c.is_safeguarding
+).sort((a, b) => a.difficulty - b.difficulty);
+
+export const BOSS_RUSH_DECK: RunDeck = {
+  id: "boss-rush",
+  title: "Boss Rush",
+  blurb: "Coach's gauntlet — only the trickiest, most-disguised cards. Test your eye.",
+  emoji: "🦉",
+  accent: "oklch(0.7 0.16 50)",
+  character: "coach",
+  schoolComfortSafe: true,
+  forks: [],
+  bossCardId: BOSS_RUSH_CARDS[BOSS_RUSH_CARDS.length - 1]?.id ?? "",
+  resolution: {
+    clear: "Sharp eyes — you read the disguises that fool most people. Coach is impressed.",
+    reflect: "Disguised cards are the hard ones — that's the whole point. Let's look again at the tricky ones.",
+  },
+};
+
 export const RUN_DECK_BY_ID: Record<RunDeckId, RunDeck> = Object.fromEntries(
-  RUN_DECKS.map((d) => [d.id, d])
+  [...RUN_DECKS, BOSS_RUSH_DECK].map((d) => [d.id, d])
 ) as Record<RunDeckId, RunDeck>;
+
+// Daily Run: one deterministic story deck per calendar day (shared seed = the date).
+export function dailyDeckId(date = new Date()): RunDeckId {
+  const seed = Number(`${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`);
+  return STORY_DECKS[seed % STORY_DECKS.length].id;
+}
+
+export function todayKey(date = new Date()): string {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
 
 /** All cards authored for a run deck (unordered pool; the engine assembles the played sequence). */
 export function runCardPool(deckId: RunDeckId): Card[] {

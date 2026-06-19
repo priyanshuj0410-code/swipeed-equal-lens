@@ -33,8 +33,10 @@ export type Sign = {
   definition: string;
 };
 
-/** The three 2.0 story-run decks (escalation arcs around a recurring character). */
-export type RunDeckId = "new-crush" | "toxic-friend" | "in-dms";
+/** The three 2.0 story-run decks (escalation arcs around a recurring character), plus the
+ *  Boss Rush mode (a gauntlet of the hardest disguised/boss cards across all decks). */
+export type StoryDeckId = "new-crush" | "toxic-friend" | "in-dms";
+export type RunDeckId = StoryDeckId | "boss-rush";
 
 export type DeckId =
   | "daily"
@@ -94,6 +96,12 @@ export type Profile = {
   bestStreak: number;
   deckStars: Record<string, number>; // best stars (0-3) per deck
   signMastery: Record<string, { seen: number; correct: number }>; // by SignId
+  // --- 2.0 run meta-progression (optional; default-merged on load) ---
+  runsCompleted?: number;
+  runDeckCleared?: Record<string, boolean>; // story-deck arcs finished (by RunDeckId)
+  disgSeen?: number; // lifetime disguised cards seen — the headline learning signal
+  disgCorrect?: number; // lifetime disguised cards read correctly
+  dailyRunOn?: string; // YYYY-MM-DD the Daily Run was last taken
 };
 
 export type CardOutcome = {
@@ -113,8 +121,9 @@ export type DeckSummary = {
 
 // ───────────────────────── 2.0: runs, characters, perks ─────────────────────────
 
-/** The small recurring, deliberately diverse cast whose relationships the player reads. */
-export type CharacterId = "meera" | "aisha" | "rohan" | "kabir";
+/** The small recurring, deliberately diverse cast whose relationships the player reads.
+ *  `coach` is the framing mentor for non-story modes (Boss Rush), not a relationship arc. */
+export type CharacterId = "meera" | "aisha" | "rohan" | "kabir" | "coach";
 export type Character = {
   id: CharacterId;
   name: string;

@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import type { Card, Fork, Flag, PerkId, RunDeckId } from "@/lib/types";
 import type { GameView } from "@/components/path-scene";
 import { CHARACTER_BY_ID } from "@/content/characters";
-import { RUN_DECK_BY_ID, assembleRun, runCardPool } from "@/content/runs";
+import { RUN_DECK_BY_ID, assembleRun, runCardPool, BOSS_RUSH_CARDS } from "@/content/runs";
 import { CLARITY, RUN_XP, cardXp, clampClarity, clarityDelta, runOutcome } from "@/lib/run-scoring";
 import { POINTS, starsFor } from "@/lib/scoring";
 import { celebrate } from "@/lib/confetti";
@@ -45,8 +45,9 @@ type RState = {
 
 function fresh(deckId: RunDeckId, perks: PerkId[], cards?: Card[]): RState {
   const deck = RUN_DECK_BY_ID[deckId];
-  const seq = cards ?? assembleRun(deckId, []); // main line only until forks resolve
-  const mainLine = runCardPool(deckId).filter((c) => !c.branch_id).length;
+  const isRush = deckId === "boss-rush";
+  const seq = cards ?? (isRush ? BOSS_RUSH_CARDS.slice() : assembleRun(deckId, [])); // main line only until forks resolve
+  const mainLine = isRush ? BOSS_RUSH_CARDS.length : runCardPool(deckId).filter((c) => !c.branch_id).length;
   return {
     deckId,
     perks,
