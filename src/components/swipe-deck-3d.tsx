@@ -368,6 +368,17 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
   const exitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => void (exitTimer.current && clearTimeout(exitTimer.current)), []);
 
+  // R3F doesn't always measure its container on first mount in prod — nudge a resize.
+  useEffect(() => {
+    const fire = () => window.dispatchEvent(new Event("resize"));
+    const raf = requestAnimationFrame(fire);
+    const t = [setTimeout(fire, 80), setTimeout(fire, 300)];
+    return () => {
+      cancelAnimationFrame(raf);
+      t.forEach(clearTimeout);
+    };
+  }, []);
+
   const card = cards[index];
   const correct = chosen !== null && chosen === card.correct_flag;
 
