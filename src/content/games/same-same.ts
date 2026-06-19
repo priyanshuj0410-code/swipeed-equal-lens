@@ -71,16 +71,7 @@ export const PAIRS: Pair[] = [
 ];
 
 export const GARDEN_TARGET = PAIRS.length; // a flower per friendship; full garden = the finish
-
-// Make-a-Friend — a simple, inclusive avatar builder (creation + identity + disability inclusion).
-export const SKINS = ["🧒🏻", "🧒🏽", "🧒🏿"];
-export const ACCESSORIES = [
-  { id: "none", label: "Just me", emoji: "" },
-  { id: "glasses", label: "Glasses", emoji: "👓" },
-  { id: "wheelchair", label: "Wheelchair", emoji: "🦽" },
-  { id: "hearing", label: "Hearing aid", emoji: "🦻" },
-];
-export const CANDO = ["fly a plane! ✈️", "cook dinner! 🍳", "lead the team! 🧭", "score a goal! ⚽", "be a doctor! 🩺", "be a scientist! 🔬"];
+// (Make-a-Friend uses the shared inclusive builder in components/games/make-a-kid.tsx.)
 
 export const SAM = {
   greet: "Hello! I'm Sam. Let's find friends — same inside, different outside!",
