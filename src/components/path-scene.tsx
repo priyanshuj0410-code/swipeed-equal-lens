@@ -1115,30 +1115,78 @@ function Companion({ progress }: { progress: React.MutableRefObject<number> }) {
   const grp = useRef<THREE.Group>(null);
   const inner = useRef<THREE.Group>(null);
   const { actions } = useAnimations(animations, inner);
+  const st = useMemo(
+    () => ({ pos: new THREE.Vector3(), tgt: new THREE.Vector3(), dir: new THREE.Vector3(), tan: new THREE.Vector3(), facing: 0, moving: false, started: false }),
+    []
+  );
+
   useEffect(() => {
     scene.traverse((o) => {
       const m = o as THREE.Mesh;
-      if (m.isMesh && m.material) (m.material as THREE.Material).userData.ownColormap = true;
+      if (m.isMesh) {
+        m.castShadow = true; // a grounding shadow so it sits in the world
+        if (m.material) (m.material as THREE.Material).userData.ownColormap = true; // keep its own skin colours
+      }
     });
   }, [scene]);
+
   useEffect(() => {
-    const a = actions?.idle ?? Object.values(actions)[0];
-    a?.reset().fadeIn(0.3).play();
-    return () => {
-      a?.fadeOut(0.2);
-    };
+    actions?.idle?.reset().fadeIn(0.3).play();
   }, [actions]);
-  useFrame(() => {
-    if (!grp.current) return;
-    const u = clamp01(progress.current + 0.012);
+
+  useFrame((_, dt) => {
+    const g = grp.current;
+    if (!g) return;
+    const d = Math.min(dt, 0.05);
+    // target: right beside the focused node, a touch toward the camera
+    const u = clamp01(progress.current - 0.003);
     const p = CURVE.getPointAt(u);
-    const tan = CURVE.getTangentAt(u);
-    tan.y = 0;
-    if (tan.lengthSq() === 0) tan.set(0, 0, -1);
-    tan.normalize();
-    grp.current.position.set(p.x - tan.z * 3.4, 0, p.z + tan.x * 3.4); // beside the path
-    grp.current.rotation.y = Math.atan2(tan.x, tan.z); // walk along the path
+    st.tan.copy(CURVE.getTangentAt(u));
+    st.tan.y = 0;
+    if (st.tan.lengthSq() === 0) st.tan.set(0, 0, -1);
+    st.tan.normalize();
+    st.tgt.set(p.x - st.tan.z * 2.6, 0, p.z + st.tan.x * 2.6);
+    if (!st.started) {
+      st.started = true;
+      st.pos.copy(st.tgt);
+    }
+    st.dir.copy(st.tgt).sub(st.pos);
+    let dist = st.dir.length();
+    const wasMoving = st.moving;
+    if (dist > 0.18) {
+      if (dist > 45) {
+        // never fall absurdly far behind (very fast scrolls)
+        st.pos.lerp(st.tgt, 1 - 45 / dist);
+        st.dir.copy(st.tgt).sub(st.pos);
+        dist = st.dir.length();
+      }
+      st.dir.normalize();
+      const speed = Math.min(26, Math.max(6, dist * 1.8)); // walk normally, run to catch up when far
+      st.pos.addScaledVector(st.dir, Math.min(dist, speed * d));
+      st.facing = Math.atan2(st.dir.x, st.dir.z);
+      st.moving = true;
+      if (actions?.walk) actions.walk.timeScale = Math.min(2.4, Math.max(0.9, speed / 6)); // less foot-slide
+    } else {
+      st.pos.copy(st.tgt);
+      st.facing = Math.atan2(st.tan.x, st.tan.z); // face along the path when idle
+      st.moving = false;
+    }
+    g.position.copy(st.pos);
+    let df = st.facing - g.rotation.y;
+    while (df > Math.PI) df -= Math.PI * 2;
+    while (df < -Math.PI) df += Math.PI * 2;
+    g.rotation.y += df * Math.min(1, d * 9); // smooth turn
+    if (st.moving !== wasMoving) {
+      if (st.moving) {
+        actions?.idle?.fadeOut(0.2);
+        actions?.walk?.reset().fadeIn(0.2).play();
+      } else {
+        actions?.walk?.fadeOut(0.2);
+        actions?.idle?.reset().fadeIn(0.25).play();
+      }
+    }
   });
+
   return (
     <group ref={grp}>
       <group ref={inner} scale={2.6} position={[0, 0.98, 0]}>
