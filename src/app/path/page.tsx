@@ -91,15 +91,15 @@ export default function PathPage() {
       {webgl !== false && !game.active && (
         <>
           <div className="fixed left-4 top-4 z-50 flex items-center gap-2">
-            <span className={buttonVariants({ variant: "secondary", size: "sm", className: "pointer-events-none gap-1.5 rounded-full font-bold shadow-md" })}>
+            <span className="glass-pill pointer-events-none flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold backdrop-blur-md backdrop-saturate-150">
               <Flame className="size-4" style={{ color: "var(--flame)" }} aria-hidden /> {profile.bestStreak}
             </span>
-            <span className={buttonVariants({ variant: "secondary", size: "sm", className: "pointer-events-none gap-1.5 rounded-full font-bold shadow-md" })}>
+            <span className="glass-pill pointer-events-none flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold backdrop-blur-md backdrop-saturate-150">
               <Star className="size-4" style={{ color: "var(--accent-amber)" }} fill="currentColor" aria-hidden /> {profile.coins}
             </span>
           </div>
           <div className="pointer-events-none fixed inset-x-0 bottom-6 z-40 flex justify-center px-4">
-            <span className="rounded-full bg-card/90 px-3 py-1.5 text-xs font-medium text-muted-foreground shadow-md ring-1 ring-border backdrop-blur">
+            <span className="glass-pill rounded-full px-3.5 py-1.5 text-xs font-medium backdrop-blur-md backdrop-saturate-150">
               Tap a node to start · scroll or drag to travel
             </span>
           </div>
@@ -114,22 +114,22 @@ export default function PathPage() {
             type="button"
             aria-label="Back to path"
             onClick={game.quit}
-            className={buttonVariants({ variant: "secondary", size: "icon", className: "fixed left-4 top-4 z-50 rounded-full shadow-md" })}
+            className="glass-pill fixed left-4 top-4 z-50 flex size-10 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95"
           >
             <X className="size-5" aria-hidden />
           </button>
 
           <div className="fixed inset-x-0 top-4 z-40 flex flex-col items-center gap-1.5 px-16">
-            <span className="rounded-full bg-card/95 px-3 py-1 text-xs font-semibold text-muted-foreground shadow-md ring-1 ring-border backdrop-blur">
+            <span className="glass-pill rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur-md backdrop-saturate-150">
               {hud.title} · {Math.min(hud.index + 1, hud.total)}/{hud.total}
             </span>
             <div className="flex items-center gap-2">
               {hud.streak > 1 && (
-                <span className="flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold text-white shadow-md" style={{ background: "var(--flame)" }}>
-                  <Flame className="size-3.5" aria-hidden /> {hud.streak}
+                <span className="glass-pill flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold backdrop-blur-md backdrop-saturate-150">
+                  <Flame className="size-3.5" style={{ color: "var(--flame)" }} aria-hidden /> {hud.streak}
                 </span>
               )}
-              <span className="rounded-full bg-card/95 px-2.5 py-1 text-xs font-bold shadow-md ring-1 ring-border backdrop-blur">{hud.score} pts</span>
+              <span className="glass-pill rounded-full px-2.5 py-1 text-xs font-bold backdrop-blur-md backdrop-saturate-150">{hud.score} pts</span>
             </div>
           </div>
 
@@ -138,7 +138,7 @@ export default function PathPage() {
               <button
                 type="button"
                 onClick={game.next}
-                className="h-14 flex-1 rounded-2xl bg-primary text-base font-bold text-primary-foreground shadow-lg transition-transform active:scale-95"
+                className="glass-pill h-14 flex-1 rounded-2xl text-base font-bold backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95"
               >
                 {hud.isLast ? "Finish" : "Next"}
               </button>
@@ -148,8 +148,8 @@ export default function PathPage() {
                   type="button"
                   disabled={hud.busy}
                   onClick={() => game.commit("red")}
-                  className="flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold shadow-lg backdrop-blur transition-transform active:scale-95 disabled:opacity-60"
-                  style={{ background: "color-mix(in oklab, var(--flag-red) 20%, rgba(255,255,255,0.75))", color: "var(--flag-red)", border: "2px solid color-mix(in oklab, var(--flag-red) 42%, transparent)" }}
+                  className="glass-pill flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95 disabled:opacity-60"
+                  style={{ color: "#ff9085", borderColor: "rgba(255,144,133,0.45)" }}
                 >
                   <Flag className="size-5" aria-hidden /> {hud.labels.left}
                 </button>
@@ -157,8 +157,8 @@ export default function PathPage() {
                   type="button"
                   disabled={hud.busy}
                   onClick={() => game.commit("green")}
-                  className="flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold shadow-lg backdrop-blur transition-transform active:scale-95 disabled:opacity-60"
-                  style={{ background: "color-mix(in oklab, var(--flag-green) 20%, rgba(255,255,255,0.75))", color: "var(--flag-green)", border: "2px solid color-mix(in oklab, var(--flag-green) 42%, transparent)" }}
+                  className="glass-pill flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95 disabled:opacity-60"
+                  style={{ color: "#62e08f", borderColor: "rgba(98,224,143,0.45)" }}
                 >
                   <Check className="size-5" aria-hidden /> {hud.labels.right}
                 </button>

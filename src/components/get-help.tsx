@@ -1,7 +1,6 @@
 "use client";
 
 import { LifeBuoy, Phone, ExternalLink } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -21,11 +20,7 @@ export function GetHelp() {
     <Dialog>
       <DialogTrigger
         aria-label="Get help"
-        className={buttonVariants({
-          variant: "secondary",
-          size: "sm",
-          className: "fixed top-4 right-4 z-50 gap-1.5 rounded-full shadow-md",
-        })}
+        className="glass-pill fixed right-4 top-4 z-50 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-semibold backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95"
       >
         <LifeBuoy className="size-4" aria-hidden />
         Get Help

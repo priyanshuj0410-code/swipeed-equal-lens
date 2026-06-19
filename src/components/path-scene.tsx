@@ -595,7 +595,7 @@ function Node({
             <NodeIcon state={node.state} />
           </button>
           <span
-            className={`pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded-md bg-card/95 px-2 py-0.5 text-[11px] font-semibold text-card-foreground shadow-md ring-1 ring-border backdrop-blur transition-opacity duration-150 ${
+            className={`glass-pill pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded-md px-2 py-0.5 text-[11px] font-semibold backdrop-blur-md backdrop-saturate-150 transition-opacity duration-150 ${
               inView ? "opacity-100" : "opacity-0 peer-hover:opacity-100 peer-focus-visible:opacity-100"
             }`}
           >
