@@ -336,9 +336,15 @@ function Mountains() {
       }
     };
     for (const s of [-1, 1]) {
-      flank(s, 60, 100, 16, 26, 6, 14, 62); // near, wide gentle green hills
-      flank(s, 124, 182, 22, 36, 10, 22, 78); // far, broad hazier range
+      flank(s, 58, 98, 16, 26, 6, 14, 56); // near, gentle green hills
+      flank(s, 114, 176, 22, 36, 11, 23, 50); // mid range (denser)
+      flank(s, 198, 272, 30, 46, 16, 32, 60); // far horizon — tall, hazy ranges
     }
+    // close the vista at both ends so the horizon isn't open looking down the path
+    massif(0, PATH_START_Z + 80, 42, 18);
+    massif(-64, PATH_END_Z - 70, 40, 26);
+    massif(70, PATH_END_Z - 96, 46, 30);
+    massif(6, PATH_END_Z - 124, 52, 30);
     return arr;
   }, []);
   return <InstancedModel url="/models/block-grass-large-tall.glb" matrices={matrices} />;
