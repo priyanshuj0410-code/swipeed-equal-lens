@@ -8,6 +8,9 @@ import type { ComponentType } from "react";
 type EngineGame = ComponentType<{ onExit: () => void }>;
 
 const GAMES: Record<string, EngineGame> = {
+  feelings: dynamic(() => import("@/components/games/feelings-friends").then((m) => m.FeelingsFriendsGame), {
+    ssr: false,
+  }),
   "same-same": dynamic(() => import("@/components/games/same-same").then((m) => m.SameSameGame), {
     ssr: false,
   }),
