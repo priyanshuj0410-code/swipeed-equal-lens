@@ -13,7 +13,7 @@ const PROMPT = {
   different: "What is different?",
 } as const;
 
-export function SameSameGame() {
+export function SameSameGame({ onExit }: { onExit: () => void }) {
   const pairs = SAME_SAME.pairs;
   const [pairIdx, setPairIdx] = useState(0);
   const [phase, setPhase] = useState<"same" | "different">("same");
@@ -95,7 +95,7 @@ export function SameSameGame() {
 
   if (done) {
     return (
-      <GameShell title="Same Same, Different" tools={muteBtn}>
+      <GameShell title="Same Same, Different" tools={muteBtn} onExit={onExit}>
         <GameDone
           gameId="same-same"
           stars={3}
@@ -103,13 +103,14 @@ export function SameSameGame() {
           title="So many ways we're the same!"
           blurb="And different is wonderful. 🌈"
           onReplay={reset}
+          onExit={onExit}
         />
       </GameShell>
     );
   }
 
   return (
-    <GameShell title="Same Same, Different" progress={{ current: pairIdx + 1, total: pairs.length }} tools={muteBtn}>
+    <GameShell title="Same Same, Different" progress={{ current: pairIdx + 1, total: pairs.length }} tools={muteBtn} onExit={onExit}>
       <div className="flex w-full max-w-sm flex-col items-center gap-4">
         {/* speech bubble */}
         <div className="flex h-12 items-end">

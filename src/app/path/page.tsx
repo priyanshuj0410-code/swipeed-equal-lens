@@ -9,6 +9,9 @@ import { buttonVariants } from "@/components/ui/button";
 import { useProfile } from "@/lib/store";
 import { useSwipeGame } from "@/lib/use-swipe-game";
 import { GameCard } from "@/components/game-card";
+import { GameShell } from "@/components/game-shell";
+import { GameDone } from "@/components/games/game-done";
+import { EngineGameHost, hasEngineGame } from "@/components/games/engine-host";
 import { PATH } from "@/content/path";
 import { DECK_BY_ID, resolveDeckCards, availableDecks } from "@/content/decks";
 import type { SceneNode } from "@/components/path-scene";
@@ -27,7 +30,10 @@ export default function PathPage() {
   const router = useRouter();
   const { profile } = useProfile();
   const game = useSwipeGame();
+  const [engineGame, setEngineGame] = useState<string | null>(null);
   const [webgl, setWebgl] = useState<boolean | null>(null);
+
+  const playing = game.active || engineGame !== null;
 
   useEffect(() => {
     try {
@@ -41,10 +47,10 @@ export default function PathPage() {
   // signals the global Get Help button to collapse to an icon during play
   useEffect(() => {
     const el = document.documentElement;
-    if (game.active) el.setAttribute("data-playing", "true");
+    if (playing) el.setAttribute("data-playing", "true");
     else el.removeAttribute("data-playing");
     return () => el.removeAttribute("data-playing");
-  }, [game.active]);
+  }, [playing]);
 
   const nodes = useMemo<SceneNode[]>(() => {
     const stars = profile.deckStars ?? {};
@@ -65,27 +71,30 @@ export default function PathPage() {
     }));
   }, [profile.deckStars]);
 
+  // Every game plays in place over the grassland — swipe decks via useSwipeGame, the
+  // tap/sort/choose/sim engines via EngineGameHost. None of them navigate away.
   const handleSelect = (node: SceneNode) => {
     if (node.state === "locked") return;
-
-    // The two swipe-native games play *in place* on the grassland (no navigation).
-    if (webgl !== false && node.id === "mythbuster") {
+    if (node.id === "mythbuster") {
       game.start("mythbuster", resolveDeckCards("mythbuster", profile.schoolComfort), DECK_BY_ID["mythbuster"]?.swipe);
       return;
     }
-    if (webgl !== false && node.id === "glrl") {
+    if (node.id === "glrl") {
       const first = availableDecks(profile.schoolComfort)[0];
       if (first) {
         game.start(first.id, resolveDeckCards(first.id, profile.schoolComfort), DECK_BY_ID[first.id]?.swipe);
         return;
       }
     }
-
-    // Every other engine game (tap, sort, choose, sim…) lives at its own route.
-    if (node.href) router.push(node.href);
+    if (hasEngineGame(node.id)) {
+      setEngineGame(node.id);
+      return;
+    }
+    if (node.href) router.push(node.href); // not-yet-built engines fall back to their route
   };
 
   const hud = game.hud;
+  const result = game.result;
 
   return (
     <>
@@ -98,12 +107,12 @@ export default function PathPage() {
             </Link>
           </div>
         ) : (
-          <PathScene nodes={nodes} onSelectNode={handleSelect} gameView={game.view} />
+          <PathScene nodes={nodes} onSelectNode={handleSelect} playing={playing} />
         )}
       </div>
 
       {/* ---- path mode chrome ---- */}
-      {webgl !== false && !game.active && (
+      {webgl !== false && !playing && (
         <>
           <div className="fixed left-4 top-4 z-50 flex items-center gap-2">
             <span className="glass-pill pointer-events-none flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold backdrop-blur-md backdrop-saturate-150">
@@ -121,9 +130,9 @@ export default function PathPage() {
         </>
       )}
 
-      {/* ---- in-place game: DOM liquid-glass card over the grassland ---- */}
+      {/* ---- in-place swipe game: DOM liquid-glass card over the grassland ---- */}
       {game.view && <GameCard view={game.view} onCommit={game.commit} />}
-      {hud && (
+      {game.view && hud && (
         <>
           {/* single equal-height row: close · deck · score (Get Help sits at the same height, far right) */}
           <div className="fixed left-4 top-4 z-50 flex max-w-[calc(100%-4rem)] items-center gap-2">
@@ -184,6 +193,25 @@ export default function PathPage() {
           </div>
         </>
       )}
+
+      {/* ---- shared completion card for a finished swipe deck ---- */}
+      {result && (
+        <GameShell title={result.title} onExit={game.quit}>
+          <GameDone
+            gameId={result.deckId}
+            stars={result.stars}
+            coins={result.coins}
+            bestStreak={result.best}
+            title="Deck complete!"
+            blurb={`You read ${result.correct} of ${result.total} carefully.`}
+            onReplay={game.replay}
+            onExit={game.quit}
+          />
+        </GameShell>
+      )}
+
+      {/* ---- in-place engine games (tap / sort / choose / sim…) over the grassland ---- */}
+      {engineGame && <EngineGameHost id={engineGame} onExit={() => setEngineGame(null)} />}
     </>
   );
 }

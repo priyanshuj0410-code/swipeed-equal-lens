@@ -710,11 +710,12 @@ export type GameView = { card: GameCardT; phase: "play" | "reveal"; correct: boo
 export function PathScene({
   nodes = DEFAULT_NODES,
   onSelectNode,
-  gameView,
+  playing = false,
 }: {
   nodes?: SceneNode[];
   onSelectNode?: (n: SceneNode) => void;
-  gameView?: GameView | null;
+  /** true while ANY game (swipe or engine) is being played in place — freezes the camera & hides nodes */
+  playing?: boolean;
 }) {
   // focus the active level on load: the current lesson, else the first playable one
   const startU = useMemo(() => {
@@ -726,7 +727,7 @@ export function PathScene({
   const [reduced, setReduced] = useState(false);
   // freeze the on-rails camera while a card game is being played
   const playingRef = useRef(false);
-  playingRef.current = !!gameView;
+  playingRef.current = playing;
 
   useEffect(() => {
     setReduced(window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false);
@@ -795,7 +796,7 @@ export function PathScene({
         <Props />
       </Suspense>
       {/* hide the checkpoints + their labels while a level is being played */}
-      {!gameView && <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />}
+      {!playing && <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />}
       <EffectComposer multisampling={0}>
         {/* soft contact-darkening where grass/rocks/trees/path meet the ground */}
         <N8AO halfRes aoRadius={1.6} distanceFalloff={1} intensity={0.6} quality="performance" />

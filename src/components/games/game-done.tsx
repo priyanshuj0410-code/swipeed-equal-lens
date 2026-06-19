@@ -7,29 +7,35 @@ import { useProfile } from "@/lib/store";
 import { celebrate } from "@/lib/confetti";
 
 /**
- * Shared "you did it" card for the engine games. Records completion (stars + coins)
- * into the profile once on mount, so the matching path node turns to "completed".
+ * Shared "you did it" card for every game — swipe and engine alike. Records completion
+ * (stars + coins + best streak) into the profile once on mount, so the matching path node
+ * turns to "completed". `onExit` returns to the path (in place when hosted there).
  */
 export function GameDone({
   gameId,
   stars = 3,
   coins = 15,
+  bestStreak = 0,
   title = "Great job!",
   blurb,
   onReplay,
+  onExit,
 }: {
   gameId: string;
   stars?: number;
   coins?: number;
+  bestStreak?: number;
   title?: string;
   blurb?: string;
   onReplay?: () => void;
+  onExit?: () => void;
 }) {
   const { finishDeck } = useProfile();
   const router = useRouter();
+  const exit = onExit ?? (() => router.push("/path"));
 
   useEffect(() => {
-    finishDeck(gameId, stars, coins, 0);
+    finishDeck(gameId, stars, coins, bestStreak);
     celebrate("big");
     // record once on completion
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,7 +77,7 @@ export function GameDone({
         )}
         <button
           type="button"
-          onClick={() => router.push("/path")}
+          onClick={exit}
           className="flex h-11 items-center justify-center gap-2 rounded-2xl bg-white text-sm font-bold text-slate-900 transition-transform active:scale-95"
         >
           <Map className="size-4" aria-hidden /> Back to the path

@@ -26,32 +26,41 @@ type GState = {
   last: number;
   missed: Card[];
   revealAt: number;
+  done: boolean; // deck finished — show the shared completion card
 };
+
+const fresh = (deckId: DeckId, cards: Card[], labels: GameLabels): GState => ({
+  deckId,
+  cards,
+  labels,
+  index: 0,
+  phase: "play",
+  chosen: null,
+  exiting: null,
+  score: 0,
+  streak: 0,
+  best: 0,
+  correct: 0,
+  last: 0,
+  missed: [],
+  revealAt: 0,
+  done: false,
+});
 
 /** All swipe-game logic, deck-agnostic, so the path scene can play a deck in place. */
 export function useSwipeGame() {
-  const { recordCard, finishDeck } = useProfile();
+  const { recordCard } = useProfile();
   const [g, setG] = useState<GState | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const start = useCallback((deckId: DeckId, cards: Card[], labels?: GameLabels) => {
     if (!cards.length) return;
-    setG({
-      deckId,
-      cards,
-      labels: labels ?? { left: "Red flag", right: "Green flag" },
-      index: 0,
-      phase: "play",
-      chosen: null,
-      exiting: null,
-      score: 0,
-      streak: 0,
-      best: 0,
-      correct: 0,
-      last: 0,
-      missed: [],
-      revealAt: 0,
-    });
+    setG(fresh(deckId, cards, labels ?? { left: "Red flag", right: "Green flag" }));
+  }, []);
+
+  const replay = useCallback(() => {
+    if (timer.current) clearTimeout(timer.current);
+    setG((prev) => (prev ? fresh(prev.deckId, prev.cards, prev.labels) : prev));
   }, []);
 
   const quit = useCallback(() => {
@@ -62,7 +71,7 @@ export function useSwipeGame() {
   const commit = useCallback(
     (flag: Flag) => {
       setG((prev) => {
-        if (!prev || prev.phase !== "play" || prev.exiting) return prev;
+        if (!prev || prev.done || prev.phase !== "play" || prev.exiting) return prev;
         const card = prev.cards[prev.index];
         const isCorrect = flag === card.correct_flag;
         try {
@@ -94,44 +103,61 @@ export function useSwipeGame() {
 
   const next = useCallback(() => {
     setG((prev) => {
-      if (!prev) return prev;
+      if (!prev || prev.done) return prev;
       const card = prev.cards[prev.index];
       let score = prev.score;
       if (!card.is_safeguarding && Date.now() - prev.revealAt > THOUGHTFUL_MS) score += POINTS.thoughtful;
+      // finishing the deck flips into the shared completion card (which records & celebrates)
       if (prev.index + 1 >= prev.cards.length) {
-        const scored = prev.cards.filter((c) => !c.is_safeguarding).length;
-        finishDeck(prev.deckId, starsFor(prev.correct, scored), score + POINTS.deckComplete, prev.best);
-        celebrate("big");
-        return null;
+        return { ...prev, score: score + POINTS.deckComplete, done: true };
       }
       return { ...prev, index: prev.index + 1, chosen: null, phase: "play", score };
     });
-  }, [finishDeck]);
+  }, []);
 
-  const view: GameView | null = g
-    ? {
-        card: g.cards[g.index],
-        phase: g.phase,
-        correct: g.chosen !== null && g.chosen === g.cards[g.index].correct_flag,
-        points: g.last,
-        exiting: g.exiting,
-        labels: g.labels,
-      }
-    : null;
+  const view: GameView | null =
+    g && !g.done
+      ? {
+          card: g.cards[g.index],
+          phase: g.phase,
+          correct: g.chosen !== null && g.chosen === g.cards[g.index].correct_flag,
+          points: g.last,
+          exiting: g.exiting,
+          labels: g.labels,
+        }
+      : null;
 
-  const hud = g
-    ? {
-        title: DECK_BY_ID[g.deckId]?.title ?? "Deck",
-        index: g.index,
-        total: g.cards.length,
-        score: g.score,
-        streak: g.streak,
-        phase: g.phase,
-        busy: g.phase !== "play" || g.exiting !== null,
-        isLast: g.index + 1 >= g.cards.length,
-        labels: g.labels,
-      }
-    : null;
+  const hud =
+    g && !g.done
+      ? {
+          title: DECK_BY_ID[g.deckId]?.title ?? "Deck",
+          index: g.index,
+          total: g.cards.length,
+          score: g.score,
+          streak: g.streak,
+          phase: g.phase,
+          busy: g.phase !== "play" || g.exiting !== null,
+          isLast: g.index + 1 >= g.cards.length,
+          labels: g.labels,
+        }
+      : null;
 
-  return { active: !!g, view, hud, start, quit, commit, next };
+  // completion summary — drives the shared GameDone card when a deck is finished
+  const result =
+    g && g.done
+      ? (() => {
+          const scored = g.cards.filter((c) => !c.is_safeguarding).length;
+          return {
+            deckId: g.deckId,
+            title: DECK_BY_ID[g.deckId]?.title ?? "Deck",
+            stars: starsFor(g.correct, scored),
+            coins: g.score,
+            best: g.best,
+            correct: g.correct,
+            total: scored,
+          };
+        })()
+      : null;
+
+  return { active: !!g, view, hud, result, start, quit, commit, next, replay };
 }
