@@ -36,7 +36,7 @@ export function RunDebrief({
       isStory: STORY_DECKS.some((d) => d.id === result.deckId),
     });
     if (result.outcome === "clear") {
-      celebrate("big");
+      celebrate("big", { sound: false }); // sfx below owns the sound
       sfx("win");
     }
     // record once on completion

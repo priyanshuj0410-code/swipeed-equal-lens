@@ -3,7 +3,7 @@
 // Game-feel layer for GLRL 2.0 runs: short Web-Audio SFX + haptics + a screenshake/pulse hook.
 // Dependency-light (no asset files), and honours prefers-reduced-motion + a mute toggle. Audio is
 // lazily created on first use (autoplay policy: the first sound follows a user gesture — a swipe).
-type Kind = "green" | "red" | "toxic" | "combo" | "win";
+type Kind = "green" | "red" | "toxic" | "combo" | "win" | "shatter";
 
 let ctx: AudioContext | null = null;
 let muted = false;
@@ -66,6 +66,9 @@ export function sfx(kind: Kind, combo = 0) {
       break;
     case "win":
       tone([523, 659, 784, 1047], { type: "triangle", dur: 0.2, stepMs: 110, gain: 0.07 });
+      break;
+    case "shatter": // a disguised card correctly busted — a crisp, bright burst
+      tone([880, 1245, 1760], { type: "triangle", dur: 0.13, stepMs: 45, gain: 0.07 });
       break;
   }
 }

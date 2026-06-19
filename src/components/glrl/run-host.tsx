@@ -40,7 +40,7 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
       haptic("serious");
       shake(shellRef.current, "shake");
     } else if (correct) {
-      sfx(hud.combo >= 2 ? "combo" : "green", hud.combo);
+      sfx(card.is_disguised ? "shatter" : hud.combo >= 2 ? "combo" : "green", hud.combo);
       haptic("tap");
       shake(shellRef.current, "pulse");
     } else {

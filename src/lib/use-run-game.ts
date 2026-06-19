@@ -153,7 +153,7 @@ export function useRunGame() {
           }
           if (isBoss) bossCorrect = isCorrect;
           recordCard(card.signId, isCorrect);
-          if (isCorrect && (card.is_disguised || isBoss || combo === 5 || combo === 10)) celebrate("small");
+          if (isCorrect && (card.is_disguised || isBoss || combo === 5 || combo === 10)) celebrate("small", { sound: false });
         }
         if (timer.current) clearTimeout(timer.current);
         timer.current = setTimeout(

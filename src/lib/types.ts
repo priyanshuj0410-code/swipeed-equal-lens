@@ -108,6 +108,7 @@ export type Profile = {
   disgSeen?: number; // lifetime disguised cards seen — the headline learning signal
   disgCorrect?: number; // lifetime disguised cards read correctly
   dailyRunOn?: string; // YYYY-MM-DD the Daily Run was last taken
+  muted?: boolean; // global sound mute (synced to the juice layer)
 };
 
 export type CardOutcome = {
