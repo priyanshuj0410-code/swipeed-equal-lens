@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { X, Flag, Check, Flame, Eraser, Pencil, Sparkles, Search } from "lucide-react";
+import { music } from "@/lib/juice";
 import type { Flag as FlagType, PerkId, RunDeckId } from "@/lib/types";
 import { useRunGame } from "@/lib/use-run-game";
 import { GameCard } from "@/components/game-card";
@@ -30,6 +31,23 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
   }, []);
 
   const { view, hud, fork, result } = run;
+  const cardStart = useRef(0);
+
+  // ambient music bed for the run; stops when you leave
+  useEffect(() => {
+    music.start();
+    return () => music.stop();
+  }, []);
+  // tension rises as Clarity falls; ducks out on serious cards
+  useEffect(() => {
+    if (!hud) return;
+    music.setActive(!view?.card.is_safeguarding);
+    music.setTension(1 - hud.clarity / 100);
+  }, [hud, view?.card.is_safeguarding, view?.card.id]);
+  // reset the gentle reading timer when a new card comes up
+  useEffect(() => {
+    if (view?.phase === "play") cardStart.current = Date.now();
+  }, [view?.card.id, view?.phase]);
 
   const onCommit = (flag: FlagType) => {
     if (!view || !hud || hud.busy) return;
@@ -48,7 +66,9 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
       haptic("tap");
       shake(shellRef.current, "shake");
     }
-    run.commit(flag);
+    // a confident, in-time read (only counts toward the bonus once accuracy is high — engine-gated)
+    const fast = hud.timed && Date.now() - cardStart.current < hud.timeBudgetMs * 0.5;
+    run.commit(flag, fast);
   };
 
   const wrongDisguised = !!view && view.phase === "reveal" && !view.correct && view.card.is_disguised && !view.card.is_safeguarding;
@@ -81,8 +101,13 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
               <X className="size-5" aria-hidden />
             </button>
             <span className="glass-pill flex h-9 min-w-0 items-center gap-1.5 rounded-full px-3 text-xs font-semibold backdrop-blur-md backdrop-saturate-150">
-              <span aria-hidden>{hud.character.avatar}</span>
+              <span className={hud.phase === "reveal" ? "inline-block animate-in zoom-in-50 duration-200" : ""} aria-hidden>{hud.character.avatar}</span>
               <span className="truncate">{hud.character.name} · {hud.step}/{hud.total}</span>
+              {hud.phase === "reveal" && (
+                <span className="ml-0.5 animate-in zoom-in-50 duration-200" aria-hidden>
+                  {view.card.is_safeguarding ? "🫂" : view.correct ? "😊" : "😟"}
+                </span>
+              )}
             </span>
             <ClarityMeter value={hud.clarity} name={hud.character.name} />
             {hud.combo > 1 && (
@@ -141,6 +166,15 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
               </button>
             ) : (
               <>
+                {hud.timed && (
+                  <div className="h-1 w-full overflow-hidden rounded-full bg-white/10" aria-hidden>
+                    <div
+                      key={view.card.id}
+                      className="h-full rounded-full"
+                      style={{ background: "rgba(255,255,255,0.5)", animation: `glrl-timer ${hud.timeBudgetMs}ms linear forwards` }}
+                    />
+                  </div>
+                )}
                 {hud.xrayHint && (
                   <div className="glass-pill flex items-center gap-1.5 self-center rounded-full px-3 py-1 text-xs font-semibold backdrop-blur-md backdrop-saturate-150" style={{ color: "#b3c8ff" }}>
                     <Search className="size-3.5" aria-hidden /> X-Ray — this one&apos;s: {hud.xrayHint}

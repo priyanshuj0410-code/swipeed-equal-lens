@@ -13,6 +13,7 @@ const reducedMotion = () =>
 
 export function setMuted(v: boolean) {
   muted = v;
+  applyMusic();
 }
 export function isMuted() {
   return muted;
@@ -90,3 +91,61 @@ export function shake(el: HTMLElement | null, kind: "shake" | "pulse" = "shake")
   el.classList.add(cls);
   window.setTimeout(() => el.classList.remove(cls), kind === "shake" ? 360 : 500);
 }
+
+// ---- ambient music bed: a soft, low pad that intensifies with tension (Clarity falling) and ducks
+// out on serious cards. Very quiet, mute-aware, paused when the tab is hidden. Audio is not a motion
+// concern, so reduced-motion doesn't silence it — the mute toggle does.
+let musicNodes: { osc: OscillatorNode[]; lp: BiquadFilterNode; gain: GainNode } | null = null;
+let musicTension = 0;
+let musicActive = true;
+
+function applyMusic() {
+  if (!musicNodes || !ctx) return;
+  const on = !muted && musicActive && !document.hidden;
+  const gain = on ? 0.012 + musicTension * 0.038 : 0; // ~0.012 calm → ~0.05 tense
+  const cutoff = 300 + musicTension * 700;
+  const now = ctx.currentTime;
+  musicNodes.gain.gain.setTargetAtTime(gain, now, 0.5);
+  musicNodes.lp.frequency.setTargetAtTime(cutoff, now, 0.6);
+}
+
+export const music = {
+  start() {
+    const ac = audio();
+    if (!ac || musicNodes) return;
+    const lp = ac.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 320;
+    const gain = ac.createGain();
+    gain.gain.value = 0;
+    const o1 = ac.createOscillator(); // root (A2) + a fifth (E3), gently detuned
+    const o2 = ac.createOscillator();
+    o1.type = "sine"; o1.frequency.value = 110; o1.detune.value = -4;
+    o2.type = "sine"; o2.frequency.value = 164.81; o2.detune.value = 5;
+    o1.connect(lp); o2.connect(lp); lp.connect(gain); gain.connect(ac.destination);
+    o1.start(); o2.start();
+    musicNodes = { osc: [o1, o2], lp, gain };
+    document.addEventListener("visibilitychange", applyMusic);
+    applyMusic();
+  },
+  setTension(t: number) {
+    musicTension = Math.max(0, Math.min(1, t));
+    applyMusic();
+  },
+  setActive(a: boolean) {
+    musicActive = a;
+    applyMusic();
+  },
+  stop() {
+    if (!musicNodes) return;
+    document.removeEventListener("visibilitychange", applyMusic);
+    try {
+      musicNodes.osc.forEach((o) => o.stop());
+    } catch {
+      /* already stopped */
+    }
+    musicNodes = null;
+    musicTension = 0;
+    musicActive = true;
+  },
+};
