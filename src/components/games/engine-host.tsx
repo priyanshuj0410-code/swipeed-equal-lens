@@ -20,6 +20,9 @@ const GAMES: Record<string, EngineGame> = {
   "not-funny": dynamic(() => import("@/components/games/not-funny").then((m) => m.NotFunnyGame), {
     ssr: false,
   }),
+  "flip-script": dynamic(() => import("@/components/games/flip-script").then((m) => m.FlipScriptGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {
