@@ -8,6 +8,7 @@ import { Flame, Star, Flag, Check, X } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { useProfile } from "@/lib/store";
 import { useSwipeGame } from "@/lib/use-swipe-game";
+import { GameCard } from "@/components/game-card";
 import { PATH } from "@/content/path";
 import { DECK_BY_ID, resolveDeckCards, availableDecks } from "@/content/decks";
 import type { SceneNode } from "@/components/path-scene";
@@ -82,7 +83,7 @@ export default function PathPage() {
             </Link>
           </div>
         ) : (
-          <PathScene nodes={nodes} onSelectNode={handleSelect} gameView={game.view} onSwipe={game.commit} />
+          <PathScene nodes={nodes} onSelectNode={handleSelect} gameView={game.view} />
         )}
       </div>
 
@@ -105,7 +106,8 @@ export default function PathPage() {
         </>
       )}
 
-      {/* ---- in-place game chrome ---- */}
+      {/* ---- in-place game: DOM liquid-glass card over the grassland ---- */}
+      {game.view && <GameCard view={game.view} onCommit={game.commit} />}
       {hud && (
         <>
           <button

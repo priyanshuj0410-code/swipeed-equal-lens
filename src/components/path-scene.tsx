@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { useGLTF, Html, RoundedBox, MeshTransmissionMaterial } from "@react-three/drei";
+import { useGLTF, Html } from "@react-three/drei";
 import { Check, Lock, Play } from "lucide-react";
 import {
   EffectComposer,
@@ -691,240 +691,14 @@ function FollowCam({ progress }: { progress: React.MutableRefObject<number> }) {
 export type GameLabels = { left: string; right: string };
 export type GameView = { card: GameCardT; phase: "play" | "reveal"; correct: boolean; points: number; exiting: FlagT | null; labels: GameLabels };
 
-const GC = { text: "#23202a", muted: "#5b6470", primary: "#3a5bd6", green: "#1f8f4e", red: "#cf4338" };
-function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + w, y, x + w, y + h, r);
-  ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r);
-  ctx.arcTo(x, y, x + w, y, r);
-  ctx.closePath();
-}
-function wrapText(ctx: CanvasRenderingContext2D, text: string, maxW: number) {
-  const words = text.split(" ");
-  const out: string[] = [];
-  let line = "";
-  for (const w of words) {
-    const t = line ? line + " " + w : w;
-    if (ctx.measureText(t).width > maxW && line) {
-      out.push(line);
-      line = w;
-    } else line = t;
-  }
-  if (line) out.push(line);
-  return out;
-}
-function makeCardTexture(card: GameCardT, phase: "play" | "reveal", correct: boolean, points: number, L: GameLabels) {
-  const W = 540, H = 720;
-  const cv = document.createElement("canvas");
-  cv.width = W;
-  cv.height = H;
-  const ctx = cv.getContext("2d")!;
-  ctx.clearRect(0, 0, W, H);
-  const font = (s: number, w = 700) => `${w} ${s}px ui-rounded, "Segoe UI", system-ui, sans-serif`;
-  ctx.fillStyle = "rgba(255,255,255,0.34)";
-  roundRect(ctx, 0, 0, W, H, 46);
-  ctx.fill();
-  const sheen = ctx.createLinearGradient(0, 0, 0, H * 0.55);
-  sheen.addColorStop(0, "rgba(255,255,255,0.38)");
-  sheen.addColorStop(1, "rgba(255,255,255,0)");
-  ctx.fillStyle = sheen;
-  roundRect(ctx, 0, 0, W, H, 46);
-  ctx.fill();
-  ctx.strokeStyle = "rgba(255,255,255,0.65)";
-  ctx.lineWidth = 2.5;
-  roundRect(ctx, 1.5, 1.5, W - 3, H - 3, 45);
-  ctx.stroke();
-  const pad = 46;
-  if (phase === "play") {
-    ctx.font = font(22, 700);
-    const tag = card.context_tag.toUpperCase();
-    const tw = ctx.measureText(tag).width;
-    ctx.fillStyle = "rgba(58,91,214,0.16)";
-    roundRect(ctx, pad, pad, tw + 36, 42, 21);
-    ctx.fill();
-    ctx.fillStyle = GC.primary;
-    ctx.textAlign = "left";
-    ctx.textBaseline = "middle";
-    ctx.fillText(tag, pad + 18, pad + 22);
-    ctx.fillStyle = GC.text;
-    ctx.textAlign = "center";
-    let fs = 42;
-    ctx.font = font(fs);
-    let lines = wrapText(ctx, card.scenario_text, W - pad * 2);
-    while (lines.length * fs * 1.25 > H - 280 && fs > 22) {
-      fs -= 2;
-      ctx.font = font(fs);
-      lines = wrapText(ctx, card.scenario_text, W - pad * 2);
-    }
-    const lh = fs * 1.25;
-    let y = H / 2 - ((lines.length - 1) * lh) / 2;
-    for (const ln of lines) {
-      ctx.fillText(ln, W / 2, y);
-      y += lh;
-    }
-    ctx.font = font(22, 700);
-    ctx.textBaseline = "alphabetic";
-    ctx.fillStyle = GC.red;
-    ctx.textAlign = "left";
-    ctx.fillText("◀ " + L.left, pad, H - pad);
-    ctx.fillStyle = GC.green;
-    ctx.textAlign = "right";
-    ctx.fillText(L.right + " ▶", W - pad, H - pad);
-  } else if (card.is_safeguarding) {
-    ctx.textAlign = "left";
-    ctx.textBaseline = "top";
-    ctx.fillStyle = GC.primary;
-    ctx.font = font(26, 800);
-    ctx.fillText("You matter", pad, pad);
-    ctx.fillStyle = GC.text;
-    ctx.font = font(38, 800);
-    let y = pad + 56;
-    for (const ln of wrapText(ctx, "This one is serious — and it's not your fault.", W - pad * 2)) {
-      ctx.fillText(ln, pad, y);
-      y += 48;
-    }
-    ctx.fillStyle = GC.muted;
-    ctx.font = font(24, 500);
-    y += 16;
-    for (const ln of wrapText(ctx, card.feedback_short, W - pad * 2)) {
-      ctx.fillText(ln, pad, y);
-      y += 34;
-    }
-  } else {
-    const col = correct ? GC.green : GC.red;
-    ctx.fillStyle = col;
-    roundRect(ctx, pad, pad - 4, W - pad * 2, 6, 3);
-    ctx.fill();
-    ctx.textAlign = "left";
-    ctx.textBaseline = "top";
-    ctx.fillStyle = col;
-    ctx.font = font(26, 800);
-    ctx.fillText(correct ? "SPOT ON" : "LOOK AGAIN", pad, pad + 14);
-    if (correct && points > 0) {
-      ctx.textAlign = "right";
-      ctx.fillText("+" + points, W - pad, pad + 14);
-      ctx.textAlign = "left";
-    }
-    ctx.fillStyle = col;
-    ctx.font = font(46, 800);
-    let y = pad + 70;
-    for (const ln of wrapText(ctx, card.sign, W - pad * 2)) {
-      ctx.fillText(ln, pad, y);
-      y += 52;
-    }
-    ctx.fillStyle = GC.text;
-    ctx.font = font(25, 500);
-    y += 14;
-    for (const ln of wrapText(ctx, card.feedback_short, W - pad * 2)) {
-      ctx.fillText(ln, pad, y);
-      y += 36;
-    }
-    if (card.is_disguised) {
-      ctx.fillStyle = GC.primary;
-      ctx.font = font(20, 700);
-      ctx.fillText("Disguised — nice catch", pad, H - pad);
-    }
-  }
-  const tex = new THREE.CanvasTexture(cv);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = 8;
-  return tex;
-}
-
-const _fwd = new THREE.Vector3();
-function GameCard({ view, dragRef }: { view: GameView; dragRef: React.MutableRefObject<number> }) {
-  const camera = useThree((s) => s.camera);
-  const group = useRef<THREE.Group>(null);
-  const card = useRef<THREE.Group>(null);
-  const glow = useRef<THREE.MeshBasicMaterial>(null);
-  const texture = useMemo(() => makeCardTexture(view.card, view.phase, view.correct, view.points, view.labels), [view.card, view.phase, view.correct, view.points, view.labels]);
-  useEffect(() => () => texture.dispose(), [texture]);
-  const fly = useRef(0);
-  const spin = useRef(0);
-  const prevPhase = useRef(view.phase);
-  useEffect(() => {
-    if (view.phase === "reveal" && prevPhase.current === "play") spin.current = 1; // flip-in on reveal
-    prevPhase.current = view.phase;
-  }, [view.phase]);
-  useFrame((_, dt) => {
-    const g = group.current;
-    const c = card.current;
-    if (!g || !c) return;
-    // keep the card centred in front of the camera, over the grassland
-    camera.getWorldDirection(_fwd);
-    g.position.copy(camera.position).addScaledVector(_fwd, 8);
-    g.position.y += 0.1 + Math.sin(performance.now() * 0.0011) * 0.05;
-    g.lookAt(camera.position);
-
-    const drag = dragRef.current;
-    if (view.exiting) {
-      // fly off in 3D toward the chosen side
-      fly.current = Math.min(1, fly.current + dt * 3.2);
-      const dir = view.exiting === "green" ? 1 : -1;
-      c.position.x = dir * fly.current * 10;
-      c.position.y = fly.current * 1.6;
-      c.rotation.z = -dir * fly.current * 0.7;
-    } else {
-      // follow the drag (with snap-back when released)
-      fly.current = 0;
-      c.position.x = THREE.MathUtils.lerp(c.position.x, drag * 0.011, 0.3);
-      c.position.y = THREE.MathUtils.lerp(c.position.y, 0, 0.3);
-      c.rotation.z = THREE.MathUtils.lerp(c.rotation.z, -drag * 0.0008, 0.3);
-    }
-    if (spin.current > 0) spin.current = Math.max(0, spin.current - dt * 2.2);
-    c.rotation.y = spin.current * Math.PI * 2;
-
-    if (glow.current) {
-      const f = view.exiting ? 0 : Math.min(1, Math.abs(drag) / 170);
-      glow.current.opacity = f * 0.4;
-      glow.current.color.set(drag >= 0 ? "#37c46a" : "#e0564c");
-    }
-  });
-  return (
-    <group ref={group} renderOrder={10}>
-      <group ref={card}>
-        <RoundedBox args={[3.0, 4.0, 0.35]} radius={0.16} smoothness={6}>
-          <MeshTransmissionMaterial
-            transmission={1}
-            thickness={1.1}
-            roughness={0.16}
-            ior={1.25}
-            chromaticAberration={0.05}
-            anisotropicBlur={0.5}
-            distortion={0.1}
-            distortionScale={0.3}
-            temporalDistortion={0.08}
-            samples={6}
-            resolution={256}
-            backside
-          />
-        </RoundedBox>
-        <mesh position={[0, 0, 0.19]}>
-          <planeGeometry args={[2.9, 3.9]} />
-          <meshBasicMaterial map={texture} transparent toneMapped={false} />
-        </mesh>
-        {/* green/red drag hint */}
-        <mesh position={[0, 0, 0.24]}>
-          <planeGeometry args={[3.0, 4.0]} />
-          <meshBasicMaterial ref={glow} transparent opacity={0} depthWrite={false} toneMapped={false} />
-        </mesh>
-      </group>
-    </group>
-  );
-}
-
 export function PathScene({
   nodes = DEFAULT_NODES,
   onSelectNode,
   gameView,
-  onSwipe,
 }: {
   nodes?: SceneNode[];
   onSelectNode?: (n: SceneNode) => void;
   gameView?: GameView | null;
-  onSwipe?: (flag: FlagT) => void;
 }) {
   // focus the active level on load: the current lesson, else the first playable one
   const startU = useMemo(() => {
@@ -937,55 +711,29 @@ export function PathScene({
   // freeze the on-rails camera while a card game is being played
   const playingRef = useRef(false);
   playingRef.current = !!gameView;
-  const onSwipeRef = useRef(onSwipe);
-  onSwipeRef.current = onSwipe;
-  const canDragRef = useRef(false);
-  canDragRef.current = !!gameView && gameView.phase === "play" && !gameView.exiting;
-  const dragRef = useRef(0);
 
   useEffect(() => {
     setReduced(window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false);
 
     let lastY: number | null = null;
-    let lastX: number | null = null;
     let dragging = false;
     const onWheel = (e: WheelEvent) => {
       if (playingRef.current) return;
       progress.current = clamp01(progress.current - e.deltaY * 0.0008);
     };
     const onDown = (e: PointerEvent) => {
-      if (playingRef.current) {
-        if (canDragRef.current) {
-          dragging = true;
-          lastX = e.clientX;
-          dragRef.current = 0;
-        }
-        return;
-      }
+      if (playingRef.current) return;
       dragging = true;
       lastY = e.clientY;
     };
     const onMove = (e: PointerEvent) => {
-      if (!dragging) return;
-      if (playingRef.current) {
-        if (lastX != null) dragRef.current = e.clientX - lastX;
-        return;
-      }
-      if (lastY != null) {
-        progress.current = clamp01(progress.current + (e.clientY - lastY) * 0.0012);
-        lastY = e.clientY;
-      }
+      if (!dragging || lastY == null) return;
+      progress.current = clamp01(progress.current + (e.clientY - lastY) * 0.0012);
+      lastY = e.clientY;
     };
     const onUp = () => {
-      if (playingRef.current && dragging) {
-        const th = Math.min(window.innerWidth * 0.2, 180);
-        if (dragRef.current > th) onSwipeRef.current?.("green");
-        else if (dragRef.current < -th) onSwipeRef.current?.("red");
-        dragRef.current = 0;
-      }
       dragging = false;
       lastY = null;
-      lastX = null;
     };
     window.addEventListener("wheel", onWheel, { passive: true });
     window.addEventListener("pointerdown", onDown, { passive: true });
@@ -1032,7 +780,6 @@ export function PathScene({
       </Suspense>
       {/* hide the checkpoints + their labels while a level is being played */}
       {!gameView && <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />}
-      {gameView && <GameCard view={gameView} dragRef={dragRef} />}
       <EffectComposer multisampling={0}>
         {/* soft contact-darkening where grass/rocks/trees/path meet the ground */}
         <N8AO halfRes aoRadius={1.6} distanceFalloff={1} intensity={0.6} quality="performance" />
