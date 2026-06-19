@@ -16,12 +16,13 @@ const TARGET = {
   autumn: "#D2691E", // strong orange
   winter: "#F4F6F9", // near-pure white (barely-cool), so snow reads white not blue
   spring: "#7ECB5A", // fresh green (grass / conifers / hills)
-  spring_blossom: "#FFB7C5", // cherry-blossom pink — applied ONLY to the round trees at runtime
+  spring_blossom: "#FFD1DC", // light cherry-blossom pink — applied ONLY to the round trees at runtime
 };
 
 // how much of the original swatch's luminance variation to keep (lower = flatter toward
-// the target). Winter is low so foliage reads as uniform snow-white, not pale green.
-const LWEIGHT = { summer: 0.4, rainy: 0.4, autumn: 0.4, winter: 0.1, spring: 0.4, spring_blossom: 0.4 };
+// the target). Winter is low so foliage reads as uniform snow-white; blossom is low so the
+// trees read as a soft, light pink rather than a saturated mid-pink.
+const LWEIGHT = { summer: 0.4, rainy: 0.4, autumn: 0.4, winter: 0.1, spring: 0.4, spring_blossom: 0.28 };
 
 const hexToRgb = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
 function rgbToHsl(r, g, b) {
