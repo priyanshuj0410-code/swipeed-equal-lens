@@ -238,6 +238,6 @@ export function Weather() {
   if (weather === "rain") return <Rain count={Math.round(2200 * scale)} />;
   if (weather === "snow") return <Snow count={Math.round(1900 * scale)} />;
   if (weather === "leaves") return <FallingLeaves count={Math.round(380 * scale)} colors={["#d98a3d", "#c2622d", "#b5792f", "#e0701f"]} speed={2.6} />;
-  if (weather === "petals") return <FallingLeaves count={Math.round(460 * scale)} colors={["#f4b9d0", "#f7c9dc", "#fbd7e6"]} speed={1.8} />;
+  if (weather === "petals") return <FallingLeaves count={Math.round(460 * scale)} colors={["#FFB7C5", "#FFC7D4", "#FFD9E2"]} speed={1.8} />;
   return null;
 }

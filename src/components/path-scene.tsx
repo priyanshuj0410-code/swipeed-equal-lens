@@ -542,13 +542,14 @@ type ModelCfg = {
   tilt: number;
   winterSwap?: boolean;
   holiday?: boolean;
+  roundTree?: boolean; // the broadleaf tree — turns blossom-pink in spring (conifers stay green)
 };
 
 // Trees populate the whole path (season-coloured); in the winter region they're shown only
 // while the active season ISN'T winter (so from autumn you see autumn-toned trees ahead),
 // and hidden in favour of the Holiday snow trees once winter is active.
 const TREE_MODELS: ModelCfg[] = [
-  { url: "/models/tree.glb", scale: 5.2, count: 14, seed: 11, clearance: 7.5, cast: true, tilt: 0.05 },
+  { url: "/models/tree.glb", scale: 5.2, count: 14, seed: 11, clearance: 7.5, cast: true, tilt: 0.05, roundTree: true },
   { url: "/models/tree-pine.glb", scale: 5.2, count: 10, seed: 23, clearance: 7.5, cast: true, tilt: 0.04 },
   { url: "/models/tree-pine-small.glb", scale: 4.8, count: 8, seed: 37, clearance: 7, cast: true, tilt: 0.06 },
 ];
@@ -602,8 +603,9 @@ function PropStream({ cfg, active }: { cfg: ModelCfg; active: number[] }) {
   const { geometry, material } = useMemo(() => {
     const b = bakedMesh(scene);
     if (cfg.holiday) (b.material as THREE.Material).userData.holiday = true; // keep its own festive colormap
+    if (cfg.roundTree) (b.material as THREE.Material).userData.roundTree = true; // blossom pink in spring
     return b;
-  }, [scene, cfg.holiday]);
+  }, [scene, cfg.holiday, cfg.roundTree]);
   const buckets = useMemo(
     () =>
       bucketScatter(
@@ -966,7 +968,10 @@ function SeasonDriver({
   chapters: Chapter[];
 }) {
   const scene = useThree((s) => s.scene);
-  const maps = useTexture(Object.fromEntries(SEASON_ORDER.map((k) => [k, SEASONS[k].colormap]))) as Record<SeasonKey, THREE.Texture>;
+  const maps = useTexture({
+    ...Object.fromEntries(SEASON_ORDER.map((k) => [k, SEASONS[k].colormap])),
+    spring_blossom: "/models/Textures/colormap_spring_blossom.png", // pink, applied only to round trees in spring
+  }) as Record<string, THREE.Texture>;
   useMemo(() => {
     Object.values(maps).forEach((t) => {
       t.colorSpace = THREE.SRGBColorSpace;
@@ -1030,13 +1035,17 @@ function SeasonDriver({
     if (appliedMapRef.current !== si) {
       appliedMapRef.current = si;
       const map = maps[SEASON_ORDER[si]];
+      const blossom = maps.spring_blossom;
+      const spring = SEASON_ORDER[si] === "spring";
       scene.traverse((o) => {
         const m = o as THREE.Mesh;
         if (!m.isMesh) return;
         const mat = m.material as THREE.MeshStandardMaterial;
         if (!mat || mat.userData?.holiday) return; // Holiday props keep their own festive colormap
-        if (mat.map && mat.map !== map) {
-          mat.map = map;
+        // round trees blossom pink in spring; everything else (grass/conifers/hills) takes the season map
+        const target = mat.userData?.roundTree && spring ? blossom : map;
+        if (mat.map && mat.map !== target) {
+          mat.map = target;
           mat.needsUpdate = true;
         }
       });
