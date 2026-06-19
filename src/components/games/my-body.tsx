@@ -40,7 +40,7 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
   const [done, setDone] = useState(false);
   const [touchIdx, setTouchIdx] = useState(0);
   const [touchCards, setTouchCards] = useState(() => shuffle(TOUCH_CARDS).slice(0, 6));
-  const [net, setNet] = useState<Set<string>>(new Set());
+  const [net, setNet] = useState<string[]>([]); // a list (repeats allowed) so any family fits — incl. two mums / two dads
 
   const say = useCallback((t: string) => { setBubble(t); if (!muted) speak(t); }, [muted]);
 
@@ -52,7 +52,7 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
   }, []);
 
   const reset = () => {
-    setNet(new Set());
+    setNet([]);
     setTouchCards(shuffle(TOUCH_CARDS).slice(0, 6));
     setTouchIdx(0);
     setDone(false);
@@ -91,14 +91,9 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
     }, 2200);
   };
 
-  const toggleTrusted = (id: string) => {
-    setNet((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else { next.add(id); celebrate("small"); }
-      return next;
-    });
-  };
+  // additive: tap a grown-up to add them (again, if you like — two mums, two dads, two grandmas…)
+  const addTrusted = (id: string) => setNet((prev) => { celebrate("small"); return [...prev, id]; });
+  const removeAt = (i: number) => setNet((prev) => prev.filter((_, k) => k !== i));
 
   const finishNet = () => {
     say(SAM.netDone);
@@ -238,26 +233,33 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
           </>
         )}
 
-        {/* ---- My Safety Net ---- */}
+        {/* ---- My Safety Net (additive: add anyone you trust — two mums, two dads, anyone) ---- */}
         {mode === "net" && (
           <>
-            <p className="text-center text-sm font-semibold text-white/85">Pick your trusted grown-ups ({net.size}/{NET_TARGET}+)</p>
-            <div className="grid grid-cols-4 gap-2">
-              {TRUSTED.map((t) => {
-                const on = net.has(t.id);
-                return (
-                  <button key={t.id} type="button" onClick={() => toggleTrusted(t.id)} aria-pressed={on} className="glass-card flex flex-col items-center gap-0.5 rounded-2xl py-3 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-95" style={on ? { boxShadow: "inset 0 0 0 2px #62e08f" } : undefined}>
-                    <span className="text-2xl" aria-hidden>{t.emoji}</span>
-                    <span className="text-[10px] font-bold leading-tight text-white">{t.name}</span>
+            <p className="text-center text-sm font-semibold text-white/85">Your trusted grown-ups ({net.length}/{NET_TARGET}+)</p>
+            {net.length > 0 && (
+              <div className="glass-card flex flex-wrap justify-center gap-1.5 rounded-2xl p-3 backdrop-blur-[12px] backdrop-saturate-150">
+                {net.map((id, i) => (
+                  <button key={i} type="button" onClick={() => removeAt(i)} aria-label={`Remove ${TRUSTED.find((t) => t.id === id)?.name}`} className="text-3xl animate-in zoom-in transition-transform active:scale-90">
+                    <span aria-hidden>{TRUSTED.find((t) => t.id === id)?.emoji}</span>
                   </button>
-                );
-              })}
+                ))}
+              </div>
+            )}
+            <p className="px-1 text-center text-xs text-white/75">Add anyone you trust — even two mums or two dads. 💛 (Tap someone above to remove.)</p>
+            <div className="grid grid-cols-4 gap-2">
+              {TRUSTED.map((t) => (
+                <button key={t.id} type="button" onClick={() => addTrusted(t.id)} className="glass-card flex flex-col items-center gap-0.5 rounded-2xl py-3 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-95">
+                  <span className="text-2xl" aria-hidden>{t.emoji}</span>
+                  <span className="text-[10px] font-bold leading-tight text-white">{t.name}</span>
+                </button>
+              ))}
             </div>
             <p className="px-1 text-center text-xs text-white/75">{TELL_RULE}</p>
             <button type="button" onClick={() => say(HELPLINE)} className="glass-pill flex items-center gap-2 rounded-2xl px-4 py-3 text-left text-sm font-semibold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>
               <Phone className="size-5 shrink-0" aria-hidden /> {HELPLINE}
             </button>
-            <button type="button" disabled={net.size < NET_TARGET} onClick={finishNet} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
+            <button type="button" disabled={net.length < NET_TARGET} onClick={finishNet} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
               That's my Safety Net!
             </button>
             {HomeBtn}
