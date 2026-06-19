@@ -6,24 +6,11 @@ import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { speak, stopSpeaking } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
+import { Sam } from "@/components/games/sam";
 import { FEELINGS, FEELING_BY_ID, SCENES, BIG_NO, CALM_STEPS, CALM_CYCLES, SAM, type Scene } from "@/content/games/feelings-friends";
 
 type Mode = "checkin" | "home" | "meet" | "match" | "mirror" | "no" | "calm" | "family";
 const shuffle = <T,>(a: T[]) => a.map((v) => [Math.random(), v] as const).sort((x, y) => x[0] - y[0]).map(([, v]) => v);
-
-/** Sam — the soft shape-shifting companion's debut (a friendly DOM avatar, distinct from the feelings). */
-function Sam({ size = 72 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 64 64" className="shrink-0 animate-bounce drop-shadow" style={{ animationDuration: "2.8s" }} aria-hidden>
-      <rect x="8" y="8" width="48" height="48" rx="20" fill="#7C5CFC" />
-      <circle cx="25" cy="30" r="4.5" fill="#fff" />
-      <circle cx="39" cy="30" r="4.5" fill="#fff" />
-      <circle cx="25" cy="31" r="2" fill="#1f1147" />
-      <circle cx="39" cy="31" r="2" fill="#1f1147" />
-      <path d="M24 40 Q32 47 40 40" stroke="#fff" strokeWidth="3" fill="none" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
   const [mode, setMode] = useState<Mode>("checkin");
