@@ -47,7 +47,7 @@ export const PATH: PathSection[] = [
       { id: "puberty-quest", title: "Puberty Quest", emoji: "🌱", kind: "Myth-bust", status: "locked" },
       { id: "glrl", title: "Green Light / Red Light", emoji: "🚦", kind: "Swipe", status: "active", href: "/decks" },
       { id: "flip-script", title: "Flip the Script", emoji: "🎬", kind: "Remix", status: "active", href: "/game/flip-script", tag: "gender" },
-      { id: "speak-up", title: "Speak Up", emoji: "📣", kind: "Scenario", status: "locked", tag: "gender" },
+      { id: "speak-up", title: "Speak Up", emoji: "📣", kind: "Scenario", status: "active", href: "/game/speak-up", tag: "gender" },
     ],
   },
   {

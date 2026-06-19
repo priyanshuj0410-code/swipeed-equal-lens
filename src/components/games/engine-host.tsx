@@ -23,6 +23,9 @@ const GAMES: Record<string, EngineGame> = {
   "flip-script": dynamic(() => import("@/components/games/flip-script").then((m) => m.FlipScriptGame), {
     ssr: false,
   }),
+  "speak-up": dynamic(() => import("@/components/games/speak-up").then((m) => m.SpeakUpGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {
