@@ -14,8 +14,8 @@ const LBLUE = "#b3c8ff";
 // glass tint: neutral black, shifting toward dark green (right) / dark red (left) as you drag
 type RGBA = [number, number, number, number];
 const TINT_BASE: RGBA = [13, 16, 23, 0.32];
-const TINT_GREEN: RGBA = [14, 66, 36, 0.42];
-const TINT_RED: RGBA = [78, 18, 16, 0.42];
+const TINT_GREEN: RGBA = [10, 102, 46, 0.52];
+const TINT_RED: RGBA = [128, 20, 16, 0.52];
 const rgba = (c: RGBA) => `rgba(${Math.round(c[0])}, ${Math.round(c[1])}, ${Math.round(c[2])}, ${c[3].toFixed(3)})`;
 const mix = (a: RGBA, b: RGBA, t: number): RGBA => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t, a[3] + (b[3] - a[3]) * t];
 
@@ -154,7 +154,7 @@ export function GameCard({ view, onCommit }: { view: GameView; onCommit: (f: Fla
         onPointerMove={onMove}
         onPointerUp={onUp}
         onPointerCancel={onUp}
-        className="glass-card pointer-events-auto relative flex aspect-[3/4] w-full max-w-sm touch-none select-none flex-col p-6 backdrop-blur-[18px] backdrop-saturate-150"
+        className="glass-card pointer-events-auto relative flex aspect-[3/4] w-full max-w-sm touch-none select-none flex-col p-6 backdrop-blur-[12px] backdrop-saturate-150"
         style={{ transform, transition, background: rgba(tint), cursor: playable ? "grab" : "default" }}
       >
         {view.phase === "reveal" ? <RevealFace view={view} /> : <PlayFace view={view} greenHint={greenHint} redHint={redHint} />}
