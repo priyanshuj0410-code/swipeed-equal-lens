@@ -38,6 +38,14 @@ export default function PathPage() {
     }
   }, []);
 
+  // signals the global Get Help button to collapse to an icon during play
+  useEffect(() => {
+    const el = document.documentElement;
+    if (game.active) el.setAttribute("data-playing", "true");
+    else el.removeAttribute("data-playing");
+    return () => el.removeAttribute("data-playing");
+  }, [game.active]);
+
   const nodes = useMemo<SceneNode[]>(() => {
     const stars = profile.deckStars ?? {};
     const isDone = (id: string) => {
@@ -111,7 +119,7 @@ export default function PathPage() {
       {hud && (
         <>
           {/* single equal-height row: close · deck · score (Get Help sits at the same height, far right) */}
-          <div className="fixed left-4 top-4 z-50 flex max-w-[calc(100%-6.75rem)] items-center gap-2">
+          <div className="fixed left-4 top-4 z-50 flex max-w-[calc(100%-4rem)] items-center gap-2">
             <button
               type="button"
               aria-label="Back to path"

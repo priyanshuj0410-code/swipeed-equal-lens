@@ -607,6 +607,7 @@ function Node({
   );
 }
 
+const NODE_WINDOW = 5; // only ~5 levels rendered at a time; the window slides as you scroll
 function Nodes({
   nodes,
   progress,
@@ -618,11 +619,26 @@ function Nodes({
   onSelect?: (n: SceneNode) => void;
   reduced: boolean;
 }) {
+  const total = nodes.length;
+  const [start, setStart] = useState(0);
+  const startRef = useRef(0);
+  useFrame(() => {
+    if (total <= NODE_WINDOW) return;
+    const focus = Math.round(progress.current * total - 0.5);
+    const s = Math.max(0, Math.min(focus - 2, total - NODE_WINDOW));
+    if (s !== startRef.current) {
+      startRef.current = s;
+      setStart(s);
+    }
+  });
+  const from = total <= NODE_WINDOW ? 0 : start;
+  const items = nodes.slice(from, from + NODE_WINDOW);
   return (
     <>
-      {nodes.map((node, i) => (
-        <Node key={node.id} node={node} u={(i + 0.5) / nodes.length} progress={progress} onSelect={onSelect} reduced={reduced} />
-      ))}
+      {items.map((node, k) => {
+        const i = from + k;
+        return <Node key={node.id} node={node} u={(i + 0.5) / total} progress={progress} onSelect={onSelect} reduced={reduced} />;
+      })}
     </>
   );
 }
