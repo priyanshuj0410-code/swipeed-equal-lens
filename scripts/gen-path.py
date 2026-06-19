@@ -22,7 +22,7 @@ OUT = os.path.join(HERE, "..", "src", "content", "path.ts")
 GAME = {
     "g01": "feelings", "g02": "my-body", "g03": "family-garden",
     "c1": "capstone-1",
-    "g04": "same-same", "g05": "can-do", "g06": "body-lab", "g07": "what-makes-me", "g08": "safety-squad", "g09": "friend-frenemy", "g10": "fair-play", "g11": "not-funny",
+    "g04": "same-same", "g05": "can-do", "g06": "body-lab", "g07": "what-makes-me", "g08": "safety-squad", "g09": "friend-frenemy", "g10": "fair-play", "g11": "not-funny", "g12": "smart-screen",
     "g17": "flip-script", "g19": "speak-up", "g24": "glrl", "g25": "mythbuster",
     "g27": "stand-up", "g33": "lead-the-way", "g34": "change-makers", "g35": "justice-league",
 }
