@@ -1,80 +1,71 @@
-// "Fair Play World" — ages 6–9, UNESCO topic 3.2 (equality & stereotypes).
-// Tap-to-assign (button alternative to drag). For each task the player chooses who does
-// it; fair / stereotype-breaking choices raise a Fairness Meter, biased ones get a gentle
-// non-shaming nudge (no fail). Some tasks reveal a Rights Card. India adaptation: shared
-// care-work, girls' education and play — son-preference and unpaid care work, in the
-// spirit of Beti Bachao, Beti Padhao.
+// Fair Play World (node #10, ages 6–9) — the fairness step of the Gender & Respect thread. Reading-light,
+// no-fail. Run a little world: share the chores, chances and rights fairly, watch the Fairness Meter
+// balance, flip roles on Swap Day, and bust the unfair "rule" with UN & RE. Even-handed, India-pointed
+// (son-preference, unpaid care, girls' education — in the spirit of Beti Bachao, Beti Padhao).
 
-export type FairOption = { emoji: string; label: string; fair: boolean; nudge?: string };
-export type FairTask = {
-  q: string;
-  emoji: string;
-  options: FairOption[];
-  cheer: string; // shown on a fair choice
-  right?: string; // optional Rights Card reveal
-};
-
-export const TASKS: FairTask[] = [
-  {
-    q: "Who cooks dinner?",
-    emoji: "🍳",
-    options: [
-      { emoji: "👩", label: "Only Ma", fair: false, nudge: "Only Ma cooks? Let's share! 💛" },
-      { emoji: "👨", label: "Papa cooks", fair: true },
-      { emoji: "🧑‍🤝‍🧑", label: "Share it", fair: true },
-    ],
-    cheer: "Cooking is for everyone!",
-  },
-  {
-    q: "Who fixes the fan?",
-    emoji: "🔧",
-    options: [
-      { emoji: "👨", label: "Only Papa", fair: false, nudge: "Didi can fix things too!" },
-      { emoji: "👧", label: "Didi fixes it", fair: true },
-      { emoji: "🧑‍🤝‍🧑", label: "Share it", fair: true },
-    ],
-    cheer: "Girls can fix things!",
-  },
-  {
-    q: "Who goes to school?",
-    emoji: "📚",
-    options: [
-      { emoji: "👦", label: "Only the boy", fair: false, nudge: "Every child has the right to school!" },
-      { emoji: "👧", label: "Only the girl", fair: false, nudge: "Every child has the right to school!" },
-      { emoji: "👧👦", label: "Both children", fair: true },
-    ],
-    cheer: "Both go to school!",
-    right: "Every child has the right to go to school.",
-  },
-  {
-    q: "Who plays cricket?",
-    emoji: "🏏",
-    options: [
-      { emoji: "👦", label: "Only boys", fair: false, nudge: "Girls can play cricket too!" },
-      { emoji: "👧", label: "Girls play too", fair: true },
-      { emoji: "👧👦", label: "Everyone", fair: true },
-    ],
-    cheer: "Everyone can play!",
-    right: "Every child has the right to rest and play.",
-  },
-  {
-    q: "Who cleans up?",
-    emoji: "🧹",
-    options: [
-      { emoji: "👧", label: "Only Didi", fair: false, nudge: "Let's all help clean! 💛" },
-      { emoji: "👦", label: "Bhai helps", fair: true },
-      { emoji: "🧑‍🤝‍🧑", label: "Share it", fair: true },
-    ],
-    cheer: "We all help at home!",
-  },
-  {
-    q: "Who can lead the team?",
-    emoji: "🧭",
-    options: [
-      { emoji: "👦", label: "Only boys", fair: false, nudge: "Girls can lead too!" },
-      { emoji: "👧", label: "A girl leads", fair: true },
-      { emoji: "👧👦", label: "Anyone", fair: true },
-    ],
-    cheer: "Anyone can lead!",
-  },
+// Share the Work — each chore can go to one person (stereotyped) or be shared fairly.
+export type Share = { label: string; emoji: string };
+export const CHORES: Share[] = [
+  { label: "Cooking", emoji: "🍳" },
+  { label: "Cleaning", emoji: "🧹" },
+  { label: "Fixing the fan", emoji: "🔧" },
+  { label: "Paying the bills", emoji: "🧾" },
+  { label: "Caring for the baby", emoji: "👶" },
 ];
+export const CHORE_OPTIONS = [
+  { label: "Only Ma", fair: false, nudge: "Only Ma? Let's share!" },
+  { label: "Only Papa", fair: false, nudge: "One person can't do it all — let's share!" },
+  { label: "Everyone shares", fair: true, nudge: "Everyone helps — Papa cooks, Didi fixes the fan!" },
+];
+
+// Fair Chances — opportunities shared fairly between boys and girls (busting son-preference).
+export const CHANCES: Share[] = [
+  { label: "Going to school", emoji: "🏫" },
+  { label: "The cricket team", emoji: "🏏" },
+  { label: "The new bike", emoji: "🚲" },
+  { label: "Computer time", emoji: "💻" },
+];
+export const CHANCE_OPTIONS = [
+  { label: "Give it to the boy", fair: false, nudge: "Just the boy? Every child deserves a chance!" },
+  { label: "Give it to the girl", fair: false, nudge: "Share it — both deserve a turn!" },
+  { label: "Share — both!", fair: true, nudge: "Both children get a chance — that's fair!" },
+];
+
+// Rights for Every Child — Rights Cards the child collects.
+export type Right = { label: string; emoji: string; say: string };
+export const RIGHTS: Right[] = [
+  { label: "The right to go to school", emoji: "🏫", say: "Every child has the right to go to school!" },
+  { label: "The right to play", emoji: "⚽", say: "Every child has the right to play!" },
+  { label: "The right to be safe", emoji: "🛡️", say: "Every child has the right to be safe!" },
+  { label: "The right to a say", emoji: "🗣️", say: "Every child has the right to be heard!" },
+];
+
+// Swap Day — flip roles; feel the other side.
+export const SWAPS = [
+  { emoji: "🍳", say: "Today, the one who never cooks… cooks! How does it feel?" },
+  { emoji: "🚲", say: "Today, the one always left out gets the first turn on the bike!" },
+  { emoji: "🧹", say: "Today, everyone sweeps together — even-steven!" },
+];
+
+// Bust the 'Rule' — unfair patterns dressed up as natural, busted with UN & RE (even-handed).
+export type Rule = { rule: string; un: string; re: string };
+export const RULES: Rule[] = [
+  { rule: "“Only girls do the housework.”", un: "That's just how it's always been done — but that's an old rule, and it's not your fault for hearing it. Let's rub it out.", re: "Everyone shares the work — Papa and the boys help too!" },
+  { rule: "“Send the boy to school, keep the girl home.”", un: "An old rule lots of homes hear — let's gently rub it out, no blame.", re: "Every child deserves the same chance to learn. It can change!" },
+  { rule: "“Boys don't help at home.”", un: "Another old rule — let's erase it.", re: "Boys can cook, clean and care too — everyone helps!" },
+];
+
+export const BADGE_TARGET = 5;
+
+export const SAM = {
+  greet: "Welcome to Fair Play World! Let's make things fair.",
+  home: "Which corner of the world shall we make fair?",
+  work: "Who should do this chore?",
+  chances: "Who gets this chance?",
+  rights: "Collect every child's rights — tap each card!",
+  swap: "It's Swap Day! Tap to flip the roles.",
+  rules: "An unfair rule! Let's bust it with UN and RE.",
+  fair: "The Fairness Meter is balanced — well done!",
+  badge: "Fair Play badge earned!",
+  complete: "Your world is fair — everyone shares, and every child gets a chance! 🌍",
+};
