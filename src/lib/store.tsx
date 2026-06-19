@@ -22,6 +22,11 @@ const DEFAULT_PROFILE: Profile = {
   bestStreak: 0,
   deckStars: {},
   signMastery: {},
+  runsCompleted: 0,
+  runDeckCleared: {},
+  disgSeen: 0,
+  disgCorrect: 0,
+  dailyRunOn: "",
 };
 
 type ProfileContextValue = {
@@ -32,6 +37,8 @@ type ProfileContextValue = {
   setTextScale: (v: number) => void;
   recordCard: (signId: SignId | undefined, correct: boolean) => void;
   finishDeck: (deckId: string, stars: number, coins: number, bestStreak: number) => void;
+  recordRun: (p: { deckId: string; disgSeen: number; disgCorrect: number; isStory: boolean }) => void;
+  markDailyRun: (dateKey: string) => void;
   reset: () => void;
 };
 
@@ -101,6 +108,23 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
       })),
     []
   );
+  // Run meta-progression: lifetime disguised-card accuracy (the headline learning signal), runs
+  // completed, and which story arcs are cleared. Currency/stars stay in finishDeck (shared with v1).
+  const recordRun = useCallback(
+    (p: { deckId: string; disgSeen: number; disgCorrect: number; isStory: boolean }) =>
+      setProfile((prev) => ({
+        ...prev,
+        runsCompleted: (prev.runsCompleted ?? 0) + 1,
+        disgSeen: (prev.disgSeen ?? 0) + p.disgSeen,
+        disgCorrect: (prev.disgCorrect ?? 0) + p.disgCorrect,
+        runDeckCleared: p.isStory ? { ...prev.runDeckCleared, [p.deckId]: true } : prev.runDeckCleared,
+      })),
+    []
+  );
+  const markDailyRun = useCallback(
+    (dateKey: string) => setProfile((prev) => ({ ...prev, dailyRunOn: dateKey })),
+    []
+  );
   const reset = useCallback(() => setProfile(DEFAULT_PROFILE), []);
 
   return (
@@ -113,6 +137,8 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
         setTextScale,
         recordCard,
         finishDeck,
+        recordRun,
+        markDailyRun,
         reset,
       }}
     >

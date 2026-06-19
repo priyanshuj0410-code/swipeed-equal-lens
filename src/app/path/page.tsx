@@ -54,12 +54,16 @@ export default function PathPage() {
 
   const nodes = useMemo<SceneNode[]>(() => {
     const stars = profile.deckStars ?? {};
+    const runCleared = profile.runDeckCleared ?? {};
     const isDone = (game?: string) => {
       if (!game) return false;
       if (game === "mythbuster") return stars["mythbuster"] != null;
-      // GLRL is "done" once any of its own swipe decks is cleared.
+      // GLRL is "done" once any story run is cleared, or any Quick Play swipe deck.
       if (game === "glrl")
-        return Object.keys(stars).some((k) => k !== "mythbuster" && DECK_BY_ID[k as keyof typeof DECK_BY_ID] != null);
+        return (
+          Object.keys(runCleared).length > 0 ||
+          Object.keys(stars).some((k) => k !== "mythbuster" && DECK_BY_ID[k as keyof typeof DECK_BY_ID] != null)
+        );
       return stars[game] != null;
     };
     // All 41 nodes, in order. Built games are playable; everything else is "soon" (no gates).
@@ -74,7 +78,7 @@ export default function PathPage() {
       game: n.game,
       chapter: n.chapter,
     }));
-  }, [profile.deckStars]);
+  }, [profile.deckStars, profile.runDeckCleared]);
 
   // Every built game plays in place over the grassland — swipe decks via useSwipeGame, the
   // tap/sort/choose/sim engines via EngineGameHost. "soon" nodes have no game and don't act.
