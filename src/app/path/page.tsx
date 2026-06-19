@@ -9,6 +9,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { useProfile } from "@/lib/store";
 import { useSwipeGame } from "@/lib/use-swipe-game";
 import { GameCard } from "@/components/game-card";
+import { WorldLoader } from "@/components/world-loader";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { EngineGameHost, hasEngineGame } from "@/components/games/engine-host";
@@ -18,12 +19,7 @@ import type { SceneNode } from "@/components/path-scene";
 
 const PathScene = dynamic(() => import("@/components/path-scene").then((m) => m.PathScene), {
   ssr: false,
-  loading: () => (
-    <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground">
-      <span className="size-5 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-primary" aria-hidden />
-      <span className="ml-2">Loading the path…</span>
-    </div>
-  ),
+  loading: () => null, // the WorldLoader splash covers the load
 });
 
 export default function PathPage() {
@@ -104,6 +100,9 @@ export default function PathPage() {
 
   return (
     <>
+      {/* branded loading splash over the 3D world (real GLB load progress), fades when ready */}
+      {webgl !== false && <WorldLoader />}
+
       <div className="fixed inset-0 z-0 touch-none overscroll-none bg-[#bfe2fb]">
         {webgl === false ? (
           <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-8 text-center">

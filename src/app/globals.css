@@ -192,6 +192,19 @@
   border-radius: 22px;
 }
 
+/* Branded loading splash — indeterminate bar slide. */
+@keyframes splash-bar {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(360%);
+  }
+}
+.animate-splash-bar {
+  animation: splash-bar 1.15s ease-in-out infinite;
+}
+
 /* While a level is being played, collapse the global Get Help button to just its icon. */
 html[data-playing="true"] .gethelp-trigger {
   width: 2.25rem;

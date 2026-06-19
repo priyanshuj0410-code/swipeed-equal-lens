@@ -3,16 +3,11 @@
 import { ProfileProvider, useProfile } from "@/lib/store";
 import { GetHelp } from "@/components/get-help";
 import { Onboarding } from "@/components/onboarding";
+import { BrandSplash } from "@/components/brand-splash";
 
 function Gate({ children }: { children: React.ReactNode }) {
   const { profile, ready } = useProfile();
-  if (!ready) {
-    return (
-      <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
-        Loading…
-      </div>
-    );
-  }
+  if (!ready) return <BrandSplash label="Starting up…" />;
   if (!profile.onboarded) return <Onboarding />;
   return <>{children}</>;
 }
