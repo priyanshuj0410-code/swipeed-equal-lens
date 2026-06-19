@@ -14,13 +14,13 @@ const TARGET = {
   summer: "#5BB54A",
   rainy: "#2F7D45",
   autumn: "#D2691E", // strong orange
-  winter: "#EEF4FA", // near-white snow
+  winter: "#F4F6F9", // near-pure white (barely-cool), so snow reads white not blue
   spring: "#7ECB5A",
 };
 
 // how much of the original swatch's luminance variation to keep (lower = flatter toward
 // the target). Winter is low so foliage reads as uniform snow-white, not pale green.
-const LWEIGHT = { summer: 0.4, rainy: 0.4, autumn: 0.4, winter: 0.16, spring: 0.4 };
+const LWEIGHT = { summer: 0.4, rainy: 0.4, autumn: 0.4, winter: 0.1, spring: 0.4 };
 
 const hexToRgb = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
 function rgbToHsl(r, g, b) {
