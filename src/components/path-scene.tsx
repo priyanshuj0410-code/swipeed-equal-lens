@@ -1140,7 +1140,7 @@ function Companion({ progress }: { progress: React.MutableRefObject<number> }) {
     actions?.idle?.reset().fadeIn(0.3).play();
   }, [actions]);
 
-  useFrame((_, dt) => {
+  useFrame((state, dt) => {
     const g = grp.current;
     if (!g) return;
     const d = Math.min(dt, 0.05);
@@ -1174,7 +1174,8 @@ function Companion({ progress }: { progress: React.MutableRefObject<number> }) {
       if (actions?.walk) actions.walk.timeScale = Math.min(2.4, Math.max(0.9, speed / 6)); // less foot-slide
     } else {
       st.pos.copy(st.tgt);
-      st.facing = Math.atan2(st.tan.x, st.tan.z); // face along the path when idle
+      // face the camera (the player) when standing still
+      st.facing = Math.atan2(state.camera.position.x - st.pos.x, state.camera.position.z - st.pos.z);
       st.moving = false;
     }
     g.position.copy(st.pos);
