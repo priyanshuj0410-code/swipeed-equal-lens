@@ -56,6 +56,9 @@ const GAMES: Record<string, EngineGame> = {
   "amazing-journey": dynamic(() => import("@/components/games/amazing-journey").then((m) => m.AmazingJourneyGame), {
     ssr: false,
   }),
+  "boundary-bot": dynamic(() => import("@/components/games/boundary-bot").then((m) => m.BoundaryBotGame), {
+    ssr: false,
+  }),
   "flip-script": dynamic(() => import("@/components/games/flip-script").then((m) => m.FlipScriptGame), {
     ssr: false,
   }),
