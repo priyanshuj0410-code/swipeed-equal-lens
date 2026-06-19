@@ -2,9 +2,10 @@
 
 import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { useGLTF, Html } from "@react-three/drei";
+import { useGLTF, Html, useTexture } from "@react-three/drei";
 import { Check, Lock, Play, Trophy } from "lucide-react";
 import type { Chapter } from "@/content/path";
+import { SEASON_ORDER, SEASON_TARGET, SEASONS, seasonRT, type SeasonKey } from "@/lib/seasons";
 import {
   EffectComposer,
   Bloom,
@@ -219,8 +220,8 @@ function SkyDome() {
         side: THREE.BackSide,
         depthWrite: false,
         uniforms: {
-          top: { value: new THREE.Color("#79bdf7") },
-          bottom: { value: new THREE.Color("#eaf6ff") },
+          top: { value: seasonRT.skyTop.clone() },
+          bottom: { value: seasonRT.skyBottom.clone() },
         },
         vertexShader: `varying vec3 vP; void main(){ vP = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
         fragmentShader: `varying vec3 vP; uniform vec3 top; uniform vec3 bottom;
@@ -228,6 +229,11 @@ function SkyDome() {
       }),
     []
   );
+  // track the active season (driven by SeasonDriver via seasonRT)
+  useFrame(() => {
+    (mat.uniforms.top.value as THREE.Color).copy(seasonRT.skyTop);
+    (mat.uniforms.bottom.value as THREE.Color).copy(seasonRT.skyBottom);
+  });
   return (
     <mesh material={mat} position={[0, 0, PATH_MID_Z]}>
       <sphereGeometry args={[560, 32, 16]} />
@@ -268,31 +274,49 @@ function Clouds() {
 // Coloured with the exact Kenney grass-top palette greens, varied by smooth noise so it
 // reads as a living field rather than a flat sheet or a visible tile grid.
 function Ground() {
-  const geo = useMemo(() => {
+  // Precompute the per-vertex noise once, then a colour array per season (snow / golden /
+  // deep-green / fresh / summer). The live attribute is swapped when the season changes.
+  const { geo, colorArrays } = useMemo(() => {
     const g = new THREE.PlaneGeometry(700, PATH_SPAN_Z + 360, 180, Math.round((PATH_SPAN_Z + 360) / 3.9));
     const pos = g.attributes.position;
-    const colors: number[] = [];
-    const BASE = new THREE.Color("#3da679");
-    const LIGHT = new THREE.Color("#59c387");
-    const DARK = new THREE.Color("#20896b");
-    const tmp = new THREE.Color();
     const fbm = (x: number, z: number) =>
       (Math.sin(x * 0.08) * Math.cos(z * 0.07) +
         0.5 * Math.sin(x * 0.17 + 1.3) * Math.cos(z * 0.19 - 0.7) +
         0.25 * Math.sin(x * 0.31 - 2.1) * Math.cos(z * 0.29 + 1.1)) /
       1.75;
-    for (let i = 0; i < pos.count; i++) {
-      const x = pos.getX(i);
-      const z = -pos.getY(i); // plane y -> world -z after the -90° rotation
-      const t = fbm(x, z) * 0.5 + 0.5;
-      tmp.copy(BASE);
-      if (t > 0.5) tmp.lerp(LIGHT, (t - 0.5) * 2 * 0.6);
-      else tmp.lerp(DARK, (0.5 - t) * 2 * 0.5);
-      colors.push(tmp.r, tmp.g, tmp.b);
+    const ts = new Float32Array(pos.count);
+    for (let i = 0; i < pos.count; i++) ts[i] = fbm(pos.getX(i), -pos.getY(i)) * 0.5 + 0.5;
+    const tmp = new THREE.Color();
+    const colorArrays: Record<SeasonKey, Float32Array> = {} as Record<SeasonKey, Float32Array>;
+    for (const season of SEASON_ORDER) {
+      const pal = SEASONS[season].ground;
+      const BASE = new THREE.Color(pal.base);
+      const LIGHT = new THREE.Color(pal.light);
+      const DARK = new THREE.Color(pal.dark);
+      const arr = new Float32Array(pos.count * 3);
+      for (let i = 0; i < pos.count; i++) {
+        const t = ts[i];
+        tmp.copy(BASE);
+        if (t > 0.5) tmp.lerp(LIGHT, (t - 0.5) * 2 * 0.6);
+        else tmp.lerp(DARK, (0.5 - t) * 2 * 0.5);
+        arr[i * 3] = tmp.r;
+        arr[i * 3 + 1] = tmp.g;
+        arr[i * 3 + 2] = tmp.b;
+      }
+      colorArrays[season] = arr;
     }
-    g.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
-    return g;
+    g.setAttribute("color", new THREE.Float32BufferAttribute(colorArrays.summer.slice(), 3));
+    return { geo: g, colorArrays };
   }, []);
+  const appliedRef = useRef(-1);
+  useFrame(() => {
+    if (appliedRef.current === seasonRT.index) return;
+    appliedRef.current = seasonRT.index;
+    const season = SEASON_ORDER[seasonRT.index] ?? "summer";
+    const attr = geo.attributes.color as THREE.BufferAttribute;
+    (attr.array as Float32Array).set(colorArrays[season]);
+    attr.needsUpdate = true;
+  });
   return (
     <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, PATH_MID_Z]} receiveShadow>
       <meshStandardMaterial vertexColors />
@@ -809,7 +833,11 @@ function SunLight({ progress }: { progress: React.MutableRefObject<number> }) {
     const p = CURVE.getPointAt(clamp01(progress.current));
     target.position.set(p.x, 0, p.z);
     target.updateMatrixWorld();
-    if (light.current) light.current.position.set(p.x + 16, 24, p.z + 14);
+    if (light.current) {
+      light.current.position.set(p.x + 16, 24, p.z + 14);
+      light.current.color.copy(seasonRT.sunColor); // season-driven warmth/coolness
+      light.current.intensity = seasonRT.sunIntensity;
+    }
   });
   return (
     <directionalLight
@@ -826,6 +854,108 @@ function SunLight({ progress }: { progress: React.MutableRefObject<number> }) {
       <orthographicCamera attach="shadow-camera" args={[-30, 30, 30, -30, 1, 95]} />
     </directionalLight>
   );
+}
+
+// Ambient light driven by the active season (snow bounces more light, etc.).
+function SeasonAmbient() {
+  const ref = useRef<THREE.AmbientLight>(null);
+  useFrame(() => {
+    if (ref.current) ref.current.intensity = seasonRT.ambient;
+  });
+  return <ambientLight ref={ref} intensity={seasonRT.ambient} />;
+}
+
+// Drives the season from the camera's position along the path: lerps sky/fog/bg/sun toward
+// the current chapter's season each frame (a ~1.5s crossfade at boundaries) and snaps the
+// foliage colormap + ground colours when the season (chapter) changes. Single path, pure styling.
+function SeasonDriver({
+  progress,
+  nodes,
+  chapters,
+}: {
+  progress: React.MutableRefObject<number>;
+  nodes: SceneNode[];
+  chapters: Chapter[];
+}) {
+  const scene = useThree((s) => s.scene);
+  const maps = useTexture(Object.fromEntries(SEASON_ORDER.map((k) => [k, SEASONS[k].colormap]))) as Record<SeasonKey, THREE.Texture>;
+  useMemo(() => {
+    Object.values(maps).forEach((t) => {
+      t.colorSpace = THREE.SRGBColorSpace;
+      t.flipY = false;
+      t.magFilter = THREE.NearestFilter;
+      t.minFilter = THREE.NearestFilter;
+      t.generateMipmaps = false;
+      t.needsUpdate = true;
+    });
+  }, [maps]);
+
+  const fog = useMemo(() => new THREE.Fog(seasonRT.fogColor.clone(), seasonRT.fogNear, seasonRT.fogFar), []);
+  const bg = useMemo(() => seasonRT.bg.clone(), []);
+  useEffect(() => {
+    scene.fog = fog;
+    scene.background = bg;
+  }, [scene, fog, bg]);
+
+  // re-apply once after foliage has mounted (it streams in after the env), so late materials get the season colormap
+  const appliedMapRef = useRef(-1);
+  useEffect(() => {
+    const t = setTimeout(() => {
+      appliedMapRef.current = -1;
+    }, 1300);
+    return () => clearTimeout(t);
+  }, []);
+
+  const firstRef = useRef(true);
+  const seasonIndexForU = useCallback(
+    (u: number) => {
+      const total = nodes.length || 1;
+      const idx = Math.max(0, Math.min(total - 1, Math.round(u * total - 0.5)));
+      const ch = nodes[idx]?.chapter;
+      const ci = ch ? chapters.findIndex((c) => c.key === ch) : 0;
+      return ci >= 0 ? Math.min(ci, SEASON_ORDER.length - 1) : 0;
+    },
+    [nodes, chapters]
+  );
+
+  useFrame((_, dt) => {
+    const si = seasonIndexForU(progress.current);
+    const t = SEASON_TARGET[SEASON_ORDER[si]];
+    const k = firstRef.current ? 1 : Math.min(1, dt * 1.6); // ~1.5s crossfade
+    seasonRT.skyTop.lerp(t.skyTop, k);
+    seasonRT.skyBottom.lerp(t.skyBottom, k);
+    seasonRT.bg.lerp(t.bg, k);
+    seasonRT.fogColor.lerp(t.fogColor, k);
+    seasonRT.sunColor.lerp(t.sunColor, k);
+    seasonRT.fogNear += (t.fogNear - seasonRT.fogNear) * k;
+    seasonRT.fogFar += (t.fogFar - seasonRT.fogFar) * k;
+    seasonRT.sunIntensity += (t.sunIntensity - seasonRT.sunIntensity) * k;
+    seasonRT.ambient += (t.ambient - seasonRT.ambient) * k;
+    seasonRT.index = si;
+
+    bg.copy(seasonRT.bg);
+    fog.color.copy(seasonRT.fogColor);
+    fog.near = seasonRT.fogNear;
+    fog.far = seasonRT.fogFar;
+
+    // swap the foliage/mountain colormap when the season changes (ground swaps via seasonRT.index)
+    if (appliedMapRef.current !== si) {
+      appliedMapRef.current = si;
+      const map = maps[SEASON_ORDER[si]];
+      scene.traverse((o) => {
+        const m = o as THREE.Mesh;
+        if (!m.isMesh) return;
+        const mat = m.material as THREE.MeshStandardMaterial;
+        if (mat && mat.map && mat.map !== map) {
+          mat.map = map;
+          mat.needsUpdate = true;
+        }
+      });
+    }
+    firstRef.current = false;
+  });
+
+  return null;
 }
 
 function FollowCam({ progress }: { progress: React.MutableRefObject<number> }) {
@@ -944,15 +1074,17 @@ export function PathScene({
       camera={{ position: [0, 6, 30], fov: 48 }}
       style={{ width: "100%", height: "100%", display: "block" }}
     >
-      <color attach="background" args={["#eaf6ff"]} />
-      <fog attach="fog" args={["#dbeefb", 40, 235]} />
+      {/* season-driven: SeasonDriver sets scene.background + scene.fog and lerps the rest */}
+      <Suspense fallback={null}>
+        <SeasonDriver progress={progress} nodes={nodes} chapters={chapters} />
+      </Suspense>
       {/* phase 0: sky + land + mountains */}
       <SkyDome />
       <Clouds />
       <FollowCam progress={progress} />
       <SunLight progress={progress} />
       <hemisphereLight args={["#dcefff", "#8fc06a", 0.5]} />
-      <ambientLight intensity={0.4} />
+      <SeasonAmbient />
       <Ground />
       <Suspense fallback={null}>
         <Mountains />
