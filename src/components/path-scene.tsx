@@ -6,6 +6,7 @@ import { useGLTF, Html, useTexture } from "@react-three/drei";
 import { Check, Lock, Play, Trophy } from "lucide-react";
 import { NODES, CHAPTERS, type Chapter } from "@/content/path";
 import { SEASON_ORDER, SEASON_TARGET, SEASONS, seasonRT, type SeasonKey } from "@/lib/seasons";
+import { PHASES, currentPhase, WARM, MOON_TINT } from "@/lib/time-of-day";
 import { Weather } from "@/components/weather";
 import {
   EffectComposer,
@@ -543,6 +544,7 @@ type ModelCfg = {
   winterSwap?: boolean;
   holiday?: boolean;
   roundTree?: boolean; // the broadleaf tree — turns blossom-pink in spring (conifers stay green)
+  lamp?: boolean; // light-emitting prop — glows (emissive) at night
 };
 
 // Trees populate the whole path (season-coloured); in the winter region they're shown only
@@ -573,7 +575,7 @@ const HOLIDAY_MODELS: ModelCfg[] = [
   // festive accents
   { url: "/models/holiday/candy-cane-red.glb", scale: 2.4, count: 6, seed: 761, clearance: 2, cast: false, tilt: 0.04, holiday: true },
   { url: "/models/holiday/candy-cane-green.glb", scale: 2.4, count: 5, seed: 767, clearance: 2, cast: false, tilt: 0.04, holiday: true },
-  { url: "/models/holiday/lantern.glb", scale: 2.6, count: 6, seed: 771, clearance: 2.4, cast: true, tilt: 0, holiday: true },
+  { url: "/models/holiday/lantern.glb", scale: 2.6, count: 6, seed: 771, clearance: 2.4, cast: true, tilt: 0, holiday: true, lamp: true },
   { url: "/models/holiday/bench.glb", scale: 2.4, count: 5, seed: 777, clearance: 3, cast: true, tilt: 0, holiday: true },
   { url: "/models/holiday/snowman.glb", scale: 3.0, count: 12, seed: 781, clearance: 3, cast: true, tilt: 0, holiday: true },
   { url: "/models/holiday/sled.glb", scale: 2.6, count: 3, seed: 791, clearance: 3, cast: true, tilt: 0.05, holiday: true },
@@ -627,6 +629,14 @@ function PropStream({ cfg, active }: { cfg: ModelCfg; active: number[] }) {
     },
     [cfg]
   );
+  // lamps glow at night (emissive driven by the day/night layer)
+  useFrame(() => {
+    if (!cfg.lamp) return;
+    const mat = material as THREE.MeshStandardMaterial;
+    if (!mat.emissive) return;
+    mat.emissive.set("#ffce8a");
+    mat.emissiveIntensity = seasonRT.night * 1.8;
+  });
   return <StreamLayer geometry={geometry} material={material} buckets={buckets} active={active} toMatrix={toMatrix} castShadow={cfg.cast} receiveShadow />;
 }
 
@@ -1000,6 +1010,24 @@ function SeasonDriver({
   }, []);
 
   const firstRef = useRef(true);
+  // pure-season values (lerped toward the active season) — kept private; the day/night layer
+  // composes on top of these and writes the final values into seasonRT (what the scene reads).
+  const sCur = useMemo(
+    () => ({
+      skyTop: SEASON_TARGET.summer.skyTop.clone(),
+      skyBottom: SEASON_TARGET.summer.skyBottom.clone(),
+      bg: SEASON_TARGET.summer.bg.clone(),
+      fogColor: SEASON_TARGET.summer.fogColor.clone(),
+      fogNear: SEASON_TARGET.summer.fogNear,
+      fogFar: SEASON_TARGET.summer.fogFar,
+      sunColor: SEASON_TARGET.summer.sunColor.clone(),
+      sunIntensity: SEASON_TARGET.summer.sunIntensity,
+      ambient: SEASON_TARGET.summer.ambient,
+    }),
+    []
+  );
+  const pCur = useMemo(() => ({ skyMul: 1, fogMul: 1, lightMul: 1, warmth: 0, lamps: 0, night: 0, tint: new THREE.Color("#ffffff") }), []);
+
   const seasonIndexForU = useCallback(
     (u: number) => {
       const total = nodes.length || 1;
@@ -1014,17 +1042,40 @@ function SeasonDriver({
   useFrame((_, dt) => {
     const si = seasonIndexForU(progress.current);
     const t = SEASON_TARGET[SEASON_ORDER[si]];
-    const k = firstRef.current ? 1 : Math.min(1, dt * 1.6); // ~1.5s crossfade
-    seasonRT.skyTop.lerp(t.skyTop, k);
-    seasonRT.skyBottom.lerp(t.skyBottom, k);
-    seasonRT.bg.lerp(t.bg, k);
-    seasonRT.fogColor.lerp(t.fogColor, k);
-    seasonRT.sunColor.lerp(t.sunColor, k);
-    seasonRT.fogNear += (t.fogNear - seasonRT.fogNear) * k;
-    seasonRT.fogFar += (t.fogFar - seasonRT.fogFar) * k;
-    seasonRT.sunIntensity += (t.sunIntensity - seasonRT.sunIntensity) * k;
-    seasonRT.ambient += (t.ambient - seasonRT.ambient) * k;
+    const k = firstRef.current ? 1 : Math.min(1, dt * 1.6); // ~1.5s season crossfade
+    sCur.skyTop.lerp(t.skyTop, k);
+    sCur.skyBottom.lerp(t.skyBottom, k);
+    sCur.bg.lerp(t.bg, k);
+    sCur.fogColor.lerp(t.fogColor, k);
+    sCur.sunColor.lerp(t.sunColor, k);
+    sCur.fogNear += (t.fogNear - sCur.fogNear) * k;
+    sCur.fogFar += (t.fogFar - sCur.fogFar) * k;
+    sCur.sunIntensity += (t.sunIntensity - sCur.sunIntensity) * k;
+    sCur.ambient += (t.ambient - sCur.ambient) * k;
     seasonRT.index = si;
+
+    // day/night phase (device clock), eased
+    const ph = PHASES[currentPhase()];
+    const pk = firstRef.current ? 1 : Math.min(1, dt * 0.4);
+    pCur.skyMul += (ph.skyMul - pCur.skyMul) * pk;
+    pCur.fogMul += (ph.fogMul - pCur.fogMul) * pk;
+    pCur.lightMul += (ph.lightMul - pCur.lightMul) * pk;
+    pCur.warmth += (ph.warmth - pCur.warmth) * pk;
+    pCur.lamps += (ph.lamps - pCur.lamps) * pk;
+    pCur.night += (ph.night - pCur.night) * pk;
+    pCur.tint.lerp(ph.tint, pk);
+
+    // compose season × time of day -> seasonRT (final values the scene reads)
+    seasonRT.skyTop.copy(sCur.skyTop).multiplyScalar(pCur.skyMul).lerp(pCur.tint, pCur.warmth);
+    seasonRT.skyBottom.copy(sCur.skyBottom).multiplyScalar(pCur.skyMul).lerp(pCur.tint, pCur.warmth * 0.85);
+    seasonRT.bg.copy(seasonRT.skyBottom);
+    seasonRT.fogColor.copy(sCur.fogColor).multiplyScalar(0.45 + 0.55 * pCur.skyMul).lerp(pCur.tint, pCur.warmth * 0.6);
+    seasonRT.fogNear = sCur.fogNear * pCur.fogMul;
+    seasonRT.fogFar = sCur.fogFar * pCur.fogMul;
+    seasonRT.sunColor.copy(sCur.sunColor).lerp(WARM, pCur.warmth).lerp(MOON_TINT, pCur.night * 0.6);
+    seasonRT.sunIntensity = sCur.sunIntensity * pCur.lightMul;
+    seasonRT.ambient = sCur.ambient * (0.45 + 0.55 * pCur.lightMul);
+    seasonRT.night = pCur.night;
 
     bg.copy(seasonRT.bg);
     fog.color.copy(seasonRT.fogColor);
@@ -1054,6 +1105,65 @@ function SeasonDriver({
   });
 
   return null;
+}
+
+// Stars + a soft moon, faded in by the night factor (seasonRT.night). Follows the camera.
+function NightSky() {
+  const grp = useRef<THREE.Group>(null);
+  const starPos = useMemo(() => {
+    const N = 260;
+    const a = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) {
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(1 - Math.random() * 0.72); // upper dome
+      const R = 420;
+      a[i * 3] = R * Math.sin(phi) * Math.cos(theta);
+      a[i * 3 + 1] = 50 + Math.abs(R * Math.cos(phi));
+      a[i * 3 + 2] = R * Math.sin(phi) * Math.sin(theta);
+    }
+    return a;
+  }, []);
+  const moonTex = useMemo(() => {
+    const c = document.createElement("canvas");
+    c.width = c.height = 64;
+    const g = c.getContext("2d")!;
+    const grad = g.createRadialGradient(32, 32, 3, 32, 32, 30);
+    grad.addColorStop(0, "rgba(255,255,248,1)");
+    grad.addColorStop(0.55, "rgba(228,236,255,0.92)");
+    grad.addColorStop(1, "rgba(228,236,255,0)");
+    g.fillStyle = grad;
+    g.fillRect(0, 0, 64, 64);
+    return new THREE.CanvasTexture(c);
+  }, []);
+  const starMat = useMemo(() => new THREE.PointsMaterial({ color: "#ffffff", size: 1.5, sizeAttenuation: false, transparent: true, opacity: 0, depthWrite: false, fog: false }), []);
+  const moonMat = useMemo(() => new THREE.SpriteMaterial({ map: moonTex, transparent: true, opacity: 0, depthWrite: false, fog: false }), [moonTex]);
+  useEffect(
+    () => () => {
+      starMat.dispose();
+      moonMat.dispose();
+      moonTex.dispose();
+    },
+    [starMat, moonMat, moonTex]
+  );
+  useFrame((state) => {
+    const n = seasonRT.night;
+    starMat.opacity = n;
+    moonMat.opacity = n;
+    if (grp.current) {
+      grp.current.position.x = state.camera.position.x;
+      grp.current.position.z = state.camera.position.z;
+    }
+  });
+  return (
+    <group ref={grp}>
+      <points frustumCulled={false} material={starMat}>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[starPos, 3]} />
+        </bufferGeometry>
+      </points>
+      <sprite material={moonMat} position={[70, 150, -130]} scale={[40, 40, 40]} />
+    </group>
+  );
 }
 
 function FollowCam({ progress }: { progress: React.MutableRefObject<number> }) {
@@ -1179,6 +1289,7 @@ export function PathScene({
       {/* phase 0: sky + land + mountains */}
       <SkyDome />
       <Clouds />
+      <NightSky />
       <FollowCam progress={progress} />
       <SunLight progress={progress} />
       <hemisphereLight args={["#dcefff", "#8fc06a", 0.5]} />

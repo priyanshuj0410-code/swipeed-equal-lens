@@ -4,6 +4,7 @@ import { ProfileProvider, useProfile } from "@/lib/store";
 import { GetHelp } from "@/components/get-help";
 import { Onboarding } from "@/components/onboarding";
 import { BrandSplash } from "@/components/brand-splash";
+import { WindDownNudge } from "@/components/wind-down-nudge";
 
 function Gate({ children }: { children: React.ReactNode }) {
   const { profile, ready } = useProfile();
@@ -18,6 +19,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <ProfileProvider>
       <Gate>{children}</Gate>
       <GetHelp />
+      <WindDownNudge />
     </ProfileProvider>
   );
 }

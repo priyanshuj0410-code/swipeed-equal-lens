@@ -99,4 +99,5 @@ export const seasonRT = {
   sunColor: init.sunColor.clone(),
   sunIntensity: init.sunIntensity,
   ambient: init.ambient,
+  night: 0, // 0..1, driven by the day/night layer — used for stars/moon + lamp glow
 };
