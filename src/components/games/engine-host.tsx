@@ -23,6 +23,9 @@ const GAMES: Record<string, EngineGame> = {
   "body-lab": dynamic(() => import("@/components/games/body-lab").then((m) => m.BodyLabGame), {
     ssr: false,
   }),
+  "what-makes-me": dynamic(() => import("@/components/games/what-makes-me").then((m) => m.WhatMakesMeGame), {
+    ssr: false,
+  }),
   "same-same": dynamic(() => import("@/components/games/same-same").then((m) => m.SameSameGame), {
     ssr: false,
   }),
