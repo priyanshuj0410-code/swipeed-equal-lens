@@ -28,7 +28,7 @@ export const PATH: PathSection[] = [
     nodes: [
       { id: "same-same", title: "Same Same, Different", emoji: "🧒", kind: "Tap", status: "active", href: "/game/same-same", tag: "gender" },
       { id: "my-body", title: "My Body, My Rules", emoji: "🛡️", kind: "Tap", status: "locked" },
-      { id: "can-do", title: "Can-Do Kids", emoji: "🦸", kind: "Role-play", status: "locked", tag: "gender" },
+      { id: "can-do", title: "Can-Do Kids", emoji: "🦸", kind: "Role-play", status: "active", href: "/game/can-do", tag: "gender" },
     ],
   },
   {

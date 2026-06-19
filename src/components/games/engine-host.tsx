@@ -11,6 +11,9 @@ const GAMES: Record<string, EngineGame> = {
   "same-same": dynamic(() => import("@/components/games/same-same").then((m) => m.SameSameGame), {
     ssr: false,
   }),
+  "can-do": dynamic(() => import("@/components/games/can-do").then((m) => m.CanDoGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {
