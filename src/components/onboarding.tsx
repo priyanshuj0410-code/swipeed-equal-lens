@@ -25,16 +25,21 @@ export function Onboarding() {
       </div>
 
       <div className="relative z-10 flex min-h-svh flex-col items-center justify-center px-5 py-10">
-        <div className="glass-card flex w-full max-w-sm flex-col gap-5 p-7 text-white backdrop-blur-[14px] backdrop-saturate-150">
+        <div
+          className="glass-card flex w-full max-w-sm flex-col gap-5 p-7 text-white backdrop-blur-[14px] backdrop-saturate-150"
+          style={{ background: "rgba(11, 14, 20, 0.5)" }}
+        >
           <div className="flex flex-col items-center gap-2 text-center">
             <span className="grid size-16 place-items-center rounded-3xl bg-white/15 shadow-sm ring-1 ring-white/20">
               <Logo className="size-10" />
             </span>
             <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "#b3c8ff" }}>
-              Green Light / Red Light
+              SwipeEd
             </span>
-            <h1 className="font-display text-2xl font-extrabold leading-tight text-white">Learn to read the flags</h1>
-            <p className="text-sm text-white/75">Swipe right on green, left on red. Let&apos;s set you up.</p>
+            <h1 className="font-display text-2xl font-extrabold leading-tight text-white">Learn by swiping</h1>
+            <p className="text-sm text-white/75">
+              Quick, friendly games about relationships, fairness and growing up — travel the path one lesson at a time.
+            </p>
           </div>
 
           <label className="flex flex-col gap-1.5 text-sm">
@@ -76,7 +81,7 @@ export function Onboarding() {
           </div>
 
           <p className="rounded-lg bg-white/10 p-3 text-xs leading-relaxed text-white/80 ring-1 ring-white/10">
-            This is a game about relationships. If anything here feels too real, tap{" "}
+            These games cover real-life topics like relationships and fairness. If anything feels too real, tap{" "}
             <span className="font-semibold text-white">Get Help</span> any time — it&apos;s always in the corner.
           </p>
 

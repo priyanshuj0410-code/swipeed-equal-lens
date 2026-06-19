@@ -130,9 +130,49 @@ function GrassTufts() {
   return <instancedMesh ref={ref} args={[geometry, material, matrices.length]} frustumCulled={false} />;
 }
 
+// blocky grass hills along the horizon (fog-faded) so the distance isn't empty
+function Hills() {
+  const block = useGLTF("/models/block-grass-large-tall.glb");
+  const { geometry, material } = useMemo(() => bakedMesh(block.scene), [block.scene]);
+  const matrices = useMemo(() => {
+    const rng = mulberry32(2024);
+    const q = new THREE.Quaternion();
+    const e = new THREE.Euler();
+    const arr: THREE.Matrix4[] = [];
+    for (let i = 0; i < 11; i++) {
+      const cx = -80 + i * 16 + (rng() - 0.5) * 9;
+      const cz = -78 - rng() * 46;
+      const R = 9 + rng() * 8;
+      const H = 11 + rng() * 16;
+      for (let gx = -R; gx <= R; gx += 4) {
+        for (let gz = -R; gz <= R; gz += 4) {
+          const d = Math.hypot(gx, gz) / R;
+          if (d > 1) continue;
+          const f = Math.cos(d * Math.PI * 0.5);
+          const h = Math.max(3, H * f * f + (rng() - 0.5) * H * 0.28);
+          const w = ((4 * 1.55) / 2.08) * (0.9 + rng() * 0.3);
+          e.set(0, rng() * Math.PI * 2, 0);
+          q.setFromEuler(e);
+          arr.push(new THREE.Matrix4().compose(new THREE.Vector3(cx + gx, -4, cz + gz), q, new THREE.Vector3(w, (h + 4) / 2, w)));
+        }
+      }
+    }
+    return arr;
+  }, []);
+  const ref = useRef<THREE.InstancedMesh>(null);
+  useEffect(() => {
+    const im = ref.current;
+    if (!im) return;
+    matrices.forEach((m, i) => im.setMatrixAt(i, m));
+    im.instanceMatrix.needsUpdate = true;
+  }, [matrices, geometry]);
+  return <instancedMesh ref={ref} args={[geometry, material, matrices.length]} frustumCulled={false} />;
+}
+
 useGLTF.preload("/models/tree.glb");
 useGLTF.preload("/models/tree-pine.glb");
 useGLTF.preload("/models/grass.glb");
+useGLTF.preload("/models/block-grass-large-tall.glb");
 
 function DriftCam() {
   const camera = useThree((s) => s.camera);
@@ -157,13 +197,14 @@ export function GrasslandBackdrop() {
   return (
     <Canvas dpr={[1, 1.7]} camera={{ position: [0, 3.6, 12], fov: 44 }} style={{ width: "100%", height: "100%" }}>
       <color attach="background" args={["#dbeefb"]} />
-      <fog attach="fog" args={["#cfe6f7", 26, 120]} />
+      <fog attach="fog" args={["#cfe6f7", 22, 132]} />
       <SkyDome />
       <hemisphereLight args={["#dcefff", "#8fc06a", 0.65]} />
       <ambientLight intensity={0.55} />
       <directionalLight position={[6, 12, 8]} intensity={1.05} color="#fff3da" />
       <Ground />
       <Suspense fallback={null}>
+        <Hills />
         <Trees />
         <GrassTufts />
       </Suspense>
