@@ -77,6 +77,9 @@ const GAMES: Record<string, EngineGame> = {
   "plan-it": dynamic(() => import("@/components/games/plan-it").then((m) => m.PlanItGame), {
     ssr: false,
   }),
+  "outbreak": dynamic(() => import("@/components/games/outbreak").then((m) => m.OutbreakGame), {
+    ssr: false,
+  }),
   "flip-script": dynamic(() => import("@/components/games/flip-script").then((m) => m.FlipScriptGame), {
     ssr: false,
   }),
