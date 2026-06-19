@@ -35,6 +35,9 @@ const GAMES: Record<string, EngineGame> = {
   "change-makers": dynamic(() => import("@/components/games/change-makers").then((m) => m.ChangeMakersGame), {
     ssr: false,
   }),
+  "justice-league": dynamic(() => import("@/components/games/justice-league").then((m) => m.JusticeLeagueGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {

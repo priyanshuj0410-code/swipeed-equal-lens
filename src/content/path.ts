@@ -65,7 +65,7 @@ export const PATH: PathSection[] = [
     nodes: [
       { id: "lead-the-way", title: "Lead the Way", emoji: "💼", kind: "Sim", status: "active", href: "/game/lead-the-way", tag: "gender" },
       { id: "change-makers", title: "Change Makers", emoji: "🌍", kind: "Campaign", status: "active", href: "/game/change-makers", tag: "gender" },
-      { id: "justice-league", title: "Justice League: Rights", emoji: "⚖️", kind: "Cases", status: "locked", tag: "gender" },
+      { id: "justice-league", title: "Justice League: Rights", emoji: "⚖️", kind: "Cases", status: "active", href: "/game/justice-league", tag: "gender" },
     ],
   },
 ];
