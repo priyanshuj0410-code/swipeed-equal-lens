@@ -543,8 +543,8 @@ const TREE_MODELS: ModelCfg[] = [
   { url: "/models/tree-pine-small.glb", scale: 4.8, count: 8, seed: 37, clearance: 7, cast: true, tilt: 0.06, winterSwap: true },
 ];
 const PROP_MODELS: ModelCfg[] = [
-  { url: "/models/rocks.glb", scale: 2.0, count: 26, seed: 101, clearance: 3.5, cast: true, tilt: 0.22 },
-  { url: "/models/stones.glb", scale: 2.6, count: 20, seed: 113, clearance: 2.2, cast: false, tilt: 0.12 },
+  { url: "/models/rocks.glb", scale: 2.0, count: 26, seed: 101, clearance: 3.5, cast: true, tilt: 0.22, winterSwap: true },
+  { url: "/models/stones.glb", scale: 2.6, count: 20, seed: 113, clearance: 2.2, cast: false, tilt: 0.12, winterSwap: true },
   { url: "/models/mushrooms.glb", scale: 1.4, count: 16, seed: 127, clearance: 3, cast: false, tilt: 0.14, winterSwap: true },
   { url: "/models/plant.glb", scale: 1.5, count: 26, seed: 131, clearance: 2.3, cast: false, tilt: 0.14 },
   { url: "/models/flowers.glb", scale: 1.1, count: 40, seed: 163, clearance: 2.3, cast: false, tilt: 0.12, winterSwap: true },
@@ -554,21 +554,26 @@ const PROP_MODELS: ModelCfg[] = [
 // Holiday-Kit props for the winter region (counts are absolute — not ×PATH_SCALE — since
 // they only populate the winter band).
 const HOLIDAY_MODELS: ModelCfg[] = [
+  // snow trees (replace the Platformer trees in winter)
   { url: "/models/holiday/tree-snow-a.glb", scale: 5.0, count: 9, seed: 701, clearance: 7.5, cast: true, tilt: 0.04, holiday: true },
   { url: "/models/holiday/tree-snow-b.glb", scale: 5.0, count: 8, seed: 713, clearance: 7.5, cast: true, tilt: 0.04, holiday: true },
   { url: "/models/holiday/tree-snow-c.glb", scale: 4.6, count: 6, seed: 727, clearance: 7, cast: true, tilt: 0.05, holiday: true },
   { url: "/models/holiday/tree-decorated-snow.glb", scale: 5.0, count: 4, seed: 733, clearance: 8, cast: true, tilt: 0, holiday: true },
-  { url: "/models/holiday/present-a-cube.glb", scale: 1.9, count: 8, seed: 741, clearance: 2.2, cast: true, tilt: 0.04, holiday: true },
-  { url: "/models/holiday/present-a-round.glb", scale: 1.9, count: 6, seed: 747, clearance: 2.2, cast: true, tilt: 0.04, holiday: true },
-  { url: "/models/holiday/present-b-rectangle.glb", scale: 1.9, count: 6, seed: 753, clearance: 2.2, cast: true, tilt: 0.04, holiday: true },
+  // festive accents
   { url: "/models/holiday/candy-cane-red.glb", scale: 2.4, count: 6, seed: 761, clearance: 2, cast: false, tilt: 0.04, holiday: true },
   { url: "/models/holiday/candy-cane-green.glb", scale: 2.4, count: 5, seed: 767, clearance: 2, cast: false, tilt: 0.04, holiday: true },
   { url: "/models/holiday/lantern.glb", scale: 2.6, count: 6, seed: 771, clearance: 2.4, cast: true, tilt: 0, holiday: true },
-  { url: "/models/holiday/lights-colored.glb", scale: 3.0, count: 4, seed: 777, clearance: 3, cast: false, tilt: 0, holiday: true },
-  { url: "/models/holiday/snowman.glb", scale: 3.0, count: 4, seed: 781, clearance: 3, cast: true, tilt: 0, holiday: true },
-  { url: "/models/holiday/snow-pile.glb", scale: 3.2, count: 12, seed: 787, clearance: 2.4, cast: false, tilt: 0.1, holiday: true },
+  { url: "/models/holiday/bench.glb", scale: 2.4, count: 5, seed: 777, clearance: 3, cast: true, tilt: 0, holiday: true },
+  { url: "/models/holiday/snowman.glb", scale: 3.0, count: 12, seed: 781, clearance: 3, cast: true, tilt: 0, holiday: true },
   { url: "/models/holiday/sled.glb", scale: 2.6, count: 3, seed: 791, clearance: 3, cast: true, tilt: 0.05, holiday: true },
-  { url: "/models/holiday/reindeer.glb", scale: 3.6, count: 3, seed: 797, clearance: 3.5, cast: true, tilt: 0, holiday: true },
+  { url: "/models/holiday/reindeer.glb", scale: 2.4, count: 3, seed: 797, clearance: 3, cast: true, tilt: 0, holiday: true },
+  // snowy ground cover (replaces the white grass) + snow rocks (replace the rocks)
+  { url: "/models/holiday/snow-flat.glb", scale: 3.2, count: 28, seed: 803, clearance: 1.6, cast: false, tilt: 0, holiday: true },
+  { url: "/models/holiday/snow-flat-large.glb", scale: 3.6, count: 8, seed: 809, clearance: 3, cast: false, tilt: 0, holiday: true },
+  { url: "/models/holiday/snow-pile.glb", scale: 3.0, count: 12, seed: 787, clearance: 2.4, cast: false, tilt: 0.08, holiday: true },
+  { url: "/models/holiday/rocks-small.glb", scale: 2.0, count: 16, seed: 811, clearance: 2, cast: true, tilt: 0.14, holiday: true },
+  { url: "/models/holiday/rocks-medium.glb", scale: 2.4, count: 10, seed: 817, clearance: 2.6, cast: true, tilt: 0.1, holiday: true },
+  { url: "/models/holiday/rocks-large.glb", scale: 2.8, count: 6, seed: 823, clearance: 3.5, cast: true, tilt: 0.08, holiday: true },
 ];
 const PROP_URLS = [...TREE_MODELS, ...PROP_MODELS, ...HOLIDAY_MODELS].map((m) => m.url);
 const ENV_URLS = [
@@ -634,8 +639,8 @@ function StreamedFoliage({ progress }: { progress: React.MutableRefObject<number
     mat.customProgramCacheKey = () => "flowers-tall-wind";
     return { geometry: b.geometry, material: mat };
   }, [flowers.scene, flowerWind]);
-  const grassB = useMemo(() => bucketScatter({ count: 9000, seed: 321, clearance: 2.0, freq: 0.05 }), []);
-  // tall flowers don't belong under snow — exclude them from the winter region
+  // grass + tall flowers don't belong under snow — excluded from winter (snow-flat patches replace them)
+  const grassB = useMemo(() => bucketScatter({ count: 9000, seed: 321, clearance: 2.0, freq: 0.05 }, (z) => !inWinter(z)), []);
   const flowerB = useMemo(() => bucketScatter({ count: 120, seed: 149, clearance: 2.4, freq: 0.09 }, (z) => !inWinter(z)), []);
 
   const [active, setActive] = useState<number[]>([]);
