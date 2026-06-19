@@ -126,7 +126,7 @@ export function GameCard({ view, onCommit }: { view: GameView; onCommit: (f: Fla
         onPointerMove={onMove}
         onPointerUp={onUp}
         onPointerCancel={onUp}
-        className="glass-card pointer-events-auto relative flex aspect-[3/4] w-full max-w-sm touch-none select-none flex-col p-6"
+        className="glass-card pointer-events-auto relative flex aspect-[3/4] w-full max-w-sm touch-none select-none flex-col p-6 backdrop-blur-xl backdrop-saturate-150"
         style={{ transform, transition, cursor: playable ? "grab" : "default" }}
       >
         {view.phase === "reveal" ? <RevealFace view={view} /> : <PlayFace view={view} greenHint={greenHint} redHint={redHint} />}
