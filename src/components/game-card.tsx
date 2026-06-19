@@ -6,35 +6,39 @@ import type { GameView } from "@/components/path-scene";
 import type { Flag as FlagType } from "@/lib/types";
 
 const COMMIT = 0.32;
+// light accents that read on the dark frosted glass
+const LGREEN = "#62e08f";
+const LRED = "#ff9085";
+const LBLUE = "#b3c8ff";
 
 function PlayFace({ view, greenHint, redHint }: { view: GameView; greenHint: number; redHint: number }) {
   const c = view.card;
   return (
     <>
-      <span className="flex w-fit items-center gap-1.5 rounded-full bg-primary/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary">
+      <span className="flex w-fit items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white/95">
         {c.context_tag}
       </span>
-      <p className="flex flex-1 items-center text-balance text-center font-display text-[1.65rem] font-semibold leading-snug text-foreground">
+      <p className="flex flex-1 items-center text-balance text-center font-display text-[1.65rem] font-semibold leading-snug text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.35)]">
         {c.scenario_text}
       </p>
       <div className="flex items-center justify-between text-xs font-semibold">
-        <span className="flex items-center gap-1" style={{ color: "var(--flag-red)" }}>
+        <span className="flex items-center gap-1" style={{ color: LRED }}>
           <Flag className="size-3.5" aria-hidden /> {view.labels.left}
         </span>
-        <span className="flex items-center gap-1" style={{ color: "var(--flag-green)" }}>
+        <span className="flex items-center gap-1" style={{ color: LGREEN }}>
           {view.labels.right} <Check className="size-3.5" aria-hidden />
         </span>
       </div>
       {/* swipe stamps */}
       <span
         className="pointer-events-none absolute right-5 top-14 flex items-center gap-1 rounded-lg border-2 px-2 py-0.5 text-sm font-extrabold uppercase"
-        style={{ opacity: greenHint, color: "var(--flag-green)", borderColor: "var(--flag-green)", transform: "rotate(12deg)" }}
+        style={{ opacity: greenHint, color: LGREEN, borderColor: LGREEN, transform: "rotate(12deg)" }}
       >
         <Check className="size-4" aria-hidden /> {view.labels.right}
       </span>
       <span
         className="pointer-events-none absolute left-5 top-14 flex items-center gap-1 rounded-lg border-2 px-2 py-0.5 text-sm font-extrabold uppercase"
-        style={{ opacity: redHint, color: "var(--flag-red)", borderColor: "var(--flag-red)", transform: "rotate(-12deg)" }}
+        style={{ opacity: redHint, color: LRED, borderColor: LRED, transform: "rotate(-12deg)" }}
       >
         <Flag className="size-4" aria-hidden /> {view.labels.left}
       </span>
@@ -47,16 +51,16 @@ function RevealFace({ view }: { view: GameView }) {
   if (c.is_safeguarding) {
     return (
       <div className="flex h-full flex-col gap-3">
-        <span className="flex items-center gap-1.5 text-sm font-extrabold uppercase tracking-wide text-primary">
+        <span className="flex items-center gap-1.5 text-sm font-extrabold uppercase tracking-wide" style={{ color: LBLUE }}>
           <LifeBuoy className="size-5" aria-hidden /> You matter
         </span>
-        <p className="font-display text-2xl font-bold leading-tight text-foreground">This one&apos;s serious — and it&apos;s not your fault.</p>
-        <p className="flex-1 text-sm leading-relaxed text-foreground/75">{c.feedback_short}</p>
-        <p className="text-xs text-foreground/70">Talk to an adult you trust · tap Get Help anytime.</p>
+        <p className="font-display text-2xl font-bold leading-tight text-white">This one&apos;s serious — and it&apos;s not your fault.</p>
+        <p className="flex-1 text-sm leading-relaxed text-white/80">{c.feedback_short}</p>
+        <p className="text-xs text-white/70">Talk to an adult you trust · tap Get Help anytime.</p>
       </div>
     );
   }
-  const color = view.correct ? "var(--flag-green)" : "var(--flag-red)";
+  const color = view.correct ? LGREEN : LRED;
   return (
     <div className="relative flex h-full flex-col gap-2.5 animate-in fade-in zoom-in-95 duration-300">
       <span className="absolute inset-x-0 -top-1 h-1.5 rounded-full" style={{ background: color }} aria-hidden />
@@ -66,7 +70,7 @@ function RevealFace({ view }: { view: GameView }) {
           {view.correct ? "Spot on" : "Look again"}
         </span>
         {view.correct && view.points > 0 && (
-          <span className="flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold text-white" style={{ background: color }}>
+          <span className="flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold text-black/80" style={{ background: color }}>
             <Sparkles className="size-3" aria-hidden /> +{view.points}
           </span>
         )}
@@ -74,9 +78,9 @@ function RevealFace({ view }: { view: GameView }) {
       <p className="font-display text-[1.8rem] font-bold leading-tight" style={{ color }}>
         {c.sign}
       </p>
-      <p className="flex-1 text-sm leading-relaxed text-foreground/80">{c.feedback_short}</p>
+      <p className="flex-1 text-sm leading-relaxed text-white/85">{c.feedback_short}</p>
       {c.is_disguised && (
-        <span className="w-fit rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-bold uppercase text-primary">Disguised — nice catch</span>
+        <span className="w-fit rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-bold uppercase text-white/90">Disguised — nice catch</span>
       )}
     </div>
   );
