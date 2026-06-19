@@ -38,26 +38,25 @@ const TOON_GRAD = (() => {
   return t;
 })();
 
+// ~3× the spacing between nodes: scale the path's control points (same winding shape,
+// just longer) and stretch the world to match (see PATH_* extents + scenery below).
+const PATH_SCALE = 3;
 const CURVE = new THREE.CatmullRomCurve3(
-  [
-    new THREE.Vector3(0, 0, 22),
-    new THREE.Vector3(3.2, 0, 12),
-    new THREE.Vector3(-3.2, 0, 0),
-    new THREE.Vector3(3.2, 0, -14),
-    new THREE.Vector3(-3, 0, -28),
-    new THREE.Vector3(3, 0, -44),
-    new THREE.Vector3(-3, 0, -60),
-    new THREE.Vector3(3, 0, -78),
-    new THREE.Vector3(-2.6, 0, -98),
-    new THREE.Vector3(2.6, 0, -120),
-    new THREE.Vector3(-2, 0, -150),
-    new THREE.Vector3(1.5, 0, -180),
-    new THREE.Vector3(0, 0, -202),
-  ],
+  (
+    [
+      [0, 22], [3.2, 12], [-3.2, 0], [3.2, -14], [-3, -28], [3, -44], [-3, -60],
+      [3, -78], [-2.6, -98], [2.6, -120], [-2, -150], [1.5, -180], [0, -202],
+    ] as [number, number][]
+  ).map(([x, z]) => new THREE.Vector3(x * PATH_SCALE, 0, z * PATH_SCALE)),
   false,
   "catmullrom",
   0.5
 );
+// World extent derived from the (scaled) path, so scenery stretches to cover its full length.
+const PATH_START_Z = 22 * PATH_SCALE;
+const PATH_END_Z = -202 * PATH_SCALE;
+const PATH_MID_Z = (PATH_START_Z + PATH_END_Z) / 2;
+const PATH_SPAN_Z = PATH_START_Z - PATH_END_Z;
 
 export type NodeState = "completed" | "playable" | "soon";
 export type SceneNode = {
@@ -82,7 +81,7 @@ const DEFAULT_NODES: SceneNode[] = [
   { id: "n5", label: "Coming soon", state: "soon", emoji: "⭐", hex: "#EAB308" },
 ];
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
-const PATH_PTS = Array.from({ length: 90 }, (_, i) => CURVE.getPointAt(i / 89));
+const PATH_PTS = Array.from({ length: 90 * PATH_SCALE }, (_, i) => CURVE.getPointAt(i / (90 * PATH_SCALE - 1)));
 
 function mulberry32(seed: number) {
   return () => {
@@ -136,8 +135,8 @@ function organicScatter(count: number, seed: number, clearance: number, freq: nu
   let tries = 0;
   while (out.length < count && tries < count * 80) {
     tries++;
-    const x = (rng() * 2 - 1) * 50;
-    const z = 26 - rng() * 236;
+    const x = (rng() * 2 - 1) * 52;
+    const z = PATH_START_Z + 18 - rng() * (PATH_SPAN_Z + 44);
     if (distToPathSq(x, z) < clearance * clearance) continue;
     const dens = densityNoise(x * freq, z * freq);
     if (rng() > dens * dens * 1.8) continue; // accept ∝ density² -> clumps + clearings
@@ -230,8 +229,8 @@ function SkyDome() {
     []
   );
   return (
-    <mesh material={mat} position={[0, 0, -90]}>
-      <sphereGeometry args={[520, 32, 16]} />
+    <mesh material={mat} position={[0, 0, PATH_MID_Z]}>
+      <sphereGeometry args={[560, 32, 16]} />
     </mesh>
   );
 }
@@ -241,11 +240,10 @@ function Clouds() {
   const matrices = useMemo(() => {
     const rng = mulberry32(77);
     const arr: THREE.Matrix4[] = [];
-    for (let c = 0; c < 14; c++) {
-      const ang = rng() * Math.PI * 2;
-      const rad = 95 + rng() * 150;
-      const cx = Math.cos(ang) * rad;
-      const cz = -90 + Math.sin(ang) * rad;
+    // scattered across the full length of the (now longer) path, both sides
+    for (let c = 0; c < 14 * PATH_SCALE; c++) {
+      const cx = (rng() - 0.5) * 320;
+      const cz = PATH_START_Z - rng() * PATH_SPAN_Z;
       const cy = 44 + rng() * 36;
       const puffs = 3 + Math.floor(rng() * 3);
       const base = 7 + rng() * 6;
@@ -271,7 +269,7 @@ function Clouds() {
 // reads as a living field rather than a flat sheet or a visible tile grid.
 function Ground() {
   const geo = useMemo(() => {
-    const g = new THREE.PlaneGeometry(700, 700, 180, 180);
+    const g = new THREE.PlaneGeometry(700, PATH_SPAN_Z + 360, 180, Math.round((PATH_SPAN_Z + 360) / 3.9));
     const pos = g.attributes.position;
     const colors: number[] = [];
     const BASE = new THREE.Color("#3da679");
@@ -296,7 +294,7 @@ function Ground() {
     return g;
   }, []);
   return (
-    <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+    <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, PATH_MID_Z]} receiveShadow>
       <meshStandardMaterial vertexColors />
     </mesh>
   );
@@ -326,19 +324,21 @@ function Mountains() {
         }
       }
     };
-    const ring = (count: number, radMin: number, radMax: number, Rmin: number, Rmax: number, Hmin: number, Hmax: number) => {
-      for (let i = 0; i < count; i++) {
-        const ang = (i / count) * Math.PI * 2 + (rng() - 0.5) * 0.55;
-        const rad = radMin + rng() * (radMax - radMin);
-        const cx = Math.cos(ang) * rad;
-        const cz = -90 + Math.sin(ang) * rad;
+    // A band of massifs flanking the path along its whole length (both sides, two depth
+    // layers) so the horizon stays full now that the path is much longer.
+    const flank = (sign: number, latMin: number, latMax: number, Rmin: number, Rmax: number, Hmin: number, Hmax: number, stepZ: number) => {
+      for (let z = PATH_START_Z + 40; z >= PATH_END_Z - 40; z -= stepZ) {
+        const cx = sign * (latMin + rng() * (latMax - latMin));
+        const cz = z + (rng() - 0.5) * stepZ * 0.7;
         const R = Rmin + rng() * (Rmax - Rmin);
         if (distToPathSq(cx, cz) < (R + 12) * (R + 12)) continue; // keep clear of the path
         massif(cx, cz, R, Hmin + rng() * (Hmax - Hmin));
       }
     };
-    ring(8, 68, 104, 16, 26, 6, 14); // near, wide gentle green hills
-    ring(10, 128, 182, 22, 36, 10, 22); // far, broad hazier range
+    for (const s of [-1, 1]) {
+      flank(s, 60, 100, 16, 26, 6, 14, 62); // near, wide gentle green hills
+      flank(s, 124, 182, 22, 36, 10, 22, 78); // far, broad hazier range
+    }
     return arr;
   }, []);
   return <InstancedModel url="/models/block-grass-large-tall.glb" matrices={matrices} />;
@@ -405,7 +405,7 @@ function GrassTufts() {
     return { geometry: b.geometry, material: mat };
   }, [scene, onBeforeCompile]);
   const matrices = useMemo(() => {
-    const places = organicScatter(5200, 321, 2.0, 0.05);
+    const places = organicScatter(5200 * PATH_SCALE, 321, 2.0, 0.05);
     return places.map((p) => {
       const s = 0.9 + p.s * 0.6; // low carpet, not big tufts
       const hy = s * (0.85 + p.s * 0.4);
@@ -434,7 +434,7 @@ function WindFlowers() {
     return { geometry: b.geometry, material: mat };
   }, [scene, onBeforeCompile]);
   const matrices = useMemo(() => {
-    const places = organicScatter(44, 149, 2.4, 0.09); // more of them, well spread
+    const places = organicScatter(44 * PATH_SCALE, 149, 2.4, 0.09); // more of them, well spread
     return places.map((p) => {
       const s = 1.5 * (0.8 + p.s * 0.5);
       return trsTilt(p.x, 0, p.z, p.tx * 0.12, p.r, p.tz * 0.12, s, s, s);
@@ -481,7 +481,7 @@ const ENV_URLS = [
 // same organic scatter + lean as before — same look, ~10 draw calls instead of ~110.
 function InstancedProp({ url, scale, count, seed, clearance, cast, tilt }: ModelCfg) {
   const matrices = useMemo(() => {
-    const places = organicScatter(count, seed, clearance, 0.07);
+    const places = organicScatter(Math.round(count * PATH_SCALE), seed, clearance, 0.07);
     return places.map((p) => {
       const s = scale * (0.85 + p.s * 0.3);
       return trsTilt(p.x, 0, p.z, p.tx * tilt, p.r, p.tz * tilt, s, s, s);
