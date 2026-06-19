@@ -961,11 +961,12 @@ export function PathScene({
         {/* phase 2: foliage, streamed to a window of chunks around the camera */}
         {phase >= 2 && <StreamedFoliage progress={progress} />}
       </Suspense>
-      {/* phase 1: checkpoints + region signs (hidden while a level is being played) */}
+      {/* phase 1: checkpoints + region signs (hidden while a level is being played).
+          Nodes first so the chapter banners (rendered after) stack ABOVE the node labels. */}
       {phase >= 1 && !playing && (
         <>
-          <ChapterBanners chapters={chapters} nodes={nodes} progress={progress} />
           <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />
+          <ChapterBanners chapters={chapters} nodes={nodes} progress={progress} />
         </>
       )}
       <EffectComposer multisampling={0}>
