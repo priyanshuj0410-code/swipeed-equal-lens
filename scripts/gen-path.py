@@ -27,7 +27,7 @@ GAME = {
     "g21": "body-confident", "g39": "bounce", "g22": "plan-it", "g23": "outbreak", "g26": "equalize", "g28": "reality-check",
     "g17": "flip-script", "g18": "norm-storm", "g19": "speak-up", "g24": "glrl", "g25": "mythbuster-lab",
     "g29": "my-choices", "g30": "status-know-it", "g31": "mutual", "g32": "spectrum", "g36": "decoded",
-    "g27": "stand-up", "g33": "lead-the-way", "g34": "change-makers", "g35": "justice-league",
+    "g27": "stand-up", "g40": "firewall", "g33": "lead-the-way", "g34": "change-makers", "g35": "justice-league",
 }
 
 def href_for(game):
@@ -40,7 +40,7 @@ EMOJI = {
     "g38": "🧠", "g39": "🪀",
     "g06": "🧪", "g07": "🪞", "g08": "🦺", "g09": "🤝", "g10": "⚖️", "g11": "🙅", "g12": "📱", "c2": "🏆",
     "g13": "🌱", "g14": "🧬", "g15": "🤖", "g16": "🔀", "g17": "🎬", "g18": "🌪️", "g19": "📣", "g20": "🦠", "c3": "🏆",
-    "g21": "💪", "g22": "🗓️", "g23": "🧫", "g24": "🚦", "g25": "💡", "g26": "🟰", "g27": "✊", "g28": "🔍", "c4": "🏆",
+    "g21": "💪", "g22": "🗓️", "g23": "🧫", "g24": "🚦", "g25": "💡", "g26": "🟰", "g27": "✊", "g40": "🧱", "g28": "🔍", "c4": "🏆",
     "g29": "🧭", "g30": "🩺", "g31": "💚", "g32": "🌈", "g33": "💼", "g34": "🌍", "g35": "🏛️", "g36": "🔓", "c5": "🏆",
 }
 
