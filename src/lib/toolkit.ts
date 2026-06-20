@@ -38,6 +38,16 @@ export const THREAD_C_LEVEL: Record<string, number> = {
   "life-ready": 5, // Life Ready (15–18)
 };
 
+// Which tools a finished game unlocks, and to what level. Thread-C games raise their tools to the
+// chapter level. Phase 2 ships the safeguarding-first tools (Cool-Down + Help Map); Phase 3 extends this
+// to Decision Steps + Talk-It-Out. Returns [] for non-Thread-C games (they only *reference* tools).
+const PHASE_TOOLS: ToolId[] = ["cool-down", "help-map"];
+export function toolsUnlockedBy(gameId: string): { id: ToolId; level: number }[] {
+  const level = THREAD_C_LEVEL[gameId];
+  if (!level) return [];
+  return PHASE_TOOLS.map((id) => ({ id, level }));
+}
+
 /** The level a child has in a tool (0 = locked). */
 export function toolLevel(profile: Profile, id: ToolId): number {
   return profile.toolkit?.[id]?.level ?? 0;

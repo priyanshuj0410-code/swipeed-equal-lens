@@ -12,6 +12,24 @@ export const HELP = {
       cta: "Call 1098",
     },
     {
+      name: "Tele-MANAS — 14416",
+      detail: "Free, 24/7 mental-health support (feelings, stress, low days).",
+      href: "tel:14416",
+      cta: "Call 14416",
+    },
+    {
+      name: "KIRAN — 1800-599-0019",
+      detail: "Free, 24/7 mental-health helpline.",
+      href: "tel:18005990019",
+      cta: "Call KIRAN",
+    },
+    {
+      name: "Cybercrime helpline — 1930",
+      detail: "Report grooming, sextortion or image abuse. You won't be in trouble.",
+      href: "tel:1930",
+      cta: "Call 1930",
+    },
+    {
       name: "POCSO e-Box (NCPCR)",
       detail: "Report abuse online, safely and privately.",
       href: "https://ncpcr.gov.in/",
