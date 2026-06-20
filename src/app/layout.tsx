@@ -15,12 +15,12 @@ const fredoka = Fredoka({
 });
 
 export const metadata: Metadata = {
-  applicationName: "Green Light / Red Light",
-  title: "Green Light / Red Light",
+  applicationName: "SwipeEd",
+  title: { default: "SwipeEd", template: "%s · SwipeEd" },
   description:
-    "Swipe right on the green flags, left on the red ones — and learn to read a relationship before you're in one. A swipe game for spotting healthy & unhealthy relationships.",
+    "SwipeEd is a learning path of warm, no-fail games for ages 3–18 — feelings, bodies, relationships, gender, rights and digital life — built on Unlearn → Relearn → Grow.",
   manifest: "/manifest.webmanifest",
-  appleWebApp: { capable: true, statusBarStyle: "default", title: "Green Light / Red Light" },
+  appleWebApp: { capable: true, statusBarStyle: "default", title: "SwipeEd" },
   icons: {
     icon: [
       { url: "/swipeed-logo.svg", type: "image/svg+xml" },
