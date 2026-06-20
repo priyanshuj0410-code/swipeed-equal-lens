@@ -9,7 +9,15 @@ import {
 } from "react";
 import type { Profile, SignId, ToolId } from "@/lib/types";
 import { TOOL_IDS, MAX_LEVEL } from "@/lib/toolkit";
-import { setMuted as setJuiceMuted } from "@/lib/juice";
+import { setMuted as setJuiceMuted, setCalm as setJuiceCalm } from "@/lib/juice";
+
+// Local YYYY-MM-DD (device clock) — the day key for the kind streak + mood-check cadence.
+function dayKey(offset = 0): string {
+  const d = new Date();
+  d.setDate(d.getDate() + offset);
+  const p = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
 
 const STORAGE_KEY = "glrl.profile.v1";
 
@@ -47,6 +55,10 @@ type ProfileContextValue = {
   unlockTool: (id: ToolId, level: number) => void; // raise one tool to at least `level`
   levelTools: (level: number) => void; // raise every tool to at least `level` (Thread-C completion)
   useTool: (id: ToolId) => void; // record the tool was used (lastUsedAt)
+  // --- Wellbeing shell ---
+  setCalmMode: (v: boolean) => void;
+  recordMoodCheck: () => void; // mark the gentle check-in shown today (no mood value stored)
+  recordVisit: () => void; // tick the kind daily streak (idempotent per day; uses a freeze if a day is missed)
   reset: () => void;
 };
 
@@ -81,6 +93,13 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setJuiceMuted(profile.muted ?? false);
   }, [profile.muted]);
+
+  // Calm Mode — dial down motion app-wide (juice/confetti) and tag the root for any CSS hooks.
+  useEffect(() => {
+    const on = profile.calmMode ?? false;
+    setJuiceCalm(on);
+    document.documentElement.classList.toggle("calm", on);
+  }, [profile.calmMode]);
 
   // Apply text scaling to the document root (rem-based, so the whole UI scales).
   useEffect(() => {
@@ -180,6 +199,28 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     []
   );
 
+  // --- Wellbeing shell ---
+  const setCalmMode = useCallback((v: boolean) => setProfile((prev) => ({ ...prev, calmMode: v })), []);
+  const recordMoodCheck = useCallback(
+    () => setProfile((prev) => ({ ...prev, mood: { ...prev.mood, lastCheckDayKey: dayKey() } })),
+    []
+  );
+  // Tick the kind streak once per day. A missed day spends a freeze (if any) to protect the streak;
+  // otherwise it resets gently to 1 — never any shame. New visitors start at day 1 with two freezes.
+  const recordVisit = useCallback(
+    () =>
+      setProfile((prev) => {
+        const today = dayKey();
+        const ds = prev.dailyStreak;
+        if (!ds) return { ...prev, dailyStreak: { count: 1, lastDayKey: today, freezes: 2 } };
+        if (ds.lastDayKey === today) return prev; // already counted today
+        if (ds.lastDayKey === dayKey(-1)) return { ...prev, dailyStreak: { ...ds, count: ds.count + 1, lastDayKey: today } };
+        if (ds.freezes > 0) return { ...prev, dailyStreak: { ...ds, lastDayKey: today, freezes: ds.freezes - 1 } }; // streak protected
+        return { ...prev, dailyStreak: { ...ds, count: 1, lastDayKey: today } }; // gentle reset
+      }),
+    []
+  );
+
   const reset = useCallback(() => setProfile(DEFAULT_PROFILE), []);
 
   return (
@@ -198,6 +239,9 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
         unlockTool,
         levelTools,
         useTool,
+        setCalmMode,
+        recordMoodCheck,
+        recordVisit,
         reset,
       }}
     >

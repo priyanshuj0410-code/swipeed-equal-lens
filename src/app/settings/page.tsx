@@ -14,7 +14,7 @@ const SCALES = [
 ];
 
 export default function SettingsPage() {
-  const { profile, setSchoolComfort, setTextScale, setMuted, reset } = useProfile();
+  const { profile, setSchoolComfort, setTextScale, setMuted, setCalmMode, reset } = useProfile();
 
   return (
     <div className="mx-auto flex w-full max-w-sm flex-1 flex-col gap-4 px-5 py-6 pb-24">
@@ -49,6 +49,20 @@ export default function SettingsPage() {
           checked={!profile.muted}
           onCheckedChange={(on) => setMuted(!on)}
           aria-label="Sound effects"
+        />
+      </Card>
+
+      <Card className="flex items-center justify-between gap-4 p-4">
+        <div>
+          <p className="text-sm font-medium">Calm Mode</p>
+          <p className="text-xs text-muted-foreground">
+            A quieter, reduced-stimulation feel — gentler motion and no confetti across the whole app.
+          </p>
+        </div>
+        <Switch
+          checked={profile.calmMode ?? false}
+          onCheckedChange={setCalmMode}
+          aria-label="Calm Mode"
         />
       </Card>
 
