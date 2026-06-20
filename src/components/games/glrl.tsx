@@ -6,6 +6,7 @@ import { GameShell } from "@/components/game-shell";
 import { GameCard } from "@/components/game-card";
 import { GameDone } from "@/components/games/game-done";
 import { Sam } from "@/components/games/sam";
+import { ToolMoment } from "@/components/toolkit/tool-moment";
 import { GlrlRunHost } from "@/components/glrl/run-host";
 import { FlagpediaView } from "@/components/flagpedia-view";
 import { useSwipeGame } from "@/lib/use-swipe-game";
@@ -162,6 +163,7 @@ export function GlrlGame({ onExit }: { onExit: () => void }) {
       <div className="flex w-full max-w-sm flex-col items-stretch gap-4">
         {SamSays}
         {Progress}
+        {screen === "home" && <ToolMoment tool="cool-down" line="Reading relationships gets intense — your Cool-Down is right here." />}
 
         {screen === "home" && (
           <div className="grid grid-cols-2 gap-2.5">

@@ -6,6 +6,7 @@ import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { Sam } from "@/components/games/sam";
 import { UnReBeat } from "@/components/games/un-re";
+import { ToolMoment } from "@/components/toolkit/tool-moment";
 import { useProfile } from "@/lib/store";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
@@ -164,6 +165,7 @@ export function PlanItGame({ onExit }: { onExit: () => void }) {
       <div className="flex w-full max-w-sm flex-col items-stretch gap-4">
         {SamSays}
         {BadgeBook}
+        {mode === "planIt" && <ToolMoment tool="decision-steps" line="Big plan? Walk it through with your Decision Steps." />}
 
         {mode === "home" && (
           <div className="grid grid-cols-2 gap-2.5">
