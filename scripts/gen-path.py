@@ -27,7 +27,7 @@ GAME = {
     "g21": "body-confident", "g39": "bounce", "g22": "plan-it", "g23": "outbreak", "g26": "equalize", "g28": "reality-check",
     "g17": "flip-script", "g18": "norm-storm", "g19": "speak-up", "g24": "glrl", "g25": "mythbuster-lab",
     "g29": "my-choices", "g30": "status-know-it", "g31": "mutual", "g32": "spectrum", "g42": "life-ready", "g36": "decoded",
-    "g27": "stand-up", "g40": "firewall", "g33": "lead-the-way", "g34": "change-makers", "g35": "justice-league",
+    "g27": "stand-up", "g40": "firewall", "g43": "rabbit-hole", "g33": "lead-the-way", "g34": "change-makers", "g35": "justice-league",
 }
 
 def href_for(game):
@@ -41,7 +41,7 @@ EMOJI = {
     "g06": "🧪", "g07": "🪞", "g08": "🦺", "g09": "🤝", "g41": "💗", "g10": "⚖️", "g11": "🙅", "g12": "📱", "c2": "🏆",
     "g42": "🌅",
     "g13": "🌱", "g14": "🧬", "g15": "🤖", "g16": "🔀", "g17": "🎬", "g18": "🌪️", "g19": "📣", "g20": "🦠", "c3": "🏆",
-    "g21": "💪", "g22": "🗓️", "g23": "🧫", "g24": "🚦", "g25": "💡", "g26": "🟰", "g27": "✊", "g40": "🧱", "g28": "🔍", "c4": "🏆",
+    "g21": "💪", "g22": "🗓️", "g23": "🧫", "g24": "🚦", "g25": "💡", "g26": "🟰", "g27": "✊", "g40": "🧱", "g43": "🕳️", "g28": "🔍", "c4": "🏆",
     "g29": "🧭", "g30": "🩺", "g31": "💚", "g32": "🌈", "g33": "💼", "g34": "🌍", "g35": "🏛️", "g36": "🔓", "c5": "🏆",
 }
 
@@ -130,7 +130,7 @@ lines.append("// Edit the spreadsheet and rerun the generator. Phase 0: order + 
 lines.append("// regions; built games are playable, the rest render disabled ('not built'). No gates yet.")
 lines.append("")
 lines.append('export type NodeType = "lesson" | "capstone";')
-lines.append('export type ThreadKey = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "★";')
+lines.append('export type ThreadKey = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "E/G" | "★";')
 lines.append("")
 lines.append("export type GameNode = {")
 lines.append("  order: number;")
@@ -175,7 +175,7 @@ lines.append("    emoji: n.emoji,")
 lines.append("    kind: n.threadName,")
 lines.append('    status: (n.game ? "active" : "locked") as PathStatus,')
 lines.append("    href: n.href,")
-lines.append('    tag: n.thread === "E" ? ("gender" as const) : undefined,')
+lines.append('    tag: (n.thread === "E" || n.thread === "E/G") ? ("gender" as const) : undefined,')
 lines.append("  })),")
 lines.append("}));")
 lines.append("")
