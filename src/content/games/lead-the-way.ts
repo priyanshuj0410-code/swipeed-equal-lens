@@ -1,91 +1,78 @@
-// "Lead the Way" — ages 15–18, UNESCO topic 3.2 (structural inequality at work).
-// Life-and-work SIM with a light data dashboard. Each decision is a structural barrier
-// (pay gap, the unpaid 'second shift', hiring bias, mobility/safety, parental leave, the
-// glass ceiling). Fair choices move three equality meters toward parity; the status-quo
-// choice reveals a "years later" cost (no-fail, then rethink). India adaptation: low female
-// labour-force participation, unpaid care, mobility & safety, the pay gap. Structural, not
-// blaming any gender.
+// Lead the Way (node #33, ages 15–18) — becoming an active ally and a quiet leader for equality. "You
+// don't need a title or a megaphone to lead. Be the ally, set the example, lift others, and change the
+// room you're in." Builds on Equalize (#26) & Stand Up (#27); allyship is everyone's job; male allyship as
+// strength; call-in over call-out. No-fail; the plan & Q&A are private.
 
-export type Metric = "pay" | "lead" | "care";
+export type Option = { text: string; ok: boolean };
+export type Fact = { emoji: string; say: string };
+export type Scene = { emoji: string; situation: string; options: Option[]; result: string };
 
-export const METRIC_LABEL: Record<Metric, string> = {
-  pay: "Equal pay",
-  lead: "Women leading",
-  care: "Care shared",
-};
+// 1 · What Allyship Really Is — listen, amplify, show up; then the UN & RE beat.
+export const ALLYSHIP: Fact[] = [
+  { emoji: "👂", say: "Allyship starts with listening — not speaking over people." },
+  { emoji: "📣", say: "Amplify others' voices, and credit their ideas." },
+  { emoji: "🙋", say: "Show up — allyship is everyone's job, including boys and men." },
+  { emoji: "💪", say: "Real allyship is action, not a hashtag." },
+];
+export const ALLY_UN = "You think allyship isn't your job — especially if you're a boy. That's not true, and it's not your fault for hearing it.";
+export const ALLY_RE = "Allyship is everyone's, and male allyship is a strength. Listen, amplify, and show up.";
 
-export const START: Record<Metric, number> = { pay: 50, lead: 30, care: 25 };
+// 2 · Lead by Example — your everyday behaviour sets the norm.
+export const EXAMPLE: Fact[] = [
+  { emoji: "🤝", say: "Share the work — and the credit — fairly." },
+  { emoji: "🚫", say: "Don't laugh at a sexist joke — your reaction sets the norm." },
+  { emoji: "✊", say: "Back people up when they're talked over." },
+  { emoji: "🌟", say: "One steady example often shifts the whole room — no speech needed." },
+];
 
-export type Decision = {
-  scene: string;
-  emoji: string;
-  metric: Metric;
-  gain: number;
-  fair: string;
-  fairNote: string;
-  statusQuo: string;
-  cost: string; // the "years later" downstream cost
-};
-
-export const DECISIONS: Decision[] = [
+// 3 · Lift as You Climb — mentoring, amplifying, sharing opportunity.
+export const LIFT_SCENES: Scene[] = [
   {
-    scene: "Anaya does the same job as Raj — but is offered less pay.",
-    emoji: "💰",
-    metric: "pay",
-    gain: 25,
-    fair: "Negotiate equal pay for equal work",
-    fairNote: "Equal pay for equal work.",
-    statusQuo: "Accept less, to seem grateful",
-    cost: "Underpaid for years, talented women leave — the gap costs everyone.",
+    emoji: "💡", situation: "In a meeting, a quieter teammate's good idea gets ignored.",
+    options: [{ text: "“Going back to her idea — I think it's great.”", ok: true }, { text: "Say nothing", ok: false }],
+    result: "You amplified her — and credited her. That's lifting as you climb.",
   },
   {
-    scene: "Both partners work full-time, but Meena does all the housework and childcare.",
-    emoji: "🧺",
-    metric: "care",
-    gain: 38,
-    fair: "Share the care work 50/50",
-    fairNote: "A shared second shift.",
-    statusQuo: "She works a 'second shift' alone",
-    cost: "Exhausted, she's forced to quit — a top reason women leave work in India.",
-  },
-  {
-    scene: "Two equal candidates; the panel assumes the woman 'will just leave to have kids'.",
-    emoji: "📋",
-    metric: "lead",
-    gain: 35,
-    fair: "Hire on merit; set fair hiring rules",
-    fairNote: "Hired on merit.",
-    statusQuo: "Pick the man, 'to be safe'",
-    cost: "Bias shrinks the talent pool — and keeps leadership male.",
-  },
-  {
-    scene: "A better-paid job is across the city; safe, affordable travel is a worry.",
-    emoji: "🚆",
-    metric: "pay",
-    gain: 25,
-    fair: "Back safe transport & flexible hours",
-    fairNote: "Safe travel opens doors.",
-    statusQuo: "She turns the job down",
-    cost: "Mobility & safety limits shrink women's options — a real barrier in India.",
-  },
-  {
-    scene: "New parents both want to keep their careers going.",
-    emoji: "🍼",
-    metric: "care",
-    gain: 37,
-    fair: "Equal parental leave for both",
-    fairNote: "Both stay in their careers.",
-    statusQuo: "Only the mother takes all the leave",
-    cost: "Her career stalls while his races ahead.",
-  },
-  {
-    scene: "Very few women reach senior roles in the company.",
-    emoji: "🏢",
-    metric: "lead",
-    gain: 35,
-    fair: "Mentor & promote women leaders",
-    fairNote: "The ceiling cracks.",
-    statusQuo: "Keep the old boys' club",
-    cost: "The glass ceiling holds; diverse leadership is lost.",
+    emoji: "🎯", situation: "There's an opportunity you could grab — or share.",
+    options: [{ text: "Share it — recommend someone who'd shine", ok: true }, { text: "Take it all for yourself", ok: false }],
+    result: "Sharing opportunity lifts others up with you — real leadership.",
   },
 ];
+export const LIFT_MISS = "Lift as you climb — pick the move that raises someone else up.";
+
+// 4 · Call In, Not Just Out — challenge sexism constructively.
+export const CALLIN_SCENES: Scene[] = [
+  {
+    emoji: "💬", situation: "A friend makes a sexist joke.",
+    options: [{ text: "Privately: “That one didn't sit right — can we not?”", ok: true }, { text: "Publicly humiliate them", ok: false }, { text: "Laugh along", ok: false }],
+    result: "Calling in — with respect, assuming good faith — changes minds better than calling out.",
+  },
+  {
+    emoji: "🔁", situation: "Someone repeats a stereotype, not realising the harm.",
+    options: [{ text: "Share a fact, kindly, assuming good faith", ok: true }, { text: "Shame them in front of everyone", ok: false }],
+    result: "Respect and persuasion actually shift people — humiliation just makes them defensive.",
+  },
+];
+export const CALLIN_MISS = "Call in, don't just call out — pick the respectful move that actually changes minds.";
+
+// 5 · Your Leadership Style + Ask Anything.
+export type AskItem = { q: string; a: string; help?: boolean };
+export const STYLE_ASK: AskItem[] = [
+  { q: "Do I need to be loud to lead?", a: "No — quiet, everyday leadership changes the most. Lead in your own authentic way." },
+  { q: "How do I even start?", a: "Pick one thing: amplify one voice, model one respectful habit, call one thing in. Small and steady wins." },
+  { q: "What's my next step?", a: "Build a simple action plan — one ally move you'll make this week. That's leading the way." },
+];
+
+export const BADGE_TARGET = 5;
+
+export const SAM = {
+  greet: "You don't need a title or a megaphone to lead. Be the ally, set the example, lift others, and change the room you're in.",
+  home: "What next, leader?",
+  allyship: "What allyship really is — tap each. (It's everyone's job.)",
+  example: "Lead by example — tap each.",
+  lift: "Lift as you climb — what's the move that raises someone up?",
+  callin: "Call in, not just out — pick the respectful move.",
+  style: "Your leadership style. Tap a question.",
+  badge: "Leader badge earned!",
+  complete: "You lead by example, lift others, and call in with respect. No title needed — you change the room. 💼",
+};
