@@ -140,6 +140,9 @@ const GAMES: Record<string, EngineGame> = {
   "bounce": dynamic(() => import("@/components/games/bounce").then((m) => m.BounceGame), {
     ssr: false,
   }),
+  "firewall": dynamic(() => import("@/components/games/firewall").then((m) => m.FirewallGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {
