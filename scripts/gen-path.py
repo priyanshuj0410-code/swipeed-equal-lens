@@ -26,7 +26,7 @@ GAME = {
     "g13": "puberty-quest", "g38": "mind-matters", "g14": "amazing-journey", "g15": "boundary-bot", "g16": "crossroads", "g20": "defenders",
     "g21": "body-confident", "g39": "bounce", "g22": "plan-it", "g23": "outbreak", "g26": "equalize", "g28": "reality-check",
     "g17": "flip-script", "g18": "norm-storm", "g19": "speak-up", "g24": "glrl", "g25": "mythbuster-lab",
-    "g29": "my-choices", "g30": "status-know-it", "g31": "mutual", "g32": "spectrum", "g36": "decoded",
+    "g29": "my-choices", "g30": "status-know-it", "g31": "mutual", "g32": "spectrum", "g42": "life-ready", "g36": "decoded",
     "g27": "stand-up", "g40": "firewall", "g33": "lead-the-way", "g34": "change-makers", "g35": "justice-league",
 }
 
