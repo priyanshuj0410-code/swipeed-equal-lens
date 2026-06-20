@@ -13,12 +13,9 @@ import { WorldLoader } from "@/components/world-loader";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { EngineGameHost, hasEngineGame } from "@/components/games/engine-host";
-import { Loadout } from "@/components/glrl/loadout";
-import { GlrlRunHost } from "@/components/glrl/run-host";
 import { NODES, CHAPTERS } from "@/content/path";
-import { DECK_BY_ID, resolveDeckCards, availableDecks } from "@/content/decks";
+import { DECK_BY_ID, resolveDeckCards } from "@/content/decks";
 import type { SceneNode } from "@/components/path-scene";
-import type { PerkId, RunDeckId } from "@/lib/types";
 
 const PathScene = dynamic(() => import("@/components/path-scene").then((m) => m.PathScene), {
   ssr: false,
@@ -30,10 +27,9 @@ export default function PathPage() {
   const { profile } = useProfile();
   const game = useSwipeGame();
   const [engineGame, setEngineGame] = useState<string | null>(null);
-  const [glrl, setGlrl] = useState<{ phase: "loadout" } | { phase: "run"; deckId: RunDeckId; perks: PerkId[] } | null>(null);
   const [webgl, setWebgl] = useState<boolean | null>(null);
 
-  const playing = game.active || engineGame !== null || glrl !== null;
+  const playing = game.active || engineGame !== null;
 
   useEffect(() => {
     try {
@@ -89,12 +85,8 @@ export default function PathPage() {
       game.start("mythbuster", resolveDeckCards("mythbuster", profile.schoolComfort), DECK_BY_ID["mythbuster"]?.swipe);
       return;
     }
-    if (gid === "glrl") {
-      // GLRL 2.0: open the run loadout (runs are primary; Quick Play lives inside it)
-      setGlrl({ phase: "loadout" });
-      return;
-    }
     if (hasEngineGame(gid)) {
+      // engine games (incl. GLRL, now a first-class engine game with its own GameShell)
       setEngineGame(gid);
       return;
     }
@@ -224,20 +216,6 @@ export default function PathPage() {
       {/* ---- in-place engine games (tap / sort / choose / sim…) over the grassland ---- */}
       {engineGame && <EngineGameHost id={engineGame} onExit={() => setEngineGame(null)} />}
 
-      {/* ---- GLRL 2.0: loadout → story run over the grassland ---- */}
-      {glrl?.phase === "loadout" && (
-        <Loadout
-          schoolComfort={profile.schoolComfort}
-          onStart={(deckId, perks) => setGlrl({ phase: "run", deckId, perks })}
-          onQuickPlay={() => {
-            const first = availableDecks(profile.schoolComfort)[0];
-            if (first) game.start(first.id, resolveDeckCards(first.id, profile.schoolComfort), DECK_BY_ID[first.id]?.swipe);
-            setGlrl(null);
-          }}
-          onExit={() => setGlrl(null)}
-        />
-      )}
-      {glrl?.phase === "run" && <GlrlRunHost deckId={glrl.deckId} perks={glrl.perks} onExit={() => setGlrl(null)} />}
     </>
   );
 }

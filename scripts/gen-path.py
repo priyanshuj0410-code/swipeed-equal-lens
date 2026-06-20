@@ -31,7 +31,6 @@ GAME = {
 }
 
 def href_for(game):
-    if game == "glrl": return "/decks"
     if game == "mythbuster": return "/play/mythbuster"
     return f"/game/{game}"
 

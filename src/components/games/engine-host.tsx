@@ -110,6 +110,9 @@ const GAMES: Record<string, EngineGame> = {
   "mythbuster-lab": dynamic(() => import("@/components/games/mythbuster-lab").then((m) => m.MythBusterGame), {
     ssr: false,
   }),
+  glrl: dynamic(() => import("@/components/games/glrl").then((m) => m.GlrlGame), {
+    ssr: false,
+  }),
   "flip-script": dynamic(() => import("@/components/games/flip-script").then((m) => m.FlipScriptGame), {
     ssr: false,
   }),
