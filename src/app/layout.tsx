@@ -1,17 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Nunito, Fredoka } from "next/font/google";
+import { Nunito_Sans, Baloo_2, Poppins } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/app-shell";
 import { ServiceWorkerRegister } from "@/components/service-worker-register";
 
-const nunito = Nunito({
+// The Equal Lens type system: Nunito Sans (body), Baloo 2 (headlines / mascots / Lensy speech),
+// Poppins (wordmark + UI labels). See docs/brand-alignment.md.
+const nunito = Nunito_Sans({
   variable: "--font-nunito",
   subsets: ["latin"],
 });
 
-const fredoka = Fredoka({
-  variable: "--font-fredoka",
+const baloo = Baloo_2({
+  variable: "--font-baloo",
   subsets: ["latin"],
+});
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -31,7 +39,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#4f6ef7",
+  themeColor: "#553286",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -46,7 +54,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${nunito.variable} ${fredoka.variable} h-full antialiased`}
+      className={`${nunito.variable} ${baloo.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <AppShell>{children}</AppShell>
