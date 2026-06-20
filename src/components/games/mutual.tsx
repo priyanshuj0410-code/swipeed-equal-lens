@@ -6,6 +6,7 @@ import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { Sam } from "@/components/games/sam";
 import { UnReBeat } from "@/components/games/un-re";
+import { ToolMoment } from "@/components/toolkit/tool-moment";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import {
@@ -162,6 +163,8 @@ export function MutualGame({ onExit }: { onExit: () => void }) {
       <div className="flex w-full max-w-sm flex-col items-stretch gap-4">
         {SamSays}
         {BadgeBook}
+        {mode === "pressure" && <ToolMoment tool="cool-down" line="Feeling the pressure? Take a Cool-Down first." />}
+        {mode === "mutual" && <ToolMoment tool="talk-it-out" line="Talk-It-Out helps you put a boundary into words." />}
 
         {mode === "home" && (
           <div className="grid grid-cols-2 gap-2.5">

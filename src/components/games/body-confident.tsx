@@ -6,6 +6,7 @@ import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { Sam } from "@/components/games/sam";
 import { UnReBeat } from "@/components/games/un-re";
+import { ToolMoment } from "@/components/toolkit/tool-moment";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import {
@@ -153,6 +154,7 @@ export function BodyConfidentGame({ onExit }: { onExit: () => void }) {
       <div className="flex w-full max-w-sm flex-col items-stretch gap-4">
         {SamSays}
         {BadgeBook}
+        {mode === "comparison" && <ToolMoment tool="cool-down" line="Comparison spiral? A Cool-Down can settle it before it takes over." />}
 
         {mode === "home" && (
           <div className="grid grid-cols-2 gap-2.5">

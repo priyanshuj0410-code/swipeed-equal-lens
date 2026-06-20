@@ -6,6 +6,7 @@ import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { Sam } from "@/components/games/sam";
 import { UnReBeat } from "@/components/games/un-re";
+import { ToolMoment } from "@/components/toolkit/tool-moment";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import {
@@ -169,6 +170,8 @@ export function StandUpGame({ onExit }: { onExit: () => void }) {
       <div className="flex w-full max-w-sm flex-col items-stretch gap-4">
         {SamSays}
         {BadgeBook}
+        {mode === "safety" && <ToolMoment tool="help-map" line="Seeing someone get hurt? Your Help Map has who to tell." />}
+        {mode === "support" && <ToolMoment tool="talk-it-out" line="Checking in on someone? Talk-It-Out helps you find the words." />}
 
         {mode === "home" && (
           <div className="grid grid-cols-2 gap-2.5">
