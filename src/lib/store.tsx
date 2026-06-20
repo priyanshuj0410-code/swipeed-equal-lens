@@ -7,7 +7,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import type { Profile, SignId } from "@/lib/types";
+import type { Profile, SignId, ToolId } from "@/lib/types";
+import { TOOL_IDS, MAX_LEVEL } from "@/lib/toolkit";
 import { setMuted as setJuiceMuted } from "@/lib/juice";
 
 const STORAGE_KEY = "glrl.profile.v1";
@@ -42,6 +43,10 @@ type ProfileContextValue = {
   recordRun: (p: { deckId: string; disgSeen: number; disgCorrect: number; isStory: boolean }) => void;
   markDailyRun: (dateKey: string) => void;
   setMuted: (v: boolean) => void;
+  // --- Life-Skills Toolkit ---
+  unlockTool: (id: ToolId, level: number) => void; // raise one tool to at least `level`
+  levelTools: (level: number) => void; // raise every tool to at least `level` (Thread-C completion)
+  useTool: (id: ToolId) => void; // record the tool was used (lastUsedAt)
   reset: () => void;
 };
 
@@ -134,6 +139,47 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     []
   );
   const setMuted = useCallback((v: boolean) => setProfile((prev) => ({ ...prev, muted: v })), []);
+
+  // --- Life-Skills Toolkit (Thread C spine) ---
+  // Raise one tool to at least `level` (clamped to MAX_LEVEL); only ever levels up, never down.
+  const unlockTool = useCallback(
+    (id: ToolId, level: number) =>
+      setProfile((prev) => {
+        const want = Math.min(Math.max(level, 1), MAX_LEVEL);
+        const cur = prev.toolkit?.[id];
+        if (cur && cur.level >= want) return prev;
+        return { ...prev, toolkit: { ...prev.toolkit, [id]: { ...cur, level: want } } };
+      }),
+    []
+  );
+  // Raise every tool to at least `level` — the toolkit grows a chapter at a time as Thread-C games finish.
+  const levelTools = useCallback(
+    (level: number) =>
+      setProfile((prev) => {
+        const want = Math.min(Math.max(level, 1), MAX_LEVEL);
+        const toolkit = { ...prev.toolkit };
+        let changed = false;
+        for (const id of TOOL_IDS) {
+          const cur = toolkit[id];
+          if (!cur || cur.level < want) {
+            toolkit[id] = { ...cur, level: want };
+            changed = true;
+          }
+        }
+        return changed ? { ...prev, toolkit } : prev;
+      }),
+    []
+  );
+  const useTool = useCallback(
+    (id: ToolId) =>
+      setProfile((prev) => {
+        const cur = prev.toolkit?.[id];
+        if (!cur) return prev; // only unlocked tools are usable
+        return { ...prev, toolkit: { ...prev.toolkit, [id]: { ...cur, lastUsedAt: new Date().toISOString() } } };
+      }),
+    []
+  );
+
   const reset = useCallback(() => setProfile(DEFAULT_PROFILE), []);
 
   return (
@@ -149,6 +195,9 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
         recordRun,
         markDailyRun,
         setMuted,
+        unlockTool,
+        levelTools,
+        useTool,
         reset,
       }}
     >

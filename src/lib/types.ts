@@ -91,6 +91,12 @@ export type Card = {
   illustration_ref?: string;
 };
 
+// --- Life-Skills Toolkit (Thread C spine) — see knowledge/games/life-skills-toolkit.md ---
+// The four persistent tools a child builds & levels across the whole 15-year journey.
+export type ToolId = "cool-down" | "decision-steps" | "talk-it-out" | "help-map";
+// Per-tool state on the profile. level 0 = locked; 1–5 = unlocked & deepened (one per chapter).
+export type ToolState = { level: number; lastUsedAt?: string };
+
 export type Profile = {
   onboarded: boolean;
   name: string;
@@ -109,6 +115,8 @@ export type Profile = {
   disgCorrect?: number; // lifetime disguised cards read correctly
   dailyRunOn?: string; // YYYY-MM-DD the Daily Run was last taken
   muted?: boolean; // global sound mute (synced to the juice layer)
+  // --- Life-Skills Toolkit (optional; default-merged). Unlocked/levelled by the Thread-C games. ---
+  toolkit?: Partial<Record<ToolId, ToolState>>;
 };
 
 export type CardOutcome = {
