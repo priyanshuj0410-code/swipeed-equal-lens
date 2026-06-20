@@ -52,8 +52,12 @@ export function GameShell({
         {tools}
       </div>
 
-      <div className="fixed inset-0 z-40 flex items-center justify-center overflow-y-auto px-4 pb-24 pt-20">
-        {children}
+      {/* Scroll container + a min-h-full centering wrapper: short content centres, tall content
+          (e.g. Flag-pedia) scrolls from the top instead of being clipped. */}
+      <div className="fixed inset-0 z-40 overflow-y-auto">
+        <div className="flex min-h-full items-center justify-center px-4 pb-24 pt-20">
+          {children}
+        </div>
       </div>
     </>
   );
