@@ -12,7 +12,7 @@ this repo is the app itself. *(The repo/deployment keep the historical `swipeed`
 
 ## What it is
 
-A single 3D **learning path** of **42 lesson nodes + 5 capstone "graduations"**, grouped into five
+A single 3D **learning path** of **43 lesson nodes + 5 capstone "graduations"**, grouped into five
 age-band chapters. Each node is a short, self-contained game hosted by **Sam**, a companion who grows up
 alongside the player. Topics span feelings & life-skills, bodies & growing up, safety & consent,
 relationships, gender & respect, sexual & reproductive health, and values / rights / media — all
