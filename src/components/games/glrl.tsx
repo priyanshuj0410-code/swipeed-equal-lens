@@ -224,7 +224,7 @@ export function GlrlGame({ onExit }: { onExit: () => void }) {
         )}
 
         {/* Flag-pedia — the collection of signs mastered */}
-        {screen === "pedia" && (<><FlagpediaView />{HomeBtn}</>)}
+        {screen === "pedia" && <FlagpediaView onBack={goHome} />}
       </div>
     </GameShell>
   );

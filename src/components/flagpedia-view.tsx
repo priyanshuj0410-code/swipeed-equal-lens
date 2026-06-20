@@ -8,16 +8,24 @@ import { GREEN_SIGNS, RED_SIGNS } from "@/content/signs";
 import type { Sign } from "@/lib/types";
 import { useProfile } from "@/lib/store";
 
-export function FlagpediaView() {
+// `onBack`, when given, keeps navigation in-app (e.g. inside the GLRL engine game); otherwise the
+// standalone /flagpedia page falls back to a link to the /decks hub.
+export function FlagpediaView({ onBack }: { onBack?: () => void }) {
   const { profile } = useProfile();
   const seenCount = Object.keys(profile.signMastery).length;
 
   return (
     <div className="flex w-full max-w-sm flex-col gap-5">
       <header className="flex items-center gap-3">
-        <Link href="/decks" aria-label="Back" className={buttonVariants({ variant: "ghost", size: "icon" })}>
-          <ArrowLeft className="size-5" aria-hidden />
-        </Link>
+        {onBack ? (
+          <button type="button" aria-label="Back" onClick={onBack} className={buttonVariants({ variant: "ghost", size: "icon" })}>
+            <ArrowLeft className="size-5" aria-hidden />
+          </button>
+        ) : (
+          <Link href="/decks" aria-label="Back" className={buttonVariants({ variant: "ghost", size: "icon" })}>
+            <ArrowLeft className="size-5" aria-hidden />
+          </Link>
+        )}
         <div>
           <h1 className="text-lg font-semibold">Flag-pedia</h1>
           <p className="text-xs text-muted-foreground">{seenCount} of 20 signs encountered</p>
