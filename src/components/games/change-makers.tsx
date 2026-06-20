@@ -1,261 +1,240 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
-import { Volume2, VolumeX, Megaphone, ScrollText, Check, ArrowRight, TrendingUp } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { Volume2, VolumeX, Home, RotateCcw, Check } from "lucide-react";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
-import { CAMPAIGNS, BUDGET, type Campaign } from "@/content/games/change-makers";
-import { speak, stopSpeaking } from "@/lib/speak";
+import { Sam } from "@/components/games/sam";
+import { UnReBeat } from "@/components/games/un-re";
+import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
+import {
+  CAUSES, CAUSE_UN, CAUSE_RE, PLAN, MOVEMENT, MOVEMENT_DONE, STICK, LAUNCH_ASK,
+  BADGE_TARGET, SAM, type Fact,
+} from "@/content/games/change-makers";
 
-const clamp = (n: number) => Math.max(0, Math.min(100, n));
+type Mode = "home" | "cause" | "plan" | "movement" | "stick" | "launch";
+const MODES: [Mode, string, string][] = [
+  ["cause", "💗", "Find Your Cause"],
+  ["plan", "📋", "The Plan"],
+  ["movement", "📣", "Build the Movement"],
+  ["stick", "📊", "Make It Stick"],
+  ["launch", "🚀", "Launch It"],
+];
 
 export function ChangeMakersGame({ onExit }: { onExit: () => void }) {
-  const [phase, setPhase] = useState<"issue" | "plan" | "pushback" | "result">("issue");
-  const [camp, setCamp] = useState<Campaign | null>(null);
-  const [selected, setSelected] = useState<Set<string>>(new Set());
-  const [bonus, setBonus] = useState(0);
-  const [done, setDone] = useState(false);
+  const [mode, setMode] = useState<Mode>("home");
   const [muted, setMuted] = useState(false);
+  const [bubble, setBubble] = useState(SAM.greet);
+  const [done, setDone] = useState(false);
+  const [badges, setBadges] = useState<Set<string>>(new Set());
+  const [causePick, setCausePick] = useState<number | null>(null);
+  const [causeUnRe, setCauseUnRe] = useState(false);
+  const [planGot, setPlanGot] = useState<Set<number>>(new Set());
+  const [deployed, setDeployed] = useState<Set<number>>(new Set());
+  const [stickGot, setStickGot] = useState<Set<number>>(new Set());
+  const [askGot, setAskGot] = useState<Set<number>>(new Set());
 
-  const say = useCallback((t: string) => { if (!muted) speak(t); }, [muted]);
+  const momentum = Math.min(100, deployed.size * Math.ceil(100 / MOVEMENT.length));
 
-  const chosen = useMemo(() => (camp ? camp.actions.filter((a) => selected.has(a.id)) : []), [camp, selected]);
-  const spent = chosen.reduce((s, a) => s + a.cost, 0);
-  const left = BUDGET - spent;
-  const baseImpact = chosen.reduce((s, a) => s + a.impact, 0);
-  const laws = chosen.map((a) => a.law).filter((l): l is string => !!l);
-  const impact = clamp(baseImpact + bonus);
+  const say = useCallback((t: string, onEnd?: () => void) => { setBubble(t); speak(t, { muted, onEnd }); }, [muted]);
 
-  const pickIssue = (c: Campaign) => {
-    setCamp(c);
-    setPhase("plan");
-    say(`Campaign: ${c.title}. Spend your action points wisely.`);
-  };
+  useEffect(() => {
+    speak(SAM.greet, { muted });
+    return () => stopSpeaking();
+    // greet once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const toggle = (id: string, cost: number) => {
-    setSelected((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else {
-        if (cost > left) return prev; // can't afford
-        next.add(id);
-      }
+  const earn = useCallback((id: string) => {
+    setBadges((prev) => {
+      if (prev.has(id)) return prev;
+      const next = new Set(prev); next.add(id);
+      celebrate("small");
+      if (next.size >= BADGE_TARGET) window.setTimeout(() => say(SAM.complete, () => setDone(true)), 1200);
+      else say(SAM.badge);
       return next;
     });
-  };
-
-  const launch = () => {
-    if (!chosen.length || !camp) return;
-    setPhase("pushback");
-    say(camp.pushback.quote);
-  };
-
-  const standFirm = () => {
-    if (!camp) return;
-    setBonus(camp.pushback.firmBonus);
-    setPhase("result");
-    celebrate("big");
-    say(`${camp.pushback.firm} Campaign succeeded!`);
-  };
-
-  const backDown = () => {
-    setBonus(-8);
-    setPhase("result");
-    say("You backed down. The campaign still helped, a little.");
-  };
+  }, [say]);
 
   const reset = () => {
-    setPhase("issue");
-    setCamp(null);
-    setSelected(new Set());
-    setBonus(0);
-    setDone(false);
+    setBadges(new Set()); setCausePick(null); setCauseUnRe(false); setPlanGot(new Set()); setDeployed(new Set());
+    setStickGot(new Set()); setAskGot(new Set()); setDone(false); setMode("home"); say(SAM.greet);
+  };
+
+  const go = (m: Mode) => {
+    setMode(m);
+    if (m === "cause") { setCausePick(null); setCauseUnRe(false); say(SAM.cause); }
+    else if (m === "plan") say(SAM.plan);
+    else if (m === "movement") { setDeployed(new Set()); say(SAM.movement); }
+    else if (m === "stick") say(SAM.stick);
+    else if (m === "launch") say(SAM.launch);
+    else say(SAM.home);
+  };
+
+  const pickCause = (i: number) => {
+    setCausePick(i); celebrate("small");
+    say(CAUSES[i].sharpen, () => setCauseUnRe(true));
+  };
+
+  const tapList = (arr: Fact[], got: Set<number>, setGot: (s: Set<number>) => void, id: string) => (i: number) => {
+    if (got.has(i)) return;
+    const next = new Set(got); next.add(i);
+    setGot(next); say(arr[i].say); celebrate("small");
+    if (next.size >= arr.length) earn(id);
+  };
+  const tapPlan = tapList(PLAN, planGot, setPlanGot, "plan");
+  const tapStick = tapList(STICK, stickGot, setStickGot, "stick");
+
+  const deploy = (i: number) => {
+    if (deployed.has(i)) return;
+    const next = new Set(deployed); next.add(i);
+    setDeployed(next); say(MOVEMENT[i].say); celebrate("small");
+    if (next.size >= MOVEMENT.length) say(MOVEMENT_DONE, () => earn("movement"));
+  };
+
+  const tapAsk = (i: number) => {
+    if (askGot.has(i)) return;
+    const next = new Set(askGot); next.add(i);
+    setAskGot(next); say(LAUNCH_ASK[i].a); celebrate("small");
+    if (next.size >= LAUNCH_ASK.length) earn("launch");
   };
 
   const muteBtn = (
-    <button
-      type="button"
-      aria-label={muted ? "Turn sound on" : "Turn sound off"}
-      onClick={() =>
-        setMuted((m) => {
-          const n = !m;
-          if (n) stopSpeaking();
-          return n;
-        })
-      }
-      className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95"
-    >
+    <button type="button" aria-label={muted ? "Turn sound on" : "Turn sound off"} onClick={() => setMuted((m) => { const n = !m; if (n) stopSpeaking(); return n; })} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
       {muted ? <VolumeX className="size-4" aria-hidden /> : <Volume2 className="size-4" aria-hidden />}
     </button>
+  );
+  const tools = (
+    <span className="flex items-center gap-2">
+      {!muted && (
+        <button type="button" aria-label="Hear it again" onClick={() => replay()} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+          <RotateCcw className="size-4" aria-hidden />
+        </button>
+      )}
+      {muteBtn}
+    </span>
+  );
+  const SamSays = (
+    <div className="flex items-center gap-3">
+      <Sam size={64} />
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+    </div>
+  );
+  const HomeBtn = (
+    <button type="button" onClick={() => go("home")} className="glass-pill mt-2 flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-base font-bold backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+      <Home className="size-5" aria-hidden /> Home
+    </button>
+  );
+  const BadgeBook = (
+    <div className="glass-card flex justify-center gap-2 rounded-2xl p-2.5 backdrop-blur-[12px] backdrop-saturate-150" aria-label={`${badges.size} of ${BADGE_TARGET} badges`}>
+      {MODES.map(([id]) => (
+        <span key={id} className={`text-2xl ${badges.has(id) ? "animate-in zoom-in duration-300" : "opacity-40"}`} aria-hidden>{badges.has(id) ? "🏅" : "🤍"}</span>
+      ))}
+    </div>
+  );
+  const TapList = (items: Fact[], got: Set<number>, onTap: (i: number) => void) => (
+    <div className="grid grid-cols-1 gap-2.5">
+      {items.map((it, i) => (
+        <button key={i} type="button" onClick={() => onTap(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={got.has(i) ? { boxShadow: "inset 0 0 0 2px #7C3AED" } : undefined}>
+          <span className="text-2xl" aria-hidden>{it.emoji}</span>
+          <span className="flex-1 text-sm font-semibold text-white">{it.say}</span>
+          {got.has(i) && <Check className="size-5 text-white" aria-hidden />}
+        </button>
+      ))}
+    </div>
   );
 
   if (done) {
     return (
-      <GameShell title="Change Makers" tools={muteBtn} onExit={onExit}>
-        <GameDone
-          gameId="change-makers"
-          stars={3}
-          coins={15}
-          title="You moved your community!"
-          blurb="Real change runs on rights, laws and supporting people — not just slogans. 📣"
-          onReplay={reset}
-          onExit={onExit}
-        />
+      <GameShell title="Change Makers" tools={tools} onExit={onExit}>
+        <GameDone gameId="change-makers" stars={3} coins={30} title="Change Maker! 🌍" blurb={SAM.complete} onReplay={reset} onExit={onExit} />
       </GameShell>
     );
   }
 
-  // ---- pick an issue ----
-  if (phase === "issue") {
-    return (
-      <GameShell title="Change Makers" tools={muteBtn} onExit={onExit}>
-        <div className="flex w-full max-w-sm flex-col items-center gap-4">
-          <span className="glass-pill flex items-center gap-2 rounded-full px-4 py-2 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150">
-            <Megaphone className="size-4" aria-hidden /> Pick a cause to lead
-          </span>
-          <div className="grid w-full grid-cols-1 gap-2.5">
-            {CAMPAIGNS.map((c) => (
-              <button
-                key={c.key}
-                type="button"
-                onClick={() => pickIssue(c)}
-                className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.98]"
-              >
-                <span className="text-3xl" aria-hidden>
-                  {c.emoji}
-                </span>
-                <span className="flex-1 text-base font-bold text-white">{c.title}</span>
+  return (
+    <GameShell title="Change Makers" tools={tools} onExit={onExit}>
+      <div className="flex w-full max-w-sm flex-col items-stretch gap-4">
+        {SamSays}
+        {BadgeBook}
+
+        {mode === "home" && (
+          <div className="grid grid-cols-2 gap-2.5">
+            {MODES.map(([m, emoji, label]) => (
+              <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
+                <span className="text-4xl" aria-hidden>{emoji}</span>
+                <span className="text-center text-sm font-bold text-white">{label}</span>
               </button>
             ))}
           </div>
-        </div>
-      </GameShell>
-    );
-  }
+        )}
 
-  // ---- result ----
-  if (phase === "result") {
-    const win = impact >= 60;
-    return (
-      <GameShell title="Change Makers" tools={muteBtn} onExit={onExit}>
-        <div className="flex w-full max-w-sm flex-col items-center gap-4">
-          <span className="glass-pill flex items-center gap-2 rounded-full px-4 py-2 text-base font-bold backdrop-blur-md backdrop-saturate-150">
-            <TrendingUp className="size-4" aria-hidden /> Community impact
-          </span>
-          <div className="glass-pill w-full rounded-2xl px-4 py-3 backdrop-blur-md backdrop-saturate-150">
-            <div className="mb-1 flex items-center justify-between text-xs font-bold">
-              <span>{camp?.title}</span>
-              <span className="tabular-nums">{impact}%</span>
-            </div>
-            <div className="h-3 w-full overflow-hidden rounded-full bg-white/20">
-              <div className="h-full rounded-full transition-all duration-700" style={{ width: `${impact}%`, background: "var(--flag-green)" }} />
-            </div>
-            <p className="mt-2 text-sm font-semibold">{win ? "Campaign succeeded! 🎉" : "A real start — keep building."}</p>
-          </div>
+        {/* Find Your Cause — pick & sharpen, then UN & RE */}
+        {mode === "cause" && (
+          <>
+            {!causeUnRe ? (
+              <>
+                <p className="text-center text-xs font-semibold uppercase tracking-wide text-white/60">Pick a cause you care about</p>
+                <div className="grid grid-cols-1 gap-2.5">
+                  {CAUSES.map((c, i) => (
+                    <button key={i} type="button" onClick={() => pickCause(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={causePick === i ? { boxShadow: "inset 0 0 0 2px #7C3AED" } : undefined}>
+                      <span className="text-2xl" aria-hidden>{c.emoji}</span>
+                      <span className="flex-1 text-sm font-semibold text-white">{c.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <UnReBeat un={CAUSE_UN} re={CAUSE_RE} />
+                <button type="button" onClick={() => { earn("cause"); go("home"); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">I can change this</button>
+              </>
+            )}
+            {HomeBtn}
+          </>
+        )}
 
-          {laws.length > 0 && (
-            <div className="flex w-full flex-col gap-2">
-              <span className="text-[11px] font-bold uppercase tracking-wide text-white/80">Rights & laws unlocked</span>
-              {laws.map((l) => (
-                <span
-                  key={l}
-                  className="flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-semibold backdrop-blur-md backdrop-saturate-150"
-                  style={{ background: "rgba(10,102,46,0.5)", border: "1px solid rgba(255,255,255,0.18)", color: "#eef1f7" }}
-                >
-                  <ScrollText className="size-4 shrink-0" aria-hidden /> {l}
-                </span>
+        {mode === "plan" && (<>{TapList(PLAN, planGot, tapPlan)}<p className="text-center text-xs text-white/60">{planGot.size} / {PLAN.length}</p>{HomeBtn}</>)}
+        {mode === "stick" && (<>{TapList(STICK, stickGot, tapStick)}<p className="text-center text-xs text-white/60">{stickGot.size} / {STICK.length}</p>{HomeBtn}</>)}
+
+        {/* Build the Movement — deploy to grow Momentum */}
+        {mode === "movement" && (
+          <>
+            <div className="glass-card flex flex-col gap-2 rounded-2xl p-3 backdrop-blur-[12px] backdrop-saturate-150">
+              <div className="flex items-center justify-between text-xs font-bold text-white/80"><span>📣 Momentum</span><span>{momentum}%</span></div>
+              <div className="h-3 overflow-hidden rounded-full bg-white/15">
+                <div className="h-full rounded-full transition-all duration-500" style={{ width: `${momentum}%`, background: "linear-gradient(90deg,#a78bfa,#34d399)" }} />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 gap-2.5">
+              {MOVEMENT.map((mv, i) => (
+                <button key={i} type="button" onClick={() => deploy(i)} disabled={deployed.has(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={deployed.has(i) ? { boxShadow: "inset 0 0 0 2px #22C55E", opacity: 0.8 } : undefined}>
+                  <span className="text-2xl" aria-hidden>{mv.emoji}</span>
+                  <span className="flex-1 text-sm font-bold text-white">{mv.label}</span>
+                  {deployed.has(i) && <Check className="size-5 text-white" aria-hidden />}
+                </button>
               ))}
             </div>
-          )}
+            {HomeBtn}
+          </>
+        )}
 
-          <button
-            type="button"
-            onClick={() => setDone(true)}
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95"
-          >
-            Finish <ArrowRight className="size-4" aria-hidden />
-          </button>
-        </div>
-      </GameShell>
-    );
-  }
-
-  // ---- pushback ----
-  if (phase === "pushback" && camp) {
-    return (
-      <GameShell title="Change Makers" tools={muteBtn} onExit={onExit}>
-        <div className="flex w-full max-w-sm flex-col items-center gap-4">
-          <span className="glass-pill rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wide backdrop-blur-md backdrop-saturate-150">
-            Pushback
-          </span>
-          <div className="glass-card flex w-full items-center justify-center px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
-            <p className="font-display text-lg font-bold text-white">{camp.pushback.quote}</p>
-          </div>
-          <div className="grid w-full grid-cols-1 gap-2.5">
-            <button
-              type="button"
-              onClick={standFirm}
-              className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.98]"
-            >
-              <span className="flex-1 text-sm font-semibold text-white">Stand firm: {camp.pushback.firm}</span>
-            </button>
-            <button
-              type="button"
-              onClick={backDown}
-              className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.98]"
-            >
-              <span className="flex-1 text-sm font-semibold text-white/85">Back down to avoid trouble</span>
-            </button>
-          </div>
-        </div>
-      </GameShell>
-    );
-  }
-
-  // ---- plan (allocate the budget) ----
-  return (
-    <GameShell title="Change Makers" tools={muteBtn} onExit={onExit}>
-      <div className="flex w-full max-w-sm flex-col items-center gap-3">
-        <div className="glass-pill flex w-full items-center justify-between rounded-2xl px-4 py-2.5 text-sm font-bold backdrop-blur-md backdrop-saturate-150">
-          <span>⚡ Action points: {left}/{BUDGET}</span>
-          <span className="text-xs">Impact +{baseImpact}</span>
-        </div>
-
-        <div className="grid w-full grid-cols-1 gap-2">
-          {camp?.actions.map((a) => {
-            const on = selected.has(a.id);
-            const afford = a.cost <= left || on;
-            return (
-              <button
-                key={a.id}
-                type="button"
-                onClick={() => toggle(a.id, a.cost)}
-                disabled={!afford}
-                className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-2.5 text-left backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.98] ${
-                  on ? "ring-2 ring-white/70" : ""
-                } ${!afford ? "opacity-45" : ""}`}
-              >
-                <span className="flex flex-1 flex-col">
-                  <span className="text-sm font-semibold text-white">{a.label}</span>
-                  <span className="text-[11px] font-medium text-white/75">
-                    {a.cost} pt{a.cost > 1 ? "s" : ""} · +{a.impact} impact{a.law ? ` · unlocks ${a.law}` : ""}
-                  </span>
-                </span>
-                {on && <Check className="size-5 shrink-0 text-white" aria-hidden />}
-              </button>
-            );
-          })}
-        </div>
-
-        <button
-          type="button"
-          onClick={launch}
-          disabled={chosen.length === 0}
-          className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50"
-        >
-          Launch campaign 🚀
-        </button>
+        {/* Launch It + Ask Anything */}
+        {mode === "launch" && (
+          <>
+            <div className="grid grid-cols-1 gap-2.5">
+              {LAUNCH_ASK.map((it, i) => (
+                <button key={i} type="button" onClick={() => tapAsk(i)} className="glass-card flex flex-col gap-1.5 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={askGot.has(i) ? { boxShadow: "inset 0 0 0 2px #7C3AED" } : undefined}>
+                  <span className="flex items-center gap-2 text-sm font-bold text-white"><span aria-hidden>💬</span> {it.q}</span>
+                  {askGot.has(i) && <span className="text-sm font-medium text-white/85">{it.a}</span>}
+                </button>
+              ))}
+            </div>
+            <p className="text-center text-xs text-white/60">Start small, start real — one safe step.</p>
+            {HomeBtn}
+          </>
+        )}
       </div>
     </GameShell>
   );
