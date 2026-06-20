@@ -1,5 +1,5 @@
 // Capstone 4 — "Reading Relationships" (node c4): the Chapter 4 (ages 12–15) graduation. Not a new
-// lesson — a warm, no-fail celebration where Sam recaps the chapter's eight big ideas (Body Confident →
+// lesson — a warm, no-fail celebration where Sam recaps the chapter's nine big ideas (Body Confident →
 // Reality Check), lighting a star for each, then awards the chapter. Mirrors Capstones 1–3.
 
 export type Recap = { emoji: string; idea: string; sam: string };
@@ -7,6 +7,7 @@ export type Recap = { emoji: string; idea: string; sam: string };
 // One big idea per Chapter-4 game (g21 → g28), in order.
 export const RECAP: Recap[] = [
   { emoji: "💪", idea: "My body is mine and it's good — I spot the filters.", sam: "You got Body Confident." },
+  { emoji: "💚", idea: "Stress and setbacks pass — I build resilience, bounce back, and reach for help.", sam: "You learned to Bounce back." },
   { emoji: "🗓️", idea: "I know how pregnancy happens — and how planning protects my future.", sam: "You learned to Plan It." },
   { emoji: "🧫", idea: "Knowledge stops the spread — and stigma is the real enemy.", sam: "You stopped the Outbreak." },
   { emoji: "🚦", idea: "I can read the green and red flags in a relationship.", sam: "You read the green and red lights." },

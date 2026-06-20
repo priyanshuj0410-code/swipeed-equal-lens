@@ -1,5 +1,5 @@
 // Capstone 3 — "Growing Up Smart" (node c3): the Chapter 3 (ages 9–12) graduation. Not a new lesson —
-// a warm, no-fail celebration where Sam helps the child look back at the chapter's eight big ideas
+// a warm, no-fail celebration where Sam helps the child look back at the chapter's nine big ideas
 // (Puberty Quest → Defenders of the Body), lighting a star for each, then awards the chapter. Mirrors
 // Capstones 1 & 2.
 
@@ -8,6 +8,7 @@ export type Recap = { emoji: string; idea: string; sam: string };
 // One big idea per Chapter-3 game (g13 → g20), in order.
 export const RECAP: Recap[] = [
   { emoji: "🌱", idea: "Every body changes — and that's normal. I've got the facts!", sam: "You busted the puberty myths." },
+  { emoji: "🧠", idea: "All feelings are OK — I can name them, cool down, bounce back, and ask for help.", sam: "You learned that your mind matters." },
   { emoji: "🧬", idea: "I know the amazing science of how a new life begins.", sam: "You took the whole amazing journey." },
   { emoji: "🤖", idea: "I ask first, respect a no, and stay safe online.", sam: "You became a Boundary hero." },
   { emoji: "🔀", idea: "At every crossroads, I choose who I'm becoming.", sam: "You navigated a whole week of choices." },
