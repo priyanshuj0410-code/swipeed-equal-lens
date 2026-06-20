@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Star, RotateCcw, Map } from "lucide-react";
 import { useProfile } from "@/lib/store";
 import { toolsUnlockedBy } from "@/lib/toolkit";
+import { ToolkitReflection } from "@/components/toolkit/toolkit-reflection";
 import { celebrate } from "@/lib/confetti";
 
 /**
@@ -34,6 +35,8 @@ export function GameDone({
   const { finishDeck, unlockTool } = useProfile();
   const router = useRouter();
   const exit = onExit ?? (() => router.push("/path"));
+  // Capstones close a chapter with a Thread-C reflection ("skills you've grown"); c5 is the final look-back.
+  const capstoneLevel = gameId.startsWith("capstone-") ? Number(gameId.slice("capstone-".length)) : 0;
 
   useEffect(() => {
     finishDeck(gameId, stars, coins, bestStreak);
@@ -44,7 +47,7 @@ export function GameDone({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
+  const card = (
     <div
       className="glass-card w-full max-w-xs px-6 py-7 text-center backdrop-blur-[14px] backdrop-saturate-150"
       style={{ color: "#eef1f7" }}
@@ -88,4 +91,14 @@ export function GameDone({
       </div>
     </div>
   );
+
+  if (capstoneLevel) {
+    return (
+      <div className="flex w-full max-w-sm flex-col items-center gap-4">
+        <ToolkitReflection chapterLevel={capstoneLevel} final={capstoneLevel === 5} />
+        {card}
+      </div>
+    );
+  }
+  return card;
 }
