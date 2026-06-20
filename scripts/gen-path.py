@@ -22,7 +22,7 @@ OUT = os.path.join(HERE, "..", "src", "content", "path.ts")
 GAME = {
     "g01": "feelings", "g02": "my-body", "g37": "clean-crew", "g03": "family-garden",
     "c1": "capstone-1", "c2": "capstone-2", "c3": "capstone-3", "c4": "capstone-4", "c5": "capstone-5",
-    "g04": "same-same", "g05": "can-do", "g06": "body-lab", "g07": "what-makes-me", "g08": "safety-squad", "g09": "friend-frenemy", "g10": "fair-play", "g11": "not-funny", "g12": "smart-screen",
+    "g04": "same-same", "g05": "can-do", "g06": "body-lab", "g07": "what-makes-me", "g08": "safety-squad", "g09": "friend-frenemy", "g41": "heart-smart", "g10": "fair-play", "g11": "not-funny", "g12": "smart-screen",
     "g13": "puberty-quest", "g38": "mind-matters", "g14": "amazing-journey", "g15": "boundary-bot", "g16": "crossroads", "g20": "defenders",
     "g21": "body-confident", "g39": "bounce", "g22": "plan-it", "g23": "outbreak", "g26": "equalize", "g28": "reality-check",
     "g17": "flip-script", "g18": "norm-storm", "g19": "speak-up", "g24": "glrl", "g25": "mythbuster-lab",
@@ -38,7 +38,8 @@ def href_for(game):
 EMOJI = {
     "g01": "😊", "g02": "🛡️", "g37": "🫧", "g03": "🏡", "g04": "🧒", "g05": "🦸", "c1": "🏆",
     "g38": "🧠", "g39": "🪀",
-    "g06": "🧪", "g07": "🪞", "g08": "🦺", "g09": "🤝", "g10": "⚖️", "g11": "🙅", "g12": "📱", "c2": "🏆",
+    "g06": "🧪", "g07": "🪞", "g08": "🦺", "g09": "🤝", "g41": "💗", "g10": "⚖️", "g11": "🙅", "g12": "📱", "c2": "🏆",
+    "g42": "🌅",
     "g13": "🌱", "g14": "🧬", "g15": "🤖", "g16": "🔀", "g17": "🎬", "g18": "🌪️", "g19": "📣", "g20": "🦠", "c3": "🏆",
     "g21": "💪", "g22": "🗓️", "g23": "🧫", "g24": "🚦", "g25": "💡", "g26": "🟰", "g27": "✊", "g40": "🧱", "g28": "🔍", "c4": "🏆",
     "g29": "🧭", "g30": "🩺", "g31": "💚", "g32": "🌈", "g33": "💼", "g34": "🌍", "g35": "🏛️", "g36": "🔓", "c5": "🏆",
