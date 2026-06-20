@@ -16,11 +16,15 @@ export function Loadout({
   onStart,
   onQuickPlay,
   onExit,
+  embedded = false,
 }: {
   schoolComfort: boolean;
   onStart: (deckId: RunDeckId, perks: PerkId[]) => void;
   onQuickPlay: () => void;
   onExit: () => void;
+  // When embedded inside a shared GameShell, drop the standalone overlay + path-exit X
+  // (the shell supplies the top bar); keep only the inter-step Back chevron.
+  embedded?: boolean;
 }) {
   const { profile, markDailyRun } = useProfile();
   const decks = RUN_DECKS.filter((d) => !schoolComfort || d.schoolComfortSafe);
@@ -55,17 +59,20 @@ export function Loadout({
         <span className="size-7" />
       )}
       <h2 className="font-display text-lg font-bold">{title}</h2>
-      <button type="button" aria-label="Back to path" onClick={onExit} className="rounded-full p-1 transition-transform active:scale-90">
-        <X className="size-5" aria-hidden />
-      </button>
+      {embedded ? (
+        <span className="size-7" />
+      ) : (
+        <button type="button" aria-label="Back to path" onClick={onExit} className="rounded-full p-1 transition-transform active:scale-90">
+          <X className="size-5" aria-hidden />
+        </button>
+      )}
     </div>
   );
 
   const tile = "glass-pill flex flex-col items-center justify-center gap-1.5 rounded-2xl py-5 backdrop-blur-md transition-transform active:scale-[0.97]";
 
-  return (
-    <div className="fixed inset-0 z-30 flex items-center justify-center overflow-y-auto px-5 py-8">
-      <div className="glass-card w-full max-w-sm p-5 backdrop-blur-[14px] backdrop-saturate-150" style={{ color: "#eef1f7" }}>
+  const card = (
+    <div className="glass-card w-full max-w-sm p-5 backdrop-blur-[14px] backdrop-saturate-150" style={{ color: "#eef1f7" }}>
         {/* Step 1 — Mode */}
         {step === 1 && (
           <>
@@ -168,6 +175,9 @@ export function Loadout({
           </>
         )}
       </div>
-    </div>
+  );
+
+  return embedded ? card : (
+    <div className="fixed inset-0 z-30 flex items-center justify-center overflow-y-auto px-5 py-8">{card}</div>
   );
 }
