@@ -20,7 +20,7 @@ OUT = os.path.join(HERE, "..", "src", "content", "path.ts")
 
 # table node_id -> the dispatch id the app already knows (engine-host id, or glrl/mythbuster)
 GAME = {
-    "g01": "feelings", "g02": "my-body", "g03": "family-garden",
+    "g01": "feelings", "g02": "my-body", "g37": "clean-crew", "g03": "family-garden",
     "c1": "capstone-1", "c2": "capstone-2", "c3": "capstone-3", "c4": "capstone-4", "c5": "capstone-5",
     "g04": "same-same", "g05": "can-do", "g06": "body-lab", "g07": "what-makes-me", "g08": "safety-squad", "g09": "friend-frenemy", "g10": "fair-play", "g11": "not-funny", "g12": "smart-screen",
     "g13": "puberty-quest", "g14": "amazing-journey", "g15": "boundary-bot", "g16": "crossroads", "g20": "defenders",
@@ -36,7 +36,8 @@ def href_for(game):
 
 # one fitting emoji per node (we pick these; the table has no emoji column)
 EMOJI = {
-    "g01": "😊", "g02": "🛡️", "g03": "🏡", "g04": "🧒", "g05": "🦸", "c1": "🏆",
+    "g01": "😊", "g02": "🛡️", "g37": "🫧", "g03": "🏡", "g04": "🧒", "g05": "🦸", "c1": "🏆",
+    "g38": "🧠", "g39": "🪀",
     "g06": "🧪", "g07": "🪞", "g08": "🦺", "g09": "🤝", "g10": "⚖️", "g11": "🙅", "g12": "📱", "c2": "🏆",
     "g13": "🌱", "g14": "🧬", "g15": "🤖", "g16": "🔀", "g17": "🎬", "g18": "🌪️", "g19": "📣", "g20": "🦠", "c3": "🏆",
     "g21": "💪", "g22": "🗓️", "g23": "🧫", "g24": "🚦", "g25": "💡", "g26": "🟰", "g27": "✊", "g28": "🔍", "c4": "🏆",
