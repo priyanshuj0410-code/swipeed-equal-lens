@@ -117,6 +117,10 @@ export type Profile = {
   muted?: boolean; // global sound mute (synced to the juice layer)
   // --- Life-Skills Toolkit (optional; default-merged). Unlocked/levelled by the Thread-C games. ---
   toolkit?: Partial<Record<ToolId, ToolState>>;
+  // --- Wellbeing shell (optional; default-merged). On-device only — never a mood *value*, just cadence. ---
+  calmMode?: boolean; // reduced-stimulation across the whole app
+  mood?: { lastCheckDayKey?: string }; // when the gentle mood check-in was last shown (YYYY-MM-DD)
+  dailyStreak?: { count: number; lastDayKey: string; freezes: number }; // the kind streak (with freezes)
 };
 
 export type CardOutcome = {

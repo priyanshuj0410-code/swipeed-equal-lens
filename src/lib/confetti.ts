@@ -1,5 +1,5 @@
 import confetti from "canvas-confetti";
-import { sfx } from "@/lib/juice";
+import { sfx, prefersReducedMotion } from "@/lib/juice";
 
 const COLORS = ["#62b84b", "#e05c52", "#4f6ef7", "#f5c518"];
 
@@ -13,7 +13,7 @@ const COLORS = ["#62b84b", "#e05c52", "#4f6ef7", "#f5c518"];
 export function celebrate(power: "small" | "big" = "small", opts?: { sound?: boolean }) {
   if (typeof window === "undefined") return;
   if (opts?.sound !== false) sfx(power === "big" ? "win" : "green");
-  if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return; // confetti only below
+  if (prefersReducedMotion()) return; // confetti only below (also suppressed by Calm Mode)
 
   if (power === "big") {
     confetti({ particleCount: 130, spread: 85, startVelocity: 45, origin: { y: 0.55 }, colors: COLORS, scalar: 1 });

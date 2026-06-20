@@ -1,14 +1,20 @@
 "use client";
 
+import { useEffect } from "react";
 import { ProfileProvider, useProfile } from "@/lib/store";
 import { GetHelp } from "@/components/get-help";
 import { Onboarding } from "@/components/onboarding";
 import { BrandSplash } from "@/components/brand-splash";
 import { WindDownNudge } from "@/components/wind-down-nudge";
 import { ToolkitDrawer } from "@/components/toolkit/toolkit-drawer";
+import { MoodCheckIn } from "@/components/toolkit/mood-check-in";
 
 function Gate({ children }: { children: React.ReactNode }) {
-  const { profile, ready } = useProfile();
+  const { profile, ready, recordVisit } = useProfile();
+  // Tick the kind daily streak on entry (idempotent per day).
+  useEffect(() => {
+    if (ready && profile.onboarded) recordVisit();
+  }, [ready, profile.onboarded, recordVisit]);
   if (!ready) return <BrandSplash label="Starting up…" />;
   if (!profile.onboarded) return <Onboarding />;
   return <>{children}</>;
@@ -26,6 +32,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <GetHelp />
       <WindDownNudge />
       <ToolkitDrawer />
+      <MoodCheckIn />
     </ProfileProvider>
   );
 }

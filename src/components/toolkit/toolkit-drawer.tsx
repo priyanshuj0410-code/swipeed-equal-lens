@@ -47,9 +47,16 @@ export function ToolkitDrawer() {
           >
             <div className="mb-3 flex items-center justify-between">
               <h2 className="font-display text-lg font-bold text-white">Your Toolkit</h2>
-              <button type="button" onClick={() => setOpen(null)} aria-label="Close" className="flex size-8 items-center justify-center rounded-full bg-white/10 transition-transform active:scale-95">
-                <X className="size-4 text-white" aria-hidden />
-              </button>
+              <div className="flex items-center gap-2">
+                {(profile.dailyStreak?.count ?? 0) >= 2 && (
+                  <span className="rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white/85">
+                    🔥 {profile.dailyStreak!.count}-day streak
+                  </span>
+                )}
+                <button type="button" onClick={() => setOpen(null)} aria-label="Close" className="flex size-8 items-center justify-center rounded-full bg-white/10 transition-transform active:scale-95">
+                  <X className="size-4 text-white" aria-hidden />
+                </button>
+              </div>
             </div>
             <p className="mb-4 text-xs text-white/60">Four skills you carry — open any one, any time.</p>
 

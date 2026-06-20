@@ -7,9 +7,18 @@ type Kind = "green" | "red" | "toxic" | "combo" | "win" | "shatter";
 
 let ctx: AudioContext | null = null;
 let muted = false;
+let calm = false; // app-wide Calm Mode (reduced-stimulation), set from the profile
 
-const reducedMotion = () =>
-  typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+/** True when motion should be dialled down — either the OS reduced-motion setting OR Calm Mode. */
+export const prefersReducedMotion = () =>
+  calm ||
+  (typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
+const reducedMotion = prefersReducedMotion;
+
+/** Calm Mode — a reduced-stimulation setting across the whole app (synced from the profile). */
+export function setCalm(v: boolean) {
+  calm = v;
+}
 
 export function setMuted(v: boolean) {
   muted = v;
