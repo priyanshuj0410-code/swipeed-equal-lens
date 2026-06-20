@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Star, RotateCcw, Map } from "lucide-react";
 import { useProfile } from "@/lib/store";
+import { toolsUnlockedBy } from "@/lib/toolkit";
 import { celebrate } from "@/lib/confetti";
 
 /**
@@ -30,12 +31,14 @@ export function GameDone({
   onReplay?: () => void;
   onExit?: () => void;
 }) {
-  const { finishDeck } = useProfile();
+  const { finishDeck, unlockTool } = useProfile();
   const router = useRouter();
   const exit = onExit ?? (() => router.push("/path"));
 
   useEffect(() => {
     finishDeck(gameId, stars, coins, bestStreak);
+    // Thread-C games grow the Life-Skills Toolkit (no-op for every other game).
+    for (const { id, level } of toolsUnlockedBy(gameId)) unlockTool(id, level);
     celebrate("big");
     // record once on completion
     // eslint-disable-next-line react-hooks/exhaustive-deps
