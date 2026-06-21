@@ -2244,11 +2244,12 @@ function FollowCam({ progress, canvas }: { progress: React.MutableRefObject<numb
     if (tan.lengthSq() === 0) tan.set(0, 0, -1);
     tan.normalize();
     if (canvas) {
-      // top-down map view: zoomed in, just above the path, a slight back-tilt so heading still reads
-      const back = portrait ? 6 : 5;
-      const height = portrait ? 22 : 17;
+      // near-top-down (~8° off vertical): the dotted-paper plane sits almost perpendicular so the dots
+      // stay circular (a tilt foreshortens + smears them); a little tilt remains to avoid gimbal-lock.
+      const back = portrait ? 2 : 1.5;
+      const height = portrait ? 24 : 18;
       camera.position.lerp(new THREE.Vector3(p.x - tan.x * back, height, p.z - tan.z * back), 0.12);
-      look.current.lerp(new THREE.Vector3(p.x + tan.x * 2, 0, p.z + tan.z * 2), 0.12);
+      look.current.lerp(new THREE.Vector3(p.x + tan.x * 1, 0, p.z + tan.z * 1), 0.12);
       camera.lookAt(look.current);
       const fov = portrait ? 52 : 46;
       if (Math.abs(camera.fov - fov) > 0.01) {
