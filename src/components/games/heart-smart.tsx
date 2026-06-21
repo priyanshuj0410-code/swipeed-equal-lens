@@ -116,7 +116,7 @@ export function HeartSmartGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -137,8 +137,8 @@ export function HeartSmartGame({ onExit }: { onExit: () => void }) {
       {items.map((it, i) => (
         <button key={i} type="button" onClick={() => onTap(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={got.has(i) ? { boxShadow: "inset 0 0 0 2px #F59E0B" } : undefined}>
           <span className="text-3xl" aria-hidden>{it.emoji}</span>
-          <span className="flex-1 text-sm font-semibold text-white">{it.say}</span>
-          {got.has(i) && <Check className="size-5 text-white" aria-hidden />}
+          <span className="flex-1 text-sm font-semibold text-foreground">{it.say}</span>
+          {got.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
         </button>
       ))}
     </div>
@@ -163,28 +163,28 @@ export function HeartSmartGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
         )}
 
-        {mode === "feelings" && (<>{TapList(FEELINGS, feelGot, tapFeel)}<p className="text-center text-xs text-white/60">{feelGot.size} / {FEELINGS.length} · all feelings are okay</p>{HomeBtn}</>)}
-        {mode === "steps" && (<>{TapList(SMALL_STEPS, stepGot, tapStep)}<p className="text-center text-xs text-white/60">{stepGot.size} / {SMALL_STEPS.length} · big feelings, small steps</p>{HomeBtn}</>)}
+        {mode === "feelings" && (<>{TapList(FEELINGS, feelGot, tapFeel)}<p className="text-center text-xs text-foreground/60">{feelGot.size} / {FEELINGS.length} · all feelings are okay</p>{HomeBtn}</>)}
+        {mode === "steps" && (<>{TapList(SMALL_STEPS, stepGot, tapStep)}<p className="text-center text-xs text-foreground/60">{stepGot.size} / {SMALL_STEPS.length} · big feelings, small steps</p>{HomeBtn}</>)}
 
         {/* Walk in Their Shoes — pick the kind thing */}
         {mode === "walk" && SCENES[sceneIdx] && (
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-4xl" aria-hidden>{SCENES[sceneIdx].emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{SCENES[sceneIdx].situation}</p>
+              <p className="font-display text-lg font-bold text-foreground">{SCENES[sceneIdx].situation}</p>
             </div>
             <div className="grid grid-cols-1 gap-2">
               {SCENES[sceneIdx].options.map((o, i) => (
-                <button key={i} type="button" onClick={() => pickKind(o.kind)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
+                <button key={i} type="button" onClick={() => pickKind(o.kind)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">{sceneIdx + 1} / {SCENES.length} · be kind</p>
+            <p className="text-center text-xs text-foreground/60">{sceneIdx + 1} / {SCENES.length} · be kind</p>
             {HomeBtn}
           </>
         )}
@@ -193,13 +193,13 @@ export function HeartSmartGame({ onExit }: { onExit: () => void }) {
         {mode === "squabble" && REPAIR[repairStep] && (
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-8 text-center backdrop-blur-[12px] backdrop-saturate-150">
-              <span className="text-xs font-bold uppercase tracking-wide text-white/60">Step {repairStep + 1} of {REPAIR.length}</span>
+              <span className="text-xs font-bold uppercase tracking-wide text-foreground/60">Step {repairStep + 1} of {REPAIR.length}</span>
               <span className="text-6xl" aria-hidden>{REPAIR[repairStep].emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{REPAIR[repairStep].step}</p>
+              <p className="font-display text-lg font-bold text-foreground">{REPAIR[repairStep].step}</p>
             </div>
-            <button type="button" onClick={doRepairStep} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-white text-lg font-bold text-slate-900 transition-transform active:scale-95">✓ Did it!</button>
+            <button type="button" onClick={doRepairStep} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-bold text-slate-900 transition-transform active:scale-95">✓ Did it!</button>
             <div className="flex justify-center gap-1.5">
-              {REPAIR.map((_, i) => (<span key={i} className={`size-2.5 rounded-full ${i < repairStep ? "bg-white" : i === repairStep ? "bg-white/70" : "bg-white/25"}`} aria-hidden />))}
+              {REPAIR.map((_, i) => (<span key={i} className={`size-2.5 rounded-full ${i < repairStep ? "bg-foreground" : i === repairStep ? "bg-foreground/70" : "bg-foreground/25"}`} aria-hidden />))}
             </div>
             {HomeBtn}
           </>
@@ -210,17 +210,17 @@ export function HeartSmartGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-3xl" aria-hidden>💭</span>
-              <p className={`font-display text-lg font-bold ${busted ? "text-white/40 line-through" : "animate-pulse"}`} style={busted ? undefined : { color: "#ff9085" }}>“{MYTHS[mythIdx].un}”</p>
+              <p className={`font-display text-lg font-bold ${busted ? "text-foreground/40 line-through" : "animate-pulse"}`} style={busted ? undefined : { color: "#ff9085" }}>“{MYTHS[mythIdx].un}”</p>
             </div>
             {!busted ? (
-              <button type="button" onClick={bustMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">🧽 Fix the fib</button>
+              <button type="button" onClick={bustMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">🧽 Fix the fib</button>
             ) : (
               <>
                 <UnReBeat un={MYTHS[mythIdx].un} re={MYTHS[mythIdx].re} />
-                <button type="button" onClick={nextMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">{mythIdx + 1 >= MYTHS.length ? "Done" : "Next"}</button>
+                <button type="button" onClick={nextMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">{mythIdx + 1 >= MYTHS.length ? "Done" : "Next"}</button>
               </>
             )}
-            <p className="text-center text-xs text-white/60">{mythIdx + 1} / {MYTHS.length} · everyone has feelings</p>
+            <p className="text-center text-xs text-foreground/60">{mythIdx + 1} / {MYTHS.length} · everyone has feelings</p>
             {HomeBtn}
           </>
         )}

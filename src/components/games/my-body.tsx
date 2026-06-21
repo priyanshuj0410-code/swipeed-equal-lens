@@ -124,7 +124,7 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
         {bubble}
       </span>
     </div>
@@ -169,7 +169,7 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
             ] as [Mode, string, string][]).map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-sm font-bold text-white">{label}</span>
+                <span className="text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -183,15 +183,15 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
               {BODY_PARTS.map((p) => (
                 <button key={p.id} type="button" onClick={() => say(`${p.name}. ${p.say}`)} className="glass-card flex flex-col items-center gap-0.5 rounded-2xl py-3 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-95">
                   <span className="text-3xl" aria-hidden>{p.emoji}</span>
-                  <span className="text-xs font-bold text-white">{p.name}</span>
+                  <span className="text-xs font-bold text-foreground">{p.name}</span>
                 </button>
               ))}
             </div>
             <button type="button" onClick={() => say(UNDERWEAR_RULE)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.98]" style={{ boxShadow: "inset 0 0 0 2px #7C5CFC" }}>
               <span className="text-3xl" aria-hidden>🩲</span>
-              <span className="flex-1 text-sm font-semibold text-white">Private parts — {UNDERWEAR_RULE}</span>
+              <span className="flex-1 text-sm font-semibold text-foreground">Private parts — {UNDERWEAR_RULE}</span>
             </button>
-            {!profile.schoolComfort && <p className="px-1 text-center text-xs text-white/70">{CORRECT_NAMES_NOTE}</p>}
+            {!profile.schoolComfort && <p className="px-1 text-center text-xs text-foreground/70">{CORRECT_NAMES_NOTE}</p>}
             {HomeBtn}
           </>
         )}
@@ -201,9 +201,9 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-3 rounded-2xl px-5 py-6 backdrop-blur-[12px] backdrop-saturate-150">
               <BodyFigure glow />
-              <p className="text-center text-sm text-white/85">The glowing part is private — it's yours.</p>
+              <p className="text-center text-sm text-foreground/85">The glowing part is private — it's yours.</p>
             </div>
-            <button type="button" onClick={() => { say(`${MINE_CHANT} ${MINE_SAY}`); celebrate("small"); }} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-white text-lg font-extrabold text-slate-900 transition-transform active:scale-95">
+            <button type="button" onClick={() => { say(`${MINE_CHANT} ${MINE_SAY}`); celebrate("small"); }} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-extrabold text-slate-900 transition-transform active:scale-95">
               <ShieldCheck className="size-5" aria-hidden /> {MINE_CHANT}
             </button>
             {HomeBtn}
@@ -215,11 +215,11 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-4xl" aria-hidden>{touchCards[touchIdx].emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{touchCards[touchIdx].text}</p>
+              <p className="font-display text-lg font-bold text-foreground">{touchCards[touchIdx].text}</p>
             </div>
             <div className="grid grid-cols-3 gap-2">
               {(["safe", "unsafe", "notsure"] as TouchKind[]).map((k) => (
-                <button key={k} type="button" onClick={() => tapTouch(k)} className="glass-card rounded-2xl py-3 text-sm font-bold text-white backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-95">
+                <button key={k} type="button" onClick={() => tapTouch(k)} className="glass-card rounded-2xl py-3 text-sm font-bold text-foreground backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-95">
                   {TOUCH_LABEL[k]}
                 </button>
               ))}
@@ -233,7 +233,7 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="grid grid-cols-2 gap-2.5">
               {BIG_NO_TOUCH.map((b) => (
-                <button key={b.label} type="button" onClick={() => { say(b.sam); celebrate("small"); try { navigator.vibrate?.(14); } catch { /* unsupported */ } }} className="flex flex-col items-center justify-center gap-1 rounded-3xl py-6 text-center text-white ring-4 ring-white/40 transition-transform active:scale-90" style={{ background: b.accent }}>
+                <button key={b.label} type="button" onClick={() => { say(b.sam); celebrate("small"); try { navigator.vibrate?.(14); } catch { /* unsupported */ } }} className="flex flex-col items-center justify-center gap-1 rounded-3xl py-6 text-center text-foreground ring-4 ring-foreground/40 transition-transform active:scale-90" style={{ background: b.accent }}>
                   <span className="text-3xl" aria-hidden>{b.emoji}</span>
                   <span className="text-base font-extrabold leading-tight">{b.label}</span>
                 </button>
@@ -246,7 +246,7 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
         {/* ---- My Safety Net (additive: add anyone you trust — two mums, two dads, anyone) ---- */}
         {mode === "net" && (
           <>
-            <p className="text-center text-sm font-semibold text-white/85">Your trusted grown-ups ({net.length}/{NET_TARGET}+)</p>
+            <p className="text-center text-sm font-semibold text-foreground/85">Your trusted grown-ups ({net.length}/{NET_TARGET}+)</p>
             {net.length > 0 && (
               <div className="glass-card flex flex-wrap justify-center gap-1.5 rounded-2xl p-3 backdrop-blur-[12px] backdrop-saturate-150">
                 {net.map((id, i) => (
@@ -256,20 +256,20 @@ export function MyBodyGame({ onExit }: { onExit: () => void }) {
                 ))}
               </div>
             )}
-            <p className="px-1 text-center text-xs text-white/75">Add anyone you trust — even two mums or two dads. 💛 (Tap someone above to remove.)</p>
+            <p className="px-1 text-center text-xs text-foreground/75">Add anyone you trust — even two mums or two dads. 💛 (Tap someone above to remove.)</p>
             <div className="grid grid-cols-4 gap-2">
               {TRUSTED.map((t) => (
                 <button key={t.id} type="button" onClick={() => addTrusted(t.id)} className="glass-card flex flex-col items-center gap-0.5 rounded-2xl py-3 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-95">
                   <span className="text-2xl" aria-hidden>{t.emoji}</span>
-                  <span className="text-[10px] font-bold leading-tight text-white">{t.name}</span>
+                  <span className="text-[10px] font-bold leading-tight text-foreground">{t.name}</span>
                 </button>
               ))}
             </div>
-            <p className="px-1 text-center text-xs text-white/75">{TELL_RULE}</p>
-            <button type="button" onClick={() => say(HELPLINE)} className="glass-pill flex items-center gap-2 rounded-2xl px-4 py-3 text-left text-sm font-semibold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>
+            <p className="px-1 text-center text-xs text-foreground/75">{TELL_RULE}</p>
+            <button type="button" onClick={() => say(HELPLINE)} className="glass-pill flex items-center gap-2 rounded-2xl px-4 py-3 text-left text-sm font-semibold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
               <Phone className="size-5 shrink-0" aria-hidden /> {HELPLINE}
             </button>
-            <button type="button" disabled={net.length < NET_TARGET} onClick={finishNet} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
+            <button type="button" disabled={net.length < NET_TARGET} onClick={finishNet} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
               That's my Safety Net!
             </button>
             {HomeBtn}

@@ -17,7 +17,7 @@ export function ResolutionBeat({ result }: { result: RunResult }) {
       <h2 className="mt-1 font-display text-xl font-bold" style={{ color: clear ? "#62e08f" : "#b3c8ff" }}>
         {clear ? `${result.character.name} sees it clearly` : "The signs were there"}
       </h2>
-      <p className="mt-1.5 text-sm leading-relaxed text-white/85">{result.resolutionText}</p>
+      <p className="mt-1.5 text-sm leading-relaxed text-foreground/85">{result.resolutionText}</p>
     </div>
   );
 }

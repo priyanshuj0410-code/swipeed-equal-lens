@@ -50,19 +50,19 @@ export function ToolPlayer({ toolId, onClose }: { toolId: ToolId; onClose: () =>
         <div className="flex items-center gap-3">
           <Sam size={60} />
           <div className="flex-1">
-            <p className="flex items-center gap-2 font-display text-lg font-bold text-white">
+            <p className="flex items-center gap-2 font-display text-lg font-bold text-foreground">
               <span aria-hidden>{tool.emoji}</span> {tool.name}
               {level > 0 && (
-                <span className="rounded-full bg-white/15 px-2 py-0.5 text-[11px] font-semibold text-white/80">
+                <span className="rounded-full bg-foreground/15 px-2 py-0.5 text-[11px] font-semibold text-foreground/80">
                   Lv {level}
                 </span>
               )}
             </p>
-            <p className="text-xs text-white/60">{tool.tagline}</p>
+            <p className="text-xs text-foreground/60">{tool.tagline}</p>
           </div>
         </div>
 
-        <p className="glass-pill rounded-2xl px-4 py-2.5 text-center text-sm font-semibold backdrop-blur-md" style={{ color: "#eef1f7" }}>
+        <p className="glass-pill rounded-2xl px-4 py-2.5 text-center text-sm font-semibold backdrop-blur-md" style={{ color: "var(--color-ink)" }}>
           {guide.samIntro}
         </p>
 
@@ -77,18 +77,18 @@ export function ToolPlayer({ toolId, onClose }: { toolId: ToolId; onClose: () =>
               >
                 <span className="text-2xl" aria-hidden>{s.emoji}</span>
                 <span className="flex-1">
-                  <span className="block text-xs font-bold uppercase tracking-wide text-white/55">{s.label}</span>
-                  <span className="block text-sm font-semibold text-white">{s.say}</span>
+                  <span className="block text-xs font-bold uppercase tracking-wide text-foreground/55">{s.label}</span>
+                  <span className="block text-sm font-semibold text-foreground">{s.say}</span>
                 </span>
-                {!muted && <Volume2 className="mt-0.5 size-4 shrink-0 text-white/50" aria-hidden />}
-                {muted && <VolumeX className="mt-0.5 size-4 shrink-0 text-white/40" aria-hidden />}
+                {!muted && <Volume2 className="mt-0.5 size-4 shrink-0 text-foreground/50" aria-hidden />}
+                {muted && <VolumeX className="mt-0.5 size-4 shrink-0 text-foreground/40" aria-hidden />}
               </button>
 
               {s.kind === "breathe" && (
                 <button
                   type="button"
                   onClick={() => setBreathing(true)}
-                  className="flex h-11 items-center justify-center gap-2 rounded-2xl bg-white text-sm font-bold text-slate-900 transition-transform active:scale-95"
+                  className="flex h-11 items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-sm font-bold text-slate-900 transition-transform active:scale-95"
                 >
                   <Wind className="size-4" aria-hidden /> Open the breathing space
                 </button>
@@ -105,13 +105,13 @@ export function ToolPlayer({ toolId, onClose }: { toolId: ToolId; onClose: () =>
                       className="glass-card flex items-center justify-between gap-2 rounded-2xl px-4 py-2.5 backdrop-blur-[12px]"
                     >
                       <span className="flex flex-col">
-                        <span className="text-sm font-semibold text-white">{line.name}</span>
-                        <span className="text-xs text-white/60">{line.detail}</span>
+                        <span className="text-sm font-semibold text-foreground">{line.name}</span>
+                        <span className="text-xs text-foreground/60">{line.detail}</span>
                       </span>
                       {line.href.startsWith("tel:") ? (
-                        <Phone className="size-4 shrink-0 text-white/70" aria-hidden />
+                        <Phone className="size-4 shrink-0 text-foreground/70" aria-hidden />
                       ) : (
-                        <ExternalLink className="size-4 shrink-0 text-white/70" aria-hidden />
+                        <ExternalLink className="size-4 shrink-0 text-foreground/70" aria-hidden />
                       )}
                     </a>
                   ))}

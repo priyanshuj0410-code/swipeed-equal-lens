@@ -85,7 +85,7 @@ export function AmazingJourneyGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -97,7 +97,7 @@ export function AmazingJourneyGame({ onExit }: { onExit: () => void }) {
   const Passport = (
     <div className="glass-card flex items-center justify-center gap-2 rounded-2xl p-2.5 backdrop-blur-[12px] backdrop-saturate-150" aria-label={`${stamps.size} of ${BADGE_TARGET} passport stamps`}>
       <span className="text-xl" aria-hidden>🛂</span>
-      <span className="mx-1 h-5 w-px bg-white/25" aria-hidden />
+      <span className="mx-1 h-5 w-px bg-foreground/25" aria-hidden />
       {STAMP_IDS.map((id) => (
         <span key={id} className={`text-2xl ${stamps.has(id) ? "animate-in zoom-in duration-300" : "opacity-40"}`} aria-hidden>{stamps.has(id) ? "🟢" : "⚪"}</span>
       ))}
@@ -123,12 +123,12 @@ export function AmazingJourneyGame({ onExit }: { onExit: () => void }) {
             {EXHIBITS.map((e) => (
               <button key={e.id} type="button" onClick={() => openExhibit(e.id)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]" style={stamps.has(e.id) ? { boxShadow: "inset 0 0 0 2px #059669" } : undefined}>
                 <span className="text-4xl" aria-hidden>{e.emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{e.title}</span>
+                <span className="text-center text-sm font-bold text-foreground">{e.title}</span>
               </button>
             ))}
             <button type="button" onClick={openMyths} className="glass-card col-span-2 flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]" style={stamps.has("myths") ? { boxShadow: "inset 0 0 0 2px #059669" } : undefined}>
               <span className="text-4xl" aria-hidden>👻</span>
-              <span className="text-center text-sm font-bold text-white">Bust the Baby Myths</span>
+              <span className="text-center text-sm font-bold text-foreground">Bust the Baby Myths</span>
             </button>
           </div>
         )}
@@ -138,16 +138,16 @@ export function AmazingJourneyGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-5xl" aria-hidden>{exhibit.emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{exhibit.title}</p>
-              <p className="text-sm font-medium text-white/85">{exhibit.explain}</p>
+              <p className="font-display text-lg font-bold text-foreground">{exhibit.title}</p>
+              <p className="text-sm font-medium text-foreground/85">{exhibit.explain}</p>
               {exhibit.explainFuller && !profile.schoolComfort && (
-                <p className="text-sm font-medium text-white/70">{exhibit.explainFuller}</p>
+                <p className="text-sm font-medium text-foreground/70">{exhibit.explainFuller}</p>
               )}
             </div>
-            <p className="text-center text-xs font-semibold uppercase tracking-wide text-white/60">Checkpoint: {exhibit.q}</p>
+            <p className="text-center text-xs font-semibold uppercase tracking-wide text-foreground/60">Checkpoint: {exhibit.q}</p>
             <div className="grid grid-cols-1 gap-2.5">
               {exhibit.options.map((o, i) => (
-                <button key={i} type="button" onClick={() => answerCheck(o.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
+                <button key={i} type="button" onClick={() => answerCheck(o.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
               ))}
             </div>
             {HomeBtn}
@@ -160,21 +160,21 @@ export function AmazingJourneyGame({ onExit }: { onExit: () => void }) {
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className={`text-5xl ${mBusted ? "opacity-30" : "animate-bounce"}`} aria-hidden>{MYTHS[mIdx].emoji}</span>
               {MYTHS[mIdx].boss && !mBusted && <span className="text-[11px] font-bold uppercase tracking-wide text-amber-300">Boss Myth</span>}
-              <p className={`font-display text-lg font-bold ${mBusted ? "text-white/40 line-through" : ""}`} style={mBusted ? undefined : { color: "#ff9085" }}>{MYTHS[mIdx].myth}</p>
+              <p className={`font-display text-lg font-bold ${mBusted ? "text-foreground/40 line-through" : ""}`} style={mBusted ? undefined : { color: "#ff9085" }}>{MYTHS[mIdx].myth}</p>
             </div>
             {mBusted ? (
               <>
                 <UnReBeat un={MYTH_UN} re={MYTHS[mIdx].re} />
-                <button type="button" onClick={nextMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">💥 {mIdx + 1 >= MYTHS.length ? "Last one busted!" : "Next myth"}</button>
+                <button type="button" onClick={nextMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">💥 {mIdx + 1 >= MYTHS.length ? "Last one busted!" : "Next myth"}</button>
               </>
             ) : (
               <div className="grid grid-cols-1 gap-2.5">
                 {MYTHS[mIdx].facts.map((f, i) => (
-                  <button key={i} type="button" onClick={() => chooseFact(f.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{f.text}</button>
+                  <button key={i} type="button" onClick={() => chooseFact(f.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{f.text}</button>
                 ))}
               </div>
             )}
-            <p className="text-center text-xs text-white/60">Myth {mIdx + 1} / {MYTHS.length}</p>
+            <p className="text-center text-xs text-foreground/60">Myth {mIdx + 1} / {MYTHS.length}</p>
             {HomeBtn}
           </>
         )}

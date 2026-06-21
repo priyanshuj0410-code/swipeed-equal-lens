@@ -99,7 +99,7 @@ export function WhatMakesMeGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -134,7 +134,7 @@ export function WhatMakesMeGame({ onExit }: { onExit: () => void }) {
             {STATIONS.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -144,17 +144,17 @@ export function WhatMakesMeGame({ onExit }: { onExit: () => void }) {
         {mode === "sort" && SORT_CARDS[sortIdx] && (
           <>
             <div className="glass-card rounded-2xl px-5 py-7 text-center backdrop-blur-[12px] backdrop-saturate-150">
-              <p className="font-display text-lg font-bold text-white">{SORT_CARDS[sortIdx].text}</p>
+              <p className="font-display text-lg font-bold text-foreground">{SORT_CARDS[sortIdx].text}</p>
             </div>
             <div className="grid grid-cols-2 gap-2.5">
               <button type="button" onClick={() => sortInto("body")} className="glass-card flex flex-col items-center gap-1 rounded-2xl py-4 backdrop-blur-[12px] transition-transform active:scale-95">
-                <span className="text-3xl" aria-hidden>🧬</span><span className="text-sm font-bold text-white">Body — born with it</span>
+                <span className="text-3xl" aria-hidden>🧬</span><span className="text-sm font-bold text-foreground">Body — born with it</span>
               </button>
               <button type="button" onClick={() => sortInto("learned")} className="glass-card flex flex-col items-center gap-1 rounded-2xl py-4 backdrop-blur-[12px] transition-transform active:scale-95">
-                <span className="text-3xl" aria-hidden>📒</span><span className="text-sm font-bold text-white">Learned — taught</span>
+                <span className="text-3xl" aria-hidden>📒</span><span className="text-sm font-bold text-foreground">Learned — taught</span>
               </button>
             </div>
-            <p className="text-center text-xs text-white/60">{sortIdx + 1} / {SORT_CARDS.length}</p>
+            <p className="text-center text-xs text-foreground/60">{sortIdx + 1} / {SORT_CARDS.length}</p>
             {HomeBtn}
           </>
         )}
@@ -164,16 +164,16 @@ export function WhatMakesMeGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-3xl" aria-hidden>📒</span>
-              <p className={`font-display text-lg font-bold ${busted ? "text-white/40 line-through" : "animate-pulse"}`} style={busted ? undefined : { color: "#ff9085" }}>{RULES[rulesIdx].rule}</p>
+              <p className={`font-display text-lg font-bold ${busted ? "text-foreground/40 line-through" : "animate-pulse"}`} style={busted ? undefined : { color: "#ff9085" }}>{RULES[rulesIdx].rule}</p>
             </div>
             {!busted ? (
-              <button type="button" onClick={bustRule} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">
+              <button type="button" onClick={bustRule} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">
                 💥 Bust this rule with UN &amp; RE
               </button>
             ) : (
               <>
                 <UnReBeat un={RULES[rulesIdx].un} re={RULES[rulesIdx].re} />
-                <button type="button" onClick={nextRule} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">
+                <button type="button" onClick={nextRule} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">
                   Next rule <ArrowRight className="size-4" aria-hidden />
                 </button>
               </>
@@ -188,7 +188,7 @@ export function WhatMakesMeGame({ onExit }: { onExit: () => void }) {
             <div className="grid grid-cols-1 gap-2.5">
               {IT_CAN_CHANGE.map((l, i) => (
                 <button key={i} type="button" onClick={() => tapLine(l)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]">
-                  <span className="text-3xl" aria-hidden>{l.emoji}</span><span className="flex-1 text-base font-semibold text-white">{l.say}</span>
+                  <span className="text-3xl" aria-hidden>{l.emoji}</span><span className="flex-1 text-base font-semibold text-foreground">{l.say}</span>
                 </button>
               ))}
             </div>
@@ -203,12 +203,12 @@ export function WhatMakesMeGame({ onExit }: { onExit: () => void }) {
               {[SAME_BODY.kidA, SAME_BODY.kidB].map((k, i) => (
                 <button key={i} type="button" onClick={() => say(`${k.name} ${k.likes}.`)} className="glass-card flex flex-1 flex-col items-center gap-1 rounded-2xl py-5 backdrop-blur-[12px] transition-transform active:scale-95">
                   <span className="text-5xl" aria-hidden>{k.emoji}</span>
-                  <span className="text-sm font-bold text-white">{k.name}</span>
-                  <span className="text-center text-xs text-white/75">{k.likes}</span>
+                  <span className="text-sm font-bold text-foreground">{k.name}</span>
+                  <span className="text-center text-xs text-foreground/75">{k.likes}</span>
                 </button>
               ))}
             </div>
-            <button type="button" onClick={() => say(SAME_BODY.say)} className="glass-pill rounded-2xl px-4 py-3 text-center text-sm font-semibold backdrop-blur-md" style={{ color: "#eef1f7" }}>{SAME_BODY.say}</button>
+            <button type="button" onClick={() => say(SAME_BODY.say)} className="glass-pill rounded-2xl px-4 py-3 text-center text-sm font-semibold backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{SAME_BODY.say}</button>
             {HomeBtn}
           </>
         )}
@@ -224,11 +224,11 @@ export function WhatMakesMeGame({ onExit }: { onExit: () => void }) {
             <div className="grid grid-cols-3 gap-2">
               {ME_TAGS.map((t, i) => (
                 <button key={i} type="button" onClick={() => toggleTag(i)} aria-pressed={meTags.has(i)} className="glass-card flex flex-col items-center gap-0.5 rounded-2xl py-3 backdrop-blur-[12px] transition-transform active:scale-95" style={meTags.has(i) ? { boxShadow: "inset 0 0 0 2px #7C3AED" } : undefined}>
-                  <span className="text-2xl" aria-hidden>{t.emoji}</span><span className="text-[10px] font-bold text-white">{t.label}</span>
+                  <span className="text-2xl" aria-hidden>{t.emoji}</span><span className="text-[10px] font-bold text-foreground">{t.label}</span>
                 </button>
               ))}
             </div>
-            <button type="button" disabled={meTags.size < 3} onClick={() => say(SAM.meDone)} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
+            <button type="button" disabled={meTags.size < 3} onClick={() => say(SAM.meDone)} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
               <Check className="size-5" aria-hidden /> That's me!
             </button>
             {HomeBtn}

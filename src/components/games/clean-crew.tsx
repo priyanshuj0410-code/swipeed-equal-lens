@@ -100,7 +100,7 @@ export function CleanCrewGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -112,7 +112,7 @@ export function CleanCrewGame({ onExit }: { onExit: () => void }) {
   const Stickers = (
     <div className="glass-card flex items-center justify-center gap-2 rounded-2xl p-2.5 backdrop-blur-[12px] backdrop-saturate-150" aria-label={`${stickers.size} of ${BADGE_TARGET} stickers`}>
       <span className="text-xl" aria-hidden>📋</span>
-      <span className="mx-1 h-5 w-px bg-white/25" aria-hidden />
+      <span className="mx-1 h-5 w-px bg-foreground/25" aria-hidden />
       {MODES.map(([id, emoji]) => (
         <span key={id} className={`text-2xl ${stickers.has(id) ? "animate-in zoom-in duration-300" : "opacity-40"}`} aria-hidden>{stickers.has(id) ? emoji : "⚪"}</span>
       ))}
@@ -123,8 +123,8 @@ export function CleanCrewGame({ onExit }: { onExit: () => void }) {
       {items.map((it, i) => (
         <button key={i} type="button" onClick={() => onTap(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={got.has(i) ? { boxShadow: "inset 0 0 0 2px #0EA5E9" } : undefined}>
           <span className="text-3xl" aria-hidden>{it.emoji}</span>
-          <span className="flex-1 text-base font-semibold text-white">{it.say}</span>
-          {got.has(i) && <Check className="size-5 text-white" aria-hidden />}
+          <span className="flex-1 text-base font-semibold text-foreground">{it.say}</span>
+          {got.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
         </button>
       ))}
     </div>
@@ -149,28 +149,28 @@ export function CleanCrewGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
         )}
 
-        {mode === "washUp" && (<>{TapList(WASH_UP, washGot, tapWash)}<p className="text-center text-xs text-white/60">{washGot.size} / {WASH_UP.length}</p>{HomeBtn}</>)}
-        {mode === "sparkle" && (<>{TapList(SPARKLE, sparkleGot, tapSparkle)}<p className="text-center text-xs text-white/60">{sparkleGot.size} / {SPARKLE.length}</p>{HomeBtn}</>)}
-        {mode === "healthy" && (<>{TapList(HEALTHY, healthyGot, tapHealthy)}<p className="text-center text-xs text-white/60">{healthyGot.size} / {HEALTHY.length}</p>{HomeBtn}</>)}
-        {mode === "iCan" && (<>{TapList(I_CAN, iCanGot, tapICan)}<p className="text-center text-xs text-white/60">{iCanGot.size} / {I_CAN.length}</p>{HomeBtn}</>)}
+        {mode === "washUp" && (<>{TapList(WASH_UP, washGot, tapWash)}<p className="text-center text-xs text-foreground/60">{washGot.size} / {WASH_UP.length}</p>{HomeBtn}</>)}
+        {mode === "sparkle" && (<>{TapList(SPARKLE, sparkleGot, tapSparkle)}<p className="text-center text-xs text-foreground/60">{sparkleGot.size} / {SPARKLE.length}</p>{HomeBtn}</>)}
+        {mode === "healthy" && (<>{TapList(HEALTHY, healthyGot, tapHealthy)}<p className="text-center text-xs text-foreground/60">{healthyGot.size} / {HEALTHY.length}</p>{HomeBtn}</>)}
+        {mode === "iCan" && (<>{TapList(I_CAN, iCanGot, tapICan)}<p className="text-center text-xs text-foreground/60">{iCanGot.size} / {I_CAN.length}</p>{HomeBtn}</>)}
 
         {/* Daily Routine — do each step in order */}
         {mode === "routine" && ROUTINE[routineStep] && (
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-8 text-center backdrop-blur-[12px] backdrop-saturate-150">
-              <span className="text-xs font-bold uppercase tracking-wide text-white/60">Step {routineStep + 1} of {ROUTINE.length}</span>
+              <span className="text-xs font-bold uppercase tracking-wide text-foreground/60">Step {routineStep + 1} of {ROUTINE.length}</span>
               <span className="text-6xl" aria-hidden>{ROUTINE[routineStep].emoji}</span>
-              <p className="font-display text-xl font-bold text-white">{ROUTINE[routineStep].step}</p>
+              <p className="font-display text-xl font-bold text-foreground">{ROUTINE[routineStep].step}</p>
             </div>
-            <button type="button" onClick={doRoutineStep} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-white text-lg font-bold text-slate-900 transition-transform active:scale-95">✓ Did it!</button>
+            <button type="button" onClick={doRoutineStep} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-bold text-slate-900 transition-transform active:scale-95">✓ Did it!</button>
             <div className="flex justify-center gap-1.5">
-              {ROUTINE.map((_, i) => (<span key={i} className={`size-2.5 rounded-full ${i < routineStep ? "bg-white" : i === routineStep ? "bg-white/70" : "bg-white/25"}`} aria-hidden />))}
+              {ROUTINE.map((_, i) => (<span key={i} className={`size-2.5 rounded-full ${i < routineStep ? "bg-foreground" : i === routineStep ? "bg-foreground/70" : "bg-foreground/25"}`} aria-hidden />))}
             </div>
             {HomeBtn}
           </>

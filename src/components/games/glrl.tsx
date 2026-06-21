@@ -98,7 +98,7 @@ export function GlrlGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -110,7 +110,7 @@ export function GlrlGame({ onExit }: { onExit: () => void }) {
   const Progress = (
     <div className="glass-card flex items-center justify-center gap-2 rounded-2xl p-2.5 backdrop-blur-[12px] backdrop-saturate-150" aria-label="stories cleared">
       <span className="text-xl" aria-hidden>🗂️</span>
-      <span className="mx-1 h-5 w-px bg-white/25" aria-hidden />
+      <span className="mx-1 h-5 w-px bg-foreground/25" aria-hidden />
       {storyDecks.map((d) => (
         <span key={d.id} className={`text-2xl ${profile.runDeckCleared?.[d.id] ? "animate-in zoom-in duration-300" : "opacity-40"}`} aria-hidden>{profile.runDeckCleared?.[d.id] ? d.emoji : "🤍"}</span>
       ))}
@@ -170,7 +170,7 @@ export function GlrlGame({ onExit }: { onExit: () => void }) {
             {MODES.map((m) => (
               <button key={m.id} type="button" onClick={() => pickMode(m.id)} disabled={m.id === "daily" && !dailyDeck} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{m.emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{m.label}{m.id === "daily" && dailyDone ? " ✓" : ""}</span>
+                <span className="text-center text-sm font-bold text-foreground">{m.label}{m.id === "daily" && dailyDone ? " ✓" : ""}</span>
               </button>
             ))}
           </div>
@@ -186,8 +186,8 @@ export function GlrlGame({ onExit }: { onExit: () => void }) {
                 return (
                   <button key={d.id} type="button" onClick={() => { setDeck(d.id); setPerks([]); setScreen("powers"); say(SAM.powers); }} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]">
                     <span className="text-2xl" aria-hidden>{d.emoji}</span>
-                    <span className="flex-1 text-sm font-bold text-white">{d.title} <span className="font-normal text-white/55">· {ch.name}</span></span>
-                    {cleared && <Check className="size-5 shrink-0 text-white" aria-hidden />}
+                    <span className="flex-1 text-sm font-bold text-foreground">{d.title} <span className="font-normal text-foreground/55">· {ch.name}</span></span>
+                    {cleared && <Check className="size-5 shrink-0 text-foreground" aria-hidden />}
                   </button>
                 );
               })}
@@ -199,7 +199,7 @@ export function GlrlGame({ onExit }: { onExit: () => void }) {
         {/* Powers — equip Insight perks, then start the run */}
         {screen === "powers" && (
           <>
-            <p className="text-center text-xs font-semibold uppercase tracking-wide text-white/60">Equip {LOADOUT.min}–{LOADOUT.max} powers · {perks.length}/{LOADOUT.max}</p>
+            <p className="text-center text-xs font-semibold uppercase tracking-wide text-foreground/60">Equip {LOADOUT.min}–{LOADOUT.max} powers · {perks.length}/{LOADOUT.max}</p>
             <div className="grid grid-cols-2 gap-2.5">
               {PERKS.map((p) => {
                 const on = perks.includes(p.id);
@@ -208,17 +208,17 @@ export function GlrlGame({ onExit }: { onExit: () => void }) {
                 return (
                   <button key={p.id} type="button" onClick={() => unlocked && togglePerk(p.id)} disabled={full || !unlocked} title={unlocked ? p.effect : `Locked — ${p.unlock}`} aria-pressed={on}
                     className="glass-card flex items-center gap-2 rounded-2xl px-3 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-40"
-                    style={on ? { boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.6)" } : undefined}>
+                    style={on ? { boxShadow: "inset 0 0 0 2px var(--color-brand)" } : undefined}>
                     <span className="text-xl leading-none" aria-hidden>{unlocked ? p.emoji : "🔒"}</span>
                     <span className="min-w-0">
-                      <span className="block text-xs font-bold text-white">{p.name}</span>
-                      {!unlocked && (<span className="flex items-center gap-1 text-[10px] leading-tight text-white/55"><Lock className="size-2.5 shrink-0" aria-hidden /> {p.unlock}</span>)}
+                      <span className="block text-xs font-bold text-foreground">{p.name}</span>
+                      {!unlocked && (<span className="flex items-center gap-1 text-[10px] leading-tight text-foreground/55"><Lock className="size-2.5 shrink-0" aria-hidden /> {p.unlock}</span>)}
                     </span>
                   </button>
                 );
               })}
             </div>
-            <button type="button" disabled={!ready} onClick={() => deck && setRun({ deckId: deck, perks })} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
+            <button type="button" disabled={!ready} onClick={() => deck && setRun({ deckId: deck, perks })} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
               <Play className="size-5" aria-hidden /> Start the run
             </button>
             {HomeBtn}

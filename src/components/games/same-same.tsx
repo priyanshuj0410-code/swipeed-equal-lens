@@ -96,7 +96,7 @@ export function SameSameGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
 
@@ -142,7 +142,7 @@ export function SameSameGame({ onExit }: { onExit: () => void }) {
         <div className="flex items-center gap-2">
           <div className="glass-card flex flex-1 flex-col items-center gap-1 rounded-2xl py-4 backdrop-blur-[12px] backdrop-saturate-150">
             <span className="text-5xl" aria-hidden>{pair.left.emoji}</span>
-            <span className="text-xs font-bold text-white">{pair.left.name}</span>
+            <span className="text-xs font-bold text-foreground">{pair.left.name}</span>
           </div>
           <div className="flex flex-col items-center gap-0.5" aria-hidden>
             {phase === "diff" || tappedSame.size >= pair.same.length ? (
@@ -155,7 +155,7 @@ export function SameSameGame({ onExit }: { onExit: () => void }) {
           </div>
           <div className="glass-card flex flex-1 flex-col items-center gap-1 rounded-2xl py-4 backdrop-blur-[12px] backdrop-saturate-150">
             <span className="text-5xl" aria-hidden>{pair.right.emoji}</span>
-            <span className="text-xs font-bold text-white">{pair.right.name}</span>
+            <span className="text-xs font-bold text-foreground">{pair.right.name}</span>
           </div>
         </div>
 
@@ -171,10 +171,10 @@ export function SameSameGame({ onExit }: { onExit: () => void }) {
           {(phase === "share" ? pair.same : pair.different).map((t, i) => {
             const tapped = (phase === "share" ? tappedSame : tappedDiff).has(i);
             return (
-              <button key={`${pairIdx}-${phase}-${i}`} type="button" disabled={tapped} onClick={() => (phase === "share" ? tapSame(i) : tapDiff(i))} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.98] ${tapped ? "opacity-80 ring-2 ring-white/60" : ""}`}>
+              <button key={`${pairIdx}-${phase}-${i}`} type="button" disabled={tapped} onClick={() => (phase === "share" ? tapSame(i) : tapDiff(i))} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.98] ${tapped ? "opacity-80 ring-2 ring-foreground/60" : ""}`}>
                 <span className="text-3xl" aria-hidden>{t.emoji}</span>
-                <span className="flex-1 text-base font-semibold text-white">{t.say}</span>
-                {tapped && <Check className="size-5 text-white" aria-hidden />}
+                <span className="flex-1 text-base font-semibold text-foreground">{t.say}</span>
+                {tapped && <Check className="size-5 text-foreground" aria-hidden />}
               </button>
             );
           })}
@@ -186,7 +186,7 @@ export function SameSameGame({ onExit }: { onExit: () => void }) {
             <button type="button" onClick={() => { setMode("make"); say(SAM.make); }} className="glass-pill flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl text-sm font-bold backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
               <Wand2 className="size-4" aria-hidden /> Make a Friend
             </button>
-            <button type="button" onClick={nextPair} className="flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-white text-sm font-bold text-slate-900 transition-transform active:scale-95">
+            <button type="button" onClick={nextPair} className="flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-sm font-bold text-slate-900 transition-transform active:scale-95">
               {friendships >= GARDEN_TARGET ? "Finish" : "Next friends"} <ArrowRight className="size-4" aria-hidden />
             </button>
           </div>

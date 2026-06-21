@@ -122,7 +122,7 @@ export function PubertyQuestGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -134,7 +134,7 @@ export function PubertyQuestGame({ onExit }: { onExit: () => void }) {
   const Pocketbook = (
     <div className="glass-card flex items-center justify-center gap-2 rounded-2xl p-2.5 backdrop-blur-[12px] backdrop-saturate-150" aria-label={`${badges.size} of ${BADGE_TARGET} pocketbook badges`}>
       <span className="text-xl" aria-hidden>📓</span>
-      <span className="mx-1 h-5 w-px bg-white/25" aria-hidden />
+      <span className="mx-1 h-5 w-px bg-foreground/25" aria-hidden />
       {MODES.map(([id]) => (
         <span key={id} className={`text-2xl ${badges.has(id) ? "animate-in zoom-in duration-300" : "opacity-40"}`} aria-hidden>{badges.has(id) ? "🏅" : "🤍"}</span>
       ))}
@@ -145,8 +145,8 @@ export function PubertyQuestGame({ onExit }: { onExit: () => void }) {
       {items.map((it, i) => (
         <button key={i} type="button" onClick={() => onTap(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={got.has(i) ? { boxShadow: "inset 0 0 0 2px #0EA5E9" } : undefined}>
           <span className="text-2xl" aria-hidden>{it.emoji}</span>
-          <span className="flex-1 text-sm font-semibold text-white">{it.say}</span>
-          {got.has(i) && <Check className="size-5 text-white" aria-hidden />}
+          <span className="flex-1 text-sm font-semibold text-foreground">{it.say}</span>
+          {got.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
         </button>
       ))}
     </div>
@@ -171,15 +171,15 @@ export function PubertyQuestGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
         )}
 
-        {mode === "periodPlace" && (<>{FactList(PERIOD_FACTS, periodGot, tapPeriod)}<p className="text-center text-xs text-white/60">{periodGot.size} / {PERIOD_FACTS.length}</p>{HomeBtn}</>)}
-        {mode === "changes" && (<>{FactList(CHANGE_FACTS, changeGot, tapChange)}<p className="text-center text-xs text-white/60">{changeGot.size} / {CHANGE_FACTS.length}</p>{HomeBtn}</>)}
-        {mode === "moods" && (<>{FactList(moodList, moodGot, tapMood)}<p className="text-center text-xs text-white/60">{moodGot.size} / {moodList.length}</p>{HomeBtn}</>)}
+        {mode === "periodPlace" && (<>{FactList(PERIOD_FACTS, periodGot, tapPeriod)}<p className="text-center text-xs text-foreground/60">{periodGot.size} / {PERIOD_FACTS.length}</p>{HomeBtn}</>)}
+        {mode === "changes" && (<>{FactList(CHANGE_FACTS, changeGot, tapChange)}<p className="text-center text-xs text-foreground/60">{changeGot.size} / {CHANGE_FACTS.length}</p>{HomeBtn}</>)}
+        {mode === "moods" && (<>{FactList(moodList, moodGot, tapMood)}<p className="text-center text-xs text-foreground/60">{moodGot.size} / {moodList.length}</p>{HomeBtn}</>)}
 
         {/* Myth Monster battle (UN & RE) */}
         {mode === "mythMonsters" && MYTHS[mIdx] && (
@@ -187,21 +187,21 @@ export function PubertyQuestGame({ onExit }: { onExit: () => void }) {
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className={`text-5xl ${mBusted ? "opacity-30" : "animate-bounce"}`} aria-hidden>{MYTHS[mIdx].emoji}</span>
               {MYTHS[mIdx].boss && !mBusted && <span className="text-[11px] font-bold uppercase tracking-wide text-amber-300">Boss Myth</span>}
-              <p className={`font-display text-lg font-bold ${mBusted ? "text-white/40 line-through" : ""}`} style={mBusted ? undefined : { color: "#ff9085" }}>{MYTHS[mIdx].myth}</p>
+              <p className={`font-display text-lg font-bold ${mBusted ? "text-foreground/40 line-through" : ""}`} style={mBusted ? undefined : { color: "#ff9085" }}>{MYTHS[mIdx].myth}</p>
             </div>
             {mBusted ? (
               <>
                 <UnReBeat un={MYTH_UN} re={MYTHS[mIdx].re} />
-                <button type="button" onClick={nextMonster} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">💥 {mIdx + 1 >= MYTHS.length ? "Last one busted!" : "Next monster"}</button>
+                <button type="button" onClick={nextMonster} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">💥 {mIdx + 1 >= MYTHS.length ? "Last one busted!" : "Next monster"}</button>
               </>
             ) : (
               <div className="grid grid-cols-1 gap-2.5">
                 {MYTHS[mIdx].facts.map((f, i) => (
-                  <button key={i} type="button" onClick={() => chooseFact(f.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{f.text}</button>
+                  <button key={i} type="button" onClick={() => chooseFact(f.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{f.text}</button>
                 ))}
               </div>
             )}
-            <p className="text-center text-xs text-white/60">Monster {mIdx + 1} / {MYTHS.length}</p>
+            <p className="text-center text-xs text-foreground/60">Monster {mIdx + 1} / {MYTHS.length}</p>
             {HomeBtn}
           </>
         )}
@@ -212,12 +212,12 @@ export function PubertyQuestGame({ onExit }: { onExit: () => void }) {
             <div className="grid grid-cols-1 gap-2.5">
               {ASK_IT.map((it, i) => (
                 <button key={i} type="button" onClick={() => tapAsk(i)} className="glass-card flex flex-col gap-1.5 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={askGot.has(i) ? { boxShadow: `inset 0 0 0 2px ${it.help ? "#F59E0B" : "#0EA5E9"}` } : undefined}>
-                  <span className="flex items-center gap-2 text-sm font-bold text-white"><span aria-hidden>{it.help ? "🆘" : "💬"}</span> {it.q}</span>
-                  {askGot.has(i) && <span className="text-sm font-medium text-white/85">{it.a}</span>}
+                  <span className="flex items-center gap-2 text-sm font-bold text-foreground"><span aria-hidden>{it.help ? "🆘" : "💬"}</span> {it.q}</span>
+                  {askGot.has(i) && <span className="text-sm font-medium text-foreground/85">{it.a}</span>}
                 </button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">Ask-It is private and anonymous.</p>
+            <p className="text-center text-xs text-foreground/60">Ask-It is private and anonymous.</p>
             {HomeBtn}
           </>
         )}

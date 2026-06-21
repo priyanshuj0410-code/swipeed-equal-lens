@@ -108,7 +108,7 @@ export function FamilyGardenGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
 
@@ -133,7 +133,7 @@ export function FamilyGardenGame({ onExit }: { onExit: () => void }) {
       {acts.map((a) => (
         <button key={a.label} type="button" onClick={() => doAct(a)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.98]">
           <span className="text-3xl" aria-hidden>{a.emoji}</span>
-          <span className="flex-1 text-base font-semibold text-white">{a.label}</span>
+          <span className="flex-1 text-base font-semibold text-foreground">{a.label}</span>
         </button>
       ))}
     </div>
@@ -166,7 +166,7 @@ export function FamilyGardenGame({ onExit }: { onExit: () => void }) {
               ] as [Mode, string, string][]).map(([m, emoji, label]) => (
                 <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                   <span className="text-4xl" aria-hidden>{emoji}</span>
-                  <span className="text-sm font-bold text-white">{label}</span>
+                  <span className="text-sm font-bold text-foreground">{label}</span>
                 </button>
               ))}
             </div>
@@ -185,12 +185,12 @@ export function FamilyGardenGame({ onExit }: { onExit: () => void }) {
                 ))}
               </div>
             )}
-            <p className="px-1 text-center text-xs text-white/75">Tap to add anyone who loves you — even two mums or two dads. 💛 (Tap someone above to remove.)</p>
+            <p className="px-1 text-center text-xs text-foreground/75">Tap to add anyone who loves you — even two mums or two dads. 💛 (Tap someone above to remove.)</p>
             <div className="grid grid-cols-4 gap-2">
               {MEMBERS.map((m) => (
                 <button key={m.id} type="button" onClick={() => addMember(m.id)} className="glass-card flex flex-col items-center gap-0.5 rounded-2xl py-3 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-95">
                   <span className="text-2xl" aria-hidden>{m.emoji}</span>
-                  <span className="text-[10px] font-bold leading-tight text-white">{m.name}</span>
+                  <span className="text-[10px] font-bold leading-tight text-foreground">{m.name}</span>
                 </button>
               ))}
             </div>
@@ -202,13 +202,13 @@ export function FamilyGardenGame({ onExit }: { onExit: () => void }) {
         {mode === "care" && CARE_SCENES[careIdx] && (
           <>
             <div className="glass-card rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
-              <p className="font-display text-lg font-bold text-white">{CARE_SCENES[careIdx].text}</p>
+              <p className="font-display text-lg font-bold text-foreground">{CARE_SCENES[careIdx].text}</p>
             </div>
             <div className="grid grid-cols-2 gap-2.5">
               {CARE_SCENES[careIdx].options.map((o) => (
                 <button key={o.label} type="button" onClick={() => tapCare(o.caring)} className="glass-card flex flex-col items-center gap-1 rounded-2xl py-4 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-95">
                   <span className="text-3xl" aria-hidden>{o.emoji}</span>
-                  <span className="text-xs font-bold text-white">{o.label}</span>
+                  <span className="text-xs font-bold text-foreground">{o.label}</span>
                 </button>
               ))}
             </div>

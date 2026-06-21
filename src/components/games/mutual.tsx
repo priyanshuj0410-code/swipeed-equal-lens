@@ -120,7 +120,7 @@ export function MutualGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -139,14 +139,14 @@ export function MutualGame({ onExit }: { onExit: () => void }) {
     <>
       <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
         <span className="text-5xl" aria-hidden>{scenes[idx].emoji}</span>
-        <p className="font-display text-base font-bold text-white">{scenes[idx].situation}</p>
+        <p className="font-display text-base font-bold text-foreground">{scenes[idx].situation}</p>
       </div>
       <div className="grid grid-cols-1 gap-2.5">
         {scenes[idx].options.map((o, i) => (
-          <button key={i} type="button" onClick={() => onChoose(o.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
+          <button key={i} type="button" onClick={() => onChoose(o.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
         ))}
       </div>
-      <p className="text-center text-xs text-white/60">{idx + 1} / {scenes.length}</p>
+      <p className="text-center text-xs text-foreground/60">{idx + 1} / {scenes.length}</p>
     </>
   );
 
@@ -171,7 +171,7 @@ export function MutualGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -184,12 +184,12 @@ export function MutualGame({ onExit }: { onExit: () => void }) {
               {CONSENT_STANDARD.map((c, i) => (
                 <button key={i} type="button" onClick={() => tapStd(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={stdGot.has(i) ? { boxShadow: "inset 0 0 0 2px #059669" } : undefined}>
                   <span className="text-2xl" aria-hidden>{c.emoji}</span>
-                  <span className="flex-1 text-sm font-semibold text-white">{c.say}</span>
-                  {stdGot.has(i) && <Check className="size-5 text-white" aria-hidden />}
+                  <span className="flex-1 text-sm font-semibold text-foreground">{c.say}</span>
+                  {stdGot.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
                 </button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">{stdGot.size} / {CONSENT_STANDARD.length} · a yes, not the absence of no</p>
+            <p className="text-center text-xs text-foreground/60">{stdGot.size} / {CONSENT_STANDARD.length} · a yes, not the absence of no</p>
             {HomeBtn}
           </>
         )}
@@ -202,21 +202,21 @@ export function MutualGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               {MYTHS[mIdx].boss && !mBusted && <span className="text-[11px] font-bold uppercase tracking-wide text-amber-300">Boss Myth</span>}
-              <p className={`font-display text-base font-bold ${mBusted ? "text-white/40 line-through" : "animate-pulse"}`} style={mBusted ? undefined : { color: "#ff9085" }}>{MYTHS[mIdx].myth}</p>
+              <p className={`font-display text-base font-bold ${mBusted ? "text-foreground/40 line-through" : "animate-pulse"}`} style={mBusted ? undefined : { color: "#ff9085" }}>{MYTHS[mIdx].myth}</p>
             </div>
             {mBusted ? (
               <>
                 <UnReBeat un={MYTH_UN} re={MYTHS[mIdx].re} />
-                <button type="button" onClick={nextMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">💥 {mIdx + 1 >= MYTHS.length ? "Last one busted!" : "Next myth"}</button>
+                <button type="button" onClick={nextMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">💥 {mIdx + 1 >= MYTHS.length ? "Last one busted!" : "Next myth"}</button>
               </>
             ) : (
               <div className="grid grid-cols-1 gap-2.5">
                 {MYTHS[mIdx].facts.map((f, i) => (
-                  <button key={i} type="button" onClick={() => chooseFact(f.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{f.text}</button>
+                  <button key={i} type="button" onClick={() => chooseFact(f.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{f.text}</button>
                 ))}
               </div>
             )}
-            <p className="text-center text-xs text-white/60">Myth {mIdx + 1} / {MYTHS.length}</p>
+            <p className="text-center text-xs text-foreground/60">Myth {mIdx + 1} / {MYTHS.length}</p>
             {HomeBtn}
           </>
         )}
@@ -227,12 +227,12 @@ export function MutualGame({ onExit }: { onExit: () => void }) {
             <div className="grid grid-cols-1 gap-2.5">
               {RIGHTS_ASK.map((it, i) => (
                 <button key={i} type="button" onClick={() => tapAsk(i)} className="glass-card flex flex-col gap-1.5 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={askGot.has(i) ? { boxShadow: `inset 0 0 0 2px ${it.help ? "#F59E0B" : "#059669"}` } : undefined}>
-                  <span className="flex items-center gap-2 text-sm font-bold text-white"><span aria-hidden>{it.help ? "🆘" : "💬"}</span> {it.q}</span>
-                  {askGot.has(i) && <span className="text-sm font-medium text-white/85">{it.a}</span>}
+                  <span className="flex items-center gap-2 text-sm font-bold text-foreground"><span aria-hidden>{it.help ? "🆘" : "💬"}</span> {it.q}</span>
+                  {askGot.has(i) && <span className="text-sm font-medium text-foreground/85">{it.a}</span>}
                 </button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">Private & anonymous — help is always here.</p>
+            <p className="text-center text-xs text-foreground/60">Private & anonymous — help is always here.</p>
             {HomeBtn}
           </>
         )}

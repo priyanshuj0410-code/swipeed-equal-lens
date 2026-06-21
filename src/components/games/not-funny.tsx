@@ -112,7 +112,7 @@ export function NotFunnyGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -132,8 +132,8 @@ export function NotFunnyGame({ onExit }: { onExit: () => void }) {
       {items.map((it, i) => (
         <button key={i} type="button" onClick={() => onTap(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={got.has(i) ? { boxShadow: "inset 0 0 0 2px #7C3AED" } : undefined}>
           <span className="text-2xl" aria-hidden>{it.emoji}</span>
-          <span className="flex-1 text-sm font-semibold text-white">{it.line ? `“${it.line}”` : it.say}</span>
-          {got.has(i) && <Check className="size-5 text-white" aria-hidden />}
+          <span className="flex-1 text-sm font-semibold text-foreground">{it.line ? `“${it.line}”` : it.say}</span>
+          {got.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
         </button>
       ))}
     </div>
@@ -158,7 +158,7 @@ export function NotFunnyGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -169,14 +169,14 @@ export function NotFunnyGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-4xl" aria-hidden>{SCENES[sceneIdx].emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{SCENES[sceneIdx].situation}</p>
+              <p className="font-display text-lg font-bold text-foreground">{SCENES[sceneIdx].situation}</p>
             </div>
             <div className="grid grid-cols-1 gap-2.5">
               {SCENES[sceneIdx].choices.map((c, i) => (
-                <button key={i} type="button" onClick={() => chooseScene(c)} className="glass-card rounded-2xl px-4 py-3 text-left text-base font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{c.label}</button>
+                <button key={i} type="button" onClick={() => chooseScene(c)} className="glass-card rounded-2xl px-4 py-3 text-left text-base font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{c.label}</button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">Scene {sceneIdx + 1} / {SCENES.length}</p>
+            <p className="text-center text-xs text-foreground/60">Scene {sceneIdx + 1} / {SCENES.length}</p>
             {HomeBtn}
           </>
         )}
@@ -186,14 +186,14 @@ export function NotFunnyGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-3xl" aria-hidden>💬</span>
-              <p className={`font-display text-lg font-bold ${jokeBusted ? "text-white/40 line-through" : "animate-pulse"}`} style={jokeBusted ? undefined : { color: "#ff9085" }}>{JOKE.deflection}</p>
+              <p className={`font-display text-lg font-bold ${jokeBusted ? "text-foreground/40 line-through" : "animate-pulse"}`} style={jokeBusted ? undefined : { color: "#ff9085" }}>{JOKE.deflection}</p>
             </div>
             {!jokeBusted ? (
-              <button type="button" onClick={() => { setJokeBusted(true); celebrate("small"); say(JOKE.re); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">💥 Bust it with UN &amp; RE</button>
+              <button type="button" onClick={() => { setJokeBusted(true); celebrate("small"); say(JOKE.re); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">💥 Bust it with UN &amp; RE</button>
             ) : (
               <>
                 <UnReBeat un={JOKE.un} re={JOKE.re} />
-                <button type="button" onClick={() => { earn("joke"); go("home"); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">Got it!</button>
+                <button type="button" onClick={() => { earn("joke"); go("home"); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">Got it!</button>
               </>
             )}
             {HomeBtn}
@@ -205,12 +205,12 @@ export function NotFunnyGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col gap-1.5 rounded-2xl px-4 py-3 backdrop-blur-[12px] backdrop-saturate-150">
               {ALLY_STEPS.map((s, i) => (
-                <p key={i} className="flex items-center gap-2 text-sm font-semibold text-white"><span className="text-lg" aria-hidden>{s.emoji}</span> {i + 1}. {s.label}</p>
+                <p key={i} className="flex items-center gap-2 text-sm font-semibold text-foreground"><span className="text-lg" aria-hidden>{s.emoji}</span> {i + 1}. {s.label}</p>
               ))}
             </div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-white/65">Your Comeback Kit — tap each phrase</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-foreground/65">Your Comeback Kit — tap each phrase</p>
             {TapList(COMEBACK_KIT, kit, tapKit)}
-            <p className="text-center text-xs text-white/60">{kit.size} / {COMEBACK_KIT.length}</p>
+            <p className="text-center text-xs text-foreground/60">{kit.size} / {COMEBACK_KIT.length}</p>
             {HomeBtn}
           </>
         )}

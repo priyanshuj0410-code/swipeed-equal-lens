@@ -85,13 +85,13 @@ export function CrossroadsGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const Meter = (label: string, emoji: string, value: number, color: string) => (
     <div className="flex flex-col gap-1">
-      <div className="flex items-center justify-between text-xs font-bold text-white/80"><span>{emoji} {label}</span><span>{value}</span></div>
-      <div className="h-2.5 overflow-hidden rounded-full bg-white/15">
+      <div className="flex items-center justify-between text-xs font-bold text-foreground/80"><span>{emoji} {label}</span><span>{value}</span></div>
+      <div className="h-2.5 overflow-hidden rounded-full bg-foreground/15">
         <div className="h-full rounded-full transition-all duration-500" style={{ width: `${value}%`, background: color }} />
       </div>
     </div>
@@ -118,23 +118,23 @@ export function CrossroadsGame({ onExit }: { onExit: () => void }) {
         {phase !== "intro" && Meters}
 
         {phase === "intro" && (
-          <button type="button" onClick={startWeek} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-white text-lg font-bold text-slate-900 transition-transform active:scale-95">▶️ Start my week</button>
+          <button type="button" onClick={startWeek} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-bold text-slate-900 transition-transform active:scale-95">▶️ Start my week</button>
         )}
 
         {phase === "week" && cross && (
           <>
-            <p className="text-center text-[11px] font-semibold uppercase tracking-wide text-white/55">{STOP_THINK_CHOOSE}</p>
+            <p className="text-center text-[11px] font-semibold uppercase tracking-wide text-foreground/55">{STOP_THINK_CHOOSE}</p>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
-              <span className="text-xs font-bold uppercase tracking-wide text-white/60">{cross.day}</span>
+              <span className="text-xs font-bold uppercase tracking-wide text-foreground/60">{cross.day}</span>
               <span className="text-5xl" aria-hidden>{cross.emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{(profile.schoolComfort && cross.situationSoft) ? cross.situationSoft : cross.situation}</p>
+              <p className="font-display text-lg font-bold text-foreground">{(profile.schoolComfort && cross.situationSoft) ? cross.situationSoft : cross.situation}</p>
             </div>
             <div className="grid grid-cols-1 gap-2.5">
               {cross.choices.map((c, i) => (
-                <button key={i} type="button" onClick={() => choose(c)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{c.label}</button>
+                <button key={i} type="button" onClick={() => choose(c)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{c.label}</button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">Day {dayIdx + 1} / {WEEK.length}</p>
+            <p className="text-center text-xs text-foreground/60">Day {dayIdx + 1} / {WEEK.length}</p>
           </>
         )}
 
@@ -142,7 +142,7 @@ export function CrossroadsGame({ onExit }: { onExit: () => void }) {
         {phase === "crush" && (
           <>
             <UnReBeat un={CRUSH_UN} re={CRUSH_RE} />
-            <button type="button" onClick={advance} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">Got it — feelings are okay</button>
+            <button type="button" onClick={advance} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">Got it — feelings are okay</button>
           </>
         )}
 
@@ -150,17 +150,17 @@ export function CrossroadsGame({ onExit }: { onExit: () => void }) {
         {phase === "debrief" && (
           <>
             <div className="glass-card flex flex-col gap-2 rounded-2xl px-5 py-5 backdrop-blur-[12px] backdrop-saturate-150">
-              <p className="font-display text-base font-bold text-white">🌟 Skills you used this week</p>
+              <p className="font-display text-base font-bold text-foreground">🌟 Skills you used this week</p>
               {skills.length ? (
                 <div className="flex flex-wrap gap-2">
-                  {skills.map((s) => (<span key={s} className="rounded-full bg-white/15 px-3 py-1 text-xs font-bold text-white">{s}</span>))}
+                  {skills.map((s) => (<span key={s} className="rounded-full bg-foreground/15 px-3 py-1 text-xs font-bold text-foreground">{s}</span>))}
                 </div>
               ) : (
-                <p className="text-sm font-medium text-white/75">Try replaying for the wiser, kinder paths — your meters will thank you!</p>
+                <p className="text-sm font-medium text-foreground/75">Try replaying for the wiser, kinder paths — your meters will thank you!</p>
               )}
-              <p className="mt-1 text-sm font-medium text-white/80">Trust {trust} · Wellbeing {well}. There's no single right answer — replaying to try other paths is the point.</p>
+              <p className="mt-1 text-sm font-medium text-foreground/80">Trust {trust} · Wellbeing {well}. There's no single right answer — replaying to try other paths is the point.</p>
             </div>
-            <button type="button" onClick={() => { celebrate("big"); say(SAM.complete, () => setDone(true)); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">Finish the week</button>
+            <button type="button" onClick={() => { celebrate("big"); say(SAM.complete, () => setDone(true)); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">Finish the week</button>
             <button type="button" onClick={reset} className="glass-pill flex h-11 w-full items-center justify-center gap-2 rounded-2xl text-sm font-bold backdrop-blur-md transition-transform active:scale-95"><RotateCcw className="size-4" aria-hidden /> Replay the week</button>
           </>
         )}

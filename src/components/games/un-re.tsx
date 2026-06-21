@@ -7,7 +7,7 @@ import { Eraser, Pencil } from "lucide-react";
 // pencil) redraws the truer one, with a reason. Shared so the duo looks/behaves the same everywhere.
 export function UnReBeat({ un, re }: { un: string; re: string }) {
   return (
-    <div className="glass-pill rounded-2xl px-4 py-3 text-sm leading-relaxed backdrop-blur-md backdrop-saturate-150 animate-in fade-in" style={{ color: "#eef1f7" }}>
+    <div className="glass-pill rounded-2xl px-4 py-3 text-sm leading-relaxed backdrop-blur-md backdrop-saturate-150 animate-in fade-in" style={{ color: "var(--color-ink)" }}>
       <p className="flex items-start gap-2">
         <Eraser className="mt-0.5 size-4 shrink-0" style={{ color: "#b3c8ff" }} aria-hidden />
         <span><b>UN:</b> {un}</span>

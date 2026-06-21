@@ -122,7 +122,7 @@ export function FriendFrenemyGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -157,7 +157,7 @@ export function FriendFrenemyGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -168,14 +168,14 @@ export function FriendFrenemyGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-4xl" aria-hidden>{STORIES[storyIdx].emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{STORIES[storyIdx].situation}</p>
+              <p className="font-display text-lg font-bold text-foreground">{STORIES[storyIdx].situation}</p>
             </div>
             <div className="grid grid-cols-1 gap-2.5">
               {STORIES[storyIdx].choices.map((c, i) => (
-                <button key={i} type="button" onClick={() => chooseStory(c)} className="glass-card rounded-2xl px-4 py-3 text-left text-base font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{c.label}</button>
+                <button key={i} type="button" onClick={() => chooseStory(c)} className="glass-card rounded-2xl px-4 py-3 text-left text-base font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{c.label}</button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">Story {storyIdx + 1} / {STORIES.length}</p>
+            <p className="text-center text-xs text-foreground/60">Story {storyIdx + 1} / {STORIES.length}</p>
             {HomeBtn}
           </>
         )}
@@ -187,12 +187,12 @@ export function FriendFrenemyGame({ onExit }: { onExit: () => void }) {
               {WORDS.map((w, i) => (
                 <button key={i} type="button" onClick={() => tapWord(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={collected.has(i) ? { boxShadow: "inset 0 0 0 2px #EC4899" } : undefined}>
                   <span className="text-3xl" aria-hidden>{w.emoji}</span>
-                  <span className="flex-1 text-base font-semibold text-white">“{w.line}”</span>
-                  {collected.has(i) && <Check className="size-5 text-white" aria-hidden />}
+                  <span className="flex-1 text-base font-semibold text-foreground">“{w.line}”</span>
+                  {collected.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
                 </button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">Collected {collected.size} / {WORDS.length}</p>
+            <p className="text-center text-xs text-foreground/60">Collected {collected.size} / {WORDS.length}</p>
             {HomeBtn}
           </>
         )}
@@ -204,18 +204,18 @@ export function FriendFrenemyGame({ onExit }: { onExit: () => void }) {
               <>
                 <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
                   <span className="text-4xl" aria-hidden>{PRESSURE[pIdx].emoji}</span>
-                  <p className="font-display text-lg font-bold text-white">{PRESSURE[pIdx].situation}</p>
+                  <p className="font-display text-lg font-bold text-foreground">{PRESSURE[pIdx].situation}</p>
                 </div>
                 <div className="grid grid-cols-1 gap-2.5">
                   {PRESSURE[pIdx].choices.map((c, i) => (
-                    <button key={i} type="button" onClick={() => choosePressure(c.ok, c.result)} className="glass-card rounded-2xl px-4 py-3 text-left text-base font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{c.label}</button>
+                    <button key={i} type="button" onClick={() => choosePressure(c.ok, c.result)} className="glass-card rounded-2xl px-4 py-3 text-left text-base font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{c.label}</button>
                   ))}
                 </div>
               </>
             ) : (
               <>
                 <UnReBeat un={PRESSURE_UN} re={PRESSURE_RE} />
-                <button type="button" onClick={() => { earn("pressure"); go("home"); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">Got it!</button>
+                <button type="button" onClick={() => { earn("pressure"); go("home"); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">Got it!</button>
               </>
             )}
             {HomeBtn}
@@ -232,8 +232,8 @@ export function FriendFrenemyGame({ onExit }: { onExit: () => void }) {
                 return (
                   <button key={i} type="button" disabled={!active} onClick={() => tapStep(i)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98] ${active ? "" : "opacity-50"}`} style={doneStep ? { boxShadow: "inset 0 0 0 2px #62e08f" } : undefined}>
                     <span className="text-3xl" aria-hidden>{s.emoji}</span>
-                    <span className="flex-1 text-base font-bold text-white">{i + 1}. {s.label}</span>
-                    {doneStep && <Check className="size-5 text-white" aria-hidden />}
+                    <span className="flex-1 text-base font-bold text-foreground">{i + 1}. {s.label}</span>
+                    {doneStep && <Check className="size-5 text-foreground" aria-hidden />}
                   </button>
                 );
               })}
@@ -248,11 +248,11 @@ export function FriendFrenemyGame({ onExit }: { onExit: () => void }) {
             <div className="grid grid-cols-3 gap-2">
               {GOOD_FRIEND_TAGS.map((t, i) => (
                 <button key={i} type="button" onClick={() => toggleTag(i)} aria-pressed={tags.has(i)} className="glass-card flex flex-col items-center gap-0.5 rounded-2xl py-3 backdrop-blur-[12px] transition-transform active:scale-95" style={tags.has(i) ? { boxShadow: "inset 0 0 0 2px #EC4899" } : undefined}>
-                  <span className="text-2xl" aria-hidden>{t.emoji}</span><span className="text-[10px] font-bold text-white">{t.label}</span>
+                  <span className="text-2xl" aria-hidden>{t.emoji}</span><span className="text-[10px] font-bold text-foreground">{t.label}</span>
                 </button>
               ))}
             </div>
-            <button type="button" disabled={tags.size < 3} onClick={() => say(SAM.checkDone, () => earn("check"))} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
+            <button type="button" disabled={tags.size < 3} onClick={() => say(SAM.checkDone, () => earn("check"))} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
               <Check className="size-5" aria-hidden /> That's a good friend!
             </button>
             {HomeBtn}

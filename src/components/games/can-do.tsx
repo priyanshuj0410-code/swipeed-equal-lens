@@ -106,7 +106,7 @@ export function CanDoGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
 
@@ -130,7 +130,7 @@ export function CanDoGame({ onExit }: { onExit: () => void }) {
       {lines.map((l, i) => (
         <button key={i} type="button" onClick={() => tapLine(l)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.98]">
           <span className="text-3xl" aria-hidden>{l.emoji}</span>
-          <span className="flex-1 text-base font-semibold text-white">{l.say}</span>
+          <span className="flex-1 text-base font-semibold text-foreground">{l.say}</span>
         </button>
       ))}
     </div>
@@ -172,7 +172,7 @@ export function CanDoGame({ onExit }: { onExit: () => void }) {
             ] as [Mode, string, string][]).map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-sm font-bold text-white">{label}</span>
+                <span className="text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -183,14 +183,14 @@ export function CanDoGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-7 backdrop-blur-[12px] backdrop-saturate-150">
               <span className={`text-7xl ${spin === "spinning" ? "animate-pulse" : spin === "landed" ? "animate-in zoom-in" : ""}`} aria-hidden>{display.emoji}</span>
-              <p className="font-display text-xl font-bold text-white">
+              <p className="font-display text-xl font-bold text-foreground">
                 {spin === "ready" && "What will you be?"}
                 {spin === "spinning" && "Spinning…"}
                 {spin === "landed" && role && `Anyone can be a ${role.name}!`}
               </p>
-              {spin === "landed" && role && <p className="text-sm text-white/85">{role.job}</p>}
+              {spin === "landed" && role && <p className="text-sm text-foreground/85">{role.job}</p>}
             </div>
-            <button type="button" onClick={doSpin} disabled={spin === "spinning"} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-white text-lg font-extrabold text-slate-900 transition-transform active:scale-95 disabled:opacity-60">
+            <button type="button" onClick={doSpin} disabled={spin === "spinning"} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-extrabold text-slate-900 transition-transform active:scale-95 disabled:opacity-60">
               <Sparkles className="size-5" aria-hidden /> {spin === "landed" ? "Spin again!" : "Spin the wheel!"}
             </button>
             {HomeBtn}
@@ -207,7 +207,7 @@ export function CanDoGame({ onExit }: { onExit: () => void }) {
                     <span aria-hidden>👹</span>
                   </button>
                   <p className="font-display text-lg font-bold" style={{ color: "#ff9085" }}>“{myth}”</p>
-                  <p className="text-xs font-semibold text-white/90">Tap the monster to pop it! 💥</p>
+                  <p className="text-xs font-semibold text-foreground/90">Tap the monster to pop it! 💥</p>
                 </>
               ) : (
                 <>

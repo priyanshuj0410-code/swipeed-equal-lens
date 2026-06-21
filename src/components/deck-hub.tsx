@@ -53,15 +53,15 @@ export function DeckHub() {
       {daily && (
         <Link
           href={`/play/${daily.id}`}
-          className="group relative overflow-hidden rounded-3xl p-5 text-white shadow-lg transition-transform hover:-translate-y-0.5"
+          className="group relative overflow-hidden rounded-3xl p-5 text-foreground shadow-lg transition-transform hover:-translate-y-0.5"
           style={{ background: `linear-gradient(135deg, ${daily.accent}, color-mix(in oklab, ${daily.accent} 50%, var(--primary)))` }}
         >
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
               <p className="text-2xl font-extrabold leading-tight">{daily.emoji} Daily Deck</p>
-              <p className="mt-1 text-sm leading-snug text-white/85">10 mixed cards · your daily warm-up</p>
+              <p className="mt-1 text-sm leading-snug text-foreground/85">10 mixed cards · your daily warm-up</p>
             </div>
-            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-white/20 backdrop-blur transition-transform group-hover:scale-110">
+            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-foreground/20 backdrop-blur transition-transform group-hover:scale-110">
               <Play className="size-5 fill-white" aria-hidden />
             </span>
           </div>

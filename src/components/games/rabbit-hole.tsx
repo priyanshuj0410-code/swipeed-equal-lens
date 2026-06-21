@@ -118,7 +118,7 @@ export function RabbitHoleGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -138,8 +138,8 @@ export function RabbitHoleGame({ onExit }: { onExit: () => void }) {
       {items.map((it, i) => (
         <button key={i} type="button" onClick={() => onTap(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={got.has(i) ? { boxShadow: "inset 0 0 0 2px #475569" } : undefined}>
           <span className="text-2xl" aria-hidden>{it.emoji}</span>
-          <span className="flex-1 text-sm font-semibold text-white">{it.say}</span>
-          {got.has(i) && <Check className="size-5 text-white" aria-hidden />}
+          <span className="flex-1 text-sm font-semibold text-foreground">{it.say}</span>
+          {got.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
         </button>
       ))}
     </div>
@@ -165,27 +165,27 @@ export function RabbitHoleGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
         )}
 
-        {mode === "money" && (<>{TapList(moneyList, moneyGot, tapMoney)}<p className="text-center text-xs text-white/60">{moneyGot.size} / {moneyList.length} · follow the incentive</p>{HomeBtn}</>)}
-        {mode === "realStrong" && (<>{TapList(REAL_STRONG, strongGot, tapStrong)}<p className="text-center text-xs text-white/60">{strongGot.size} / {REAL_STRONG.length} · strength that lifts</p>{HomeBtn}</>)}
-        {mode === "backs" && (<>{TapList(BACKS, backsGot, tapBacks)}<p className="text-center text-xs text-white/60">{backsGot.size} / {BACKS.length} · this part's for everyone</p>{HomeBtn}</>)}
+        {mode === "money" && (<>{TapList(moneyList, moneyGot, tapMoney)}<p className="text-center text-xs text-foreground/60">{moneyGot.size} / {moneyList.length} · follow the incentive</p>{HomeBtn}</>)}
+        {mode === "realStrong" && (<>{TapList(REAL_STRONG, strongGot, tapStrong)}<p className="text-center text-xs text-foreground/60">{strongGot.size} / {REAL_STRONG.length} · strength that lifts</p>{HomeBtn}</>)}
+        {mode === "backs" && (<>{TapList(BACKS, backsGot, tapBacks)}<p className="text-center text-xs text-foreground/60">{backsGot.size} / {BACKS.length} · this part's for everyone</p>{HomeBtn}</>)}
 
         {/* The Funnel — trace the escalation, step by step */}
         {mode === "funnel" && FUNNEL[funnelStep] && (
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-8 text-center backdrop-blur-[12px] backdrop-saturate-150">
-              <span className="text-xs font-bold uppercase tracking-wide text-white/60">Step {funnelStep + 1} of {FUNNEL.length}</span>
+              <span className="text-xs font-bold uppercase tracking-wide text-foreground/60">Step {funnelStep + 1} of {FUNNEL.length}</span>
               <span className="text-5xl" aria-hidden>{FUNNEL[funnelStep].emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{FUNNEL[funnelStep].step}</p>
+              <p className="font-display text-lg font-bold text-foreground">{FUNNEL[funnelStep].step}</p>
             </div>
-            <button type="button" onClick={doFunnelStep} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-white text-lg font-bold text-slate-900 transition-transform active:scale-95">{funnelStep + 1 >= FUNNEL.length ? "I see it" : "Keep going ↓"}</button>
+            <button type="button" onClick={doFunnelStep} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-bold text-slate-900 transition-transform active:scale-95">{funnelStep + 1 >= FUNNEL.length ? "I see it" : "Keep going ↓"}</button>
             <div className="flex justify-center gap-1.5">
-              {FUNNEL.map((_, i) => (<span key={i} className={`size-2.5 rounded-full ${i < funnelStep ? "bg-white" : i === funnelStep ? "bg-white/70" : "bg-white/25"}`} aria-hidden />))}
+              {FUNNEL.map((_, i) => (<span key={i} className={`size-2.5 rounded-full ${i < funnelStep ? "bg-foreground" : i === funnelStep ? "bg-foreground/70" : "bg-foreground/25"}`} aria-hidden />))}
             </div>
             {HomeBtn}
           </>
@@ -196,17 +196,17 @@ export function RabbitHoleGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-3xl" aria-hidden>🪝</span>
-              <p className={`font-display text-lg font-bold ${busted ? "text-white/40 line-through" : "animate-pulse"}`} style={busted ? undefined : { color: "#ff9085" }}>“{HOOKS[hookIdx].un}”</p>
+              <p className={`font-display text-lg font-bold ${busted ? "text-foreground/40 line-through" : "animate-pulse"}`} style={busted ? undefined : { color: "#ff9085" }}>“{HOOKS[hookIdx].un}”</p>
             </div>
             {!busted ? (
-              <button type="button" onClick={bustHook} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">🧽 See through it</button>
+              <button type="button" onClick={bustHook} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">🧽 See through it</button>
             ) : (
               <>
                 <UnReBeat un={HOOKS[hookIdx].un} re={HOOKS[hookIdx].re} />
-                <button type="button" onClick={nextHook} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">{hookIdx + 1 >= HOOKS.length ? "Done" : "Next hook"}</button>
+                <button type="button" onClick={nextHook} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">{hookIdx + 1 >= HOOKS.length ? "Done" : "Next hook"}</button>
               </>
             )}
-            <p className="text-center text-xs text-white/60">{hookIdx + 1} / {HOOKS.length} · no shame for ever finding it convincing</p>
+            <p className="text-center text-xs text-foreground/60">{hookIdx + 1} / {HOOKS.length} · no shame for ever finding it convincing</p>
             {HomeBtn}
           </>
         )}

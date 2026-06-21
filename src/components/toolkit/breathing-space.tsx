@@ -41,7 +41,7 @@ export function BreathingSpace({ onClose }: { onClose: () => void }) {
         <X className="size-5" aria-hidden />
       </button>
 
-      <p className="text-center text-xl font-bold text-white/90" aria-live="polite">
+      <p className="text-center text-xl font-bold text-foreground/90" aria-live="polite">
         {big ? "Breathe in…" : "Breathe out…"}
       </p>
 
@@ -61,7 +61,7 @@ export function BreathingSpace({ onClose }: { onClose: () => void }) {
         </span>
       </div>
 
-      <p className="max-w-xs text-center text-sm text-white/60">
+      <p className="max-w-xs text-center text-sm text-foreground/60">
         Slow and gentle — there's no rush. Stay as long as you like.
       </p>
     </div>

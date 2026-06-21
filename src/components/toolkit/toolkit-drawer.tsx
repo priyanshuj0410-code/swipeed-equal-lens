@@ -46,24 +46,24 @@ export function ToolkitDrawer() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-3 flex items-center justify-between">
-              <h2 className="font-display text-lg font-bold text-white">Your Toolkit</h2>
+              <h2 className="font-display text-lg font-bold text-foreground">Your Toolkit</h2>
               <div className="flex items-center gap-2">
                 {(profile.dailyStreak?.count ?? 0) >= 2 && (
-                  <span className="rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white/85">
+                  <span className="rounded-full bg-foreground/15 px-2.5 py-1 text-[11px] font-semibold text-foreground/85">
                     🔥 {profile.dailyStreak!.count}-day streak
                   </span>
                 )}
-                <button type="button" onClick={() => setOpen(null)} aria-label="Close" className="flex size-8 items-center justify-center rounded-full bg-white/10 transition-transform active:scale-95">
-                  <X className="size-4 text-white" aria-hidden />
+                <button type="button" onClick={() => setOpen(null)} aria-label="Close" className="flex size-8 items-center justify-center rounded-full bg-foreground/10 transition-transform active:scale-95">
+                  <X className="size-4 text-foreground" aria-hidden />
                 </button>
               </div>
             </div>
-            <p className="mb-4 text-xs text-white/60">Four skills you carry — open any one, any time.</p>
+            <p className="mb-4 text-xs text-foreground/60">Four skills you carry — open any one, any time.</p>
 
             <button
               type="button"
               onClick={() => setOpen("breathing")}
-              className="mb-3 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95"
+              className="mb-3 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95"
             >
               <Wind className="size-5" aria-hidden /> Breathing space
             </button>
@@ -78,10 +78,10 @@ export function ToolkitDrawer() {
                 >
                   <span className="text-3xl" aria-hidden>{t.emoji}</span>
                   <span className="flex-1">
-                    <span className="block text-sm font-bold text-white">{t.name}</span>
-                    <span className="block text-xs text-white/60">{t.tagline}</span>
+                    <span className="block text-sm font-bold text-foreground">{t.name}</span>
+                    <span className="block text-xs text-foreground/60">{t.tagline}</span>
                   </span>
-                  <span className="rounded-full bg-white/15 px-2 py-0.5 text-[11px] font-semibold text-white/80">
+                  <span className="rounded-full bg-foreground/15 px-2 py-0.5 text-[11px] font-semibold text-foreground/80">
                     Lv {toolLevel(profile, t.id)}
                   </span>
                 </button>

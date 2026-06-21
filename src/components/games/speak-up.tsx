@@ -112,7 +112,7 @@ export function SpeakUpGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -132,8 +132,8 @@ export function SpeakUpGame({ onExit }: { onExit: () => void }) {
       {items.map((it, i) => (
         <button key={i} type="button" onClick={() => onTap(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={got.has(i) ? { boxShadow: "inset 0 0 0 2px #7C3AED" } : undefined}>
           <span className="text-2xl" aria-hidden>{it.emoji}</span>
-          <span className="flex-1 text-sm font-semibold text-white">{it.say}</span>
-          {got.has(i) && <Check className="size-5 text-white" aria-hidden />}
+          <span className="flex-1 text-sm font-semibold text-foreground">{it.say}</span>
+          {got.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
         </button>
       ))}
     </div>
@@ -158,7 +158,7 @@ export function SpeakUpGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -169,15 +169,15 @@ export function SpeakUpGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-4xl" aria-hidden>{SPOT[spotIdx].emoji}</span>
-              <p className="font-display text-base font-bold text-white">{SPOT[spotIdx].scene}</p>
+              <p className="font-display text-base font-bold text-foreground">{SPOT[spotIdx].scene}</p>
             </div>
-            <p className="text-center text-xs font-semibold uppercase tracking-wide text-white/60">Is this harm?</p>
+            <p className="text-center text-xs font-semibold uppercase tracking-wide text-foreground/60">Is this harm?</p>
             <div className="grid grid-cols-1 gap-2.5">
               {SPOT[spotIdx].options.map((o, i) => (
-                <button key={i} type="button" onClick={() => chooseSpot(o.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
+                <button key={i} type="button" onClick={() => chooseSpot(o.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">{spotIdx + 1} / {SPOT.length}</p>
+            <p className="text-center text-xs text-foreground/60">{spotIdx + 1} / {SPOT.length}</p>
             {HomeBtn}
           </>
         )}
@@ -187,14 +187,14 @@ export function SpeakUpGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-4xl" aria-hidden>{SAFE[safeIdx].emoji}</span>
-              <p className="font-display text-base font-bold text-white">{SAFE[safeIdx].scene}</p>
+              <p className="font-display text-base font-bold text-foreground">{SAFE[safeIdx].scene}</p>
             </div>
             <div className="grid grid-cols-1 gap-2.5">
               {SAFE[safeIdx].options.map((o, i) => (
-                <button key={i} type="button" onClick={() => chooseSafe(o.safe, o.kind)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.label}</button>
+                <button key={i} type="button" onClick={() => chooseSafe(o.safe, o.kind)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.label}</button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">{safeIdx + 1} / {SAFE.length}</p>
+            <p className="text-center text-xs text-foreground/60">{safeIdx + 1} / {SAFE.length}</p>
             {HomeBtn}
           </>
         )}
@@ -204,22 +204,22 @@ export function SpeakUpGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-3xl" aria-hidden>💔</span>
-              <p className={`font-display text-base font-bold ${faultBusted ? "text-white/40 line-through" : "animate-pulse"}`} style={faultBusted ? undefined : { color: "#ff9085" }}>{NOT_FAULT.myths}</p>
+              <p className={`font-display text-base font-bold ${faultBusted ? "text-foreground/40 line-through" : "animate-pulse"}`} style={faultBusted ? undefined : { color: "#ff9085" }}>{NOT_FAULT.myths}</p>
             </div>
             {!faultBusted ? (
-              <button type="button" onClick={() => { setFaultBusted(true); celebrate("small"); say(NOT_FAULT.re); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">💥 Bust them with UN &amp; RE</button>
+              <button type="button" onClick={() => { setFaultBusted(true); celebrate("small"); say(NOT_FAULT.re); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">💥 Bust them with UN &amp; RE</button>
             ) : (
               <>
                 <UnReBeat un={NOT_FAULT.un} re={NOT_FAULT.re} />
-                <button type="button" onClick={() => { earn("notFault"); go("home"); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">It's never my fault.</button>
+                <button type="button" onClick={() => { earn("notFault"); go("home"); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">It's never my fault.</button>
               </>
             )}
             {HomeBtn}
           </>
         )}
 
-        {mode === "helpMap" && (<>{TapList(HELP_MAP, mapGot, tapMap)}<p className="text-center text-xs text-white/60">Help Map: {mapGot.size} / {HELP_MAP.length}</p>{HomeBtn}</>)}
-        {mode === "standTogether" && (<>{TapList(STAND_TOGETHER, standGot, tapStand)}<p className="text-center text-xs text-white/60">{standGot.size} / {STAND_TOGETHER.length}</p>{HomeBtn}</>)}
+        {mode === "helpMap" && (<>{TapList(HELP_MAP, mapGot, tapMap)}<p className="text-center text-xs text-foreground/60">Help Map: {mapGot.size} / {HELP_MAP.length}</p>{HomeBtn}</>)}
+        {mode === "standTogether" && (<>{TapList(STAND_TOGETHER, standGot, tapStand)}<p className="text-center text-xs text-foreground/60">{standGot.size} / {STAND_TOGETHER.length}</p>{HomeBtn}</>)}
       </div>
     </GameShell>
   );

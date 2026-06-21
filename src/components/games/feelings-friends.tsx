@@ -156,7 +156,7 @@ export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
         {bubble}
       </span>
     </div>
@@ -201,7 +201,7 @@ export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
             style={{ boxShadow: `inset 0 0 0 2px ${f.color}66`, opacity: dim && !has ? 0.55 : 1 }}
           >
             <span className="text-4xl" aria-hidden>{f.emoji}</span>
-            <span className="text-xs font-bold text-white">{f.name}</span>
+            <span className="text-xs font-bold text-foreground">{f.name}</span>
           </button>
         );
       })}
@@ -239,7 +239,7 @@ export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
                 className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]"
               >
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-sm font-bold text-white">{label}</span>
+                <span className="text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -257,7 +257,7 @@ export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
         {mode === "match" && matchScenes[matchIdx] && (
           <>
             <div className="glass-card rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
-              <p className="font-display text-xl font-bold text-white">{matchScenes[matchIdx].text}</p>
+              <p className="font-display text-xl font-bold text-foreground">{matchScenes[matchIdx].text}</p>
             </div>
             {FEEL_GRID(tapMatch)}
             {HomeBtn}
@@ -281,7 +281,7 @@ export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
                   key={b.label}
                   type="button"
                   onClick={() => { say(b.sam); celebrate("small"); try { navigator.vibrate?.(14); } catch { /* unsupported */ } }}
-                  className="flex flex-col items-center justify-center gap-1 rounded-3xl py-7 text-white ring-4 ring-white/40 transition-transform active:scale-90"
+                  className="flex flex-col items-center justify-center gap-1 rounded-3xl py-7 text-foreground ring-4 ring-foreground/40 transition-transform active:scale-90"
                   style={{ background: b.accent }}
                 >
                   <span className="text-4xl" aria-hidden>{b.emoji}</span>
@@ -310,7 +310,7 @@ export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
               >
                 <span className="text-5xl">{calmPhase === "out" ? "🕯️" : "🌸"}</span>
               </div>
-              <p className="flex items-center gap-2 font-display text-lg font-bold text-white">
+              <p className="flex items-center gap-2 font-display text-lg font-bold text-foreground">
                 <Wind className="size-5" aria-hidden />
                 {calmPhase === "in" ? "Smell the flower…" : calmPhase === "out" ? "Blow the candle…" : "Breathe with Sam"}
               </p>
@@ -329,7 +329,7 @@ export function FeelingsFriendsGame({ onExit }: { onExit: () => void }) {
         {/* ---- My Feelings Family (album) ---- */}
         {mode === "family" && (
           <>
-            <p className="text-center text-sm font-semibold text-white/85">
+            <p className="text-center text-sm font-semibold text-foreground/85">
               {collected.size}/{FEELINGS.length} friends met
             </p>
             {FEEL_GRID((id) => { collect(id); say(`${FEELING_BY_ID[id].name}. ${FEELING_BY_ID[id].sam}`); }, true)}
