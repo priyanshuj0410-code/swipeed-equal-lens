@@ -46,10 +46,20 @@ The skin is a prop on the one `PathScene`: `skin="realistic"` (default) vs `skin
 plain `/path` and `?world=3d` stay realistic. **The realistic GLTF world is fully intact** — this is a
 re-skin behind a flag, not a removal. Any future removal of the GLTF assets is a separate, signed-off step.
 
+## Brand fidelity (matches the live site)
+The dotted paper is the **exact** site recipe: paper `#FBF9FF` + a 28px grid of `#ECE6F6` dots, no grain
+(from `globals.css` `body` / `.canvas-dots`) — used on **both** the land and the sky (one continuous
+canvas, sky washed pale blue). The sky also carries the site's **8 doodle marks** (squiggle · sparkle ·
+spiral · arrow · heart · star · zigzag · swirl, from `Doodles.tsx`) in the 4 accents (insight teal · grow
+coral · sun yellow · brandsoft violet), floating as confetti. Trees/clouds/path keep the doodle hand —
+chunky Ink `#221436` outlines, flat fills, round joins.
+
 ## v1 scope (this build — for direction-check)
-- Paper ground (season-tinted) · doodle trees (round + pine, ~170 scattered, path-cleared) · paper sky ·
-  doodle clouds (drifting) · inked path along the curve · nodes + Sam + travel intact · lighter post FX.
-- **Stub doodles drawn in code** (two tree shapes, one cloud, one path stroke). Good enough to judge feel.
+- Dotted-paper ground (faint season tint) · doodle trees (round + pine, ~170 scattered, path-cleared) ·
+  dotted-paper sky · doodle clouds (drifting) · the 8 brand doodle marks scattered in the sky · inked path
+  along the curve · nodes + Sam + travel intact · lighter post FX.
+- **Doodles drawn in code** (the 8 site marks reproduced exactly; two tree shapes + one cloud + path stroke
+  are stand-ins for richer per-season packs later). Good enough to judge feel.
 
 ## Follow-ups (after direction is confirmed)
 - **Per-season doodles** — tree/cloud/ground variants per chapter theme (summer/rainy/autumn/winter/spring),

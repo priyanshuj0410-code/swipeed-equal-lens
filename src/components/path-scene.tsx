@@ -249,50 +249,67 @@ function roundRectPath(g: CanvasRenderingContext2D, x: number, y: number, w: num
   g.closePath();
 }
 
-// warm paper + faint speckle + dotted-paper grid → the canvas every surface is drawn on.
-function makePaperTex(tint = "#fcfaff", dot = "#e6ddf2", size = 256) {
+// The brand canvas: dotted paper. Matches The Equal Lens site exactly — paper #FBF9FF with a 28px
+// grid of soft violet dots (--dot #ECE6F6), no grain. This is the surface for both the land and the
+// sky, so the whole world reads as one sheet of the site's dotted paper.
+const PAPER = "#FBF9FF";
+const PAPER_DOT = "#ECE6F6";
+function makePaperTex(paper = PAPER, dot = PAPER_DOT) {
+  const grid = 28; // px between dots, exactly as on the site
+  const tiles = 6;
+  const size = grid * tiles;
   const c = document.createElement("canvas");
   c.width = c.height = size;
   const g = c.getContext("2d")!;
-  g.fillStyle = tint;
+  g.fillStyle = paper;
   g.fillRect(0, 0, size, size);
-  for (let i = 0; i < size * 3; i++) {
-    g.fillStyle = `rgba(34,20,54,${0.012 + Math.random() * 0.022})`;
-    g.fillRect(Math.random() * size, Math.random() * size, Math.random() * 1.3, Math.random() * 1.3);
-  }
   g.fillStyle = dot;
-  const step = 30;
-  for (let y = step / 2; y < size; y += step)
-    for (let x = step / 2; x < size; x += step) {
+  for (let y = grid / 2; y < size; y += grid)
+    for (let x = grid / 2; x < size; x += grid) {
       g.beginPath();
-      g.arc(x, y, 1.4, 0, 6.2832);
+      g.arc(x, y, 1.7, 0, 6.2832); // a hair bigger than the site's 1.1px so dots read at 3D distance
       g.fill();
     }
   const t = new THREE.CanvasTexture(c);
   t.wrapS = t.wrapT = THREE.RepeatWrapping;
-  t.anisotropy = 4;
+  t.anisotropy = 8;
   return t;
 }
 
-// a soft hand-coloured sky wash on paper (zenith blue → warm-paper horizon).
-function makeSkyTex() {
+// The 8 hand-drawn doodle marks from the site (Doodles.tsx), drawn to textures — the brand's
+// easter-egg "the whole site is a canvas" confetti, scattered across the sky in the 4 accents.
+type DoodleMark = "squiggle" | "sparkle" | "spiral" | "arrow" | "heart" | "star" | "zigzag" | "swirl";
+const DOODLE_DEFS: Record<DoodleMark, { w: number; h: number; fills?: string[]; strokes?: [string, number][] }> = {
+  squiggle: { w: 60, h: 24, strokes: [["M3 14 Q12 2 21 14 T39 14 T57 14", 4]] },
+  sparkle: { w: 40, h: 40, fills: ["M20 2 C22 14 26 18 38 20 C26 22 22 26 20 38 C18 26 14 22 2 20 C14 18 18 14 20 2 Z"] },
+  spiral: { w: 40, h: 40, strokes: [["M20 20 m0 0 a4 4 0 1 1 -6 2 a9 9 0 1 1 14 3 a14 14 0 1 1 -22 -5", 3.5]] },
+  arrow: { w: 54, h: 40, strokes: [["M4 22 C18 2 32 2 44 16", 3.5], ["M36 9 L46 15 L39 25", 3.5]] },
+  heart: { w: 30, h: 28, fills: ["M15 26 C2 17 4 5 15 11 C26 5 28 17 15 26 Z"] },
+  star: { w: 34, h: 34, fills: ["M17 2 L21 13 L33 13 L23 20 L27 32 L17 24 L7 32 L11 20 L1 13 L13 13 Z"] },
+  zigzag: { w: 56, h: 20, strokes: [["M3 10 L13 3 L23 17 L33 3 L43 17 L53 10", 4]] },
+  swirl: { w: 50, h: 40, strokes: [["M4 20 C4 8 22 8 22 20 C22 30 10 30 12 20 C14 12 26 12 30 22 C33 30 44 28 46 18", 3.5]] },
+};
+function makeDoodleMarkTex(name: DoodleMark, color: string) {
+  const def = DOODLE_DEFS[name];
+  const S = 128;
+  const pad = 16;
   const c = document.createElement("canvas");
-  c.width = 8;
-  c.height = 512;
+  c.width = c.height = S;
   const g = c.getContext("2d")!;
-  const grad = g.createLinearGradient(0, 0, 0, 512);
-  grad.addColorStop(0, "#bfe0fb");
-  grad.addColorStop(0.55, "#dceffa");
-  grad.addColorStop(1, "#f7f1e4");
-  g.fillStyle = grad;
-  g.fillRect(0, 0, 8, 512);
-  for (let i = 0; i < 600; i++) {
-    g.fillStyle = `rgba(255,255,255,${Math.random() * 0.05})`;
-    g.fillRect(Math.random() * 8, Math.random() * 512, 1, 1);
+  const sc = Math.min((S - 2 * pad) / def.w, (S - 2 * pad) / def.h);
+  g.translate((S - def.w * sc) / 2, (S - def.h * sc) / 2);
+  g.scale(sc, sc);
+  g.lineCap = "round";
+  g.lineJoin = "round";
+  g.fillStyle = color;
+  g.strokeStyle = color;
+  for (const d of def.fills ?? []) g.fill(new Path2D(d));
+  for (const [d, wd] of def.strokes ?? []) {
+    g.lineWidth = wd;
+    g.stroke(new Path2D(d));
   }
   const t = new THREE.CanvasTexture(c);
-  t.wrapS = THREE.ClampToEdgeWrapping;
-  t.wrapT = THREE.ClampToEdgeWrapping;
+  t.anisotropy = 4;
   return t;
 }
 
@@ -418,14 +435,59 @@ function makePathStrokeTex() {
   return t;
 }
 
+// The sky is the same dotted paper as the land (one continuous canvas), washed a pale sky blue.
 function CanvasSky() {
-  const tex = useMemo(() => makeSkyTex(), []);
+  const tex = useMemo(() => {
+    const t = makePaperTex();
+    t.repeat.set(20, 10);
+    return t;
+  }, []);
   useEffect(() => () => tex.dispose(), [tex]);
   return (
     <mesh position={[0, 0, PATH_MID_Z]}>
       <sphereGeometry args={[560, 32, 16]} />
-      <meshBasicMaterial map={tex} side={THREE.BackSide} depthWrite={false} fog={false} />
+      <meshBasicMaterial map={tex} color="#e6eefb" side={THREE.BackSide} depthWrite={false} fog={false} />
     </mesh>
+  );
+}
+
+// Brand doodle confetti — the 8 marks in the 4 accents, floating across the sky (billboards).
+const SKY_DOODLES: { name: DoodleMark; color: string }[] = [
+  { name: "sparkle", color: "#FFC94D" },
+  { name: "squiggle", color: "#2DD4BF" },
+  { name: "star", color: "#FF7A5C" },
+  { name: "swirl", color: "#7F65A4" },
+  { name: "spiral", color: "#7F65A4" },
+  { name: "sparkle", color: "#FF7A5C" },
+  { name: "star", color: "#FFC94D" },
+  { name: "zigzag", color: "#2DD4BF" },
+  { name: "heart", color: "#FF7A5C" },
+  { name: "squiggle", color: "#2DD4BF" },
+  { name: "sparkle", color: "#FFC94D" },
+  { name: "arrow", color: "#7F65A4" },
+];
+function DoodleMarks() {
+  const texes = useMemo(() => SKY_DOODLES.map((d) => makeDoodleMarkTex(d.name, d.color)), []);
+  useEffect(() => () => texes.forEach((t) => t.dispose()), [texes]);
+  const marks = useMemo(() => {
+    const rng = mulberry32(303);
+    const n = Math.round(SKY_DOODLES.length * PATH_SCALE);
+    return Array.from({ length: n }, (_, i) => ({
+      i: i % SKY_DOODLES.length,
+      x: (rng() - 0.5) * 300,
+      y: 24 + rng() * 64,
+      z: PATH_START_Z - rng() * PATH_SPAN_Z,
+      s: 5.5 + rng() * 5,
+    }));
+  }, []);
+  return (
+    <group>
+      {marks.map((m, k) => (
+        <sprite key={k} position={[m.x, m.y, m.z]} scale={[m.s, m.s, 1]}>
+          <spriteMaterial map={texes[m.i]} transparent depthWrite={false} fog={false} opacity={0.95} />
+        </sprite>
+      ))}
+    </group>
   );
 }
 
@@ -642,7 +704,7 @@ function Ground({ skin }: { skin: WorldSkin }) {
   const paper = useMemo(() => {
     if (skin !== "canvas") return null;
     const t = makePaperTex();
-    t.repeat.set(700 / 13, (PATH_SPAN_Z + 360) / 13);
+    t.repeat.set(700 / 9, (PATH_SPAN_Z + 360) / 9);
     return t;
   }, [skin]);
   useEffect(() => () => paper?.dispose(), [paper]);
@@ -654,7 +716,8 @@ function Ground({ skin }: { skin: WorldSkin }) {
     const season = SEASON_ORDER[seasonRT.index] ?? "summer";
     if (skin === "canvas") {
       if (matRef.current) {
-        tintCol.set(SEASONS[season].ground.base).lerp(white, 0.22);
+        // mostly the brand dotted paper, with only a faint seasonal warmth/cool
+        tintCol.set(SEASONS[season].ground.base).lerp(white, 0.82);
         matRef.current.color.lerp(tintCol, 0.08);
       }
       return;
@@ -1731,6 +1794,7 @@ export function PathScene({
       {/* phase 0: sky + land + mountains (canvas skin swaps in the hand-drawn equivalents) */}
       {canvas ? <CanvasSky /> : <SkyDome />}
       {canvas ? <DoodleClouds /> : <Clouds />}
+      {canvas && <DoodleMarks />}
       <NightSky />
       <FollowCam progress={progress} />
       <SunLight progress={progress} />
