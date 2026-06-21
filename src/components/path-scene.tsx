@@ -1711,6 +1711,24 @@ function _wallOccludes(camPos: THREE.Vector3, tx: number, ty: number, tz: number
   const targets = _doorMeshes.length ? [_corridorMesh, ..._doorMeshes] : [_corridorMesh];
   return _occRay.intersectObjects(targets, false).length > 0;
 }
+
+// node ids whose completion beat (the earned-sticker 'drop') has already played — persisted, so it fires
+// only on a NEW completion, never when a done node scrolls into view or on reload.
+const _celebrated: Set<string> = (() => {
+  try {
+    return new Set<string>(JSON.parse((typeof localStorage !== "undefined" && localStorage.getItem("swipeed.celebrated")) || "[]"));
+  } catch {
+    return new Set<string>();
+  }
+})();
+function _markCelebrated(id: string) {
+  _celebrated.add(id);
+  try {
+    localStorage.setItem("swipeed.celebrated", JSON.stringify([..._celebrated]));
+  } catch {
+    /* ignore */
+  }
+}
 function Node({
   node,
   u,
@@ -1744,6 +1762,16 @@ function Node({
   const [hovered, setHovered] = useState(false);
   const [occluded, setOccluded] = useState(false); // a corridor wall is between this node's label and the camera
   const occRef = useRef(false);
+  // completion beat: play the earned-sticker 'drop' once, only on a NEW completion (not reload / re-scroll)
+  const [beat, setBeat] = useState(false);
+  useEffect(() => {
+    if (canvas && completed && !_celebrated.has(node.id)) {
+      _markCelebrated(node.id);
+      setBeat(true);
+      const t = setTimeout(() => setBeat(false), 950);
+      return () => clearTimeout(t);
+    }
+  }, [canvas, completed, node.id]);
   useFrame((s) => {
     if (spr.current) {
       spr.current.position.y = canvas ? 0.35 : 0.2 + (bob && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0); // canvas: no bob (spec — stuck on, never hovering)
@@ -1806,13 +1834,15 @@ function Node({
                 </span>
               )}
               {!soon && completed && (
-                <span className="absolute -right-1 -top-1 grid size-9 place-items-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-grow)] text-[var(--color-paper)]" aria-hidden>
+                <span className={`absolute -right-1 -top-1 grid size-9 place-items-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-grow)] text-[var(--color-paper)] ${beat ? "beat-badge" : ""}`} aria-hidden>
                   <svg viewBox="0 0 20 20" className="size-5">
                     <path d="M4 11 l4 4 l8 -10" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </span>
               )}
             </button>
+            {/* completion beat: a one-shot Unlearn→Relearn burst ring when this node has just been completed */}
+            {beat && <span aria-hidden className="beat-burst pointer-events-none absolute left-1/2 top-1/2 rounded-full border-4" style={{ width: cap ? 170 : 142, height: cap ? 170 : 142 }} />}
             {/* Active node (spec §3/§5): the single 'play me next' — a re-sketching Equal-Violet ring +
                 Lensy perched with a 'Play?' bubble. The strongest on-brand play cue; replaces the play mark. */}
             {active && (
