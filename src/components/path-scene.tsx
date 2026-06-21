@@ -444,14 +444,6 @@ function makePathStrokeTex() {
 const CANVAS_PAPER = "#FBF9FF";
 const CANVAS_DOT = "#E7E0F1";
 const CANVAS_INK = "#221436"; // hand-drawn outline / Ink
-const CANVAS_SUN = "#FFC94D"; // reserved: capstone fill + state badges
-// chapter accent fills for the node stickers (sun is held back for capstones/badges); cycled by chapter
-const CANVAS_ACCENTS = ["#FF7A5C", "#2DD4BF", "#7F65A4"]; // grow coral · insight teal · brandsoft violet
-// Nodes & Navigation spec tokens (§11): paper cut-out, Equal Violet inked outline, Grow Coral play/RE
-const EQUAL_VIOLET = "#553286"; // node outline / Lensy
-const EQUAL_VIOLET_PALE = "#B7A7D1"; // locked: pale, dashed, un-inked
-const GROW_CORAL = "#D2552B"; // play mark / inked path / RE pencil
-const LIFT_SHADOW = "#CCC2DF"; // the hard offset cut-out shadow (light violet-grey)
 
 // Canvas skin — the sky: the brand dotted paper on the distant backdrop, drawn in SCREEN space.
 // Knobs: uPx (pixel spacing) + uDotPx (dot radius px).
@@ -1590,121 +1582,6 @@ function useEmojiTexture(emoji: string, grey = false) {
   return tex;
 }
 
-// --- canvas-skin node sticker -------------------------------------------------------------------
-// A hand-drawn "sticker" pressed onto the dotted paper: a wobbly Ink-outlined disc, flat accent fill,
-// the lesson emoji, and a corner state badge. Replaces the toon pedestal+ring+emoji in canvas mode.
-function _wobbleCircle(ctx: CanvasRenderingContext2D, cx: number, cy: number, R: number) {
-  const N = 56;
-  for (let i = 0; i <= N; i++) {
-    const a = (i / N) * Math.PI * 2;
-    const rr = R + Math.sin(a * 3 + 1.3) * 1.7 + Math.sin(a * 7 + 0.6) * 1.0; // deterministic hand wobble
-    const x = cx + Math.cos(a) * rr;
-    const y = cy + Math.sin(a) * rr;
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  }
-}
-function _sparkle(ctx: CanvasRenderingContext2D, x: number, y: number, s: number) {
-  ctx.beginPath();
-  ctx.moveTo(x, y - s);
-  ctx.lineTo(x + s * 0.3, y - s * 0.3);
-  ctx.lineTo(x + s, y);
-  ctx.lineTo(x + s * 0.3, y + s * 0.3);
-  ctx.lineTo(x, y + s);
-  ctx.lineTo(x - s * 0.3, y + s * 0.3);
-  ctx.lineTo(x - s, y);
-  ctx.lineTo(x - s * 0.3, y - s * 0.3);
-  ctx.closePath();
-  ctx.fillStyle = CANVAS_PAPER;
-  ctx.fill();
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = CANVAS_INK;
-  ctx.lineJoin = "round";
-  ctx.stroke();
-}
-// the small drawn play mark (spec §5): a bare Grow-Coral triangle on playable nodes, a coral tick on
-// Done, nothing on Locked (the faint dashed cut-out already says 'locked'). No sun chip / app-button.
-function _playMark(ctx: CanvasRenderingContext2D, cx: number, cy: number, R: number, state: NodeState) {
-  if (state === "soon") return;
-  const my = cy + R * 0.58;
-  const s = R * 0.3;
-  ctx.fillStyle = GROW_CORAL;
-  ctx.strokeStyle = GROW_CORAL;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  if (state === "completed") {
-    ctx.lineWidth = R * 0.11;
-    ctx.beginPath();
-    ctx.moveTo(cx - s, my);
-    ctx.lineTo(cx - s * 0.25, my + s * 0.8);
-    ctx.lineTo(cx + s, my - s * 0.7);
-    ctx.stroke();
-  } else {
-    ctx.beginPath(); // play triangle / pencil-tip
-    ctx.moveTo(cx - s * 0.65, my - s * 0.85);
-    ctx.lineTo(cx - s * 0.65, my + s * 0.85);
-    ctx.lineTo(cx + s * 0.9, my);
-    ctx.closePath();
-    ctx.fill();
-  }
-}
-function useStickerTexture(active: boolean, emoji: string, accent: string, state: NodeState, capstone: boolean) {
-  const tex = useMemo(() => {
-    if (!active) return null;
-    const S = 256;
-    const c = document.createElement("canvas");
-    c.width = c.height = S;
-    const ctx = c.getContext("2d")!;
-    const cx = S / 2;
-    const cy = S / 2;
-    const R = capstone ? 86 : 80;
-    const locked = state === "soon";
-    if (capstone) {
-      _sparkle(ctx, 40, 60, 13);
-      _sparkle(ctx, S - 42, 50, 15);
-      _sparkle(ctx, S - 30, S - 54, 11);
-    }
-    // hard offset cut-out shadow = the "lifted → tappable" cue (spec §2); baked in so it billboards with
-    // the sticker (faces the camera). Locked stays FLAT — no shadow.
-    if (!locked) {
-      ctx.beginPath();
-      _wobbleCircle(ctx, cx + 11, cy + 14, R);
-      ctx.closePath();
-      ctx.fillStyle = LIFT_SHADOW; // hard offset cut-out shadow, no blur
-      ctx.fill();
-    }
-    // the cut-out: paper fill, Equal-Violet inked outline (pale + dashed when Locked = un-inked)
-    ctx.beginPath();
-    _wobbleCircle(ctx, cx, cy, R);
-    ctx.closePath();
-    ctx.fillStyle = CANVAS_PAPER;
-    ctx.fill();
-    ctx.lineWidth = capstone ? 8 : 7;
-    ctx.strokeStyle = locked ? EQUAL_VIOLET_PALE : EQUAL_VIOLET;
-    ctx.lineJoin = "round";
-    ctx.lineCap = "round";
-    if (locked) ctx.setLineDash([15, 12]);
-    ctx.stroke();
-    ctx.setLineDash([]);
-    // glyph: the lesson emoji — a stand-in for the game's hand-drawn earnable-sticker motif (spec §5 wants
-    // doodle motifs, not emoji; needs the sticker art). Faint when Locked.
-    ctx.save();
-    ctx.font = `${Math.round(R * 1.02)}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    if (locked) ctx.filter = "grayscale(1) opacity(0.45)";
-    ctx.fillText(emoji, cx, cy - R * 0.1);
-    ctx.restore();
-    _playMark(ctx, cx, cy, R, state);
-    const t = new THREE.CanvasTexture(c);
-    t.colorSpace = THREE.SRGBColorSpace;
-    t.anisotropy = 8;
-    return t;
-  }, [active, emoji, accent, state, capstone]);
-  useEffect(() => () => tex?.dispose(), [tex]);
-  return tex;
-}
-
 const _occOrigin = new THREE.Vector3();
 const _occTarget = new THREE.Vector3();
 const _occDir = new THREE.Vector3();
@@ -1729,7 +1606,6 @@ function Node({
   onSelect,
   reduced,
   canvas,
-  accent,
 }: {
   node: SceneNode;
   u: number;
@@ -1737,7 +1613,6 @@ function Node({
   onSelect?: (n: SceneNode) => void;
   reduced: boolean;
   canvas: boolean;
-  accent: string;
 }) {
   const pos = useMemo(() => CURVE.getPointAt(u), [u]);
   const spr = useRef<THREE.Sprite>(null);
@@ -1948,14 +1823,6 @@ function Nodes({
 }) {
   const total = nodes.length;
   const us = useMemo(() => chapterSpacedUs(nodes).nodeU, [nodes]);
-  // one brand accent per chapter (wayfinding) — sun is reserved for capstones/badges, so cycle the other three
-  const accentOf = useMemo(() => {
-    const keys: string[] = [];
-    for (const n of nodes) if (n.chapter && !keys.includes(n.chapter)) keys.push(n.chapter);
-    const map: Record<string, string> = {};
-    keys.forEach((k, i) => (map[k] = CANVAS_ACCENTS[i % CANVAS_ACCENTS.length]));
-    return (chapter?: string) => (chapter && map[chapter]) || CANVAS_ACCENTS[0];
-  }, [nodes]);
   const [start, setStart] = useState(0);
   const startRef = useRef(0);
   useFrame(() => {
@@ -1982,7 +1849,7 @@ function Nodes({
     <>
       {items.map((node, k) => {
         const i = from + k;
-        return <Node key={node.id} node={node} u={us[i]} progress={progress} onSelect={onSelect} reduced={reduced} canvas={canvas} accent={accentOf(node.chapter)} />;
+        return <Node key={node.id} node={node} u={us[i]} progress={progress} onSelect={onSelect} reduced={reduced} canvas={canvas} />;
       })}
     </>
   );
