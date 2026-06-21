@@ -1,0 +1,77 @@
+{
+  "chapter": 7,
+  "title": "Building a Life",
+  "ages": "22 → first child",
+  "stage": "Partnership, home, money, and the if/when/whether of family",
+  "audience": "adult",
+  "theme": "dark",
+  "register": "wry-but-kind",
+  "corridorSection": 7,
+  "host": "Lensy",
+  "tools": { "unlearn": "UN (eraser)", "relearn": "RE (pencil)" },
+  "myths": [
+    { "id": "c7-g53-m1", "node": "g53", "category": "D/1.2", "audience": "adult", "chapter": 7, "myth": "A spark is enough to build a life on.", "truth": "Shared values and respect matter more than a spark.", "explanation": "Compatibility outlasts chemistry.", "sources": ["UNESCO ITGSE 1.2"] },
+    { "id": "c7-g53-m2", "node": "g53", "category": "D/2.1", "audience": "adult", "chapter": 7, "myth": "People change after you commit.", "truth": "Build with who someone is now, not who you hope they'll become.", "explanation": "Hope isn't a plan.", "sources": ["UNESCO ITGSE 2.1"] },
+    { "id": "c7-g53-m3", "node": "g53", "category": "D/5.3", "audience": "adult", "chapter": 7, "myth": "Compromise means one person gives in.", "truth": "Healthy commitment is mutual give-and-take.", "explanation": "Lopsided 'compromise' is just losing.", "sources": ["UNESCO ITGSE 5.3"] },
+    { "id": "c7-g53-m4", "node": "g53", "category": "D/1.4", "audience": "adult", "chapter": 7, "myth": "Love conquers all incompatibility.", "truth": "Love plus communication and aligned goals lasts.", "explanation": "Love alone doesn't pay rent or raise kids.", "sources": ["UNESCO ITGSE 1.4"] },
+
+    { "id": "c7-g54-m1", "node": "g54", "category": "D/1.2", "audience": "adult", "chapter": 7, "myth": "There's an expiry date for getting married.", "truth": "There's no deadline on your life.", "explanation": "Timelines are social pressure, not facts.", "sources": ["UNESCO ITGSE 1.2"] },
+    { "id": "c7-g54-m2", "node": "g54", "category": "E/3.2", "audience": "adult", "chapter": 7, "myth": "A woman single past a certain age has 'failed'.", "truth": "Being single can be a full, chosen, good life.", "explanation": "Worth isn't a marital status.", "sources": ["UNESCO ITGSE 3.2"] },
+    { "id": "c7-g54-m3", "node": "g54", "category": "E/2.2", "audience": "adult", "chapter": 7, "myth": "Everyone must marry and have kids.", "truth": "Marriage and children are choices, not obligations.", "explanation": "A meaningful life takes many shapes.", "sources": ["UNESCO ITGSE 2.2"] },
+    { "id": "c7-g54-m4", "node": "g54", "category": "D/5.2", "audience": "adult", "chapter": 7, "myth": "Giving in to family pressure is just being a good child.", "truth": "You can honour family and still choose your own path.", "explanation": "Respect runs both ways.", "sources": ["UNESCO ITGSE 5.2"] },
+
+    { "id": "c7-g55-m1", "node": "g55", "category": "E/3.2", "audience": "adult", "chapter": 7, "myth": "Housework and childcare are 'naturally' the woman's job.", "truth": "A home runs on shared, visible labour.", "explanation": "Fairness isn't a favour.", "sources": ["UNESCO ITGSE 3.2", "ILO unpaid-care data"] },
+    { "id": "c7-g55-m2", "node": "g55", "category": "E/1.1", "audience": "adult", "chapter": 7, "myth": "A man who cooks or cleans is 'helping'.", "truth": "It's his home too — it isn't 'helping'.", "explanation": "'Helping' implies it was really her job.", "sources": ["UNESCO ITGSE 1.1"] },
+    { "id": "c7-g55-m3", "node": "g55", "category": "E/3.2", "audience": "adult", "chapter": 7, "myth": "The mental load — remembering, planning — isn't real work.", "truth": "Invisible labour is still labour.", "explanation": "Sharing it is part of equality.", "sources": ["UNESCO ITGSE 3.2"] },
+    { "id": "c7-g55-m4", "node": "g55", "category": "E/5.3", "audience": "adult", "chapter": 7, "myth": "Earning more means doing less at home.", "truth": "Income doesn't buy you out of partnership.", "explanation": "A relationship isn't a payroll.", "sources": ["UNESCO ITGSE 5.3"] },
+
+    { "id": "c7-g56-m1", "node": "g56", "category": "B/4.2", "audience": "adult", "chapter": 7, "myth": "Marriage means you can't say no to sex.", "truth": "Consent doesn't end at marriage.", "explanation": "A spouse is a partner, not property.", "sources": ["UNESCO ITGSE 4.2"] },
+    { "id": "c7-g56-m2", "node": "g56", "category": "B/4.1", "audience": "adult", "chapter": 7, "myth": "What happens at home is private, even if it's harmful.", "truth": "Abuse is never a private matter.", "explanation": "Safety comes before 'log kya kahenge'.", "sources": ["DV Act 2005"] },
+    { "id": "c7-g56-m3", "node": "g56", "category": "B/4.1", "audience": "adult", "chapter": 7, "myth": "Controlling a partner's money or movements is care.", "truth": "That's coercive control — a form of abuse.", "explanation": "Love doesn't cage.", "sources": ["DV Act 2005"] },
+    { "id": "c7-g56-m4", "node": "g56", "category": "B/5.5", "audience": "adult", "chapter": 7, "myth": "Staying 'for the family' is always right.", "truth": "Leaving harm protects everyone, including kids.", "explanation": "Children learn from what they witness.", "sources": ["DV Act 2005", "WHO"] },
+
+    { "id": "c7-g57-m1", "node": "g57", "category": "D/1.1", "audience": "adult", "chapter": 7, "myth": "Marrying someone makes their family's rules yours.", "truth": "Couples get to set their own boundaries.", "explanation": "A new family unit is allowed to exist.", "sources": ["UNESCO ITGSE 1.1"] },
+    { "id": "c7-g57-m2", "node": "g57", "category": "D/5.3", "audience": "adult", "chapter": 7, "myth": "Keeping everyone happy is your job.", "truth": "You can be kind and still say no.", "explanation": "Boundaries aren't disrespect.", "sources": ["UNESCO ITGSE 5.3"] },
+    { "id": "c7-g57-m3", "node": "g57", "category": "D/2.3", "audience": "adult", "chapter": 7, "myth": "Elders are always right.", "truth": "Respect doesn't mean never disagreeing.", "explanation": "Wisdom and fallibility can coexist.", "sources": ["UNESCO ITGSE 2.3"] },
+    { "id": "c7-g57-m4", "node": "g57", "category": "D/5.3", "audience": "adult", "chapter": 7, "myth": "Conflict with in-laws means you've failed.", "truth": "Negotiating differences is normal.", "explanation": "Every joined family does it.", "sources": ["UNESCO ITGSE 5.3"] },
+
+    { "id": "c7-g58-m1", "node": "g58", "category": "C/2.2", "audience": "adult", "chapter": 7, "myth": "One partner should hold all the financial power.", "truth": "Shared visibility and a say for both is healthier.", "explanation": "Money power shouldn't be one-sided.", "sources": ["UNESCO ITGSE 2.2", "DV Act (economic abuse)"] },
+    { "id": "c7-g58-m2", "node": "g58", "category": "C/2.2", "audience": "adult", "chapter": 7, "myth": "A homemaker doesn't 'contribute' financially.", "truth": "Unpaid work has real economic value.", "explanation": "Care work subsidises everything else.", "sources": ["ILO unpaid-care data"] },
+    { "id": "c7-g58-m3", "node": "g58", "category": "C/5.2", "audience": "adult", "chapter": 7, "myth": "Talking about separate accounts means you don't trust each other.", "truth": "Clarity is care, not suspicion.", "explanation": "Good fences make good partners too.", "sources": ["financial literacy"] },
+    { "id": "c7-g58-m4", "node": "g58", "category": "C/5.2", "audience": "adult", "chapter": 7, "myth": "Debt and finances are too boring to discuss.", "truth": "Money is a top cause of conflict — discuss it.", "explanation": "Silence is expensive.", "sources": ["financial literacy"] },
+
+    { "id": "c7-g59-m1", "node": "g59", "category": "F/8.1", "audience": "adult", "chapter": 7, "myth": "Having kids is the default; not wanting them is selfish.", "truth": "Choosing whether to have children is valid either way.", "explanation": "A wanted child and a chosen child-free life are both good.", "sources": ["UNESCO ITGSE 8.1"] },
+    { "id": "c7-g59-m2", "node": "g59", "category": "F/6.3", "audience": "adult", "chapter": 7, "myth": "Fertility lasts as long as you want it to.", "truth": "Fertility changes with age for everyone.", "explanation": "Facts help you plan, not panic.", "sources": ["WHO", "ICMR"] },
+    { "id": "c7-g59-m3", "node": "g59", "category": "F/6.2", "audience": "adult", "chapter": 7, "myth": "If you can't conceive, you're 'broken'.", "truth": "Infertility is common and not a verdict on worth.", "explanation": "There are many paths and supports.", "sources": ["WHO"] },
+    { "id": "c7-g59-m4", "node": "g59", "category": "F/8.1", "audience": "adult", "chapter": 7, "myth": "Family planning is only the woman's concern.", "truth": "Whether and when to have kids is a shared decision.", "explanation": "It takes two to plan.", "sources": ["UNESCO ITGSE 8.1"] },
+
+    { "id": "c7-g60-m1", "node": "g60", "category": "D/1.1", "audience": "adult", "chapter": 7, "myth": "A 'real' family needs a mother, a father and biological kids.", "truth": "Families are built in many valid ways.", "explanation": "Love and care make a family, not a template.", "sources": ["UNESCO ITGSE 1.1"] },
+    { "id": "c7-g60-m2", "node": "g60", "category": "D/1.1", "audience": "adult", "chapter": 7, "myth": "Adopted kids aren't 'really' yours.", "truth": "Adoption builds full, real families.", "explanation": "Parenting is about showing up, not genes.", "sources": ["CARA Adoption Regulations 2022"] },
+    { "id": "c7-g60-m3", "node": "g60", "category": "F/2.2", "audience": "adult", "chapter": 7, "myth": "Single men can't or shouldn't raise children.", "truth": "Single men can adopt and parent well — though India's CARA rules don't yet let a single man adopt a girl child.", "explanation": "Capability isn't gendered, even where the rules lag.", "sources": ["CARA Adoption Regulations 2022, Reg 5(2)(b)"] },
+    { "id": "c7-g60-m4", "node": "g60", "category": "F/8.1", "audience": "adult", "chapter": 7, "myth": "IVF, surrogacy or being child-free are things to hide.", "truth": "How — or whether — you build a family is yours to own.", "explanation": "Privacy is a choice; shame shouldn't be the default.", "sources": ["ART (Regulation) Act 2021", "Surrogacy (Regulation) Act 2021"] }
+  ],
+  "doodles": [
+    { "id": "c7-d-build", "name": "Build together", "motif": "building blocks / two hands stacking them (signature)", "role": "ambient", "accent": "violet", "glow": true },
+    { "id": "c7-d-path", "name": "Your call", "motif": "forking road with a confident arrow", "role": "ambient", "accent": "coral", "glow": true },
+    { "id": "c7-d-load", "name": "Shared load", "motif": "two hands sharing one load", "role": "ambient", "accent": "teal", "glow": true },
+    { "id": "c7-d-respect", "name": "Respect at home", "motif": "heart inside a shield", "role": "ambient", "accent": "coral", "glow": true },
+    { "id": "c7-d-map", "name": "Family map", "motif": "small map with family nodes & boundary lines", "role": "ambient", "accent": "grey", "glow": true },
+    { "id": "c7-d-money", "name": "Money together", "motif": "two coins / a shared jar", "role": "ambient", "accent": "sun", "glow": true },
+    { "id": "c7-d-when", "name": "If, when & whether", "motif": "calendar with a gentle question mark", "role": "ambient", "accent": "violet", "glow": true },
+    { "id": "c7-d-family", "name": "Many ways to family", "motif": "cluster of diverse family shapes (single parent, two dads, adoptive, child-free)", "role": "ambient", "accent": "teal", "glow": true }
+  ],
+  "stickers": [
+    { "id": "c7-s-build", "name": "Building-blocks 'built together'", "role": "earnable", "node": "g53" },
+    { "id": "c7-s-path", "name": "'Your call' road sign", "role": "earnable", "node": "g54" },
+    { "id": "c7-s-load", "name": "Shared-load hands", "role": "earnable", "node": "g55" },
+    { "id": "c7-s-respect", "name": "Heart-in-shield 'respect at home'", "role": "earnable", "node": "g56" },
+    { "id": "c7-s-map", "name": "Family-map boundary pin", "role": "earnable", "node": "g57" },
+    { "id": "c7-s-money", "name": "Shared-jar coins", "role": "earnable", "node": "g58" },
+    { "id": "c7-s-when", "name": "If/when/whether calendar", "role": "earnable", "node": "g59" },
+    { "id": "c7-s-family", "name": "Many-ways-to-family cluster", "role": "earnable", "node": "g60" },
+    { "id": "c7-s-lensy", "name": "Lensy (with a moving box) + sparks", "role": "ambient", "node": null },
+    { "id": "c7-s-capstone", "name": "Building Together badge", "role": "earnable", "node": "c7" }
+  ],
+  "capstone": { "id": "c7", "name": "Building Together", "landing": "Sticker-book spread of every Ch.7 sticker earned; the erased 'shoulds' of partnership and family glowing as ghosts under their truths; a 'Building Together' badge; Lensy pointing onward to Chapter 8, where the next child enters the loop." },
+  "canvasFeel": "Adult/dark, wry-but-kind, and unafraid of the loaded ones — marriage-timeline pressure, the stigma around unmarried women, the mental load, consent within marriage, in-law boundaries, and many ways to build a family. g60 states the India CARA position carefully (single men can adopt, but not a girl child under current rules — verified June 2026). Tap struck myth -> UN erases -> RE writes -> sticker may drop; Respect at Home links to DV/helpline resources."
+}

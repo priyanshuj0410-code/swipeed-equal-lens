@@ -1,0 +1,79 @@
+{
+  "chapter": 2,
+  "title": "Bodies, Fairness, Safety & Friendship",
+  "ages": "6-9",
+  "audience": "kids",
+  "theme": "light",
+  "corridorSection": 2,
+  "host": "Lensy",
+  "tools": { "unlearn": "UN (eraser)", "relearn": "RE (pencil)" },
+  "myths": [
+    { "id": "c2-g06-m1", "node": "g06", "category": "A/6.1", "audience": "kids", "chapter": 2, "myth": "Boys' and girls' bodies are completely different in every way.", "truth": "Most of our bodies are the same; only a few parts differ.", "explanation": "Hearts, lungs, bones, brains — all the same; every body is amazing.", "sources": ["UNESCO ITGSE 6.1"] },
+    { "id": "c2-g06-m2", "node": "g06", "category": "A/6.1", "audience": "kids", "chapter": 2, "myth": "It's rude to ask how bodies work.", "truth": "Curiosity about your body is good and normal.", "explanation": "Asking a trusted grown-up is the smart thing to do.", "sources": ["UNESCO ITGSE 6.1"] },
+    { "id": "c2-g06-m3", "node": "g06", "category": "A/6.3", "audience": "kids", "chapter": 2, "myth": "Your body stays the same forever.", "truth": "Bodies grow and change as you get older.", "explanation": "Growing up is normal and happens at everyone's own pace.", "sources": ["UNESCO ITGSE 6.3"] },
+    { "id": "c2-g06-m4", "node": "g06", "category": "A/6.4", "audience": "kids", "chapter": 2, "myth": "Some bodies are better than others.", "truth": "All bodies are good bodies.", "explanation": "Bodies come in all shapes, sizes, colours and abilities.", "sources": ["UNESCO ITGSE 6.4"] },
+
+    { "id": "c2-g07-m1", "node": "g07", "category": "E/3.1", "audience": "kids", "chapter": 2, "myth": "Being a boy or girl is about what you like (toys, clothes).", "truth": "Who you are is much more than that — and likes don't have a gender.", "explanation": "You can be you, however you like.", "sources": ["UNESCO ITGSE 3.1"] },
+    { "id": "c2-g07-m2", "node": "g07", "category": "E/3.1", "audience": "kids", "chapter": 2, "myth": "Boys must act one way and girls another.", "truth": "There's no one way to be a boy or a girl.", "explanation": "Be yourself; everyone's different.", "sources": ["UNESCO ITGSE 3.1"] },
+    { "id": "c2-g07-m3", "node": "g07", "category": "E/3.1", "audience": "kids", "chapter": 2, "myth": "You can tell everything about someone from boy or girl.", "truth": "Everyone is their own unique person.", "explanation": "Gender doesn't decide who you are inside.", "sources": ["UNESCO ITGSE 3.1"] },
+    { "id": "c2-g07-m4", "node": "g07", "category": "E/3.1", "audience": "kids", "chapter": 2, "myth": "Liking 'opposite' things means something's wrong.", "truth": "Liking all kinds of things is normal and great.", "explanation": "Your interests are yours.", "sources": ["UNESCO ITGSE 3.1"] },
+
+    { "id": "c2-g08-m1", "node": "g08", "category": "B/4.2", "audience": "kids", "chapter": 2, "myth": "You must do whatever any grown-up says, always.", "truth": "Safe grown-ups won't ask for unsafe or secret things — you can say no.", "explanation": "Your safety rules still count, even with adults.", "sources": ["UNESCO ITGSE 4.2", "POCSO Act"] },
+    { "id": "c2-g08-m2", "node": "g08", "category": "B/5.5", "audience": "kids", "chapter": 2, "myth": "Telling on someone who hurt you is being a tattletale.", "truth": "Telling a trusted adult about unsafe things is brave and right.", "explanation": "That's not tattling — it's keeping safe.", "sources": ["UNESCO ITGSE 5.5", "Childline 1098"] },
+    { "id": "c2-g08-m3", "node": "g08", "category": "B/4.1", "audience": "kids", "chapter": 2, "myth": "If you didn't say no, it's your fault.", "truth": "Unsafe touch is never your fault.", "explanation": "The grown-up who does it is responsible, always.", "sources": ["UNESCO ITGSE 4.1", "POCSO Act"] },
+    { "id": "c2-g08-m4", "node": "g08", "category": "B/4.3", "audience": "kids", "chapter": 2, "myth": "Everyone online is who they say they are.", "truth": "People online aren't always who they claim.", "explanation": "Don't share private info; tell a trusted adult if something feels off.", "sources": ["UNESCO ITGSE 4.3"] },
+    { "id": "c2-g08-m5", "node": "g08", "category": "B/4.3", "audience": "kids", "chapter": 2, "myth": "Keep scary online things a secret.", "truth": "Tell a trusted grown-up about anything online that worries you.", "explanation": "A safe adult will help; you won't be in trouble.", "sources": ["UNESCO ITGSE 4.3", "Childline 1098"] },
+
+    { "id": "c2-g09-m1", "node": "g09", "category": "D/1.2", "audience": "kids", "chapter": 2, "myth": "If someone's mean sometimes, you must stay best friends.", "truth": "A good friend treats you kindly; you don't have to stay where you're treated badly.", "explanation": "Friendship should feel good more than it hurts.", "sources": ["UNESCO ITGSE 1.2", "One Love Foundation"] },
+    { "id": "c2-g09-m2", "node": "g09", "category": "D/5.1", "audience": "kids", "chapter": 2, "myth": "Friends should do everything you say (or you, theirs).", "truth": "Good friends respect each other; you can say no.", "explanation": "Real friends don't pressure you.", "sources": ["UNESCO ITGSE 5.1"] },
+    { "id": "c2-g09-m3", "node": "g09", "category": "D/1.2", "audience": "kids", "chapter": 2, "myth": "You can only have one best friend.", "truth": "You can have many friends, in many ways.", "explanation": "There's room for lots of friendship.", "sources": ["UNESCO ITGSE 1.2"] },
+    { "id": "c2-g09-m4", "node": "g09", "category": "D/5.3", "audience": "kids", "chapter": 2, "myth": "Saying sorry means you lost.", "truth": "Saying sorry and making up makes friendships stronger.", "explanation": "Everyone has squabbles; repairing them is what counts.", "sources": ["UNESCO ITGSE 5.3"] },
+    { "id": "c2-g09-m5", "node": "g09", "category": "D/1.3", "audience": "kids", "chapter": 2, "myth": "Being left out is something to just put up with.", "truth": "Including others is kind; if you're left out, tell someone and find kind friends.", "explanation": "No one should be left out for being different.", "sources": ["UNESCO ITGSE 1.3"] },
+
+    { "id": "c2-g10-m1", "node": "g10", "category": "E/3.2", "audience": "kids", "chapter": 2, "myth": "Boys should get to go first or lead.", "truth": "Everyone gets a fair turn.", "explanation": "Fairness means equal chances for all.", "sources": ["UNESCO ITGSE 3.2"] },
+    { "id": "c2-g10-m2", "node": "g10", "category": "E/3.2", "audience": "kids", "chapter": 2, "myth": "Cooking and cleaning are girls' / mum's job.", "truth": "Everyone shares the chores.", "explanation": "Chores aren't girls' or boys' work.", "sources": ["UNESCO ITGSE 3.2"] },
+    { "id": "c2-g10-m3", "node": "g10", "category": "G/2.2", "audience": "kids", "chapter": 2, "myth": "Some kids deserve more than others.", "truth": "Everyone deserves fairness and respect.", "explanation": "All children have the same rights.", "sources": ["UNESCO ITGSE 2.2", "UNCRC"] },
+    { "id": "c2-g10-m4", "node": "g10", "category": "E/1.3", "audience": "kids", "chapter": 2, "myth": "It's okay to leave someone out for being different.", "truth": "Everyone should get to join in.", "explanation": "Including everyone is what fair play means.", "sources": ["UNESCO ITGSE 1.3"] },
+    { "id": "c2-g10-m5", "node": "g10", "category": "E/3.2", "audience": "kids", "chapter": 2, "myth": "Winning is all that matters.", "truth": "Playing fair and being kind matter most.", "explanation": "How you play matters more than the score.", "sources": ["UNESCO ITGSE 3.2"] },
+
+    { "id": "c2-g11-m1", "node": "g11", "category": "E/3.3", "audience": "kids", "chapter": 2, "myth": "Teasing a 'girly boy' or 'tomboy' is just a joke.", "truth": "Teasing about gender isn't funny — it hurts.", "explanation": "Jokes that put people down aren't kind.", "sources": ["UNESCO ITGSE 3.3"] },
+    { "id": "c2-g11-m2", "node": "g11", "category": "E/3.3", "audience": "kids", "chapter": 2, "myth": "'Boys will be boys' — so it's okay.", "truth": "Being unkind is never okay, for anyone.", "explanation": "No one gets a pass to be mean.", "sources": ["UNESCO ITGSE 3.3"] },
+    { "id": "c2-g11-m3", "node": "g11", "category": "E/3.3", "audience": "kids", "chapter": 2, "myth": "If it's not happening to you, it's not your problem.", "truth": "You can be an ally — speak up or get help when someone's teased.", "explanation": "Standing up safely helps everyone.", "sources": ["UNESCO ITGSE 3.3"] },
+    { "id": "c2-g11-m4", "node": "g11", "category": "E/3.3", "audience": "kids", "chapter": 2, "myth": "Laughing along makes you cool.", "truth": "Being kind makes you a good friend.", "explanation": "Kindness is the cool thing.", "sources": ["UNESCO ITGSE 3.3"] },
+
+    { "id": "c2-g12-m1", "node": "g12", "category": "G/5.4", "audience": "kids", "chapter": 2, "myth": "Everything on screens is real and true.", "truth": "Lots of what we see is pretend or made up.", "explanation": "Cartoons, ads and edited pictures aren't real life.", "sources": ["UNESCO ITGSE 7 (media literacy)"] },
+    { "id": "c2-g12-m2", "node": "g12", "category": "G/5.4", "audience": "kids", "chapter": 2, "myth": "If it's on a screen, you should believe it.", "truth": "It's smart to ask 'is this real?'", "explanation": "Check with a grown-up when you're not sure.", "sources": ["UNESCO ITGSE 7"] },
+    { "id": "c2-g12-m3", "node": "g12", "category": "G/5.4", "audience": "kids", "chapter": 2, "myth": "Ads just tell you the truth about toys and snacks.", "truth": "Ads try to make you want things — not the whole truth.", "explanation": "Knowing the trick means it can't fool you.", "sources": ["UNESCO ITGSE 7"] },
+    { "id": "c2-g12-m4", "node": "g12", "category": "G/4.3", "audience": "kids", "chapter": 2, "myth": "It's fine to share photos or info with anyone online.", "truth": "Keep private things private; ask a trusted adult.", "explanation": "Online, not everyone is a friend.", "sources": ["UNESCO ITGSE 4.3"] },
+    { "id": "c2-g12-m5", "node": "g12", "category": "G/5.2", "audience": "kids", "chapter": 2, "myth": "More screen time is always better.", "truth": "Screens are fun in balance.", "explanation": "Play, rest and people matter too.", "sources": ["WHO screen-time guidance"] },
+
+    { "id": "c2-g41-m1", "node": "g41", "category": "C/5.6", "audience": "kids", "chapter": 2, "myth": "If you're upset, just snap out of it.", "truth": "Big feelings calm in small steps.", "explanation": "Breathe, count, take space, talk to someone.", "sources": ["UNESCO ITGSE 5.6"] },
+    { "id": "c2-g41-m2", "node": "g41", "category": "C/5.6", "audience": "kids", "chapter": 2, "myth": "You can't tell how someone else feels.", "truth": "You can notice feelings — in faces, bodies and words.", "explanation": "Noticing others is called empathy.", "sources": ["UNESCO ITGSE 5.6", "CASEL"] },
+    { "id": "c2-g41-m3", "node": "g41", "category": "C/1.3", "audience": "kids", "chapter": 2, "myth": "Being kind is for pushovers.", "truth": "Kindness is a strength.", "explanation": "It takes courage to be kind.", "sources": ["UNESCO ITGSE 1.3"] },
+    { "id": "c2-g41-m4", "node": "g41", "category": "C/5.3", "audience": "kids", "chapter": 2, "myth": "When you're angry, it's okay to hit or yell.", "truth": "All feelings are okay; hurting others is not.", "explanation": "Use words, take a break, ask for help.", "sources": ["UNESCO ITGSE 5.3"] }
+  ],
+  "doodles": [
+    { "id": "c2-d-grow", "name": "Growing bodies", "motif": "height chart, friendly body outline, all-bodies shapes", "role": "ambient", "accent": "sky" },
+    { "id": "c2-d-me", "name": "Me!", "motif": "kid at a mirror; different kids being themselves", "role": "ambient", "accent": "violet" },
+    { "id": "c2-d-safety", "name": "Safety badge", "motif": "shield/badge, friendly 'no', trusted-adult figure", "role": "ambient", "accent": "coral" },
+    { "id": "c2-d-friends", "name": "Friends", "motif": "two friends, linked hands, made-up handshake", "role": "ambient", "accent": "sun" },
+    { "id": "c2-d-fair", "name": "Fair play", "motif": "see-saw / scales, sports field, fair turns", "role": "ambient", "accent": "teal" },
+    { "id": "c2-d-ally", "name": "Ally", "motif": "'stop teasing' hand, speech bubble", "role": "ambient", "accent": "coral" },
+    { "id": "c2-d-screen", "name": "Real vs pretend", "motif": "screen/phone with a magnifying glass", "role": "ambient", "accent": "sky" },
+    { "id": "c2-d-feelings", "name": "Feelings & calm", "motif": "feelings-faces, small breathe/count doodles", "role": "ambient", "accent": "violet" }
+  ],
+  "stickers": [
+    { "id": "c2-s-body", "name": "Body Lab badge / all bodies are good", "role": "earnable", "node": "g06" },
+    { "id": "c2-s-me", "name": "'Me!' unique-kid / mirror", "role": "earnable", "node": "g07" },
+    { "id": "c2-s-safety", "name": "Safety Squad shield", "role": "earnable", "node": "g08" },
+    { "id": "c2-s-friend", "name": "Friendship handshake / two friends", "role": "earnable", "node": "g09" },
+    { "id": "c2-s-fair", "name": "Fair-play scales / fair turn", "role": "earnable", "node": "g10" },
+    { "id": "c2-s-ally", "name": "Be an ally kindness sticker", "role": "earnable", "node": "g11" },
+    { "id": "c2-s-detective", "name": "Real vs pretend detective magnifier", "role": "earnable", "node": "g12" },
+    { "id": "c2-s-heart", "name": "Heart-Smart / feelings sticker", "role": "earnable", "node": "g41" },
+    { "id": "c2-s-lensy", "name": "Lensy thinking ('wait... why?') + stars/sparkles", "role": "ambient", "node": null },
+    { "id": "c2-s-capstone", "name": "Fair & Safe Explorer badge", "role": "earnable", "node": "c2" }
+  ],
+  "capstone": { "id": "c2", "name": "Fair & Safe Explorer", "landing": "Explorer's map — Ch.2 stickers pinned up, erased myths shown as ghosts under their truths, an Explorer badge, Lensy (with UN & RE) waving onward to Chapter 3." },
+  "canvasFeel": "Bright, playful, a step denser than Ch.1 for early readers; content motifs of bodies/safety/friendship/fairness/screens/feelings; UN & RE introduced as tools; audio narration; tap a struck myth -> UN erases -> RE writes -> sticker may drop."
+}

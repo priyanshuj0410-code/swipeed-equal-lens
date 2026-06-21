@@ -1,0 +1,83 @@
+{
+  "chapter": 6,
+  "title": "College & Early Independence",
+  "ages": "18-22",
+  "stage": "College / early independence",
+  "audience": "adult",
+  "theme": "dark",
+  "register": "wry-but-kind",
+  "corridorSection": 6,
+  "host": "Lensy",
+  "tools": { "unlearn": "UN (eraser)", "relearn": "RE (pencil)" },
+  "myths": [
+    { "id": "c6-g44-m1", "node": "g44", "category": "B/4.2", "audience": "adult", "chapter": 6, "myth": "Asking for consent is awkward and kills the mood.", "truth": "Asking is normal, attractive and non-negotiable.", "explanation": "Clarity beats assumption every single time.", "sources": ["UNESCO ITGSE 4.2"] },
+    { "id": "c6-g44-m2", "node": "g44", "category": "B/4.2", "audience": "adult", "chapter": 6, "myth": "A drunk or pressured 'yes' still counts.", "truth": "Consent must be free, sober enough and willing.", "explanation": "Incapacity isn't agreement.", "sources": ["UNESCO ITGSE 4.2", "BNS sexual-offence provisions"] },
+    { "id": "c6-g44-m3", "node": "g44", "category": "B/4.1", "audience": "adult", "chapter": 6, "myth": "Once you're together, consent is assumed.", "truth": "It's checked each time, every time.", "explanation": "A relationship isn't a blanket yes.", "sources": ["UNESCO ITGSE 4.1"] },
+    { "id": "c6-g44-m4", "node": "g44", "category": "B/4.2", "audience": "adult", "chapter": 6, "myth": "They didn't say no, so it was fine.", "truth": "The absence of 'no' isn't a 'yes'.", "explanation": "Consent is the presence of an enthusiastic yes.", "sources": ["UNESCO ITGSE 4.2"] },
+
+    { "id": "c6-g45-m1", "node": "g45", "category": "D/4.3", "audience": "adult", "chapter": 6, "myth": "If they seem nice online, they're safe to meet anywhere.", "truth": "Meet in public, tell a friend, trust your gut.", "explanation": "Online charm isn't verification.", "sources": ["UNESCO ITGSE 4.3"] },
+    { "id": "c6-g45-m2", "node": "g45", "category": "D/1.2", "audience": "adult", "chapter": 6, "myth": "You owe a date something for their time or money.", "truth": "You owe no one your body — ever.", "explanation": "A meal isn't a contract.", "sources": ["UNESCO ITGSE 1.2"] },
+    { "id": "c6-g45-m3", "node": "g45", "category": "D/5.5", "audience": "adult", "chapter": 6, "myth": "Ghosting and breadcrumbing are just modern dating; deal with it.", "truth": "You can set standards and walk away.", "explanation": "Respect is a baseline, not a bonus.", "sources": ["UNESCO ITGSE 5.5"] },
+    { "id": "c6-g45-m4", "node": "g45", "category": "D/4.3", "audience": "adult", "chapter": 6, "myth": "Sending nudes is expected once you match.", "truth": "It's always your choice; pressure is a red flag.", "explanation": "'No' is a complete sentence.", "sources": ["UNESCO ITGSE 4.3"] },
+
+    { "id": "c6-g46-m1", "node": "g46", "category": "D/1.2", "audience": "adult", "chapter": 6, "myth": "Intensity — jealousy, drama — means it's real love.", "truth": "Calm, trust and respect are the real thing.", "explanation": "Chaos isn't chemistry.", "sources": ["UNESCO ITGSE 1.2", "One Love Foundation"] },
+    { "id": "c6-g46-m2", "node": "g46", "category": "D/5.3", "audience": "adult", "chapter": 6, "myth": "Good couples never fight.", "truth": "They fight fair and then repair.", "explanation": "Conflict handled well actually builds trust.", "sources": ["UNESCO ITGSE 5.3", "Gottman Institute"] },
+    { "id": "c6-g46-m3", "node": "g46", "category": "D/1.2", "audience": "adult", "chapter": 6, "myth": "Love means losing yourself in someone.", "truth": "Healthy love leaves room for two whole people.", "explanation": "You don't have to disappear to belong.", "sources": ["UNESCO ITGSE 1.2"] },
+    { "id": "c6-g46-m4", "node": "g46", "category": "D/5.6", "audience": "adult", "chapter": 6, "myth": "Leaving a bad relationship is failure.", "truth": "Walking away from harm is strength.", "explanation": "Staying isn't a virtue when it costs you.", "sources": ["UNESCO ITGSE 5.6", "DV Act"] },
+
+    { "id": "c6-g47-m1", "node": "g47", "category": "F/8.2", "audience": "adult", "chapter": 6, "myth": "Going to a clinic means something's wrong with you.", "truth": "Routine sexual-health care is normal adult self-care.", "explanation": "Prevention is smart, not shameful.", "sources": ["WHO", "UNESCO ITGSE 8.2"] },
+    { "id": "c6-g47-m2", "node": "g47", "category": "F/8.1", "audience": "adult", "chapter": 6, "myth": "Contraception is the woman's department.", "truth": "It's a shared, informed decision.", "explanation": "Both people carry it.", "sources": ["UNESCO ITGSE 8.1"] },
+    { "id": "c6-g47-m3", "node": "g47", "category": "F/7.2", "audience": "adult", "chapter": 6, "myth": "Doctors will judge or report you.", "truth": "You have a right to confidential, respectful care.", "explanation": "Knowing that right helps you ask.", "sources": ["WHO", "MTP Act"] },
+    { "id": "c6-g47-m4", "node": "g47", "category": "F/8.3", "audience": "adult", "chapter": 6, "myth": "If you're embarrassed, just skip the check-up.", "truth": "Awkwardness passes; untreated issues don't.", "explanation": "Your future self will thank you.", "sources": ["WHO"] },
+
+    { "id": "c6-g48-m1", "node": "g48", "category": "C/2.2", "audience": "adult", "chapter": 6, "myth": "Men are naturally better with money.", "truth": "Money skills are learned, not gendered.", "explanation": "Anyone can budget, save and invest.", "sources": ["UNESCO ITGSE 2.2"] },
+    { "id": "c6-g48-m2", "node": "g48", "category": "C/2.2", "audience": "adult", "chapter": 6, "myth": "Letting a partner control the money is romantic.", "truth": "Financial independence protects you.", "explanation": "Access to your own money is freedom.", "sources": ["UNESCO ITGSE 2.2", "DV Act (economic abuse)"] },
+    { "id": "c6-g48-m3", "node": "g48", "category": "C/5.2", "audience": "adult", "chapter": 6, "myth": "Talking about money is rude.", "truth": "Money conversations prevent money problems.", "explanation": "Clarity beats silence.", "sources": ["UNESCO ITGSE 5.2"] },
+    { "id": "c6-g48-m4", "node": "g48", "category": "C/5.2", "audience": "adult", "chapter": 6, "myth": "You'll sort out savings 'later'.", "truth": "Small habits early compound hugely.", "explanation": "Time is your biggest asset.", "sources": ["financial literacy"] },
+
+    { "id": "c6-g49-m1", "node": "g49", "category": "C/5.6", "audience": "adult", "chapter": 6, "myth": "Everyone else has it figured out; you're the only one struggling.", "truth": "Most people are quietly finding their feet too.", "explanation": "The highlight reel isn't real life.", "sources": ["UNESCO ITGSE 5.6"] },
+    { "id": "c6-g49-m2", "node": "g49", "category": "C/5.5", "audience": "adult", "chapter": 6, "myth": "Therapy or counselling is only for a crisis.", "truth": "Support helps before things break.", "explanation": "Maintenance beats emergency repair.", "sources": ["WHO mental health"] },
+    { "id": "c6-g49-m3", "node": "g49", "category": "C/6.4", "audience": "adult", "chapter": 6, "myth": "Loneliness means something's wrong with you.", "truth": "It's a signal, not a flaw.", "explanation": "Connection is built, not just found.", "sources": ["UNESCO ITGSE 6.4"] },
+    { "id": "c6-g49-m4", "node": "g49", "category": "C/5.5", "audience": "adult", "chapter": 6, "myth": "Asking for help will make people think less of you.", "truth": "It usually deepens trust.", "explanation": "Vulnerability is human.", "sources": ["UNESCO ITGSE 5.5"] },
+
+    { "id": "c6-g52-m1", "node": "g52", "category": "C/5.6", "audience": "adult", "chapter": 6, "myth": "By now you should know exactly what you want.", "truth": "Most people figure it out by trying.", "explanation": "Clarity comes from doing, not waiting.", "sources": ["UNESCO ITGSE 5.6"] },
+    { "id": "c6-g52-m2", "node": "g52", "category": "C/5.2", "audience": "adult", "chapter": 6, "myth": "Everyone else is ahead of you.", "truth": "There's no shared starting line.", "explanation": "Comparison steals time you could use.", "sources": ["UNESCO ITGSE 5.2"] },
+    { "id": "c6-g52-m3", "node": "g52", "category": "C/5.1", "audience": "adult", "chapter": 6, "myth": "Changing direction means you wasted time.", "truth": "Pivots build range, not regret.", "explanation": "Very few careers are straight lines.", "sources": ["UNESCO ITGSE 5.1"] },
+    { "id": "c6-g52-m4", "node": "g52", "category": "C/5.6", "audience": "adult", "chapter": 6, "myth": "Rejection means you're not good enough.", "truth": "Rejection is data, not a verdict.", "explanation": "It redirects you more than it defines you.", "sources": ["UNESCO ITGSE 5.6"] },
+
+    { "id": "c6-g50-m1", "node": "g50", "category": "E/3.2", "audience": "adult", "chapter": 6, "myth": "Equality's basically done — relax.", "truth": "Gaps in pay, safety and unpaid load persist.", "explanation": "Progress isn't the same as finished.", "sources": ["UNESCO ITGSE 3.2", "ILO/UN Women data"] },
+    { "id": "c6-g50-m2", "node": "g50", "category": "E/3.1", "audience": "adult", "chapter": 6, "myth": "Confident women are arrogant; quiet men are weak.", "truth": "Confidence and gentleness suit everyone.", "explanation": "The double standard is the problem.", "sources": ["UNESCO ITGSE 3.1"] },
+    { "id": "c6-g50-m3", "node": "g50", "category": "E/3.2", "audience": "adult", "chapter": 6, "myth": "Speaking up about sexism makes you difficult.", "truth": "Naming it is how things change.", "explanation": "Comfort isn't worth more than fairness.", "sources": ["UNESCO ITGSE 3.2"] },
+
+    { "id": "c6-g51-m1", "node": "g51", "category": "G/2.2", "audience": "adult", "chapter": 6, "myth": "Workplace harassment is just part of the job.", "truth": "The POSH Act gives you the right to a safe workplace.", "explanation": "Every workplace must have a complaints committee.", "sources": ["POSH Act 2013"] },
+    { "id": "c6-g51-m2", "node": "g51", "category": "G/2.2", "audience": "adult", "chapter": 6, "myth": "As a renter or consumer, you have no power.", "truth": "Tenancy and consumer laws protect you.", "explanation": "Knowing them is leverage.", "sources": ["Consumer Protection Act 2019"] },
+    { "id": "c6-g51-m3", "node": "g51", "category": "G/4.3", "audience": "adult", "chapter": 6, "myth": "What you post online can't come back on you.", "truth": "Digital footprints and data rights are real.", "explanation": "Privacy needs active management.", "sources": ["DPDP Act 2023"] },
+    { "id": "c6-g51-m4", "node": "g51", "category": "G/3.3", "audience": "adult", "chapter": 6, "myth": "Rights are too complicated to bother with.", "truth": "A few key ones cover most situations.", "explanation": "Basic literacy prevents big losses.", "sources": ["UNESCO ITGSE 3.3"] }
+  ],
+  "doodles": [
+    { "id": "c6-d-consent", "name": "Clear yes", "motif": "two ticks / a clear 'yes' bubble (signature)", "role": "ambient", "accent": "teal", "glow": true },
+    { "id": "c6-d-swipe", "name": "Swipe safe", "motif": "dating-app swipe card, public-meetup pin", "role": "ambient", "accent": "coral", "glow": true },
+    { "id": "c6-d-rel", "name": "Two whole people", "motif": "two overlapping circles with healthy space", "role": "ambient", "accent": "violet", "glow": true },
+    { "id": "c6-d-health", "name": "Own your health", "motif": "stethoscope / friendly clinic door", "role": "ambient", "accent": "teal", "glow": true },
+    { "id": "c6-d-money", "name": "Money & independence", "motif": "coin & sprouting plant", "role": "ambient", "accent": "sun", "glow": true },
+    { "id": "c6-d-mind", "name": "Mind & belonging", "motif": "small lantern / steady brain", "role": "ambient", "accent": "violet", "glow": true },
+    { "id": "c6-d-feet", "name": "Find your feet", "motif": "footprints finding the path", "role": "ambient", "accent": "coral", "glow": true },
+    { "id": "c6-d-equal", "name": "Equal & confident", "motif": "balance scale", "role": "ambient", "accent": "violet", "glow": true },
+    { "id": "c6-d-rights", "name": "Know your rights", "motif": "folded document & scales", "role": "ambient", "accent": "grey", "glow": true }
+  ],
+  "stickers": [
+    { "id": "c6-s-consent", "name": "'Yes means yes' consent sticker", "role": "earnable", "node": "g44" },
+    { "id": "c6-s-swipe", "name": "Swipe-safe pin", "role": "earnable", "node": "g45" },
+    { "id": "c6-s-rel", "name": "Two-whole-people circles", "role": "earnable", "node": "g46" },
+    { "id": "c6-s-health", "name": "Own-your-health stethoscope", "role": "earnable", "node": "g47" },
+    { "id": "c6-s-money", "name": "Money-independence sprout", "role": "earnable", "node": "g48" },
+    { "id": "c6-s-mind", "name": "Mind-&-belonging lantern", "role": "earnable", "node": "g49" },
+    { "id": "c6-s-feet", "name": "Find-your-feet footprints", "role": "earnable", "node": "g52" },
+    { "id": "c6-s-equal", "name": "Equal-&-confident balance", "role": "earnable", "node": "g50" },
+    { "id": "c6-s-rights", "name": "Know-your-rights document", "role": "earnable", "node": "g51" },
+    { "id": "c6-s-lensy", "name": "Lensy (over coffee) + sparks", "role": "ambient", "node": null },
+    { "id": "c6-s-capstone", "name": "Standing on My Own badge", "role": "earnable", "node": "c6" }
+  ],
+  "capstone": { "id": "c6", "name": "Standing on My Own", "landing": "Sticker-book spread of every Ch.6 sticker earned; freshly erased 'adult' myths glowing as ghosts under their truths; a 'Standing on My Own' badge; Lensy raising a mug onward to Chapter 7." },
+  "canvasFeel": "Adult/dark — the corridor flips. Paper becomes deep ink (#15131F) on a faint light dot texture; Equal Violet, Insight Teal (UN) and Grow Coral (RE) glow against the dark; sticky-note myths become softly lit cards. Wry-but-kind register (knowing, warm, dry, never preachy). Leaner than teen chapters. Tap struck myth -> UN erases -> RE writes -> sticker may drop; consent & rights nodes link out to real helplines/committees."
+}
