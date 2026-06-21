@@ -42,23 +42,29 @@ const TOON_GRAD = (() => {
   return t;
 })();
 
-// ~3× the spacing between nodes: scale the path's control points (same winding shape,
-// just longer) and stretch the world to match (see PATH_* extents + scenery below).
-const PATH_SCALE = 3;
+// Path: a smooth vertical sine (Duolingo-style winding trail). Travel runs bottom → top (z
+// decreases); every node rests on a left/right turn (a sine crest/trough at x = ±NODE_AMP). The
+// curve is sampled densely along a real cosine so the peaks are ROUNDED (not a pointy zigzag), and
+// a node lands exactly on each extremum. The canvas camera scrolls straight up the centre line (see
+// FollowCam), so the wave weaves L/R in frame. Tune: NODE_AMP = swing, NODE_DZ = vertical gap.
+const PATH_SCALE = 3; // scenery density only (tree/prop counts); the curve below is in world units
+const NODE_AMP = 5; // horizontal swing — nodes rest at x = ±NODE_AMP
+const NODE_DZ = 7; // vertical distance between consecutive nodes (half a sine period)
+const SINE_START_Z = 18; // z of the first (bottom) node
+const SINE_NODE_COUNT = NODES.length; // one node per sine extremum
+const SINE_SAMPLES_PER_NODE = 6; // control points between nodes → smooth (not zigzag) sine
 const CURVE = new THREE.CatmullRomCurve3(
-  (
-    [
-      [0, 22], [3.2, 12], [-3.2, 0], [3.2, -14], [-3, -28], [3, -44], [-3, -60],
-      [3, -78], [-2.6, -98], [2.6, -120], [-2, -150], [1.5, -180], [0, -202],
-    ] as [number, number][]
-  ).map(([x, z]) => new THREE.Vector3(x * PATH_SCALE, 0, z * PATH_SCALE)),
+  Array.from({ length: (SINE_NODE_COUNT - 1) * SINE_SAMPLES_PER_NODE + 1 }, (_, k) => {
+    const t = k / SINE_SAMPLES_PER_NODE; // node-index space (integer t = a node, on an extremum)
+    return new THREE.Vector3(NODE_AMP * Math.cos(Math.PI * t), 0, SINE_START_Z - t * NODE_DZ);
+  }),
   false,
   "catmullrom",
   0.5
 );
 // World extent derived from the (scaled) path, so scenery stretches to cover its full length.
-const PATH_START_Z = 22 * PATH_SCALE;
-const PATH_END_Z = -202 * PATH_SCALE;
+const PATH_START_Z = SINE_START_Z;
+const PATH_END_Z = SINE_START_Z - (SINE_NODE_COUNT - 1) * NODE_DZ;
 const PATH_MID_Z = (PATH_START_Z + PATH_END_Z) / 2;
 const PATH_SPAN_Z = PATH_START_Z - PATH_END_Z;
 
@@ -546,20 +552,20 @@ function ProgressTrail({ progress }: { progress: React.MutableRefObject<number> 
     const base = CURVE.getSpacedPoints(N); // arc-length spaced → uv.x = i/N matches the progress param
     // straight lead-in behind the start (uv.x < 0, always inked) so the line trails off the screen edge
     // instead of stopping mid-page when you're near the beginning.
-    const startTan = base[1].clone().sub(base[0]).normalize();
-    const LEAD = 45;
-    const LEAD_N = 9;
     const pts: THREE.Vector3[] = [];
     const uvx: number[] = [];
-    for (let j = LEAD_N; j >= 1; j--) {
-      pts.push(base[0].clone().addScaledVector(startTan, -LEAD * (j / LEAD_N)));
+    // lead-in continues the SINE below the first node (t < 0) so the trail keeps waving off the bottom
+    // edge instead of a straight stub. Sampled at the main curve's density; always inked (uvx < 0).
+    const LEAD_NODES = 2; // sine half-waves extended below the first node
+    for (let t = -LEAD_NODES; t < -1e-6; t += 1 / SINE_SAMPLES_PER_NODE) {
+      pts.push(new THREE.Vector3(NODE_AMP * Math.cos(Math.PI * t), 0, SINE_START_Z - t * NODE_DZ));
       uvx.push(-0.02);
     }
     for (let i = 0; i <= N; i++) {
       pts.push(base[i]);
       uvx.push(i / N);
     }
-    const hw = 0.3; // half-width of the inked line (world units)
+    const hw = 0.16; // half-width of the inked line (world units) — leaner trail
     const pos: number[] = [];
     const uv: number[] = [];
     const idx: number[] = [];
@@ -661,24 +667,19 @@ const CORRIDOR_H = 15; // ceiling height above the floor
 const DOOR_HALF_W = 3.5; // doorway half-width (the opening is 2× this, centred on the path)
 const DOOR_H = 9; // doorway height
 
-// Node u-positions along the curve, with extra breathing room at each chapter boundary: after a
-// capstone the gap to the next chapter's first node is 4 slots (vs 1 normally), and the door wall sits
-// at the midpoint — so the wall has 2× the inter-node gap on each side. Also returns each door wall's u.
+// Node u-positions along the curve. One node per sine extremum → uniform spacing, so node i sits
+// exactly on control point i (a left/right turn of the wave). Each chapter wall/door sits at the
+// midpoint between a capstone and the next chapter's first node. Also returns each door wall's u.
 function chapterSpacedUs(nodes: SceneNode[]): { nodeU: number[]; wallU: number[]; wallCap: number[] } {
-  const starts: number[] = [];
-  let cur = 0;
-  for (let i = 0; i < nodes.length; i++) {
-    starts[i] = cur;
-    cur += nodes[i].capstone ? 4 : 1; // capstone → 4-slot gap (2 before the wall, 2 after)
-  }
-  const span = cur || 1;
+  const total = nodes.length;
+  const span = Math.max(1, total - 1);
   const cl = (x: number) => Math.max(0, Math.min(1, x));
-  const nodeU = starts.map((s) => cl((s + 0.5) / span));
+  const nodeU = nodes.map((_, i) => cl(i / span));
   const wallU: number[] = [];
   const wallCap: number[] = []; // the capstone node index each wall sits after
   nodes.forEach((n, i) => {
-    if (n.capstone) {
-      wallU.push(cl((starts[i] + 2.5) / span));
+    if (n.capstone && i < total - 1) {
+      wallU.push(cl((i + 0.5) / span)); // midway between the capstone and the next chapter's first node
       wallCap.push(i);
     }
   });
@@ -1806,8 +1807,8 @@ function Node({
   // is the lesson emoji, a stand-in for the game's hand-drawn sticker motif. ----
   if (canvas) {
     return (
-      <group position={[pos.x, 1.5, pos.z]}>
-        <Html center position={[0, 0.4, 0]} distanceFactor={10} zIndexRange={[30, 0]}>
+      <group position={[pos.x, 0.13, pos.z]}>
+        <Html center position={[0, 0, 0]} distanceFactor={22} zIndexRange={[30, 0]}>
           <div className="pointer-events-none relative flex flex-col items-center" style={{ visibility: occluded ? "hidden" : "visible" }}>
             <button
               type="button"
@@ -1937,7 +1938,7 @@ function ChapterBanner({ ch, u, p, progress }: { ch: Chapter; u: number; p: THRE
     }
   });
   return (
-    <Html center position={[p.x, 5, p.z]} distanceFactor={13} zIndexRange={[60, 40]}>
+    <Html center position={[p.x, p.y, p.z]} distanceFactor={13} zIndexRange={[60, 40]}>
       <div
         style={{ visibility: occluded ? "hidden" : "visible" }}
         className={`glass-pill pointer-events-none flex select-none flex-col items-center whitespace-nowrap rounded-xl px-3 py-1 text-center backdrop-blur-md backdrop-saturate-150 transition-opacity duration-300 ${
@@ -1953,13 +1954,16 @@ function ChapterBanner({ ch, u, p, progress }: { ch: Chapter; u: number; p: THRE
 
 function ChapterBanners({ chapters, nodes, progress }: { chapters: Chapter[]; nodes: SceneNode[]; progress: React.MutableRefObject<number> }) {
   const marks = useMemo(() => {
-    const us = chapterSpacedUs(nodes).nodeU;
+    const span = Math.max(1, nodes.length - 1);
     return chapters
       .map((ch) => {
         const idx = nodes.findIndex((n) => n.chapter === ch.key);
         if (idx < 0) return null;
-        const u = us[idx];
-        return { ch, u, p: CURVE.getPointAt(u) };
+        // sit the sign ON the curve at the zero-crossing just BEFORE the chapter's first node —
+        // nodes are sine extrema, so that midpoint is always x = 0 (screen-centre).
+        const t = idx - 0.5;
+        const p = new THREE.Vector3(0, 0.13, SINE_START_Z - t * NODE_DZ);
+        return { ch, u: t / span, p };
       })
       .filter((m): m is { ch: Chapter; u: number; p: THREE.Vector3 } => m !== null);
   }, [chapters, nodes]);
@@ -2411,12 +2415,13 @@ function FollowCam({ progress, canvas }: { progress: React.MutableRefObject<numb
     if (tan.lengthSq() === 0) tan.set(0, 0, -1);
     tan.normalize();
     if (canvas) {
-      // near-top-down (~8° off vertical): the dotted-paper plane sits almost perpendicular so the dots
-      // stay circular (a tilt foreshortens + smears them); a little tilt remains to avoid gimbal-lock.
+      // Duolingo-style scroll: the camera tracks straight UP the centre line (x = 0, no yaw) so the
+      // sine weaves left/right in frame. Near-top-down (~7° tilt) keeps the dotted paper flat + the
+      // dots circular; the small tilt also avoids gimbal-lock.
       const back = portrait ? 2 : 1.5;
-      const height = portrait ? 24 : 18;
-      camera.position.lerp(new THREE.Vector3(p.x - tan.x * back, height, p.z - tan.z * back), 0.12);
-      look.current.lerp(new THREE.Vector3(p.x + tan.x * 1, 0, p.z + tan.z * 1), 0.12);
+      const height = portrait ? 24 : 18; // old (closer) zoom
+      camera.position.lerp(new THREE.Vector3(0, height, p.z + back), 0.12);
+      look.current.lerp(new THREE.Vector3(0, 0, p.z + back - 3), 0.12);
       camera.lookAt(look.current);
       const fov = portrait ? 52 : 46;
       if (Math.abs(camera.fov - fov) > 0.01) {
