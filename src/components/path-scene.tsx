@@ -606,6 +606,32 @@ function ProgressTrail({ progress }: { progress: React.MutableRefObject<number> 
   return <mesh geometry={geometry} material={material} renderOrder={1} />;
 }
 
+// Capstone "clearings" (Nodes & Navigation spec §6): a chapter's capstone isn't a plain node — the path
+// opens into a wider sun-tinted glade drawn on the paper (a celebratory landing), with the capstone
+// sticker sitting in it. Flat on the page (not a panel) — just a soft sun patch + a thin Equal-Violet ring.
+function CapstoneClearings({ nodes }: { nodes: SceneNode[] }) {
+  const spots = useMemo(() => {
+    const us = chapterSpacedUs(nodes).nodeU;
+    return nodes.map((n, i) => (n.capstone ? CURVE.getPointAt(us[i]) : null)).filter((p): p is THREE.Vector3 => !!p);
+  }, [nodes]);
+  return (
+    <>
+      {spots.map((p, i) => (
+        <group key={i} position={[p.x, 0.07, p.z]} rotation={[-Math.PI / 2, 0, 0]}>
+          <mesh>
+            <circleGeometry args={[6.5, 48]} />
+            <meshBasicMaterial color="#FFC94D" transparent opacity={0.18} toneMapped={false} depthWrite={false} />
+          </mesh>
+          <mesh>
+            <ringGeometry args={[6.2, 6.55, 64]} />
+            <meshBasicMaterial color="#553286" transparent opacity={0.55} toneMapped={false} depthWrite={false} />
+          </mesh>
+        </group>
+      ))}
+    </>
+  );
+}
+
 // ============================================================================================
 // Canvas corridor — a long winding hallway that follows the path: floor + two side walls + ceiling,
 // all swept along CURVE so the whole corridor curves with the path. Every surface is the brand dotted
@@ -1753,7 +1779,7 @@ function Node({
               onBlur={() => setHovered(false)}
               onClick={select}
               style={completed ? { transform: `rotate(${tilt}deg)` } : undefined}
-              className={`pointer-events-auto relative grid place-items-center rounded-full bg-[var(--color-paper)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--violet-200)] disabled:cursor-default ${cap ? "size-40" : "size-32"} ${soon ? "node-locked" : completed ? "sticker-soft" : "sticker-soft hover-pop"}`}
+              className={`pointer-events-auto relative grid place-items-center rounded-full focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--violet-200)] disabled:cursor-default ${cap ? "size-40 bg-[var(--color-sun)]" : "size-32 bg-[var(--color-paper)]"} ${soon ? "node-locked" : completed ? "sticker-soft" : "sticker-soft hover-pop"}`}
             >
               <span className={`leading-none ${cap ? "text-[64px]" : "text-[52px]"} ${soon ? "opacity-50 grayscale" : ""}`}>{node.emoji}</span>
               {/* up-next: a small Grow-Coral play mark. done: a coral 'earned' check badge stamped on the corner */}
@@ -2477,6 +2503,7 @@ export function PathScene({
       {/* canvas: a WORLD-space dotted-paper plane (scrolls as you travel) — not screen-space dots */}
       {canvas ? <CanvasGround /> : <SkyDome />}
       {canvas && <ProgressTrail progress={progress} />}
+      {canvas && <CapstoneClearings nodes={nodes} />}
       {!canvas && <Clouds />}
       <NightSky />
       <FollowCam progress={progress} canvas={canvas} />
