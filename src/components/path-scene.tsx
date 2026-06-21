@@ -2366,11 +2366,11 @@ function FollowCam({ progress, canvas }: { progress: React.MutableRefObject<numb
     if (tan.lengthSq() === 0) tan.set(0, 0, -1);
     tan.normalize();
     if (canvas) {
-      // top-down map view: high above the path, tilted slightly back along it so heading still reads
-      const back = portrait ? 11 : 9;
-      const height = portrait ? 40 : 32;
+      // top-down map view: zoomed in, just above the path, a slight back-tilt so heading still reads
+      const back = portrait ? 6 : 5;
+      const height = portrait ? 22 : 17;
       camera.position.lerp(new THREE.Vector3(p.x - tan.x * back, height, p.z - tan.z * back), 0.12);
-      look.current.lerp(new THREE.Vector3(p.x + tan.x * 3, 0, p.z + tan.z * 3), 0.12);
+      look.current.lerp(new THREE.Vector3(p.x + tan.x * 2, 0, p.z + tan.z * 2), 0.12);
       camera.lookAt(look.current);
       const fov = portrait ? 52 : 46;
       if (Math.abs(camera.fov - fov) > 0.01) {
