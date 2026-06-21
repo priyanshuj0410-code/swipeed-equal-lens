@@ -447,6 +447,11 @@ const CANVAS_INK = "#221436"; // hand-drawn outline / Ink
 const CANVAS_SUN = "#FFC94D"; // reserved: capstone fill + state badges
 // chapter accent fills for the node stickers (sun is held back for capstones/badges); cycled by chapter
 const CANVAS_ACCENTS = ["#FF7A5C", "#2DD4BF", "#7F65A4"]; // grow coral · insight teal · brandsoft violet
+// Nodes & Navigation spec tokens (§11): paper cut-out, Equal Violet inked outline, Grow Coral play/RE
+const EQUAL_VIOLET = "#553286"; // node outline / Lensy
+const EQUAL_VIOLET_PALE = "#B7A7D1"; // locked: pale, dashed, un-inked
+const GROW_CORAL = "#D2552B"; // play mark / inked path / RE pencil
+const LIFT_SHADOW = "#CCC2DF"; // the hard offset cut-out shadow (light violet-grey)
 
 // Canvas skin — the sky: the brand dotted paper on the distant backdrop, drawn in SCREEN space.
 // Knobs: uPx (pixel spacing) + uDotPx (dot radius px).
@@ -1617,41 +1622,28 @@ function _sparkle(ctx: CanvasRenderingContext2D, x: number, y: number, s: number
   ctx.lineJoin = "round";
   ctx.stroke();
 }
-function _stateBadge(ctx: CanvasRenderingContext2D, x: number, y: number, r: number, state: NodeState) {
-  ctx.beginPath();
-  ctx.arc(x, y, r, 0, Math.PI * 2);
-  ctx.fillStyle = state === "soon" ? CANVAS_PAPER : CANVAS_SUN;
-  ctx.fill();
-  ctx.lineWidth = 4;
-  ctx.strokeStyle = CANVAS_INK;
-  ctx.stroke();
-  ctx.strokeStyle = CANVAS_INK;
-  ctx.fillStyle = CANVAS_INK;
+// the small drawn play mark (spec §5): a bare Grow-Coral triangle on playable nodes, a coral tick on
+// Done, nothing on Locked (the faint dashed cut-out already says 'locked'). No sun chip / app-button.
+function _playMark(ctx: CanvasRenderingContext2D, cx: number, cy: number, R: number, state: NodeState) {
+  if (state === "soon") return;
+  const my = cy + R * 0.58;
+  const s = R * 0.3;
+  ctx.fillStyle = GROW_CORAL;
+  ctx.strokeStyle = GROW_CORAL;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
   if (state === "completed") {
-    ctx.lineWidth = 4.5;
+    ctx.lineWidth = R * 0.11;
     ctx.beginPath();
-    ctx.moveTo(x - r * 0.42, y);
-    ctx.lineTo(x - r * 0.08, y + r * 0.34);
-    ctx.lineTo(x + r * 0.46, y - r * 0.36);
-    ctx.stroke();
-  } else if (state === "soon") {
-    ctx.lineWidth = 3.5;
-    ctx.beginPath();
-    ctx.moveTo(x - r * 0.34, y - r * 0.02);
-    ctx.lineTo(x - r * 0.34, y + r * 0.42);
-    ctx.lineTo(x + r * 0.34, y + r * 0.42);
-    ctx.lineTo(x + r * 0.34, y - r * 0.02);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(x, y - r * 0.02, r * 0.26, Math.PI, 0); // shackle
+    ctx.moveTo(cx - s, my);
+    ctx.lineTo(cx - s * 0.25, my + s * 0.8);
+    ctx.lineTo(cx + s, my - s * 0.7);
     ctx.stroke();
   } else {
-    ctx.beginPath(); // play triangle
-    ctx.moveTo(x - r * 0.26, y - r * 0.4);
-    ctx.lineTo(x - r * 0.26, y + r * 0.4);
-    ctx.lineTo(x + r * 0.44, y);
+    ctx.beginPath(); // play triangle / pencil-tip
+    ctx.moveTo(cx - s * 0.65, my - s * 0.85);
+    ctx.lineTo(cx - s * 0.65, my + s * 0.85);
+    ctx.lineTo(cx + s * 0.9, my);
     ctx.closePath();
     ctx.fill();
   }
@@ -1678,29 +1670,32 @@ function useStickerTexture(active: boolean, emoji: string, accent: string, state
       ctx.beginPath();
       _wobbleCircle(ctx, cx + 11, cy + 14, R);
       ctx.closePath();
-      ctx.fillStyle = "#CCC2DF"; // light violet-grey, no blur
+      ctx.fillStyle = LIFT_SHADOW; // hard offset cut-out shadow, no blur
       ctx.fill();
     }
+    // the cut-out: paper fill, Equal-Violet inked outline (pale + dashed when Locked = un-inked)
     ctx.beginPath();
     _wobbleCircle(ctx, cx, cy, R);
     ctx.closePath();
-    ctx.fillStyle = locked ? CANVAS_PAPER : capstone ? CANVAS_SUN : accent;
+    ctx.fillStyle = CANVAS_PAPER;
     ctx.fill();
     ctx.lineWidth = capstone ? 8 : 7;
-    ctx.strokeStyle = CANVAS_INK;
+    ctx.strokeStyle = locked ? EQUAL_VIOLET_PALE : EQUAL_VIOLET;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
     if (locked) ctx.setLineDash([15, 12]);
     ctx.stroke();
     ctx.setLineDash([]);
+    // glyph: the lesson emoji — a stand-in for the game's hand-drawn earnable-sticker motif (spec §5 wants
+    // doodle motifs, not emoji; needs the sticker art). Faint when Locked.
     ctx.save();
-    ctx.font = `${Math.round(R * 1.05)}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;
+    ctx.font = `${Math.round(R * 1.02)}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    if (locked && !capstone) ctx.filter = "grayscale(1) opacity(0.6)";
-    ctx.fillText(emoji, cx, cy + R * 0.04);
+    if (locked) ctx.filter = "grayscale(1) opacity(0.45)";
+    ctx.fillText(emoji, cx, cy - R * 0.1);
     ctx.restore();
-    _stateBadge(ctx, cx + R * 0.74, cy - R * 0.74, capstone ? 30 : 27, state);
+    _playMark(ctx, cx, cy, R, state);
     const t = new THREE.CanvasTexture(c);
     t.colorSpace = THREE.SRGBColorSpace;
     t.anisotropy = 8;
@@ -1750,7 +1745,6 @@ function Node({
   const soon = node.state === "soon";
   const greyEmoji = soon && !cap; // capstones keep their gold; not-built lessons grey out
   const tex = useEmojiTexture(node.emoji, greyEmoji);
-  const stickerTex = useStickerTexture(canvas, node.emoji, accent, node.state, cap);
   const st = nodeShades(node.hex, node.state, cap);
   const bob = node.state === "playable";
   const sprScale = canvas ? (cap ? 4.6 : 3.7) : cap ? 2.5 : 1.8;
@@ -1786,44 +1780,54 @@ function Node({
     progress.current = u;
     if (!soon) onSelect?.(node);
   };
-  // ---- canvas skin: the hand-drawn sticker node (Ink-outlined disc + accent fill + emoji + badge) ----
+  // ---- canvas skin: a real Equal Lens DOM sticker (drei <Html>) using the site's own .sticker-soft
+  // recipe + brand tokens — so it auto dark-flips, always faces the camera, and reuses the actual CSS
+  // (not a hand-painted texture). Lift shadow = 'tappable' (spec §2); Locked is flat/un-inked. The glyph
+  // is the lesson emoji, a stand-in for the game's hand-drawn sticker motif. ----
   if (canvas) {
     return (
       <group position={[pos.x, 1.5, pos.z]}>
-        {/* the lift shadow is baked into the sticker texture (hard offset cut-out) so it billboards with
-            the sticker — faces the camera, no separate flat-on-ground decal */}
-        {stickerTex && (
-          <sprite ref={spr} position={[0, 0.35, 0]} scale={[sprScale, sprScale, sprScale]}>
-            <spriteMaterial map={stickerTex} transparent depthWrite={false} opacity={soon && !cap ? 0.86 : 1} fog={false} />
-          </sprite>
-        )}
-        <Html center position={[0, 0.35, 0]} distanceFactor={11} zIndexRange={[30, 0]}>
-          <button
-            type="button"
-            aria-label={`${node.label} — ${cap ? "capstone, " : ""}${node.state === "soon" ? "not built yet" : node.state}`}
-            disabled={soon}
-            onPointerDown={(e) => e.stopPropagation()}
-            onPointerOver={() => setHovered(true)}
-            onPointerOut={() => setHovered(false)}
-            onFocus={() => {
-              focus();
-              setHovered(true);
-            }}
-            onBlur={() => setHovered(false)}
-            onClick={select}
-            style={{ visibility: occluded ? "hidden" : "visible" }}
-            className="pointer-events-auto size-14 rounded-full focus:outline-none focus-visible:ring-4 focus-visible:ring-[#221436]/60 disabled:cursor-default"
-          />
-        </Html>
-        <Html center position={[0, cap ? 2.5 : 2.1, 0]} distanceFactor={12} zIndexRange={[31, 1]}>
-          <span
-            style={{ visibility: occluded ? "hidden" : "visible", boxShadow: `0 3px 0 ${accent}` }}
-            className={`pointer-events-none block select-none whitespace-nowrap rounded-md border-[1.5px] border-[#221436] bg-[#FBF9FF] px-2 py-0.5 text-[11px] font-bold text-[#221436] transition-opacity duration-150 ${
-              inView || hovered ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            {node.label}
-          </span>
+        <Html center position={[0, 0.4, 0]} distanceFactor={10} zIndexRange={[30, 0]}>
+          <div className="pointer-events-none relative flex flex-col items-center" style={{ visibility: occluded ? "hidden" : "visible" }}>
+            <button
+              type="button"
+              aria-label={`${node.label} — ${cap ? "capstone, " : ""}${soon ? "locked" : node.state === "completed" ? "done" : "play"}`}
+              disabled={soon}
+              onPointerDown={(e) => e.stopPropagation()}
+              onPointerOver={() => setHovered(true)}
+              onPointerOut={() => setHovered(false)}
+              onFocus={() => {
+                focus();
+                setHovered(true);
+              }}
+              onBlur={() => setHovered(false)}
+              onClick={select}
+              className={`pointer-events-auto relative grid place-items-center rounded-full bg-[var(--color-paper)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--violet-200)] disabled:cursor-default ${cap ? "size-20" : "size-16"} ${soon ? "node-locked" : "sticker-soft hover-pop"}`}
+            >
+              <span className={`leading-none ${cap ? "text-[32px]" : "text-[26px]"} ${soon ? "opacity-50 grayscale" : ""}`}>{node.emoji}</span>
+              {!soon && (
+                <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 text-[var(--color-grow)]" aria-hidden>
+                  {node.state === "completed" ? (
+                    <svg viewBox="0 0 20 20" className="size-3.5">
+                      <path d="M4 11 l4 4 l8 -10" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 20 20" className="size-3">
+                      <path d="M6 4 L6 16 L16 10 Z" fill="currentColor" />
+                    </svg>
+                  )}
+                </span>
+              )}
+            </button>
+            <span
+              style={{ fontFamily: "var(--font-hand)" }}
+              className={`pointer-events-none absolute bottom-full mb-2 block select-none whitespace-nowrap rounded-md border-[1.5px] border-[var(--violet-600)] bg-[var(--color-paper)] px-2 py-0.5 text-[11px] font-bold text-[var(--color-ink)] transition-opacity duration-150 ${
+                inView || hovered ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {node.label}
+            </span>
+          </div>
         </Html>
       </group>
     );
