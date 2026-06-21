@@ -1672,6 +1672,15 @@ function useStickerTexture(active: boolean, emoji: string, accent: string, state
       _sparkle(ctx, S - 42, 50, 15);
       _sparkle(ctx, S - 30, S - 54, 11);
     }
+    // hard offset cut-out shadow = the "lifted → tappable" cue (spec §2); baked in so it billboards with
+    // the sticker (faces the camera). Locked stays FLAT — no shadow.
+    if (!locked) {
+      ctx.beginPath();
+      _wobbleCircle(ctx, cx + 11, cy + 14, R);
+      ctx.closePath();
+      ctx.fillStyle = "#CCC2DF"; // light violet-grey, no blur
+      ctx.fill();
+    }
     ctx.beginPath();
     _wobbleCircle(ctx, cx, cy, R);
     ctx.closePath();
@@ -1752,7 +1761,7 @@ function Node({
   const occRef = useRef(false);
   useFrame((s) => {
     if (spr.current) {
-      spr.current.position.y = (canvas ? 0.35 : 0.2) + (bob && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0);
+      spr.current.position.y = canvas ? 0.35 : 0.2 + (bob && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0); // canvas: no bob (spec — stuck on, never hovering)
     }
     // reveal the name when the node is at / just ahead of the camera focus
     // (touch has no hover, so on-screen nodes label themselves)
@@ -1781,10 +1790,8 @@ function Node({
   if (canvas) {
     return (
       <group position={[pos.x, 1.5, pos.z]}>
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.45, 0]} scale={[cap ? 1.7 : 1.35, cap ? 0.68 : 0.55, 1]}>
-          <circleGeometry args={[1, 28]} />
-          <meshBasicMaterial color={CANVAS_INK} transparent opacity={0.12} depthWrite={false} fog={false} />
-        </mesh>
+        {/* the lift shadow is baked into the sticker texture (hard offset cut-out) so it billboards with
+            the sticker — faces the camera, no separate flat-on-ground decal */}
         {stickerTex && (
           <sprite ref={spr} position={[0, 0.35, 0]} scale={[sprScale, sprScale, sprScale]}>
             <spriteMaterial map={stickerTex} transparent depthWrite={false} opacity={soon && !cap ? 0.86 : 1} fog={false} />
