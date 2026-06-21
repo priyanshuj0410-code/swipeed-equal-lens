@@ -573,6 +573,10 @@ function chapterSpacedUs(nodes: SceneNode[]): { nodeU: number[]; wallU: number[]
 // the live corridor mesh (canvas skin only) — used to occlude DOM node/banner overlays behind walls.
 // A module-level callback ref sidesteps any ref-forwarding-through-props subtlety.
 let _corridorMesh: THREE.Mesh | null = null;
+const _doorMeshes: THREE.Mesh[] = []; // swinging door panels — they also occlude DOM overlays while shut
+const _openDoors = new Set<number>(); // door u's the player has opened (Enter) — releases the travel gate
+const _CURVE_LEN = CURVE.getLength();
+const _DOOR_GATE_U = 7 / _CURVE_LEN; // clamp travel this far past a shut door's u → camera halts just shy of it
 const CORRIDOR_DOOR_TONE = 0.95; // the "door wall" across the corridor after each capstone (doors added later)
 function CanvasCorridor({ nodes }: { nodes: SceneNode[] }) {
   const geometry = useMemo(() => {
@@ -811,14 +815,24 @@ function makeDoorMaterial() {
 function DoorPanel({ u, hinge, quat, chapter, material, progress }: { u: number; hinge: THREE.Vector3; quat: THREE.Quaternion; chapter?: Chapter; material: THREE.ShaderMaterial; progress: React.MutableRefObject<number> }) {
   const swing = useRef<THREE.Group>(null);
   const open = useRef(0);
-  const [opened, setOpened] = useState(false);
+  const [opened, setOpened] = useState(() => _openDoors.has(u));
   const [near, setNear] = useState(false);
   const nearRef = useRef(false);
+  const panelRef = useRef<THREE.Mesh>(null);
+  useEffect(() => {
+    const m = panelRef.current;
+    if (!m) return;
+    _doorMeshes.push(m); // so labels behind a shut door are occluded by it (not just the wall frame)
+    return () => {
+      const i = _doorMeshes.indexOf(m);
+      if (i >= 0) _doorMeshes.splice(i, 1);
+    };
+  }, []);
   useFrame((_, dt) => {
     const target = opened ? 1 : 0; // the door only opens on Enter — never automatically
     open.current += (target - open.current) * Math.min(1, dt * 3); // gentle swing
     if (swing.current) swing.current.rotation.y = -open.current * (Math.PI / 2 + 0.12);
-    const n = !opened && Math.abs(progress.current - u) < 0.035; // you've reached the door
+    const n = !opened && Math.abs(progress.current - u) < _DOOR_GATE_U + 0.02; // you've reached the door (where travel halts)
     if (n !== nearRef.current) {
       nearRef.current = n;
       setNear(n);
@@ -827,7 +841,7 @@ function DoorPanel({ u, hinge, quat, chapter, material, progress }: { u: number;
   return (
     <group position={hinge} quaternion={quat}>
       <group ref={swing}>
-        <mesh material={material} position={[DOOR_HALF_W, DOOR_H / 2, 0]}>
+        <mesh ref={panelRef} material={material} position={[DOOR_HALF_W, DOOR_H / 2, 0]}>
           <planeGeometry args={[DOOR_HALF_W * 2, DOOR_H]} />
         </mesh>
       </group>
@@ -841,7 +855,10 @@ function DoorPanel({ u, hinge, quat, chapter, material, progress }: { u: number;
             <button
               type="button"
               onPointerDown={(e) => e.stopPropagation()}
-              onClick={() => setOpened(true)}
+              onClick={() => {
+                setOpened(true);
+                _openDoors.add(u); // release the travel gate past this door
+              }}
               className="pointer-events-auto rounded-full border-[2.5px] border-[#221436] bg-[#FFC94D] px-4 py-1.5 text-sm font-bold text-[#221436] shadow-[3px_3px_0_#221436] transition-transform hover:-translate-y-0.5 active:translate-y-0"
             >
               Enter →
@@ -874,6 +891,12 @@ function CorridorDoors({ nodes, chapters, progress }: { nodes: SceneNode[]; chap
       return { u, hinge, quat, chapter };
     });
   }, [nodes, chapters]);
+  useFrame(() => {
+    // travel gate: you can't glide past a shut door — clamp progress just short of the nearest closed one
+    let gate = Infinity;
+    for (const d of doors) if (!_openDoors.has(d.u)) gate = Math.min(gate, d.u + _DOOR_GATE_U);
+    if (progress.current > gate) progress.current = gate;
+  });
   return (
     <>
       {doors.map((d, i) => (
@@ -1607,6 +1630,19 @@ const _occOrigin = new THREE.Vector3();
 const _occTarget = new THREE.Vector3();
 const _occDir = new THREE.Vector3();
 const _occRay = new THREE.Raycaster();
+// Is a corridor wall — or a shut door panel — between the camera and this world point? Used to hide DOM
+// node/banner labels that would otherwise draw on top of the wall they're really behind.
+function _wallOccludes(camPos: THREE.Vector3, tx: number, ty: number, tz: number): boolean {
+  if (!_corridorMesh) return false;
+  _occOrigin.copy(camPos);
+  _occTarget.set(tx, ty, tz);
+  _occDir.subVectors(_occTarget, _occOrigin);
+  const dist = _occDir.length();
+  _occRay.set(_occOrigin, _occDir.normalize());
+  _occRay.far = Math.max(0.1, dist - 0.6);
+  const targets = _doorMeshes.length ? [_corridorMesh, ..._doorMeshes] : [_corridorMesh];
+  return _occRay.intersectObjects(targets, false).length > 0;
+}
 function Node({
   node,
   u,
@@ -1647,21 +1683,10 @@ function Node({
     }
     // the trigger is a DOM overlay (always-on-top); hide it when a corridor wall is between it and the
     // camera, so a node around the bend doesn't draw its dot over the wall.
-    if (_corridorMesh) {
-      _occOrigin.copy(s.camera.position);
-      _occTarget.set(pos.x, 1.5 + (cap ? 1.7 : 1.35), pos.z);
-      _occDir.subVectors(_occTarget, _occOrigin);
-      const dist = _occDir.length();
-      _occRay.set(_occOrigin, _occDir.normalize());
-      _occRay.far = Math.max(0.1, dist - 0.6);
-      const hit = _occRay.intersectObject(_corridorMesh, false).length > 0;
-      if (hit !== occRef.current) {
-        occRef.current = hit;
-        setOccluded(hit);
-      }
-    } else if (occRef.current) {
-      occRef.current = false;
-      setOccluded(false);
+    const hit = _wallOccludes(s.camera.position, pos.x, 1.5 + (cap ? 1.7 : 1.35), pos.z);
+    if (hit !== occRef.current) {
+      occRef.current = hit;
+      setOccluded(hit);
     }
   });
   const focus = () => {
@@ -1729,21 +1754,10 @@ function ChapterBanner({ ch, u, p, progress }: { ch: Chapter; u: number; p: THRE
       ref.current = vis;
       setInView(vis);
     }
-    if (_corridorMesh) {
-      _occOrigin.copy(s.camera.position);
-      _occTarget.set(p.x, 5, p.z);
-      _occDir.subVectors(_occTarget, _occOrigin);
-      const dist = _occDir.length();
-      _occRay.set(_occOrigin, _occDir.normalize());
-      _occRay.far = Math.max(0.1, dist - 0.6);
-      const hit = _occRay.intersectObject(_corridorMesh, false).length > 0;
-      if (hit !== occRef.current) {
-        occRef.current = hit;
-        setOccluded(hit);
-      }
-    } else if (occRef.current) {
-      occRef.current = false;
-      setOccluded(false);
+    const hit = _wallOccludes(s.camera.position, p.x, 5, p.z);
+    if (hit !== occRef.current) {
+      occRef.current = hit;
+      setOccluded(hit);
     }
   });
   return (
