@@ -441,20 +441,12 @@ function makePathStrokeTex() {
   return t;
 }
 
-// The sky is the same dotted paper as the land (one continuous canvas) — pure paper, no tint.
+// Canvas skin — the sky: a blank white dome. Nothing else (block-by-block fresh start).
 function CanvasSky() {
-  const gl = useThree((s) => s.gl);
-  const tex = useMemo(() => {
-    const t = makePaperTex();
-    t.anisotropy = gl.capabilities.getMaxAnisotropy();
-    t.repeat.set(46, 23); // fine dots to match the land
-    return t;
-  }, [gl]);
-  useEffect(() => () => tex.dispose(), [tex]);
   return (
     <mesh position={[0, 0, PATH_MID_Z]}>
-      <sphereGeometry args={[560, 64, 32]} />
-      <meshBasicMaterial map={tex} side={THREE.BackSide} depthWrite={false} fog={false} />
+      <sphereGeometry args={[560, 32, 16]} />
+      <meshBasicMaterial color="#ffffff" side={THREE.BackSide} depthWrite={false} fog={false} />
     </mesh>
   );
 }
@@ -726,20 +718,10 @@ function Ground({ skin }: { skin: WorldSkin }) {
     g.setAttribute("color", new THREE.Float32BufferAttribute(colorArrays.summer.slice(), 3));
     return { geo: g, colorArrays };
   }, []);
-  // canvas skin: the brand dotted paper, flat and untinted. Max anisotropy keeps the dots crisp and
-  // un-stretched where the ground recedes toward the horizon.
-  const gl = useThree((s) => s.gl);
-  const paper = useMemo(() => {
-    if (skin !== "canvas") return null;
-    const t = makePaperTex();
-    t.anisotropy = gl.capabilities.getMaxAnisotropy();
-    t.repeat.set(paperRepeatFor(700), paperRepeatFor(PATH_SPAN_Z + 360));
-    return t;
-  }, [skin, gl]);
-  useEffect(() => () => paper?.dispose(), [paper]);
+  // canvas skin: a blank white ground. Nothing else (block-by-block fresh start).
   const appliedRef = useRef(-1);
   useFrame(() => {
-    if (skin === "canvas") return; // static dotted paper — no tint, nothing to update per frame
+    if (skin === "canvas") return; // flat white, nothing to update per frame
     if (appliedRef.current === seasonRT.index) return;
     appliedRef.current = seasonRT.index;
     const season = SEASON_ORDER[seasonRT.index] ?? "summer";
@@ -750,7 +732,7 @@ function Ground({ skin }: { skin: WorldSkin }) {
   if (skin === "canvas") {
     return (
       <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, PATH_MID_Z]}>
-        <meshBasicMaterial map={paper ?? undefined} />
+        <meshBasicMaterial color="#ffffff" />
       </mesh>
     );
   }
@@ -1431,12 +1413,36 @@ function SeasonDriver({
 
   const fog = useMemo(() => new THREE.Fog(seasonRT.fogColor.clone(), seasonRT.fogNear, seasonRT.fogFar), []);
   const bg = useMemo(() => seasonRT.bg.clone(), []);
-  // canvas skin is season-independent: no fog haze, a flat paper background — so no chapter tints the world.
-  const paperBg = useMemo(() => new THREE.Color(PAPER), []);
+  // canvas skin is season-independent: no fog, a flat white background — so no chapter tints the world.
+  const paperBg = useMemo(() => new THREE.Color("#ffffff"), []);
   useEffect(() => {
     scene.fog = canvas ? null : fog;
     scene.background = canvas ? paperBg : bg;
   }, [scene, fog, bg, canvas, paperBg]);
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const b = scene.background as THREE.Color | null;
+      const info: string[] = [];
+      scene.traverse((o) => {
+        const mesh = o as THREE.Mesh;
+        if (mesh.isMesh && mesh.geometry && (mesh.geometry.type === "PlaneGeometry" || mesh.geometry.type === "SphereGeometry")) {
+          const m = (Array.isArray(mesh.material) ? mesh.material[0] : mesh.material) as THREE.MeshBasicMaterial;
+          const img = m?.map?.image as { width?: number; height?: number } | undefined;
+          info.push(
+            mesh.geometry.type +
+              " mat=" + (m?.type ?? "?") +
+              " vColors=" + (m as THREE.MeshBasicMaterial & { vertexColors?: boolean })?.vertexColors +
+              " hasColorAttr=" + !!mesh.geometry.attributes.color +
+              " map=" + (m?.map ? (img?.width + "x" + img?.height) : "none") +
+              " toneMapped=" + (m as THREE.MeshBasicMaterial & { toneMapped?: boolean })?.toneMapped +
+              " visible=" + mesh.visible
+          );
+        }
+      });
+      console.log("[MAT-DEBUG] bg=", b && b.isColor ? "#" + b.getHexString() : String(b), "|", info.join("  ||  "));
+    }, 2500);
+    return () => clearTimeout(t);
+  }, [canvas, scene]);
 
   // re-apply once after foliage has mounted (it streams in after the env), so late materials get the season colormap
   const appliedMapRef = useRef(-1);
@@ -1747,6 +1753,9 @@ export function PathScene({
   skin?: WorldSkin;
 }) {
   const canvas = skin === "canvas";
+  useEffect(() => {
+    console.log("[SKIN-DEBUG] PathScene mounted with skin =", skin, "canvas =", canvas);
+  }, [skin, canvas]);
   // only the realistic skin needs the GLTF world; preload its models lazily (canvas downloads none)
   useEffect(() => {
     if (!canvas) preloadRealisticModels();
@@ -1821,7 +1830,7 @@ export function PathScene({
     <Canvas
       shadows
       dpr={[1, 1.5]}
-      gl={{ antialias: false, toneMappingExposure: 1.05, powerPreference: "high-performance" }}
+      gl={{ antialias: false, toneMappingExposure: 1.05, powerPreference: "high-performance", preserveDrawingBuffer: true }}
       camera={{ position: [0, 6, 30], fov: 48 }}
       style={{ width: "100%", height: "100%", display: "block" }}
     >
@@ -1829,11 +1838,10 @@ export function PathScene({
       <Suspense fallback={null}>
         <SeasonDriver progress={progress} nodes={nodes} chapters={chapters} skin={skin} />
       </Suspense>
-      {/* phase 0: sky + land + mountains (canvas skin swaps in the hand-drawn equivalents) */}
+      {/* phase 0: sky + land. CANVAS SKIN = a blank white world (white ground + white sky), nothing
+          else — a fresh base to build up block by block. The realistic GLTF world is unchanged. */}
       {canvas ? <CanvasSky /> : <SkyDome />}
-      {canvas && <CanvasHorizon />}
-      {canvas ? <DoodleClouds /> : <Clouds />}
-      {canvas && <DoodleMarks />}
+      {!canvas && <Clouds />}
       <NightSky />
       <FollowCam progress={progress} />
       <SunLight progress={progress} />
@@ -1841,14 +1849,10 @@ export function PathScene({
       <SeasonAmbient />
       <Ground skin={skin} />
       <Suspense fallback={null}>
-        {/* realistic-only blocky terrain; the canvas skin reads as flat paper + fog horizon */}
         {!canvas && <Mountains />}
-        {/* phase 1: the path — inked onto the ground (canvas) or planked boards (realistic) */}
-        {phase >= 1 && (canvas ? <DrawnPath /> : <PlankPath />)}
-        {/* phase 2: scenery — tree doodles (canvas) or streamed GLTF foliage (realistic) */}
-        {phase >= 2 && (canvas ? <DoodleTrees /> : <StreamedFoliage progress={progress} />)}
+        {phase >= 1 && !canvas && <PlankPath />}
+        {phase >= 2 && !canvas && <StreamedFoliage progress={progress} />}
       </Suspense>
-      {/* phase 2: weather — only the active season's emitter is mounted (realistic only for now) */}
       {phase >= 2 && !canvas && <Weather />}
       {/* phase 1: checkpoints + region signs (hidden while a level is being played).
           Nodes first so the chapter banners (rendered after) stack ABOVE the node labels. */}
@@ -1861,13 +1865,7 @@ export function PathScene({
           </Suspense>
         </>
       )}
-      {canvas ? (
-        // flat paper reads best without AO/bloom blowing out the white; just clean edges + a soft frame
-        <EffectComposer multisampling={0}>
-          <Vignette offset={0.36} darkness={0.3} />
-          <SMAA />
-        </EffectComposer>
-      ) : (
+      {canvas ? null : (
         <EffectComposer multisampling={0}>
           {/* soft contact-darkening where grass/rocks/trees/path meet the ground */}
           <N8AO halfRes aoRadius={1.6} distanceFalloff={1} intensity={0.6} quality="performance" />
