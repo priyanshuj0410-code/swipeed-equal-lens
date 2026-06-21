@@ -186,6 +186,8 @@
     background-image: var(--app-bg);
     background-attachment: fixed;
     background-repeat: no-repeat;
+    /* Theme (Kids/Adult) cross-fade — 320ms, per the brand. */
+    transition: background-color 0.32s ease, color 0.32s ease;
   }
   html {
     @apply font-sans;
@@ -244,6 +246,7 @@ html[data-playing="true"] .gethelp-label {
   color: var(--color-ink);
   border: 2px solid var(--color-ink);
   box-shadow: 3px 3px 0 0 var(--color-ink);
+  transition: transform 0.18s ease;
 }
 
 /* GLRL 2.0 "juice": a brief screenshake on a toxic/boss red, a warm pulse on a green.
@@ -272,4 +275,24 @@ html[data-playing="true"] .gethelp-label {
 @keyframes glrl-timer {
   from { width: 100%; }
   to { width: 0%; }
+}
+
+/* The Equal Lens motion kit — lively but tasteful (brand p.12); seasoning, never load-bearing.
+   All animations are disabled under prefers-reduced-motion. */
+@keyframes anim-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+@keyframes anim-wobble { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+@keyframes anim-bob { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-6px) rotate(2deg); } }
+@keyframes anim-pop { 0% { transform: scale(0.6); opacity: 0; } 70% { transform: scale(1.06); } 100% { transform: scale(1); opacity: 1; } }
+.anim-float { animation: anim-float 5s ease-in-out infinite; }       /* doodles, hero art */
+.anim-wobble { animation: anim-wobble 4.5s ease-in-out infinite; }   /* stars, badges */
+.anim-bob { animation: anim-bob 5.5s ease-in-out infinite; }         /* mascots (Sam / Lensy) */
+.anim-pop { animation: anim-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; } /* notes, appearing */
+.hover-pop { transition: transform 0.18s ease; }                     /* cards, buttons */
+@media (hover: hover) {
+  .hover-pop:hover { transform: translateY(-3px) rotate(1.5deg); }
+  .glass-pill:hover { transform: translateY(-2px) rotate(1.2deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .anim-float, .anim-wobble, .anim-bob, .anim-pop { animation: none; }
+  .hover-pop:hover, .glass-pill:hover { transform: none; }
 }

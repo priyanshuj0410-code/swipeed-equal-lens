@@ -7,8 +7,7 @@ export function Sam({ size = 72 }: { size?: number }) {
       width={size}
       height={size}
       viewBox="0 0 64 64"
-      className="shrink-0 animate-bounce drop-shadow"
-      style={{ animationDuration: "2.8s" }}
+      className="shrink-0 anim-bob drop-shadow"
       aria-hidden
     >
       <rect x="8" y="8" width="48" height="48" rx="20" fill="#7C5CFC" />
