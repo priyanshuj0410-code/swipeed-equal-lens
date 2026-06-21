@@ -296,3 +296,12 @@ html[data-playing="true"] .gethelp-label {
   .anim-float, .anim-wobble, .anim-bob, .anim-pop { animation: none; }
   .hover-pop:hover, .glass-pill:hover { transform: none; }
 }
+
+/* The Equal Lens sticker recipe — copied verbatim from the site's globals.css (the source of truth):
+   a chunky outline + a HARD offset shadow = the 'lifted, therefore tappable' affordance (Nodes &
+   Navigation spec §2). .sticker uses ink (flips in dark); .sticker-soft uses the Equal Violet ramp.
+   .node-locked is the flat 'un-inked' state: no shadow, pale dashed outline, faint. */
+.sticker { border: 2.5px solid var(--color-ink); box-shadow: 4px 4px 0 var(--color-ink); }
+.sticker-soft { border: 2.5px solid var(--violet-600); box-shadow: 4px 5px 0 var(--violet-200); }
+.node-locked { border: 2.5px dashed var(--violet-200); box-shadow: none; opacity: 0.6; }
+.canvas-dots { background-image: radial-gradient(var(--dot) 1.1px, transparent 1.1px); background-size: 28px 28px; }
