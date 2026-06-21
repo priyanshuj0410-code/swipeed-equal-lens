@@ -547,8 +547,9 @@ const CORRIDOR_H = 15; // ceiling height above the floor
 // the live corridor mesh (canvas skin only) — used to occlude DOM node/banner overlays behind walls.
 // A module-level callback ref sidesteps any ref-forwarding-through-props subtlety.
 let _corridorMesh: THREE.Mesh | null = null;
-function CanvasCorridor() {
-  const { geometry, material } = useMemo(() => {
+const CORRIDOR_DOOR_TONE = 0.95; // the "door wall" across the corridor after each capstone (doors added later)
+function CanvasCorridor({ nodes }: { nodes: SceneNode[] }) {
+  const geometry = useMemo(() => {
     const len = CURVE.getLength();
     const baseN = Math.max(8, Math.ceil(len / 1.2));
     const base = CURVE.getSpacedPoints(baseN);
@@ -617,6 +618,30 @@ function CanvasCorridor() {
     strip(lFloor, lCeil, 0, H, H, 0.9, 1); // left wall — dimmer
     strip(rFloor, rCeil, 0, H, H, 0.9, 1); // right wall — dimmer
     strip(lCeil, rCeil, 0, W2, W2, 0.96, 0); // ceiling
+    // a full-height canvas "door wall" spanning the corridor just after each capstone (doors cut later)
+    const total = nodes.length || 1;
+    nodes.forEach((node, i) => {
+      if (!node.capstone) return;
+      const u = Math.min(1, (i + 1) / total);
+      const p = CURVE.getPointAt(u);
+      const tan = CURVE.getTangentAt(u);
+      const tl = Math.hypot(tan.x, tan.z) || 1;
+      const nx = -tan.z / tl;
+      const nz = tan.x / tl;
+      const s = pos.length / 3;
+      const add = (sx: number, y: number, vx: number, vy: number) => {
+        pos.push(p.x + nx * sx, y, p.z + nz * sx);
+        uv.push(vx, vy);
+        ext.push(H);
+        tone.push(CORRIDOR_DOOR_TONE);
+        wall.push(1);
+      };
+      add(W, p.y, 0, 0); // bottom-left
+      add(-W, p.y, W2, 0); // bottom-right
+      add(W, p.y + H, 0, H); // top-left
+      add(-W, p.y + H, W2, H); // top-right
+      idx.push(s, s + 1, s + 2, s + 2, s + 1, s + 3);
+    });
     const g = new THREE.BufferGeometry();
     g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
     g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
@@ -624,7 +649,10 @@ function CanvasCorridor() {
     g.setAttribute("aTone", new THREE.Float32BufferAttribute(tone, 1));
     g.setAttribute("aWall", new THREE.Float32BufferAttribute(wall, 1));
     g.setIndex(idx);
-    const m = new THREE.ShaderMaterial({
+    return g;
+  }, [nodes]);
+  const material = useMemo(() => {
+    return new THREE.ShaderMaterial({
       side: THREE.DoubleSide,
       uniforms: {
         uPaper: { value: new THREE.Color(CANVAS_PAPER) },
@@ -682,15 +710,9 @@ function CanvasCorridor() {
         }
       `,
     });
-    return { geometry: g, material: m };
   }, []);
-  useEffect(
-    () => () => {
-      geometry.dispose();
-      material.dispose();
-    },
-    [geometry, material]
-  );
+  useEffect(() => () => geometry.dispose(), [geometry]);
+  useEffect(() => () => material.dispose(), [material]);
   return (
     <mesh
       ref={(m) => {
@@ -2151,7 +2173,7 @@ export function PathScene({
       <SunLight progress={progress} />
       <hemisphereLight args={["#dcefff", "#8fc06a", 0.5]} />
       <SeasonAmbient />
-      {canvas ? <CanvasCorridor /> : <Ground skin={skin} />}
+      {canvas ? <CanvasCorridor nodes={nodes} /> : <Ground skin={skin} />}
       <Suspense fallback={null}>
         {!canvas && <Mountains />}
         {phase >= 1 && !canvas && <PlankPath />}
