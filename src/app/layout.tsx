@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   appleWebApp: { capable: true, statusBarStyle: "default", title: "SwipeEd" },
   icons: {
     icon: [
-      { url: "/eq-mark.svg", type: "image/svg+xml" },
+      { url: "/brand/logo/primary.svg", type: "image/svg+xml" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
     ],
     apple: "/apple-icon.png",

@@ -96,8 +96,15 @@ metaphor survives; theme changes cross-fade **320ms**.
 | **1 — token + type foundation** | re-map `globals.css` to brand tokens (back-compat aliases) + fonts (Baloo 2 / Poppins / Nunito Sans) + `[data-audience]` dark | ✅ **shipped** |
 | **2 — sticker UI kit** | redefine `.glass-card`/`.glass-pill` as sticker surfaces + dotted paper; sweep glass text/CTA/pip colours | ✅ **shipped** (doodle set + CTA cut-out outline deferred to a polish pass) |
 | **3 — motion tokens** | `anim-*` + `hover-pop` + 320ms cross-fade | ✅ **shipped** (Sam→`anim-bob`, pills→`hover-pop`; `anim-float/wobble/pop` available, wired broadly with doodles/Lensy later) |
-| **4 — logo / icon / wordmark** | eQ mark; lockup "SwipeEd by The Equal Lens"; `manifest.ts`, icons, splash | ✅ **shipped** (eQ mark is a placeholder pending the official `/brand/logo/` export; app icon = Lensy face is Phase 5) |
-| **5 — Sam → Lensy-family (2D)** | redraw `sam.tsx` (purple, eQ-mark eyes, sticker), keep "grows with you"; UN&RE → teal/coral character forms | 🔴 med-high (art) |
+| **4 — logo / icon / wordmark** | eQ mark; lockup "SwipeEd by The Equal Lens"; `manifest.ts`, icons, splash | ✅ **shipped** — official eQ mark wired (`/brand/logo/primary.svg`); PNG icons regenerated from the official `icon.svg`; no shadow on the mark |
+| **5 — Sam → Lensy (2D)** | `sam.tsx` now renders **Lensy** (official poses, `pose` prop, keeps the size ramp + `anim-bob`, no shadow) | 🟡 **mascot done**; UN & RE → teal/coral character forms (`/brand/un.svg`, `/brand/re.svg`) still to wire |
+
+### Brand assets (organized)
+Official Equal Lens art lives under **`public/brand/`**: `logo/` (primary · reversed · mono-black ·
+avatar-violet · avatar-light · icon · source), `lensy/lensy-{wave,stand,think,idea,icon}.svg`,
+`ship/ship-{front,diagonal}.svg`, and `un.svg` / `re.svg`. The `Logo` uses `logo/primary.svg`; PNG
+app-icons are rendered from `logo/icon.svg`; `Sam` renders `lensy/lensy-<pose>.svg`. Ship + un/re are
+available for hero moments and the UN & RE character restyle.
 | **6 — 3D world to brand** | retune `seasons.ts` + colormap atlases + thread colours to the violet+accent family; swap path companion (`character-female-c.glb`) for a Lensy-family model (+ optional Lensy spaceship beat) | 🔴 high (art/model) |
 
 **Cheapest, do-first:** Phase 1 (central, low-risk, makes the whole app *read* as Equal Lens at once).
