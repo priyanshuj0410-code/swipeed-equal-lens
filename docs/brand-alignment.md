@@ -97,7 +97,7 @@ metaphor survives; theme changes cross-fade **320ms**.
 | **2 — sticker UI kit** | redefine `.glass-card`/`.glass-pill` as sticker surfaces + dotted paper; sweep glass text/CTA/pip colours | ✅ **shipped** (doodle set + CTA cut-out outline deferred to a polish pass) |
 | **3 — motion tokens** | `anim-*` + `hover-pop` + 320ms cross-fade | ✅ **shipped** (Sam→`anim-bob`, pills→`hover-pop`; `anim-float/wobble/pop` available, wired broadly with doodles/Lensy later) |
 | **4 — logo / icon / wordmark** | eQ mark; lockup "SwipeEd by The Equal Lens"; `manifest.ts`, icons, splash | ✅ **shipped** — official eQ mark wired (`/brand/logo/primary.svg`); PNG icons regenerated from the official `icon.svg`; no shadow on the mark |
-| **5 — Sam → Lensy (2D)** | `sam.tsx` now renders **Lensy** (official poses, `pose` prop, keeps the size ramp + `anim-bob`, no shadow) | 🟡 **mascot done**; UN & RE → teal/coral character forms (`/brand/un.svg`, `/brand/re.svg`) still to wire |
+| **5 — Sam → Lensy (2D)** | `sam.tsx` renders **Lensy** (official poses, `pose` prop, size ramp + `anim-bob`, no shadow); **UN & RE** now use the official `/brand/un.svg` (Insight-teal) + `/brand/re.svg` (Grow-coral) characters with teal/coral labels (shared `UnReBeat`, so every game's myth-bust updates) | ✅ **shipped** |
 
 ### Brand assets (organized)
 Official Equal Lens art lives under **`public/brand/`**: `logo/` (primary · reversed · mono-black ·
