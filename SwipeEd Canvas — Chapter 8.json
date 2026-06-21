@@ -1,0 +1,86 @@
+{
+  "chapter": 8,
+  "title": "Parenthood + Parent Layer",
+  "ages": "first child onward",
+  "stage": "Parenthood; the Parent Layer that closes the generational loop",
+  "audience": "adult",
+  "theme": "dark",
+  "register": "wry-but-kind (gentlest of the adult chapters)",
+  "corridorSection": 8,
+  "host": "Lensy",
+  "tools": { "unlearn": "UN (eraser)", "relearn": "RE (pencil)" },
+  "loopClosesTo": 1,
+  "myths": [
+    { "id": "c8-g61-m1", "node": "g61", "category": "D/1.2", "audience": "adult", "chapter": 8, "myth": "Once you're parents, the relationship takes a back seat forever.", "truth": "Nurturing the partnership is part of a healthy home.", "explanation": "Kids benefit from parents who are okay too.", "sources": ["UNESCO ITGSE 1.2"] },
+    { "id": "c8-g61-m2", "node": "g61", "category": "D/7.1", "audience": "adult", "chapter": 8, "myth": "Good parents lose themselves entirely in the kids.", "truth": "You can be a great parent and still a whole person.", "explanation": "Modelling a full life teaches kids to have one.", "sources": ["UNESCO ITGSE 7.1"] },
+    { "id": "c8-g61-m3", "node": "g61", "category": "D/5.3", "audience": "adult", "chapter": 8, "myth": "Wanting time alone — or together, without kids — is selfish.", "truth": "Rest and connection refill the tank.", "explanation": "You can't pour from empty.", "sources": ["UNESCO ITGSE 5.3"] },
+    { "id": "c8-g61-m4", "node": "g61", "category": "D/5.3", "audience": "adult", "chapter": 8, "myth": "Intimacy fading after kids is just how it is.", "truth": "It changes, and can be rebuilt with communication.", "explanation": "Talking beats drifting.", "sources": ["UNESCO ITGSE 5.3"] },
+
+    { "id": "c8-g62-m1", "node": "g62", "category": "E/3.2", "audience": "adult", "chapter": 8, "myth": "Mums are the 'real' parent; dads just 'babysit'.", "truth": "Both parents can fully parent.", "explanation": "A father raising his own kids isn't babysitting.", "sources": ["UNESCO ITGSE 3.2"] },
+    { "id": "c8-g62-m2", "node": "g62", "category": "E/1.1", "audience": "adult", "chapter": 8, "myth": "Fathers aren't meant to do nappies or night feeds.", "truth": "Caregiving is learned by doing — by anyone.", "explanation": "Hands-on dads raise more secure kids.", "sources": ["UNESCO ITGSE 1.1"] },
+    { "id": "c8-g62-m3", "node": "g62", "category": "E/1.4", "audience": "adult", "chapter": 8, "myth": "One 'default parent' carrying everything is normal.", "truth": "Sharing the load — and the mental load — is the goal.", "explanation": "One burnt-out parent helps no one.", "sources": ["UNESCO ITGSE 1.4"] },
+    { "id": "c8-g62-m4", "node": "g62", "category": "E/3.2", "audience": "adult", "chapter": 8, "myth": "Paternity leave is basically a holiday.", "truth": "It's bonding and care work that matters.", "explanation": "Early involvement shapes lifelong roles.", "sources": ["ILO", "UNESCO ITGSE 3.2"] },
+
+    { "id": "c8-g63-m1", "node": "g63", "category": "C/5.6", "audience": "adult", "chapter": 8, "myth": "A good parent never feels overwhelmed.", "truth": "Overwhelm is normal; support helps.", "explanation": "Struggling doesn't mean failing.", "sources": ["UNESCO ITGSE 5.6"] },
+    { "id": "c8-g63-m2", "node": "g63", "category": "C/5.5", "audience": "adult", "chapter": 8, "myth": "Asking for help with your kids means you're inadequate.", "truth": "It takes a village — using it is wise.", "explanation": "No one parents well entirely alone.", "sources": ["UNESCO ITGSE 5.5"] },
+    { "id": "c8-g63-m3", "node": "g63", "category": "C/5.6", "audience": "adult", "chapter": 8, "myth": "Postnatal depression is just 'baby blues' to push through.", "truth": "It's real, common and treatable.", "explanation": "Getting help protects you and the baby.", "sources": ["WHO maternal mental health"] },
+    { "id": "c8-g63-m4", "node": "g63", "category": "C/5.5", "audience": "adult", "chapter": 8, "myth": "Your needs come dead last now — forever.", "truth": "Your wellbeing is part of your kids' wellbeing.", "explanation": "Secure parents raise secure kids.", "sources": ["UNESCO ITGSE 5.5"] },
+
+    { "id": "c8-g64-m1", "node": "g64", "category": "B/4.2", "audience": "adult", "chapter": 8, "myth": "'The talk' is one big conversation at puberty.", "truth": "It's many small, age-appropriate conversations over years.", "explanation": "Little and often beats one awkward lecture.", "sources": ["UNESCO ITGSE 4.2"] },
+    { "id": "c8-g64-m2", "node": "g64", "category": "A/6.3", "audience": "adult", "chapter": 8, "myth": "Teaching kids the real names for body parts is inappropriate.", "truth": "Correct names actually keep kids safer.", "explanation": "Clear language helps them report harm.", "sources": ["UNESCO ITGSE 6.3", "POCSO Act"] },
+    { "id": "c8-g64-m3", "node": "g64", "category": "B/7.1", "audience": "adult", "chapter": 8, "myth": "Talking about bodies and consent makes kids grow up too fast.", "truth": "Age-appropriate information protects — it doesn't corrupt.", "explanation": "Silence just leaves them to the internet.", "sources": ["UNESCO ITGSE 7.1"] },
+    { "id": "c8-g64-m4", "node": "g64", "category": "B/2.1", "audience": "adult", "chapter": 8, "myth": "If you don't bring it up, they won't think about it.", "truth": "They'll learn somewhere — better from you.", "explanation": "You'd rather be the trusted source.", "sources": ["UNESCO ITGSE 2.1"] },
+
+    { "id": "c8-g65-m1", "node": "g65", "category": "C/5.3", "audience": "adult", "chapter": 8, "myth": "'I was hit and I turned out fine.'", "truth": "We can keep the love and drop the harm.", "explanation": "Better tools exist than fear.", "sources": ["WHO/INSPIRE", "UNESCO ITGSE 5.3"] },
+    { "id": "c8-g65-m2", "node": "g65", "category": "C/5.3", "audience": "adult", "chapter": 8, "myth": "Discipline means punishment.", "truth": "Discipline means teaching — with limits and warmth.", "explanation": "Connection works better than control.", "sources": ["positive parenting (WHO/UNICEF)"] },
+    { "id": "c8-g65-m3", "node": "g65", "category": "C/5.6", "audience": "adult", "chapter": 8, "myth": "Apologising to your kids undermines your authority.", "truth": "Repair models accountability.", "explanation": "Kids learn to say sorry by seeing it done.", "sources": ["UNESCO ITGSE 5.6"] },
+    { "id": "c8-g65-m4", "node": "g65", "category": "C/5.6", "audience": "adult", "chapter": 8, "myth": "You're doomed to parent the way you were parented.", "truth": "Patterns can be noticed and changed.", "explanation": "Awareness is what breaks the cycle.", "sources": ["attachment research"] },
+
+    { "id": "c8-g66-m1", "node": "g66", "category": "E/3.1", "audience": "adult", "chapter": 8, "myth": "A gender-diverse child is a phase to correct.", "truth": "Supporting your child's identity keeps them safe and loved.", "explanation": "Acceptance dramatically lowers their risk of harm.", "sources": ["AAP", "WHO", "NALSA judgment"] },
+    { "id": "c8-g66-m2", "node": "g66", "category": "E/1.3", "audience": "adult", "chapter": 8, "myth": "Talking about gender 'makes' kids queer or trans.", "truth": "It doesn't; it just makes home safe.", "explanation": "Kids do best when they're seen.", "sources": ["UNESCO ITGSE 1.3"] },
+    { "id": "c8-g66-m3", "node": "g66", "category": "E/7.1", "audience": "adult", "chapter": 8, "myth": "Love means 'fixing' them to fit in.", "truth": "Love means protecting them as they are.", "explanation": "Belonging at home is protective.", "sources": ["AAP"] },
+    { "id": "c8-g66-m4", "node": "g66", "category": "E/1.3", "audience": "adult", "chapter": 8, "myth": "There's nothing you can do but worry.", "truth": "Affirming parents are the single biggest protective factor.", "explanation": "Your support changes outcomes.", "sources": ["Family Acceptance Project"] },
+
+    { "id": "c8-g67-m1", "node": "g67", "category": "C/1.3", "audience": "adult", "chapter": 8, "myth": "Autism or ADHD is bad parenting or 'too much screen time'.", "truth": "It's a difference in how a brain works.", "explanation": "Blame helps no one; understanding does.", "sources": ["WHO", "clinical consensus"] },
+    { "id": "c8-g67-m2", "node": "g67", "category": "C/5.6", "audience": "adult", "chapter": 8, "myth": "They'll 'grow out of it' if you're strict enough.", "truth": "Support and accommodation help them thrive.", "explanation": "Fit the environment to the child, not the reverse.", "sources": ["clinical consensus"] },
+    { "id": "c8-g67-m3", "node": "g67", "category": "C/1.3", "audience": "adult", "chapter": 8, "myth": "A diagnosis is just a label that limits them.", "truth": "It's a key to the right support.", "explanation": "Understanding unlocks help.", "sources": ["clinical consensus"] },
+    { "id": "c8-g67-m4", "node": "g67", "category": "C/1.3", "audience": "adult", "chapter": 8, "myth": "Neurodiverse kids can't succeed.", "truth": "With support they thrive in their own way.", "explanation": "Different isn't less.", "sources": ["neurodiversity research"] },
+
+    { "id": "c8-g68-m1", "node": "g68", "category": "C/5.1", "audience": "adult", "chapter": 8, "myth": "Addiction is just a lack of willpower.", "truth": "It's a health issue, not a moral failing.", "explanation": "Shame fuels it; support heals it.", "sources": ["WHO", "NIMHANS"] },
+    { "id": "c8-g68-m2", "node": "g68", "category": "C/5.5", "audience": "adult", "chapter": 8, "myth": "If you talk about substances, you encourage them.", "truth": "Honest, early conversations reduce risk.", "explanation": "Information beats mystery.", "sources": ["UNODC", "UNESCO ITGSE 5.5"] },
+    { "id": "c8-g68-m3", "node": "g68", "category": "C/5.1", "audience": "adult", "chapter": 8, "myth": "Screen or phone overuse isn't a real concern.", "truth": "Habits can become compulsive; balance matters.", "explanation": "Model and guide — don't just police.", "sources": ["WHO screen-time guidance"] },
+    { "id": "c8-g68-m4", "node": "g68", "category": "C/5.6", "audience": "adult", "chapter": 8, "myth": "A struggling kid just needs tougher punishment.", "truth": "Connection and professional help work better.", "explanation": "Punishment drives it underground.", "sources": ["positive parenting (WHO/UNICEF)"] },
+
+    { "id": "c8-g69-m1", "node": "g69", "category": "B/4.1", "audience": "adult", "chapter": 8, "myth": "'Stranger danger' is the main risk.", "truth": "Most harm comes from known adults.", "explanation": "Teach kids about behaviour, not just strangers.", "sources": ["POCSO Act", "Childline 1098"] },
+    { "id": "c8-g69-m2", "node": "g69", "category": "B/5.5", "audience": "adult", "chapter": 8, "myth": "If my kid were in trouble, I'd just know.", "truth": "Kids hide what they fear they'll be blamed for.", "explanation": "An open, no-blame door is what keeps them talking.", "sources": ["UNESCO ITGSE 5.5"] },
+    { "id": "c8-g69-m3", "node": "g69", "category": "B/4.2", "audience": "adult", "chapter": 8, "myth": "Keeping secrets is part of family loyalty.", "truth": "'No secrets that make you uncomfortable' keeps kids safe.", "explanation": "Safe adults don't ask for silence.", "sources": ["POCSO Act"] },
+    { "id": "c8-g69-m4", "node": "g69", "category": "B/4.3", "audience": "adult", "chapter": 8, "myth": "Teaching consent and safety is the school's job.", "truth": "You're the first and most important safe adult.", "explanation": "This is exactly where the loop begins again.", "sources": ["DD499 parent-mediation finding", "UNESCO ITGSE 4.3"] }
+  ],
+  "doodles": [
+    { "id": "c8-d-us", "name": "Still us", "motif": "two cups beside a pram", "role": "ambient", "accent": "violet", "glow": true },
+    { "id": "c8-d-equal", "name": "Equal parents", "motif": "two carers holding one baby", "role": "ambient", "accent": "teal", "glow": true },
+    { "id": "c8-d-self", "name": "Looking after you", "motif": "oxygen-mask-first / refilled cup (signature)", "role": "ambient", "accent": "coral", "glow": true },
+    { "id": "c8-d-talks", "name": "The talks", "motif": "speech bubbles on an age-ladder", "role": "ambient", "accent": "sun", "glow": true },
+    { "id": "c8-d-cycle", "name": "Break the cycle", "motif": "chain link breaking softly", "role": "ambient", "accent": "coral", "glow": true },
+    { "id": "c8-d-gender", "name": "Gender-diverse home", "motif": "heart over a spectrum-lit home", "role": "ambient", "accent": "violet", "glow": true },
+    { "id": "c8-d-neuro", "name": "Differently wired", "motif": "a 'differently wired' brain", "role": "ambient", "accent": "teal", "glow": true },
+    { "id": "c8-d-addiction", "name": "Steady", "motif": "steadying hand / balance", "role": "ambient", "accent": "grey", "glow": true },
+    { "id": "c8-d-safe", "name": "Safe adult", "motif": "open door with an umbrella", "role": "ambient", "accent": "sky", "glow": true },
+    { "id": "c8-d-loop", "name": "The loop", "motif": "loop arrow curving from Ch.8 back to Ch.1 (finale signature)", "role": "ambient", "accent": "violet", "glow": true }
+  ],
+  "stickers": [
+    { "id": "c8-s-us", "name": "Two-cups-&-pram 'still us'", "role": "earnable", "node": "g61" },
+    { "id": "c8-s-equal", "name": "Two-carers 'equal parents'", "role": "earnable", "node": "g62" },
+    { "id": "c8-s-self", "name": "Refilled-cup self-care", "role": "earnable", "node": "g63" },
+    { "id": "c8-s-talks", "name": "Age-ladder speech bubbles", "role": "earnable", "node": "g64" },
+    { "id": "c8-s-cycle", "name": "Breaking-chain 'cycle broken'", "role": "earnable", "node": "g65" },
+    { "id": "c8-s-gender", "name": "Spectrum-home heart", "role": "earnable", "node": "g66" },
+    { "id": "c8-s-neuro", "name": "Differently-wired brain", "role": "earnable", "node": "g67" },
+    { "id": "c8-s-addiction", "name": "Steadying-hand balance", "role": "earnable", "node": "g68" },
+    { "id": "c8-s-safe", "name": "Open-door 'safe adult'", "role": "earnable", "node": "g69" },
+    { "id": "c8-s-lensy", "name": "Lensy passing the lens to a kid + sparks", "role": "ambient", "node": null },
+    { "id": "c8-s-capstone", "name": "Raising the Next Generation loop badge", "role": "earnable", "node": "c8" }
+  ],
+  "capstone": { "id": "c8", "name": "Raising the Next Generation", "landing": "Sticker-book spread of every Ch.8 sticker earned; erased parenting myths glowing as ghosts under their truths; a loop arrow that lights up and curves back to Chapter 1, where a new small Lensy waits with a child at the start of the bright corridor. The player, now the trusted adult, hands over the lens. The only capstone that points to a beginning, not just a look back." },
+  "canvasFeel": "Adult/dark, wry-but-kind but the gentlest of the adult chapters — parenting is hard and the tone never scolds. g64-g69 are the Parent Layer the DD499 report called for, equipping the parent to be the child's primary trusted source. Positive-parenting and evidence-based throughout (affirming-parenting g66, neurodiversity g67, addiction-as-health g68 follow current clinical consensus). The c8 capstone briefly brightens — a sunrise toward Chapter 1 — closing the generational loop the whole product is built around. Sensitive nodes (g65, g68, g69) surface real resources (Childline 1098, counselling)."
+}

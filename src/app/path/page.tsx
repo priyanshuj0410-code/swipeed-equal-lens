@@ -28,29 +28,6 @@ export default function PathPage() {
   const game = useSwipeGame();
   const [engineGame, setEngineGame] = useState<string | null>(null);
   const [webgl, setWebgl] = useState<boolean | null>(null);
-  // World skin: realistic 3D path (default) vs the hand-drawn canvas re-skin. `?world=canvas`/`3d`
-  // opts in and persists. Starts UNRESOLVED (null) and is set on the client before PathScene mounts —
-  // PathScene does not render until then. This is deliberate: a lazy initial state still resolves to
-  // "3d" during SSR/hydration, and in that window the realistic world mounts and loads its GLBs; R3F
-  // never disposes those objects when the skin flips, so they bleed through the canvas (even in a
-  // production build, which has no hot-reload to blame). Deferring the mount means the realistic world
-  // is never created in canvas mode at all.
-  const [worldMode, setWorldMode] = useState<"3d" | "canvas" | null>(null);
-  useEffect(() => {
-    let v: "3d" | "canvas" = "3d";
-    try {
-      const p = new URLSearchParams(window.location.search).get("world");
-      if (p === "canvas" || p === "3d") {
-        localStorage.setItem("swipeed.world", p);
-        v = p;
-      } else if (localStorage.getItem("swipeed.world") === "canvas") {
-        v = "canvas";
-      }
-    } catch {
-      /* default 3d */
-    }
-    setWorldMode(v);
-  }, []);
 
   const playing = game.active || engineGame !== null;
 
@@ -124,9 +101,8 @@ export default function PathPage() {
       {/* branded loading splash over the 3D world (real GLB load progress), fades when ready */}
       {webgl !== false && <WorldLoader />}
 
-      {/* one 3D world; ?world=canvas re-skins it hand-drawn (paper ground/sky, doodle trees/clouds,
-          inked path), default stays the realistic GLTF world. */}
-      <div className="fixed inset-0 z-0 touch-none overscroll-none bg-[#bfe2fb]">
+      {/* the hand-drawn canvas world: dotted-paper ground, the inked sine path, sticker nodes */}
+      <div className="fixed inset-0 z-0 touch-none overscroll-none bg-[var(--color-paper)]">
         {webgl === false ? (
           <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-8 text-center">
             <p className="max-w-xs text-sm text-muted-foreground">The 3D path isn&apos;t supported on this device, but you can use the classic view.</p>
@@ -134,14 +110,12 @@ export default function PathPage() {
               Open the classic path
             </Link>
           </div>
-        ) : worldMode ? (
+        ) : webgl ? (
           <PathScene
-            key={worldMode}
             nodes={nodes}
             chapters={CHAPTERS}
             onSelectNode={handleSelect}
             playing={playing}
-            skin={worldMode === "canvas" ? "canvas" : "realistic"}
           />
         ) : null}
       </div>

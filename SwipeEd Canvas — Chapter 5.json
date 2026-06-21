@@ -1,0 +1,80 @@
+{
+  "chapter": 5,
+  "title": "Agency, Identity, Rights & Readiness",
+  "ages": "15-18",
+  "audience": "kids",
+  "theme": "light",
+  "corridorSection": 5,
+  "host": "Lensy",
+  "tools": { "unlearn": "UN (eraser)", "relearn": "RE (pencil)" },
+  "myths": [
+    { "id": "c5-g29-m1", "node": "g29", "category": "F/8.1", "audience": "kids", "chapter": 5, "myth": "Your future is already decided for you.", "truth": "You have real choices about your path.", "explanation": "Agency is yours to build.", "sources": ["UNESCO ITGSE 8.1"] },
+    { "id": "c5-g29-m2", "node": "g29", "category": "F/2.2", "audience": "kids", "chapter": 5, "myth": "Big decisions should be made to please others.", "truth": "Your informed choices matter most.", "explanation": "It's your life and your body.", "sources": ["UNESCO ITGSE 2.2"] },
+    { "id": "c5-g29-m3", "node": "g29", "category": "F/6.2", "audience": "kids", "chapter": 5, "myth": "Asking about reproductive health is inappropriate at your age.", "truth": "Knowing your body and rights is responsible.", "explanation": "Information is protection.", "sources": ["UNESCO ITGSE 6.2", "RKSK"] },
+    { "id": "c5-g29-m4", "node": "g29", "category": "F/8.1", "audience": "kids", "chapter": 5, "myth": "There's a 'right' timeline for marriage, kids and career.", "truth": "There's no single timeline.", "explanation": "People thrive on very different paths.", "sources": ["UNESCO ITGSE 8.1"] },
+
+    { "id": "c5-g30-m1", "node": "g30", "category": "F/8.2", "audience": "kids", "chapter": 5, "myth": "Only certain people need to know their status.", "truth": "Testing is for everyone who is sexually active.", "explanation": "Knowing protects you and your partners.", "sources": ["WHO", "NACO"] },
+    { "id": "c5-g30-m2", "node": "g30", "category": "F/8.3", "audience": "kids", "chapter": 5, "myth": "HIV is a death sentence.", "truth": "With treatment, people live long, healthy lives.", "explanation": "Medicine has completely changed the picture.", "sources": ["WHO", "NACO"] },
+    { "id": "c5-g30-m3", "node": "g30", "category": "F/8.3", "audience": "kids", "chapter": 5, "myth": "You can get HIV from sharing food or hugging.", "truth": "HIV doesn't spread through everyday contact.", "explanation": "Facts end stigma.", "sources": ["WHO", "NACO"] },
+    { "id": "c5-g30-m4", "node": "g30", "category": "F/8.2", "audience": "kids", "chapter": 5, "myth": "Getting tested means you're 'dirty'.", "truth": "Testing is responsible self-care.", "explanation": "Stigma, not testing, is the real problem.", "sources": ["WHO", "NACO"] },
+
+    { "id": "c5-g31-m1", "node": "g31", "category": "B/5.2", "audience": "kids", "chapter": 5, "myth": "One person should lead and the other follow.", "truth": "Healthy intimacy is mutual and respectful.", "explanation": "Both people's comfort matters.", "sources": ["UNESCO ITGSE 5.2"] },
+    { "id": "c5-g31-m2", "node": "g31", "category": "B/5.3", "audience": "kids", "chapter": 5, "myth": "Talking about boundaries ruins the moment.", "truth": "Communication makes things safer and better.", "explanation": "Respect is attractive, not awkward.", "sources": ["UNESCO ITGSE 5.3"] },
+    { "id": "c5-g31-m3", "node": "g31", "category": "B/4.2", "audience": "kids", "chapter": 5, "myth": "If you don't resist, it counts as consent.", "truth": "Only a clear, free yes is consent.", "explanation": "Silence or fear isn't agreement.", "sources": ["UNESCO ITGSE 4.2", "POCSO Act"] },
+    { "id": "c5-g31-m4", "node": "g31", "category": "B/5.2", "audience": "kids", "chapter": 5, "myth": "Real partners just 'know' what you want.", "truth": "People aren't mind-readers — you communicate.", "explanation": "Asking is a form of care.", "sources": ["UNESCO ITGSE 5.2"] },
+
+    { "id": "c5-g32-m1", "node": "g32", "category": "D/7.1", "audience": "kids", "chapter": 5, "myth": "There are only two genders and one 'normal' orientation.", "truth": "Gender and orientation exist on a spectrum.", "explanation": "Human diversity is real and natural.", "sources": ["UNESCO ITGSE 3.1", "NALSA judgment"] },
+    { "id": "c5-g32-m2", "node": "g32", "category": "E/3.1", "audience": "kids", "chapter": 5, "myth": "Being LGBTQ+ is a phase or a choice.", "truth": "Identity isn't a choice or a trend.", "explanation": "People deserve respect as they are.", "sources": ["UNESCO ITGSE 3.1"] },
+    { "id": "c5-g32-m3", "node": "g32", "category": "E/1.3", "audience": "kids", "chapter": 5, "myth": "You can tell someone's identity by how they look.", "truth": "You can't assume; people tell you who they are.", "explanation": "Respect means listening.", "sources": ["UNESCO ITGSE 1.3"] },
+    { "id": "c5-g32-m4", "node": "g32", "category": "E/3.1", "audience": "kids", "chapter": 5, "myth": "Talking about this 'turns' kids a certain way.", "truth": "Learning about diversity doesn't change anyone's identity.", "explanation": "It just builds respect and safety.", "sources": ["UNESCO ITGSE 3.1"] },
+
+    { "id": "c5-g33-m1", "node": "g33", "category": "E/3.2", "audience": "kids", "chapter": 5, "myth": "Leadership comes more naturally to men.", "truth": "Leadership is a skill anyone can build.", "explanation": "History is full of leaders of every gender.", "sources": ["UNESCO ITGSE 3.2"] },
+    { "id": "c5-g33-m2", "node": "g33", "category": "E/3.2", "audience": "kids", "chapter": 5, "myth": "Ambitious women are 'too much'.", "truth": "Ambition is a strength in anyone.", "explanation": "The double standard is the problem, not the ambition.", "sources": ["UNESCO ITGSE 3.2"] },
+    { "id": "c5-g33-m3", "node": "g33", "category": "E/3.2", "audience": "kids", "chapter": 5, "myth": "There's no room at the top for everyone.", "truth": "Inclusive leadership makes teams stronger.", "explanation": "Diversity improves decisions.", "sources": ["UNESCO ITGSE 3.2"] },
+
+    { "id": "c5-g34-m1", "node": "g34", "category": "G/3.3", "audience": "kids", "chapter": 5, "myth": "You're too young to change anything.", "truth": "Young people have driven huge change.", "explanation": "Voice and action have no age limit.", "sources": ["UNESCO ITGSE 3.3"] },
+    { "id": "c5-g34-m2", "node": "g34", "category": "G/1.4", "audience": "kids", "chapter": 5, "myth": "Being an ally means speaking for others.", "truth": "It means listening and amplifying.", "explanation": "Support — don't take over.", "sources": ["UNESCO ITGSE 1.4"] },
+    { "id": "c5-g34-m3", "node": "g34", "category": "G/3.3", "audience": "kids", "chapter": 5, "myth": "Change requires grand gestures.", "truth": "Small, consistent actions add up.", "explanation": "Movements are built from everyday choices.", "sources": ["UNESCO ITGSE 3.3"] },
+
+    { "id": "c5-g35-m1", "node": "g35", "category": "G/2.2", "audience": "kids", "chapter": 5, "myth": "Laws protecting equality don't really exist here.", "truth": "India has laws on harassment, domestic violence, equality and child protection.", "explanation": "Knowing your rights is power.", "sources": ["POSH Act", "DV Act", "POCSO Act"] },
+    { "id": "c5-g35-m2", "node": "g35", "category": "G/4.1", "audience": "kids", "chapter": 5, "myth": "Reporting never helps.", "truth": "There are real channels — helplines, committees, police, courts.", "explanation": "Help exists; access matters.", "sources": ["Childline 1098", "POSH Act"] },
+    { "id": "c5-g35-m3", "node": "g35", "category": "G/2.2", "audience": "kids", "chapter": 5, "myth": "Rights are only for adults.", "truth": "Children and teens have rights too.", "explanation": "The UNCRC and POCSO protect young people.", "sources": ["UNCRC", "POCSO Act"] },
+    { "id": "c5-g35-m4", "node": "g35", "category": "G/4.1", "audience": "kids", "chapter": 5, "myth": "Getting help means shame.", "truth": "Seeking justice is your right.", "explanation": "The wrong belongs to the person who caused harm.", "sources": ["UNESCO ITGSE 4.1"] },
+
+    { "id": "c5-g42-m1", "node": "g42", "category": "C/5.2", "audience": "kids", "chapter": 5, "myth": "Adulthood means having it all figured out.", "truth": "Everyone is still learning.", "explanation": "Skills build over time.", "sources": ["UNESCO ITGSE 5.2"] },
+    { "id": "c5-g42-m2", "node": "g42", "category": "C/5.5", "audience": "kids", "chapter": 5, "myth": "Asking for help is for kids.", "truth": "Knowing when to ask is a life skill.", "explanation": "Independent doesn't mean alone.", "sources": ["UNESCO ITGSE 5.5"] },
+    { "id": "c5-g42-m3", "node": "g42", "category": "C/5.6", "audience": "kids", "chapter": 5, "myth": "Emotions get in the way of good decisions.", "truth": "Naming emotions helps you decide well.", "explanation": "Self-awareness is a tool, not a weakness.", "sources": ["UNESCO ITGSE 5.6", "CASEL"] },
+    { "id": "c5-g42-m4", "node": "g42", "category": "C/5.1", "audience": "kids", "chapter": 5, "myth": "You either have life skills or you don't.", "truth": "Budgeting, planning and communication can all be learned.", "explanation": "Practice is what makes you ready.", "sources": ["UNESCO ITGSE 5.1"] },
+
+    { "id": "c5-g36-m1", "node": "g36", "category": "G/5.4", "audience": "kids", "chapter": 5, "myth": "You can trust whatever's most viral.", "truth": "Virality isn't credibility.", "explanation": "Check the source, the date and the motive.", "sources": ["media literacy"] },
+    { "id": "c5-g36-m2", "node": "g36", "category": "G/5.4", "audience": "kids", "chapter": 5, "myth": "Deepfakes and AI images are easy to spot.", "truth": "They're increasingly convincing.", "explanation": "Verify before you believe or share.", "sources": ["media literacy"] },
+    { "id": "c5-g36-m3", "node": "g36", "category": "G/4.3", "audience": "kids", "chapter": 5, "myth": "Your data online is private by default.", "truth": "Much of it is collected and sold.", "explanation": "Privacy takes active choices.", "sources": ["media literacy", "DPDP Act"] },
+    { "id": "c5-g36-m4", "node": "g36", "category": "G/5.6", "audience": "kids", "chapter": 5, "myth": "Once you've learned this, you're done.", "truth": "Media keeps changing; critical thinking is for life.", "explanation": "Stay curious, keep questioning.", "sources": ["media literacy"] }
+  ],
+  "doodles": [
+    { "id": "c5-d-compass", "name": "Choices", "motif": "compass / forking path (signature)", "role": "ambient", "accent": "teal" },
+    { "id": "c5-d-status", "name": "Know your status", "motif": "test strip & awareness ribbon", "role": "ambient", "accent": "coral" },
+    { "id": "c5-d-mutual", "name": "Mutual", "motif": "two-way arrows / handshake", "role": "ambient", "accent": "violet" },
+    { "id": "c5-d-spectrum", "name": "Spectrum", "motif": "soft spectrum bar / rainbow arc", "role": "ambient", "accent": "sun" },
+    { "id": "c5-d-lead", "name": "Lead the way", "motif": "podium with a star", "role": "ambient", "accent": "violet" },
+    { "id": "c5-d-change", "name": "Change makers", "motif": "seedling & raised hands", "role": "ambient", "accent": "teal" },
+    { "id": "c5-d-justice", "name": "Justice", "motif": "scales & gavel", "role": "ambient", "accent": "grey" },
+    { "id": "c5-d-life", "name": "Life ready", "motif": "life-skills toolkit / checklist", "role": "ambient", "accent": "sun" },
+    { "id": "c5-d-decoded", "name": "Decoded", "motif": "magnifier over '01' data, fact-check tick", "role": "ambient", "accent": "sky" }
+  ],
+  "stickers": [
+    { "id": "c5-s-compass", "name": "'My Choices' compass", "role": "earnable", "node": "g29" },
+    { "id": "c5-s-status", "name": "Know-your-status ribbon", "role": "earnable", "node": "g30" },
+    { "id": "c5-s-mutual", "name": "Mutual two-way arrows", "role": "earnable", "node": "g31" },
+    { "id": "c5-s-spectrum", "name": "Spectrum arc", "role": "earnable", "node": "g32" },
+    { "id": "c5-s-lead", "name": "Lead-the-Way star", "role": "earnable", "node": "g33" },
+    { "id": "c5-s-change", "name": "Change-Maker seedling", "role": "earnable", "node": "g34" },
+    { "id": "c5-s-justice", "name": "Justice scales", "role": "earnable", "node": "g35" },
+    { "id": "c5-s-life", "name": "Life-Ready toolkit", "role": "earnable", "node": "g42" },
+    { "id": "c5-s-decoded", "name": "Decoded fact-check tick", "role": "earnable", "node": "g36" },
+    { "id": "c5-s-lensy", "name": "Lensy thinking + stars/sparkles", "role": "ambient", "node": null },
+    { "id": "c5-s-capstone", "name": "Ready for the World badge", "role": "earnable", "node": "c5" }
+  ],
+  "capstone": { "id": "c5", "name": "Ready for the World", "landing": "Sticker-book spread of every Ch.5 sticker earned; the erased myths of the whole Kids run shown as ghosts under fresh truths; a 'Ready for the World' badge; Lensy (with UN & RE) at the doorway where the corridor turns from light to dark — the hand-off into the Adult chapters." },
+  "canvasFeel": "Kids/light, last light stretch, older-teen register — mature, candid, respectful of growing autonomy (agency, identity, rights, life-readiness). Gated/Sensitive nodes (g29, g30, g31) framed around consent, communication, health and rights, age-appropriate to India age-of-consent (18); optional guardian co-view flag. Capstone visibly previews the turn to the Adult/dark canvas. Tap struck myth -> UN erases -> RE writes -> sticker may drop."
+}
