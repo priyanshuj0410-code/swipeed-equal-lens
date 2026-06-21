@@ -542,8 +542,11 @@ function CanvasGround() {
 // edges read clean + straight (a white-room corner, not a vignette).
 // Knobs: CORRIDOR_W (half-width) · CORRIDOR_H (height) · uCorner (AO depth) · uFalloff (AO spread).
 // ============================================================================================
-const CORRIDOR_W = 12; // half-width — the corridor is 2*W wide
-const CORRIDOR_H = 13; // ceiling height above the floor
+const CORRIDOR_W = 16; // half-width — the corridor is 2*W wide
+const CORRIDOR_H = 15; // ceiling height above the floor
+// the live corridor mesh (canvas skin only) — used to occlude DOM node/banner overlays behind walls.
+// A module-level callback ref sidesteps any ref-forwarding-through-props subtlety.
+let _corridorMesh: THREE.Mesh | null = null;
 function CanvasCorridor() {
   const { geometry, material } = useMemo(() => {
     const len = CURVE.getLength();
@@ -571,9 +574,12 @@ function CanvasCorridor() {
     const pos: number[] = [];
     const uv: number[] = [];
     const ext: number[] = [];
+    const tone: number[] = [];
     const idx: number[] = [];
-    // one swept strip: edges A→B per path sample, V from vA→vB across; vExtent = the surface's V-span
-    const strip = (eA: (f: Frame) => number[], eB: (f: Frame) => number[], vA: number, vB: number, vExtent: number) => {
+    // one swept strip: edges A→B per path sample, V from vA→vB across; vExtent = the surface's V-span;
+    // surfTone = the surface's base brightness — floor/walls/ceiling differ slightly so each corner reads
+    // as a crisp brightness STEP (a sharp edge), not a soft rounded cove.
+    const strip = (eA: (f: Frame) => number[], eB: (f: Frame) => number[], vA: number, vB: number, vExtent: number, surfTone: number) => {
       const start = pos.length / 3;
       for (let i = 0; i <= N; i++) {
         const f = frames[i];
@@ -582,9 +588,11 @@ function CanvasCorridor() {
         pos.push(A[0], A[1], A[2]);
         uv.push(f.u, vA);
         ext.push(vExtent);
+        tone.push(surfTone);
         pos.push(B[0], B[1], B[2]);
         uv.push(f.u, vB);
         ext.push(vExtent);
+        tone.push(surfTone);
         if (i < N) {
           const k = start + i * 2;
           idx.push(k, k + 1, k + 2, k + 2, k + 1, k + 3);
@@ -595,14 +603,15 @@ function CanvasCorridor() {
     const rFloor = (f: Frame) => [f.px - f.nx * W, f.py, f.pz - f.nz * W];
     const lCeil = (f: Frame) => [f.px + f.nx * W, f.py + H, f.pz + f.nz * W];
     const rCeil = (f: Frame) => [f.px - f.nx * W, f.py + H, f.pz - f.nz * W];
-    strip(lFloor, rFloor, 0, W2, W2); // floor
-    strip(lFloor, lCeil, 0, H, H); // left wall
-    strip(rFloor, rCeil, 0, H, H); // right wall
-    strip(lCeil, rCeil, 0, W2, W2); // ceiling
+    strip(lFloor, rFloor, 0, W2, W2, 1.0); // floor — brightest
+    strip(lFloor, lCeil, 0, H, H, 0.9); // left wall — dimmer
+    strip(rFloor, rCeil, 0, H, H, 0.9); // right wall — dimmer
+    strip(lCeil, rCeil, 0, W2, W2, 0.96); // ceiling
     const g = new THREE.BufferGeometry();
     g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
     g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
     g.setAttribute("aExtent", new THREE.Float32BufferAttribute(ext, 1));
+    g.setAttribute("aTone", new THREE.Float32BufferAttribute(tone, 1));
     g.setIndex(idx);
     const m = new THREE.ShaderMaterial({
       side: THREE.DoubleSide,
@@ -611,22 +620,26 @@ function CanvasCorridor() {
         uDot: { value: new THREE.Color(CANVAS_DOT) },
         uGap: { value: 0.3 },
         uRadius: { value: 0.013 },
-        uCorner: { value: 0.8 }, // brightness in the corner seams (lower = deeper AO)
-        uFalloff: { value: 2.5 }, // how far the corner AO reaches (world units)
+        uCorner: { value: 0.9 }, // softer corner shadow (closer to 1 = gentler)
+        uFalloff: { value: 5.0 }, // spread the corner shadow further out
       },
       vertexShader: `
         attribute float aExtent;
+        attribute float aTone;
         varying vec2 vUv;
         varying float vExtent;
+        varying float vTone;
         void main() {
           vUv = uv;
           vExtent = aExtent;
+          vTone = aTone;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
       `,
       fragmentShader: `
         varying vec2 vUv;
         varying float vExtent;
+        varying float vTone;
         uniform vec3 uPaper;
         uniform vec3 uDot;
         uniform float uGap;
@@ -639,7 +652,8 @@ function CanvasCorridor() {
           float aa = 0.22 * fwidth(d) + 1e-5;
           float dot = 1.0 - smoothstep(uRadius - aa, uRadius + aa, d);
           vec3 col = mix(uPaper, uDot, dot);
-          // soft AO toward the nearest corner seam (this surface's two V-edges)
+          col *= vTone;                                   // per-surface tone → a crisp, sharp corner edge
+          // soft, spread AO toward the nearest corner seam (this surface's two V-edges)
           float cd = min(vUv.y, vExtent - vUv.y);
           col *= mix(uCorner, 1.0, smoothstep(0.0, uFalloff, cd));
           gl_FragColor = vec4(col, 1.0);
@@ -656,7 +670,15 @@ function CanvasCorridor() {
     },
     [geometry, material]
   );
-  return <mesh geometry={geometry} material={material} />;
+  return (
+    <mesh
+      ref={(m) => {
+        _corridorMesh = m;
+      }}
+      geometry={geometry}
+      material={material}
+    />
+  );
 }
 
 // A single thin drawn horizon line where the paper land meets the paper sky (replaces the old fog
@@ -1379,6 +1401,10 @@ function useEmojiTexture(emoji: string, grey = false) {
   return tex;
 }
 
+const _occOrigin = new THREE.Vector3();
+const _occTarget = new THREE.Vector3();
+const _occDir = new THREE.Vector3();
+const _occRay = new THREE.Raycaster();
 function Node({
   node,
   u,
@@ -1403,6 +1429,8 @@ function Node({
   const sprScale = cap ? 2.5 : 1.8;
   const [inView, setInView] = useState(false);
   const inViewRef = useRef(false);
+  const [occluded, setOccluded] = useState(false); // a corridor wall is between this node's label and the camera
+  const occRef = useRef(false);
   useFrame((s) => {
     if (spr.current) {
       spr.current.position.y = 0.2 + (bob && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0);
@@ -1414,6 +1442,24 @@ function Node({
     if (vis !== inViewRef.current) {
       inViewRef.current = vis;
       setInView(vis);
+    }
+    // the trigger is a DOM overlay (always-on-top); hide it when a corridor wall is between it and the
+    // camera, so a node around the bend doesn't draw its dot over the wall.
+    if (_corridorMesh) {
+      _occOrigin.copy(s.camera.position);
+      _occTarget.set(pos.x, 1.5 + (cap ? 1.7 : 1.35), pos.z);
+      _occDir.subVectors(_occTarget, _occOrigin);
+      const dist = _occDir.length();
+      _occRay.set(_occOrigin, _occDir.normalize());
+      _occRay.far = Math.max(0.1, dist - 0.6);
+      const hit = _occRay.intersectObject(_corridorMesh, false).length > 0;
+      if (hit !== occRef.current) {
+        occRef.current = hit;
+        setOccluded(hit);
+      }
+    } else if (occRef.current) {
+      occRef.current = false;
+      setOccluded(false);
     }
   });
   const focus = () => {
@@ -1440,7 +1486,7 @@ function Node({
       {/* accessible DOM button overlay: tap / keyboard target + colour-blind-safe state badge.
           The lesson name shows above on hover / focus / in-view. */}
       <Html center position={[0, cap ? 1.7 : 1.35, 0]} distanceFactor={11} zIndexRange={[30, 0]}>
-        <div className="relative flex flex-col items-center">
+        <div className="relative flex flex-col items-center" style={{ visibility: occluded ? "hidden" : "visible" }}>
           <button
             type="button"
             aria-label={`${node.label} — ${cap ? "capstone, " : ""}${node.state === "soon" ? "not built yet" : node.state}`}
@@ -1472,17 +1518,36 @@ function Node({
 function ChapterBanner({ ch, u, p, progress }: { ch: Chapter; u: number; p: THREE.Vector3; progress: React.MutableRefObject<number> }) {
   const [inView, setInView] = useState(false);
   const ref = useRef(false);
-  useFrame(() => {
+  const [occluded, setOccluded] = useState(false);
+  const occRef = useRef(false);
+  useFrame((s) => {
     const ahead = u - progress.current;
     const vis = ahead > -0.045 && ahead < 0.07; // near the boundary only
     if (vis !== ref.current) {
       ref.current = vis;
       setInView(vis);
     }
+    if (_corridorMesh) {
+      _occOrigin.copy(s.camera.position);
+      _occTarget.set(p.x, 5, p.z);
+      _occDir.subVectors(_occTarget, _occOrigin);
+      const dist = _occDir.length();
+      _occRay.set(_occOrigin, _occDir.normalize());
+      _occRay.far = Math.max(0.1, dist - 0.6);
+      const hit = _occRay.intersectObject(_corridorMesh, false).length > 0;
+      if (hit !== occRef.current) {
+        occRef.current = hit;
+        setOccluded(hit);
+      }
+    } else if (occRef.current) {
+      occRef.current = false;
+      setOccluded(false);
+    }
   });
   return (
     <Html center position={[p.x, 5, p.z]} distanceFactor={13} zIndexRange={[60, 40]}>
       <div
+        style={{ visibility: occluded ? "hidden" : "visible" }}
         className={`glass-pill pointer-events-none flex select-none flex-col items-center whitespace-nowrap rounded-xl px-3 py-1 text-center backdrop-blur-md backdrop-saturate-150 transition-opacity duration-300 ${
           inView ? "opacity-100" : "opacity-0"
         }`}
