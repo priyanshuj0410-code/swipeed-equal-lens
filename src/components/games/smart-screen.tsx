@@ -136,7 +136,7 @@ export function SmartScreenGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -148,7 +148,7 @@ export function SmartScreenGame({ onExit }: { onExit: () => void }) {
   const BadgeBook = (
     <div className="glass-card flex items-center justify-center gap-2 rounded-2xl p-2.5 backdrop-blur-[12px] backdrop-saturate-150" aria-label={`${badges.size} of ${BADGE_TARGET} hero badges`}>
       <span className={`text-2xl transition-transform ${badges.size > 0 ? "scale-110" : "opacity-50"}`} aria-hidden>🦸</span>
-      <span className="mx-1 h-5 w-px bg-white/25" aria-hidden />
+      <span className="mx-1 h-5 w-px bg-foreground/25" aria-hidden />
       {MODES.map(([id]) => (
         <span key={id} className={`text-2xl ${badges.has(id) ? "animate-in zoom-in duration-300" : "opacity-40"}`} aria-hidden>{badges.has(id) ? "🏅" : "🤍"}</span>
       ))}
@@ -174,7 +174,7 @@ export function SmartScreenGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -185,20 +185,20 @@ export function SmartScreenGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-5xl" aria-hidden>{SCREEN_THINGS[rpIdx].emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{SCREEN_THINGS[rpIdx].label}</p>
+              <p className="font-display text-lg font-bold text-foreground">{SCREEN_THINGS[rpIdx].label}</p>
             </div>
             {rpUnRe ? (
               <>
                 <UnReBeat un={PRETEND_UNRE.un} re={PRETEND_UNRE.re} />
-                <button type="button" onClick={advanceRp} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">Got it!</button>
+                <button type="button" onClick={advanceRp} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">Got it!</button>
               </>
             ) : (
               <div className="grid grid-cols-2 gap-2.5">
-                <button type="button" onClick={() => sortThing(false)} className="glass-card rounded-2xl py-4 text-base font-bold text-white backdrop-blur-[12px] transition-transform active:scale-[0.97]">📷 Real</button>
-                <button type="button" onClick={() => sortThing(true)} className="glass-card rounded-2xl py-4 text-base font-bold text-white backdrop-blur-[12px] transition-transform active:scale-[0.97]">🎭 Pretend</button>
+                <button type="button" onClick={() => sortThing(false)} className="glass-card rounded-2xl py-4 text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">📷 Real</button>
+                <button type="button" onClick={() => sortThing(true)} className="glass-card rounded-2xl py-4 text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">🎭 Pretend</button>
               </div>
             )}
-            <p className="text-center text-xs text-white/60">{rpIdx + 1} / {SCREEN_THINGS.length}</p>
+            <p className="text-center text-xs text-foreground/60">{rpIdx + 1} / {SCREEN_THINGS.length}</p>
             {HomeBtn}
           </>
         )}
@@ -208,13 +208,13 @@ export function SmartScreenGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-5xl" aria-hidden>{CHOICES[chIdx].emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{CHOICES[chIdx].q}</p>
+              <p className="font-display text-lg font-bold text-foreground">{CHOICES[chIdx].q}</p>
             </div>
             <div className="grid grid-cols-1 gap-2.5">
-              <button type="button" onClick={() => chooseGood(true)} className="glass-card rounded-2xl px-4 py-3 text-base font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{CHOICES[chIdx].good}</button>
-              <button type="button" onClick={() => chooseGood(false)} className="glass-card rounded-2xl px-4 py-3 text-base font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{CHOICES[chIdx].bad}</button>
+              <button type="button" onClick={() => chooseGood(true)} className="glass-card rounded-2xl px-4 py-3 text-base font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{CHOICES[chIdx].good}</button>
+              <button type="button" onClick={() => chooseGood(false)} className="glass-card rounded-2xl px-4 py-3 text-base font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{CHOICES[chIdx].bad}</button>
             </div>
-            <p className="text-center text-xs text-white/60">{chIdx + 1} / {CHOICES.length}</p>
+            <p className="text-center text-xs text-foreground/60">{chIdx + 1} / {CHOICES.length}</p>
             {HomeBtn}
           </>
         )}
@@ -228,20 +228,20 @@ export function SmartScreenGame({ onExit }: { onExit: () => void }) {
                   <div className="flex flex-wrap justify-center gap-1 text-3xl" aria-hidden>
                     {Array.from({ length: germs }).map((_, i) => <span key={i} className="animate-pulse">🦠</span>)}
                   </div>
-                  <p className="text-sm font-semibold text-white/80">{germs} germ{germs === 1 ? "" : "s"} left — keep scrubbing!</p>
+                  <p className="text-sm font-semibold text-foreground/80">{germs} germ{germs === 1 ? "" : "s"} left — keep scrubbing!</p>
                 </>
               ) : (
-                <p className="font-display text-lg font-bold text-white">✨ Sparkly clean! ✨</p>
+                <p className="font-display text-lg font-bold text-foreground">✨ Sparkly clean! ✨</p>
               )}
             </div>
             {germs > 0 ? (
-              <button type="button" onClick={scrub} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-white text-lg font-bold text-slate-900 transition-transform active:scale-95">🧼 Scrub!</button>
+              <button type="button" onClick={scrub} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-bold text-slate-900 transition-transform active:scale-95">🧼 Scrub!</button>
             ) : !coughed ? (
-              <button type="button" onClick={coverCough} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-white text-lg font-bold text-slate-900 transition-transform active:scale-95">🤧 Cover your cough</button>
+              <button type="button" onClick={coverCough} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-bold text-slate-900 transition-transform active:scale-95">🤧 Cover your cough</button>
             ) : (
               <div className="glass-card flex flex-col gap-1.5 rounded-2xl px-4 py-3 backdrop-blur-[12px]">
                 {HYGIENE.map((h, i) => (
-                  <p key={i} className="flex items-center gap-2 text-sm font-semibold text-white"><span className="text-lg" aria-hidden>{h.emoji}</span> {h.say}</p>
+                  <p key={i} className="flex items-center gap-2 text-sm font-semibold text-foreground"><span className="text-lg" aria-hidden>{h.emoji}</span> {h.say}</p>
                 ))}
               </div>
             )}
@@ -254,14 +254,14 @@ export function SmartScreenGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-5xl" aria-hidden>{KIND_SCENES[kindIdx].emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{KIND_SCENES[kindIdx].situation}</p>
+              <p className="font-display text-lg font-bold text-foreground">{KIND_SCENES[kindIdx].situation}</p>
             </div>
             <div className="grid grid-cols-1 gap-2.5">
               {KIND_SCENES[kindIdx].choices.map((c, i) => (
-                <button key={i} type="button" onClick={() => chooseKind(c)} className="glass-card rounded-2xl px-4 py-3 text-base font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{c.label}</button>
+                <button key={i} type="button" onClick={() => chooseKind(c)} className="glass-card rounded-2xl px-4 py-3 text-base font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{c.label}</button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">{kindIdx + 1} / {KIND_SCENES.length}</p>
+            <p className="text-center text-xs text-foreground/60">{kindIdx + 1} / {KIND_SCENES.length}</p>
             {HomeBtn}
           </>
         )}
@@ -273,12 +273,12 @@ export function SmartScreenGame({ onExit }: { onExit: () => void }) {
               {HABITS.map((h, i) => (
                 <button key={i} type="button" onClick={() => tapHabit(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={habitGot.has(i) ? { boxShadow: "inset 0 0 0 2px #7C3AED" } : undefined}>
                   <span className="text-2xl" aria-hidden>{h.emoji}</span>
-                  <span className="flex-1 text-sm font-semibold text-white">{h.say}</span>
-                  {habitGot.has(i) && <Check className="size-5 text-white" aria-hidden />}
+                  <span className="flex-1 text-sm font-semibold text-foreground">{h.say}</span>
+                  {habitGot.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
                 </button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">{habitGot.size} / {HABITS.length}</p>
+            <p className="text-center text-xs text-foreground/60">{habitGot.size} / {HABITS.length}</p>
             {HomeBtn}
           </>
         )}

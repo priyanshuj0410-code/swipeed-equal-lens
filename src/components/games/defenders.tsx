@@ -122,7 +122,7 @@ export function DefendersGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -142,8 +142,8 @@ export function DefendersGame({ onExit }: { onExit: () => void }) {
       {items.map((it, i) => (
         <button key={i} type="button" onClick={() => onTap(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={got.has(i) ? { boxShadow: "inset 0 0 0 2px #059669" } : undefined}>
           <span className="text-2xl" aria-hidden>{it.emoji}</span>
-          <span className="flex-1 text-sm font-semibold text-white">{it.say}</span>
-          {got.has(i) && <Check className="size-5 text-white" aria-hidden />}
+          <span className="flex-1 text-sm font-semibold text-foreground">{it.say}</span>
+          {got.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
         </button>
       ))}
     </div>
@@ -168,7 +168,7 @@ export function DefendersGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -179,20 +179,20 @@ export function DefendersGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-5xl animate-bounce" aria-hidden>{DEFEND[waveIdx].emoji}</span>
-              <p className="font-display text-base font-bold text-white">{DEFEND[waveIdx].attack}</p>
+              <p className="font-display text-base font-bold text-foreground">{DEFEND[waveIdx].attack}</p>
             </div>
             <div className="grid grid-cols-1 gap-2.5">
               {DEFEND[waveIdx].options.map((o, i) => (
-                <button key={i} type="button" onClick={() => chooseDefence(o.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
+                <button key={i} type="button" onClick={() => chooseDefence(o.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">Wave {waveIdx + 1} / {DEFEND.length}</p>
+            <p className="text-center text-xs text-foreground/60">Wave {waveIdx + 1} / {DEFEND.length}</p>
             {HomeBtn}
           </>
         )}
 
-        {mode === "stayHealthy" && (<>{TapList(STAY_HEALTHY, healthGot, tapHealth)}<p className="text-center text-xs text-white/60">{healthGot.size} / {STAY_HEALTHY.length}</p>{HomeBtn}</>)}
-        {mode === "healthHelpers" && (<>{TapList(HEALTH_HELPERS, helperGot, tapHelper)}<p className="text-center text-xs text-white/60">{helperGot.size} / {HEALTH_HELPERS.length}</p>{HomeBtn}</>)}
+        {mode === "stayHealthy" && (<>{TapList(STAY_HEALTHY, healthGot, tapHealth)}<p className="text-center text-xs text-foreground/60">{healthGot.size} / {STAY_HEALTHY.length}</p>{HomeBtn}</>)}
+        {mode === "healthHelpers" && (<>{TapList(HEALTH_HELPERS, helperGot, tapHelper)}<p className="text-center text-xs text-foreground/60">{helperGot.size} / {HEALTH_HELPERS.length}</p>{HomeBtn}</>)}
 
         {/* Fact Power-Ups — blast the myth-germs (UN & RE) */}
         {mode === "factPowerUps" && MYTH_GERMS[mIdx] && (
@@ -200,21 +200,21 @@ export function DefendersGame({ onExit }: { onExit: () => void }) {
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className={`text-5xl ${mBusted ? "opacity-30" : "animate-bounce"}`} aria-hidden>{MYTH_GERMS[mIdx].emoji}</span>
               {MYTH_GERMS[mIdx].boss && !mBusted && <span className="text-[11px] font-bold uppercase tracking-wide text-amber-300">Boss Myth-Germ</span>}
-              <p className={`font-display text-base font-bold ${mBusted ? "text-white/40 line-through" : ""}`} style={mBusted ? undefined : { color: "#ff9085" }}>{MYTH_GERMS[mIdx].myth}</p>
+              <p className={`font-display text-base font-bold ${mBusted ? "text-foreground/40 line-through" : ""}`} style={mBusted ? undefined : { color: "#ff9085" }}>{MYTH_GERMS[mIdx].myth}</p>
             </div>
             {mBusted ? (
               <>
                 <UnReBeat un={MYTH_UN} re={MYTH_GERMS[mIdx].re} />
-                <button type="button" onClick={nextGerm} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">⚡ {mIdx + 1 >= MYTH_GERMS.length ? "Last one blasted!" : "Next myth-germ"}</button>
+                <button type="button" onClick={nextGerm} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">⚡ {mIdx + 1 >= MYTH_GERMS.length ? "Last one blasted!" : "Next myth-germ"}</button>
               </>
             ) : (
               <div className="grid grid-cols-1 gap-2.5">
                 {MYTH_GERMS[mIdx].facts.map((f, i) => (
-                  <button key={i} type="button" onClick={() => chooseFact(f.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{f.text}</button>
+                  <button key={i} type="button" onClick={() => chooseFact(f.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{f.text}</button>
                 ))}
               </div>
             )}
-            <p className="text-center text-xs text-white/60">Myth-germ {mIdx + 1} / {MYTH_GERMS.length}</p>
+            <p className="text-center text-xs text-foreground/60">Myth-germ {mIdx + 1} / {MYTH_GERMS.length}</p>
             {HomeBtn}
           </>
         )}
@@ -224,14 +224,14 @@ export function DefendersGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-5xl" aria-hidden>{STIGMA_SCENES[stigmaIdx].emoji}</span>
-              <p className="font-display text-base font-bold text-white">{STIGMA_SCENES[stigmaIdx].situation}</p>
+              <p className="font-display text-base font-bold text-foreground">{STIGMA_SCENES[stigmaIdx].situation}</p>
             </div>
             <div className="grid grid-cols-1 gap-2.5">
               {STIGMA_SCENES[stigmaIdx].choices.map((c, i) => (
-                <button key={i} type="button" onClick={() => chooseStigma(c)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{c.label}</button>
+                <button key={i} type="button" onClick={() => chooseStigma(c)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{c.label}</button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">{stigmaIdx + 1} / {STIGMA_SCENES.length} · care, not fear</p>
+            <p className="text-center text-xs text-foreground/60">{stigmaIdx + 1} / {STIGMA_SCENES.length} · care, not fear</p>
             {HomeBtn}
           </>
         )}

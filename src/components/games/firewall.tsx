@@ -119,7 +119,7 @@ export function FirewallGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -139,8 +139,8 @@ export function FirewallGame({ onExit }: { onExit: () => void }) {
       {items.map((it, i) => (
         <button key={i} type="button" onClick={() => onTap(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={got.has(i) ? { boxShadow: "inset 0 0 0 2px #DC2626" } : undefined}>
           <span className="text-2xl" aria-hidden>{it.emoji}</span>
-          <span className="flex-1 text-sm font-semibold text-white">{it.say}</span>
-          {got.has(i) && <Check className="size-5 text-white" aria-hidden />}
+          <span className="flex-1 text-sm font-semibold text-foreground">{it.say}</span>
+          {got.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
         </button>
       ))}
     </div>
@@ -166,31 +166,31 @@ export function FirewallGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
         )}
 
-        {mode === "whos" && (<>{TapList(WHOS_THERE, whosGot, tapWhos)}<p className="text-center text-xs text-white/60">{whosGot.size} / {WHOS_THERE.length} · most people are genuine — spot the few who aren't</p>{HomeBtn}</>)}
-        {mode === "share" && (<>{TapList(shareList, shareGot, tapShare)}<p className="text-center text-xs text-white/60">{shareGot.size} / {shareList.length} · what goes online can't be taken back</p>{HomeBtn}</>)}
-        {mode === "lock" && (<>{TapList(LOCK_DOWN, lockGot, tapLock)}<p className="text-center text-xs text-white/60">{lockGot.size} / {LOCK_DOWN.length} · set it up before you ever need it</p>{HomeBtn}</>)}
+        {mode === "whos" && (<>{TapList(WHOS_THERE, whosGot, tapWhos)}<p className="text-center text-xs text-foreground/60">{whosGot.size} / {WHOS_THERE.length} · most people are genuine — spot the few who aren't</p>{HomeBtn}</>)}
+        {mode === "share" && (<>{TapList(shareList, shareGot, tapShare)}<p className="text-center text-xs text-foreground/60">{shareGot.size} / {shareList.length} · what goes online can't be taken back</p>{HomeBtn}</>)}
+        {mode === "lock" && (<>{TapList(LOCK_DOWN, lockGot, tapLock)}<p className="text-center text-xs text-foreground/60">{lockGot.size} / {LOCK_DOWN.length} · set it up before you ever need it</p>{HomeBtn}</>)}
 
         {/* Sextortion: Don't Panic — rehearse the calm, no-blame plan, step by step */}
         {mode === "sextortion" && SEXTORTION_PLAN[planStep] && (
           <>
-            <div className="glass-pill flex items-center gap-2 rounded-2xl px-4 py-2.5 backdrop-blur-md" style={{ color: "#eef1f7", boxShadow: "inset 0 0 0 1.5px rgba(98,224,143,0.5)" }}>
+            <div className="glass-pill flex items-center gap-2 rounded-2xl px-4 py-2.5 backdrop-blur-md" style={{ color: "var(--color-ink)", boxShadow: "inset 0 0 0 1.5px rgba(98,224,143,0.5)" }}>
               <ShieldCheck className="size-5 shrink-0" style={{ color: "#62e08f" }} aria-hidden />
               <span className="text-sm font-bold">{NOT_YOUR_FAULT}</span>
             </div>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-7 text-center backdrop-blur-[12px] backdrop-saturate-150">
-              <span className="text-xs font-bold uppercase tracking-wide text-white/60">Step {planStep + 1} of {SEXTORTION_PLAN.length}</span>
+              <span className="text-xs font-bold uppercase tracking-wide text-foreground/60">Step {planStep + 1} of {SEXTORTION_PLAN.length}</span>
               <span className="text-5xl" aria-hidden>{SEXTORTION_PLAN[planStep].emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{SEXTORTION_PLAN[planStep].step}</p>
+              <p className="font-display text-lg font-bold text-foreground">{SEXTORTION_PLAN[planStep].step}</p>
             </div>
-            <button type="button" onClick={doPlanStep} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-white text-lg font-bold text-slate-900 transition-transform active:scale-95">✓ Got it</button>
+            <button type="button" onClick={doPlanStep} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-bold text-slate-900 transition-transform active:scale-95">✓ Got it</button>
             <div className="flex justify-center gap-1.5">
-              {SEXTORTION_PLAN.map((_, i) => (<span key={i} className={`size-2.5 rounded-full ${i < planStep ? "bg-white" : i === planStep ? "bg-white/70" : "bg-white/25"}`} aria-hidden />))}
+              {SEXTORTION_PLAN.map((_, i) => (<span key={i} className={`size-2.5 rounded-full ${i < planStep ? "bg-foreground" : i === planStep ? "bg-foreground/70" : "bg-foreground/25"}`} aria-hidden />))}
             </div>
             {HomeBtn}
           </>
@@ -201,17 +201,17 @@ export function FirewallGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-3xl" aria-hidden>💭</span>
-              <p className={`font-display text-lg font-bold ${busted ? "text-white/40 line-through" : "animate-pulse"}`} style={busted ? undefined : { color: "#ff9085" }}>“{MYTHS[mythIdx].un}”</p>
+              <p className={`font-display text-lg font-bold ${busted ? "text-foreground/40 line-through" : "animate-pulse"}`} style={busted ? undefined : { color: "#ff9085" }}>“{MYTHS[mythIdx].un}”</p>
             </div>
             {!busted ? (
-              <button type="button" onClick={bustMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">🧽 Bust this myth</button>
+              <button type="button" onClick={bustMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">🧽 Bust this myth</button>
             ) : (
               <>
                 <UnReBeat un={MYTHS[mythIdx].un} re={MYTHS[mythIdx].re} />
-                <button type="button" onClick={nextMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">{mythIdx + 1 >= MYTHS.length ? "Done" : "Next myth"}</button>
+                <button type="button" onClick={nextMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">{mythIdx + 1 >= MYTHS.length ? "Done" : "Next myth"}</button>
               </>
             )}
-            <p className="text-center text-xs text-white/60">{mythIdx + 1} / {MYTHS.length} · no shame for ever believing one</p>
+            <p className="text-center text-xs text-foreground/60">{mythIdx + 1} / {MYTHS.length} · no shame for ever believing one</p>
             {HomeBtn}
           </>
         )}

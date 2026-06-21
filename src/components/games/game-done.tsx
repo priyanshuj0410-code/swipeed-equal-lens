@@ -50,19 +50,19 @@ export function GameDone({
   const card = (
     <div
       className="glass-card w-full max-w-xs px-6 py-7 text-center backdrop-blur-[14px] backdrop-saturate-150"
-      style={{ color: "#eef1f7" }}
+      style={{ color: "var(--color-ink)" }}
     >
       <div className="text-6xl" aria-hidden>
         🎉
       </div>
       <h2 className="mt-3 font-display text-2xl font-bold">{title}</h2>
-      {blurb && <p className="mt-1 text-sm text-white/85">{blurb}</p>}
+      {blurb && <p className="mt-1 text-sm text-foreground/85">{blurb}</p>}
       <div className="mt-4 flex justify-center gap-1.5" aria-label={`${stars} of 3 stars`}>
         {[0, 1, 2].map((i) => (
           <Star
             key={i}
             className="size-8"
-            style={{ color: i < stars ? "var(--accent-amber)" : "rgba(255,255,255,0.28)" }}
+            style={{ color: i < stars ? "var(--accent-amber)" : "rgba(34,20,54,0.28)" }}
             fill={i < stars ? "currentColor" : "none"}
             aria-hidden
           />
@@ -84,7 +84,7 @@ export function GameDone({
         <button
           type="button"
           onClick={exit}
-          className="flex h-11 items-center justify-center gap-2 rounded-2xl bg-white text-sm font-bold text-slate-900 transition-transform active:scale-95"
+          className="flex h-11 items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-sm font-bold text-slate-900 transition-transform active:scale-95"
         >
           <Map className="size-4" aria-hidden /> Back to the path
         </button>

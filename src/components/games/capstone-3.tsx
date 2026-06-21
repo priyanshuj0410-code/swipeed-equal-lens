@@ -71,22 +71,22 @@ export function CapstoneThreeGame({ onExit }: { onExit: () => void }) {
       <div className="flex w-full max-w-sm flex-col items-stretch gap-4">
         <div className="flex items-center gap-3">
           <Sam size={64} />
-          <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+          <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
         </div>
 
         {/* the graduation stars */}
         <div className="glass-card flex justify-center gap-1.5 rounded-2xl p-3 backdrop-blur-[12px] backdrop-saturate-150" aria-label={`${lit.size} of ${RECAP.length} stars`}>
           {RECAP.map((_, i) => (
-            <Star key={i} className={`size-5 ${lit.has(i) ? "animate-in zoom-in duration-300" : ""}`} style={{ color: lit.has(i) ? "var(--accent-amber)" : "rgba(255,255,255,0.3)" }} fill={lit.has(i) ? "currentColor" : "none"} aria-hidden />
+            <Star key={i} className={`size-5 ${lit.has(i) ? "animate-in zoom-in duration-300" : ""}`} style={{ color: lit.has(i) ? "var(--accent-amber)" : "rgba(34,20,54,0.28)" }} fill={lit.has(i) ? "currentColor" : "none"} aria-hidden />
           ))}
         </div>
 
         {/* the eight big ideas to light up */}
         <div className="grid grid-cols-1 gap-2.5">
           {RECAP.map((r, i) => (
-            <button key={i} type="button" disabled={lit.has(i)} onClick={() => tap(i)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.98] ${lit.has(i) ? "opacity-80 ring-2 ring-white/60" : ""}`}>
+            <button key={i} type="button" disabled={lit.has(i)} onClick={() => tap(i)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.98] ${lit.has(i) ? "opacity-80 ring-2 ring-foreground/60" : ""}`}>
               <span className="text-3xl" aria-hidden>{r.emoji}</span>
-              <span className="flex-1 text-sm font-semibold text-white">{r.idea}</span>
+              <span className="flex-1 text-sm font-semibold text-foreground">{r.idea}</span>
               {lit.has(i) && <Star className="size-5 shrink-0" style={{ color: "var(--accent-amber)" }} fill="currentColor" aria-hidden />}
             </button>
           ))}

@@ -118,7 +118,7 @@ export function OutbreakGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -138,8 +138,8 @@ export function OutbreakGame({ onExit }: { onExit: () => void }) {
       {items.map((it, i) => (
         <button key={i} type="button" onClick={() => onTap(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={got.has(i) ? { boxShadow: "inset 0 0 0 2px #059669" } : undefined}>
           <span className="text-2xl" aria-hidden>{it.emoji}</span>
-          <span className="flex-1 text-sm font-semibold text-white">{it.say}</span>
-          {got.has(i) && <Check className="size-5 text-white" aria-hidden />}
+          <span className="flex-1 text-sm font-semibold text-foreground">{it.say}</span>
+          {got.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
         </button>
       ))}
     </div>
@@ -164,7 +164,7 @@ export function OutbreakGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -174,8 +174,8 @@ export function OutbreakGame({ onExit }: { onExit: () => void }) {
         {mode === "outbreak" && (
           <>
             <div className="glass-card flex flex-col gap-2 rounded-2xl p-3 backdrop-blur-[12px] backdrop-saturate-150">
-              <div className="flex items-center justify-between text-xs font-bold text-white/80"><span>🦠 Spread</span><span>{spread}%</span></div>
-              <div className="h-3 overflow-hidden rounded-full bg-white/15">
+              <div className="flex items-center justify-between text-xs font-bold text-foreground/80"><span>🦠 Spread</span><span>{spread}%</span></div>
+              <div className="h-3 overflow-hidden rounded-full bg-foreground/15">
                 <div className="h-full rounded-full transition-all duration-500" style={{ width: `${spread}%`, background: "linear-gradient(90deg,#f87171,#fb923c)" }} />
               </div>
             </div>
@@ -183,8 +183,8 @@ export function OutbreakGame({ onExit }: { onExit: () => void }) {
               {DEPLOY_TOOLS.map((t, i) => (
                 <button key={i} type="button" onClick={() => deploy(i)} disabled={deployed.has(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={deployed.has(i) ? { boxShadow: "inset 0 0 0 2px #059669", opacity: 0.7 } : undefined}>
                   <span className="text-2xl" aria-hidden>{t.emoji}</span>
-                  <span className="flex-1 text-sm font-bold text-white">Deploy {t.label}</span>
-                  {deployed.has(i) && <Check className="size-5 text-white" aria-hidden />}
+                  <span className="flex-1 text-sm font-bold text-foreground">Deploy {t.label}</span>
+                  {deployed.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
                 </button>
               ))}
             </div>
@@ -197,42 +197,42 @@ export function OutbreakGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               {MYTHS[mIdx].boss && !mBusted && <span className="text-[11px] font-bold uppercase tracking-wide text-amber-300">Boss Myth</span>}
-              <p className={`font-display text-base font-bold ${mBusted ? "text-white/40 line-through" : "animate-pulse"}`} style={mBusted ? undefined : { color: "#ff9085" }}>{MYTHS[mIdx].myth}</p>
+              <p className={`font-display text-base font-bold ${mBusted ? "text-foreground/40 line-through" : "animate-pulse"}`} style={mBusted ? undefined : { color: "#ff9085" }}>{MYTHS[mIdx].myth}</p>
             </div>
             {mBusted ? (
               <>
                 <UnReBeat un={MYTH_UN} re={MYTHS[mIdx].re} />
-                <button type="button" onClick={nextMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">💥 {mIdx + 1 >= MYTHS.length ? "Last one busted!" : "Next myth"}</button>
+                <button type="button" onClick={nextMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">💥 {mIdx + 1 >= MYTHS.length ? "Last one busted!" : "Next myth"}</button>
               </>
             ) : (
               <div className="grid grid-cols-1 gap-2.5">
                 {MYTHS[mIdx].facts.map((f, i) => (
-                  <button key={i} type="button" onClick={() => chooseFact(f.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{f.text}</button>
+                  <button key={i} type="button" onClick={() => chooseFact(f.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{f.text}</button>
                 ))}
               </div>
             )}
-            <p className="text-center text-xs text-white/60">Myth {mIdx + 1} / {MYTHS.length}</p>
+            <p className="text-center text-xs text-foreground/60">Myth {mIdx + 1} / {MYTHS.length}</p>
             {HomeBtn}
           </>
         )}
 
-        {mode === "kit" && (<>{TapList(kitList, kitGot, tapKit)}<p className="text-center text-xs text-white/60">{kitGot.size} / {kitList.length} · they stack</p>{HomeBtn}</>)}
-        {mode === "testTreat" && (<>{TapList(TEST_TREAT, ttGot, tapTt)}<p className="text-center text-xs text-white/60">{ttGot.size} / {TEST_TREAT.length}</p>{HomeBtn}</>)}
+        {mode === "kit" && (<>{TapList(kitList, kitGot, tapKit)}<p className="text-center text-xs text-foreground/60">{kitGot.size} / {kitList.length} · they stack</p>{HomeBtn}</>)}
+        {mode === "testTreat" && (<>{TapList(TEST_TREAT, ttGot, tapTt)}<p className="text-center text-xs text-foreground/60">{ttGot.size} / {TEST_TREAT.length}</p>{HomeBtn}</>)}
 
         {/* End the Stigma — UN & RE + pledge */}
         {mode === "endStigma" && (
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-3xl" aria-hidden>💔</span>
-              <p className={`font-display text-base font-bold ${stigmaBusted ? "text-white/40 line-through" : "animate-pulse"}`} style={stigmaBusted ? undefined : { color: "#ff9085" }}>{STIGMA.claim}</p>
+              <p className={`font-display text-base font-bold ${stigmaBusted ? "text-foreground/40 line-through" : "animate-pulse"}`} style={stigmaBusted ? undefined : { color: "#ff9085" }}>{STIGMA.claim}</p>
             </div>
             {!stigmaBusted ? (
-              <button type="button" onClick={() => { setStigmaBusted(true); celebrate("small"); say(STIGMA.re); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">💥 Bust the stigma (UN &amp; RE)</button>
+              <button type="button" onClick={() => { setStigmaBusted(true); celebrate("small"); say(STIGMA.re); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">💥 Bust the stigma (UN &amp; RE)</button>
             ) : (
               <>
                 <UnReBeat un={STIGMA.un} re={STIGMA.re} />
-                <p className="rounded-xl bg-white/5 px-3 py-2 text-center text-xs font-medium text-white/70">{HELP_LINE}</p>
-                <button type="button" onClick={() => { celebrate("big"); say(PLEDGE, () => earn("endStigma")); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">🤝 Take the anti-stigma pledge</button>
+                <p className="rounded-xl bg-foreground/5 px-3 py-2 text-center text-xs font-medium text-foreground/70">{HELP_LINE}</p>
+                <button type="button" onClick={() => { celebrate("big"); say(PLEDGE, () => earn("endStigma")); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">🤝 Take the anti-stigma pledge</button>
               </>
             )}
             {HomeBtn}

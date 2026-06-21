@@ -154,7 +154,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete, labels }:
         {scoring ? (
           <div className="flex items-center gap-2">
             {streak >= 3 && (
-              <span className="flex animate-in zoom-in items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold text-white" style={{ background: "var(--flame)" }}>
+              <span className="flex animate-in zoom-in items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold text-foreground" style={{ background: "var(--flame)" }}>
                 <Flame className="size-3.5" aria-hidden /> {streak}
               </span>
             )}
@@ -248,7 +248,7 @@ function ScoredReveal({ card, correct, points, onNext }: { card: GameCard; corre
         <div className="flex items-center gap-1.5">
           {card.is_disguised && <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-bold uppercase text-primary">Disguised</span>}
           {correct && points > 0 && (
-            <span className="flex animate-in zoom-in items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold text-white" style={{ background: color }}>
+            <span className="flex animate-in zoom-in items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold text-foreground" style={{ background: color }}>
               <Sparkles className="size-3" aria-hidden /> +{points}
             </span>
           )}

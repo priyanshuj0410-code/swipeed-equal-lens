@@ -120,7 +120,7 @@ export function RealityCheckGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -140,8 +140,8 @@ export function RealityCheckGame({ onExit }: { onExit: () => void }) {
       {items.map((it, i) => (
         <button key={i} type="button" onClick={() => onTap(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={got.has(i) ? { boxShadow: "inset 0 0 0 2px #475569" } : undefined}>
           <span className="text-2xl" aria-hidden>{it.emoji}</span>
-          <span className="flex-1 text-sm font-semibold text-white">{it.say}</span>
-          {got.has(i) && <Check className="size-5 text-white" aria-hidden />}
+          <span className="flex-1 text-sm font-semibold text-foreground">{it.say}</span>
+          {got.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
         </button>
       ))}
     </div>
@@ -167,7 +167,7 @@ export function RealityCheckGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -178,13 +178,13 @@ export function RealityCheckGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-5xl" aria-hidden>{REAL_VS_REEL[reelIdx].emoji}</span>
-              <p className="font-display text-base font-bold text-white">{REAL_VS_REEL[reelIdx].claim}</p>
+              <p className="font-display text-base font-bold text-foreground">{REAL_VS_REEL[reelIdx].claim}</p>
             </div>
             <div className="grid grid-cols-2 gap-2.5">
-              <button type="button" onClick={() => judge(false)} className="glass-card rounded-2xl py-4 text-base font-bold text-white backdrop-blur-[12px] transition-transform active:scale-[0.97]">📷 Real</button>
-              <button type="button" onClick={() => judge(true)} className="glass-card rounded-2xl py-4 text-base font-bold text-white backdrop-blur-[12px] transition-transform active:scale-[0.97]">🎬 Reel</button>
+              <button type="button" onClick={() => judge(false)} className="glass-card rounded-2xl py-4 text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">📷 Real</button>
+              <button type="button" onClick={() => judge(true)} className="glass-card rounded-2xl py-4 text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">🎬 Reel</button>
             </div>
-            <p className="text-center text-xs text-white/60">{reelIdx + 1} / {REAL_VS_REEL.length}</p>
+            <p className="text-center text-xs text-foreground/60">{reelIdx + 1} / {REAL_VS_REEL.length}</p>
             {HomeBtn}
           </>
         )}
@@ -194,28 +194,28 @@ export function RealityCheckGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               {MYTHS[mIdx].boss && !mBusted && <span className="text-[11px] font-bold uppercase tracking-wide text-amber-300">Boss Myth</span>}
-              <p className={`font-display text-base font-bold ${mBusted ? "text-white/40 line-through" : "animate-pulse"}`} style={mBusted ? undefined : { color: "#ff9085" }}>{MYTHS[mIdx].myth}</p>
+              <p className={`font-display text-base font-bold ${mBusted ? "text-foreground/40 line-through" : "animate-pulse"}`} style={mBusted ? undefined : { color: "#ff9085" }}>{MYTHS[mIdx].myth}</p>
             </div>
             {mBusted ? (
               <>
                 <UnReBeat un={MYTH_UN} re={MYTHS[mIdx].re} />
-                <button type="button" onClick={nextMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">🕵️ {mIdx + 1 >= MYTHS.length ? "Last one busted!" : "Next file"}</button>
+                <button type="button" onClick={nextMyth} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">🕵️ {mIdx + 1 >= MYTHS.length ? "Last one busted!" : "Next file"}</button>
               </>
             ) : (
               <div className="grid grid-cols-1 gap-2.5">
                 {MYTHS[mIdx].facts.map((f, i) => (
-                  <button key={i} type="button" onClick={() => chooseFact(f.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{f.text}</button>
+                  <button key={i} type="button" onClick={() => chooseFact(f.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{f.text}</button>
                 ))}
               </div>
             )}
-            <p className="text-center text-xs text-white/60">File {mIdx + 1} / {MYTHS.length}</p>
+            <p className="text-center text-xs text-foreground/60">File {mIdx + 1} / {MYTHS.length}</p>
             {HomeBtn}
           </>
         )}
 
-        {mode === "love" && (<>{profile.schoolComfort && <p className="rounded-xl bg-white/5 px-3 py-2 text-center text-[11px] font-medium text-white/65">School-Comfort mode: the most sensitive part is hidden. A trusted adult or counsellor can answer privately.</p>}{TapList(loveList, loveGot, tapLove)}<p className="text-center text-xs text-white/60">{loveGot.size} / {loveList.length}</p>{HomeBtn}</>)}
-        {mode === "fakes" && (<>{TapList(FAKES, fakeGot, tapFake)}<p className="text-center text-xs text-white/60">{fakeGot.size} / {FAKES.length}</p>{HomeBtn}</>)}
-        {mode === "toolkit" && (<>{TapList(TOOLKIT, toolGot, tapTool)}<p className="text-center text-xs text-white/60">{toolGot.size} / {TOOLKIT.length}</p>{HomeBtn}</>)}
+        {mode === "love" && (<>{profile.schoolComfort && <p className="rounded-xl bg-foreground/5 px-3 py-2 text-center text-[11px] font-medium text-foreground/65">School-Comfort mode: the most sensitive part is hidden. A trusted adult or counsellor can answer privately.</p>}{TapList(loveList, loveGot, tapLove)}<p className="text-center text-xs text-foreground/60">{loveGot.size} / {loveList.length}</p>{HomeBtn}</>)}
+        {mode === "fakes" && (<>{TapList(FAKES, fakeGot, tapFake)}<p className="text-center text-xs text-foreground/60">{fakeGot.size} / {FAKES.length}</p>{HomeBtn}</>)}
+        {mode === "toolkit" && (<>{TapList(TOOLKIT, toolGot, tapTool)}<p className="text-center text-xs text-foreground/60">{toolGot.size} / {TOOLKIT.length}</p>{HomeBtn}</>)}
       </div>
     </GameShell>
   );

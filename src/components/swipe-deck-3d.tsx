@@ -446,7 +446,7 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
         {scoring && (
           <div className="flex items-center gap-2">
             {streak > 1 && (
-              <span className="flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold text-white shadow-md" style={{ background: "var(--flame)" }}>
+              <span className="flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold text-foreground shadow-md" style={{ background: "var(--flame)" }}>
                 <Flame className="size-3.5" aria-hidden /> {streak}
               </span>
             )}

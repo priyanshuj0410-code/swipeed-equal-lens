@@ -109,7 +109,7 @@ export function BodyLabGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -144,7 +144,7 @@ export function BodyLabGame({ onExit }: { onExit: () => void }) {
             {STATIONS.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -157,7 +157,7 @@ export function BodyLabGame({ onExit }: { onExit: () => void }) {
               {ORGANS.map((o) => (
                 <button key={o.id} type="button" onClick={() => tapOrgan(o)} className="glass-card flex flex-col items-center gap-0.5 rounded-2xl py-3 backdrop-blur-[12px] transition-transform active:scale-95" style={labelled.has(o.id) ? { boxShadow: "inset 0 0 0 2px #0EA5E9" } : undefined}>
                   <span className={`text-3xl ${labelled.has(o.id) ? "animate-pulse" : ""}`} aria-hidden>{o.emoji}</span>
-                  <span className="text-xs font-bold text-white">{o.name}</span>
+                  <span className="text-xs font-bold text-foreground">{o.name}</span>
                 </button>
               ))}
             </div>
@@ -184,10 +184,10 @@ export function BodyLabGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-7xl transition-all" aria-hidden>{STAGES[stage].emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{STAGES[stage].label}</p>
+              <p className="font-display text-lg font-bold text-foreground">{STAGES[stage].label}</p>
             </div>
             <input type="range" min={0} max={STAGES.length - 1} value={stage} onChange={(e) => { const v = Number(e.target.value); setStage(v); say(STAGES[v].say); }} className="w-full accent-sky-400" aria-label="Growth stage: baby to older grown-up" />
-            <button type="button" onClick={() => earn("grow")} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">
+            <button type="button" onClick={() => earn("grow")} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">
               <Check className="size-5" aria-hidden /> I'm growing!
             </button>
             {HomeBtn}
@@ -199,10 +199,10 @@ export function BodyLabGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-6xl" aria-hidden>🍼</span>
-              <p className="text-sm font-semibold text-white">{profile.schoolComfort ? BABIES.simple : BABIES.fuller}</p>
+              <p className="text-sm font-semibold text-foreground">{profile.schoolComfort ? BABIES.simple : BABIES.fuller}</p>
             </div>
             <UnReBeat un={BABIES.un} re={profile.schoolComfort ? BABIES.reSimple : BABIES.reFuller} />
-            <button type="button" onClick={() => { say(profile.schoolComfort ? BABIES.reSimple : BABIES.reFuller, () => earn("babies")); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">
+            <button type="button" onClick={() => { say(profile.schoolComfort ? BABIES.reSimple : BABIES.reFuller, () => earn("babies")); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">
               <Check className="size-5" aria-hidden /> Got it!
             </button>
             {HomeBtn}
@@ -216,7 +216,7 @@ export function BodyLabGame({ onExit }: { onExit: () => void }) {
               {ALL_BODIES.map((c, i) => (
                 <button key={i} type="button" onClick={() => { say(c.say); celebrate("small"); }} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-2.5 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]">
                   <span className="text-2xl" aria-hidden>{c.emoji}</span>
-                  <span className="flex-1 text-sm font-semibold text-white">{c.say}</span>
+                  <span className="flex-1 text-sm font-semibold text-foreground">{c.say}</span>
                 </button>
               ))}
             </div>

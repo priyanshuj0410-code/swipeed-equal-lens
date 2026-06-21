@@ -72,7 +72,7 @@ export function Loadout({
   const tile = "glass-pill flex flex-col items-center justify-center gap-1.5 rounded-2xl py-5 backdrop-blur-md transition-transform active:scale-[0.97]";
 
   const card = (
-    <div className="glass-card w-full max-w-sm p-5 backdrop-blur-[14px] backdrop-saturate-150" style={{ color: "#eef1f7" }}>
+    <div className="glass-card w-full max-w-sm p-5 backdrop-blur-[14px] backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
         {/* Step 1 — Mode */}
         {step === 1 && (
           <>
@@ -116,7 +116,7 @@ export function Loadout({
                   >
                     <span className="text-2xl" aria-hidden>{d.emoji}</span>
                     <span className="flex-1 text-sm font-bold">
-                      {d.title} <span className="font-normal text-white/55">· {ch.name}</span>
+                      {d.title} <span className="font-normal text-foreground/55">· {ch.name}</span>
                     </span>
                     {cleared && <Check className="size-4 shrink-0" style={{ color: "#62e08f" }} aria-hidden />}
                     {stars > 0 && (
@@ -148,14 +148,14 @@ export function Loadout({
                     disabled={full || !unlocked}
                     title={unlocked ? p.effect : `Locked — ${p.unlock}`}
                     className="glass-pill flex items-center gap-2 rounded-2xl px-3 py-3 text-left backdrop-blur-md transition-transform active:scale-[0.97] disabled:opacity-40"
-                    style={on ? { borderColor: "rgba(255,255,255,0.55)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.4)" } : undefined}
+                    style={on ? { borderColor: "var(--color-brand)", boxShadow: "inset 0 0 0 1px var(--color-brand)" } : undefined}
                     aria-pressed={on}
                   >
                     <span className="text-xl leading-none" aria-hidden>{unlocked ? p.emoji : "🔒"}</span>
                     <span className="min-w-0">
                       <span className="block text-xs font-bold">{p.name}</span>
                       {!unlocked && (
-                        <span className="flex items-center gap-1 text-[10px] leading-tight text-white/55">
+                        <span className="flex items-center gap-1 text-[10px] leading-tight text-foreground/55">
                           <Lock className="size-2.5 shrink-0" aria-hidden /> {p.unlock}
                         </span>
                       )}
@@ -168,7 +168,7 @@ export function Loadout({
               type="button"
               disabled={!ready}
               onClick={() => deck && onStart(deck, perks)}
-              className="mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50"
+              className="mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50"
             >
               <Play className="size-5" aria-hidden /> Start
             </button>

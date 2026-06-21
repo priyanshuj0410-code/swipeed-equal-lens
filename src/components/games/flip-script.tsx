@@ -117,7 +117,7 @@ export function FlipScriptGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -152,7 +152,7 @@ export function FlipScriptGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -163,15 +163,15 @@ export function FlipScriptGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-5xl" aria-hidden>{SPOT[spotIdx].emoji}</span>
-              <p className="font-display text-base font-bold text-white">{SPOT[spotIdx].media}</p>
+              <p className="font-display text-base font-bold text-foreground">{SPOT[spotIdx].media}</p>
             </div>
-            <p className="text-center text-xs font-semibold uppercase tracking-wide text-white/60">What's the stereotype?</p>
+            <p className="text-center text-xs font-semibold uppercase tracking-wide text-foreground/60">What's the stereotype?</p>
             <div className="grid grid-cols-1 gap-2.5">
               {SPOT[spotIdx].options.map((o, i) => (
-                <button key={i} type="button" onClick={() => chooseSpot(o.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
+                <button key={i} type="button" onClick={() => chooseSpot(o.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">{spotIdx + 1} / {SPOT.length}</p>
+            <p className="text-center text-xs text-foreground/60">{spotIdx + 1} / {SPOT.length}</p>
             {HomeBtn}
           </>
         )}
@@ -180,21 +180,21 @@ export function FlipScriptGame({ onExit }: { onExit: () => void }) {
         {mode === "flip" && FLIP_ADS[flipIdx] && (
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-5 text-center backdrop-blur-[12px] backdrop-saturate-150">
-              <span className="text-xs font-bold uppercase tracking-wide text-white/55">{FLIP_ADS[flipIdx].poster}</span>
+              <span className="text-xs font-bold uppercase tracking-wide text-foreground/55">{FLIP_ADS[flipIdx].poster}</span>
               <span className="text-4xl" aria-hidden>{FLIP_ADS[flipIdx].emoji}</span>
-              <p className={`font-display text-base font-bold ${flipped ? "text-white/40 line-through" : ""}`} style={flipped ? undefined : { color: "#ff9085" }}>{FLIP_ADS[flipIdx].original}</p>
-              {flipped && <><ArrowDown className="size-5 text-white/70" aria-hidden /><p className="font-display text-base font-bold text-emerald-300">{FLIP_ADS[flipIdx].options.find((o) => o.fair)?.text}</p></>}
+              <p className={`font-display text-base font-bold ${flipped ? "text-foreground/40 line-through" : ""}`} style={flipped ? undefined : { color: "#ff9085" }}>{FLIP_ADS[flipIdx].original}</p>
+              {flipped && <><ArrowDown className="size-5 text-foreground/70" aria-hidden /><p className="font-display text-base font-bold text-emerald-300">{FLIP_ADS[flipIdx].options.find((o) => o.fair)?.text}</p></>}
             </div>
             {flipped ? (
-              <button type="button" onClick={nextFlip} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">🔄 {flipIdx + 1 >= FLIP_ADS.length ? "Last one flipped!" : "Next ad"}</button>
+              <button type="button" onClick={nextFlip} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">🔄 {flipIdx + 1 >= FLIP_ADS.length ? "Last one flipped!" : "Next ad"}</button>
             ) : (
               <div className="grid grid-cols-1 gap-2.5">
                 {FLIP_ADS[flipIdx].options.map((o, i) => (
-                  <button key={i} type="button" onClick={() => chooseFlip(o.fair)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
+                  <button key={i} type="button" onClick={() => chooseFlip(o.fair)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
                 ))}
               </div>
             )}
-            <p className="text-center text-xs text-white/60">Ad {flipIdx + 1} / {FLIP_ADS.length}</p>
+            <p className="text-center text-xs text-foreground/60">Ad {flipIdx + 1} / {FLIP_ADS.length}</p>
             {HomeBtn}
           </>
         )}
@@ -204,14 +204,14 @@ export function FlipScriptGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-3xl" aria-hidden>📺</span>
-              <p className={`font-display text-lg font-bold ${mythBusted ? "text-white/40 line-through" : "animate-pulse"}`} style={mythBusted ? undefined : { color: "#ff9085" }}>{MEDIA_MYTH.claim}</p>
+              <p className={`font-display text-lg font-bold ${mythBusted ? "text-foreground/40 line-through" : "animate-pulse"}`} style={mythBusted ? undefined : { color: "#ff9085" }}>{MEDIA_MYTH.claim}</p>
             </div>
             {!mythBusted ? (
-              <button type="button" onClick={() => { setMythBusted(true); celebrate("small"); say(MEDIA_MYTH.re); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">💥 Bust it with UN &amp; RE</button>
+              <button type="button" onClick={() => { setMythBusted(true); celebrate("small"); say(MEDIA_MYTH.re); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">💥 Bust it with UN &amp; RE</button>
             ) : (
               <>
                 <UnReBeat un={MEDIA_MYTH.un} re={MEDIA_MYTH.re} />
-                <button type="button" onClick={() => { earn("mediaMyth"); go("home"); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">Got it!</button>
+                <button type="button" onClick={() => { earn("mediaMyth"); go("home"); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">Got it!</button>
               </>
             )}
             {HomeBtn}
@@ -225,12 +225,12 @@ export function FlipScriptGame({ onExit }: { onExit: () => void }) {
               {REAL_STARS.map((s, i) => (
                 <button key={i} type="button" onClick={() => tapStar(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={starsGot.has(i) ? { boxShadow: "inset 0 0 0 2px #7C3AED" } : undefined}>
                   <span className="text-2xl" aria-hidden>{s.emoji}</span>
-                  <span className="flex-1 text-sm font-semibold text-white">{s.say}</span>
-                  {starsGot.has(i) && <Check className="size-5 text-white" aria-hidden />}
+                  <span className="flex-1 text-sm font-semibold text-foreground">{s.say}</span>
+                  {starsGot.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
                 </button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">{starsGot.size} / {REAL_STARS.length}</p>
+            <p className="text-center text-xs text-foreground/60">{starsGot.size} / {REAL_STARS.length}</p>
             {HomeBtn}
           </>
         )}
@@ -241,12 +241,12 @@ export function FlipScriptGame({ onExit }: { onExit: () => void }) {
             <div className="grid grid-cols-1 gap-2.5">
               {MAKE_TOPICS.map((t, i) => (
                 <button key={i} type="button" onClick={() => tapTopic(i)} className="glass-card flex flex-col gap-1.5 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={gallery.has(i) ? { boxShadow: "inset 0 0 0 2px #7C3AED" } : undefined}>
-                  <span className="flex items-center gap-2 text-sm font-bold text-white"><span className="text-xl" aria-hidden>{t.emoji}</span> {t.topic}</span>
+                  <span className="flex items-center gap-2 text-sm font-bold text-foreground"><span className="text-xl" aria-hidden>{t.emoji}</span> {t.topic}</span>
                   {gallery.has(i) && <span className="text-sm font-medium text-emerald-300">{t.slogan}</span>}
                 </button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">Flipped Gallery: {gallery.size} / {MAKE_TOPICS.length}</p>
+            <p className="text-center text-xs text-foreground/60">Flipped Gallery: {gallery.size} / {MAKE_TOPICS.length}</p>
             {HomeBtn}
           </>
         )}

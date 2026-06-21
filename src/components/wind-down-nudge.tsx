@@ -38,7 +38,7 @@ export function WindDownNudge() {
       role="status"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/companion.png" alt="" aria-hidden className="size-10 shrink-0 rounded-xl bg-white/10" />
+      <img src="/companion.png" alt="" aria-hidden className="size-10 shrink-0 rounded-xl bg-foreground/10" />
       <span className="flex-1 text-sm font-medium leading-snug">It&apos;s getting late — let&apos;s pick this up tomorrow. 🌙</span>
       <button type="button" onClick={dismiss} aria-label="Dismiss" className="shrink-0 rounded-full p-1 transition-transform active:scale-90">
         <X className="size-4" aria-hidden />

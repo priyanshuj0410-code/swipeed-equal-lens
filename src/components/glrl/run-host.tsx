@@ -135,7 +135,7 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
           <div className="fixed inset-x-0 bottom-6 z-40 mx-auto flex w-full max-w-sm flex-col gap-2.5 px-5">
             {/* UN & RE unlearn–relearn beat on a missed disguised card (the core principle, in play) */}
             {wrongDisguised && (
-              <div className="glass-pill rounded-2xl px-4 py-3 text-xs leading-relaxed backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>
+              <div className="glass-pill rounded-2xl px-4 py-3 text-xs leading-relaxed backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
                 <p className="flex items-start gap-1.5">
                   <Eraser className="mt-0.5 size-3.5 shrink-0" style={{ color: "#b3c8ff" }} aria-hidden />
                   <span><b>Unlearn.</b> Lots of people read that as okay — let&apos;s gently rub it out. You&apos;re not wrong, you&apos;re growing.</span>
@@ -148,7 +148,7 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
             )}
             {/* Truth Serum: an extra-clear explanation after a wrong (non-disguised) read */}
             {!wrongDisguised && hud.truthSerum && signDef(view.card.signId) && (
-              <div className="glass-pill rounded-2xl px-4 py-3 text-xs leading-relaxed backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>
+              <div className="glass-pill rounded-2xl px-4 py-3 text-xs leading-relaxed backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
                 <p className="flex items-start gap-1.5">
                   <Sparkles className="mt-0.5 size-3.5 shrink-0" style={{ color: "var(--accent-amber)" }} aria-hidden />
                   <span><b>{view.card.sign}:</b> {signDef(view.card.signId)}</span>
@@ -167,11 +167,11 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
             ) : (
               <>
                 {hud.timed && (
-                  <div className="h-1 w-full overflow-hidden rounded-full bg-white/10" aria-hidden>
+                  <div className="h-1 w-full overflow-hidden rounded-full bg-foreground/10" aria-hidden>
                     <div
                       key={view.card.id}
                       className="h-full rounded-full"
-                      style={{ background: "rgba(255,255,255,0.5)", animation: `glrl-timer ${hud.timeBudgetMs}ms linear forwards` }}
+                      style={{ background: "var(--color-brand)", animation: `glrl-timer ${hud.timeBudgetMs}ms linear forwards` }}
                     />
                   </div>
                 )}

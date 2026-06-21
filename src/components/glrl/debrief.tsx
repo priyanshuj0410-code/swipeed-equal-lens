@@ -47,16 +47,16 @@ export function RunDebrief({
   const missedNames = Array.from(new Set(missed.map((c) => c.sign)));
 
   return (
-    <div className="glass-card w-full max-w-xs px-6 py-7 backdrop-blur-[14px] backdrop-saturate-150" style={{ color: "#eef1f7" }}>
+    <div className="glass-card w-full max-w-xs px-6 py-7 backdrop-blur-[14px] backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
       <ResolutionBeat result={result} />
 
       <dl className="mt-5 grid grid-cols-2 gap-2 text-center">
         <div className="glass-pill rounded-xl px-2 py-2 backdrop-blur-md">
-          <dt className="text-[10px] uppercase tracking-wide text-white/65">Read right</dt>
+          <dt className="text-[10px] uppercase tracking-wide text-foreground/65">Read right</dt>
           <dd className="font-display text-lg font-bold">{result.correct}/{result.total}</dd>
         </div>
         <div className="glass-pill rounded-xl px-2 py-2 backdrop-blur-md">
-          <dt className="text-[10px] uppercase tracking-wide text-white/65">Disguised</dt>
+          <dt className="text-[10px] uppercase tracking-wide text-foreground/65">Disguised</dt>
           <dd className="font-display text-lg font-bold">{result.disgCorrect}/{result.disgSeen}</dd>
         </div>
       </dl>
@@ -65,11 +65,11 @@ export function RunDebrief({
         <span className="flex items-center gap-1 font-bold" style={{ color: "var(--accent-amber)" }}>
           <Sparkles className="size-4" aria-hidden /> +{result.xp} XP
         </span>
-        {result.bestCombo >= 3 && <span className="text-white/75">best combo ×{result.bestCombo}</span>}
+        {result.bestCombo >= 3 && <span className="text-foreground/75">best combo ×{result.bestCombo}</span>}
       </div>
 
       {missedNames.length > 0 && (
-        <p className="mt-3 text-center text-xs text-white/70">
+        <p className="mt-3 text-center text-xs text-foreground/70">
           To look again: {missedNames.slice(0, 4).join(" · ")}
         </p>
       )}
@@ -94,7 +94,7 @@ export function RunDebrief({
         <button
           type="button"
           onClick={onExit}
-          className="flex h-11 items-center justify-center gap-2 rounded-2xl bg-white text-sm font-bold text-slate-900 transition-transform active:scale-95"
+          className="flex h-11 items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-sm font-bold text-slate-900 transition-transform active:scale-95"
         >
           <Map className="size-4" aria-hidden /> Back to the path
         </button>

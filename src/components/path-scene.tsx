@@ -817,7 +817,7 @@ function Node({
             onFocus={focus}
             onClick={select}
             style={{ background: st.badge }}
-            className={`peer pointer-events-auto flex items-center justify-center rounded-full text-white shadow-md ring-2 ring-white/85 transition-transform hover:scale-110 focus:outline-none focus-visible:scale-110 focus-visible:ring-4 focus-visible:ring-white disabled:cursor-default disabled:opacity-95 ${cap ? "size-10" : "size-8"}`}
+            className={`peer pointer-events-auto flex items-center justify-center rounded-full text-foreground shadow-md ring-2 ring-foreground/85 transition-transform hover:scale-110 focus:outline-none focus-visible:scale-110 focus-visible:ring-4 focus-visible:ring-white disabled:cursor-default disabled:opacity-95 ${cap ? "size-10" : "size-8"}`}
           >
             <NodeIcon state={node.state} capstone={cap} />
           </button>

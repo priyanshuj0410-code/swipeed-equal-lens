@@ -115,7 +115,7 @@ export function BoundaryBotGame({ onExit }: { onExit: () => void }) {
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "#eef1f7" }}>{bubble}</span>
+      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const HomeBtn = (
@@ -150,7 +150,7 @@ export function BoundaryBotGame({ onExit }: { onExit: () => void }) {
             {MODES.map(([m, emoji, label]) => (
               <button key={m} type="button" onClick={() => go(m)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
                 <span className="text-4xl" aria-hidden>{emoji}</span>
-                <span className="text-center text-sm font-bold text-white">{label}</span>
+                <span className="text-center text-sm font-bold text-foreground">{label}</span>
               </button>
             ))}
           </div>
@@ -161,13 +161,13 @@ export function BoundaryBotGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-5xl" aria-hidden>{ASK_FIRST[askIdx].emoji}</span>
-              <p className="font-display text-lg font-bold text-white">{ASK_FIRST[askIdx].situation}</p>
+              <p className="font-display text-lg font-bold text-foreground">{ASK_FIRST[askIdx].situation}</p>
             </div>
             <div className="grid grid-cols-1 gap-2.5">
-              <button type="button" onClick={() => chooseAsk(true)} className="glass-card rounded-2xl px-4 py-3 text-base font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{ASK_FIRST[askIdx].ask}</button>
-              <button type="button" onClick={() => chooseAsk(false)} className="glass-card rounded-2xl px-4 py-3 text-base font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{ASK_FIRST[askIdx].grab}</button>
+              <button type="button" onClick={() => chooseAsk(true)} className="glass-card rounded-2xl px-4 py-3 text-base font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{ASK_FIRST[askIdx].ask}</button>
+              <button type="button" onClick={() => chooseAsk(false)} className="glass-card rounded-2xl px-4 py-3 text-base font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{ASK_FIRST[askIdx].grab}</button>
             </div>
-            <p className="text-center text-xs text-white/60">{askIdx + 1} / {ASK_FIRST.length}</p>
+            <p className="text-center text-xs text-foreground/60">{askIdx + 1} / {ASK_FIRST.length}</p>
             {HomeBtn}
           </>
         )}
@@ -177,14 +177,14 @@ export function BoundaryBotGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-3xl" aria-hidden>🚫</span>
-              <p className={`font-display text-lg font-bold ${noBusted ? "text-white/40 line-through" : "animate-pulse"}`} style={noBusted ? undefined : { color: "#ff9085" }}>{NO_MEANS_NO.myth}</p>
+              <p className={`font-display text-lg font-bold ${noBusted ? "text-foreground/40 line-through" : "animate-pulse"}`} style={noBusted ? undefined : { color: "#ff9085" }}>{NO_MEANS_NO.myth}</p>
             </div>
             {!noBusted ? (
-              <button type="button" onClick={() => { setNoBusted(true); celebrate("small"); say(NO_MEANS_NO.re); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">💥 Bust it with UN &amp; RE</button>
+              <button type="button" onClick={() => { setNoBusted(true); celebrate("small"); say(NO_MEANS_NO.re); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">💥 Bust it with UN &amp; RE</button>
             ) : (
               <>
                 <UnReBeat un={NO_MEANS_NO.un} re={NO_MEANS_NO.re} />
-                <button type="button" onClick={() => { earn("noMeansNo"); go("home"); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-bold text-slate-900 transition-transform active:scale-95">Got it!</button>
+                <button type="button" onClick={() => { earn("noMeansNo"); go("home"); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">Got it!</button>
               </>
             )}
             {HomeBtn}
@@ -198,12 +198,12 @@ export function BoundaryBotGame({ onExit }: { onExit: () => void }) {
               {BOUNDARIES.map((b, i) => (
                 <button key={i} type="button" onClick={() => tapBoundary(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={boundGot.has(i) ? { boxShadow: "inset 0 0 0 2px #DC2626" } : undefined}>
                   <span className="text-2xl" aria-hidden>{b.emoji}</span>
-                  <span className="flex-1 text-sm font-semibold text-white">{b.say}</span>
-                  {boundGot.has(i) && <Check className="size-5 text-white" aria-hidden />}
+                  <span className="flex-1 text-sm font-semibold text-foreground">{b.say}</span>
+                  {boundGot.has(i) && <Check className="size-5 text-foreground" aria-hidden />}
                 </button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">{boundGot.size} / {BOUNDARIES.length}</p>
+            <p className="text-center text-xs text-foreground/60">{boundGot.size} / {BOUNDARIES.length}</p>
             {HomeBtn}
           </>
         )}
@@ -213,15 +213,15 @@ export function BoundaryBotGame({ onExit }: { onExit: () => void }) {
           <>
             <div className="glass-card flex flex-col items-center gap-2 rounded-2xl px-5 py-6 text-center backdrop-blur-[12px] backdrop-saturate-150">
               <span className="text-5xl" aria-hidden>{ONLINE_SHIELDS[shieldIdx].emoji}</span>
-              <p className="font-display text-base font-bold text-white">{ONLINE_SHIELDS[shieldIdx].situation}</p>
+              <p className="font-display text-base font-bold text-foreground">{ONLINE_SHIELDS[shieldIdx].situation}</p>
             </div>
             <div className="grid grid-cols-1 gap-2.5">
               {ONLINE_SHIELDS[shieldIdx].options.map((o, i) => (
-                <button key={i} type="button" onClick={() => chooseShield(o.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-white backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
+                <button key={i} type="button" onClick={() => chooseShield(o.ok)} className="glass-card rounded-2xl px-4 py-3 text-left text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">{o.text}</button>
               ))}
             </div>
-            <p className="rounded-xl bg-white/5 px-3 py-2 text-center text-[11px] font-medium text-white/65">{RED_FLAGS}</p>
-            <p className="text-center text-xs text-white/60">{shieldIdx + 1} / {ONLINE_SHIELDS.length}</p>
+            <p className="rounded-xl bg-foreground/5 px-3 py-2 text-center text-[11px] font-medium text-foreground/65">{RED_FLAGS}</p>
+            <p className="text-center text-xs text-foreground/60">{shieldIdx + 1} / {ONLINE_SHIELDS.length}</p>
             {HomeBtn}
           </>
         )}
@@ -232,12 +232,12 @@ export function BoundaryBotGame({ onExit }: { onExit: () => void }) {
             <div className="grid grid-cols-1 gap-2.5">
               {ASK_BOT.map((it, i) => (
                 <button key={i} type="button" onClick={() => tapBot(i)} className="glass-card flex flex-col gap-1.5 rounded-2xl px-4 py-3 text-left backdrop-blur-[12px] transition-transform active:scale-[0.98]" style={botGot.has(i) ? { boxShadow: `inset 0 0 0 2px ${it.help ? "#F59E0B" : "#DC2626"}` } : undefined}>
-                  <span className="flex items-center gap-2 text-sm font-bold text-white"><span aria-hidden>{it.help ? "🆘" : "🤖"}</span> {it.q}</span>
-                  {botGot.has(i) && <span className="text-sm font-medium text-white/85">{it.a}</span>}
+                  <span className="flex items-center gap-2 text-sm font-bold text-foreground"><span aria-hidden>{it.help ? "🆘" : "🤖"}</span> {it.q}</span>
+                  {botGot.has(i) && <span className="text-sm font-medium text-foreground/85">{it.a}</span>}
                 </button>
               ))}
             </div>
-            <p className="text-center text-xs text-white/60">Boundary Bot gives safe, checked answers — and never keeps your details.</p>
+            <p className="text-center text-xs text-foreground/60">Boundary Bot gives safe, checked answers — and never keeps your details.</p>
             {HomeBtn}
           </>
         )}

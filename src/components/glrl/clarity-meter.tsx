@@ -17,7 +17,7 @@ export function ClarityMeter({ value, name }: { value: number; name: string }) {
     <div className="glass-pill flex items-center gap-2 rounded-full px-3 py-1.5 backdrop-blur-md backdrop-saturate-150">
       <Heart className="size-3.5 shrink-0" style={{ color }} fill="currentColor" aria-hidden />
       <span className="sr-only">{name}&apos;s clarity</span>
-      <span className="relative h-2 w-24 overflow-hidden rounded-full bg-white/15" role="meter" aria-valuenow={Math.round(v)} aria-valuemin={0} aria-valuemax={100} aria-label={`${name}'s clarity`}>
+      <span className="relative h-2 w-24 overflow-hidden rounded-full bg-foreground/15" role="meter" aria-valuenow={Math.round(v)} aria-valuemin={0} aria-valuemax={100} aria-label={`${name}'s clarity`}>
         <span
           className="absolute inset-y-0 left-0 rounded-full transition-[width,background-color] duration-500"
           style={{ width: `${v}%`, background: color }}

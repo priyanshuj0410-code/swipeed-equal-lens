@@ -34,7 +34,7 @@ export function BrandSplash({
       <Logo className="size-20 drop-shadow-md" title="SwipeEd" />
       <span className="font-display text-2xl font-extrabold tracking-tight text-slate-800">SwipeEd</span>
       <div className="flex w-44 flex-col items-center gap-2">
-        <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/55">
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-foreground/55">
           {determinate ? (
             <div className="h-full rounded-full bg-slate-700/70 transition-[width] duration-300 ease-out" style={{ width: `${pct}%` }} />
           ) : (
