@@ -535,6 +535,77 @@ function CanvasGround() {
   );
 }
 
+// Progress trail (Nodes & Navigation spec §6): the route you've walked inks over in Grow Coral — a solid
+// line drawn in BEHIND the player along the path; ahead stays dotted paper. Replaces any progress bar.
+// uProgress = the furthest you've reached (a high-water mark, so reviewing earlier nodes never erases it).
+function ProgressTrail({ progress }: { progress: React.MutableRefObject<number> }) {
+  const maxRef = useRef(0);
+  const { geometry, material } = useMemo(() => {
+    const N = Math.max(2, Math.ceil(CURVE.getLength() / 1.2));
+    const pts = CURVE.getSpacedPoints(N); // arc-length spaced → uv.x = i/N matches the progress param
+    const hw = 0.3; // half-width of the inked line (world units)
+    const pos: number[] = [];
+    const uv: number[] = [];
+    const idx: number[] = [];
+    for (let i = 0; i <= N; i++) {
+      const p = pts[i];
+      const a = pts[Math.max(0, i - 1)];
+      const b = pts[Math.min(N, i + 1)];
+      const dx = b.x - a.x;
+      const dz = b.z - a.z;
+      const len = Math.hypot(dx, dz) || 1;
+      const nx = -dz / len;
+      const nz = dx / len;
+      const t = i / N;
+      pos.push(p.x + nx * hw, 0.12, p.z + nz * hw);
+      uv.push(t, 0);
+      pos.push(p.x - nx * hw, 0.12, p.z - nz * hw);
+      uv.push(t, 1);
+      if (i < N) {
+        const k = i * 2;
+        idx.push(k, k + 2, k + 1, k + 1, k + 2, k + 3);
+      }
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+    g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
+    g.setIndex(idx);
+    const m = new THREE.ShaderMaterial({
+      transparent: true,
+      depthWrite: false,
+      uniforms: { uProgress: { value: 0 }, uColor: { value: new THREE.Color("#FF7A5C") } }, // Grow Coral
+      vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: `
+        varying vec2 vUv;
+        uniform float uProgress;
+        uniform vec3 uColor;
+        void main() {
+          if (vUv.x > uProgress) discard;                                  // ahead of you = bare dotted paper
+          float tip = smoothstep(0.0, 0.005, uProgress - vUv.x);           // soft 'just-inked' leading tip
+          float across = 1.0 - smoothstep(0.6, 1.0, abs(vUv.y - 0.5) * 2.0); // soft line edges
+          float a = tip * across;
+          if (a < 0.02) discard;
+          gl_FragColor = vec4(uColor, a);
+          #include <colorspace_fragment>
+        }
+      `,
+    });
+    return { geometry: g, material: m };
+  }, []);
+  useFrame(() => {
+    maxRef.current = Math.max(maxRef.current, clamp01(progress.current));
+    material.uniforms.uProgress.value = maxRef.current;
+  });
+  useEffect(
+    () => () => {
+      geometry.dispose();
+      material.dispose();
+    },
+    [geometry, material]
+  );
+  return <mesh geometry={geometry} material={material} renderOrder={1} />;
+}
+
 // ============================================================================================
 // Canvas corridor — a long winding hallway that follows the path: floor + two side walls + ceiling,
 // all swept along CURVE so the whole corridor curves with the path. Every surface is the brand dotted
@@ -2400,6 +2471,7 @@ export function PathScene({
           else — a fresh base to build up block by block. The realistic GLTF world is unchanged. */}
       {/* canvas: a WORLD-space dotted-paper plane (scrolls as you travel) — not screen-space dots */}
       {canvas ? <CanvasGround /> : <SkyDome />}
+      {canvas && <ProgressTrail progress={progress} />}
       {!canvas && <Clouds />}
       <NightSky />
       <FollowCam progress={progress} canvas={canvas} />
