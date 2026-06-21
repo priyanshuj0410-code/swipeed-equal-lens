@@ -10,6 +10,7 @@ import { useProfile } from "@/lib/store";
 import { useSwipeGame } from "@/lib/use-swipe-game";
 import { GameCard } from "@/components/game-card";
 import { WorldLoader } from "@/components/world-loader";
+import { UnlearnToolbar } from "@/components/unlearn-toolbar";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { EngineGameHost, hasEngineGame } from "@/components/games/engine-host";
@@ -131,11 +132,7 @@ export default function PathPage() {
               <Star className="size-4" style={{ color: "var(--accent-amber)" }} fill="currentColor" aria-hidden /> {profile.coins}
             </span>
           </div>
-          <div className="pointer-events-none fixed inset-x-0 bottom-6 z-40 flex justify-center px-4">
-            <span className="glass-pill rounded-full px-3.5 py-1.5 text-xs font-medium backdrop-blur-md backdrop-saturate-150">
-              Tap a node to start · scroll or drag to travel
-            </span>
-          </div>
+          <UnlearnToolbar />
         </>
       )}
 

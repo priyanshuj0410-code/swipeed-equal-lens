@@ -7,6 +7,7 @@ import { Check, Lock, Play, Trophy } from "lucide-react";
 import { tokens } from "@equal-lens/brand"; // canvas-world brand colours — single source (retheme via the library)
 import { NODES, CHAPTERS, type Chapter } from "@/content/path";
 import { CANVAS_MYTHS, CHAPTER_CANVAS } from "@/content/chapter-canvas";
+import { useUnlearnTool, type UnlearnToolName } from "@/lib/unlearn-tool";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Card as GameCardT, Flag as FlagT } from "@/lib/types";
 
@@ -1427,6 +1428,7 @@ const _hashStr = (s: string) => {
 // (teal UN strike) with the truth RE writes (coral) below. A curated few per chapter; windowed so
 // only the nearby notes mount.
 function CanvasContent({ nodes, progress }: { nodes: SceneNode[]; progress: React.MutableRefObject<number> }) {
+  const { tool, hide, resetSeq } = useUnlearnTool();
   const placed = useMemo(() => {
     const us = chapterSpacedUs(nodes).nodeU;
     const chKeys = CHAPTERS.map((c) => c.key); // index i -> chapter (i + 1)
@@ -1441,7 +1443,7 @@ function CanvasContent({ nodes, progress }: { nodes: SceneNode[]; progress: Reac
       chZ.set(ci + 1, e);
     });
     const tones = ["note--yellow", "note--mint", "note--peach", "note--violet"];
-    const out: { id: string; x: number; z: number; rot: number; tone: string; myth: string; truth: string }[] = [];
+    const out: { id: string; x: number; z: number; rot: number; tone: string; myth: string; truth: string; explanation?: string }[] = [];
     for (const cc of CHAPTER_CANVAS) {
       const range = chZ.get(cc.chapter);
       const all = CANVAS_MYTHS.filter((m) => m.chapter === cc.chapter);
@@ -1461,12 +1463,35 @@ function CanvasContent({ nodes, progress }: { nodes: SceneNode[]; progress: Reac
           tone: tones[h % tones.length],
           myth: m.myth,
           truth: m.truth,
+          explanation: m.explanation,
         });
       });
     }
     return out;
   }, [nodes]);
 
+  // persistent phase per myth id (survives the scroll-window unmount); reset by the toolbar
+  const [phases, setPhases] = useState<Record<string, { erase: number; reveal: number; phase: "myth" | "erased" | "truth" }>>({});
+  useEffect(() => {
+    if (resetSeq > 0) setPhases({});
+  }, [resetSeq]);
+  const pressing = useRef(false);
+  const smudge = useCallback((id: string, t: UnlearnToolName, amt: number) => {
+    setPhases((p) => {
+      const cur = p[id] ?? { erase: 0, reveal: 0, phase: "myth" as const };
+      if (t === "eraser" && cur.phase === "myth") {
+        const erase = Math.min(1, cur.erase + amt);
+        return { ...p, [id]: { ...cur, erase, phase: erase >= 1 ? "erased" : "myth" } };
+      }
+      if (t === "pen" && cur.phase === "erased") {
+        const reveal = Math.min(1, cur.reveal + amt);
+        return { ...p, [id]: { ...cur, reveal, phase: reveal >= 1 ? "truth" : "erased" } };
+      }
+      return p;
+    });
+  }, []);
+
+  // re-render as the camera scrolls so the visible window slides
   const [, force] = useState(0);
   const cz = useRef(CURVE.getPointAt(clamp01(progress.current)).z); // seed the window at the start
   useFrame(() => {
@@ -1476,25 +1501,79 @@ function CanvasContent({ nodes, progress }: { nodes: SceneNode[]; progress: Reac
       force((n) => n + 1);
     }
   });
+  if (hide) return null;
+  const active = tool !== "none";
   const vis = placed.filter((m) => m.z <= cz.current + 12 && m.z >= cz.current - 12);
   return (
     <>
-      {vis.map((m) => (
-        <group key={m.id} position={[m.x, 0.14, m.z]}>
-          <Html center distanceFactor={18} zIndexRange={[18, 6]} style={{ pointerEvents: "none" }}>
-            <div className={`note ${m.tone} myth-card select-none`} style={{ transform: `rotate(${m.rot}deg)` }}>
-              <span className="note__chip">myth</span>
-              <span className="myth-line">
-                {m.myth}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/brand/doodles/squiggle.svg" alt="" className="myth-scribble" />
-              </span>
-              <span className="note__chip note__chip--truth">truth ✓</span>
-              <span className="myth-fact">{m.truth}</span>
-            </div>
-          </Html>
-        </group>
-      ))}
+      {vis.map((m) => {
+        const ph = phases[m.id] ?? { erase: 0, reveal: 0, phase: "myth" as const };
+        return (
+          <group key={m.id} position={[m.x, 0.14, m.z]}>
+            <Html center distanceFactor={18} zIndexRange={[18, 6]} style={{ pointerEvents: active ? "auto" : "none" }}>
+              <div
+                className={`note ${m.tone} myth-card select-none`}
+                style={{ transform: `rotate(${m.rot}deg)`, cursor: active ? "pointer" : "default", touchAction: "none" }}
+                onPointerDown={(e) => {
+                  if (!active) return;
+                  e.stopPropagation();
+                  try {
+                    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+                  } catch {}
+                  pressing.current = true;
+                  smudge(m.id, tool, 0.4);
+                }}
+                onPointerMove={(e) => {
+                  if (active && pressing.current) {
+                    e.stopPropagation();
+                    smudge(m.id, tool, 0.18);
+                  }
+                }}
+                onPointerUp={() => {
+                  pressing.current = false;
+                }}
+              >
+                <MythNoteBody ph={ph} m={m} />
+              </div>
+            </Html>
+          </group>
+        );
+      })}
+    </>
+  );
+}
+
+function MythNoteBody({
+  ph,
+  m,
+}: {
+  ph: { erase: number; reveal: number; phase: "myth" | "erased" | "truth" };
+  m: { myth: string; truth: string; explanation?: string };
+}) {
+  if (ph.phase === "myth") {
+    return (
+      <>
+        <span className="note__chip">myth</span>
+        <p className="myth-text" style={{ opacity: 1 - ph.erase * 0.92, filter: `blur(${ph.erase * 3}px)` }}>
+          {m.myth}
+        </p>
+        <span className="myth-hint">rub me out with UN →</span>
+      </>
+    );
+  }
+  if (ph.phase === "erased") {
+    return (
+      <>
+        <span className="note__chip note__chip--truth">now relearn</span>
+        <span className="myth-hint">draw the truth with RE →</span>
+      </>
+    );
+  }
+  return (
+    <>
+      <span className="note__chip note__chip--truth">truth ✓</span>
+      <p className="myth-text myth-truth">{m.truth}</p>
+      {m.explanation && <p className="myth-expl">{m.explanation}</p>}
     </>
   );
 }
