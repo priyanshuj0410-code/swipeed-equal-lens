@@ -95,7 +95,7 @@ metaphor survives; theme changes cross-fade **320ms**.
 | **0 — design-of-record** *(this doc)* | the map, decisions, token spec, build order | 🟢 done |
 | **1 — token + type foundation** | re-map `globals.css` to brand tokens (back-compat aliases) + fonts (Baloo 2 / Poppins / Nunito Sans) + `[data-audience]` dark | ✅ **shipped** |
 | **2 — sticker UI kit** | redefine `.glass-card`/`.glass-pill` as sticker surfaces + dotted paper; sweep glass text/CTA/pip colours | ✅ **shipped** (doodle set + CTA cut-out outline deferred to a polish pass) |
-| **3 — motion tokens** | `anim-*` + `hover-pop` + 320ms cross-fade | 🟢🟡 low-med |
+| **3 — motion tokens** | `anim-*` + `hover-pop` + 320ms cross-fade | ✅ **shipped** (Sam→`anim-bob`, pills→`hover-pop`; `anim-float/wobble/pop` available, wired broadly with doodles/Lensy later) |
 | **4 — logo / icon / wordmark** | eQ mark; app icon = Lensy face; lockup; `manifest.ts`, icons, splash | 🟡 med + naming call |
 | **5 — Sam → Lensy-family (2D)** | redraw `sam.tsx` (purple, eQ-mark eyes, sticker), keep "grows with you"; UN&RE → teal/coral character forms | 🔴 med-high (art) |
 | **6 — 3D world to brand** | retune `seasons.ts` + colormap atlases + thread colours to the violet+accent family; swap path companion (`character-female-c.glb`) for a Lensy-family model (+ optional Lensy spaceship beat) | 🔴 high (art/model) |
