@@ -1691,6 +1691,8 @@ function Node({
   const spr = useRef<THREE.Sprite>(null);
   const cap = !!node.capstone;
   const soon = node.state === "soon";
+  const completed = node.state === "completed";
+  const tilt = completed ? ([...node.id].reduce((s, c) => s + c.charCodeAt(0), 0) % 9) - 4 : 0; // jaunty 'stuck-on' angle per node
   const greyEmoji = soon && !cap; // capstones keep their gold; not-built lessons grey out
   const tex = useEmojiTexture(node.emoji, greyEmoji);
   const st = nodeShades(node.hex, node.state, cap);
@@ -1750,20 +1752,23 @@ function Node({
               }}
               onBlur={() => setHovered(false)}
               onClick={select}
-              className={`pointer-events-auto relative grid place-items-center rounded-full bg-[var(--color-paper)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--violet-200)] disabled:cursor-default ${cap ? "size-40" : "size-32"} ${soon ? "node-locked" : "sticker-soft hover-pop"}`}
+              style={completed ? { transform: `rotate(${tilt}deg)` } : undefined}
+              className={`pointer-events-auto relative grid place-items-center rounded-full bg-[var(--color-paper)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--violet-200)] disabled:cursor-default ${cap ? "size-40" : "size-32"} ${soon ? "node-locked" : completed ? "sticker-soft" : "sticker-soft hover-pop"}`}
             >
               <span className={`leading-none ${cap ? "text-[64px]" : "text-[52px]"} ${soon ? "opacity-50 grayscale" : ""}`}>{node.emoji}</span>
-              {!soon && !active && (
+              {/* up-next: a small Grow-Coral play mark. done: a coral 'earned' check badge stamped on the corner */}
+              {!soon && !active && !completed && (
                 <span className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[var(--color-grow)]" aria-hidden>
-                  {node.state === "completed" ? (
-                    <svg viewBox="0 0 20 20" className="size-7">
-                      <path d="M4 11 l4 4 l8 -10" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  ) : (
-                    <svg viewBox="0 0 20 20" className="size-6">
-                      <path d="M6 4 L6 16 L16 10 Z" fill="currentColor" />
-                    </svg>
-                  )}
+                  <svg viewBox="0 0 20 20" className="size-6">
+                    <path d="M6 4 L6 16 L16 10 Z" fill="currentColor" />
+                  </svg>
+                </span>
+              )}
+              {!soon && completed && (
+                <span className="absolute -right-1 -top-1 grid size-9 place-items-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-grow)] text-[var(--color-paper)]" aria-hidden>
+                  <svg viewBox="0 0 20 20" className="size-5">
+                    <path d="M4 11 l4 4 l8 -10" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </span>
               )}
             </button>
