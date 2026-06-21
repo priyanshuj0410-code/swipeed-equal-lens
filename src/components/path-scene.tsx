@@ -459,7 +459,7 @@ function CanvasSky() {
 // texture tiling, no stretching toward the horizon, no mip blur. Two knobs: GAP (spacing) + DOT (radius).
 // ============================================================================================
 const CANVAS_PAPER = "#FBF9FF";
-const CANVAS_DOT = "#ECE6F6";
+const CANVAS_DOT = "#E7E0F1";
 function CanvasGround() {
   const mat = useMemo(() => {
     const m = new THREE.ShaderMaterial({
