@@ -36,7 +36,7 @@ const TOON_GRAD = (() => {
 // a node lands exactly on each extremum. The canvas camera scrolls straight up the centre line (see
 // FollowCam), so the wave weaves L/R in frame. Tune: NODE_AMP = swing, NODE_DZ = vertical gap.
 const PATH_SCALE = 3; // scenery density only (tree/prop counts); the curve below is in world units
-const NODE_AMP = 5; // horizontal swing — nodes rest at x = ±NODE_AMP
+const NODE_AMP = 3; // horizontal swing — nodes rest at x = ±NODE_AMP (closer to centre)
 const NODE_DZ = 7; // vertical distance between consecutive nodes (half a sine period)
 const SINE_START_Z = 18; // z of the first (bottom) node
 const SINE_NODE_COUNT = NODES.length; // one node per sine extremum
@@ -1245,7 +1245,7 @@ function Node({
   if (canvas) {
     return (
       <group position={[pos.x, 0.13, pos.z]}>
-        <Html center position={[0, 0, 0]} distanceFactor={22} zIndexRange={[30, 0]}>
+        <Html center position={[0, 0, 0]} distanceFactor={17.6} zIndexRange={[30, 0]}>
           <div className="pointer-events-none relative flex flex-col items-center" style={{ visibility: occluded ? "hidden" : "visible" }}>
             <button
               type="button"
@@ -1375,7 +1375,7 @@ function ChapterBanner({ ch, u, p, progress }: { ch: Chapter; u: number; p: THRE
     }
   });
   return (
-    <Html center position={[p.x, p.y, p.z]} distanceFactor={13} zIndexRange={[60, 40]}>
+    <Html center position={[p.x, p.y, p.z]} distanceFactor={26} zIndexRange={[60, 40]}>
       <div
         style={{ visibility: occluded ? "hidden" : "visible" }}
         className={`glass-pill pointer-events-none flex select-none flex-col items-center whitespace-nowrap rounded-xl px-3 py-1 text-center backdrop-blur-md backdrop-saturate-150 transition-opacity duration-300 ${
@@ -1696,8 +1696,6 @@ export function PathScene({
       {/* soft, season-free lighting — enough to light Sam (the only lit 3D object) */}
       <hemisphereLight args={["#ffffff", "#e7e0f1", 1.1]} />
       <directionalLight position={[6, 14, 8]} intensity={1.15} />
-      <CanvasCorridor nodes={nodes} />
-      <CorridorDoors nodes={nodes} chapters={chapters} progress={progress} />
       {/* phase 1: nodes + chapter signs (hidden while a level is being played).
           Nodes first so the chapter banners (rendered after) stack ABOVE the node labels. */}
       {phase >= 1 && !playing && (
