@@ -550,8 +550,15 @@ let _corridorMesh: THREE.Mesh | null = null;
 function CanvasCorridor() {
   const { geometry, material } = useMemo(() => {
     const len = CURVE.getLength();
-    const N = Math.max(8, Math.ceil(len / 1.2));
-    const pts = CURVE.getSpacedPoints(N);
+    const baseN = Math.max(8, Math.ceil(len / 1.2));
+    const base = CURVE.getSpacedPoints(baseN);
+    // extend the corridor straight past both ends so there's always floor/walls under the camera —
+    // otherwise at the very start the floor's near edge meets the backdrop at the bottom of the screen.
+    const extLen = 30;
+    const tA = base[1].clone().sub(base[0]).normalize();
+    const tB = base[baseN].clone().sub(base[baseN - 1]).normalize();
+    const pts = [base[0].clone().addScaledVector(tA, -extLen), ...base, base[baseN].clone().addScaledVector(tB, extLen)];
+    const N = pts.length - 1;
     type Frame = { px: number; py: number; pz: number; nx: number; nz: number; u: number };
     const frames: Frame[] = [];
     let cum = 0;
