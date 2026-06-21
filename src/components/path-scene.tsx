@@ -1606,6 +1606,7 @@ function Node({
   onSelect,
   reduced,
   canvas,
+  active,
 }: {
   node: SceneNode;
   u: number;
@@ -1613,6 +1614,7 @@ function Node({
   onSelect?: (n: SceneNode) => void;
   reduced: boolean;
   canvas: boolean;
+  active: boolean; // the single "play me next" node — gets Lensy + the re-sketching ring
 }) {
   const pos = useMemo(() => CURVE.getPointAt(u), [u]);
   const spr = useRef<THREE.Sprite>(null);
@@ -1680,7 +1682,7 @@ function Node({
               className={`pointer-events-auto relative grid place-items-center rounded-full bg-[var(--color-paper)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--violet-200)] disabled:cursor-default ${cap ? "size-40" : "size-32"} ${soon ? "node-locked" : "sticker-soft hover-pop"}`}
             >
               <span className={`leading-none ${cap ? "text-[64px]" : "text-[52px]"} ${soon ? "opacity-50 grayscale" : ""}`}>{node.emoji}</span>
-              {!soon && (
+              {!soon && !active && (
                 <span className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[var(--color-grow)]" aria-hidden>
                   {node.state === "completed" ? (
                     <svg viewBox="0 0 20 20" className="size-7">
@@ -1694,6 +1696,21 @@ function Node({
                 </span>
               )}
             </button>
+            {/* Active node (spec §3/§5): the single 'play me next' — a re-sketching Equal-Violet ring +
+                Lensy perched with a 'Play?' bubble. The strongest on-brand play cue; replaces the play mark. */}
+            {active && (
+              <>
+                <svg viewBox="0 0 160 160" aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ width: cap ? 196 : 160, height: cap ? 196 : 160 }}>
+                  <circle cx="80" cy="80" r="73" fill="none" stroke="var(--color-brand)" strokeWidth="3.5" strokeLinecap="round" strokeDasharray="459" className="sketch-ring" />
+                </svg>
+                <div className="pointer-events-none absolute -top-11 right-0 flex translate-x-1/4 flex-col items-center">
+                  <span style={{ fontFamily: "var(--font-hand)" }} className="mb-0.5 whitespace-nowrap rounded-full border-2 border-[var(--violet-600)] bg-[var(--color-paper)] px-2 py-0.5 text-[13px] font-bold text-[var(--color-ink)]">
+                    Play?
+                  </span>
+                  <img src="/brand/lensy/lensy-wave.svg" alt="" className="anim-bob w-16" />
+                </div>
+              </>
+            )}
             <span
               style={{ fontFamily: "var(--font-hand)" }}
               className={`pointer-events-none absolute bottom-full mb-2.5 block select-none whitespace-nowrap rounded-md border-2 border-[var(--violet-600)] bg-[var(--color-paper)] px-2.5 py-1 text-[16.5px] font-bold text-[var(--color-ink)] transition-opacity duration-150 ${
@@ -1823,6 +1840,8 @@ function Nodes({
 }) {
   const total = nodes.length;
   const us = useMemo(() => chapterSpacedUs(nodes).nodeU, [nodes]);
+  // exactly one Active node = the next in the chain (first still-playable lesson); the rest are quiet
+  const activeIndex = useMemo(() => nodes.findIndex((n) => n.state === "playable"), [nodes]);
   const [start, setStart] = useState(0);
   const startRef = useRef(0);
   useFrame(() => {
@@ -1849,7 +1868,7 @@ function Nodes({
     <>
       {items.map((node, k) => {
         const i = from + k;
-        return <Node key={node.id} node={node} u={us[i]} progress={progress} onSelect={onSelect} reduced={reduced} canvas={canvas} />;
+        return <Node key={node.id} node={node} u={us[i]} progress={progress} onSelect={onSelect} reduced={reduced} canvas={canvas} active={canvas && i === activeIndex} />;
       })}
     </>
   );
