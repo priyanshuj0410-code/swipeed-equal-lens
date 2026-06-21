@@ -6,16 +6,16 @@ import type { GameView } from "@/components/path-scene";
 import type { Flag as FlagType } from "@/lib/types";
 
 const COMMIT = 0.32;
-// light accents that read on the dark frosted glass
-const LGREEN = "#62e08f";
-const LRED = "#ff9085";
-const LBLUE = "#b3c8ff";
+// flag accents that read on the white sticker card
+const LGREEN = "#15803d";
+const LRED = "#d23f31";
+const LBLUE = "#553286";
 
-// glass tint: neutral black, shifting toward dark green (right) / dark red (left) as you drag
+// sticker card: opaque surface, shifting toward pale green (right) / pale red (left) as you drag
 type RGBA = [number, number, number, number];
-const TINT_BASE: RGBA = [13, 16, 23, 0.32];
-const TINT_GREEN: RGBA = [10, 102, 46, 0.52];
-const TINT_RED: RGBA = [128, 20, 16, 0.52];
+const TINT_BASE: RGBA = [255, 255, 255, 1];
+const TINT_GREEN: RGBA = [216, 245, 230, 1];
+const TINT_RED: RGBA = [252, 224, 220, 1];
 const rgba = (c: RGBA) => `rgba(${Math.round(c[0])}, ${Math.round(c[1])}, ${Math.round(c[2])}, ${c[3].toFixed(3)})`;
 const mix = (a: RGBA, b: RGBA, t: number): RGBA => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t, a[3] + (b[3] - a[3]) * t];
 
@@ -26,7 +26,7 @@ function PlayFace({ view, greenHint, redHint }: { view: GameView; greenHint: num
       <span className="flex w-fit items-center gap-1.5 rounded-full bg-foreground/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-foreground/95">
         {c.context_tag}
       </span>
-      <p className="flex flex-1 items-center text-balance text-center font-display text-[1.65rem] font-semibold leading-snug text-foreground [text-shadow:0_1px_3px_rgba(0,0,0,0.35)]">
+      <p className="flex flex-1 items-center text-balance text-center font-display text-[1.65rem] font-semibold leading-snug text-foreground">
         {c.scenario_text}
       </p>
       <div className="flex items-center justify-between text-xs font-semibold">

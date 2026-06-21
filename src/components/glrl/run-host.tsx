@@ -125,7 +125,7 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
           {/* perks (presence) */}
           <div className="fixed right-4 top-16 z-50 flex flex-col items-end gap-1">
             {hud.perks.map((p) => (
-              <span key={p} title={PERK_BY_ID[p].effect} className="glass-pill flex size-7 items-center justify-center rounded-full text-sm backdrop-blur-md" aria-hidden>
+              <span key={p} title={PERK_BY_ID[p].effect} className="flex size-9 items-center justify-center rounded-full border-2 border-[color:var(--color-ink)] bg-[color:var(--color-surface)] text-base" aria-hidden>
                 {PERK_BY_ID[p].emoji}
               </span>
             ))}

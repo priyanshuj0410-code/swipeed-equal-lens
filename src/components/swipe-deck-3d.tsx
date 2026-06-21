@@ -460,7 +460,8 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
           <button
             type="button"
             onClick={next}
-            className="h-14 flex-1 rounded-2xl bg-primary text-base font-bold text-primary-foreground shadow-lg transition-transform active:scale-95"
+            className="h-14 flex-1 rounded-2xl border-[2.5px] border-[color:var(--color-ink)] bg-primary text-base font-bold text-primary-foreground transition-transform active:scale-95"
+            style={{ boxShadow: "3px 3px 0 0 var(--color-ink)" }}
           >
             {index + 1 >= cards.length ? "Finish" : "Next"}
           </button>
@@ -470,8 +471,8 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
               type="button"
               disabled={busy}
               onClick={() => commit("red")}
-              className="flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold shadow-lg backdrop-blur transition-transform active:scale-95 disabled:opacity-60"
-              style={{ background: "color-mix(in oklab, var(--flag-red) 18%, rgba(255,255,255,0.7))", color: "var(--flag-red)", border: "2px solid color-mix(in oklab, var(--flag-red) 40%, transparent)" }}
+              className="flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold transition-transform active:scale-95 disabled:opacity-60"
+              style={{ background: "var(--color-surface)", color: "var(--flag-red)", border: "2.5px solid var(--flag-red)", boxShadow: "3px 3px 0 0 var(--color-ink)" }}
             >
               <Flag className="size-5" aria-hidden /> {L.left}
             </button>
@@ -479,8 +480,8 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
               type="button"
               disabled={busy}
               onClick={() => commit("green")}
-              className="flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold shadow-lg backdrop-blur transition-transform active:scale-95 disabled:opacity-60"
-              style={{ background: "color-mix(in oklab, var(--flag-green) 18%, rgba(255,255,255,0.7))", color: "var(--flag-green)", border: "2px solid color-mix(in oklab, var(--flag-green) 40%, transparent)" }}
+              className="flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold transition-transform active:scale-95 disabled:opacity-60"
+              style={{ background: "var(--color-surface)", color: "var(--flag-green)", border: "2.5px solid var(--flag-green)", boxShadow: "3px 3px 0 0 var(--color-ink)" }}
             >
               <Check className="size-5" aria-hidden /> {L.right}
             </button>
