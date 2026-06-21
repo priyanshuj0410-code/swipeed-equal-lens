@@ -1001,8 +1001,16 @@ const ENV_URLS = [
   "/models/cloud.glb",
   "/models/flowers-tall.glb",
 ];
-[...PROP_URLS, ...ENV_URLS].forEach((u) => useGLTF.preload(u));
+// Sam (the companion) shows in both skins, so preload her always; the realistic-world GLBs (trees,
+// props, terrain, planks, clouds) are preloaded only when the realistic skin is active — the canvas
+// skin uses none of them, so it should download zero of them.
 useGLTF.preload("/models/characters/character-female-c.glb");
+let _realisticPreloaded = false;
+function preloadRealisticModels() {
+  if (_realisticPreloaded) return;
+  _realisticPreloaded = true;
+  [...PROP_URLS, ...ENV_URLS].forEach((u) => useGLTF.preload(u));
+}
 
 // One streamed instanced layer per prop model (single-mesh Kenney models). Same organic
 // scatter + lean as before, but only the chunks near the camera are populated.
@@ -1713,6 +1721,10 @@ export function PathScene({
   skin?: WorldSkin;
 }) {
   const canvas = skin === "canvas";
+  // only the realistic skin needs the GLTF world; preload its models lazily (canvas downloads none)
+  useEffect(() => {
+    if (!canvas) preloadRealisticModels();
+  }, [canvas]);
   // focus on load: the first playable lesson, else the first completed one, else the start
   const startU = useMemo(() => {
     let i = nodes.findIndex((n) => n.state === "playable");
