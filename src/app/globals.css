@@ -313,26 +313,19 @@ html[data-playing="true"] .gethelp-label {
 .beat-burst { animation: beat-burst 0.8s ease-out both; }
 @media (prefers-reduced-motion: reduce) { .beat-badge { animation: none; } .beat-burst { display: none; } }
 
-/* Chapter canvas content — the brand sticky note (.note), sized for the canvas; the bias line is
-   scribbled out with the brand squiggle doodle and the truth (RE) written below. */
+/* Interactive myth notes on the path — the brand .note sized for the canvas. Drag UN to smudge the
+   myth (blur + fade), then RE to reveal the truth + a short why. */
 .myth-card {
-  width: 10rem;
+  width: 10.5rem;
   min-height: 0;
-  gap: 5px;
-  padding: 0.6rem 0.7rem;
+  gap: 4px;
+  padding: 0.65rem 0.8rem;
   border-radius: 0.6rem;
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   line-height: 1.25;
 }
-.myth-card .note__chip { font-size: 0.56rem; padding: 0.08rem 0.4rem; }
-.myth-card .myth-line { position: relative; display: inline-block; font-weight: 700; }
-.myth-card .myth-scribble {
-  position: absolute;
-  left: -3%;
-  top: 48%;
-  width: 106%;
-  height: 0.7rem;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-.myth-card .myth-fact { font-weight: 700; color: #0f6e56; }
+.myth-card .note__chip { font-size: 0.58rem; padding: 0.08rem 0.45rem; }
+.myth-card .myth-text { margin-top: 4px; font-weight: 700; transition: opacity 0.1s ease, filter 0.1s ease; }
+.myth-card .myth-truth { color: var(--color-brand); }
+.myth-card .myth-hint { display: block; margin-top: 4px; font-size: 0.64rem; font-weight: 600; opacity: 0.5; }
+.myth-card .myth-expl { margin-top: 4px; font-size: 0.66rem; font-weight: 600; opacity: 0.72; }
