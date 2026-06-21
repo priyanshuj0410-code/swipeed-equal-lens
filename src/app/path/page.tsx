@@ -28,21 +28,27 @@ export default function PathPage() {
   const game = useSwipeGame();
   const [engineGame, setEngineGame] = useState<string | null>(null);
   const [webgl, setWebgl] = useState<boolean | null>(null);
-  // World mode (Phase 6 verification): 3D path (default) vs the 2.5D sticker canvas. `?world=canvas`/`3d`
-  // opts in and persists; the 3D world stays the default + intact until the canvas is signed off.
-  const [worldMode, setWorldMode] = useState<"3d" | "canvas">("3d");
+  // World skin: realistic 3D path (default) vs the hand-drawn canvas re-skin. `?world=canvas`/`3d`
+  // opts in and persists. Resolved SYNCHRONOUSLY in the initial state (PathScene is ssr:false, so this
+  // can read the URL/localStorage during the first client render) — so the chosen skin mounts on frame
+  // one. If we instead defaulted to "3d" and flipped in an effect, the realistic world would mount and
+  // start loading GLBs first, then R3F would leave those objects behind when the skin switched (the
+  // "flash then revert to the realistic mess" bug).
+  const [worldMode] = useState<"3d" | "canvas">(() => {
+    if (typeof window === "undefined") return "3d";
+    try {
+      const p = new URLSearchParams(window.location.search).get("world");
+      if (p === "canvas" || p === "3d") {
+        localStorage.setItem("swipeed.world", p);
+        return p;
+      }
+      return localStorage.getItem("swipeed.world") === "canvas" ? "canvas" : "3d";
+    } catch {
+      return "3d";
+    }
+  });
 
   const playing = game.active || engineGame !== null;
-
-  useEffect(() => {
-    const p = new URLSearchParams(window.location.search).get("world");
-    if (p === "canvas" || p === "3d") {
-      try { localStorage.setItem("swipeed.world", p); } catch { /* ignore */ }
-    }
-    let w: string | null = null;
-    try { w = localStorage.getItem("swipeed.world"); } catch { /* ignore */ }
-    setWorldMode(w === "canvas" ? "canvas" : "3d");
-  }, []);
 
   useEffect(() => {
     try {
@@ -126,6 +132,7 @@ export default function PathPage() {
           </div>
         ) : (
           <PathScene
+            key={worldMode}
             nodes={nodes}
             chapters={CHAPTERS}
             onSelectNode={handleSelect}
