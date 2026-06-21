@@ -2411,20 +2411,34 @@ function NightSky() {
   );
 }
 
-function FollowCam({ progress }: { progress: React.MutableRefObject<number> }) {
+function FollowCam({ progress, canvas }: { progress: React.MutableRefObject<number>; canvas: boolean }) {
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera;
   const size = useThree((s) => s.size);
   const look = useRef(new THREE.Vector3(0, 1.2, 14));
   useFrame(() => {
     const portrait = size.width / size.height < 1;
-    const back = portrait ? 12 : 8.5;
-    const height = portrait ? 7.5 : 5.5;
     const u = clamp01(progress.current);
     const p = CURVE.getPointAt(u);
     const tan = CURVE.getTangentAt(u);
     tan.y = 0;
     if (tan.lengthSq() === 0) tan.set(0, 0, -1);
     tan.normalize();
+    if (canvas) {
+      // top-down map view: high above the path, tilted slightly back along it so heading still reads
+      const back = portrait ? 11 : 9;
+      const height = portrait ? 40 : 32;
+      camera.position.lerp(new THREE.Vector3(p.x - tan.x * back, height, p.z - tan.z * back), 0.12);
+      look.current.lerp(new THREE.Vector3(p.x + tan.x * 3, 0, p.z + tan.z * 3), 0.12);
+      camera.lookAt(look.current);
+      const fov = portrait ? 52 : 46;
+      if (Math.abs(camera.fov - fov) > 0.01) {
+        camera.fov = fov;
+        camera.updateProjectionMatrix();
+      }
+      return;
+    }
+    const back = portrait ? 12 : 8.5;
+    const height = portrait ? 7.5 : 5.5;
     camera.position.lerp(new THREE.Vector3(p.x - tan.x * back, height, p.z - tan.z * back), 0.12);
     look.current.lerp(new THREE.Vector3(p.x + tan.x * 6, 1.2, p.z + tan.z * 6), 0.12);
     camera.lookAt(look.current);
@@ -2547,7 +2561,7 @@ export function PathScene({
       {canvas ? <CanvasSky /> : <SkyDome />}
       {!canvas && <Clouds />}
       <NightSky />
-      <FollowCam progress={progress} />
+      <FollowCam progress={progress} canvas={canvas} />
       <SunLight progress={progress} />
       <hemisphereLight args={["#dcefff", "#8fc06a", 0.5]} />
       <SeasonAmbient />
