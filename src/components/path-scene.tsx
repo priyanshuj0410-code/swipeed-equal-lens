@@ -254,27 +254,32 @@ function roundRectPath(g: CanvasRenderingContext2D, x: number, y: number, w: num
 // sky, so the whole world reads as one sheet of the site's dotted paper.
 const PAPER = "#FBF9FF";
 const PAPER_DOT = "#ECE6F6";
-function makePaperTex(paper = PAPER, dot = PAPER_DOT) {
-  const grid = 28; // px between dots, exactly as on the site
-  const tiles = 6;
-  const size = grid * tiles;
+const PAPER_TILE_DOTS = 8; // dots per tile edge — used to convert a world dot-spacing into texture repeat
+// One seamless tile of the brand dotted paper: pure paper, no grain, no tint. Small dot radius +
+// supersampling keep the dots crisp and fine (not blobs) once tiled across the big ground/sky.
+function makePaperTex(dotR = 1.05, paper = PAPER, dot = PAPER_DOT) {
+  const grid = 24; // logical px between dots
+  const size = grid * PAPER_TILE_DOTS;
+  const ss = 3; // supersample so small dots stay sharp
   const c = document.createElement("canvas");
-  c.width = c.height = size;
+  c.width = c.height = size * ss;
   const g = c.getContext("2d")!;
+  g.scale(ss, ss);
   g.fillStyle = paper;
   g.fillRect(0, 0, size, size);
   g.fillStyle = dot;
   for (let y = grid / 2; y < size; y += grid)
     for (let x = grid / 2; x < size; x += grid) {
       g.beginPath();
-      g.arc(x, y, 1.7, 0, 6.2832); // a hair bigger than the site's 1.1px so dots read at 3D distance
+      g.arc(x, y, dotR, 0, 6.2832);
       g.fill();
     }
   const t = new THREE.CanvasTexture(c);
   t.wrapS = t.wrapT = THREE.RepeatWrapping;
-  t.anisotropy = 8;
   return t;
 }
+// Texture repeat for a surface `worldSpan` units long with dots ~`dotWorld` units apart.
+const paperRepeatFor = (worldSpan: number, dotWorld = 0.9) => worldSpan / (PAPER_TILE_DOTS * dotWorld);
 
 // The 8 hand-drawn doodle marks from the site (Doodles.tsx), drawn to textures — the brand's
 // easter-egg "the whole site is a canvas" confetti, scattered across the sky in the 4 accents.
@@ -435,18 +440,20 @@ function makePathStrokeTex() {
   return t;
 }
 
-// The sky is the same dotted paper as the land (one continuous canvas), washed a pale sky blue.
+// The sky is the same dotted paper as the land (one continuous canvas) — pure paper, no tint.
 function CanvasSky() {
+  const gl = useThree((s) => s.gl);
   const tex = useMemo(() => {
     const t = makePaperTex();
-    t.repeat.set(20, 10);
+    t.anisotropy = gl.capabilities.getMaxAnisotropy();
+    t.repeat.set(12, 6); // sparse on the dome so the dots stay even and pole convergence is subtle
     return t;
-  }, []);
+  }, [gl]);
   useEffect(() => () => tex.dispose(), [tex]);
   return (
     <mesh position={[0, 0, PATH_MID_Z]}>
-      <sphereGeometry args={[560, 32, 16]} />
-      <meshBasicMaterial map={tex} color="#e6eefb" side={THREE.BackSide} depthWrite={false} fog={false} />
+      <sphereGeometry args={[560, 64, 32]} />
+      <meshBasicMaterial map={tex} side={THREE.BackSide} depthWrite={false} fog={false} />
     </mesh>
   );
 }
@@ -700,30 +707,23 @@ function Ground({ skin }: { skin: WorldSkin }) {
     g.setAttribute("color", new THREE.Float32BufferAttribute(colorArrays.summer.slice(), 3));
     return { geo: g, colorArrays };
   }, []);
-  // canvas skin: a paper sheet, tinted toward the current season's ground colour.
+  // canvas skin: the brand dotted paper, flat and untinted. Max anisotropy keeps the dots crisp and
+  // un-stretched where the ground recedes toward the horizon.
+  const gl = useThree((s) => s.gl);
   const paper = useMemo(() => {
     if (skin !== "canvas") return null;
     const t = makePaperTex();
-    t.repeat.set(700 / 9, (PATH_SPAN_Z + 360) / 9);
+    t.anisotropy = gl.capabilities.getMaxAnisotropy();
+    t.repeat.set(paperRepeatFor(700), paperRepeatFor(PATH_SPAN_Z + 360));
     return t;
-  }, [skin]);
+  }, [skin, gl]);
   useEffect(() => () => paper?.dispose(), [paper]);
-  const matRef = useRef<THREE.MeshBasicMaterial>(null);
-  const tintCol = useMemo(() => new THREE.Color(), []);
-  const white = useMemo(() => new THREE.Color("#ffffff"), []);
   const appliedRef = useRef(-1);
   useFrame(() => {
-    const season = SEASON_ORDER[seasonRT.index] ?? "summer";
-    if (skin === "canvas") {
-      if (matRef.current) {
-        // mostly the brand dotted paper, with only a faint seasonal warmth/cool
-        tintCol.set(SEASONS[season].ground.base).lerp(white, 0.82);
-        matRef.current.color.lerp(tintCol, 0.08);
-      }
-      return;
-    }
+    if (skin === "canvas") return; // static dotted paper — no tint, nothing to update per frame
     if (appliedRef.current === seasonRT.index) return;
     appliedRef.current = seasonRT.index;
+    const season = SEASON_ORDER[seasonRT.index] ?? "summer";
     const attr = geo.attributes.color as THREE.BufferAttribute;
     (attr.array as Float32Array).set(colorArrays[season]);
     attr.needsUpdate = true;
@@ -731,7 +731,7 @@ function Ground({ skin }: { skin: WorldSkin }) {
   if (skin === "canvas") {
     return (
       <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, PATH_MID_Z]}>
-        <meshBasicMaterial ref={matRef} map={paper ?? undefined} />
+        <meshBasicMaterial map={paper ?? undefined} />
       </mesh>
     );
   }
