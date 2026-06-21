@@ -446,7 +446,7 @@ function CanvasSky() {
   return (
     <mesh position={[0, 0, PATH_MID_Z]}>
       <sphereGeometry args={[560, 32, 16]} />
-      <meshBasicMaterial color="#ffffff" side={THREE.BackSide} depthWrite={false} fog={false} />
+      <meshBasicMaterial color="#ffffff" side={THREE.BackSide} depthWrite={false} fog={false} toneMapped={false} />
     </mesh>
   );
 }
@@ -732,7 +732,7 @@ function Ground({ skin }: { skin: WorldSkin }) {
   if (skin === "canvas") {
     return (
       <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, PATH_MID_Z]}>
-        <meshBasicMaterial color="#ffffff" />
+        <meshBasicMaterial color="#ffffff" toneMapped={false} />
       </mesh>
     );
   }
