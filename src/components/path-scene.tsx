@@ -542,26 +542,41 @@ function ProgressTrail({ progress }: { progress: React.MutableRefObject<number> 
   const maxRef = useRef(0);
   const { geometry, material } = useMemo(() => {
     const N = Math.max(2, Math.ceil(CURVE.getLength() / 1.2));
-    const pts = CURVE.getSpacedPoints(N); // arc-length spaced → uv.x = i/N matches the progress param
+    const base = CURVE.getSpacedPoints(N); // arc-length spaced → uv.x = i/N matches the progress param
+    // straight lead-in behind the start (uv.x < 0, always inked) so the line trails off the screen edge
+    // instead of stopping mid-page when you're near the beginning.
+    const startTan = base[1].clone().sub(base[0]).normalize();
+    const LEAD = 45;
+    const LEAD_N = 9;
+    const pts: THREE.Vector3[] = [];
+    const uvx: number[] = [];
+    for (let j = LEAD_N; j >= 1; j--) {
+      pts.push(base[0].clone().addScaledVector(startTan, -LEAD * (j / LEAD_N)));
+      uvx.push(-0.02);
+    }
+    for (let i = 0; i <= N; i++) {
+      pts.push(base[i]);
+      uvx.push(i / N);
+    }
     const hw = 0.3; // half-width of the inked line (world units)
     const pos: number[] = [];
     const uv: number[] = [];
     const idx: number[] = [];
-    for (let i = 0; i <= N; i++) {
+    const M = pts.length - 1;
+    for (let i = 0; i <= M; i++) {
       const p = pts[i];
       const a = pts[Math.max(0, i - 1)];
-      const b = pts[Math.min(N, i + 1)];
+      const b = pts[Math.min(M, i + 1)];
       const dx = b.x - a.x;
       const dz = b.z - a.z;
       const len = Math.hypot(dx, dz) || 1;
       const nx = -dz / len;
       const nz = dx / len;
-      const t = i / N;
       pos.push(p.x + nx * hw, 0.12, p.z + nz * hw);
-      uv.push(t, 0);
+      uv.push(uvx[i], 0);
       pos.push(p.x - nx * hw, 0.12, p.z - nz * hw);
-      uv.push(t, 1);
-      if (i < N) {
+      uv.push(uvx[i], 1);
+      if (i < M) {
         const k = i * 2;
         idx.push(k, k + 2, k + 1, k + 1, k + 2, k + 3);
       }
