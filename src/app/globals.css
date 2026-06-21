@@ -311,3 +311,11 @@ html[data-playing="true"] .gethelp-label {
 @keyframes sketch-ring { 0% { stroke-dashoffset: 459; } 55%, 100% { stroke-dashoffset: 0; } }
 .sketch-ring { animation: sketch-ring 1.9s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .sketch-ring { animation: none; stroke-dashoffset: 0; } }
+
+/* completion beat (Nodes & Navigation spec §7): on a NEW completion the earned sticker 'drops on'
+   (the badge bounces in) with an Unlearn→Relearn burst (a ring that flashes Insight-Teal → Grow-Coral). */
+@keyframes beat-badge { 0% { transform: scale(0) translateY(-16px); opacity: 0; } 55% { transform: scale(1.25) translateY(0); } 78% { transform: scale(0.92); } 100% { transform: scale(1); opacity: 1; } }
+.beat-badge { animation: beat-badge 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+@keyframes beat-burst { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.85; border-color: var(--color-insight); } 50% { border-color: var(--color-insight); opacity: 0.6; } 55% { border-color: var(--color-grow); } 100% { transform: translate(-50%, -50%) scale(2); opacity: 0; border-color: var(--color-grow); } }
+.beat-burst { animation: beat-burst 0.8s ease-out both; }
+@media (prefers-reduced-motion: reduce) { .beat-badge { animation: none; } .beat-burst { display: none; } }
