@@ -15,7 +15,10 @@ belongs in her own world; and themed sticker packs are cheap to author and re-vi
 ## Decisions (locked)
 - **Depth model:** **2.5D parallax** — layered sticker planes with CSS-perspective parallax + a gentle
   tilt. Pure DOM/SVG/CSS; **no WebGL**.
-- **Replace** the 3D world (full removal of R3F), not coexist.
+- **Replace** the 3D world — but **only after the 2.5D build is verified and signed off.** Phase 6 ships
+  the canvas **coexisting behind a flag** (`?world=canvas`; 3D stays the default and fully intact); the R3F
+  deletion is a **separate, signed-off step** once the 2.5D build is approved. **Do not delete the 3D part
+  without a sign-off.**
 - **Interactive canvas → Phase 7** (drawable trail + UN/RE-erasable "myth" stickers). Phase 6 is decorative.
 - **Keep the 5 chapter themes** — each chapter gets its own sticker + doodle pack and palette.
 
