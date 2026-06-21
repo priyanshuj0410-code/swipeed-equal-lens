@@ -257,7 +257,7 @@ const PAPER_DOT = "#ECE6F6";
 const PAPER_TILE_DOTS = 8; // dots per tile edge — used to convert a world dot-spacing into texture repeat
 // One seamless tile of the brand dotted paper: pure paper, no grain, no tint. Small dot radius +
 // supersampling keep the dots crisp and fine (not blobs) once tiled across the big ground/sky.
-function makePaperTex(dotR = 0.8, paper = PAPER, dot = PAPER_DOT) {
+function makePaperTex(dotR = 0.7, paper = PAPER, dot = PAPER_DOT) {
   const grid = 24; // logical px between dots
   const size = grid * PAPER_TILE_DOTS;
   const ss = 3; // supersample so small dots stay sharp
@@ -279,8 +279,8 @@ function makePaperTex(dotR = 0.8, paper = PAPER, dot = PAPER_DOT) {
   return t;
 }
 // Texture repeat for a surface `worldSpan` units long with dots ~`dotWorld` units apart.
-// Fine like the site: small, tightly-spaced dots (was 0.9 — far too big/gappy in 3D).
-const paperRepeatFor = (worldSpan: number, dotWorld = 0.32) => worldSpan / (PAPER_TILE_DOTS * dotWorld);
+// Fine like the site: small, tightly-spaced dots. (Tune this one number if dots want bigger/smaller.)
+const paperRepeatFor = (worldSpan: number, dotWorld = 0.16) => worldSpan / (PAPER_TILE_DOTS * dotWorld);
 
 // The 8 hand-drawn doodle marks from the site (Doodles.tsx), drawn to textures — the brand's
 // easter-egg "the whole site is a canvas" confetti, scattered across the sky in the 4 accents.
@@ -441,12 +441,63 @@ function makePathStrokeTex() {
   return t;
 }
 
-// Canvas skin — the sky: a blank white dome. Nothing else (block-by-block fresh start).
+// Canvas skin — the sky: flat brand paper (#FBF9FF). The dots live on the ground (a flat plane); a
+// sphere can't carry the same world-space dot grid cleanly, so the backdrop stays plain paper for now.
 function CanvasSky() {
   return (
     <mesh position={[0, 0, PATH_MID_Z]}>
       <sphereGeometry args={[560, 32, 16]} />
-      <meshBasicMaterial color="#ffffff" side={THREE.BackSide} depthWrite={false} fog={false} toneMapped={false} />
+      <meshBasicMaterial color="#FBF9FF" side={THREE.BackSide} depthWrite={false} fog={false} toneMapped={false} />
+    </mesh>
+  );
+}
+
+// ============================================================================================
+// Dotted-paper ground — FRESH (no makePaperTex / no texture). The brand canvas: paper #FBF9FF with
+// #ECE6F6 dots on a WORLD-SPACE grid, drawn procedurally in a shader. Each dot is computed from the
+// world XZ position, so it stays a crisp anti-aliased circle at any distance or camera angle — no
+// texture tiling, no stretching toward the horizon, no mip blur. Two knobs: GAP (spacing) + DOT (radius).
+// ============================================================================================
+const CANVAS_PAPER = "#FBF9FF";
+const CANVAS_DOT = "#ECE6F6";
+function CanvasGround() {
+  const mat = useMemo(() => {
+    const m = new THREE.ShaderMaterial({
+      uniforms: {
+        uPaper: { value: new THREE.Color(CANVAS_PAPER) },
+        uDot: { value: new THREE.Color(CANVAS_DOT) },
+        uGap: { value: 0.3 }, // world units between dots (smaller = finer/denser)
+        uRadius: { value: 0.022 }, // dot radius in world units (smaller = finer dots)
+      },
+      vertexShader: `
+        varying vec3 vWorldPos;
+        void main() {
+          vWorldPos = (modelMatrix * vec4(position, 1.0)).xyz;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        varying vec3 vWorldPos;
+        uniform vec3 uPaper;
+        uniform vec3 uDot;
+        uniform float uGap;
+        uniform float uRadius;
+        void main() {
+          vec2 cell = fract(vWorldPos.xz / uGap) - 0.5;   // offset to the nearest grid point
+          float d = length(cell) * uGap;                  // world-space distance to that dot centre
+          float aa = fwidth(d) + 1e-4;                    // anti-alias width (perspective-correct)
+          float dot = 1.0 - smoothstep(uRadius - aa, uRadius + aa, d);
+          gl_FragColor = vec4(mix(uPaper, uDot, dot), 1.0);
+          #include <colorspace_fragment>
+        }
+      `,
+    });
+    return m;
+  }, []);
+  useEffect(() => () => mat.dispose(), [mat]);
+  return (
+    <mesh material={mat} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, PATH_MID_Z]}>
+      <planeGeometry args={[1600, PATH_SPAN_Z + 900]} />
     </mesh>
   );
 }
@@ -718,10 +769,20 @@ function Ground({ skin }: { skin: WorldSkin }) {
     g.setAttribute("color", new THREE.Float32BufferAttribute(colorArrays.summer.slice(), 3));
     return { geo: g, colorArrays };
   }, []);
-  // canvas skin: a blank white ground. Nothing else (block-by-block fresh start).
+  // canvas skin: the brand dotted paper (#FBF9FF + #ECE6F6 dots). Max anisotropy keeps the dots crisp
+  // and un-stretched where the ground recedes toward the horizon.
+  const gl = useThree((s) => s.gl);
+  const paper = useMemo(() => {
+    if (skin !== "canvas") return null;
+    const t = makePaperTex();
+    t.anisotropy = gl.capabilities.getMaxAnisotropy();
+    t.repeat.set(paperRepeatFor(700), paperRepeatFor(PATH_SPAN_Z + 360));
+    return t;
+  }, [skin, gl]);
+  useEffect(() => () => paper?.dispose(), [paper]);
   const appliedRef = useRef(-1);
   useFrame(() => {
-    if (skin === "canvas") return; // flat white, nothing to update per frame
+    if (skin === "canvas") return; // static dotted paper — nothing to update per frame
     if (appliedRef.current === seasonRT.index) return;
     appliedRef.current = seasonRT.index;
     const season = SEASON_ORDER[seasonRT.index] ?? "summer";
@@ -732,7 +793,7 @@ function Ground({ skin }: { skin: WorldSkin }) {
   if (skin === "canvas") {
     return (
       <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, PATH_MID_Z]}>
-        <meshBasicMaterial color="#ffffff" toneMapped={false} />
+        <meshBasicMaterial map={paper ?? undefined} toneMapped={false} />
       </mesh>
     );
   }
@@ -1413,8 +1474,8 @@ function SeasonDriver({
 
   const fog = useMemo(() => new THREE.Fog(seasonRT.fogColor.clone(), seasonRT.fogNear, seasonRT.fogFar), []);
   const bg = useMemo(() => seasonRT.bg.clone(), []);
-  // canvas skin is season-independent: no fog, a flat white background — so no chapter tints the world.
-  const paperBg = useMemo(() => new THREE.Color("#ffffff"), []);
+  // canvas skin is season-independent: no fog, a flat #FBF9FF paper background — so no chapter tints it.
+  const paperBg = useMemo(() => new THREE.Color(PAPER), []);
   useEffect(() => {
     scene.fog = canvas ? null : fog;
     scene.background = canvas ? paperBg : bg;
@@ -1847,7 +1908,7 @@ export function PathScene({
       <SunLight progress={progress} />
       <hemisphereLight args={["#dcefff", "#8fc06a", 0.5]} />
       <SeasonAmbient />
-      <Ground skin={skin} />
+      {canvas ? <CanvasGround /> : <Ground skin={skin} />}
       <Suspense fallback={null}>
         {!canvas && <Mountains />}
         {phase >= 1 && !canvas && <PlankPath />}
