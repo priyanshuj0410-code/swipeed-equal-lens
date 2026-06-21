@@ -443,12 +443,12 @@ function makePathStrokeTex() {
 
 const CANVAS_PAPER = "#FBF9FF";
 const CANVAS_DOT = "#E7E0F1";
-const CANVAS_BORDER = "#221436"; // Ink — the horizon line where the two canvases meet
+const CANVAS_CORNER = 0.86; // brightness at the floor/wall corner (1 = none, lower = darker soft shade)
+const CANVAS_FALLOFF = 0.1; // how far the soft corner shade reaches (view-ray elevation, radians)
 
-// Canvas skin — the sky: the brand dotted paper on the distant backdrop (screen-space dots), PLUS the
-// horizon border. The border is drawn on the dome where the view ray goes horizontal (dir.y≈0) — i.e.
-// exactly the ground's silhouette — so it reads as one clean Ink line all around, whichever way the
-// path turns. Knobs: uPx/uDotPx (dots) + uBorderW (line thickness).
+// Canvas skin — the sky (the "wall"): the brand dotted paper on the distant backdrop (screen-space
+// dots) that darkens softly toward its base. Paired with the same shade on the floor, the corner where
+// the two canvases meet reads as a soft edge from light alone — like a white room — no hard line.
 function CanvasSky() {
   const mat = useMemo(
     () =>
@@ -459,10 +459,10 @@ function CanvasSky() {
         uniforms: {
           uPaper: { value: new THREE.Color(CANVAS_PAPER) },
           uDot: { value: new THREE.Color(CANVAS_DOT) },
-          uBorder: { value: new THREE.Color(CANVAS_BORDER) },
           uPx: { value: 30.0 },
           uDotPx: { value: 1.0 },
-          uBorderW: { value: 0.006 }, // half-thickness of the horizon line, in view-ray elevation
+          uCorner: { value: CANVAS_CORNER },
+          uFalloff: { value: CANVAS_FALLOFF },
           uCam: { value: new THREE.Vector3() },
         },
         vertexShader: `
@@ -475,10 +475,10 @@ function CanvasSky() {
         fragmentShader: `
           uniform vec3 uPaper;
           uniform vec3 uDot;
-          uniform vec3 uBorder;
           uniform float uPx;
           uniform float uDotPx;
-          uniform float uBorderW;
+          uniform float uCorner;
+          uniform float uFalloff;
           uniform vec3 uCam;
           varying vec3 vWorld;
           void main() {
@@ -486,10 +486,9 @@ function CanvasSky() {
             float d = length(cell) * uPx;
             float dot = 1.0 - smoothstep(uDotPx - 0.6, uDotPx + 0.6, d);
             vec3 col = mix(uPaper, uDot, dot);
-            // horizon line: where the view ray is (near) horizontal
-            float ey = abs(normalize(vWorld - uCam).y);
-            float border = 1.0 - smoothstep(uBorderW, uBorderW + 0.0025, ey);
-            col = mix(col, uBorder, border);
+            // the wall darkens softly toward its base (the horizon) so the corner reads as a soft edge
+            float wy = normalize(vWorld - uCam).y;          // elevation above the horizon
+            col *= mix(uCorner, 1.0, smoothstep(0.0, uFalloff, wy));
             gl_FragColor = vec4(col, 1.0);
             #include <colorspace_fragment>
           }
@@ -522,6 +521,9 @@ function CanvasGround() {
         uDot: { value: new THREE.Color(CANVAS_DOT) },
         uGap: { value: 0.3 }, // world units between dots (smaller = finer/denser)
         uRadius: { value: 0.013 }, // dot radius in world units (smaller = finer dots)
+        uCorner: { value: CANVAS_CORNER },
+        uFalloff: { value: CANVAS_FALLOFF },
+        uCam: { value: new THREE.Vector3() },
       },
       vertexShader: `
         varying vec3 vWorldPos;
@@ -536,12 +538,20 @@ function CanvasGround() {
         uniform vec3 uDot;
         uniform float uGap;
         uniform float uRadius;
+        uniform float uCorner;
+        uniform float uFalloff;
+        uniform vec3 uCam;
         void main() {
           vec2 cell = fract(vWorldPos.xz / uGap) - 0.5;   // offset to the nearest grid point
           float d = length(cell) * uGap;                  // world-space distance to that dot centre
           float aa = 0.22 * fwidth(d) + 1e-5;             // sub-pixel edge → crisp dots
           float dot = 1.0 - smoothstep(uRadius - aa, uRadius + aa, d);
-          gl_FragColor = vec4(mix(uPaper, uDot, dot), 1.0);
+          vec3 col = mix(uPaper, uDot, dot);
+          // the floor darkens softly toward the horizon (the far edge by the wall) — matches the wall's
+          // base shade so the corner reads as a soft edge from light alone, no hard line.
+          float fy = abs(normalize(vWorldPos - uCam).y);  // depression below the horizon
+          col *= mix(uCorner, 1.0, smoothstep(0.0, uFalloff, fy));
+          gl_FragColor = vec4(col, 1.0);
           #include <colorspace_fragment>
         }
       `,
@@ -549,6 +559,9 @@ function CanvasGround() {
     return m;
   }, []);
   useEffect(() => () => mat.dispose(), [mat]);
+  useFrame((state) => {
+    (mat.uniforms.uCam.value as THREE.Vector3).copy(state.camera.position);
+  });
   return (
     <mesh material={mat} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, PATH_MID_Z]}>
       <planeGeometry args={[1600, PATH_SPAN_Z + 900]} />
