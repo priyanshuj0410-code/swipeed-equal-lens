@@ -257,7 +257,7 @@ const PAPER_DOT = "#ECE6F6";
 const PAPER_TILE_DOTS = 8; // dots per tile edge — used to convert a world dot-spacing into texture repeat
 // One seamless tile of the brand dotted paper: pure paper, no grain, no tint. Small dot radius +
 // supersampling keep the dots crisp and fine (not blobs) once tiled across the big ground/sky.
-function makePaperTex(dotR = 1.05, paper = PAPER, dot = PAPER_DOT) {
+function makePaperTex(dotR = 0.8, paper = PAPER, dot = PAPER_DOT) {
   const grid = 24; // logical px between dots
   const size = grid * PAPER_TILE_DOTS;
   const ss = 3; // supersample so small dots stay sharp
@@ -279,7 +279,8 @@ function makePaperTex(dotR = 1.05, paper = PAPER, dot = PAPER_DOT) {
   return t;
 }
 // Texture repeat for a surface `worldSpan` units long with dots ~`dotWorld` units apart.
-const paperRepeatFor = (worldSpan: number, dotWorld = 0.9) => worldSpan / (PAPER_TILE_DOTS * dotWorld);
+// Fine like the site: small, tightly-spaced dots (was 0.9 — far too big/gappy in 3D).
+const paperRepeatFor = (worldSpan: number, dotWorld = 0.32) => worldSpan / (PAPER_TILE_DOTS * dotWorld);
 
 // The 8 hand-drawn doodle marks from the site (Doodles.tsx), drawn to textures — the brand's
 // easter-egg "the whole site is a canvas" confetti, scattered across the sky in the 4 accents.
@@ -446,7 +447,7 @@ function CanvasSky() {
   const tex = useMemo(() => {
     const t = makePaperTex();
     t.anisotropy = gl.capabilities.getMaxAnisotropy();
-    t.repeat.set(12, 6); // sparse on the dome so the dots stay even and pole convergence is subtle
+    t.repeat.set(46, 23); // fine dots to match the land
     return t;
   }, [gl]);
   useEffect(() => () => tex.dispose(), [tex]);
@@ -454,6 +455,24 @@ function CanvasSky() {
     <mesh position={[0, 0, PATH_MID_Z]}>
       <sphereGeometry args={[560, 64, 32]} />
       <meshBasicMaterial map={tex} side={THREE.BackSide} depthWrite={false} fog={false} />
+    </mesh>
+  );
+}
+
+// A single thin drawn horizon line where the paper land meets the paper sky (replaces the old fog
+// tint). A large, thin Ink band that follows the camera so it always sits at the horizon all around.
+function CanvasHorizon() {
+  const ref = useRef<THREE.Mesh>(null);
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.position.x = state.camera.position.x;
+      ref.current.position.z = state.camera.position.z;
+    }
+  });
+  return (
+    <mesh ref={ref} renderOrder={2}>
+      <cylinderGeometry args={[500, 500, 3, 120, 1, true]} />
+      <meshBasicMaterial color={DOODLE_INK} side={THREE.DoubleSide} fog={false} depthWrite={false} transparent opacity={0.85} />
     </mesh>
   );
 }
@@ -1386,11 +1405,14 @@ function SeasonDriver({
   progress,
   nodes,
   chapters,
+  skin = "realistic",
 }: {
   progress: React.MutableRefObject<number>;
   nodes: SceneNode[];
   chapters: Chapter[];
+  skin?: WorldSkin;
 }) {
+  const canvas = skin === "canvas";
   const scene = useThree((s) => s.scene);
   const maps = useTexture({
     ...Object.fromEntries(SEASON_ORDER.map((k) => [k, SEASONS[k].colormap])),
@@ -1409,10 +1431,12 @@ function SeasonDriver({
 
   const fog = useMemo(() => new THREE.Fog(seasonRT.fogColor.clone(), seasonRT.fogNear, seasonRT.fogFar), []);
   const bg = useMemo(() => seasonRT.bg.clone(), []);
+  // canvas skin is season-independent: no fog haze, a flat paper background — so no chapter tints the world.
+  const paperBg = useMemo(() => new THREE.Color(PAPER), []);
   useEffect(() => {
-    scene.fog = fog;
-    scene.background = bg;
-  }, [scene, fog, bg]);
+    scene.fog = canvas ? null : fog;
+    scene.background = canvas ? paperBg : bg;
+  }, [scene, fog, bg, canvas, paperBg]);
 
   // re-apply once after foliage has mounted (it streams in after the env), so late materials get the season colormap
   const appliedMapRef = useRef(-1);
@@ -1491,10 +1515,12 @@ function SeasonDriver({
     seasonRT.ambient = sCur.ambient * (0.45 + 0.55 * pCur.lightMul);
     seasonRT.night = pCur.night;
 
-    bg.copy(seasonRT.bg);
-    fog.color.copy(seasonRT.fogColor);
-    fog.near = seasonRT.fogNear;
-    fog.far = seasonRT.fogFar;
+    if (!canvas) {
+      bg.copy(seasonRT.bg);
+      fog.color.copy(seasonRT.fogColor);
+      fog.near = seasonRT.fogNear;
+      fog.far = seasonRT.fogFar;
+    }
 
     // swap the foliage/mountain colormap when the season changes (ground swaps via seasonRT.index)
     if (appliedMapRef.current !== si) {
@@ -1801,10 +1827,11 @@ export function PathScene({
     >
       {/* season-driven: SeasonDriver sets scene.background + scene.fog and lerps the rest */}
       <Suspense fallback={null}>
-        <SeasonDriver progress={progress} nodes={nodes} chapters={chapters} />
+        <SeasonDriver progress={progress} nodes={nodes} chapters={chapters} skin={skin} />
       </Suspense>
       {/* phase 0: sky + land + mountains (canvas skin swaps in the hand-drawn equivalents) */}
       {canvas ? <CanvasSky /> : <SkyDome />}
+      {canvas && <CanvasHorizon />}
       {canvas ? <DoodleClouds /> : <Clouds />}
       {canvas && <DoodleMarks />}
       <NightSky />
