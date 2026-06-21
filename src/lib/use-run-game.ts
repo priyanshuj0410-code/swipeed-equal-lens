@@ -111,17 +111,21 @@ export function useRunGame() {
 
   const commit = useCallback(
     (flag: Flag, fast = false) => {
+      // Side-effect intents are captured in the (pure) state updater and executed AFTER it — never
+      // inside setR. Calling recordCard (a setProfile) inside the updater is a setState-during-render
+      // of another component (see https://react.dev/link/setstate-in-render).
+      let committed = false;
+      let vib: number | number[] = 12;
+      let recSign: Parameters<typeof recordCard>[0] = undefined;
+      let recOk = false;
+      let doRecord = false;
+      let doCelebrate = false;
       setR((prev) => {
         if (!prev || prev.phase !== "play" || prev.exiting) return prev;
         const card = prev.seq[prev.index];
         const deck = RUN_DECK_BY_ID[prev.deckId];
         const isBoss = card.id === deck.bossCardId;
         const isCorrect = flag === card.correct_flag;
-        try {
-          navigator.vibrate?.(card.is_safeguarding ? [12, 40, 12] : 12);
-        } catch {
-          /* unsupported */
-        }
         let { combo, bestCombo, correct, scored, disgSeen, disgCorrect, clarity, xp, bossCorrect, missed, shieldUsed } = prev;
         let lastXp = 0;
         let wrongThisCard = false;
@@ -159,16 +163,28 @@ export function useRunGame() {
             if (isCorrect) disgCorrect = prev.disgCorrect + 1;
           }
           if (isBoss) bossCorrect = isCorrect;
-          recordCard(card.signId, isCorrect);
-          if (isCorrect && (card.is_disguised || isBoss || combo === 5 || combo === 10)) celebrate("small", { sound: false });
+          recSign = card.signId;
+          recOk = isCorrect;
+          doRecord = true;
+          doCelebrate = isCorrect && (card.is_disguised || isBoss || combo === 5 || combo === 10);
         }
-        if (timer.current) clearTimeout(timer.current);
-        timer.current = setTimeout(
-          () => setR((p) => (p && p.exiting ? { ...p, exiting: null, phase: "reveal", revealAt: Date.now() } : p)),
-          EXIT_MS
-        );
+        committed = true;
+        vib = card.is_safeguarding ? [12, 40, 12] : 12;
         return { ...prev, flag, exiting: flag, combo, bestCombo, correct, scored, disgSeen, disgCorrect, clarity, xp, lastXp, bossCorrect, missed, wrongThisCard, shieldUsed };
       });
+      if (!committed) return;
+      try {
+        navigator.vibrate?.(vib);
+      } catch {
+        /* unsupported */
+      }
+      if (doRecord) recordCard(recSign, recOk);
+      if (doCelebrate) celebrate("small", { sound: false });
+      if (timer.current) clearTimeout(timer.current);
+      timer.current = setTimeout(
+        () => setR((p) => (p && p.exiting ? { ...p, exiting: null, phase: "reveal", revealAt: Date.now() } : p)),
+        EXIT_MS
+      );
     },
     [recordCard]
   );
