@@ -14,18 +14,16 @@ export function Onboarding() {
 
   return (
     <>
-      {/* Brand dotted-paper backdrop with soft accent glows (replaces the realistic grassland) */}
-      <div className="fixed inset-0 z-0" style={{ background: "var(--app-bg)" }} aria-hidden />
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden>
-        <div
-          className="absolute -left-24 top-12 size-72 rounded-full blur-3xl"
-          style={{ background: "color-mix(in oklch, var(--color-grow), transparent 80%)" }}
-        />
-        <div
-          className="absolute -right-20 bottom-4 size-80 rounded-full blur-3xl"
-          style={{ background: "color-mix(in oklch, var(--color-insight), transparent 82%)" }}
-        />
-      </div>
+      {/* Clean dotted-paper backdrop (replaces the realistic grassland) — no colour glows */}
+      <div
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundColor: "var(--color-paper)",
+          backgroundImage: "radial-gradient(var(--dot) 1.4px, transparent 1.6px)",
+          backgroundSize: "22px 22px",
+        }}
+        aria-hidden
+      />
 
       <div className="relative z-10 flex min-h-svh flex-col items-center justify-center px-5 py-10">
         <div className="sticker flex w-full max-w-sm flex-col gap-5 rounded-[28px] bg-[var(--color-surface)] p-7">
