@@ -29,24 +29,28 @@ export default function PathPage() {
   const [engineGame, setEngineGame] = useState<string | null>(null);
   const [webgl, setWebgl] = useState<boolean | null>(null);
   // World skin: realistic 3D path (default) vs the hand-drawn canvas re-skin. `?world=canvas`/`3d`
-  // opts in and persists. Resolved SYNCHRONOUSLY in the initial state (PathScene is ssr:false, so this
-  // can read the URL/localStorage during the first client render) — so the chosen skin mounts on frame
-  // one. If we instead defaulted to "3d" and flipped in an effect, the realistic world would mount and
-  // start loading GLBs first, then R3F would leave those objects behind when the skin switched (the
-  // "flash then revert to the realistic mess" bug).
-  const [worldMode] = useState<"3d" | "canvas">(() => {
-    if (typeof window === "undefined") return "3d";
+  // opts in and persists. Starts UNRESOLVED (null) and is set on the client before PathScene mounts —
+  // PathScene does not render until then. This is deliberate: a lazy initial state still resolves to
+  // "3d" during SSR/hydration, and in that window the realistic world mounts and loads its GLBs; R3F
+  // never disposes those objects when the skin flips, so they bleed through the canvas (even in a
+  // production build, which has no hot-reload to blame). Deferring the mount means the realistic world
+  // is never created in canvas mode at all.
+  const [worldMode, setWorldMode] = useState<"3d" | "canvas" | null>(null);
+  useEffect(() => {
+    let v: "3d" | "canvas" = "3d";
     try {
       const p = new URLSearchParams(window.location.search).get("world");
       if (p === "canvas" || p === "3d") {
         localStorage.setItem("swipeed.world", p);
-        return p;
+        v = p;
+      } else if (localStorage.getItem("swipeed.world") === "canvas") {
+        v = "canvas";
       }
-      return localStorage.getItem("swipeed.world") === "canvas" ? "canvas" : "3d";
     } catch {
-      return "3d";
+      /* default 3d */
     }
-  });
+    setWorldMode(v);
+  }, []);
 
   const playing = game.active || engineGame !== null;
 
@@ -130,7 +134,7 @@ export default function PathPage() {
               Open the classic path
             </Link>
           </div>
-        ) : (
+        ) : worldMode ? (
           <PathScene
             key={worldMode}
             nodes={nodes}
@@ -139,7 +143,7 @@ export default function PathPage() {
             playing={playing}
             skin={worldMode === "canvas" ? "canvas" : "realistic"}
           />
-        )}
+        ) : null}
       </div>
 
       {/* ---- path mode chrome ---- */}
