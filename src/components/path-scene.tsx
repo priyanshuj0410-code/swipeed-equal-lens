@@ -1440,7 +1440,8 @@ function CanvasContent({ nodes, progress }: { nodes: SceneNode[]; progress: Reac
       e.hi = Math.min(e.hi, z); // smaller z = higher (top)
       chZ.set(ci + 1, e);
     });
-    const out: { id: string; x: number; z: number; rot: number; myth: string; truth: string }[] = [];
+    const tones = ["note--yellow", "note--mint", "note--peach", "note--violet"];
+    const out: { id: string; x: number; z: number; rot: number; tone: string; myth: string; truth: string }[] = [];
     for (const cc of CHAPTER_CANVAS) {
       const range = chZ.get(cc.chapter);
       const all = CANVAS_MYTHS.filter((m) => m.chapter === cc.chapter);
@@ -1457,6 +1458,7 @@ function CanvasContent({ nodes, progress }: { nodes: SceneNode[]; progress: Reac
           x: (j % 2 === 0 ? 1 : -1) * (8 + (h % 5)), // 8–12 to the side, clear of the ±3 path swing
           z: zBot + (zTop - zBot) * f,
           rot: (h % 9) - 4,
+          tone: tones[h % tones.length],
           myth: m.myth,
           truth: m.truth,
         });
@@ -1479,10 +1481,16 @@ function CanvasContent({ nodes, progress }: { nodes: SceneNode[]; progress: Reac
     <>
       {vis.map((m) => (
         <group key={m.id} position={[m.x, 0.14, m.z]}>
-          <Html center distanceFactor={16} zIndexRange={[18, 6]}>
-            <div className="myth-note pointer-events-none select-none" style={{ transform: `rotate(${m.rot}deg)` }}>
-              <span className="myth-strike">{m.myth}</span>
-              <span className="myth-truth">{m.truth}</span>
+          <Html center distanceFactor={18} zIndexRange={[18, 6]} style={{ pointerEvents: "none" }}>
+            <div className={`note ${m.tone} myth-card select-none`} style={{ transform: `rotate(${m.rot}deg)` }}>
+              <span className="note__chip">myth</span>
+              <span className="myth-line">
+                {m.myth}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/brand/doodles/squiggle.svg" alt="" className="myth-scribble" />
+              </span>
+              <span className="note__chip note__chip--truth">truth ✓</span>
+              <span className="myth-fact">{m.truth}</span>
             </div>
           </Html>
         </group>
@@ -1559,7 +1567,7 @@ function Companion({ progress }: { progress: React.MutableRefObject<number> }) {
   });
   return (
     <group ref={grp}>
-      <Html center distanceFactor={16} zIndexRange={[44, 24]}>
+      <Html center distanceFactor={16} zIndexRange={[44, 24]} style={{ pointerEvents: "none" }}>
         <div ref={ship} className="pointer-events-none relative select-none" style={{ width: 82, transformOrigin: "50% 55%" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/ship/ship-flying.svg" alt="" draggable={false} style={{ width: 82, display: "block" }} />
