@@ -1,69 +1,79 @@
 "use client";
 
 import { useState } from "react";
-import dynamic from "next/dynamic";
 import { useProfile } from "@/lib/store";
-import { Logo } from "@/components/logo";
 
 const AVATARS = ["🦊", "🐼", "🦉", "🐯", "🐸", "🐙", "🦄", "🐱"];
 
-const GrasslandBackdrop = dynamic(() => import("@/components/grassland-backdrop").then((m) => m.GrasslandBackdrop), {
-  ssr: false,
-  loading: () => null,
-});
-
-/** First-run onboarding: a glass card over the grassland — pick a name + avatar, language, safety note. */
+/** First-run onboarding: a brand sticker card on dotted paper — pick a name + avatar, language, safety note. */
 export function Onboarding() {
   const { completeOnboarding } = useProfile();
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState(AVATARS[0]);
+  const canStart = name.trim().length > 0;
 
   return (
     <>
-      <div className="fixed inset-0 z-0 bg-[#bfe2fb]">
-        <GrasslandBackdrop />
+      {/* Brand dotted-paper backdrop with soft accent glows (replaces the realistic grassland) */}
+      <div className="fixed inset-0 z-0" style={{ background: "var(--app-bg)" }} aria-hidden />
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden>
+        <div
+          className="absolute -left-24 top-12 size-72 rounded-full blur-3xl"
+          style={{ background: "color-mix(in oklch, var(--color-grow), transparent 80%)" }}
+        />
+        <div
+          className="absolute -right-20 bottom-4 size-80 rounded-full blur-3xl"
+          style={{ background: "color-mix(in oklch, var(--color-insight), transparent 82%)" }}
+        />
       </div>
 
       <div className="relative z-10 flex min-h-svh flex-col items-center justify-center px-5 py-10">
-        <div
-          className="glass-card flex w-full max-w-sm flex-col gap-5 p-7 text-foreground backdrop-blur-[14px] backdrop-saturate-150"
-          style={{ background: "rgba(11, 14, 20, 0.5)" }}
-        >
-          <div className="flex flex-col items-center gap-2 text-center">
-            <span className="grid size-16 place-items-center rounded-3xl bg-foreground/15 shadow-sm ring-1 ring-foreground/20">
-              <Logo className="size-10" />
-            </span>
-            <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--color-brandsoft)" }}>
-              SwipeEd by The Equal Lens
-            </span>
-            <h1 className="font-display text-2xl font-extrabold leading-tight text-foreground">Learn by swiping</h1>
-            <p className="text-sm text-foreground/75">
+        <div className="sticker flex w-full max-w-sm flex-col gap-5 rounded-[28px] bg-[var(--color-surface)] p-7">
+          {/* header: Lensy waving hello */}
+          <div className="flex flex-col items-center gap-1.5 text-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/lensy/lensy-wave.svg"
+              alt=""
+              width={88}
+              height={88}
+              className="-mt-2 drop-shadow-[3px_4px_0_var(--violet-200)]"
+            />
+            <span className="eyebrow">SwipeEd by The Equal Lens</span>
+            <h1 className="font-[family-name:var(--font-hand)] text-3xl font-extrabold leading-none text-[var(--color-ink)]">
+              Learn by swiping
+            </h1>
+            <p className="text-sm leading-relaxed text-[color-mix(in_oklch,var(--color-ink),transparent_28%)]">
               Quick, friendly games about relationships, fairness and growing up — travel the path one lesson at a time.
             </p>
           </div>
 
-          <label className="flex flex-col gap-1.5 text-sm">
-            <span className="font-medium text-foreground/90">Pick a name (any name)</span>
+          {/* name */}
+          <label className="flex flex-col gap-1.5">
+            <span className="text-sm font-bold text-[var(--color-ink)]">Pick a name (any name)</span>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
               maxLength={20}
               placeholder="e.g. Sky"
-              className="rounded-lg border border-foreground/25 bg-foreground/10 px-3 py-2 text-base text-foreground outline-none placeholder:text-foreground/45 focus-visible:ring-2 focus-visible:ring-foreground/60"
+              className="rounded-2xl border-[2.5px] border-[var(--color-ink)] bg-[var(--color-paper)] px-4 py-2.5 text-base font-semibold text-[var(--color-ink)] outline-none transition-colors placeholder:font-medium placeholder:text-[color-mix(in_oklch,var(--color-ink),transparent_55%)] focus-visible:border-[var(--color-brand)]"
             />
           </label>
 
-          <div className="flex flex-col gap-1.5 text-sm">
-            <span className="font-medium text-foreground/90">Pick an avatar</span>
-            <div className="grid grid-cols-8 gap-1">
+          {/* avatar */}
+          <div className="flex flex-col gap-1.5">
+            <span className="text-sm font-bold text-[var(--color-ink)]">Pick an avatar</span>
+            <div className="grid grid-cols-8 gap-1.5">
               {AVATARS.map((a) => (
                 <button
                   key={a}
                   type="button"
                   onClick={() => setAvatar(a)}
                   aria-pressed={avatar === a}
-                  className={`grid aspect-square place-items-center rounded-md text-xl transition-colors ${
-                    avatar === a ? "bg-foreground/25 ring-2 ring-white" : "hover:bg-foreground/10"
+                  className={`grid aspect-square place-items-center rounded-xl text-xl transition-transform active:scale-90 ${
+                    avatar === a
+                      ? "border-[2.5px] border-[var(--color-brand)] bg-[var(--violet-100)] shadow-[2px_2px_0_var(--violet-200)]"
+                      : "border-2 border-[var(--color-mist)] bg-[var(--color-paper)] hover:-translate-y-0.5"
                   }`}
                 >
                   {a}
@@ -72,26 +82,40 @@ export function Onboarding() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-1.5 text-sm">
-            <span className="font-medium text-foreground/90">Language</span>
+          {/* language */}
+          <div className="flex flex-col gap-1.5">
+            <span className="text-sm font-bold text-[var(--color-ink)]">Language</span>
             <div className="flex gap-2">
-              <span className="rounded-md bg-foreground/25 px-3 py-1.5 text-sm font-semibold text-foreground ring-1 ring-foreground/50">English</span>
-              <span className="rounded-md border border-foreground/25 px-3 py-1.5 text-sm text-foreground/55">हिन्दी — soon</span>
+              <span className="rounded-full border-[2.5px] border-[var(--color-ink)] bg-[var(--color-brand)] px-4 py-1.5 text-sm font-bold text-white shadow-[2px_2px_0_var(--color-ink)]">
+                English
+              </span>
+              <span className="rounded-full border-2 border-dashed border-[var(--violet-200)] px-4 py-1.5 text-sm font-semibold text-[color-mix(in_oklch,var(--color-ink),transparent_45%)]">
+                हिन्दी — soon
+              </span>
             </div>
           </div>
 
-          <p className="rounded-lg bg-foreground/10 p-3 text-xs leading-relaxed text-foreground/80 ring-1 ring-foreground/10">
+          {/* safety note */}
+          <p
+            className="rounded-2xl border-2 p-3 text-xs leading-relaxed text-[var(--color-ink)]"
+            style={{
+              borderColor: "color-mix(in oklch, var(--color-insight), transparent 55%)",
+              background: "color-mix(in oklch, var(--color-insight), transparent 90%)",
+            }}
+          >
             These games cover real-life topics like relationships and fairness. If anything feels too real, tap{" "}
-            <span className="font-semibold text-foreground">Get Help</span> any time — it&apos;s always in the corner.
+            <span className="font-bold">Get Help</span> any time — it&apos;s always in the corner.
           </p>
 
+          {/* CTA */}
           <button
             type="button"
-            disabled={name.trim().length === 0}
+            disabled={!canStart}
             onClick={() => completeOnboarding({ name: name.trim(), avatar, locale: "en-IN" })}
-            className="h-12 rounded-2xl bg-foreground text-base font-bold text-zinc-900 shadow-lg transition-transform active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+            className="mt-1 inline-flex h-14 w-full items-center justify-center gap-1 rounded-full border-[2.5px] border-[var(--color-ink)] bg-[var(--color-grow)] font-[family-name:var(--font-hand)] text-lg font-extrabold text-[var(--color-ink)] shadow-[4px_4px_0_var(--color-ink)] transition-transform hover:-translate-y-0.5 active:translate-y-0 active:shadow-[2px_2px_0_var(--color-ink)] disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-45 disabled:shadow-[4px_4px_0_var(--color-ink)]"
           >
             Start playing
+            <span aria-hidden>→</span>
           </button>
         </div>
       </div>
