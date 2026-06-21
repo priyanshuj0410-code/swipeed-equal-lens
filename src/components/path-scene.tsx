@@ -467,7 +467,7 @@ function CanvasGround() {
         uPaper: { value: new THREE.Color(CANVAS_PAPER) },
         uDot: { value: new THREE.Color(CANVAS_DOT) },
         uGap: { value: 0.3 }, // world units between dots (smaller = finer/denser)
-        uRadius: { value: 0.022 }, // dot radius in world units (smaller = finer dots)
+        uRadius: { value: 0.013 }, // dot radius in world units (smaller = finer dots)
       },
       vertexShader: `
         varying vec3 vWorldPos;
