@@ -654,12 +654,9 @@ function CanvasCorridor({ nodes }: { nodes: SceneNode[] }) {
     };
     const lFloor = (f: Frame) => [f.px + f.nx * W, f.py, f.pz + f.nz * W];
     const rFloor = (f: Frame) => [f.px - f.nx * W, f.py, f.pz - f.nz * W];
-    const lCeil = (f: Frame) => [f.px + f.nx * W, f.py + H, f.pz + f.nz * W];
-    const rCeil = (f: Frame) => [f.px - f.nx * W, f.py + H, f.pz - f.nz * W];
     strip(lFloor, rFloor, 0, W2, W2, 1.0, 0); // floor — brightest
-    strip(lFloor, lCeil, 0, H, H, 0.95, 1); // left wall — slightly dimmer than the floor
-    strip(rFloor, rCeil, 0, H, H, 0.95, 1); // right wall — slightly dimmer than the floor
-    // ceiling removed — the top-down camera looks down into the open corridor (lCeil/rCeil still define the wall tops)
+    // side walls + ceiling removed: just the open dotted-paper floor strip under the top-down camera
+    // (the chapter door-walls below still stand)
     // a canvas wall across the corridor at each chapter boundary, FRAMED around a central doorway
     // (two jambs + a header); the swinging door panel itself is rendered separately by <CorridorDoors>.
     const cL = W - DOOR_HALF_W; // doorway across-range [cL, cR] (centred on the path), height [0, DOOR_H]
