@@ -592,32 +592,7 @@ function _frontShutDoorU(): number {
 const CORRIDOR_DOOR_TONE = 0.95; // the "door wall" across the corridor after each capstone (doors added later)
 function CanvasCorridor({ nodes }: { nodes: SceneNode[] }) {
   const geometry = useMemo(() => {
-    const len = CURVE.getLength();
-    const baseN = Math.max(8, Math.ceil(len / 1.2));
-    const base = CURVE.getSpacedPoints(baseN);
-    // extend the corridor straight past both ends so there's always floor/walls under the camera —
-    // otherwise at the very start the floor's near edge meets the backdrop at the bottom of the screen.
-    const extLen = 30;
-    const tA = base[1].clone().sub(base[0]).normalize();
-    const tB = base[baseN].clone().sub(base[baseN - 1]).normalize();
-    const pts = [base[0].clone().addScaledVector(tA, -extLen), ...base, base[baseN].clone().addScaledVector(tB, extLen)];
-    const N = pts.length - 1;
-    type Frame = { px: number; py: number; pz: number; nx: number; nz: number; u: number };
-    const frames: Frame[] = [];
-    let cum = 0;
-    for (let i = 0; i <= N; i++) {
-      const p = pts[i];
-      const a = pts[Math.max(0, i - 1)];
-      const b = pts[Math.min(N, i + 1)];
-      const tx = b.x - a.x;
-      const tz = b.z - a.z;
-      const tl = Math.hypot(tx, tz) || 1;
-      if (i > 0) {
-        const pp = pts[i - 1];
-        cum += Math.hypot(p.x - pp.x, p.z - pp.z);
-      }
-      frames.push({ px: p.x, py: p.y, pz: p.z, nx: -tz / tl, nz: tx / tl, u: cum }); // left perpendicular
-    }
+    // floor hidden — this mesh only builds the chapter door-walls now
     const W = CORRIDOR_W;
     const H = CORRIDOR_H;
     const W2 = 2 * W;
@@ -627,36 +602,6 @@ function CanvasCorridor({ nodes }: { nodes: SceneNode[] }) {
     const tone: number[] = [];
     const wall: number[] = [];
     const idx: number[] = [];
-    // one swept strip: edges A→B per path sample, V from vA→vB across; vExtent = the surface's V-span;
-    // surfTone = the surface's base brightness (floor/walls/ceiling differ slightly so each corner reads
-    // as a crisp brightness STEP, a sharp edge); isWall picks the dot projection (walls vs floor/ceiling).
-    const strip = (eA: (f: Frame) => number[], eB: (f: Frame) => number[], vA: number, vB: number, vExtent: number, surfTone: number, isWall: number) => {
-      const start = pos.length / 3;
-      for (let i = 0; i <= N; i++) {
-        const f = frames[i];
-        const A = eA(f);
-        const B = eB(f);
-        pos.push(A[0], A[1], A[2]);
-        uv.push(f.u, vA);
-        ext.push(vExtent);
-        tone.push(surfTone);
-        wall.push(isWall);
-        pos.push(B[0], B[1], B[2]);
-        uv.push(f.u, vB);
-        ext.push(vExtent);
-        tone.push(surfTone);
-        wall.push(isWall);
-        if (i < N) {
-          const k = start + i * 2;
-          idx.push(k, k + 1, k + 2, k + 2, k + 1, k + 3);
-        }
-      }
-    };
-    const lFloor = (f: Frame) => [f.px + f.nx * W, f.py, f.pz + f.nz * W];
-    const rFloor = (f: Frame) => [f.px - f.nx * W, f.py, f.pz - f.nz * W];
-    strip(lFloor, rFloor, 0, W2, W2, 1.0, 0); // floor — brightest
-    // side walls + ceiling removed: just the open dotted-paper floor strip under the top-down camera
-    // (the chapter door-walls below still stand)
     // a canvas wall across the corridor at each chapter boundary, FRAMED around a central doorway
     // (two jambs + a header); the swinging door panel itself is rendered separately by <CorridorDoors>.
     const cL = W - DOOR_HALF_W; // doorway across-range [cL, cR] (centred on the path), height [0, DOOR_H]
