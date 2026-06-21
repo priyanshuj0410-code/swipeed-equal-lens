@@ -499,8 +499,8 @@ function CanvasGround() {
       uniforms: {
         uPaper: { value: new THREE.Color(CANVAS_PAPER) },
         uDot: { value: new THREE.Color(CANVAS_DOT) },
-        uGap: { value: 0.3 }, // world units between dots (smaller = finer/denser)
-        uRadius: { value: 0.013 }, // dot radius in world units (smaller = finer dots)
+        uGap: { value: 0.44 }, // world units between dots (smaller = finer/denser)
+        uRadius: { value: 0.02 }, // dot radius in world units (smaller = finer dots)
       },
       vertexShader: `
         varying vec3 vWorldPos;
@@ -2378,7 +2378,8 @@ export function PathScene({
       </Suspense>
       {/* phase 0: sky + land. CANVAS SKIN = a blank white world (white ground + white sky), nothing
           else — a fresh base to build up block by block. The realistic GLTF world is unchanged. */}
-      {canvas ? <CanvasSky /> : <SkyDome />}
+      {/* canvas: a WORLD-space dotted-paper plane (scrolls as you travel) — not screen-space dots */}
+      {canvas ? <CanvasGround /> : <SkyDome />}
       {!canvas && <Clouds />}
       <NightSky />
       <FollowCam progress={progress} canvas={canvas} />
