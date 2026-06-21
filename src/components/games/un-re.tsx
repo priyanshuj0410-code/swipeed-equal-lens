@@ -1,20 +1,21 @@
 "use client";
 
-import { Eraser, Pencil } from "lucide-react";
-
-// UN & RE — the unlearn–relearn duo behind SwipeEd's core principle (Unlearn → Relearn → Grow). They
-// formally appear from age 6+. UN (the eraser) gently rubs out an old idea, without shame; RE (the
-// pencil) redraws the truer one, with a reason. Shared so the duo looks/behaves the same everywhere.
+// UN & RE — the unlearn–relearn duo behind the core principle (Unlearn → Relearn → Grow), now the
+// official Equal Lens characters: UN (the eraser, Insight teal) gently rubs out an old idea without
+// shame; RE (the pencil, Grow coral) redraws the truer one, with a reason. Shared so the duo looks the
+// same everywhere. (Art: /brand/un.svg, /brand/re.svg.)
 export function UnReBeat({ un, re }: { un: string; re: string }) {
   return (
-    <div className="glass-pill rounded-2xl px-4 py-3 text-sm leading-relaxed backdrop-blur-md backdrop-saturate-150 animate-in fade-in" style={{ color: "var(--color-ink)" }}>
-      <p className="flex items-start gap-2">
-        <Eraser className="mt-0.5 size-4 shrink-0" style={{ color: "#b3c8ff" }} aria-hidden />
-        <span><b>UN:</b> {un}</span>
+    <div className="glass-pill rounded-2xl px-4 py-3 text-sm leading-relaxed animate-in fade-in" style={{ color: "var(--color-ink)" }}>
+      <p className="flex items-start gap-2.5">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/brand/un.svg" alt="" aria-hidden draggable={false} className="-mt-0.5 size-9 shrink-0 object-contain" />
+        <span><b style={{ color: "var(--color-insight)" }}>UN:</b> {un}</span>
       </p>
-      <p className="mt-1.5 flex items-start gap-2">
-        <Pencil className="mt-0.5 size-4 shrink-0" style={{ color: "#62e08f" }} aria-hidden />
-        <span><b>RE:</b> {re}</span>
+      <p className="mt-1.5 flex items-start gap-2.5">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/brand/re.svg" alt="" aria-hidden draggable={false} className="-mt-0.5 size-9 shrink-0 object-contain" />
+        <span><b style={{ color: "var(--color-grow)" }}>RE:</b> {re}</span>
       </p>
     </div>
   );
