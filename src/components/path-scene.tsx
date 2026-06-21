@@ -2402,40 +2402,32 @@ function NightSky() {
   );
 }
 
-function FollowCam({ progress, canvas }: { progress: React.MutableRefObject<number>; canvas: boolean }) {
+// Flat #FBF9FF paper background, no fog (the canvas world is season-independent).
+function CanvasBackground() {
+  const scene = useThree((s) => s.scene);
+  useEffect(() => {
+    scene.fog = null;
+    scene.background = new THREE.Color(tokens.light.paper);
+  }, [scene]);
+  return null;
+}
+
+function FollowCam({ progress }: { progress: React.MutableRefObject<number> }) {
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera;
   const size = useThree((s) => s.size);
-  const look = useRef(new THREE.Vector3(0, 1.2, 14));
+  const look = useRef(new THREE.Vector3(0, 0, 0));
   useFrame(() => {
     const portrait = size.width / size.height < 1;
     const u = clamp01(progress.current);
     const p = CURVE.getPointAt(u);
-    const tan = CURVE.getTangentAt(u);
-    tan.y = 0;
-    if (tan.lengthSq() === 0) tan.set(0, 0, -1);
-    tan.normalize();
-    if (canvas) {
-      // Duolingo-style scroll: the camera tracks straight UP the centre line (x = 0, no yaw) so the
-      // sine weaves left/right in frame. Near-top-down (~7° tilt) keeps the dotted paper flat + the
-      // dots circular; the small tilt also avoids gimbal-lock.
-      const back = portrait ? 2 : 1.5;
-      const height = portrait ? 24 : 18; // old (closer) zoom
-      camera.position.lerp(new THREE.Vector3(0, height, p.z + back), 0.12);
-      look.current.lerp(new THREE.Vector3(0, 0, p.z + back - 3), 0.12);
-      camera.lookAt(look.current);
-      const fov = portrait ? 52 : 46;
-      if (Math.abs(camera.fov - fov) > 0.01) {
-        camera.fov = fov;
-        camera.updateProjectionMatrix();
-      }
-      return;
-    }
-    const back = portrait ? 12 : 8.5;
-    const height = portrait ? 7.5 : 5.5;
-    camera.position.lerp(new THREE.Vector3(p.x - tan.x * back, height, p.z - tan.z * back), 0.12);
-    look.current.lerp(new THREE.Vector3(p.x + tan.x * 6, 1.2, p.z + tan.z * 6), 0.12);
+    // Duolingo-style scroll: the camera tracks straight UP the centre line (x = 0, no yaw) so the
+    // sine weaves left/right in frame. Near-top-down (~7° tilt) keeps the dotted paper flat + circular.
+    const back = portrait ? 2 : 1.5;
+    const height = portrait ? 24 : 18;
+    camera.position.lerp(new THREE.Vector3(0, height, p.z + back), 0.12);
+    look.current.lerp(new THREE.Vector3(0, 0, p.z + back - 3), 0.12);
     camera.lookAt(look.current);
-    const fov = portrait ? 56 : 48;
+    const fov = portrait ? 52 : 46;
     if (Math.abs(camera.fov - fov) > 0.01) {
       camera.fov = fov;
       camera.updateProjectionMatrix();
@@ -2453,24 +2445,13 @@ export function PathScene({
   chapters = [],
   onSelectNode,
   playing = false,
-  skin = "realistic",
 }: {
   nodes?: SceneNode[];
   chapters?: Chapter[];
   onSelectNode?: (n: SceneNode) => void;
   /** true while ANY game (swipe or engine) is being played in place — freezes the camera & hides nodes */
   playing?: boolean;
-  /** "realistic" = the GLTF 3D world (default); "canvas" = the hand-drawn doodle-on-paper re-skin */
-  skin?: WorldSkin;
 }) {
-  const canvas = skin === "canvas";
-  useEffect(() => {
-    console.log("[SKIN-DEBUG] PathScene mounted with skin =", skin, "canvas =", canvas);
-  }, [skin, canvas]);
-  // only the realistic skin needs the GLTF world; preload its models lazily (canvas downloads none)
-  useEffect(() => {
-    if (!canvas) preloadRealisticModels();
-  }, [canvas]);
   // focus on load: the first playable lesson, else the first completed one, else the start
   const startU = useMemo(() => {
     let i = nodes.findIndex((n) => n.state === "playable");
@@ -2539,57 +2520,34 @@ export function PathScene({
 
   return (
     <Canvas
-      shadows
       dpr={[1, 1.5]}
-      gl={{ antialias: false, toneMappingExposure: 1.05, powerPreference: "high-performance", preserveDrawingBuffer: true }}
-      camera={{ position: [0, 6, 30], fov: 48 }}
+      gl={{ antialias: true, powerPreference: "high-performance", preserveDrawingBuffer: true }}
+      camera={{ position: [0, 24, 30], fov: 52 }}
       style={{ width: "100%", height: "100%", display: "block" }}
     >
-      {/* season-driven: SeasonDriver sets scene.background + scene.fog and lerps the rest */}
-      <Suspense fallback={null}>
-        <SeasonDriver progress={progress} nodes={nodes} chapters={chapters} skin={skin} />
-      </Suspense>
-      {/* phase 0: sky + land. CANVAS SKIN = a blank white world (white ground + white sky), nothing
-          else — a fresh base to build up block by block. The realistic GLTF world is unchanged. */}
-      {/* canvas: a WORLD-space dotted-paper plane (scrolls as you travel) — not screen-space dots */}
-      {canvas ? <CanvasGround /> : <SkyDome />}
-      {canvas && <ProgressTrail progress={progress} />}
-      {canvas && <CapstoneClearings nodes={nodes} />}
-      {!canvas && <Clouds />}
-      <NightSky />
-      <FollowCam progress={progress} canvas={canvas} />
-      <SunLight progress={progress} />
-      <hemisphereLight args={["#dcefff", "#8fc06a", 0.5]} />
-      <SeasonAmbient />
-      {canvas ? <CanvasCorridor nodes={nodes} /> : <Ground skin={skin} />}
-      {canvas && <CorridorDoors nodes={nodes} chapters={chapters} progress={progress} />}
-      <Suspense fallback={null}>
-        {!canvas && <Mountains />}
-        {phase >= 1 && !canvas && <PlankPath />}
-        {phase >= 2 && !canvas && <StreamedFoliage progress={progress} />}
-      </Suspense>
-      {phase >= 2 && !canvas && <Weather />}
-      {/* phase 1: checkpoints + region signs (hidden while a level is being played).
+      {/* flat #FBF9FF paper background, no fog */}
+      <CanvasBackground />
+      {/* the brand world: a WORLD-space dotted-paper plane (scrolls as you travel), the inked
+          progress trail, and the capstone sun-clearings */}
+      <CanvasGround />
+      <ProgressTrail progress={progress} />
+      <CapstoneClearings nodes={nodes} />
+      <FollowCam progress={progress} />
+      {/* soft, season-free lighting — enough to light Sam (the only lit 3D object) */}
+      <hemisphereLight args={["#ffffff", "#e7e0f1", 1.1]} />
+      <directionalLight position={[6, 14, 8]} intensity={1.15} />
+      <CanvasCorridor nodes={nodes} />
+      <CorridorDoors nodes={nodes} chapters={chapters} progress={progress} />
+      {/* phase 1: nodes + chapter signs (hidden while a level is being played).
           Nodes first so the chapter banners (rendered after) stack ABOVE the node labels. */}
       {phase >= 1 && !playing && (
         <>
-          <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} canvas={canvas} />
+          <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} canvas />
           <ChapterBanners chapters={chapters} nodes={nodes} progress={progress} />
           <Suspense fallback={null}>
             <Companion progress={progress} />
           </Suspense>
         </>
-      )}
-      {canvas ? null : (
-        <EffectComposer multisampling={0}>
-          {/* soft contact-darkening where grass/rocks/trees/path meet the ground */}
-          <N8AO halfRes aoRadius={1.6} distanceFalloff={1} intensity={0.6} quality="performance" />
-          <Bloom luminanceThreshold={0.85} luminanceSmoothing={0.3} intensity={0.3} mipmapBlur radius={0.5} />
-          <BrightnessContrast brightness={0.0} contrast={0.05} />
-          <HueSaturation saturation={0.08} />
-          <Vignette offset={0.34} darkness={0.4} />
-          <SMAA />
-        </EffectComposer>
       )}
     </Canvas>
   );
