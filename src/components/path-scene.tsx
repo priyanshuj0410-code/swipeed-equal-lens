@@ -635,9 +635,9 @@ function CanvasCorridor({ nodes }: { nodes: SceneNode[] }) {
     const lCeil = (f: Frame) => [f.px + f.nx * W, f.py + H, f.pz + f.nz * W];
     const rCeil = (f: Frame) => [f.px - f.nx * W, f.py + H, f.pz - f.nz * W];
     strip(lFloor, rFloor, 0, W2, W2, 1.0, 0); // floor — brightest
-    strip(lFloor, lCeil, 0, H, H, 0.9, 1); // left wall — dimmer
-    strip(rFloor, rCeil, 0, H, H, 0.9, 1); // right wall — dimmer
-    strip(lCeil, rCeil, 0, W2, W2, 0.96, 0); // ceiling
+    strip(lFloor, lCeil, 0, H, H, 0.95, 1); // left wall — slightly dimmer than the floor
+    strip(rFloor, rCeil, 0, H, H, 0.95, 1); // right wall — slightly dimmer than the floor
+    strip(lCeil, rCeil, 0, W2, W2, 0.97, 0); // ceiling
     // a full-height canvas "door wall" spanning the corridor at each chapter boundary (doors cut later)
     chapterSpacedUs(nodes).wallU.forEach((u) => {
       const p = CURVE.getPointAt(u);
