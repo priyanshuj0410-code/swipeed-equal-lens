@@ -78,7 +78,7 @@ function RevealFace({ view }: { view: GameView }) {
           {view.correct ? "Spot on" : "Look again"}
         </span>
         {view.correct && view.points > 0 && (
-          <span className="flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold text-black/80" style={{ background: color }}>
+          <span className="flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-extrabold" style={{ background: "var(--color-surface)", color, border: `2px solid ${color}` }}>
             <Sparkles className="size-3" aria-hidden /> +{view.points}
           </span>
         )}
