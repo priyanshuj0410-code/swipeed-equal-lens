@@ -6,6 +6,7 @@ import { Html } from "@react-three/drei";
 import { Check, Lock, Play, Trophy } from "lucide-react";
 import { tokens } from "@equal-lens/brand"; // canvas-world brand colours — single source (retheme via the library)
 import { NODES, CHAPTERS, type Chapter } from "@/content/path";
+import { CANVAS_MYTHS, CHAPTER_CANVAS } from "@/content/chapter-canvas";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Card as GameCardT, Flag as FlagT } from "@/lib/types";
 
@@ -39,20 +40,32 @@ const PATH_SCALE = 3; // scenery density only (tree/prop counts); the curve belo
 const NODE_AMP = 3; // horizontal swing — nodes rest at x = ±NODE_AMP (closer to centre)
 const NODE_DZ = 3.5; // vertical distance between consecutive nodes (half a sine period)
 const SINE_START_Z = 18; // z of the first (bottom) node
-const SINE_NODE_COUNT = NODES.length; // one node per sine extremum
 const SINE_SAMPLES_PER_NODE = 12; // control points between nodes → smooth (not zigzag) sine
+// Each node sits on a sine extremum; a crest+trough (2 empty extrema) is skipped at every chapter
+// boundary so the chapter sign gets clear space. nodeSlots → the extremum index for each node.
+function nodeSlots(ns: ReadonlyArray<{ chapter?: string }>): { slot: number[]; total: number } {
+  const slot: number[] = [];
+  let s = 0;
+  for (let i = 0; i < ns.length; i++) {
+    if (i > 0 && ns[i].chapter !== ns[i - 1].chapter) s += 2; // skip a crest + a trough
+    slot[i] = s;
+    s += 1;
+  }
+  return { slot, total: Math.max(1, s) };
+}
+const SINE_TOTAL = nodeSlots(NODES).total; // total extrema, including the chapter-gap slots
 const CURVE = new THREE.CatmullRomCurve3(
-  Array.from({ length: (SINE_NODE_COUNT - 1) * SINE_SAMPLES_PER_NODE + 1 }, (_, k) => {
-    const t = k / SINE_SAMPLES_PER_NODE; // node-index space (integer t = a node, on an extremum)
+  Array.from({ length: (SINE_TOTAL - 1) * SINE_SAMPLES_PER_NODE + 1 }, (_, k) => {
+    const t = k / SINE_SAMPLES_PER_NODE; // slot space (integer t = an extremum; nodes sit on some)
     return new THREE.Vector3(NODE_AMP * Math.cos(Math.PI * t), 0, SINE_START_Z - t * NODE_DZ);
   }),
   false,
   "catmullrom",
   0.5
 );
-// World extent derived from the (scaled) path, so scenery stretches to cover its full length.
+// World extent derived from the path, so scenery stretches to cover its full length.
 const PATH_START_Z = SINE_START_Z;
-const PATH_END_Z = SINE_START_Z - (SINE_NODE_COUNT - 1) * NODE_DZ;
+const PATH_END_Z = SINE_START_Z - (SINE_TOTAL - 1) * NODE_DZ;
 const PATH_MID_Z = (PATH_START_Z + PATH_END_Z) / 2;
 const PATH_SPAN_Z = PATH_START_Z - PATH_END_Z;
 
@@ -533,7 +546,7 @@ function ProgressTrail({ progress }: { progress: React.MutableRefObject<number> 
     const m = new THREE.ShaderMaterial({
       transparent: true,
       depthWrite: false,
-      uniforms: { uProgress: { value: 0 }, uColor: { value: new THREE.Color(tokens.accent.grow) } }, // Grow Coral
+      uniforms: { uProgress: { value: 0 }, uColor: { value: new THREE.Color(tokens.violet[400]) } }, // subtle purple (#7F65A4)
       vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
       fragmentShader: `
         varying vec2 vUv;
@@ -609,19 +622,11 @@ const DOOR_H = 9; // doorway height
 // exactly on control point i (a left/right turn of the wave). Each chapter wall/door sits at the
 // midpoint between a capstone and the next chapter's first node. Also returns each door wall's u.
 function chapterSpacedUs(nodes: SceneNode[]): { nodeU: number[]; wallU: number[]; wallCap: number[] } {
-  const total = nodes.length;
+  const { slot, total } = nodeSlots(nodes);
   const span = Math.max(1, total - 1);
   const cl = (x: number) => Math.max(0, Math.min(1, x));
-  const nodeU = nodes.map((_, i) => cl(i / span));
-  const wallU: number[] = [];
-  const wallCap: number[] = []; // the capstone node index each wall sits after
-  nodes.forEach((n, i) => {
-    if (n.capstone && i < total - 1) {
-      wallU.push(cl((i + 0.5) / span)); // midway between the capstone and the next chapter's first node
-      wallCap.push(i);
-    }
-  });
-  return { nodeU, wallU, wallCap };
+  const nodeU = nodes.map((_, i) => cl(slot[i] / span));
+  return { nodeU, wallU: [], wallCap: [] }; // door walls removed — no wall positions
 }
 // the live corridor mesh (canvas skin only) — used to occlude DOM node/banner overlays behind walls.
 // A module-level callback ref sidesteps any ref-forwarding-through-props subtlety.
@@ -1388,14 +1393,15 @@ function ChapterBanner({ ch, u, p, progress }: { ch: Chapter; u: number; p: THRE
 
 function ChapterBanners({ chapters, nodes, progress }: { chapters: Chapter[]; nodes: SceneNode[]; progress: React.MutableRefObject<number> }) {
   const marks = useMemo(() => {
-    const span = Math.max(1, nodes.length - 1);
+    const { slot, total } = nodeSlots(nodes);
+    const span = Math.max(1, total - 1);
     return chapters
       .map((ch) => {
         const idx = nodes.findIndex((n) => n.chapter === ch.key);
         if (idx < 0) return null;
-        // sit the sign ON the curve at the zero-crossing just BEFORE the chapter's first node —
-        // nodes are sine extrema, so that midpoint is always x = 0 (screen-centre).
-        const t = idx - 0.5;
+        // sit the sign ON the curve, centred in the empty crest+trough gap before the chapter's
+        // first node (Ch.1 has no gap, so it rides the lead-in tail). A zero-crossing → x = 0.
+        const t = idx === 0 ? -0.5 : slot[idx] - 1.5;
         const p = new THREE.Vector3(0, 0.13, SINE_START_Z - t * NODE_DZ);
         return { ch, u: t / span, p };
       })
@@ -1405,6 +1411,81 @@ function ChapterBanners({ chapters, nodes, progress }: { chapters: Chapter[]; no
     <>
       {marks.map(({ ch, u, p }) => (
         <ChapterBanner key={ch.key} ch={ch} u={u} p={p} progress={progress} />
+      ))}
+    </>
+  );
+}
+
+const _hashStr = (s: string) => {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return h;
+};
+
+// Chapter "canvas dressing" (Chapter Canvas Theming doc): each chapter's myths scattered as
+// struck-through sticky notes along that chapter's stretch of the path — bias drawn on the page
+// (teal UN strike) with the truth RE writes (coral) below. A curated few per chapter; windowed so
+// only the nearby notes mount.
+function CanvasContent({ nodes, progress }: { nodes: SceneNode[]; progress: React.MutableRefObject<number> }) {
+  const placed = useMemo(() => {
+    const us = chapterSpacedUs(nodes).nodeU;
+    const chKeys = CHAPTERS.map((c) => c.key); // index i -> chapter (i + 1)
+    const chZ = new Map<number, { lo: number; hi: number }>();
+    nodes.forEach((n, i) => {
+      const ci = chKeys.indexOf(n.chapter ?? "");
+      if (ci < 0) return;
+      const z = CURVE.getPointAt(us[i]).z;
+      const e = chZ.get(ci + 1) ?? { lo: z, hi: z };
+      e.lo = Math.max(e.lo, z); // larger z = lower (bottom of the section)
+      e.hi = Math.min(e.hi, z); // smaller z = higher (top)
+      chZ.set(ci + 1, e);
+    });
+    const out: { id: string; x: number; z: number; rot: number; myth: string; truth: string }[] = [];
+    for (const cc of CHAPTER_CANVAS) {
+      const range = chZ.get(cc.chapter);
+      const all = CANVAS_MYTHS.filter((m) => m.chapter === cc.chapter);
+      if (!range || !all.length) continue;
+      const step = Math.max(1, Math.round(all.length / 6)); // ~6 myths per chapter (sparse)
+      const ms = all.filter((_, i) => i % step === 0);
+      const zBot = range.lo - NODE_DZ * 1.4; // margins keep notes clear of the chapter sign + boundary
+      const zTop = range.hi + NODE_DZ * 1.4;
+      ms.forEach((m, j) => {
+        const f = ms.length > 1 ? j / (ms.length - 1) : 0.5;
+        const h = _hashStr(m.id);
+        out.push({
+          id: m.id,
+          x: (j % 2 === 0 ? 1 : -1) * (8 + (h % 5)), // 8–12 to the side, clear of the ±3 path swing
+          z: zBot + (zTop - zBot) * f,
+          rot: (h % 9) - 4,
+          myth: m.myth,
+          truth: m.truth,
+        });
+      });
+    }
+    return out;
+  }, [nodes]);
+
+  const [, force] = useState(0);
+  const cz = useRef(CURVE.getPointAt(clamp01(progress.current)).z); // seed the window at the start
+  useFrame(() => {
+    const z = CURVE.getPointAt(clamp01(progress.current)).z;
+    if (Math.abs(z - cz.current) > 3) {
+      cz.current = z;
+      force((n) => n + 1);
+    }
+  });
+  const vis = placed.filter((m) => m.z <= cz.current + 12 && m.z >= cz.current - 12);
+  return (
+    <>
+      {vis.map((m) => (
+        <group key={m.id} position={[m.x, 0.14, m.z]}>
+          <Html center distanceFactor={16} zIndexRange={[18, 6]}>
+            <div className="myth-note pointer-events-none select-none" style={{ transform: `rotate(${m.rot}deg)` }}>
+              <span className="myth-strike">{m.myth}</span>
+              <span className="myth-truth">{m.truth}</span>
+            </div>
+          </Html>
+        </group>
       ))}
     </>
   );
@@ -1488,7 +1569,7 @@ function Companion({ progress }: { progress: React.MutableRefObject<number> }) {
             alt=""
             draggable={false}
             className="flame-flicker"
-            style={{ position: "absolute", left: "50%", top: "64%", width: 22, marginLeft: -11, zIndex: -1 }}
+            style={{ position: "absolute", left: "50%", top: "60%", width: 40, marginLeft: -20, zIndex: -1 }}
           />
         </div>
       </Html>
@@ -1633,6 +1714,7 @@ export function PathScene({
           Nodes first so the chapter banners (rendered after) stack ABOVE the node labels. */}
       {phase >= 1 && !playing && (
         <>
+          <CanvasContent nodes={nodes} progress={progress} />
           <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} canvas />
           <ChapterBanners chapters={chapters} nodes={nodes} progress={progress} />
           <Suspense fallback={null}>

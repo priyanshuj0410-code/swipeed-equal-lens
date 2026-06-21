@@ -312,3 +312,30 @@ html[data-playing="true"] .gethelp-label {
 @keyframes beat-burst { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.85; border-color: var(--color-insight); } 50% { border-color: var(--color-insight); opacity: 0.6; } 55% { border-color: var(--color-grow); } 100% { transform: translate(-50%, -50%) scale(2); opacity: 0; border-color: var(--color-grow); } }
 .beat-burst { animation: beat-burst 0.8s ease-out both; }
 @media (prefers-reduced-motion: reduce) { .beat-badge { animation: none; } .beat-burst { display: none; } }
+
+/* Chapter canvas content (Chapter Canvas Theming doc) — struck-through "myth" notes (bias on the
+   page; teal = UN/unlearn) with the truth RE writes below (coral = RE/relearn). Ambient dressing
+   scattered along each chapter's stretch of the path. */
+.myth-note {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 168px;
+  padding: 7px 11px;
+  border-radius: 10px;
+  background: color-mix(in oklch, var(--color-sun), transparent 84%);
+  border: 1.5px solid color-mix(in oklch, var(--color-ink), transparent 74%);
+  box-shadow: 2px 3px 0 color-mix(in oklch, var(--violet-200), transparent 25%);
+  font-family: var(--font-hand);
+  text-align: center;
+  line-height: 1.15;
+}
+.myth-note .myth-strike {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: color-mix(in oklch, var(--color-ink), transparent 35%);
+  text-decoration: line-through;
+  text-decoration-color: var(--color-insight);
+  text-decoration-thickness: 2px;
+}
+.myth-note .myth-truth { font-size: 12px; font-weight: 700; color: var(--color-grow); }
