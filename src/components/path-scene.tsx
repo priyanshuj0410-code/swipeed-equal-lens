@@ -441,13 +441,48 @@ function makePathStrokeTex() {
   return t;
 }
 
-// Canvas skin — the sky: flat brand paper (#FBF9FF). The dots live on the ground (a flat plane); a
-// sphere can't carry the same world-space dot grid cleanly, so the backdrop stays plain paper for now.
+const CANVAS_PAPER = "#FBF9FF";
+const CANVAS_DOT = "#E7E0F1";
+
+// Canvas skin — the sky: the brand dotted paper on the distant backdrop, drawn in SCREEN space. The
+// site's dotted paper is a screen background, and screen-space keeps the dots crisp + uniform on the
+// far dome (a world grid can't wrap a sphere cleanly). Knobs: uPx (pixel spacing) + uDotPx (radius px).
 function CanvasSky() {
+  const mat = useMemo(
+    () =>
+      new THREE.ShaderMaterial({
+        side: THREE.BackSide,
+        depthWrite: false,
+        fog: false,
+        uniforms: {
+          uPaper: { value: new THREE.Color(CANVAS_PAPER) },
+          uDot: { value: new THREE.Color(CANVAS_DOT) },
+          uPx: { value: 30.0 },
+          uDotPx: { value: 1.0 },
+        },
+        vertexShader: `
+          void main() { gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
+        `,
+        fragmentShader: `
+          uniform vec3 uPaper;
+          uniform vec3 uDot;
+          uniform float uPx;
+          uniform float uDotPx;
+          void main() {
+            vec2 cell = fract(gl_FragCoord.xy / uPx) - 0.5;
+            float d = length(cell) * uPx;
+            float dot = 1.0 - smoothstep(uDotPx - 0.6, uDotPx + 0.6, d);
+            gl_FragColor = vec4(mix(uPaper, uDot, dot), 1.0);
+            #include <colorspace_fragment>
+          }
+        `,
+      }),
+    []
+  );
+  useEffect(() => () => mat.dispose(), [mat]);
   return (
-    <mesh position={[0, 0, PATH_MID_Z]}>
+    <mesh material={mat} position={[0, 0, PATH_MID_Z]}>
       <sphereGeometry args={[560, 32, 16]} />
-      <meshBasicMaterial color="#FBF9FF" side={THREE.BackSide} depthWrite={false} fog={false} toneMapped={false} />
     </mesh>
   );
 }
@@ -458,8 +493,6 @@ function CanvasSky() {
 // world XZ position, so it stays a crisp anti-aliased circle at any distance or camera angle — no
 // texture tiling, no stretching toward the horizon, no mip blur. Two knobs: GAP (spacing) + DOT (radius).
 // ============================================================================================
-const CANVAS_PAPER = "#FBF9FF";
-const CANVAS_DOT = "#E7E0F1";
 function CanvasGround() {
   const mat = useMemo(() => {
     const m = new THREE.ShaderMaterial({
