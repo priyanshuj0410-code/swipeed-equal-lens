@@ -544,6 +544,26 @@ function CanvasGround() {
 // ============================================================================================
 const CORRIDOR_W = 16; // half-width — the corridor is 2*W wide
 const CORRIDOR_H = 15; // ceiling height above the floor
+
+// Node u-positions along the curve, with extra breathing room at each chapter boundary: after a
+// capstone the gap to the next chapter's first node is 4 slots (vs 1 normally), and the door wall sits
+// at the midpoint — so the wall has 2× the inter-node gap on each side. Also returns each door wall's u.
+function chapterSpacedUs(nodes: SceneNode[]): { nodeU: number[]; wallU: number[] } {
+  const starts: number[] = [];
+  let cur = 0;
+  for (let i = 0; i < nodes.length; i++) {
+    starts[i] = cur;
+    cur += nodes[i].capstone ? 4 : 1; // capstone → 4-slot gap (2 before the wall, 2 after)
+  }
+  const span = cur || 1;
+  const cl = (x: number) => Math.max(0, Math.min(1, x));
+  const nodeU = starts.map((s) => cl((s + 0.5) / span));
+  const wallU: number[] = [];
+  nodes.forEach((n, i) => {
+    if (n.capstone) wallU.push(cl((starts[i] + 2.5) / span));
+  });
+  return { nodeU, wallU };
+}
 // the live corridor mesh (canvas skin only) — used to occlude DOM node/banner overlays behind walls.
 // A module-level callback ref sidesteps any ref-forwarding-through-props subtlety.
 let _corridorMesh: THREE.Mesh | null = null;
@@ -618,11 +638,8 @@ function CanvasCorridor({ nodes }: { nodes: SceneNode[] }) {
     strip(lFloor, lCeil, 0, H, H, 0.9, 1); // left wall — dimmer
     strip(rFloor, rCeil, 0, H, H, 0.9, 1); // right wall — dimmer
     strip(lCeil, rCeil, 0, W2, W2, 0.96, 0); // ceiling
-    // a full-height canvas "door wall" spanning the corridor just after each capstone (doors cut later)
-    const total = nodes.length || 1;
-    nodes.forEach((node, i) => {
-      if (!node.capstone) return;
-      const u = Math.min(1, (i + 1) / total);
+    // a full-height canvas "door wall" spanning the corridor at each chapter boundary (doors cut later)
+    chapterSpacedUs(nodes).wallU.forEach((u) => {
       const p = CURVE.getPointAt(u);
       const tan = CURVE.getTangentAt(u);
       const tl = Math.hypot(tan.x, tan.z) || 1;
@@ -1604,12 +1621,12 @@ function ChapterBanner({ ch, u, p, progress }: { ch: Chapter; u: number; p: THRE
 
 function ChapterBanners({ chapters, nodes, progress }: { chapters: Chapter[]; nodes: SceneNode[]; progress: React.MutableRefObject<number> }) {
   const marks = useMemo(() => {
-    const total = nodes.length || 1;
+    const us = chapterSpacedUs(nodes).nodeU;
     return chapters
       .map((ch) => {
         const idx = nodes.findIndex((n) => n.chapter === ch.key);
         if (idx < 0) return null;
-        const u = clamp01((idx + 0.5) / total);
+        const u = us[idx];
         return { ch, u, p: CURVE.getPointAt(u) };
       })
       .filter((m): m is { ch: Chapter; u: number; p: THREE.Vector3 } => m !== null);
@@ -1636,11 +1653,21 @@ function Nodes({
   reduced: boolean;
 }) {
   const total = nodes.length;
+  const us = useMemo(() => chapterSpacedUs(nodes).nodeU, [nodes]);
   const [start, setStart] = useState(0);
   const startRef = useRef(0);
   useFrame(() => {
     if (total <= NODE_WINDOW) return;
-    const focus = Math.round(progress.current * total - 0.5);
+    // focus = the node nearest the camera's position along the curve (node spacing is non-uniform)
+    let focus = 0;
+    let best = Infinity;
+    for (let i = 0; i < total; i++) {
+      const dd = Math.abs(us[i] - progress.current);
+      if (dd < best) {
+        best = dd;
+        focus = i;
+      }
+    }
     const s = Math.max(0, Math.min(focus - 2, total - NODE_WINDOW));
     if (s !== startRef.current) {
       startRef.current = s;
@@ -1653,7 +1680,7 @@ function Nodes({
     <>
       {items.map((node, k) => {
         const i = from + k;
-        return <Node key={node.id} node={node} u={(i + 0.5) / total} progress={progress} onSelect={onSelect} reduced={reduced} />;
+        return <Node key={node.id} node={node} u={us[i]} progress={progress} onSelect={onSelect} reduced={reduced} />;
       })}
     </>
   );
@@ -2090,7 +2117,7 @@ export function PathScene({
   const startU = useMemo(() => {
     let i = nodes.findIndex((n) => n.state === "playable");
     if (i < 0) i = nodes.findIndex((n) => n.state === "completed");
-    return i >= 0 ? (i + 0.5) / nodes.length : 0;
+    return i >= 0 ? chapterSpacedUs(nodes).nodeU[i] : 0;
   }, [nodes]);
   const progress = useRef(startU);
   const [reduced, setReduced] = useState(false);
