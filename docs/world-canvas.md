@@ -78,3 +78,22 @@ seasons/day-night, nodes and Sam all still work; `?world=3d` returns the realist
 - **Phase 6 (this doc):** the canvas-skinned 3D world (v1 above), behind `?world=canvas`. Decorative.
 - **Phase 7 — interactive canvas:** a drawable trail + UN/RE-erasable "myth" doodles placed in the world —
   the brand's "whole site is a canvas" move (the world starts teaching, not just decorating).
+
+## Node stickers (canvas skin)
+The path nodes are re-drawn for the canvas world as **hand-drawn stickers** instead of the realistic
+world's toon pedestal + emissive ring + floating emoji. One sticker form, four signals:
+- **Form** — a billboarded sprite whose texture is drawn in 2D (`useStickerTexture`): a *wobbly* Ink
+  (`#221436`) outlined disc (deterministic `_wobbleCircle`, no rng so it's stable), flat fill, the lesson
+  **emoji kept** in the center, and a drawn ground-shadow ellipse on the paper. 3D depth-test means walls
+  occlude it for free.
+- **Chapter = accent fill.** `CANVAS_ACCENTS` (grow coral · insight teal · brandsoft violet) cycled per
+  chapter for wayfinding; **sun `#FFC94D` is reserved** for capstone fills + state badges.
+- **State = outline + corner badge + size**, never the fill: playable = solid ring + play badge; **locked**
+  = dashed ring, greyed emoji, faded, lock badge; **completed** = sun check badge; **capstone** = bigger,
+  always sun, Ink star sparkles baked around it.
+- **Label = paper tag.** Ink-bordered `#FBF9FF` pill with a marker underline in the chapter accent (the
+  realistic glass-pill is dropped in canvas), shown on in-view / hover / focus. The DOM `<button>` stays as
+  the transparent tap/keyboard target over the sticker.
+Decision (with the user): **keep the emoji** in the center — fastest, no new art — and brand everything
+around it. A bespoke Ink-doodle icon set per lesson is the later brand-pure upgrade. Realistic skin is
+untouched (the whole node visual branches on `canvas`).
