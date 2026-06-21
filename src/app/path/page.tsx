@@ -13,6 +13,7 @@ import { WorldLoader } from "@/components/world-loader";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { EngineGameHost, hasEngineGame } from "@/components/games/engine-host";
+import { WorldCanvas } from "@/components/canvas/world-canvas";
 import { NODES, CHAPTERS } from "@/content/path";
 import { DECK_BY_ID, resolveDeckCards } from "@/content/decks";
 import type { SceneNode } from "@/components/path-scene";
@@ -28,8 +29,21 @@ export default function PathPage() {
   const game = useSwipeGame();
   const [engineGame, setEngineGame] = useState<string | null>(null);
   const [webgl, setWebgl] = useState<boolean | null>(null);
+  // World mode (Phase 6 verification): 3D path (default) vs the 2.5D sticker canvas. `?world=canvas`/`3d`
+  // opts in and persists; the 3D world stays the default + intact until the canvas is signed off.
+  const [worldMode, setWorldMode] = useState<"3d" | "canvas">("3d");
 
   const playing = game.active || engineGame !== null;
+
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search).get("world");
+    if (p === "canvas" || p === "3d") {
+      try { localStorage.setItem("swipeed.world", p); } catch { /* ignore */ }
+    }
+    let w: string | null = null;
+    try { w = localStorage.getItem("swipeed.world"); } catch { /* ignore */ }
+    setWorldMode(w === "canvas" ? "canvas" : "3d");
+  }, []);
 
   useEffect(() => {
     try {
@@ -99,23 +113,27 @@ export default function PathPage() {
   return (
     <>
       {/* branded loading splash over the 3D world (real GLB load progress), fades when ready */}
-      {webgl !== false && <WorldLoader />}
+      {webgl !== false && worldMode === "3d" && <WorldLoader />}
 
-      <div className="fixed inset-0 z-0 touch-none overscroll-none bg-[#bfe2fb]">
-        {webgl === false ? (
-          <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-8 text-center">
-            <p className="max-w-xs text-sm text-muted-foreground">The 3D path isn&apos;t supported on this device, but you can use the classic view.</p>
-            <Link href="/classic" className={buttonVariants({})}>
-              Open the classic path
-            </Link>
-          </div>
-        ) : (
-          <PathScene nodes={nodes} chapters={CHAPTERS} onSelectNode={handleSelect} playing={playing} />
-        )}
-      </div>
+      {worldMode === "canvas" ? (
+        <WorldCanvas nodes={nodes} chapters={CHAPTERS} onSelectNode={handleSelect} playing={playing} />
+      ) : (
+        <div className="fixed inset-0 z-0 touch-none overscroll-none bg-[#bfe2fb]">
+          {webgl === false ? (
+            <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-8 text-center">
+              <p className="max-w-xs text-sm text-muted-foreground">The 3D path isn&apos;t supported on this device, but you can use the classic view.</p>
+              <Link href="/classic" className={buttonVariants({})}>
+                Open the classic path
+              </Link>
+            </div>
+          ) : (
+            <PathScene nodes={nodes} chapters={CHAPTERS} onSelectNode={handleSelect} playing={playing} />
+          )}
+        </div>
+      )}
 
       {/* ---- path mode chrome ---- */}
-      {webgl !== false && !playing && (
+      {(worldMode === "canvas" || webgl !== false) && !playing && (
         <>
           <div className="fixed left-4 top-4 z-50 flex items-center gap-2">
             <span className="glass-pill pointer-events-none flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold backdrop-blur-md backdrop-saturate-150">
