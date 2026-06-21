@@ -443,10 +443,12 @@ function makePathStrokeTex() {
 
 const CANVAS_PAPER = "#FBF9FF";
 const CANVAS_DOT = "#E7E0F1";
+const CANVAS_BORDER = "#221436"; // Ink — the horizon line where the two canvases meet
 
-// Canvas skin — the sky: the brand dotted paper on the distant backdrop, drawn in SCREEN space. The
-// site's dotted paper is a screen background, and screen-space keeps the dots crisp + uniform on the
-// far dome (a world grid can't wrap a sphere cleanly). Knobs: uPx (pixel spacing) + uDotPx (radius px).
+// Canvas skin — the sky: the brand dotted paper on the distant backdrop (screen-space dots), PLUS the
+// horizon border. The border is drawn on the dome where the view ray goes horizontal (dir.y≈0) — i.e.
+// exactly the ground's silhouette — so it reads as one clean Ink line all around, whichever way the
+// path turns. Knobs: uPx/uDotPx (dots) + uBorderW (line thickness).
 function CanvasSky() {
   const mat = useMemo(
     () =>
@@ -457,22 +459,38 @@ function CanvasSky() {
         uniforms: {
           uPaper: { value: new THREE.Color(CANVAS_PAPER) },
           uDot: { value: new THREE.Color(CANVAS_DOT) },
+          uBorder: { value: new THREE.Color(CANVAS_BORDER) },
           uPx: { value: 30.0 },
           uDotPx: { value: 1.0 },
+          uBorderW: { value: 0.006 }, // half-thickness of the horizon line, in view-ray elevation
+          uCam: { value: new THREE.Vector3() },
         },
         vertexShader: `
-          void main() { gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
+          varying vec3 vWorld;
+          void main() {
+            vWorld = (modelMatrix * vec4(position, 1.0)).xyz;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
         `,
         fragmentShader: `
           uniform vec3 uPaper;
           uniform vec3 uDot;
+          uniform vec3 uBorder;
           uniform float uPx;
           uniform float uDotPx;
+          uniform float uBorderW;
+          uniform vec3 uCam;
+          varying vec3 vWorld;
           void main() {
             vec2 cell = fract(gl_FragCoord.xy / uPx) - 0.5;
             float d = length(cell) * uPx;
             float dot = 1.0 - smoothstep(uDotPx - 0.6, uDotPx + 0.6, d);
-            gl_FragColor = vec4(mix(uPaper, uDot, dot), 1.0);
+            vec3 col = mix(uPaper, uDot, dot);
+            // horizon line: where the view ray is (near) horizontal
+            float ey = abs(normalize(vWorld - uCam).y);
+            float border = 1.0 - smoothstep(uBorderW, uBorderW + 0.0025, ey);
+            col = mix(col, uBorder, border);
+            gl_FragColor = vec4(col, 1.0);
             #include <colorspace_fragment>
           }
         `,
@@ -480,6 +498,9 @@ function CanvasSky() {
     []
   );
   useEffect(() => () => mat.dispose(), [mat]);
+  useFrame((state) => {
+    (mat.uniforms.uCam.value as THREE.Vector3).copy(state.camera.position);
+  });
   return (
     <mesh material={mat} position={[0, 0, PATH_MID_Z]}>
       <sphereGeometry args={[560, 32, 16]} />
