@@ -26,19 +26,20 @@ export function BrandSplash({
         fading ? "opacity-0" : "opacity-100"
       }`}
       style={{
-        background: "linear-gradient(180deg, #9fd0f5 0%, #c8e6fb 55%, #eaf6ff 100%)",
+        background: "linear-gradient(180deg, #ece6f6 0%, #f3f0f6 55%, #fbf9ff 100%)",
         paddingTop: "max(2rem, env(safe-area-inset-top))",
         paddingBottom: "max(2rem, env(safe-area-inset-bottom))",
       }}
     >
       <Logo className="size-20 drop-shadow-md" title="SwipeEd" />
-      <span className="font-display text-2xl font-extrabold tracking-tight text-slate-800">SwipeEd</span>
+      <span className="font-display text-2xl font-extrabold tracking-tight text-foreground">SwipeEd</span>
+      <span className="-mt-1 text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--color-brandsoft)" }}>by The Equal Lens</span>
       <div className="flex w-44 flex-col items-center gap-2">
         <div className="h-1.5 w-full overflow-hidden rounded-full bg-foreground/55">
           {determinate ? (
-            <div className="h-full rounded-full bg-slate-700/70 transition-[width] duration-300 ease-out" style={{ width: `${pct}%` }} />
+            <div className="h-full rounded-full bg-[var(--color-brand)] transition-[width] duration-300 ease-out" style={{ width: `${pct}%` }} />
           ) : (
-            <div className="animate-splash-bar h-full w-1/3 rounded-full bg-slate-700/70" />
+            <div className="animate-splash-bar h-full w-1/3 rounded-full bg-[var(--color-brand)]" />
           )}
         </div>
         <span className="text-xs font-medium text-slate-600">
