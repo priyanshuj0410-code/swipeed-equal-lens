@@ -443,6 +443,10 @@ function makePathStrokeTex() {
 
 const CANVAS_PAPER = "#FBF9FF";
 const CANVAS_DOT = "#E7E0F1";
+const CANVAS_INK = "#221436"; // hand-drawn outline / Ink
+const CANVAS_SUN = "#FFC94D"; // reserved: capstone fill + state badges
+// chapter accent fills for the node stickers (sun is held back for capstones/badges); cycled by chapter
+const CANVAS_ACCENTS = ["#FF7A5C", "#2DD4BF", "#7F65A4"]; // grow coral · insight teal · brandsoft violet
 
 // Canvas skin — the sky: the brand dotted paper on the distant backdrop, drawn in SCREEN space.
 // Knobs: uPx (pixel spacing) + uDotPx (dot radius px).
@@ -1639,6 +1643,122 @@ function useEmojiTexture(emoji: string, grey = false) {
   return tex;
 }
 
+// --- canvas-skin node sticker -------------------------------------------------------------------
+// A hand-drawn "sticker" pressed onto the dotted paper: a wobbly Ink-outlined disc, flat accent fill,
+// the lesson emoji, and a corner state badge. Replaces the toon pedestal+ring+emoji in canvas mode.
+function _wobbleCircle(ctx: CanvasRenderingContext2D, cx: number, cy: number, R: number) {
+  const N = 56;
+  for (let i = 0; i <= N; i++) {
+    const a = (i / N) * Math.PI * 2;
+    const rr = R + Math.sin(a * 3 + 1.3) * 1.7 + Math.sin(a * 7 + 0.6) * 1.0; // deterministic hand wobble
+    const x = cx + Math.cos(a) * rr;
+    const y = cy + Math.sin(a) * rr;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+}
+function _sparkle(ctx: CanvasRenderingContext2D, x: number, y: number, s: number) {
+  ctx.beginPath();
+  ctx.moveTo(x, y - s);
+  ctx.lineTo(x + s * 0.3, y - s * 0.3);
+  ctx.lineTo(x + s, y);
+  ctx.lineTo(x + s * 0.3, y + s * 0.3);
+  ctx.lineTo(x, y + s);
+  ctx.lineTo(x - s * 0.3, y + s * 0.3);
+  ctx.lineTo(x - s, y);
+  ctx.lineTo(x - s * 0.3, y - s * 0.3);
+  ctx.closePath();
+  ctx.fillStyle = CANVAS_PAPER;
+  ctx.fill();
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = CANVAS_INK;
+  ctx.lineJoin = "round";
+  ctx.stroke();
+}
+function _stateBadge(ctx: CanvasRenderingContext2D, x: number, y: number, r: number, state: NodeState) {
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fillStyle = state === "soon" ? CANVAS_PAPER : CANVAS_SUN;
+  ctx.fill();
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = CANVAS_INK;
+  ctx.stroke();
+  ctx.strokeStyle = CANVAS_INK;
+  ctx.fillStyle = CANVAS_INK;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  if (state === "completed") {
+    ctx.lineWidth = 4.5;
+    ctx.beginPath();
+    ctx.moveTo(x - r * 0.42, y);
+    ctx.lineTo(x - r * 0.08, y + r * 0.34);
+    ctx.lineTo(x + r * 0.46, y - r * 0.36);
+    ctx.stroke();
+  } else if (state === "soon") {
+    ctx.lineWidth = 3.5;
+    ctx.beginPath();
+    ctx.moveTo(x - r * 0.34, y - r * 0.02);
+    ctx.lineTo(x - r * 0.34, y + r * 0.42);
+    ctx.lineTo(x + r * 0.34, y + r * 0.42);
+    ctx.lineTo(x + r * 0.34, y - r * 0.02);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(x, y - r * 0.02, r * 0.26, Math.PI, 0); // shackle
+    ctx.stroke();
+  } else {
+    ctx.beginPath(); // play triangle
+    ctx.moveTo(x - r * 0.26, y - r * 0.4);
+    ctx.lineTo(x - r * 0.26, y + r * 0.4);
+    ctx.lineTo(x + r * 0.44, y);
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+function useStickerTexture(active: boolean, emoji: string, accent: string, state: NodeState, capstone: boolean) {
+  const tex = useMemo(() => {
+    if (!active) return null;
+    const S = 256;
+    const c = document.createElement("canvas");
+    c.width = c.height = S;
+    const ctx = c.getContext("2d")!;
+    const cx = S / 2;
+    const cy = S / 2;
+    const R = capstone ? 86 : 80;
+    const locked = state === "soon";
+    if (capstone) {
+      _sparkle(ctx, 40, 60, 13);
+      _sparkle(ctx, S - 42, 50, 15);
+      _sparkle(ctx, S - 30, S - 54, 11);
+    }
+    ctx.beginPath();
+    _wobbleCircle(ctx, cx, cy, R);
+    ctx.closePath();
+    ctx.fillStyle = locked ? CANVAS_PAPER : capstone ? CANVAS_SUN : accent;
+    ctx.fill();
+    ctx.lineWidth = capstone ? 8 : 7;
+    ctx.strokeStyle = CANVAS_INK;
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    if (locked) ctx.setLineDash([15, 12]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.save();
+    ctx.font = `${Math.round(R * 1.05)}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    if (locked && !capstone) ctx.filter = "grayscale(1) opacity(0.6)";
+    ctx.fillText(emoji, cx, cy + R * 0.04);
+    ctx.restore();
+    _stateBadge(ctx, cx + R * 0.74, cy - R * 0.74, capstone ? 30 : 27, state);
+    const t = new THREE.CanvasTexture(c);
+    t.colorSpace = THREE.SRGBColorSpace;
+    t.anisotropy = 8;
+    return t;
+  }, [active, emoji, accent, state, capstone]);
+  useEffect(() => () => tex?.dispose(), [tex]);
+  return tex;
+}
+
 const _occOrigin = new THREE.Vector3();
 const _occTarget = new THREE.Vector3();
 const _occDir = new THREE.Vector3();
@@ -1662,12 +1782,16 @@ function Node({
   progress,
   onSelect,
   reduced,
+  canvas,
+  accent,
 }: {
   node: SceneNode;
   u: number;
   progress: React.MutableRefObject<number>;
   onSelect?: (n: SceneNode) => void;
   reduced: boolean;
+  canvas: boolean;
+  accent: string;
 }) {
   const pos = useMemo(() => CURVE.getPointAt(u), [u]);
   const spr = useRef<THREE.Sprite>(null);
@@ -1675,16 +1799,18 @@ function Node({
   const soon = node.state === "soon";
   const greyEmoji = soon && !cap; // capstones keep their gold; not-built lessons grey out
   const tex = useEmojiTexture(node.emoji, greyEmoji);
+  const stickerTex = useStickerTexture(canvas, node.emoji, accent, node.state, cap);
   const st = nodeShades(node.hex, node.state, cap);
   const bob = node.state === "playable";
-  const sprScale = cap ? 2.5 : 1.8;
+  const sprScale = canvas ? (cap ? 4.6 : 3.7) : cap ? 2.5 : 1.8;
   const [inView, setInView] = useState(false);
   const inViewRef = useRef(false);
+  const [hovered, setHovered] = useState(false);
   const [occluded, setOccluded] = useState(false); // a corridor wall is between this node's label and the camera
   const occRef = useRef(false);
   useFrame((s) => {
     if (spr.current) {
-      spr.current.position.y = 0.2 + (bob && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0);
+      spr.current.position.y = (canvas ? 0.35 : 0.2) + (bob && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0);
     }
     // reveal the name when the node is at / just ahead of the camera focus
     // (touch has no hover, so on-screen nodes label themselves)
@@ -1709,6 +1835,50 @@ function Node({
     progress.current = u;
     if (!soon) onSelect?.(node);
   };
+  // ---- canvas skin: the hand-drawn sticker node (Ink-outlined disc + accent fill + emoji + badge) ----
+  if (canvas) {
+    return (
+      <group position={[pos.x, 1.5, pos.z]}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.45, 0]} scale={[cap ? 1.7 : 1.35, cap ? 0.68 : 0.55, 1]}>
+          <circleGeometry args={[1, 28]} />
+          <meshBasicMaterial color={CANVAS_INK} transparent opacity={0.12} depthWrite={false} fog={false} />
+        </mesh>
+        {stickerTex && (
+          <sprite ref={spr} position={[0, 0.35, 0]} scale={[sprScale, sprScale, sprScale]}>
+            <spriteMaterial map={stickerTex} transparent depthWrite={false} opacity={soon && !cap ? 0.86 : 1} fog={false} />
+          </sprite>
+        )}
+        <Html center position={[0, 0.35, 0]} distanceFactor={11} zIndexRange={[30, 0]}>
+          <button
+            type="button"
+            aria-label={`${node.label} — ${cap ? "capstone, " : ""}${node.state === "soon" ? "not built yet" : node.state}`}
+            disabled={soon}
+            onPointerDown={(e) => e.stopPropagation()}
+            onPointerOver={() => setHovered(true)}
+            onPointerOut={() => setHovered(false)}
+            onFocus={() => {
+              focus();
+              setHovered(true);
+            }}
+            onBlur={() => setHovered(false)}
+            onClick={select}
+            style={{ visibility: occluded ? "hidden" : "visible" }}
+            className="pointer-events-auto size-14 rounded-full focus:outline-none focus-visible:ring-4 focus-visible:ring-[#221436]/60 disabled:cursor-default"
+          />
+        </Html>
+        <Html center position={[0, cap ? 2.5 : 2.1, 0]} distanceFactor={12} zIndexRange={[31, 1]}>
+          <span
+            style={{ visibility: occluded ? "hidden" : "visible", boxShadow: `0 3px 0 ${accent}` }}
+            className={`pointer-events-none block select-none whitespace-nowrap rounded-md border-[1.5px] border-[#221436] bg-[#FBF9FF] px-2 py-0.5 text-[11px] font-bold text-[#221436] transition-opacity duration-150 ${
+              inView || hovered ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            {node.label}
+          </span>
+        </Html>
+      </group>
+    );
+  }
   return (
     <group position={[pos.x, 1.5, pos.z]}>
       <mesh position={[0, -1.0, 0]} castShadow receiveShadow scale={cap ? 1.22 : 1}>
@@ -1815,14 +1985,24 @@ function Nodes({
   progress,
   onSelect,
   reduced,
+  canvas,
 }: {
   nodes: SceneNode[];
   progress: React.MutableRefObject<number>;
   onSelect?: (n: SceneNode) => void;
   reduced: boolean;
+  canvas: boolean;
 }) {
   const total = nodes.length;
   const us = useMemo(() => chapterSpacedUs(nodes).nodeU, [nodes]);
+  // one brand accent per chapter (wayfinding) — sun is reserved for capstones/badges, so cycle the other three
+  const accentOf = useMemo(() => {
+    const keys: string[] = [];
+    for (const n of nodes) if (n.chapter && !keys.includes(n.chapter)) keys.push(n.chapter);
+    const map: Record<string, string> = {};
+    keys.forEach((k, i) => (map[k] = CANVAS_ACCENTS[i % CANVAS_ACCENTS.length]));
+    return (chapter?: string) => (chapter && map[chapter]) || CANVAS_ACCENTS[0];
+  }, [nodes]);
   const [start, setStart] = useState(0);
   const startRef = useRef(0);
   useFrame(() => {
@@ -1849,7 +2029,7 @@ function Nodes({
     <>
       {items.map((node, k) => {
         const i = from + k;
-        return <Node key={node.id} node={node} u={us[i]} progress={progress} onSelect={onSelect} reduced={reduced} />;
+        return <Node key={node.id} node={node} u={us[i]} progress={progress} onSelect={onSelect} reduced={reduced} canvas={canvas} accent={accentOf(node.chapter)} />;
       })}
     </>
   );
@@ -2383,7 +2563,7 @@ export function PathScene({
           Nodes first so the chapter banners (rendered after) stack ABOVE the node labels. */}
       {phase >= 1 && !playing && (
         <>
-          <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} />
+          <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} canvas={canvas} />
           <ChapterBanners chapters={chapters} nodes={nodes} progress={progress} />
           <Suspense fallback={null}>
             <Companion progress={progress} />
