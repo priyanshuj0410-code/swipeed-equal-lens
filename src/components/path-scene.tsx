@@ -534,6 +534,131 @@ function CanvasGround() {
   );
 }
 
+// ============================================================================================
+// Canvas corridor — a long winding hallway that follows the path: floor + two side walls + ceiling,
+// all swept along CURVE so the whole corridor curves with the path. Every surface is the brand dotted
+// paper (#FBF9FF + #E7E0F1 dots on a world-unit UV grid). Soft ambient occlusion darkens the four
+// corner seams where the surfaces meet — and because those seams are real straight geometry, the room
+// edges read clean + straight (a white-room corner, not a vignette).
+// Knobs: CORRIDOR_W (half-width) · CORRIDOR_H (height) · uCorner (AO depth) · uFalloff (AO spread).
+// ============================================================================================
+const CORRIDOR_W = 12; // half-width — the corridor is 2*W wide
+const CORRIDOR_H = 13; // ceiling height above the floor
+function CanvasCorridor() {
+  const { geometry, material } = useMemo(() => {
+    const len = CURVE.getLength();
+    const N = Math.max(8, Math.ceil(len / 1.2));
+    const pts = CURVE.getSpacedPoints(N);
+    type Frame = { px: number; py: number; pz: number; nx: number; nz: number; u: number };
+    const frames: Frame[] = [];
+    let cum = 0;
+    for (let i = 0; i <= N; i++) {
+      const p = pts[i];
+      const a = pts[Math.max(0, i - 1)];
+      const b = pts[Math.min(N, i + 1)];
+      const tx = b.x - a.x;
+      const tz = b.z - a.z;
+      const tl = Math.hypot(tx, tz) || 1;
+      if (i > 0) {
+        const pp = pts[i - 1];
+        cum += Math.hypot(p.x - pp.x, p.z - pp.z);
+      }
+      frames.push({ px: p.x, py: p.y, pz: p.z, nx: -tz / tl, nz: tx / tl, u: cum }); // left perpendicular
+    }
+    const W = CORRIDOR_W;
+    const H = CORRIDOR_H;
+    const W2 = 2 * W;
+    const pos: number[] = [];
+    const uv: number[] = [];
+    const ext: number[] = [];
+    const idx: number[] = [];
+    // one swept strip: edges A→B per path sample, V from vA→vB across; vExtent = the surface's V-span
+    const strip = (eA: (f: Frame) => number[], eB: (f: Frame) => number[], vA: number, vB: number, vExtent: number) => {
+      const start = pos.length / 3;
+      for (let i = 0; i <= N; i++) {
+        const f = frames[i];
+        const A = eA(f);
+        const B = eB(f);
+        pos.push(A[0], A[1], A[2]);
+        uv.push(f.u, vA);
+        ext.push(vExtent);
+        pos.push(B[0], B[1], B[2]);
+        uv.push(f.u, vB);
+        ext.push(vExtent);
+        if (i < N) {
+          const k = start + i * 2;
+          idx.push(k, k + 1, k + 2, k + 2, k + 1, k + 3);
+        }
+      }
+    };
+    const lFloor = (f: Frame) => [f.px + f.nx * W, f.py, f.pz + f.nz * W];
+    const rFloor = (f: Frame) => [f.px - f.nx * W, f.py, f.pz - f.nz * W];
+    const lCeil = (f: Frame) => [f.px + f.nx * W, f.py + H, f.pz + f.nz * W];
+    const rCeil = (f: Frame) => [f.px - f.nx * W, f.py + H, f.pz - f.nz * W];
+    strip(lFloor, rFloor, 0, W2, W2); // floor
+    strip(lFloor, lCeil, 0, H, H); // left wall
+    strip(rFloor, rCeil, 0, H, H); // right wall
+    strip(lCeil, rCeil, 0, W2, W2); // ceiling
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+    g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
+    g.setAttribute("aExtent", new THREE.Float32BufferAttribute(ext, 1));
+    g.setIndex(idx);
+    const m = new THREE.ShaderMaterial({
+      side: THREE.DoubleSide,
+      uniforms: {
+        uPaper: { value: new THREE.Color(CANVAS_PAPER) },
+        uDot: { value: new THREE.Color(CANVAS_DOT) },
+        uGap: { value: 0.3 },
+        uRadius: { value: 0.013 },
+        uCorner: { value: 0.8 }, // brightness in the corner seams (lower = deeper AO)
+        uFalloff: { value: 2.5 }, // how far the corner AO reaches (world units)
+      },
+      vertexShader: `
+        attribute float aExtent;
+        varying vec2 vUv;
+        varying float vExtent;
+        void main() {
+          vUv = uv;
+          vExtent = aExtent;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        varying vec2 vUv;
+        varying float vExtent;
+        uniform vec3 uPaper;
+        uniform vec3 uDot;
+        uniform float uGap;
+        uniform float uRadius;
+        uniform float uCorner;
+        uniform float uFalloff;
+        void main() {
+          vec2 cell = fract(vUv / uGap) - 0.5;
+          float d = length(cell) * uGap;
+          float aa = 0.22 * fwidth(d) + 1e-5;
+          float dot = 1.0 - smoothstep(uRadius - aa, uRadius + aa, d);
+          vec3 col = mix(uPaper, uDot, dot);
+          // soft AO toward the nearest corner seam (this surface's two V-edges)
+          float cd = min(vUv.y, vExtent - vUv.y);
+          col *= mix(uCorner, 1.0, smoothstep(0.0, uFalloff, cd));
+          gl_FragColor = vec4(col, 1.0);
+          #include <colorspace_fragment>
+        }
+      `,
+    });
+    return { geometry: g, material: m };
+  }, []);
+  useEffect(
+    () => () => {
+      geometry.dispose();
+      material.dispose();
+    },
+    [geometry, material]
+  );
+  return <mesh geometry={geometry} material={material} />;
+}
+
 // A single thin drawn horizon line where the paper land meets the paper sky (replaces the old fog
 // tint). A large, thin Ink band that follows the camera so it always sits at the horizon all around.
 function CanvasHorizon() {
@@ -1940,7 +2065,7 @@ export function PathScene({
       <SunLight progress={progress} />
       <hemisphereLight args={["#dcefff", "#8fc06a", 0.5]} />
       <SeasonAmbient />
-      {canvas ? <CanvasGround /> : <Ground skin={skin} />}
+      {canvas ? <CanvasCorridor /> : <Ground skin={skin} />}
       <Suspense fallback={null}>
         {!canvas && <Mountains />}
         {phase >= 1 && !canvas && <PlankPath />}
