@@ -226,6 +226,323 @@ function trsTilt(x: number, y: number, z: number, ex: number, ey: number, ez: nu
 }
 
 // --- sky / clouds ----------------------------------------------------------------------
+// ============================================================================================
+// Canvas / doodle skin
+// The world re-drawn on paper: a canvas ground with tree doodles, a canvas sky with cloud
+// doodles, and the path inked onto the ground. Every surface is a runtime <canvas> texture
+// (CanvasTexture) so the world literally *is* a canvas. Mounted when PathScene's `skin ===
+// "canvas"`; the realistic R3F world stays the default. Brand: Ink #221436 outlines, flat fills,
+// dotted paper. v1 = stub doodles drawn in code; richer themed packs can swap in later.
+// ============================================================================================
+export type WorldSkin = "realistic" | "canvas";
+const DOODLE_INK = "#221436";
+const DOODLE_GREEN = "#54bd77";
+const DOODLE_GREEN_DK = "#2f8f57";
+
+function roundRectPath(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
+  g.beginPath();
+  g.moveTo(x + r, y);
+  g.arcTo(x + w, y, x + w, y + h, r);
+  g.arcTo(x + w, y + h, x, y + h, r);
+  g.arcTo(x, y + h, x, y, r);
+  g.arcTo(x, y, x + w, y, r);
+  g.closePath();
+}
+
+// warm paper + faint speckle + dotted-paper grid → the canvas every surface is drawn on.
+function makePaperTex(tint = "#fcfaff", dot = "#e6ddf2", size = 256) {
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  const g = c.getContext("2d")!;
+  g.fillStyle = tint;
+  g.fillRect(0, 0, size, size);
+  for (let i = 0; i < size * 3; i++) {
+    g.fillStyle = `rgba(34,20,54,${0.012 + Math.random() * 0.022})`;
+    g.fillRect(Math.random() * size, Math.random() * size, Math.random() * 1.3, Math.random() * 1.3);
+  }
+  g.fillStyle = dot;
+  const step = 30;
+  for (let y = step / 2; y < size; y += step)
+    for (let x = step / 2; x < size; x += step) {
+      g.beginPath();
+      g.arc(x, y, 1.4, 0, 6.2832);
+      g.fill();
+    }
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.anisotropy = 4;
+  return t;
+}
+
+// a soft hand-coloured sky wash on paper (zenith blue → warm-paper horizon).
+function makeSkyTex() {
+  const c = document.createElement("canvas");
+  c.width = 8;
+  c.height = 512;
+  const g = c.getContext("2d")!;
+  const grad = g.createLinearGradient(0, 0, 0, 512);
+  grad.addColorStop(0, "#bfe0fb");
+  grad.addColorStop(0.55, "#dceffa");
+  grad.addColorStop(1, "#f7f1e4");
+  g.fillStyle = grad;
+  g.fillRect(0, 0, 8, 512);
+  for (let i = 0; i < 600; i++) {
+    g.fillStyle = `rgba(255,255,255,${Math.random() * 0.05})`;
+    g.fillRect(Math.random() * 8, Math.random() * 512, 1, 1);
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = THREE.ClampToEdgeWrapping;
+  t.wrapT = THREE.ClampToEdgeWrapping;
+  return t;
+}
+
+// a hand-drawn tree (flat fill + chunky Ink outline): a lumpy round canopy or a stacked pine.
+function makeTreeDoodleTex(kind: "round" | "pine") {
+  const W = 256, H = 320;
+  const c = document.createElement("canvas");
+  c.width = W;
+  c.height = H;
+  const g = c.getContext("2d")!;
+  g.lineJoin = "round";
+  g.lineCap = "round";
+  g.fillStyle = "#a9743f";
+  roundRectPath(g, W / 2 - 15, H - 96, 30, 86, 9);
+  g.fill();
+  g.lineWidth = 9;
+  g.strokeStyle = DOODLE_INK;
+  g.stroke();
+  if (kind === "pine") {
+    const tri = (cy: number, half: number, h: number) => {
+      g.beginPath();
+      g.moveTo(W / 2, cy - h);
+      g.lineTo(W / 2 + half, cy);
+      g.lineTo(W / 2 - half, cy);
+      g.closePath();
+      g.fillStyle = DOODLE_GREEN;
+      g.fill();
+      g.lineWidth = 11;
+      g.strokeStyle = DOODLE_INK;
+      g.stroke();
+    };
+    tri(H - 78, 96, 116);
+    tri(H - 140, 80, 104);
+    tri(H - 196, 62, 92);
+  } else {
+    const cx = W / 2, cy = H - 150, R = 96, bumps = 9;
+    g.beginPath();
+    const segs = bumps * 10;
+    for (let i = 0; i <= segs; i++) {
+      const a = (i / segs) * Math.PI * 2;
+      const rr = R * (0.9 + 0.1 * Math.sin(a * bumps));
+      const x = cx + Math.cos(a) * rr;
+      const y = cy + Math.sin(a) * rr * 0.92;
+      i ? g.lineTo(x, y) : g.moveTo(x, y);
+    }
+    g.closePath();
+    g.fillStyle = DOODLE_GREEN;
+    g.fill();
+    g.lineWidth = 11;
+    g.strokeStyle = DOODLE_INK;
+    g.stroke();
+    g.save();
+    g.clip();
+    g.globalAlpha = 0.45;
+    g.fillStyle = DOODLE_GREEN_DK;
+    g.beginPath();
+    g.arc(cx + 34, cy + 40, R, 0, Math.PI * 2);
+    g.fill();
+    g.restore();
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.anisotropy = 4;
+  return t;
+}
+
+function makeCloudDoodleTex() {
+  const W = 256, H = 150;
+  const c = document.createElement("canvas");
+  c.width = W;
+  c.height = H;
+  const g = c.getContext("2d")!;
+  g.lineJoin = "round";
+  g.lineCap = "round";
+  g.beginPath();
+  g.moveTo(34, 116);
+  g.bezierCurveTo(6, 116, 8, 74, 46, 70);
+  g.bezierCurveTo(48, 38, 100, 36, 110, 62);
+  g.bezierCurveTo(126, 28, 188, 34, 188, 68);
+  g.bezierCurveTo(228, 60, 240, 104, 210, 116);
+  g.closePath();
+  g.fillStyle = "#ffffff";
+  g.fill();
+  g.lineWidth = 9;
+  g.strokeStyle = DOODLE_INK;
+  g.stroke();
+  const t = new THREE.CanvasTexture(c);
+  t.anisotropy = 4;
+  return t;
+}
+
+// the trail, inked: a sandy band with Ink edges + a dashed centre line (tiles along its length).
+function makePathStrokeTex() {
+  const W = 128, H = 64;
+  const c = document.createElement("canvas");
+  c.width = W;
+  c.height = H;
+  const g = c.getContext("2d")!;
+  g.fillStyle = "#efe6d2";
+  g.fillRect(0, 0, W, H);
+  for (let i = 0; i < 220; i++) {
+    g.fillStyle = `rgba(120,90,40,${Math.random() * 0.06})`;
+    g.fillRect(Math.random() * W, Math.random() * H, 1.4, 1.4);
+  }
+  g.lineCap = "round";
+  g.strokeStyle = DOODLE_INK;
+  g.lineWidth = 6;
+  g.beginPath();
+  g.moveTo(0, 5);
+  g.lineTo(W, 5);
+  g.moveTo(0, H - 5);
+  g.lineTo(W, H - 5);
+  g.stroke();
+  g.strokeStyle = "rgba(34,20,54,0.4)";
+  g.lineWidth = 4;
+  g.setLineDash([14, 16]);
+  g.beginPath();
+  g.moveTo(0, H / 2);
+  g.lineTo(W, H / 2);
+  g.stroke();
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = THREE.RepeatWrapping;
+  t.wrapT = THREE.ClampToEdgeWrapping;
+  return t;
+}
+
+function CanvasSky() {
+  const tex = useMemo(() => makeSkyTex(), []);
+  useEffect(() => () => tex.dispose(), [tex]);
+  return (
+    <mesh position={[0, 0, PATH_MID_Z]}>
+      <sphereGeometry args={[560, 32, 16]} />
+      <meshBasicMaterial map={tex} side={THREE.BackSide} depthWrite={false} fog={false} />
+    </mesh>
+  );
+}
+
+function DoodleClouds() {
+  const ref = useRef<THREE.Group>(null);
+  const tex = useMemo(() => makeCloudDoodleTex(), []);
+  useEffect(() => () => tex.dispose(), [tex]);
+  const clouds = useMemo(() => {
+    const rng = mulberry32(91);
+    const arr: { x: number; y: number; z: number; s: number }[] = [];
+    const n = Math.round(20 * PATH_SCALE);
+    for (let i = 0; i < n; i++) {
+      arr.push({ x: (rng() - 0.5) * 360, y: 48 + rng() * 46, z: PATH_START_Z - rng() * PATH_SPAN_Z, s: 22 + rng() * 22 });
+    }
+    return arr;
+  }, []);
+  useFrame((_, dt) => {
+    if (ref.current) ref.current.rotation.y += dt * 0.004;
+  });
+  return (
+    <group ref={ref}>
+      {clouds.map((c, i) => (
+        <sprite key={i} position={[c.x, c.y, c.z]} scale={[c.s, c.s * 0.6, 1]}>
+          <spriteMaterial map={tex} transparent depthWrite={false} fog={false} opacity={0.96} />
+        </sprite>
+      ))}
+    </group>
+  );
+}
+
+function DoodleTrees() {
+  const round = useMemo(() => makeTreeDoodleTex("round"), []);
+  const pine = useMemo(() => makeTreeDoodleTex("pine"), []);
+  useEffect(
+    () => () => {
+      round.dispose();
+      pine.dispose();
+    },
+    [round, pine]
+  );
+  const trees = useMemo(() => {
+    const rng = mulberry32(404);
+    const out: { x: number; z: number; h: number; pine: boolean; flip: boolean }[] = [];
+    let tries = 0;
+    while (out.length < 170 && tries < 6000) {
+      tries++;
+      const x = (rng() * 2 - 1) * 62;
+      const z = PATH_START_Z + 20 - rng() * (PATH_SPAN_Z + 44);
+      if (distToPathSq(x, z) < 64) continue; // ~8u clearance from the trail
+      const near = distToPathSq(x, z) < 676; // within ~26u → a touch smaller
+      out.push({ x, z, h: (near ? 5.5 : 6.8) + rng() * 3, pine: rng() < 0.45, flip: rng() < 0.5 });
+    }
+    return out;
+  }, []);
+  return (
+    <group>
+      {trees.map((t, i) => (
+        <sprite key={i} position={[t.x, t.h * 0.5, t.z]} scale={[t.h * 0.8 * (t.flip ? -1 : 1), t.h, 1]}>
+          <spriteMaterial map={t.pine ? pine : round} alphaTest={0.5} depthWrite />
+        </sprite>
+      ))}
+    </group>
+  );
+}
+
+function DrawnPath() {
+  const { geometry, tex } = useMemo(() => {
+    const N = Math.max(2, Math.ceil(CURVE.getLength() / 1.5));
+    const pts = CURVE.getSpacedPoints(N);
+    const hw = 2.7;
+    const pos: number[] = [];
+    const uv: number[] = [];
+    const idx: number[] = [];
+    let cum = 0;
+    for (let i = 0; i <= N; i++) {
+      const p = pts[i];
+      const a = pts[Math.max(0, i - 1)];
+      const b = pts[Math.min(N, i + 1)];
+      const dx = b.x - a.x;
+      const dz = b.z - a.z;
+      const len = Math.hypot(dx, dz) || 1;
+      const nx = -dz / len;
+      const nz = dx / len;
+      if (i > 0) {
+        const pp = pts[i - 1];
+        cum += Math.hypot(p.x - pp.x, p.z - pp.z);
+      }
+      pos.push(p.x + nx * hw, 0.09, p.z + nz * hw);
+      pos.push(p.x - nx * hw, 0.09, p.z - nz * hw);
+      const u = cum / 6;
+      uv.push(u, 0, u, 1);
+      if (i < N) {
+        const k = i * 2;
+        idx.push(k, k + 2, k + 1, k + 1, k + 2, k + 3);
+      }
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+    g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
+    g.setIndex(idx);
+    g.computeVertexNormals();
+    return { geometry: g, tex: makePathStrokeTex() };
+  }, []);
+  useEffect(
+    () => () => {
+      geometry.dispose();
+      tex.dispose();
+    },
+    [geometry, tex]
+  );
+  return (
+    <mesh geometry={geometry}>
+      <meshBasicMaterial map={tex} side={THREE.DoubleSide} fog polygonOffset polygonOffsetFactor={-2} polygonOffsetUnits={-2} />
+    </mesh>
+  );
+}
+
 function SkyDome() {
   const mat = useMemo(
     () =>
@@ -286,7 +603,7 @@ function Clouds() {
 // --- land: one continuous grass field (no tiled-block seams) ---------------------------
 // Coloured with the exact Kenney grass-top palette greens, varied by smooth noise so it
 // reads as a living field rather than a flat sheet or a visible tile grid.
-function Ground() {
+function Ground({ skin }: { skin: WorldSkin }) {
   // Precompute the per-vertex noise once, then a colour array per season (snow / golden /
   // deep-green / fresh / summer). The live attribute is swapped when the season changes.
   const { geo, colorArrays } = useMemo(() => {
@@ -321,15 +638,40 @@ function Ground() {
     g.setAttribute("color", new THREE.Float32BufferAttribute(colorArrays.summer.slice(), 3));
     return { geo: g, colorArrays };
   }, []);
+  // canvas skin: a paper sheet, tinted toward the current season's ground colour.
+  const paper = useMemo(() => {
+    if (skin !== "canvas") return null;
+    const t = makePaperTex();
+    t.repeat.set(700 / 13, (PATH_SPAN_Z + 360) / 13);
+    return t;
+  }, [skin]);
+  useEffect(() => () => paper?.dispose(), [paper]);
+  const matRef = useRef<THREE.MeshBasicMaterial>(null);
+  const tintCol = useMemo(() => new THREE.Color(), []);
+  const white = useMemo(() => new THREE.Color("#ffffff"), []);
   const appliedRef = useRef(-1);
   useFrame(() => {
+    const season = SEASON_ORDER[seasonRT.index] ?? "summer";
+    if (skin === "canvas") {
+      if (matRef.current) {
+        tintCol.set(SEASONS[season].ground.base).lerp(white, 0.22);
+        matRef.current.color.lerp(tintCol, 0.08);
+      }
+      return;
+    }
     if (appliedRef.current === seasonRT.index) return;
     appliedRef.current = seasonRT.index;
-    const season = SEASON_ORDER[seasonRT.index] ?? "summer";
     const attr = geo.attributes.color as THREE.BufferAttribute;
     (attr.array as Float32Array).set(colorArrays[season]);
     attr.needsUpdate = true;
   });
+  if (skin === "canvas") {
+    return (
+      <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, PATH_MID_Z]}>
+        <meshBasicMaterial ref={matRef} map={paper ?? undefined} />
+      </mesh>
+    );
+  }
   return (
     <mesh geometry={geo} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, PATH_MID_Z]} receiveShadow>
       <meshStandardMaterial vertexColors />
@@ -1297,13 +1639,17 @@ export function PathScene({
   chapters = [],
   onSelectNode,
   playing = false,
+  skin = "realistic",
 }: {
   nodes?: SceneNode[];
   chapters?: Chapter[];
   onSelectNode?: (n: SceneNode) => void;
   /** true while ANY game (swipe or engine) is being played in place — freezes the camera & hides nodes */
   playing?: boolean;
+  /** "realistic" = the GLTF 3D world (default); "canvas" = the hand-drawn doodle-on-paper re-skin */
+  skin?: WorldSkin;
 }) {
+  const canvas = skin === "canvas";
   // focus on load: the first playable lesson, else the first completed one, else the start
   const startU = useMemo(() => {
     let i = nodes.findIndex((n) => n.state === "playable");
@@ -1382,24 +1728,25 @@ export function PathScene({
       <Suspense fallback={null}>
         <SeasonDriver progress={progress} nodes={nodes} chapters={chapters} />
       </Suspense>
-      {/* phase 0: sky + land + mountains */}
-      <SkyDome />
-      <Clouds />
+      {/* phase 0: sky + land + mountains (canvas skin swaps in the hand-drawn equivalents) */}
+      {canvas ? <CanvasSky /> : <SkyDome />}
+      {canvas ? <DoodleClouds /> : <Clouds />}
       <NightSky />
       <FollowCam progress={progress} />
       <SunLight progress={progress} />
       <hemisphereLight args={["#dcefff", "#8fc06a", 0.5]} />
       <SeasonAmbient />
-      <Ground />
+      <Ground skin={skin} />
       <Suspense fallback={null}>
-        <Mountains />
-        {/* phase 1: the path itself */}
-        {phase >= 1 && <PlankPath />}
-        {/* phase 2: foliage, streamed to a window of chunks around the camera */}
-        {phase >= 2 && <StreamedFoliage progress={progress} />}
+        {/* realistic-only blocky terrain; the canvas skin reads as flat paper + fog horizon */}
+        {!canvas && <Mountains />}
+        {/* phase 1: the path — inked onto the ground (canvas) or planked boards (realistic) */}
+        {phase >= 1 && (canvas ? <DrawnPath /> : <PlankPath />)}
+        {/* phase 2: scenery — tree doodles (canvas) or streamed GLTF foliage (realistic) */}
+        {phase >= 2 && (canvas ? <DoodleTrees /> : <StreamedFoliage progress={progress} />)}
       </Suspense>
-      {/* phase 2: weather — only the active season's emitter is mounted */}
-      {phase >= 2 && <Weather />}
+      {/* phase 2: weather — only the active season's emitter is mounted (realistic only for now) */}
+      {phase >= 2 && !canvas && <Weather />}
       {/* phase 1: checkpoints + region signs (hidden while a level is being played).
           Nodes first so the chapter banners (rendered after) stack ABOVE the node labels. */}
       {phase >= 1 && !playing && (
@@ -1411,15 +1758,23 @@ export function PathScene({
           </Suspense>
         </>
       )}
-      <EffectComposer multisampling={0}>
-        {/* soft contact-darkening where grass/rocks/trees/path meet the ground */}
-        <N8AO halfRes aoRadius={1.6} distanceFalloff={1} intensity={0.6} quality="performance" />
-        <Bloom luminanceThreshold={0.85} luminanceSmoothing={0.3} intensity={0.3} mipmapBlur radius={0.5} />
-        <BrightnessContrast brightness={0.0} contrast={0.05} />
-        <HueSaturation saturation={0.08} />
-        <Vignette offset={0.34} darkness={0.4} />
-        <SMAA />
-      </EffectComposer>
+      {canvas ? (
+        // flat paper reads best without AO/bloom blowing out the white; just clean edges + a soft frame
+        <EffectComposer multisampling={0}>
+          <Vignette offset={0.36} darkness={0.3} />
+          <SMAA />
+        </EffectComposer>
+      ) : (
+        <EffectComposer multisampling={0}>
+          {/* soft contact-darkening where grass/rocks/trees/path meet the ground */}
+          <N8AO halfRes aoRadius={1.6} distanceFalloff={1} intensity={0.6} quality="performance" />
+          <Bloom luminanceThreshold={0.85} luminanceSmoothing={0.3} intensity={0.3} mipmapBlur radius={0.5} />
+          <BrightnessContrast brightness={0.0} contrast={0.05} />
+          <HueSaturation saturation={0.08} />
+          <Vignette offset={0.34} darkness={0.4} />
+          <SMAA />
+        </EffectComposer>
+      )}
     </Canvas>
   );
 }

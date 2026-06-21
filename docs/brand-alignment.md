@@ -105,7 +105,7 @@ avatar-violet · avatar-light · icon · source), `lensy/lensy-{wave,stand,think
 `ship/ship-{front,diagonal}.svg`, and `un.svg` / `re.svg`. The `Logo` uses `logo/primary.svg`; PNG
 app-icons are rendered from `logo/icon.svg`; `Sam` renders `lensy/lensy-<pose>.svg`. Ship + un/re are
 available for hero moments and the UN & RE character restyle.
-| **6 — the world → 2.5D sticker canvas** | **replace** the R3F 3D world with a 2.5D parallax sticker/doodle canvas (vertical winding trail, 5 chapter themes, Lensy walking, CSS day/night + weather; rip out R3F + GLTF). **Design-of-record: `docs/world-canvas.md`.** | 📐 planned (decided: 2.5D parallax · replace · keep themes) |
+| **6 — the world → canvas-skinned 3D** | **keep the R3F 3D world** (camera travel, path, seasons, nodes, Sam) and **re-skin every surface hand-drawn on paper**: canvas ground with tree doodles, canvas sky with cloud doodles, the path inked onto the ground. Runtime `CanvasTexture`s; behind `?world=canvas`, realistic stays default. *(The earlier "flat 2.5D DOM canvas that replaces 3D" idea was scrapped.)* **Design-of-record: `docs/world-canvas.md`.** | 🛠️ v1 built (behind flag) |
 | **7 — interactive canvas** | a drawable trail + UN/RE-erasable "myth" stickers in the world — the brand's "whole site is a canvas" move (the world teaches, not just decorates) | 🔭 future |
 
 **Cheapest, do-first:** Phase 1 (central, low-risk, makes the whole app *read* as Equal Lens at once).
