@@ -465,8 +465,8 @@ function CanvasSky() {
         uniforms: {
           uPaper: { value: new THREE.Color(CANVAS_PAPER) },
           uDot: { value: new THREE.Color(CANVAS_DOT) },
-          uPx: { value: 30.0 },
-          uDotPx: { value: 1.0 },
+          uPx: { value: 45.0 }, // dot spacing (×1.5 — more space between dots)
+          uDotPx: { value: 2.0 }, // dot radius (×2 — bigger dots)
         },
         vertexShader: `
           void main() { gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
@@ -1802,17 +1802,17 @@ function Node({
               }}
               onBlur={() => setHovered(false)}
               onClick={select}
-              className={`pointer-events-auto relative grid place-items-center rounded-full bg-[var(--color-paper)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--violet-200)] disabled:cursor-default ${cap ? "size-20" : "size-16"} ${soon ? "node-locked" : "sticker-soft hover-pop"}`}
+              className={`pointer-events-auto relative grid place-items-center rounded-full bg-[var(--color-paper)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--violet-200)] disabled:cursor-default ${cap ? "size-40" : "size-32"} ${soon ? "node-locked" : "sticker-soft hover-pop"}`}
             >
-              <span className={`leading-none ${cap ? "text-[32px]" : "text-[26px]"} ${soon ? "opacity-50 grayscale" : ""}`}>{node.emoji}</span>
+              <span className={`leading-none ${cap ? "text-[64px]" : "text-[52px]"} ${soon ? "opacity-50 grayscale" : ""}`}>{node.emoji}</span>
               {!soon && (
-                <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 text-[var(--color-grow)]" aria-hidden>
+                <span className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[var(--color-grow)]" aria-hidden>
                   {node.state === "completed" ? (
-                    <svg viewBox="0 0 20 20" className="size-3.5">
+                    <svg viewBox="0 0 20 20" className="size-7">
                       <path d="M4 11 l4 4 l8 -10" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   ) : (
-                    <svg viewBox="0 0 20 20" className="size-3">
+                    <svg viewBox="0 0 20 20" className="size-6">
                       <path d="M6 4 L6 16 L16 10 Z" fill="currentColor" />
                     </svg>
                   )}
@@ -1821,7 +1821,7 @@ function Node({
             </button>
             <span
               style={{ fontFamily: "var(--font-hand)" }}
-              className={`pointer-events-none absolute bottom-full mb-2 block select-none whitespace-nowrap rounded-md border-[1.5px] border-[var(--violet-600)] bg-[var(--color-paper)] px-2 py-0.5 text-[11px] font-bold text-[var(--color-ink)] transition-opacity duration-150 ${
+              className={`pointer-events-none absolute bottom-full mb-2.5 block select-none whitespace-nowrap rounded-md border-2 border-[var(--violet-600)] bg-[var(--color-paper)] px-2.5 py-1 text-[16.5px] font-bold text-[var(--color-ink)] transition-opacity duration-150 ${
                 inView || hovered ? "opacity-100" : "opacity-0"
               }`}
             >
