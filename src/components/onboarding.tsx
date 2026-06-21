@@ -33,8 +33,8 @@ export function Onboarding() {
             <span className="grid size-16 place-items-center rounded-3xl bg-foreground/15 shadow-sm ring-1 ring-foreground/20">
               <Logo className="size-10" />
             </span>
-            <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "#b3c8ff" }}>
-              SwipeEd
+            <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--color-brandsoft)" }}>
+              SwipeEd by The Equal Lens
             </span>
             <h1 className="font-display text-2xl font-extrabold leading-tight text-foreground">Learn by swiping</h1>
             <p className="text-sm text-foreground/75">

@@ -24,14 +24,14 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   applicationName: "SwipeEd",
-  title: { default: "SwipeEd", template: "%s · SwipeEd" },
+  title: { default: "SwipeEd by The Equal Lens", template: "%s · SwipeEd" },
   description:
     "SwipeEd is a learning path of warm, no-fail games for ages 3–18 — feelings, bodies, relationships, gender, rights and digital life — built on Unlearn → Relearn → Grow.",
   manifest: "/manifest.webmanifest",
   appleWebApp: { capable: true, statusBarStyle: "default", title: "SwipeEd" },
   icons: {
     icon: [
-      { url: "/swipeed-logo.svg", type: "image/svg+xml" },
+      { url: "/eq-mark.svg", type: "image/svg+xml" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
     ],
     apple: "/apple-icon.png",

@@ -193,7 +193,7 @@ export function LearningPath() {
         <div className="flex items-center gap-2">
           <Logo className="size-8" />
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">SwipeEd</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">SwipeEd · The Equal Lens</p>
             <h1 className="text-lg font-bold leading-tight">Your path</h1>
           </div>
         </div>
