@@ -4,6 +4,7 @@ import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { useGLTF, Html, useTexture, useAnimations } from "@react-three/drei";
 import { Check, Lock, Play, Trophy } from "lucide-react";
+import { tokens } from "@equal-lens/brand"; // canvas-world brand colours — single source (retheme via the library)
 import { NODES, CHAPTERS, type Chapter } from "@/content/path";
 import { SEASON_ORDER, SEASON_TARGET, SEASONS, seasonRT, type SeasonKey } from "@/lib/seasons";
 import { PHASES, currentPhase, WARM, MOON_TINT } from "@/lib/time-of-day";
@@ -441,9 +442,9 @@ function makePathStrokeTex() {
   return t;
 }
 
-const CANVAS_PAPER = "#FBF9FF";
-const CANVAS_DOT = "#E7E0F1";
-const CANVAS_INK = "#221436"; // hand-drawn outline / Ink
+const CANVAS_PAPER = tokens.light.paper; // #FBF9FF — from @equal-lens/brand
+const CANVAS_DOT = tokens.light.mist; // #E7E0F1 — from @equal-lens/brand
+const CANVAS_INK = tokens.light.ink; // #221436 — hand-drawn outline / Ink
 
 // Canvas skin — the sky: the brand dotted paper on the distant backdrop, drawn in SCREEN space.
 // Knobs: uPx (pixel spacing) + uDotPx (dot radius px).
@@ -588,7 +589,7 @@ function ProgressTrail({ progress }: { progress: React.MutableRefObject<number> 
     const m = new THREE.ShaderMaterial({
       transparent: true,
       depthWrite: false,
-      uniforms: { uProgress: { value: 0 }, uColor: { value: new THREE.Color("#FF7A5C") } }, // Grow Coral
+      uniforms: { uProgress: { value: 0 }, uColor: { value: new THREE.Color(tokens.accent.grow) } }, // Grow Coral
       vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
       fragmentShader: `
         varying vec2 vUv;
@@ -635,11 +636,11 @@ function CapstoneClearings({ nodes }: { nodes: SceneNode[] }) {
         <group key={i} position={[p.x, 0.07, p.z]} rotation={[-Math.PI / 2, 0, 0]}>
           <mesh>
             <circleGeometry args={[6.5, 48]} />
-            <meshBasicMaterial color="#FFC94D" transparent opacity={0.18} toneMapped={false} depthWrite={false} />
+            <meshBasicMaterial color={tokens.accent.sun} transparent opacity={0.18} toneMapped={false} depthWrite={false} />
           </mesh>
           <mesh>
             <ringGeometry args={[6.2, 6.55, 64]} />
-            <meshBasicMaterial color="#553286" transparent opacity={0.55} toneMapped={false} depthWrite={false} />
+            <meshBasicMaterial color={tokens.violet[600]} transparent opacity={0.55} toneMapped={false} depthWrite={false} />
           </mesh>
         </group>
       ))}
@@ -922,7 +923,7 @@ function DoorPanel({ u, hinge, quat, chapter, material, progress }: { u: number;
                 setOpened(true);
                 _openDoors.add(u); // release the travel gate past this door
               }}
-              className="pointer-events-auto rounded-full border-[2.5px] border-[#221436] bg-[#FFC94D] px-4 py-1.5 text-sm font-bold text-[#221436] shadow-[3px_3px_0_#221436] transition-transform hover:-translate-y-0.5 active:translate-y-0"
+              className="pointer-events-auto rounded-full border-[2.5px] border-ink bg-sun px-4 py-1.5 text-sm font-bold text-ink shadow-[3px_3px_0_var(--color-ink)] transition-transform hover:-translate-y-0.5 active:translate-y-0"
             >
               Enter →
             </button>
