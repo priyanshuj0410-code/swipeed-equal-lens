@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 /* The Equal Lens brand design system (@equal-lens/brand tarball) — canonical palette + UI-kit classes */
+@import "@equal-lens/brand/tokens.css"; /* canonical CSS vars (single source of truth) — --color-brand, --dot, dark flip */
 @import "@equal-lens/brand/tailwind.css"; /* palette → bg-brand/text-ink/font-hand + dark flip */
 @import "@equal-lens/brand/components.css"; /* .btn/.card/.tabs/... classes */
 
@@ -61,22 +62,18 @@
  * under [data-audience="adult"]. GLRL green/red stay reserved for gameplay flags.
  */
 :root {
-  /* === Brand tokens (source of truth) === */
-  --color-brand: #553286;
-  --color-brandsoft: #7f65a4;
-  --color-paper: #fbf9ff;
-  --color-surface: #ffffff;
-  --color-mist: #e7e0f1;
-  --color-ink: #221436;
-  --color-band: #553286;
-  --dot: #ece6f6;
-  --color-insight: #2dd4bf; /* teal · Unlearn accent */
-  --color-grow: #ff7a5c;    /* coral · Relearn accent */
-  --color-sun: #ffc94d;     /* yellow · CTA / highlight */
-  --color-sky: #4fb0e8;     /* blue · support */
-  --violet-50: #f3f0f6; --violet-100: #e5e0ed; --violet-200: #c5b6de;
-  --violet-400: #7f65a4; --violet-600: #553286; --violet-700: #44288b;
-  --violet-800: #331e50; --violet-900: #221436;
+  /* === Brand palette === The values (--color-brand/-paper/-ink/-grow/-sun/-insight/-sky,
+     --dot, and the dark flip) are owned by @equal-lens/brand (imported above). The app no
+     longer hardcodes them, so a library retheme / new tarball flows straight through.
+     These re-point the app's short --violet-* back-compat names at the library's ramp. */
+  --violet-50: var(--color-violet-50);
+  --violet-100: var(--color-violet-100);
+  --violet-200: var(--color-violet-200);
+  --violet-400: var(--color-violet-400);
+  --violet-600: var(--color-violet-600);
+  --violet-700: var(--color-violet-700);
+  --violet-800: var(--color-violet-800);
+  --violet-900: var(--color-violet-900);
 
   /* === Primitive tokens (brand-aliased; back-compat names kept) === */
   --brand-500: var(--color-brand);
@@ -136,15 +133,8 @@
    `.dark` kept as a back-compat alias of the brand mechanism `[data-audience="adult"]`. */
 .dark,
 [data-audience="adult"] {
-  --color-brand: #c9b8e6;     /* Equal Violet lightens for legibility on dark */
-  --color-brandsoft: #b3a4d6;
-  --color-paper: #15101f;
-  --color-surface: #221a30;
-  --color-mist: #3a2e4d;
-  --color-ink: #f1ecfa;
-  --color-band: #241b38;
-  --dot: #2a2140;
-
+  /* Brand palette dark-flip is owned by @equal-lens/brand ([data-audience="adult"]).
+     We keep only the app-specific tokens the library doesn't ship. */
   --brand-500: var(--color-brand);
   --brand-600: var(--color-brandsoft);
   --brand-foreground: #15101f;
