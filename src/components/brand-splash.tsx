@@ -31,7 +31,7 @@ export function BrandSplash({
         paddingBottom: "max(2rem, env(safe-area-inset-bottom))",
       }}
     >
-      <Logo className="size-20 drop-shadow-md" title="SwipeEd" />
+      <Logo className="size-20" title="SwipeEd" />
       <span className="font-display text-2xl font-extrabold tracking-tight text-foreground">SwipeEd</span>
       <span className="-mt-1 text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--color-brandsoft)" }}>by The Equal Lens</span>
       <div className="flex w-44 flex-col items-center gap-2">
