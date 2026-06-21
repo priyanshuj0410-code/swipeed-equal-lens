@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Equal Lens website — reference material only, not part of this app
+/The Equal Lens/
