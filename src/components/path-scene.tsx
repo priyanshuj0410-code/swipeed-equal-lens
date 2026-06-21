@@ -575,11 +575,12 @@ function CanvasCorridor() {
     const uv: number[] = [];
     const ext: number[] = [];
     const tone: number[] = [];
+    const wall: number[] = [];
     const idx: number[] = [];
     // one swept strip: edges A→B per path sample, V from vA→vB across; vExtent = the surface's V-span;
-    // surfTone = the surface's base brightness — floor/walls/ceiling differ slightly so each corner reads
-    // as a crisp brightness STEP (a sharp edge), not a soft rounded cove.
-    const strip = (eA: (f: Frame) => number[], eB: (f: Frame) => number[], vA: number, vB: number, vExtent: number, surfTone: number) => {
+    // surfTone = the surface's base brightness (floor/walls/ceiling differ slightly so each corner reads
+    // as a crisp brightness STEP, a sharp edge); isWall picks the dot projection (walls vs floor/ceiling).
+    const strip = (eA: (f: Frame) => number[], eB: (f: Frame) => number[], vA: number, vB: number, vExtent: number, surfTone: number, isWall: number) => {
       const start = pos.length / 3;
       for (let i = 0; i <= N; i++) {
         const f = frames[i];
@@ -589,10 +590,12 @@ function CanvasCorridor() {
         uv.push(f.u, vA);
         ext.push(vExtent);
         tone.push(surfTone);
+        wall.push(isWall);
         pos.push(B[0], B[1], B[2]);
         uv.push(f.u, vB);
         ext.push(vExtent);
         tone.push(surfTone);
+        wall.push(isWall);
         if (i < N) {
           const k = start + i * 2;
           idx.push(k, k + 1, k + 2, k + 2, k + 1, k + 3);
@@ -603,15 +606,16 @@ function CanvasCorridor() {
     const rFloor = (f: Frame) => [f.px - f.nx * W, f.py, f.pz - f.nz * W];
     const lCeil = (f: Frame) => [f.px + f.nx * W, f.py + H, f.pz + f.nz * W];
     const rCeil = (f: Frame) => [f.px - f.nx * W, f.py + H, f.pz - f.nz * W];
-    strip(lFloor, rFloor, 0, W2, W2, 1.0); // floor — brightest
-    strip(lFloor, lCeil, 0, H, H, 0.9); // left wall — dimmer
-    strip(rFloor, rCeil, 0, H, H, 0.9); // right wall — dimmer
-    strip(lCeil, rCeil, 0, W2, W2, 0.96); // ceiling
+    strip(lFloor, rFloor, 0, W2, W2, 1.0, 0); // floor — brightest
+    strip(lFloor, lCeil, 0, H, H, 0.9, 1); // left wall — dimmer
+    strip(rFloor, rCeil, 0, H, H, 0.9, 1); // right wall — dimmer
+    strip(lCeil, rCeil, 0, W2, W2, 0.96, 0); // ceiling
     const g = new THREE.BufferGeometry();
     g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
     g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
     g.setAttribute("aExtent", new THREE.Float32BufferAttribute(ext, 1));
     g.setAttribute("aTone", new THREE.Float32BufferAttribute(tone, 1));
+    g.setAttribute("aWall", new THREE.Float32BufferAttribute(wall, 1));
     g.setIndex(idx);
     const m = new THREE.ShaderMaterial({
       side: THREE.DoubleSide,
@@ -626,13 +630,18 @@ function CanvasCorridor() {
       vertexShader: `
         attribute float aExtent;
         attribute float aTone;
+        attribute float aWall;
         varying vec2 vUv;
         varying float vExtent;
         varying float vTone;
+        varying float vWall;
+        varying vec3 vWorld;
         void main() {
           vUv = uv;
           vExtent = aExtent;
           vTone = aTone;
+          vWall = aWall;
+          vWorld = position;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
       `,
@@ -640,6 +649,8 @@ function CanvasCorridor() {
         varying vec2 vUv;
         varying float vExtent;
         varying float vTone;
+        varying float vWall;
+        varying vec3 vWorld;
         uniform vec3 uPaper;
         uniform vec3 uDot;
         uniform float uGap;
@@ -647,7 +658,10 @@ function CanvasCorridor() {
         uniform float uCorner;
         uniform float uFalloff;
         void main() {
-          vec2 cell = fract(vUv / uGap) - 0.5;
+          // Consistent dots: floor/ceiling use a flat WORLD-XZ grid; walls use (along-path, height).
+          // (Sweeping the dot UV along the path stretches them across the floor on curves.)
+          vec2 dc = vWall > 0.5 ? vec2(vUv.x, vWorld.y) : vWorld.xz;
+          vec2 cell = fract(dc / uGap) - 0.5;
           float d = length(cell) * uGap;
           float aa = 0.22 * fwidth(d) + 1e-5;
           float dot = 1.0 - smoothstep(uRadius - aa, uRadius + aa, d);
