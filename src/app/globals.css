@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+/* The Equal Lens brand design system (@equal-lens/brand tarball) — canonical palette + UI-kit classes */
+@import "@equal-lens/brand/tailwind.css"; /* palette → bg-brand/text-ink/font-hand + dark flip */
+@import "@equal-lens/brand/components.css"; /* .btn/.card/.tabs/... classes */
 
 @custom-variant dark (&:is(.dark *, [data-audience="adult"] *));
 
