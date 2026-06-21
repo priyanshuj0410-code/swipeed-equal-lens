@@ -577,6 +577,14 @@ const _doorMeshes: THREE.Mesh[] = []; // swinging door panels — they also occl
 const _openDoors = new Set<number>(); // door u's the player has opened (Enter) — releases the travel gate
 const _CURVE_LEN = CURVE.getLength();
 const _DOOR_GATE_U = 7 / _CURVE_LEN; // clamp travel this far past a shut door's u → camera halts just shy of it
+const _COMPANION_DOOR_CLEAR = 1.2 / _CURVE_LEN; // the companion halts this far (world units) before a shut door
+let _doorUs: number[] = []; // every door's u (published by CorridorDoors) — drives the camera + companion gates
+function _frontShutDoorU(): number {
+  // u of the nearest still-shut door, or Infinity if all opened (doors open in order along the path)
+  let g = Infinity;
+  for (const u of _doorUs) if (!_openDoors.has(u)) g = Math.min(g, u);
+  return g;
+}
 const CORRIDOR_DOOR_TONE = 0.95; // the "door wall" across the corridor after each capstone (doors added later)
 function CanvasCorridor({ nodes }: { nodes: SceneNode[] }) {
   const geometry = useMemo(() => {
@@ -891,11 +899,16 @@ function CorridorDoors({ nodes, chapters, progress }: { nodes: SceneNode[]; chap
       return { u, hinge, quat, chapter };
     });
   }, [nodes, chapters]);
+  useEffect(() => {
+    _doorUs = doors.map((d) => d.u); // publish for the camera + companion gates
+    return () => {
+      _doorUs = [];
+    };
+  }, [doors]);
   useFrame(() => {
     // travel gate: you can't glide past a shut door — clamp progress just short of the nearest closed one
-    let gate = Infinity;
-    for (const d of doors) if (!_openDoors.has(d.u)) gate = Math.min(gate, d.u + _DOOR_GATE_U);
-    if (progress.current > gate) progress.current = gate;
+    const door = _frontShutDoorU();
+    if (door < Infinity && progress.current > door + _DOOR_GATE_U) progress.current = door + _DOOR_GATE_U;
   });
   return (
     <>
@@ -2098,8 +2111,10 @@ function Companion({ progress }: { progress: React.MutableRefObject<number> }) {
     const g = grp.current;
     if (!g) return;
     const d = Math.min(dt, 0.05);
-    // target: beside the focused node, set back a little from the camera
-    const u = clamp01(progress.current + 0.005);
+    // target: beside the focused node, set back a little from the camera — but never past a shut door
+    // (the companion waits at the door until you click Enter, same as the camera gate)
+    const door = _frontShutDoorU();
+    const u = clamp01(Math.min(progress.current + 0.005, door - _COMPANION_DOOR_CLEAR));
     const p = CURVE.getPointAt(u);
     st.tan.copy(CURVE.getTangentAt(u));
     st.tan.y = 0;
