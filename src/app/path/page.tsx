@@ -13,7 +13,6 @@ import { WorldLoader } from "@/components/world-loader";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { EngineGameHost, hasEngineGame } from "@/components/games/engine-host";
-import { WorldCanvas } from "@/components/canvas/world-canvas";
 import { NODES, CHAPTERS } from "@/content/path";
 import { DECK_BY_ID, resolveDeckCards } from "@/content/decks";
 import type { SceneNode } from "@/components/path-scene";
@@ -113,27 +112,31 @@ export default function PathPage() {
   return (
     <>
       {/* branded loading splash over the 3D world (real GLB load progress), fades when ready */}
-      {webgl !== false && worldMode === "3d" && <WorldLoader />}
+      {webgl !== false && <WorldLoader />}
 
-      {worldMode === "canvas" ? (
-        <WorldCanvas nodes={nodes} chapters={CHAPTERS} onSelectNode={handleSelect} playing={playing} />
-      ) : (
-        <div className="fixed inset-0 z-0 touch-none overscroll-none bg-[#bfe2fb]">
-          {webgl === false ? (
-            <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-8 text-center">
-              <p className="max-w-xs text-sm text-muted-foreground">The 3D path isn&apos;t supported on this device, but you can use the classic view.</p>
-              <Link href="/classic" className={buttonVariants({})}>
-                Open the classic path
-              </Link>
-            </div>
-          ) : (
-            <PathScene nodes={nodes} chapters={CHAPTERS} onSelectNode={handleSelect} playing={playing} />
-          )}
-        </div>
-      )}
+      {/* one 3D world; ?world=canvas re-skins it hand-drawn (paper ground/sky, doodle trees/clouds,
+          inked path), default stays the realistic GLTF world. */}
+      <div className="fixed inset-0 z-0 touch-none overscroll-none bg-[#bfe2fb]">
+        {webgl === false ? (
+          <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-8 text-center">
+            <p className="max-w-xs text-sm text-muted-foreground">The 3D path isn&apos;t supported on this device, but you can use the classic view.</p>
+            <Link href="/classic" className={buttonVariants({})}>
+              Open the classic path
+            </Link>
+          </div>
+        ) : (
+          <PathScene
+            nodes={nodes}
+            chapters={CHAPTERS}
+            onSelectNode={handleSelect}
+            playing={playing}
+            skin={worldMode === "canvas" ? "canvas" : "realistic"}
+          />
+        )}
+      </div>
 
       {/* ---- path mode chrome ---- */}
-      {(worldMode === "canvas" || webgl !== false) && !playing && (
+      {webgl !== false && !playing && (
         <>
           <div className="fixed left-4 top-4 z-50 flex items-center gap-2">
             <span className="glass-pill pointer-events-none flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold backdrop-blur-md backdrop-saturate-150">
