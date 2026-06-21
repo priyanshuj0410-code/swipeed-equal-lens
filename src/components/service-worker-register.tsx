@@ -3,34 +3,23 @@
 import { useEffect } from "react";
 
 /**
- * Registers the PWA service worker once the page has loaded — **production only**.
+ * The PWA service worker is **disabled**.
  *
- * In development the SW is a liability: Next's dev chunk URLs are stable, so a previously-installed
- * cache-first SW pins stale JS and silently hides new code. So in dev we instead **unregister** any
- * existing SW and clear its caches, guaranteeing the app always runs the freshest build.
+ * It was caching stale JS throughout the brand re-skin and serving old builds — most visibly serving a
+ * pre-fix bundle on the production preview, so the realistic 3D world bled through the canvas world.
+ * This unregisters any existing service worker and clears its caches on load; `public/sw.js` is itself a
+ * kill-switch that self-unregisters. Re-introduce a real offline SW later if offline support is wanted.
  */
 export function ServiceWorkerRegister() {
   useEffect(() => {
     if (!("serviceWorker" in navigator)) return;
-
-    if (process.env.NODE_ENV !== "production") {
-      navigator.serviceWorker
-        .getRegistrations()
-        .then((regs) => Promise.all(regs.map((r) => r.unregister())))
-        .catch(() => {});
-      if (typeof caches !== "undefined") {
-        caches.keys().then((keys) => keys.forEach((k) => caches.delete(k))).catch(() => {});
-      }
-      return;
+    navigator.serviceWorker
+      .getRegistrations()
+      .then((regs) => regs.forEach((r) => r.unregister()))
+      .catch(() => {});
+    if (typeof caches !== "undefined") {
+      caches.keys().then((keys) => keys.forEach((k) => caches.delete(k))).catch(() => {});
     }
-
-    const onLoad = () => {
-      navigator.serviceWorker.register("/sw.js").catch(() => {
-        /* registration is best-effort; ignore failures */
-      });
-    };
-    window.addEventListener("load", onLoad);
-    return () => window.removeEventListener("load", onLoad);
   }, []);
 
   return null;
