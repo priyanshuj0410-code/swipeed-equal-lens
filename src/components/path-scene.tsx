@@ -550,7 +550,7 @@ const DOOR_H = 9; // doorway height
 // Node u-positions along the curve, with extra breathing room at each chapter boundary: after a
 // capstone the gap to the next chapter's first node is 4 slots (vs 1 normally), and the door wall sits
 // at the midpoint — so the wall has 2× the inter-node gap on each side. Also returns each door wall's u.
-function chapterSpacedUs(nodes: SceneNode[]): { nodeU: number[]; wallU: number[] } {
+function chapterSpacedUs(nodes: SceneNode[]): { nodeU: number[]; wallU: number[]; wallCap: number[] } {
   const starts: number[] = [];
   let cur = 0;
   for (let i = 0; i < nodes.length; i++) {
@@ -561,10 +561,14 @@ function chapterSpacedUs(nodes: SceneNode[]): { nodeU: number[]; wallU: number[]
   const cl = (x: number) => Math.max(0, Math.min(1, x));
   const nodeU = starts.map((s) => cl((s + 0.5) / span));
   const wallU: number[] = [];
+  const wallCap: number[] = []; // the capstone node index each wall sits after
   nodes.forEach((n, i) => {
-    if (n.capstone) wallU.push(cl((starts[i] + 2.5) / span));
+    if (n.capstone) {
+      wallU.push(cl((starts[i] + 2.5) / span));
+      wallCap.push(i);
+    }
   });
-  return { nodeU, wallU };
+  return { nodeU, wallU, wallCap };
 }
 // the live corridor mesh (canvas skin only) — used to occlude DOM node/banner overlays behind walls.
 // A module-level callback ref sidesteps any ref-forwarding-through-props subtlety.
@@ -804,13 +808,21 @@ function makeDoorMaterial() {
   });
 }
 
-function DoorPanel({ u, hinge, quat, material, progress }: { u: number; hinge: THREE.Vector3; quat: THREE.Quaternion; material: THREE.ShaderMaterial; progress: React.MutableRefObject<number> }) {
+function DoorPanel({ u, hinge, quat, chapter, material, progress }: { u: number; hinge: THREE.Vector3; quat: THREE.Quaternion; chapter?: Chapter; material: THREE.ShaderMaterial; progress: React.MutableRefObject<number> }) {
   const swing = useRef<THREE.Group>(null);
   const open = useRef(0);
+  const [opened, setOpened] = useState(false);
+  const [near, setNear] = useState(false);
+  const nearRef = useRef(false);
   useFrame((_, dt) => {
-    const target = Math.abs(progress.current - u) < 0.06 ? 1 : 0; // open while the camera is near the wall
-    open.current += (target - open.current) * Math.min(1, dt * 6);
+    const target = opened ? 1 : 0; // the door only opens on Enter — never automatically
+    open.current += (target - open.current) * Math.min(1, dt * 3); // gentle swing
     if (swing.current) swing.current.rotation.y = -open.current * (Math.PI / 2 + 0.12);
+    const n = !opened && Math.abs(progress.current - u) < 0.035; // you've reached the door
+    if (n !== nearRef.current) {
+      nearRef.current = n;
+      setNear(n);
+    }
   });
   return (
     <group position={hinge} quaternion={quat}>
@@ -819,34 +831,53 @@ function DoorPanel({ u, hinge, quat, material, progress }: { u: number; hinge: T
           <planeGeometry args={[DOOR_HALF_W * 2, DOOR_H]} />
         </mesh>
       </group>
+      {near && chapter && (
+        <Html center position={[DOOR_HALF_W, DOOR_H * 0.62, 0]} distanceFactor={12} zIndexRange={[55, 35]}>
+          <div className="flex select-none flex-col items-center gap-2">
+            <div className="glass-pill whitespace-nowrap rounded-xl px-3 py-1 text-center backdrop-blur-md backdrop-saturate-150">
+              <div className="text-xs font-bold leading-tight">{chapter.title}</div>
+              {chapter.subtitle ? <div className="text-[10px] font-medium leading-tight opacity-85">{chapter.subtitle}</div> : null}
+            </div>
+            <button
+              type="button"
+              onPointerDown={(e) => e.stopPropagation()}
+              onClick={() => setOpened(true)}
+              className="pointer-events-auto rounded-full border-[2.5px] border-[#221436] bg-[#FFC94D] px-4 py-1.5 text-sm font-bold text-[#221436] shadow-[3px_3px_0_#221436] transition-transform hover:-translate-y-0.5 active:translate-y-0"
+            >
+              Enter →
+            </button>
+          </div>
+        </Html>
+      )}
     </group>
   );
 }
 
-function CorridorDoors({ nodes, progress }: { nodes: SceneNode[]; progress: React.MutableRefObject<number> }) {
+function CorridorDoors({ nodes, chapters, progress }: { nodes: SceneNode[]; chapters: Chapter[]; progress: React.MutableRefObject<number> }) {
   const material = useMemo(() => makeDoorMaterial(), []);
   useEffect(() => () => material.dispose(), [material]);
-  const doors = useMemo(
-    () =>
-      chapterSpacedUs(nodes).wallU.map((u) => {
-        const p = CURVE.getPointAt(u);
-        const tan = CURVE.getTangentAt(u);
-        tan.y = 0;
-        tan.normalize();
-        const nx = -tan.z;
-        const nz = tan.x;
-        const hinge = new THREE.Vector3(p.x + nx * DOOR_HALF_W, p.y, p.z + nz * DOOR_HALF_W); // cL edge, on the floor
-        // local X = across the doorway (-n), Y = up, Z = the closed door's normal (tangent)
-        const basis = new THREE.Matrix4().makeBasis(new THREE.Vector3(-nx, 0, -nz), new THREE.Vector3(0, 1, 0), new THREE.Vector3(tan.x, 0, tan.z));
-        const quat = new THREE.Quaternion().setFromRotationMatrix(basis);
-        return { u, hinge, quat };
-      }),
-    [nodes]
-  );
+  const doors = useMemo(() => {
+    const { wallU, wallCap } = chapterSpacedUs(nodes);
+    return wallU.map((u, k) => {
+      const nextNode = nodes[wallCap[k] + 1]; // the door leads into the next chapter
+      const chapter = nextNode ? chapters.find((c) => c.key === nextNode.chapter) : undefined;
+      const p = CURVE.getPointAt(u);
+      const tan = CURVE.getTangentAt(u);
+      tan.y = 0;
+      tan.normalize();
+      const nx = -tan.z;
+      const nz = tan.x;
+      const hinge = new THREE.Vector3(p.x + nx * DOOR_HALF_W, p.y, p.z + nz * DOOR_HALF_W); // cL edge, on the floor
+      // local X = across the doorway (-n), Y = up, Z = the closed door's normal (tangent)
+      const basis = new THREE.Matrix4().makeBasis(new THREE.Vector3(-nx, 0, -nz), new THREE.Vector3(0, 1, 0), new THREE.Vector3(tan.x, 0, tan.z));
+      const quat = new THREE.Quaternion().setFromRotationMatrix(basis);
+      return { u, hinge, quat, chapter };
+    });
+  }, [nodes, chapters]);
   return (
     <>
       {doors.map((d, i) => (
-        <DoorPanel key={i} u={d.u} hinge={d.hinge} quat={d.quat} material={material} progress={progress} />
+        <DoorPanel key={i} u={d.u} hinge={d.hinge} quat={d.quat} chapter={d.chapter} material={material} progress={progress} />
       ))}
     </>
   );
@@ -2312,7 +2343,7 @@ export function PathScene({
       <hemisphereLight args={["#dcefff", "#8fc06a", 0.5]} />
       <SeasonAmbient />
       {canvas ? <CanvasCorridor nodes={nodes} /> : <Ground skin={skin} />}
-      {canvas && <CorridorDoors nodes={nodes} progress={progress} />}
+      {canvas && <CorridorDoors nodes={nodes} chapters={chapters} progress={progress} />}
       <Suspense fallback={null}>
         {!canvas && <Mountains />}
         {phase >= 1 && !canvas && <PlankPath />}
