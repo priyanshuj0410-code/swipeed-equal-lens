@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { useGLTF, Html, useAnimations } from "@react-three/drei";
+import { Html } from "@react-three/drei";
 import { Check, Lock, Play, Trophy } from "lucide-react";
 import { tokens } from "@equal-lens/brand"; // canvas-world brand colours — single source (retheme via the library)
 import { NODES, CHAPTERS, type Chapter } from "@/content/path";
@@ -37,10 +37,10 @@ const TOON_GRAD = (() => {
 // FollowCam), so the wave weaves L/R in frame. Tune: NODE_AMP = swing, NODE_DZ = vertical gap.
 const PATH_SCALE = 3; // scenery density only (tree/prop counts); the curve below is in world units
 const NODE_AMP = 3; // horizontal swing — nodes rest at x = ±NODE_AMP (closer to centre)
-const NODE_DZ = 7; // vertical distance between consecutive nodes (half a sine period)
+const NODE_DZ = 3.5; // vertical distance between consecutive nodes (half a sine period)
 const SINE_START_Z = 18; // z of the first (bottom) node
 const SINE_NODE_COUNT = NODES.length; // one node per sine extremum
-const SINE_SAMPLES_PER_NODE = 6; // control points between nodes → smooth (not zigzag) sine
+const SINE_SAMPLES_PER_NODE = 12; // control points between nodes → smooth (not zigzag) sine
 const CURVE = new THREE.CatmullRomCurve3(
   Array.from({ length: (SINE_NODE_COUNT - 1) * SINE_SAMPLES_PER_NODE + 1 }, (_, k) => {
     const t = k / SINE_SAMPLES_PER_NODE; // node-index space (integer t = a node, on an extremum)
@@ -486,7 +486,7 @@ function CanvasGround() {
 function ProgressTrail({ progress }: { progress: React.MutableRefObject<number> }) {
   const maxRef = useRef(0);
   const { geometry, material } = useMemo(() => {
-    const N = Math.max(2, Math.ceil(CURVE.getLength() / 1.2));
+    const N = Math.max(2, Math.ceil(CURVE.getLength() / 0.5));
     const base = CURVE.getSpacedPoints(N); // arc-length spaced → uv.x = i/N matches the progress param
     // straight lead-in behind the start (uv.x < 0, always inked) so the line trails off the screen edge
     // instead of stopping mid-page when you're near the beginning.
@@ -503,7 +503,7 @@ function ProgressTrail({ progress }: { progress: React.MutableRefObject<number> 
       pts.push(base[i]);
       uvx.push(i / N);
     }
-    const hw = 0.16; // half-width of the inked line (world units) — leaner trail
+    const hw = 0.04; // half-width of the inked line (world units) — very lean trail (1/4)
     const pos: number[] = [];
     const uv: number[] = [];
     const idx: number[] = [];
@@ -1086,10 +1086,7 @@ function DrawnPath() {
   );
 }
 
-// Sam (the companion) shows in both skins, so preload her always; the realistic-world GLBs (trees,
-// props, terrain, planks, clouds) are preloaded only when the realistic skin is active — the canvas
-// skin uses none of them, so it should download zero of them.
-useGLTF.preload("/models/characters/character-female-c.glb");
+// The companion is now the brand flying ship (DOM/SVG, see Companion) — no GLB to preload.
 
 // --- node markers ----------------------------------------------------------------------
 // Bubble colour comes from the node's thread hex; state changes the *treatment* (full vs
@@ -1464,103 +1461,40 @@ function Nodes({
 }
 
 
-// A little companion (Kenney Mini Characters) that travels the path beside you, idle-
-// animated. Keeps its own skin colours (skipped by the seasonal recolour).
+// The companion: a brand flying ship with a flickering rocket flame, riding the path at the
+// player's position (DOM overlay, drei <Html>). Banks into the curve as the sine weaves.
 function Companion({ progress }: { progress: React.MutableRefObject<number> }) {
-  const { scene, animations } = useGLTF("/models/characters/character-female-c.glb");
   const grp = useRef<THREE.Group>(null);
-  const inner = useRef<THREE.Group>(null);
-  const { actions } = useAnimations(animations, inner);
-  const st = useMemo(
-    () => ({ pos: new THREE.Vector3(), tgt: new THREE.Vector3(), dir: new THREE.Vector3(), tan: new THREE.Vector3(), facing: 0, moving: false, started: false }),
-    []
-  );
-  const SCALE = 2.6;
-  // plant the model's lowest point on the ground (its origin is at the feet, so this ~0)
-  const lift = useMemo(() => {
-    const box = new THREE.Box3().setFromObject(scene);
-    return Number.isFinite(box.min.y) ? -box.min.y * SCALE : 0;
-  }, [scene]);
-
-  useEffect(() => {
-    scene.traverse((o) => {
-      const m = o as THREE.Mesh;
-      if (m.isMesh) {
-        m.castShadow = true; // a grounding shadow so it sits in the world
-        if (m.material) (m.material as THREE.Material).userData.ownColormap = true; // keep its own skin colours
-      }
-    });
-  }, [scene]);
-
-  useEffect(() => {
-    actions?.idle?.reset().fadeIn(0.3).play();
-  }, [actions]);
-
-  useFrame((state, dt) => {
-    const g = grp.current;
-    if (!g) return;
-    const d = Math.min(dt, 0.05);
-    // target: beside the focused node, set back a little from the camera — but never past a shut door
-    // (the companion waits at the door until you click Enter, same as the camera gate)
-    const door = _frontShutDoorU();
-    const u = clamp01(Math.min(progress.current + 0.005, door - _COMPANION_DOOR_CLEAR));
+  const ship = useRef<HTMLDivElement>(null);
+  useFrame(() => {
+    const u = clamp01(progress.current);
     const p = CURVE.getPointAt(u);
-    st.tan.copy(CURVE.getTangentAt(u));
-    st.tan.y = 0;
-    if (st.tan.lengthSq() === 0) st.tan.set(0, 0, -1);
-    st.tan.normalize();
-    st.tgt.set(p.x - st.tan.z * 2.9, 0, p.z + st.tan.x * 2.9);
-    if (!st.started) {
-      st.started = true;
-      st.pos.copy(st.tgt);
-    }
-    st.dir.copy(st.tgt).sub(st.pos);
-    let dist = st.dir.length();
-    const wasMoving = st.moving;
-    if (dist > 0.18) {
-      if (dist > 45) {
-        // never fall absurdly far behind (very fast scrolls)
-        st.pos.lerp(st.tgt, 1 - 45 / dist);
-        st.dir.copy(st.tgt).sub(st.pos);
-        dist = st.dir.length();
-      }
-      st.dir.normalize();
-      const speed = Math.min(26, Math.max(6, dist * 1.8)); // walk normally, run to catch up when far
-      st.pos.addScaledVector(st.dir, Math.min(dist, speed * d));
-      st.facing = Math.atan2(st.dir.x, st.dir.z);
-      st.moving = true;
-      if (actions?.walk) actions.walk.timeScale = Math.min(2.4, Math.max(0.9, speed / 6)); // less foot-slide
-    } else {
-      st.pos.copy(st.tgt);
-      // face the camera (the player) when standing still
-      st.facing = Math.atan2(state.camera.position.x - st.pos.x, state.camera.position.z - st.pos.z);
-      st.moving = false;
-    }
-    g.position.copy(st.pos);
-    let df = st.facing - g.rotation.y;
-    while (df > Math.PI) df -= Math.PI * 2;
-    while (df < -Math.PI) df += Math.PI * 2;
-    g.rotation.y += df * Math.min(1, d * 9); // smooth turn
-    if (st.moving !== wasMoving) {
-      if (st.moving) {
-        actions?.idle?.fadeOut(0.2);
-        actions?.walk?.reset().fadeIn(0.2).play();
-      } else {
-        actions?.walk?.fadeOut(0.2);
-        actions?.idle?.reset().fadeIn(0.25).play();
-      }
+    if (grp.current) grp.current.position.set(p.x, 0.15, p.z);
+    if (ship.current) {
+      const tan = CURVE.getTangentAt(u);
+      const ang = Math.atan2(tan.x, -tan.z) * (180 / Math.PI); // 0 = up the screen, + leans right
+      ship.current.style.transform = `rotate(${ang.toFixed(1)}deg)`;
     }
   });
-
   return (
     <group ref={grp}>
-      <group ref={inner} scale={SCALE} position={[0, lift, 0]}>
-        <primitive object={scene} />
-      </group>
+      <Html center distanceFactor={16} zIndexRange={[44, 24]}>
+        <div ref={ship} className="pointer-events-none relative select-none" style={{ width: 82, transformOrigin: "50% 55%" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/ship/ship-flying.svg" alt="" draggable={false} style={{ width: 82, display: "block" }} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/ship/ship-flame.svg"
+            alt=""
+            draggable={false}
+            className="flame-flicker"
+            style={{ position: "absolute", left: "50%", top: "64%", width: 22, marginLeft: -11, zIndex: -1 }}
+          />
+        </div>
+      </Html>
     </group>
   );
 }
-
 
 // Flat #FBF9FF paper background, no fog (the canvas world is season-independent).
 function CanvasBackground() {
@@ -1691,7 +1625,6 @@ export function PathScene({
           progress trail, and the capstone sun-clearings */}
       <CanvasGround />
       <ProgressTrail progress={progress} />
-      <CapstoneClearings nodes={nodes} />
       <FollowCam progress={progress} />
       {/* soft, season-free lighting — enough to light Sam (the only lit 3D object) */}
       <hemisphereLight args={["#ffffff", "#e7e0f1", 1.1]} />
