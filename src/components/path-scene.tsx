@@ -485,7 +485,7 @@ function CanvasGround() {
         void main() {
           vec2 cell = fract(vWorldPos.xz / uGap) - 0.5;   // offset to the nearest grid point
           float d = length(cell) * uGap;                  // world-space distance to that dot centre
-          float aa = fwidth(d) + 1e-4;                    // anti-alias width (perspective-correct)
+          float aa = 0.22 * fwidth(d) + 1e-5;             // sub-pixel edge → crisp dots
           float dot = 1.0 - smoothstep(uRadius - aa, uRadius + aa, d);
           gl_FragColor = vec4(mix(uPaper, uDot, dot), 1.0);
           #include <colorspace_fragment>
