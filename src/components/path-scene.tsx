@@ -544,6 +544,8 @@ function CanvasGround() {
 // ============================================================================================
 const CORRIDOR_W = 16; // half-width — the corridor is 2*W wide
 const CORRIDOR_H = 15; // ceiling height above the floor
+const DOOR_HALF_W = 3.5; // doorway half-width (the opening is 2× this, centred on the path)
+const DOOR_H = 9; // doorway height
 
 // Node u-positions along the curve, with extra breathing room at each chapter boundary: after a
 // capstone the gap to the next chapter's first node is 4 slots (vs 1 normally), and the door wall sits
@@ -638,26 +640,35 @@ function CanvasCorridor({ nodes }: { nodes: SceneNode[] }) {
     strip(lFloor, lCeil, 0, H, H, 0.95, 1); // left wall — slightly dimmer than the floor
     strip(rFloor, rCeil, 0, H, H, 0.95, 1); // right wall — slightly dimmer than the floor
     strip(lCeil, rCeil, 0, W2, W2, 0.97, 0); // ceiling
-    // a full-height canvas "door wall" spanning the corridor at each chapter boundary (doors cut later)
+    // a canvas wall across the corridor at each chapter boundary, FRAMED around a central doorway
+    // (two jambs + a header); the swinging door panel itself is rendered separately by <CorridorDoors>.
+    const cL = W - DOOR_HALF_W; // doorway across-range [cL, cR] (centred on the path), height [0, DOOR_H]
+    const cR = W + DOOR_HALF_W;
     chapterSpacedUs(nodes).wallU.forEach((u) => {
       const p = CURVE.getPointAt(u);
       const tan = CURVE.getTangentAt(u);
       const tl = Math.hypot(tan.x, tan.z) || 1;
       const nx = -tan.z / tl;
       const nz = tan.x / tl;
-      const s = pos.length / 3;
-      const add = (sx: number, y: number, vx: number, vy: number) => {
-        pos.push(p.x + nx * sx, y, p.z + nz * sx);
-        uv.push(vx, vy);
+      // across-coord a (0=+nW edge … 2W=-nW edge), height h → a wall vertex
+      const vtx = (a: number, h: number) => {
+        pos.push(p.x + nx * (W - a), p.y + h, p.z + nz * (W - a));
+        uv.push(a, h);
         ext.push(H);
         tone.push(CORRIDOR_DOOR_TONE);
         wall.push(1);
       };
-      add(W, p.y, 0, 0); // bottom-left
-      add(-W, p.y, W2, 0); // bottom-right
-      add(W, p.y + H, 0, H); // top-left
-      add(-W, p.y + H, W2, H); // top-right
-      idx.push(s, s + 1, s + 2, s + 2, s + 1, s + 3);
+      const quad = (a0: number, a1: number, h0: number, h1: number) => {
+        const s = pos.length / 3;
+        vtx(a0, h0);
+        vtx(a1, h0);
+        vtx(a0, h1);
+        vtx(a1, h1);
+        idx.push(s, s + 1, s + 2, s + 2, s + 1, s + 3);
+      };
+      quad(0, cL, 0, H); // left jamb
+      quad(cR, W2, 0, H); // right jamb
+      quad(cL, cR, DOOR_H, H); // header above the doorway
     });
     const g = new THREE.BufferGeometry();
     g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
@@ -738,6 +749,106 @@ function CanvasCorridor({ nodes }: { nodes: SceneNode[] }) {
       geometry={geometry}
       material={material}
     />
+  );
+}
+
+// Swinging canvas doors — one per chapter-boundary wall, filling its doorway. Each hinges on one side
+// and swings open as the camera nears, so you travel through the doorway, never the solid wall. Dots are
+// drawn in the door's LOCAL coords (so they stay fixed on the panel as it swings), with an inset panel
+// shade + an Ink handle so it reads as a door.
+function makeDoorMaterial() {
+  return new THREE.ShaderMaterial({
+    side: THREE.DoubleSide,
+    uniforms: {
+      uPaper: { value: new THREE.Color(CANVAS_PAPER) },
+      uDot: { value: new THREE.Color(CANVAS_DOT) },
+      uInk: { value: new THREE.Color("#221436") },
+      uGap: { value: 0.3 },
+      uRadius: { value: 0.013 },
+      uW: { value: DOOR_HALF_W * 2 },
+      uH: { value: DOOR_H },
+      uTone: { value: 0.98 },
+    },
+    vertexShader: `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      varying vec2 vUv;
+      uniform vec3 uPaper;
+      uniform vec3 uDot;
+      uniform vec3 uInk;
+      uniform float uGap;
+      uniform float uRadius;
+      uniform float uW;
+      uniform float uH;
+      uniform float uTone;
+      void main() {
+        vec2 wpos = vUv * vec2(uW, uH);          // local door coords in world units → consistent dots
+        vec2 cell = fract(wpos / uGap) - 0.5;
+        float d = length(cell) * uGap;
+        float aa = 0.22 * fwidth(d) + 1e-5;
+        float dot = 1.0 - smoothstep(uRadius - aa, uRadius + aa, d);
+        vec3 col = mix(uPaper, uDot, dot) * uTone;
+        float edge = min(min(vUv.x, 1.0 - vUv.x) * uW, min(vUv.y, 1.0 - vUv.y) * uH);
+        col *= mix(0.82, 1.0, smoothstep(0.0, 0.5, edge)); // soft inset → recessed panel
+        float hd = distance(wpos, vec2(uW - 0.6, uH * 0.46));
+        col = mix(uInk, col, smoothstep(0.16, 0.24, hd)); // ink handle near the free edge
+        gl_FragColor = vec4(col, 1.0);
+        #include <colorspace_fragment>
+      }
+    `,
+  });
+}
+
+function DoorPanel({ u, hinge, quat, material, progress }: { u: number; hinge: THREE.Vector3; quat: THREE.Quaternion; material: THREE.ShaderMaterial; progress: React.MutableRefObject<number> }) {
+  const swing = useRef<THREE.Group>(null);
+  const open = useRef(0);
+  useFrame((_, dt) => {
+    const target = Math.abs(progress.current - u) < 0.06 ? 1 : 0; // open while the camera is near the wall
+    open.current += (target - open.current) * Math.min(1, dt * 6);
+    if (swing.current) swing.current.rotation.y = -open.current * (Math.PI / 2 + 0.12);
+  });
+  return (
+    <group position={hinge} quaternion={quat}>
+      <group ref={swing}>
+        <mesh material={material} position={[DOOR_HALF_W, DOOR_H / 2, 0]}>
+          <planeGeometry args={[DOOR_HALF_W * 2, DOOR_H]} />
+        </mesh>
+      </group>
+    </group>
+  );
+}
+
+function CorridorDoors({ nodes, progress }: { nodes: SceneNode[]; progress: React.MutableRefObject<number> }) {
+  const material = useMemo(() => makeDoorMaterial(), []);
+  useEffect(() => () => material.dispose(), [material]);
+  const doors = useMemo(
+    () =>
+      chapterSpacedUs(nodes).wallU.map((u) => {
+        const p = CURVE.getPointAt(u);
+        const tan = CURVE.getTangentAt(u);
+        tan.y = 0;
+        tan.normalize();
+        const nx = -tan.z;
+        const nz = tan.x;
+        const hinge = new THREE.Vector3(p.x + nx * DOOR_HALF_W, p.y, p.z + nz * DOOR_HALF_W); // cL edge, on the floor
+        // local X = across the doorway (-n), Y = up, Z = the closed door's normal (tangent)
+        const basis = new THREE.Matrix4().makeBasis(new THREE.Vector3(-nx, 0, -nz), new THREE.Vector3(0, 1, 0), new THREE.Vector3(tan.x, 0, tan.z));
+        const quat = new THREE.Quaternion().setFromRotationMatrix(basis);
+        return { u, hinge, quat };
+      }),
+    [nodes]
+  );
+  return (
+    <>
+      {doors.map((d, i) => (
+        <DoorPanel key={i} u={d.u} hinge={d.hinge} quat={d.quat} material={material} progress={progress} />
+      ))}
+    </>
   );
 }
 
@@ -2201,6 +2312,7 @@ export function PathScene({
       <hemisphereLight args={["#dcefff", "#8fc06a", 0.5]} />
       <SeasonAmbient />
       {canvas ? <CanvasCorridor nodes={nodes} /> : <Ground skin={skin} />}
+      {canvas && <CorridorDoors nodes={nodes} progress={progress} />}
       <Suspense fallback={null}>
         {!canvas && <Mountains />}
         {phase >= 1 && !canvas && <PlankPath />}
