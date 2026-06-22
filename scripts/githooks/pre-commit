@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# SwipeEd read-first guard (the hard rule, enforced at commit time).
+# When a commit touches game content/components, this surfaces the AUTHORITATIVE build status + the next
+# node straight from the master node table (scripts/master-node-table.xlsx) and BLOCKS on inconsistency —
+# so build progress / "the next node" can never be asserted from memory. See scripts/swipeed_status.py.
+ROOT="$(git rev-parse --show-toplevel)"
+if git diff --cached --name-only | grep -qE '^src/(content|components)/games/'; then
+  echo "▸ SwipeEd read-first guard — game files staged. Authoritative build status (master node table):"
+  echo
+  if python3 "$ROOT/scripts/swipeed_status.py" --check; then
+    echo
+    echo "  (^ confirm the node you built matches the NEXT shown above before stating progress.)"
+  else
+    echo
+    echo "⛔ Commit blocked: SwipeEd build-status inconsistency (see above)."
+    echo "   Fix it, or bypass once with:  SWIPEED_STATUS_OVERRIDE=1 git commit ..."
+    exit 1
+  fi
+fi
+exit 0
