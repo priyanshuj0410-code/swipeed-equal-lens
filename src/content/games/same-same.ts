@@ -1,84 +1,138 @@
-// "Same Same, Different" (node #4, ages 3–6) — the gender opener. Audio-first, no-reading, no-fail.
-// Two children who look different appear; the child taps what they SHARE (each tap lights a friendship
-// thread) until they become friends, then celebrates what's DIFFERENT ("different is wonderful!").
-// A gentle myth-bubble pop is the ages-3–6 seed of Unlearn → Relearn → Grow. India-diverse cast.
+// Content for Same Same, Different (node g04, ages 3–6) — reworked to GDD 04 v2 (mechanic-embodying).
+// "Equal inside, wonderfully different." The gender-root game and the start of the Gender & Respect thread:
+// 82 researched, India-grounded scenarios across six categories, each re-encoded to one of the seven shared
+// v2 play actions (reflect / role-play / strike-rewrite / branch / sort / match / build) — no binary "tap the
+// right card", led by erasing silly gender rules. Toys & colours are for everyone; anyone can do anything;
+// everyone can be strong AND gentle; we're equal inside, wonderfully different outside (India colourism /
+// Dark is Beautiful); fair play means everyone belongs. Both directions (frees girls AND boys); never
+// preachy. Rendered by the shared engine (components/games/v2-engine.tsx). gameId "same-same". DO NOT RENAME.
 
-export type Kid = { emoji: string; name: string };
-export type Trait = { emoji: string; say: string };
-export type Myth = { wrong: string; right: string };
-export type Pair = { left: Kid; right: Kid; layer: string; same: Trait[]; different: Trait[]; myth?: Myth };
+import type { Scenario, V2GameConfig } from "./v2-schema";
 
-export const PAIRS: Pair[] = [
-  {
-    left: { emoji: "👧🏽", name: "Meena" },
-    right: { emoji: "👦🏾", name: "Arjun" },
-    layer: "Feelings",
-    same: [
-      { emoji: "😄", say: "We can both feel happy!" },
-      { emoji: "😨", say: "We both get scared in the dark!" },
-      { emoji: "😢", say: "We can both cry when we're sad!" },
-    ],
-    different: [
-      { emoji: "💇", say: "Different hair — wonderful!" },
-      { emoji: "👕", say: "Different clothes — wonderful!" },
-    ],
-    myth: { wrong: "Boys don't cry!", right: "Everyone can cry — feelings are for everyone!" },
-  },
-  {
-    left: { emoji: "🧑🏻‍🦽", name: "Sara" },
-    right: { emoji: "👦🏽", name: "Dev" },
-    layer: "Can-Do",
-    same: [
-      { emoji: "🎨", say: "We both love to paint!" },
-      { emoji: "🔬", say: "We can both be scientists!" },
-      { emoji: "⚽", say: "We can both score a goal!" },
-    ],
-    different: [
-      { emoji: "♿", say: "We move in different ways — wonderful!" },
-      { emoji: "🌈", say: "Different favourite colours — wonderful!" },
-    ],
-    myth: { wrong: "Science is only for boys!", right: "Anyone can be a scientist!" },
-  },
-  {
-    left: { emoji: "👧🏼", name: "Priya" },
-    right: { emoji: "👦🏿", name: "Imran" },
-    layer: "Can-Do",
-    same: [
-      { emoji: "🧭", say: "We can both lead the team!" },
-      { emoji: "💃", say: "We can both dance!" },
-      { emoji: "🍳", say: "We can both cook!" },
-    ],
-    different: [
-      { emoji: "🧕", say: "Different clothes — wonderful!" },
-      { emoji: "🙂", say: "Different smiles — wonderful!" },
-    ],
-    myth: { wrong: "Only girls can dance!", right: "Anyone can dance!" },
-  },
-  {
-    left: { emoji: "👧🏾", name: "Anya" },
-    right: { emoji: "👦🏼", name: "Karan" },
-    layer: "Fair & Safe",
-    same: [
-      { emoji: "🤝", say: "We both deserve a turn!" },
-      { emoji: "🎲", say: "We can both join the game!" },
-      { emoji: "🛡️", say: "We both deserve to be safe and treated kindly!" },
-    ],
-    different: [
-      { emoji: "🥭", say: "We like different foods — wonderful!" },
-      { emoji: "🏡", say: "We live in different places — wonderful!" },
-    ],
-  },
+const SCENARIOS: Scenario[] = [
+  // — Toys for all —
+  {"id":"ss-001","cat":"toys-for-all","type":"sort","hook":"Lensy found some toys. Who can play with them?","items":[{"id":"a","text":"A doll, for anyone who likes it"},{"id":"b","text":"A truck, only for boys"},{"id":"c","text":"Blocks, for anyone"},{"id":"d","text":"A tea set, only for girls"}],"bins":[{"id":"fair","label":"True & fair"},{"id":"silly","label":"Silly old rule"}],"key":{"a":"fair","b":"silly","c":"fair","d":"silly"},"relearn":"Toys are for anyone who enjoys them, not for one kind of kid.","persona":"Vihaan","source":"gender & play research"},
+  {"id":"ss-002","cat":"toys-for-all","type":"strike-rewrite","hook":"Vihaan says \"trucks are boys' toys.\"","myth":{"un":"Trucks are only for boys.","re":"Anyone can play with trucks.","why":"A toy doesn't know who's holding it."},"relearn":"Anyone can play with trucks, or dolls, or blocks.","persona":"Vihaan","source":"gender & play"},
+  {"id":"ss-003","cat":"toys-for-all","type":"role-play","hook":"A toy is feeling lonely on the shelf.","setup":"Say it loud so the toy hears.","yourLine":[{"text":"\"Anyone can play with you!\"","best":true},{"text":"\"You're only for some kids.\""}],"relearn":"Saying \"anyone can play\" out loud makes it true on the playground too.","persona":"Kabir","source":"voice / audio-first"},
+  {"id":"ss-004","cat":"toys-for-all","type":"match","hook":"Match each kid to a toy they love.","pairs":[{"left":"A girl who loves building","right":"Blocks and tools"},{"left":"A boy who loves caring","right":"A doll and a play-kitchen"},{"left":"A kid who loves both","right":"A bit of everything"}],"relearn":"Kids love all kinds of toys; the toy doesn't pick the kid.","persona":"any","source":"gender & play"},
+  {"id":"ss-005","cat":"toys-for-all","type":"build","hook":"Build a toy box for the whole class.","prompt":"Drag in toys for everyone to share.","pieces":["blocks","dolls","trucks","play-kitchen","cricket bat","art set"],"mode":"assemble","key":["blocks","dolls","trucks","play-kitchen","cricket bat","art set"],"relearn":"A great toy box has something for everyone, and everyone may share it all.","persona":"any","source":"inclusion"},
+  {"id":"ss-006","cat":"toys-for-all","type":"branch","hook":"Your friend says \"you can't play with that, it's for girls.\"","options":[{"text":"Say \"toys are for everyone\" and play together","consequence":"You both have fun; the silly rule disappears.","outcome":"fair","best":true},{"text":"Put it down and feel sad","consequence":"You miss out, and the rule wasn't even true.","outcome":"missed"}],"debrief":"A kind, clear \"toys are for everyone\" is all it takes.","relearn":"No one can tell you a toy isn't for you.","persona":"Vihaan","source":"peer norms"},
+  {"id":"ss-007","cat":"toys-for-all","type":"strike-rewrite","hook":"\"Dolls are only for girls.\"","myth":{"un":"Dolls are only for girls.","re":"Boys can love dolls too; caring is for everyone.","why":"Playing at caring helps every child practise being kind."},"relearn":"Boys who play with dolls are practising care, and that's wonderful.","persona":"Faizan-type","source":"care & play"},
+  {"id":"ss-008","cat":"toys-for-all","type":"reflect","hook":"Lensy: what's YOUR favourite thing to play?","prompt":"Point to one.","options":["Building","Pretend cooking","Running games","Drawing"],"affirm":"Whatever you love is exactly right for you. Play is for everyone.","relearn":"Your favourite play is yours, no toy is off-limits because of your gender.","persona":"any","source":"autonomy"},
+  {"id":"ss-009","cat":"toys-for-all","type":"sort","hook":"Sort: fair sharing, or not fair?","items":[{"id":"a","text":"Everyone gets a turn with the ball"},{"id":"b","text":"Only boys get the ball"},{"id":"c","text":"Take turns with the dolls"},{"id":"d","text":"Girls can't use the blocks"}],"bins":[{"id":"fair","label":"Fair"},{"id":"no","label":"Not fair"}],"key":{"a":"fair","b":"no","c":"fair","d":"no"},"relearn":"Taking turns is fair; keeping toys from someone for being a girl or boy is not.","persona":"Aria","source":"fairness"},
+  {"id":"ss-010","cat":"toys-for-all","type":"match","hook":"A toy and the fun it gives, match them.","pairs":[{"left":"Blocks","right":"Building tall towers"},{"left":"Doll","right":"Pretend caring"},{"left":"Ball","right":"Running and throwing"}],"relearn":"Every toy is a kind of fun, open to every kid.","persona":"any","source":"play"},
+  {"id":"ss-011","cat":"toys-for-all","type":"strike-rewrite","hook":"\"You play with the wrong toys.\"","myth":{"un":"Some kids play with the 'wrong' toys.","re":"There are no wrong toys; there's just what you enjoy.","why":"Fun isn't right or wrong."},"relearn":"There are no wrong toys for you.","persona":"Vihaan","source":"gender & play"},
+  {"id":"ss-012","cat":"toys-for-all","type":"role-play","hook":"A new friend is unsure if they can join the blocks.","setup":"Welcome them in. Say:","yourLine":[{"text":"\"Come build with us, anyone can!\"","best":true},{"text":"\"This is only for us.\""}],"relearn":"Inviting everyone to play is how good friends play.","persona":"Kabir","source":"inclusion / voice"},
+  {"id":"ss-013","cat":"toys-for-all","type":"build","hook":"Build a play corner where everyone belongs.","prompt":"Add a sign for the corner.","pieces":["\"Everyone welcome\"","\"Anyone can play\"","\"Boys only\"","\"Share and take turns\""],"mode":"assemble","key":["\"Everyone welcome\"","\"Anyone can play\"","\"Share and take turns\""],"relearn":"A play corner for everyone says: welcome, anyone can play, take turns.","persona":"any","source":"inclusion"},
+  {"id":"ss-014","cat":"toys-for-all","type":"reflect","hook":"Megha-moment: ask a grown-up to play YOUR favourite with you.","prompt":"Who will you ask?","options":["Amma","Appa","Dadi/Nani","Big sibling"],"affirm":"Sharing your play with a grown-up is the best, and they'll see toys are for everyone too.","relearn":"Play is to share; invite your grown-ups in.","persona":"Megha","source":"co-play"},
+
+  // — Colours for all —
+  {"id":"ss-015","cat":"colours-for-all","type":"strike-rewrite","hook":"Vihaan says \"pink is a girl colour.\"","myth":{"un":"Pink is a girl colour.","re":"Colours are for everyone; pink is just a colour.","why":"Long ago pink was even called a 'boy' colour, fashions change, colours don't have a gender."},"relearn":"Every colour is for every kid.","persona":"Vihaan","source":"colour & gender history"},
+  {"id":"ss-016","cat":"colours-for-all","type":"build","hook":"Dress the kid in any colours you like.","prompt":"Pick colours for the outfit (any you like!).","pieces":["pink","blue","yellow","green","purple","orange"],"mode":"assemble","key":["pink","blue","yellow","green","purple","orange"],"relearn":"Any kid can wear any colour, you choose.","persona":"any","source":"autonomy / dress-up"},
+  {"id":"ss-017","cat":"colours-for-all","type":"sort","hook":"Sort: true, or silly rule?","items":[{"id":"a","text":"Anyone can like blue"},{"id":"b","text":"Boys can't wear pink"},{"id":"c","text":"Anyone can like pink"},{"id":"d","text":"Purple is only for girls"}],"bins":[{"id":"true","label":"True"},{"id":"silly","label":"Silly rule"}],"key":{"a":"true","b":"silly","c":"true","d":"silly"},"relearn":"Anyone can like any colour; rules that ban a colour are just silly.","persona":"Vihaan","source":"colour & gender"},
+  {"id":"ss-018","cat":"colours-for-all","type":"role-play","hook":"A boy loves his pink shirt but someone laughed.","setup":"Help him stand tall. Say:","yourLine":[{"text":"\"Pink looks great. Colours are for everyone.\"","best":true},{"text":"\"Take it off then.\""}],"relearn":"You can cheer a friend for wearing any colour he loves.","persona":"Faizan-type","source":"voice / support"},
+  {"id":"ss-019","cat":"colours-for-all","type":"match","hook":"Match the kid to the colour they chose, all happy.","pairs":[{"left":"Boy who picked pink","right":"Big smile"},{"left":"Girl who picked black","right":"Big smile"},{"left":"Kid who picked rainbow","right":"Big smile"}],"relearn":"When kids pick their own colours, everyone's happy.","persona":"any","source":"autonomy"},
+  {"id":"ss-020","cat":"colours-for-all","type":"branch","hook":"Someone says your favourite colour is \"for the other gender.\"","options":[{"text":"Say \"colours are for everyone\" and keep loving it","consequence":"You keep your favourite; the rule fades.","outcome":"fair","best":true},{"text":"Pick a different colour to fit in","consequence":"You give up something you love for a silly rule.","outcome":"missed"}],"debrief":"Your favourite colour is yours to keep.","relearn":"No colour belongs to one gender.","persona":"Vihaan","source":"peer norms"},
+  {"id":"ss-021","cat":"colours-for-all","type":"strike-rewrite","hook":"\"Blue is only for boys.\"","myth":{"un":"Blue is only for boys.","re":"Anyone can love blue, or any colour.","why":"Colours are just light and fun, not rules."},"relearn":"Blue, pink, green, all colours are for all kids.","persona":"Aria","source":"colour & gender"},
+  {"id":"ss-022","cat":"colours-for-all","type":"reflect","hook":"Lensy: what colour makes YOU happy?","prompt":"Point to it.","options":["Pink","Blue","Yellow","A mix!"],"affirm":"That's your colour, and it's a perfect choice. No colour is off-limits.","relearn":"Your favourite colour is a happy, free choice.","persona":"any","source":"autonomy"},
+  {"id":"ss-023","cat":"colours-for-all","type":"sort","hook":"Sort the crayons, who can use them?","items":[{"id":"a","text":"Pink, for anyone"},{"id":"b","text":"Blue, for boys only"},{"id":"c","text":"Green, for anyone"},{"id":"d","text":"Purple, for girls only"}],"bins":[{"id":"all","label":"For anyone"},{"id":"silly","label":"Silly rule"}],"key":{"a":"all","b":"silly","c":"all","d":"silly"},"relearn":"Every crayon is for every kid.","persona":"any","source":"colour & gender"},
+  {"id":"ss-024","cat":"colours-for-all","type":"role-play","hook":"You're choosing a balloon at a party.","setup":"The seller asks which you'd like. Say:","yourLine":[{"text":"\"The one I love most, please!\"","best":true},{"text":"\"The one that's for my gender.\""}],"relearn":"You choose what you love, not what a rule says.","persona":"any","source":"autonomy / voice"},
+  {"id":"ss-025","cat":"colours-for-all","type":"build","hook":"Paint a rainbow room for the whole class.","prompt":"Add colours everyone can enjoy.","pieces":["pink wall","blue wall","yellow sun","green plants"],"mode":"assemble","key":["pink wall","blue wall","yellow sun","green plants"],"relearn":"A room for everyone has all the colours, shared by all.","persona":"any","source":"inclusion"},
+  {"id":"ss-026","cat":"colours-for-all","type":"strike-rewrite","hook":"\"Wearing the wrong colour is embarrassing.\"","myth":{"un":"Wearing the 'wrong' colour for your gender is embarrassing.","re":"There's no wrong colour; wear what you love proudly.","why":"Pride beats a made-up rule."},"relearn":"Wear your favourite colour proudly.","persona":"Faizan-type","source":"self-esteem"},
+
+  // — Anyone can —
+  {"id":"ss-027","cat":"anyone-can","type":"match","hook":"Anyone can do these. Match the kid to the activity.","pairs":[{"left":"A girl","right":"Climbing the highest"},{"left":"A boy","right":"Cooking yummy food"},{"left":"Any kid","right":"Leading the game"}],"relearn":"Climbing, cooking, leading, anyone can do any of it.","persona":"Aria","source":"anyone-can"},
+  {"id":"ss-028","cat":"anyone-can","type":"strike-rewrite","hook":"\"Girls can't climb high.\"","myth":{"un":"Girls can't climb high.","re":"Girls can climb just as high; bodies grow strong with practice.","why":"Practice, not gender, builds climbing."},"relearn":"Girls can climb, run and jump as high as anyone.","persona":"Aria","source":"physical ability"},
+  {"id":"ss-029","cat":"anyone-can","type":"role-play","hook":"A girl is unsure if she can lead the game.","setup":"Cheer her on. Say:","yourLine":[{"text":"\"You'd be a great leader, go for it!\"","best":true},{"text":"\"Leaders are usually boys.\""}],"relearn":"Anyone can be the leader; cheering each other helps.","persona":"Aria","source":"leadership / voice"},
+  {"id":"ss-030","cat":"anyone-can","type":"sort","hook":"Who can do these jobs? Sort it.","items":[{"id":"a","text":"A girl doctor"},{"id":"b","text":"Only men can be doctors"},{"id":"c","text":"A boy nurse"},{"id":"d","text":"Only women can be nurses"}],"bins":[{"id":"yes","label":"Anyone can"},{"id":"silly","label":"Silly rule"}],"key":{"a":"yes","b":"silly","c":"yes","d":"silly"},"relearn":"Doctor, nurse, anyone can be anything (more in Can-Do Kids).","persona":"any","source":"occupations"},
+  {"id":"ss-031","cat":"anyone-can","type":"strike-rewrite","hook":"\"Boys can't cook.\"","myth":{"un":"Boys can't cook.","re":"Boys can be wonderful cooks; cooking is for everyone.","why":"Many top chefs are men; cooking is a skill, not a gender."},"relearn":"Anyone can cook, and it's a great skill to have.","persona":"Faizan-type","source":"occupations"},
+  {"id":"ss-032","cat":"anyone-can","type":"branch","hook":"The group says only boys can be the team captain.","options":[{"text":"Say \"anyone can be captain\" and pick fairly","consequence":"A great captain is chosen on skill, not gender.","outcome":"fair","best":true},{"text":"Go along with boys-only","consequence":"A good captain gets left out for no reason.","outcome":"unfair"}],"debrief":"Captains are picked for being good leaders, not for being boys.","relearn":"Anyone can lead the team.","persona":"Aria","source":"leadership"},
+  {"id":"ss-033","cat":"anyone-can","type":"reflect","hook":"Lensy: what do YOU want to try?","prompt":"Point to a dream.","options":["Climb high","Cook a feast","Lead a team","Build something"],"affirm":"You can absolutely try that. Anyone can.","relearn":"Your dreams aren't fenced in by being a girl or a boy.","persona":"any","source":"aspiration"},
+  {"id":"ss-034","cat":"anyone-can","type":"role-play","hook":"A boy wants to join the dancing.","setup":"Make room for him. Say:","yourLine":[{"text":"\"Come dance, anyone can!\"","best":true},{"text":"\"Dancing's for girls.\""}],"relearn":"Boys can dance beautifully; anyone can join in.","persona":"Faizan-type","source":"voice / inclusion"},
+  {"id":"ss-035","cat":"anyone-can","type":"match","hook":"Match each kid to what they're great at.","pairs":[{"left":"Girl who loves maths","right":"Solving puzzles"},{"left":"Boy who loves art","right":"Painting pictures"},{"left":"Kid who loves animals","right":"Caring for pets"}],"relearn":"Kids are great at all sorts of things, no gender required.","persona":"any","source":"ability"},
+  {"id":"ss-036","cat":"anyone-can","type":"strike-rewrite","hook":"\"Girls aren't good at maths.\"","myth":{"un":"Girls aren't good at maths.","re":"Girls are great at maths; it's a skill anyone grows.","why":"Ability comes from practice, not gender."},"relearn":"Anyone can be brilliant at maths with practice.","persona":"Aria","source":"ability beliefs"},
+  {"id":"ss-037","cat":"anyone-can","type":"sort","hook":"Sort: anyone can, or silly rule?","items":[{"id":"a","text":"A boy can sew"},{"id":"b","text":"Only girls can sew"},{"id":"c","text":"A girl can fix a bike"},{"id":"d","text":"Only boys fix things"}],"bins":[{"id":"yes","label":"Anyone can"},{"id":"silly","label":"Silly rule"}],"key":{"a":"yes","b":"silly","c":"yes","d":"silly"},"relearn":"Sewing, fixing, anyone can learn anything.","persona":"any","source":"skills"},
+  {"id":"ss-038","cat":"anyone-can","type":"build","hook":"Build a 'things I can try' chart.","prompt":"Add things anyone can try.","pieces":["climb","cook","lead","dance","build","care"],"mode":"assemble","key":["climb","cook","lead","dance","build","care"],"relearn":"Your 'can-try' list is as long as you want; nothing's off-limits.","persona":"any","source":"aspiration"},
+  {"id":"ss-039","cat":"anyone-can","type":"reflect","hook":"Aria-moment: is it okay for YOU to be the loud, leading one?","prompt":"What do you think?","options":["Yes!","I'm not sure","I'd like to try"],"affirm":"Yes, it is. Big voices and leading are for you too.","relearn":"Leading and being heard are for every kid, including quiet 'good girls'.","persona":"Aria","source":"agency"},
+  {"id":"ss-040","cat":"anyone-can","type":"role-play","hook":"You want to try something new that people call 'not for you'.","setup":"Say it brave:","yourLine":[{"text":"\"I can try anything I want to.\"","best":true},{"text":"\"Maybe it's not for me.\""}],"relearn":"Saying \"I can try\" is the start of every new skill.","persona":"any","source":"growth mindset / voice"},
+
+  // — Strong & gentle —
+  {"id":"ss-041","cat":"strong-gentle","type":"strike-rewrite","hook":"Vihaan says \"big boys don't cry.\"","myth":{"un":"Big boys don't cry.","re":"Everyone cries; tears are for every kid.","why":"Feelings aren't a gender (see Feelings Friends)."},"relearn":"Crying is okay for boys and girls; it helps big feelings out.","persona":"Vihaan","source":"emotions (links g01)"},
+  {"id":"ss-042","cat":"strong-gentle","type":"sort","hook":"Strong and gentle, who can be each?","items":[{"id":"a","text":"A girl being strong"},{"id":"b","text":"A boy being gentle"},{"id":"c","text":"A boy being strong"},{"id":"d","text":"A girl being gentle"}],"bins":[{"id":"yes","label":"Yes, anyone"},{"id":"no","label":"Not allowed"}],"key":{"a":"yes","b":"yes","c":"yes","d":"yes"},"relearn":"Every kid can be both strong AND gentle.","persona":"any","source":"emotional range"},
+  {"id":"ss-043","cat":"strong-gentle","type":"role-play","hook":"A boy is holding back tears so he looks 'tough'.","setup":"Let him know it's okay. Say:","yourLine":[{"text":"\"It's okay to cry. I'm here.\"","best":true},{"text":"\"Be tough, don't cry.\""}],"relearn":"Helping a friend let tears out is a strong, kind thing to do.","persona":"Faizan-type","source":"voice / empathy"},
+  {"id":"ss-044","cat":"strong-gentle","type":"strike-rewrite","hook":"\"Girls are too gentle to be strong.\"","myth":{"un":"Girls are too gentle to be strong.","re":"Girls can be strong AND gentle, both at once.","why":"Strength and gentleness live in everyone."},"relearn":"You can be gentle and strong; they're not opposites.","persona":"Aria","source":"emotional range"},
+  {"id":"ss-045","cat":"strong-gentle","type":"branch","hook":"A friend fell and is crying. Others say \"don't be a baby.\"","options":[{"text":"Help them up and say \"it's okay to cry\"","consequence":"They calm down; you were the kind one.","outcome":"kind","best":true},{"text":"Join the others teasing","consequence":"They feel worse and more alone.","outcome":"unkind"}],"debrief":"Comforting a crying friend is the strong, brave choice.","relearn":"Kindness when someone cries is real strength.","persona":"any","source":"empathy"},
+  {"id":"ss-046","cat":"strong-gentle","type":"match","hook":"Match the feeling to who's allowed it. (Trick: everyone is!)","pairs":[{"left":"A boy feeling scared","right":"Totally okay"},{"left":"A girl feeling angry","right":"Totally okay"},{"left":"Anyone feeling sad","right":"Totally okay"}],"relearn":"Every feeling is okay for every kid.","persona":"any","source":"emotions"},
+  {"id":"ss-047","cat":"strong-gentle","type":"reflect","hook":"Lensy: can you be both gentle and strong?","prompt":"What do you think?","options":["Yes, both!","Only one","I'm both already"],"affirm":"Yes, you can be both, and you already are.","relearn":"You hold both gentle and strong inside you.","persona":"any","source":"self-concept"},
+  {"id":"ss-048","cat":"strong-gentle","type":"strike-rewrite","hook":"\"Boys have to be tough all the time.\"","myth":{"un":"Boys must be tough all the time.","re":"Boys can be soft, scared, silly and gentle too.","why":"No one is tough every minute; that's not real."},"relearn":"Boys get to feel everything, not just 'tough'.","persona":"Vihaan","source":"emotional health"},
+  {"id":"ss-049","cat":"strong-gentle","type":"role-play","hook":"You feel a big feeling and want to let it out.","setup":"Say your feeling out loud:","yourLine":[{"text":"\"I feel ___, and that's okay.\"","best":true},{"text":"\"I should hide it.\""}],"relearn":"Naming a feeling out loud helps it feel smaller.","persona":"Aria","source":"affect labelling / voice"},
+  {"id":"ss-050","cat":"strong-gentle","type":"sort","hook":"Sort: kind-strong, or unkind?","items":[{"id":"a","text":"Carrying a heavy bag for a friend"},{"id":"b","text":"Pushing to look tough"},{"id":"c","text":"Standing up gently for someone"},{"id":"d","text":"Teasing a crier"}],"bins":[{"id":"strong","label":"Kind & strong"},{"id":"unkind","label":"Just unkind"}],"key":{"a":"strong","b":"unkind","c":"strong","d":"unkind"},"relearn":"Real strength is kind; pushing and teasing are just unkind.","persona":"any","source":"values"},
+  {"id":"ss-051","cat":"strong-gentle","type":"build","hook":"Build a superhero who is BOTH strong and gentle.","prompt":"Pick their powers.","pieces":["super strength","big kindness","brave heart","gentle hands","listens well"],"mode":"assemble","key":["super strength","big kindness","brave heart","gentle hands","listens well"],"relearn":"The best heroes are strong AND gentle, like you can be.","persona":"any","source":"self-concept"},
+  {"id":"ss-052","cat":"strong-gentle","type":"reflect","hook":"Think of a time you were gentle with someone.","prompt":"How did it feel?","options":["Good","Warm","Proud","Happy"],"affirm":"That gentleness is a strength you carry. Use it lots.","relearn":"Gentleness is something to be proud of.","persona":"any","source":"self-esteem"},
+
+  // — Different is wonderful —
+  {"id":"ss-053","cat":"different-wonderful","type":"sort","hook":"We're same inside, different outside. Sort these.","items":[{"id":"a","text":"We all have a beating heart"},{"id":"b","text":"We have different skin colours"},{"id":"c","text":"We all have feelings"},{"id":"d","text":"We like different foods"}],"bins":[{"id":"same","label":"Same inside"},{"id":"diff","label":"Different (and good!)"}],"key":{"a":"same","b":"diff","c":"same","d":"diff"},"relearn":"Inside we're alike; outside we're different, and that's wonderful.","persona":"any","source":"equality / diversity"},
+  {"id":"ss-054","cat":"different-wonderful","type":"strike-rewrite","hook":"\"Being different is bad.\"","myth":{"un":"Being different is bad.","re":"Being different is wonderful; it makes the world interesting.","why":"Imagine if everyone were the same, how dull!"},"relearn":"Different is wonderful, not wrong.","persona":"any","source":"diversity"},
+  {"id":"ss-055","cat":"different-wonderful","type":"match","hook":"Match the difference to why it's lovely.","pairs":[{"left":"Different languages","right":"So many ways to say hello"},{"left":"Different foods","right":"So many yummy tastes"},{"left":"Different looks","right":"Everyone is one of a kind"}],"relearn":"Our differences add colour to the world.","persona":"Kabir","source":"diversity"},
+  {"id":"ss-056","cat":"different-wonderful","type":"strike-rewrite","hook":"\"Fair skin is prettier.\"","myth":{"un":"Fair skin is prettier than dark skin.","re":"Every skin colour is beautiful.","why":"Beauty comes in every shade (Dark is Beautiful)."},"relearn":"All skin colours are lovely; no shade is 'better'.","persona":"any","source":"India colourism"},
+  {"id":"ss-057","cat":"different-wonderful","type":"build","hook":"Build a class photo with all kinds of kids.","prompt":"Add classmates of every kind.","pieces":["different skin tones","glasses","a wheelchair","different heights","big smiles"],"mode":"assemble","key":["different skin tones","glasses","a wheelchair","different heights","big smiles"],"relearn":"A real class is wonderfully different, and every kid belongs.","persona":"any","source":"inclusion"},
+  {"id":"ss-058","cat":"different-wonderful","type":"reflect","hook":"Lensy: what makes YOU one of a kind?","prompt":"Point to one.","options":["My laugh","My ideas","How I look","What I love"],"affirm":"That's a wonderful part of you. Nobody else is just like you.","relearn":"Your differences make you, you, and that's a gift.","persona":"any","source":"self-esteem"},
+  {"id":"ss-059","cat":"different-wonderful","type":"branch","hook":"A new kid speaks a different language and looks unsure.","options":[{"text":"Smile and teach each other a word","consequence":"You make a friend and learn something new.","outcome":"kind","best":true},{"text":"Stay away because they're different","consequence":"You both miss out on a friend.","outcome":"missed"}],"debrief":"Difference is the start of something interesting, not a reason to stay away.","relearn":"A kid who's different from you can be a wonderful friend.","persona":"Kabir","source":"inclusion"},
+  {"id":"ss-060","cat":"different-wonderful","type":"sort","hook":"Sort: kind about difference, or unkind?","items":[{"id":"a","text":"\"I love your different lunch, can I try?\""},{"id":"b","text":"\"Your food smells weird.\""},{"id":"c","text":"\"Teach me a word in your language!\""},{"id":"d","text":"Laughing at someone's clothes"}],"bins":[{"id":"kind","label":"Kind"},{"id":"unkind","label":"Unkind"}],"key":{"a":"kind","b":"unkind","c":"kind","d":"unkind"},"relearn":"Being curious-and-kind about difference beats teasing it.","persona":"any","source":"empathy"},
+  {"id":"ss-061","cat":"different-wonderful","type":"strike-rewrite","hook":"\"Everyone should be the same.\"","myth":{"un":"Everyone should look and be the same.","re":"We're all different, and that's exactly right.","why":"Same-inside, different-outside is the truth of people."},"relearn":"We don't all have to be the same; difference is normal and good.","persona":"any","source":"diversity"},
+  {"id":"ss-062","cat":"different-wonderful","type":"match","hook":"Same inside! Match each kid to the same feeling.","pairs":[{"left":"A tall kid and a short kid","right":"Both feel happy at play"},{"left":"A girl and a boy","right":"Both feel proud when they try"},{"left":"Kids of every colour","right":"All feel love from family"}],"relearn":"However different outside, we share the same feelings inside.","persona":"any","source":"shared humanity"},
+  {"id":"ss-063","cat":"different-wonderful","type":"reflect","hook":"Think of a friend who's different from you.","prompt":"What do you like about them?","options":["They're funny","They're kind","They teach me things","They're my friend"],"affirm":"Their difference is part of why they're great. Difference is wonderful.","relearn":"Differences are reasons to like someone, not avoid them.","persona":"any","source":"friendship"},
+  {"id":"ss-064","cat":"different-wonderful","type":"role-play","hook":"Someone teases a friend for looking different.","setup":"Stand up, gently. Say:","yourLine":[{"text":"\"That's not kind. Different is great.\"","best":true},{"text":"Laugh along"}],"relearn":"You can speak up kindly when someone is teased for being different.","persona":"any","source":"bystander / voice"},
+
+  // — Fair friends —
+  {"id":"ss-065","cat":"fair-friends","type":"branch","hook":"\"You can't play with us, you're a girl.\"","options":[{"text":"Say \"that's not fair, anyone can play\"","consequence":"Most kids agree; the game gets bigger and better.","outcome":"fair","best":true},{"text":"Walk away upset","consequence":"You miss out, and the unfair rule stays.","outcome":"missed"}],"debrief":"\"Anyone can play\" is fair, and it makes games more fun.","relearn":"No one should be left out of play for being a girl or boy.","persona":"Aria","source":"fairness / inclusion"},
+  {"id":"ss-066","cat":"fair-friends","type":"role-play","hook":"A kid is standing alone, not included.","setup":"Be the one who invites them. Say:","yourLine":[{"text":"\"Come play with us!\"","best":true},{"text":"Ignore them"}],"relearn":"A simple \"come play\" includes someone and makes a friend.","persona":"Kabir","source":"inclusion / voice"},
+  {"id":"ss-067","cat":"fair-friends","type":"sort","hook":"Sort: fair friend, or not?","items":[{"id":"a","text":"Lets everyone have a turn"},{"id":"b","text":"Only picks boys for the team"},{"id":"c","text":"Shares the swing"},{"id":"d","text":"Says girls can't join"}],"bins":[{"id":"fair","label":"Fair friend"},{"id":"no","label":"Not fair"}],"key":{"a":"fair","b":"no","c":"fair","d":"no"},"relearn":"Fair friends share and include everyone.","persona":"any","source":"fairness"},
+  {"id":"ss-068","cat":"fair-friends","type":"strike-rewrite","hook":"\"Boys and girls can't be friends.\"","myth":{"un":"Boys and girls can't be friends.","re":"Boys and girls make wonderful friends.","why":"Kindness, not gender, makes a friend."},"relearn":"Anyone can be friends with anyone.","persona":"any","source":"friendship"},
+  {"id":"ss-069","cat":"fair-friends","type":"match","hook":"Match the fair move to the happy result.","pairs":[{"left":"Everyone gets a turn","right":"Nobody's left out"},{"left":"Pick teams by skill, not gender","right":"Best game ever"},{"left":"Invite the new kid","right":"A new friend"}],"relearn":"Fair play makes everyone happier.","persona":"any","source":"fairness"},
+  {"id":"ss-070","cat":"fair-friends","type":"branch","hook":"Your team is only choosing boys for the running race.","options":[{"text":"Say \"let's pick the fastest, anyone can run\"","consequence":"A fast girl joins and helps the team.","outcome":"fair","best":true},{"text":"Say nothing","consequence":"A great runner is left out for no reason.","outcome":"unfair"}],"debrief":"Pick people for what they can do, not their gender.","relearn":"Anyone can race; fair teams pick on skill.","persona":"Aria","source":"fairness"},
+  {"id":"ss-071","cat":"fair-friends","type":"reflect","hook":"Lensy: have you ever felt left out?","prompt":"How did it feel?","options":["Sad","Lonely","Not nice","Yes, I have"],"affirm":"That feeling is why we include everyone. You can be the one who does.","relearn":"Remembering how being left out feels helps us include others.","persona":"any","source":"empathy"},
+  {"id":"ss-072","cat":"fair-friends","type":"role-play","hook":"You see a friend being left out for being a girl.","setup":"Back her up. Say:","yourLine":[{"text":"\"She's playing too, that's only fair.\"","best":true},{"text":"Stay quiet"}],"relearn":"Standing up for a left-out friend is a brave, fair thing.","persona":"Aria","source":"bystander / voice"},
+  {"id":"ss-073","cat":"fair-friends","type":"sort","hook":"Sort: includes everyone, or leaves out?","items":[{"id":"a","text":"\"Everyone's invited!\""},{"id":"b","text":"\"No girls allowed\""},{"id":"c","text":"\"Come join us\""},{"id":"d","text":"\"Only my group can play\""}],"bins":[{"id":"in","label":"Includes everyone"},{"id":"out","label":"Leaves out"}],"key":{"a":"in","b":"out","c":"in","d":"out"},"relearn":"The best play includes everyone.","persona":"any","source":"inclusion"},
+  {"id":"ss-074","cat":"fair-friends","type":"strike-rewrite","hook":"\"Some kids just don't belong.\"","myth":{"un":"Some kids don't belong.","re":"Every kid belongs.","why":"Everyone deserves a place to play and friends."},"relearn":"Every single kid belongs.","persona":"Kabir","source":"belonging"},
+  {"id":"ss-075","cat":"fair-friends","type":"build","hook":"Build the rules for a fair playground.","prompt":"Pick the fair rules.","pieces":["everyone can play","take turns","be kind","no leaving people out","boys go first"],"mode":"assemble","key":["everyone can play","take turns","be kind","no leaving people out"],"relearn":"Fair playground rules: everyone plays, take turns, be kind, leave no one out.","persona":"any","source":"fairness"},
+  {"id":"ss-076","cat":"fair-friends","type":"reflect","hook":"Lensy: who could YOU include tomorrow?","prompt":"Think of someone.","options":["The new kid","Someone shy","Someone alone","Anyone who wants to play"],"affirm":"That's a kind plan. You can make someone's day with one invite.","relearn":"You can choose to include someone, every day.","persona":"any","source":"prosocial"},
+
+  // — Anyone can —
+  {"id":"ss-077","cat":"anyone-can","type":"strike-rewrite","hook":"\"Only boys can be brave.\"","myth":{"un":"Only boys can be brave.","re":"Bravery is for everyone; girls are brave too.","why":"Brave means trying even when it's scary, anyone can."},"relearn":"Every kid can be brave.","persona":"Aria","source":"courage"},
+
+  // — Strong & gentle —
+  {"id":"ss-078","cat":"strong-gentle","type":"branch","hook":"A boy wants to hug his friend goodbye but worries it's 'not for boys'.","options":[{"text":"Hug him back warmly","consequence":"You both feel happy and close.","outcome":"warm","best":true},{"text":"Tell him hugs aren't for boys","consequence":"He hides his warmth; that's a shame.","outcome":"missed"}],"debrief":"Warmth and hugs are for everyone who wants them.","relearn":"Boys can be warm and affectionate too.","persona":"Faizan-type","source":"emotional health"},
+
+  // — Different is wonderful —
+  {"id":"ss-079","cat":"different-wonderful","type":"role-play","hook":"A friend is shy about their family being different.","setup":"Make them feel proud. Say:","yourLine":[{"text":"\"Your family sounds lovely and special.\"","best":true},{"text":"\"That's weird.\""}],"relearn":"All families are different and good (see My Family Garden).","persona":"any","source":"family diversity (links g03)"},
+
+  // — Fair friends —
+  {"id":"ss-080","cat":"fair-friends","type":"branch","hook":"Capstone: you're picking who plays. The group wants to leave one kid out.","options":[{"text":"Include everyone, fairly","consequence":"The whole group has more fun together.","outcome":"fair","best":true},{"text":"Go with the group and leave them out","consequence":"One kid is sad, and you feel off about it.","outcome":"unfair"}],"debrief":"Including everyone is the fairest, kindest, most fun choice.","relearn":"You can be the one who makes sure everyone belongs.","persona":"any","source":"inclusion"},
+
+  // — Different is wonderful —
+  {"id":"ss-081","cat":"different-wonderful","type":"reflect","hook":"Lensy: same inside, different outside. How does that feel to know?","prompt":"Pick one.","options":["Nice","We're all friends","Cool","Happy"],"affirm":"It's a lovely truth: we're all alike where it counts, and special in our own ways.","relearn":"We're equal inside and wonderfully different outside.","persona":"any","source":"equality"},
+
+  // — Anyone can —
+  {"id":"ss-082","cat":"anyone-can","type":"reflect","hook":"Lensy: what will you carry from today?","prompt":"Pick your motto.","options":["Anyone can play with anything","Different is wonderful","I can be strong and gentle","Everyone belongs"],"affirm":"Carry that everywhere. You're going to make play fair and kind.","relearn":"Toys, colours and dreams are for everyone; difference is wonderful.","persona":"any","source":"consolidation"},
 ];
 
-export const GARDEN_TARGET = PAIRS.length; // a flower per friendship; full garden = the finish
-// (Make-a-Friend uses the shared inclusive builder in components/games/make-a-kid.tsx.)
-
-export const SAM = {
-  greet: "Hello! I'm Sam. Let's find friends — same inside, different outside!",
-  share: "What do they share?",
-  diff: "And what's different? Different is wonderful!",
-  friends: "They're friends now!",
-  next: "Let's meet more friends!",
-  make: "Make your own friend! They can be anyone — and do anything.",
-  complete: "Your Friendship Garden is full of friends! We're all the same inside.",
+export const SAME_SAME: V2GameConfig = {
+  gameId: "same-same",
+  title: "Same Same, Different",
+  greet: "Ooh... who can play with THIS? Let's find out — toys, colours and dreams are for EVERYONE! 🌈",
+  scenarios: SCENARIOS,
+  categories: [
+  { id: "toys-for-all", emoji: "🧸", label: "Toys for all" },
+  { id: "colours-for-all", emoji: "🎨", label: "Colours for all" },
+  { id: "anyone-can", emoji: "🙌", label: "Anyone can" },
+  { id: "strong-gentle", emoji: "🦸", label: "Strong & gentle" },
+  { id: "different-wonderful", emoji: "🌈", label: "Different is wonderful" },
+  { id: "fair-friends", emoji: "🤝", label: "Fair friends" },
+  ],
+  badge: {
+    title: "Anyone Can! 🌈",
+    blurb: "Toys and colours are for everyone, anyone can do anything, everyone feels everything, every skin is beautiful, and difference is wonderful. 💛",
+  },
+  buildLabels: { assemble: "That's for everyone! 🌈" },
 };
