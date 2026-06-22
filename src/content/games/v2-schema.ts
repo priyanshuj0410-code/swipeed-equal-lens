@@ -38,7 +38,8 @@ export type V2GameConfig = {
   scenarios: Scenario[];
   categories: GameCategory[];
   badge: { title: string; blurb: string };
-  helpLine?: string; // a real-help route surfaced on every screen (e.g. Childline 1098)
+  helpLine?: string; // a real-help route surfaced on every screen (spoken when tapped)
+  helpLabel?: string; // the help button's text (e.g. "Get help — Childline 1098"); defaults to "Get help"
   reassureCats?: string[]; // categories whose beats end on a "never your fault" reassurance
   reassure?: string;
 };

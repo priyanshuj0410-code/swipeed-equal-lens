@@ -196,6 +196,7 @@ export const MY_BODY: V2GameConfig = {
     blurb: "My body is mine, safe or unsafe is the rule, I can say no and tell, and it's never my fault. 🛡️",
   },
   helpLine: "Childline 1098 — a free helpline for children in India, any time. A grown-up can help you call.",
+  helpLabel: "Get help — Childline 1098",
   reassureCats: ["safe-unsafe", "secret-surprise", "tell-trusted"],
   reassure: "It's never your fault. Telling a trusted grown-up helps. 💛",
 };
