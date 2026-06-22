@@ -9,6 +9,7 @@ import { UnReBeat } from "@/components/games/un-re";
 import { useProfile } from "@/lib/store";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
+import { prefersReducedMotion } from "@/lib/juice";
 import { shuffle, byCat, type Scenario, type V2GameConfig, type V2Mechanic } from "@/content/games/v2-schema";
 
 // The shared v2 "mechanic-embodying" engine — renders any game's typed scenario library as the micro-loop
@@ -36,18 +37,32 @@ const COPLAY: Record<V2Mechanic, string> = {
 };
 
 // Tint a sort/bin label by meaning (colour is NEVER the only signal — every bin shows its word + an emoji).
-function binStyle(label: string): { emoji: string; tint: string } {
+// Valence labels (safe/unsafe, kind/unkind, helps/makes-it-bigger) get green/red; neutral two-category
+// labels (e.g. "a feeling" vs "a thing you do") get two distinct non-valence tints by position, so we never
+// imply one category is "bad".
+function binStyle(label: string, idx = 0): { emoji: string; tint: string } {
   const o = label.toLowerCase();
-  if (/unsafe|not okay|not the right|doesn|tell!|tell right/.test(o)) return { emoji: "🛑", tint: "#E05C52" };
   if (/uh-oh|uhoh/.test(o)) return { emoji: "😬", tint: "#F0A93B" };
-  if (/^no\b|not private|not theirs/.test(o)) return { emoji: "🚫", tint: "#E05C52" };
-  if (/safe|mine|my choice|private|happy|keep|respects|trusted|surprise/.test(o)) return { emoji: "💚", tint: "#62B84B" };
-  return { emoji: "•", tint: "var(--color-mist)" };
+  // genuinely unsafe / false / not-okay (checked before "tell" so "unsafe secret, tell!" reads unsafe)
+  if (/unsafe|not safe|not okay|not the right|doesn|unkind|not kind|not a good|makes it bigger|not allowed|not-so-happy|uncomfy|hurts|\bmyth\b|shame|bad secret/.test(o)) return { emoji: "🛑", tint: "#E05C52" };
+  // a telling / speak-up action bin — distinct from good/bad, not a "danger" colour
+  if (/tell a grown|tell someone|speak up|tell right|tell!|^tell\b/.test(o)) return { emoji: "🗣️", tint: "#F0A93B" };
+  // affirming / true / okay / safe
+  if (/^safe|safe touch|mine|my choice|happy|keep|respects|trusted|surprise|\bokay\b|consent|calms|\bhelps\b|kind|good way|comfy|happy-ish|\btrue\b|fact/.test(o)) return { emoji: "💚", tint: "#62B84B" };
+  // neutral categorisation (feeling vs action, private vs not-private) — distinct tints, no valence
+  return idx === 0 ? { emoji: "🔵", tint: "#5B9BD5" } : { emoji: "🟣", tint: "#7C5CFC" };
+}
+const NEUTRAL_BINS = [{ emoji: "🔵", tint: "#5B9BD5" }, { emoji: "🟣", tint: "#7C5CFC" }, { emoji: "🟢", tint: "#62B84B" }, { emoji: "🟠", tint: "#F0A93B" }];
+// Guarantee the bins of one sort are visually distinct: if two would share a tint, fall back to a
+// position-based neutral palette so a non-reader always has a per-bin colour + emoji cue.
+function binStyles(bins: { label: string }[]): { emoji: string; tint: string }[] {
+  const s = bins.map((b, i) => binStyle(b.label, i));
+  return new Set(s.map((x) => x.tint)).size < bins.length ? bins.map((_, i) => NEUTRAL_BINS[i % NEUTRAL_BINS.length]) : s;
 }
 const vibrate = (ms: number | number[]) => { try { navigator.vibrate?.(ms); } catch { /* unsupported */ } };
 
 export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () => void }) {
-  const { scenarios, gameId, title, greet, categories, badge, helpLine, reassureCats = [], reassure } = config;
+  const { scenarios, gameId, title, greet, categories, badge, helpLine, helpLabel, reassureCats = [], reassure } = config;
   const [view, setView] = useState<"home" | "play" | "done">("home");
   const [queue, setQueue] = useState<Scenario[]>([]);
   const [qi, setQi] = useState(0);
@@ -59,7 +74,8 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   // Calm Mode is the app-wide setting; the store syncs profile.calmMode → juice.setCalm(), so the toggle
   // actually drives prefersReducedMotion() (suppressing confetti + motion).
   const { profile, setCalmMode } = useProfile();
-  const calmMode = profile.calmMode ?? false;
+  const calmMode = profile.calmMode ?? false; // the in-app toggle state (drives the Sparkles button)
+  const reduceMotion = prefersReducedMotion(); // calm OR the OS prefers-reduced-motion setting — gates all motion
   const sc = queue[qi];
 
   const say = useCallback((t: string, onEnd?: () => void) => { setBubble(t); speak(t, { muted, onEnd }); }, [muted]);
@@ -79,6 +95,11 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   };
   const resolveLine = (s: Scenario): string =>
     s.type === "reflect" ? s.affirm : s.type === "branch" ? s.debrief : s.type === "strike-rewrite" ? `${s.myth.re} ${s.myth.why}` : s.relearn;
+  // A beat is a "safety" beat (gets the "never your fault" reassurance + the help pill) if its category is
+  // listed OR it's a branch with an escape-and-tell best choice (outcome:"safe") — so grooming/unsafe-touch
+  // beats that live in other categories (e.g. consent-stop) still surface the reassurance.
+  const isSafetyBeat = (s: Scenario): boolean =>
+    reassureCats.includes(s.cat) || (s.type === "branch" && s.options.some((o) => o.outcome === "safe"));
 
   const present = useCallback((s: Scenario) => { setPhase("play"); say(hookLine(s)); }, [say]);
 
@@ -117,7 +138,9 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const next = () => {
     const ni = qi + 1;
     if (ni < queue.length) { setQi(ni); present(queue[ni]); return; }
-    if (stickers.size >= categories.length) { celebrate("big"); say(badge.blurb, () => setView("done")); }
+    // Transition immediately — do NOT gate the only path to "done" on a speech onEnd callback (which a
+    // muted/3–6-y/o tap could swallow). GameDone mounts on the done screen and the badge narrates there.
+    if (stickers.size >= categories.length) { setView("done"); celebrate("big"); say(badge.blurb); }
     else { setView("home"); say("What shall we play?"); }
   };
 
@@ -151,7 +174,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const StickerBook = (
     <div className="glass-card flex justify-center gap-2 rounded-2xl p-2.5 backdrop-blur-[12px] backdrop-saturate-150" aria-label={`${stickers.size} of ${categories.length} stickers`}>
       {categories.map((c) => (
-        <span key={c.id} className={`grid size-9 place-items-center rounded-full text-xl ${stickers.has(c.id) && !calmMode ? "animate-in zoom-in duration-300" : ""}`} style={{ background: stickers.has(c.id) ? "var(--color-sun)" : "transparent", boxShadow: stickers.has(c.id) ? "inset 0 0 0 2px var(--color-ink)" : "inset 0 0 0 2px var(--color-mist)", opacity: stickers.has(c.id) ? 1 : 0.4 }} aria-hidden>{stickers.has(c.id) ? c.emoji : "·"}</span>
+        <span key={c.id} className={`grid size-9 place-items-center rounded-full text-xl ${stickers.has(c.id) && !reduceMotion ? "animate-in zoom-in duration-300" : ""}`} style={{ background: stickers.has(c.id) ? "var(--color-sun)" : "transparent", boxShadow: stickers.has(c.id) ? "inset 0 0 0 2px var(--color-ink)" : "inset 0 0 0 2px var(--color-mist)", opacity: stickers.has(c.id) ? 1 : 0.4 }} aria-hidden>{stickers.has(c.id) ? c.emoji : "·"}</span>
       ))}
     </div>
   );
@@ -162,7 +185,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   );
   const HelpPill = helpLine ? (
     <button type="button" onClick={() => say(helpLine)} className="glass-pill flex items-center gap-2 rounded-2xl px-4 py-2.5 text-left text-sm font-semibold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
-      <Phone className="size-4 shrink-0" aria-hidden /> Get help — Childline 1098
+      <Phone className="size-4 shrink-0" aria-hidden /> {helpLabel ?? "Get help"}
     </button>
   ) : null;
 
@@ -221,7 +244,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
               )}
             </div>
 
-            {phase === "play" && <Play key={sc.id} sc={sc} onSolved={solve} say={say} calmMode={calmMode} />}
+            {phase === "play" && <Play key={sc.id} sc={sc} onSolved={solve} say={say} reduceMotion={reduceMotion} />}
 
             {/* Resolve — the truth + reassurance + Next */}
             {phase === "resolve" && (
@@ -231,10 +254,10 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
                 ) : (
                   <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold leading-relaxed backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {resolveLine(sc)}</div>
                 )}
-                {reassure && reassureCats.includes(sc.cat) && (
+                {reassure && isSafetyBeat(sc) && (
                   <div className="glass-pill rounded-2xl px-4 py-2.5 text-center text-sm font-medium backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{reassure}</div>
                 )}
-                {reassure && reassureCats.includes(sc.cat) && HelpPill}
+                {reassure && isSafetyBeat(sc) && HelpPill}
                 <button type="button" onClick={next} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
                   {qi + 1 >= queue.length ? "Finish ⭐" : "Next →"}
                 </button>
@@ -250,14 +273,14 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 }
 
 // ============================ the seven mechanic renderers ============================
-function Play({ sc, onSolved, say, calmMode }: { sc: Scenario; onSolved: () => void; say: (t: string) => void; calmMode: boolean }) {
+function Play({ sc, onSolved, say, reduceMotion }: { sc: Scenario; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
   switch (sc.type) {
     case "reflect": return <ReflectPlay sc={sc} onSolved={onSolved} />;
     case "role-play": return <RolePlayPlay sc={sc} onSolved={onSolved} />;
     case "strike-rewrite": return <StrikePlay onSolved={onSolved} />;
-    case "branch": return <BranchPlay sc={sc} onSolved={onSolved} />;
-    case "sort": return <SortPlay sc={sc} onSolved={onSolved} say={say} calmMode={calmMode} />;
-    case "match": return <MatchPlay sc={sc} onSolved={onSolved} say={say} calmMode={calmMode} />;
+    case "branch": return <BranchPlay sc={sc} onSolved={onSolved} say={say} />;
+    case "sort": return <SortPlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
+    case "match": return <MatchPlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
     case "build": return <BuildPlay sc={sc} onSolved={onSolved} say={say} />;
   }
 }
@@ -302,15 +325,18 @@ function StrikePlay({ onSolved }: { onSolved: () => void }) {
   );
 }
 
-// branch — pick a choice; see its consequence; the safe (best) choice leads on, others gently redirect.
-function BranchPlay({ sc, onSolved }: { sc: Extract<Scenario, { type: "branch" }>; onSolved: () => void }) {
+// branch — pick a choice; HEAR + see its consequence; the safe (best) choice leads on, others gently
+// redirect. If a scenario has no `best` at all, any pick advances (never a soft-lock).
+function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "branch" }>; onSolved: () => void; say: (t: string) => void }) {
   const [picked, setPicked] = useState<number | null>(null);
+  const hasBest = sc.options.some((o) => o.best);
   if (picked !== null) {
     const opt = sc.options[picked];
+    const advance = opt.best || !hasBest; // safe choice, or there is no "best" to find → move on
     return (
       <div className="flex flex-col gap-2.5">
         <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{opt.best ? "💚 " : "💛 "}{opt.consequence}</div>
-        {opt.best ? (
+        {advance ? (
           <button type="button" onClick={onSolved} className="flex h-12 w-full items-center justify-center rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">Next →</button>
         ) : (
           <button type="button" onClick={() => setPicked(null)} className="glass-pill flex h-12 w-full items-center justify-center rounded-2xl text-base font-bold text-foreground backdrop-blur-md transition-transform active:scale-95">Let&apos;s find the safe way →</button>
@@ -321,7 +347,7 @@ function BranchPlay({ sc, onSolved }: { sc: Extract<Scenario, { type: "branch" }
   return (
     <div className="flex flex-col gap-2.5">
       {sc.options.map((o, i) => (
-        <button key={i} type="button" onClick={() => { setPicked(i); if (o.best) { vibrate(12); } }} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
+        <button key={i} type="button" onClick={() => { setPicked(i); say(o.consequence); if (o.best) { vibrate(12); } }} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
           <span className="text-2xl" aria-hidden>🔀</span><span className="flex-1">{o.text}</span>
         </button>
       ))}
@@ -330,7 +356,7 @@ function BranchPlay({ sc, onSolved }: { sc: Extract<Scenario, { type: "branch" }
 }
 
 // sort — tap an item to pick it up, tap the bin it belongs in. Wrong bin gives a warm nudge (no fail).
-function SortPlay({ sc, onSolved, say, calmMode }: { sc: Extract<Scenario, { type: "sort" }>; onSolved: () => void; say: (t: string) => void; calmMode: boolean }) {
+function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "sort" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
   const [placed, setPlaced] = useState<Record<string, string>>({});
   const [sel, setSel] = useState<string | null>(null);
   const [wrong, setWrong] = useState(false);
@@ -348,14 +374,14 @@ function SortPlay({ sc, onSolved, say, calmMode }: { sc: Extract<Scenario, { typ
       {/* unplaced item chips */}
       <div className="flex flex-wrap justify-center gap-2">
         {sc.items.filter((it) => !placed[it.id]).map((it) => (
-          <button key={it.id} type="button" onClick={() => { setSel(it.id); setWrong(false); }} className={`glass-card rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 ${sel === it.id && !calmMode ? "animate-pulse" : ""}`} style={sel === it.id ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>{it.text}</button>
+          <button key={it.id} type="button" onClick={() => { setSel(it.id); setWrong(false); }} className={`glass-card rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 ${sel === it.id && !reduceMotion ? "animate-pulse" : ""}`} style={sel === it.id ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>{it.text}</button>
         ))}
       </div>
       {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Not quite — try the other one. 💛</p>}
       {/* bins */}
       <div className="grid grid-cols-2 gap-2.5">
-        {sc.bins.map((b) => {
-          const st = binStyle(b.label);
+        {(() => { const styles = binStyles(sc.bins); return sc.bins.map((b, bi) => {
+          const st = styles[bi];
           const inBin = sc.items.filter((it) => placed[it.id] === b.id);
           return (
             <button key={b.id} type="button" onClick={() => drop(b.id)} className="glass-card flex min-h-[5.5rem] flex-col items-center gap-1 rounded-2xl px-2 py-3 text-center backdrop-blur-[12px] transition-transform active:scale-[0.97]" style={{ boxShadow: `inset 0 0 0 2.5px ${st.tint}` }}>
@@ -364,7 +390,7 @@ function SortPlay({ sc, onSolved, say, calmMode }: { sc: Extract<Scenario, { typ
               {inBin.map((it) => <span key={it.id} className="rounded-full bg-[var(--color-sun)] px-2 py-0.5 text-[11px] font-bold text-slate-900">{it.text} ✓</span>)}
             </button>
           );
-        })}
+        }); })()}
       </div>
       <p className="text-center text-xs text-foreground/55">{done} / {sc.items.length} sorted</p>
     </div>
@@ -372,7 +398,7 @@ function SortPlay({ sc, onSolved, say, calmMode }: { sc: Extract<Scenario, { typ
 }
 
 // match — tap a left, tap its right. A wrong pair gives a warm nudge (no fail).
-function MatchPlay({ sc, onSolved, say, calmMode }: { sc: Extract<Scenario, { type: "match" }>; onSolved: () => void; say: (t: string) => void; calmMode: boolean }) {
+function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "match" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
   const [rights] = useState(() => shuffle(sc.pairs.map((p) => p.right)));
   const [matched, setMatched] = useState<Set<string>>(new Set());
   const [selLeft, setSelLeft] = useState<string | null>(null);
@@ -393,7 +419,7 @@ function MatchPlay({ sc, onSolved, say, calmMode }: { sc: Extract<Scenario, { ty
       <div className="grid grid-cols-2 gap-2.5">
         <div className="flex flex-col gap-2">
           {sc.pairs.map((p) => (
-            <button key={p.left} type="button" disabled={matched.has(p.left)} onClick={() => { setSelLeft(p.left); setWrong(false); }} className={`glass-card rounded-2xl px-3 py-3 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !calmMode ? "animate-pulse" : ""}`} style={matched.has(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>{matched.has(p.left) ? `${p.left} ✓` : p.left}</button>
+            <button key={p.left} type="button" disabled={matched.has(p.left)} onClick={() => { setSelLeft(p.left); setWrong(false); }} className={`glass-card rounded-2xl px-3 py-3 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !reduceMotion ? "animate-pulse" : ""}`} style={matched.has(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>{matched.has(p.left) ? `${p.left} ✓` : p.left}</button>
           ))}
         </div>
         <div className="flex flex-col gap-2">
@@ -409,6 +435,8 @@ function MatchPlay({ sc, onSolved, say, calmMode }: { sc: Extract<Scenario, { ty
 // build — assemble a trusted-adults team (order-free) or a telling plan (in sequence).
 function BuildPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "build" }>; onSolved: () => void; say: (t: string) => void }) {
   const [chosen, setChosen] = useState<string[]>([]);
+  // For a sequence (ordering) puzzle, shuffle the buttons so the answer isn't "tap top-to-bottom".
+  const [display] = useState(() => (sc.mode === "sequence" ? shuffle(sc.pieces) : sc.pieces));
   const target = sc.mode === "sequence" ? sc.key.length : Math.min(3, sc.key.length);
   const add = (piece: string) => {
     if (sc.mode === "sequence") {
@@ -428,7 +456,7 @@ function BuildPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "build
         </div>
       )}
       <div className="flex flex-wrap justify-center gap-2">
-        {(sc.mode === "sequence" ? sc.pieces : remaining).map((p) => (
+        {(sc.mode === "sequence" ? display : remaining).map((p) => (
           <button key={p} type="button" disabled={sc.mode === "sequence" && chosen.includes(p)} onClick={() => add(p)} className="glass-card rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-40">{p}</button>
         ))}
       </div>
