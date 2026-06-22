@@ -30,6 +30,7 @@ GAME = {
     "g27": "stand-up", "g40": "firewall", "g43": "rabbit-hole", "g33": "lead-the-way", "g34": "change-makers", "g35": "justice-league",
     # Chapter 6 — adult journey (18–22)
     "g44": "consent-real", "g45": "swipe-right", "g46": "real-relationships", "g47": "own-your-health",
+    "g48": "money-independence", "g49": "mind-belonging", "g52": "find-your-feet", "g50": "equal-confident", "g51": "know-your-rights",
 }
 
 def href_for(game):
