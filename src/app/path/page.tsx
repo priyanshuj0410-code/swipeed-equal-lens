@@ -13,7 +13,6 @@ import { WorldLoader } from "@/components/world-loader";
 import { UnlearnToolbar } from "@/components/unlearn-toolbar";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
-import { FreeScribble } from "@/components/free-scribble";
 import { EngineGameHost, hasEngineGame } from "@/components/games/engine-host";
 import { NODES, CHAPTERS } from "@/content/path";
 import { isNodeUnlocked, makeNodeCompleted, entryFocusIndex } from "@/lib/node-unlock";
@@ -140,9 +139,6 @@ export default function PathPage() {
           />
         ) : null}
       </div>
-
-      {/* free scribble layer (RE pen) — over the 3D world, under the chrome; active only in pen mode */}
-      {webgl === true && !playing && <FreeScribble />}
 
       {/* ---- path mode chrome ---- */}
       {webgl !== false && !playing && (

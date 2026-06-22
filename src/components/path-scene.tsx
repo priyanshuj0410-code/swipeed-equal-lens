@@ -1,8 +1,8 @@
 "use client";
 
 import * as THREE from "three";
-import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { Html } from "@react-three/drei";
+import { Canvas, useThree, useFrame, type ThreeEvent } from "@react-three/fiber";
+import { Html, Line } from "@react-three/drei";
 import { Check, Lock, Play, Trophy } from "lucide-react";
 import { tokens } from "@equal-lens/brand"; // canvas-world brand colours — single source (retheme via the library)
 import { NODES, CHAPTERS, type Chapter } from "@/content/path";
@@ -1538,7 +1538,6 @@ function CanvasContent({ nodes, progress, pointers }: { nodes: SceneNode[]; prog
     }
   });
   if (hide) return null;
-  const active = tool !== "none";
   const vis = placed.filter((m) => m.z <= cz.current + 12 && m.z >= cz.current - 12);
   return (
     <>
@@ -1548,10 +1547,11 @@ function CanvasContent({ nodes, progress, pointers }: { nodes: SceneNode[]; prog
         const inkMode: "erase" | null = ph === "myth" && tool === "eraser" ? "erase" : null;
         return (
           <group key={m.id} position={[m.x, 0.14, m.z]}>
-            <Html center distanceFactor={21.6} zIndexRange={[18, 6]} style={{ pointerEvents: active ? "auto" : "none" }}>
+            {/* capture only when this note can be erased (UN + myth phase); otherwise let RE ground-ink pass through */}
+            <Html center distanceFactor={21.6} zIndexRange={[18, 6]} style={{ pointerEvents: inkMode ? "auto" : "none" }}>
               <div
                 className={`note ${m.tone} myth-card select-none`}
-                style={{ transform: `rotate(${m.rot}deg)`, cursor: active ? "crosshair" : "default", touchAction: "none" }}
+                style={{ transform: `rotate(${m.rot}deg)`, cursor: inkMode ? "crosshair" : "default", touchAction: "none" }}
               >
                 <MythNoteBody phase={ph} m={m} tool={tool} />
                 {inkMode && <MythInk key={`${m.id}-${inkMode}`} mode={inkMode} pointers={pointers} onComplete={() => advance(m.id)} />}
@@ -1841,7 +1841,6 @@ function ChapterDoodles({ nodes, progress, pointers }: { nodes: SceneNode[]; pro
     }
   });
   const vis = placed.filter((m) => m.z <= cz.current + 13 && m.z >= cz.current - 13);
-  const active = tool !== "none";
   return (
     <>
       {vis.map((m) => {
@@ -1879,8 +1878,8 @@ function ChapterDoodles({ nodes, progress, pointers }: { nodes: SceneNode[]; pro
         return (
           <group key={m.id} position={[m.x, 0.12, m.z]}>
             {/* raise the interactive myths above the decorative scatter so they're tappable while a tool is active */}
-            <Html center distanceFactor={22} zIndexRange={active && ph !== "truth" ? [17, 5] : [8, 2]} style={{ pointerEvents: active && ph !== "truth" ? "auto" : "none" }}>
-              <div className="canvas-myth" style={{ transform: `rotate(${m.rot}deg)`, cursor: active && ph !== "truth" ? "crosshair" : "default", touchAction: "none" }}>
+            <Html center distanceFactor={22} zIndexRange={inkMode ? [17, 5] : [8, 2]} style={{ pointerEvents: inkMode ? "auto" : "none" }}>
+              <div className="canvas-myth" style={{ transform: `rotate(${m.rot}deg)`, cursor: inkMode ? "crosshair" : "default", touchAction: "none" }}>
                 {ph === "truth" ? (
                   <span className="canvas-scribble is-truth">{m.truth}</span>
                 ) : (
@@ -1893,6 +1892,77 @@ function ChapterDoodles({ nodes, progress, pointers }: { nodes: SceneNode[]; pro
           </group>
         );
       })}
+    </>
+  );
+}
+
+// Free scribble that lives IN THE WORLD (so it sticks to the dotted paper and scrolls with it, instead of
+// being glued to the camera like a screen overlay). RE draws coral ink onto the ground plane; UN rubs whole
+// strokes out. We draw via an invisible ground-level plane whose R3F pointer events hand us the world-space
+// hit point (e.point), and render each stroke as a drei <Line> just above the paper. Myth notes (DOM, on top)
+// keep handling their own area, so there's no overlap to forward. Two fingers / wheel still scroll the path.
+function FreeInk({ pointers }: { pointers: React.MutableRefObject<Map<number, number>> }) {
+  const { tool, resetSeq } = useUnlearnTool();
+  const active = tool === "pen" || tool === "eraser";
+  const erasing = tool === "eraser";
+  const [strokes, setStrokes] = useState<[number, number, number][][]>([]);
+  const [current, setCurrent] = useState<[number, number, number][]>([]);
+  const drawing = useRef(false);
+  useEffect(() => {
+    if (resetSeq > 0) {
+      setStrokes([]);
+      setCurrent([]);
+      drawing.current = false;
+    }
+  }, [resetSeq]);
+  const grow = useMemo(() => getComputedStyle(document.documentElement).getPropertyValue("--color-grow").trim() || "#ff6b4a", []);
+  const Y = 0.08; // ink floats just above the paper, below the nodes/notes
+  const ERASE_R2 = 1.4 * 1.4; // world-space erase radius²
+
+  const erodeAt = useCallback((x: number, z: number) => {
+    setStrokes((prev) => prev.filter((s) => !s.some((p) => (p[0] - x) ** 2 + (p[2] - z) ** 2 < ERASE_R2)));
+  }, [ERASE_R2]);
+
+  const onDown = (e: ThreeEvent<PointerEvent>) => {
+    if (!active || pointers.current.size >= 2) return; // two fingers → leave it for the path scroll
+    e.stopPropagation();
+    drawing.current = true;
+    if (erasing) erodeAt(e.point.x, e.point.z);
+    else setCurrent([[e.point.x, Y, e.point.z]]);
+  };
+  const onMove = (e: ThreeEvent<PointerEvent>) => {
+    if (!drawing.current) return;
+    if (pointers.current.size >= 2) {
+      drawing.current = false;
+      setCurrent((c) => {
+        if (c.length > 1) setStrokes((s) => [...s, c]);
+        return [];
+      });
+      return;
+    }
+    if (erasing) erodeAt(e.point.x, e.point.z);
+    else setCurrent((c) => [...c, [e.point.x, Y, e.point.z]]);
+  };
+  const finish = () => {
+    drawing.current = false;
+    setCurrent((c) => {
+      if (c.length > 1) setStrokes((s) => [...s, c]);
+      return [];
+    });
+  };
+
+  if (!active && strokes.length === 0) return null;
+  return (
+    <>
+      {active && (
+        // invisible, raycastable ground plane; R3F gives us e.point (world hit) directly — no manual raycast
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, Y - 0.02, PATH_MID_Z]} onPointerDown={onDown} onPointerMove={onMove} onPointerUp={finish} onPointerLeave={finish}>
+          <planeGeometry args={[1600, PATH_SPAN_Z + 900]} />
+          <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+        </mesh>
+      )}
+      {strokes.map((pts, i) => (pts.length > 1 ? <Line key={i} points={pts} color={grow} lineWidth={3} /> : null))}
+      {current.length > 1 && <Line points={current} color={grow} lineWidth={3} />}
     </>
   );
 }
@@ -2208,6 +2278,7 @@ export function PathScene({
           Nodes first so the chapter banners (rendered after) stack ABOVE the node labels. */}
       {phase >= 1 && !playing && (
         <>
+          <FreeInk pointers={pointersRef} />
           <ChapterDoodles nodes={nodes} progress={progress} pointers={pointersRef} />
           <CanvasContent nodes={nodes} progress={progress} pointers={pointersRef} />
           <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} canvas focusIndex={focusIndex} playerName={playerName} />
