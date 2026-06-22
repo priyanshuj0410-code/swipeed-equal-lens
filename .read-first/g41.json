@@ -1,0 +1,35 @@
+{
+  "node": "g41",
+  "gameId": "heart-smart",
+  "label": "Heart Smart",
+  "chapter": 2,
+  "attested_at": "2026-06-23T03:12:00+05:30",
+  "notes": "Read GDD 41 (11pp), Ch.2 personas (13pp), build bible (13pp), transition plan (10pp), and the 84-scenario library JSON. Mechanics: reflect/branch/role-play/strike-rewrite/match/sort/build (all existing). 0% binary, 10 myths. Personas Reyansh/Ananya/Faizan/Sana/Aditi. Builds on g01, prereq g09, completes Ch.2.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 41 — Heart Smart (reworked v2).pdf",
+      "sha256": "208f43713a987c21b206aaa9238e33d129645ff2c3efcb5dd2ffb0b38f6b0d98",
+      "bytes": 60962
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 2 User Personas.pdf",
+      "sha256": "bdfe6bede01a444e875c9cbe8029e57d124ab2d7a3a6705ba3fc0c75ccd7ccca",
+      "bytes": 77040
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 41 Heart Smart — Scenario Library.json",
+      "sha256": "0a740c9e2284064b37b97eb1a26d553d5f6819eaef6eed7152df50e65e393cc9",
+      "bytes": 53521
+    }
+  }
+}
