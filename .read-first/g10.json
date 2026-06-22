@@ -1,0 +1,35 @@
+{
+  "node": "g10",
+  "gameId": "fair-play",
+  "label": "Fair Play World",
+  "chapter": 2,
+  "attested_at": "2026-06-23T03:22:34+05:30",
+  "notes": "Read GDD 10 (11pp) + full 84-scenario library; shared bible/transition/Ch.2 personas read earlier this session. 8 mechanics (branch 25, reflect 19, strike-rewrite 12, sort 10, role-play 8, match 4, build 3, spot 3). 0% binary, 12 myths. IMPORTANT: library gameId is 'fair-play-world' (GDD aspirational) but runtime registry id is 'fair-play' — config must use fair-play. Anchor persona Ananya; India chore-gap front and centre. Builds on g07, prereq g41.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 10 — Fair Play World (reworked v2).pdf",
+      "sha256": "599593939df947b68247e8d9ce7976c195e2fa6b0addccad935f1fc12a56e6be",
+      "bytes": 63229
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 2 User Personas.pdf",
+      "sha256": "bdfe6bede01a444e875c9cbe8029e57d124ab2d7a3a6705ba3fc0c75ccd7ccca",
+      "bytes": 77040
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 10 Fair Play World — Scenario Library.json",
+      "sha256": "c2414e4647788fc76df4389b06dc6e707be1fac87f4966cff90419de159ada51",
+      "bytes": 40914
+    }
+  }
+}

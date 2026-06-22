@@ -49,7 +49,7 @@ function binStyle(label: string, idx = 0): { emoji: string; tint: string } {
   const o = label.toLowerCase();
   if (/uh-oh|uhoh/.test(o)) return { emoji: "😬", tint: "#F0A93B" };
   // genuinely unsafe / false / not-okay (checked before "tell" so "unsafe secret, tell!" reads unsafe)
-  if (/unsafe|not safe|not okay|not the right|doesn|unkind|not kind|not a good|makes it bigger|not allowed|not-so-happy|uncomfy|hurts|\bmyth\b|shame|bad secret|not a family|not love|leaves someone out|not helping|not my circle|not healthy|not clean|spreads germs|gets stinky|silly rule|not so good|not needed|not fair|leaves out|silly old|not good|not true|too-tight|tight box|not respectful|breaks it|tricky|risky|frenemy|makes it worse|\bfuels\b|not empathic/.test(o)) return { emoji: "🛑", tint: "#E05C52" };
+  if (/unsafe|not safe|not okay|not the right|doesn|unkind|not kind|not a good|makes it bigger|not allowed|not-so-happy|uncomfy|hurts|\bmyth\b|shame|bad secret|not a family|not love|leaves someone out|not helping|not my circle|not healthy|not clean|spreads germs|gets stinky|silly rule|not so good|not needed|not fair|leaves out|silly old|not good|not true|too-tight|tight box|not respectful|breaks it|tricky|risky|frenemy|makes it worse|\bfuels\b|not empathic|unfair|hogging|blocks it|one gender|not really fair/.test(o)) return { emoji: "🛑", tint: "#E05C52" };
   // a telling / speak-up action bin — distinct from good/bad, not a "danger" colour
   if (/tell a grown|tell someone|speak up|tell right|tell!|^tell\b/.test(o)) return { emoji: "🗣️", tint: "#F0A93B" };
   // affirming / true / okay / safe / belonging / clean-healthy / fair-inclusive
