@@ -355,18 +355,18 @@ html[data-playing="true"] .gethelp-label {
 }
 .canvas-scribble {
   display: inline-block;
-  max-width: 150px;
+  width: 200px;
   font-family: var(--font-hand);
   font-weight: 700;
-  font-size: 15px;
-  line-height: 1.15;
+  font-size: 13px;
+  line-height: 1.2;
   text-align: center;
+  text-wrap: balance;
   pointer-events: none;
   user-select: none;
 }
 .canvas-scribble.is-myth {
-  color: var(--color-grow);
-  opacity: 0.8;
+  color: #6f6b76; /* soft grey, so the coral strike does the work */
   text-decoration: line-through;
   text-decoration-color: var(--color-grow);
   text-decoration-thickness: 2.5px;

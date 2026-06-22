@@ -1607,56 +1607,66 @@ function ChapterDoodles({ nodes, progress }: { nodes: SceneNode[]; progress: Rea
       e.hi = Math.min(e.hi, z);
       chZ.set(ci + 1, e);
     });
+    // Lanes dodge the path crests (x=±3) and the note band (|x|≥8). Marks are small, so they can sit
+    // on/near the path (centre lanes); the wider text stays in the nearer side gaps.
+    const MARK_LANES = [0, 2.4, -2.4, 4.8, -4.8];
+    const TEXT_LANES = [-6, 6, -4.3, 4.3];
+    const MIN_DZ = 2.6; // vertical breathing room between consecutive decor items
     const out: Decor[] = [];
+    type Item = { kind: "mark" | "myth" | "truth"; id: string; mark?: string; text?: string };
     for (const cc of CHAPTER_CANVAS) {
       const range = chZ.get(cc.chapter);
       if (!range) continue;
-      const z0 = range.lo - NODE_DZ;
-      const z1 = range.hi + NODE_DZ;
-      const zAt = (f: number) => z0 + (z1 - z0) * f;
+      const zBot = range.lo;
+      const zTop = range.hi;
+      const span = Math.abs(zBot - zTop);
+      const zAt = (f: number) => zBot + (zTop - zBot) * f;
 
-      // 1) small multi-colour marks, scattered in the gap between the path swing and the notes
-      const markCount = Math.min(6, Math.max(4, cc.doodles?.length ?? 4));
+      // assemble this chapter's decor content (positions assigned by the ladder below)
+      const items: Item[] = [];
+      const markCount = Math.min(5, Math.max(3, cc.doodles?.length ?? 4));
       for (let j = 0; j < markCount; j++) {
         const h = _hashStr(`${cc.chapter}-mark-${j}`);
-        out.push({
-          kind: "mark",
-          id: `mk-${cc.chapter}-${j}`,
-          x: (j % 2 === 0 ? 1 : -1) * (4.5 + (h % 6)), // 4.5–9.5
-          z: zAt((j + 0.5) / markCount),
-          rot: (h % 50) - 25,
-          mark: DOODLE_MARKS[h % DOODLE_MARKS.length],
-          size: 26 + (h % 22), // 26–48: small & delicate
-          accent: DOODLE_ACCENTS[h % DOODLE_ACCENTS.length],
-        });
+        items.push({ kind: "mark", id: `mk-${cc.chapter}-${j}`, mark: DOODLE_MARKS[h % DOODLE_MARKS.length] });
       }
-
-      // 2) loose scribbled text — myths struck-through, a couple of relearned truths. The sticky notes
-      //    take i % step === 0, so this pool (i % step !== 0) never collides; slice 0–4 = myths, last 2 = truths.
+      // sticky notes take i % step === 0, so this pool (i % step !== 0) never duplicates them
       const all = CANVAS_MYTHS.filter((m) => m.chapter === cc.chapter);
       const step = Math.max(2, Math.round(all.length / 6));
       const pool = all.filter((_, i) => i % step !== 0);
-      pool.slice(0, 4).forEach((m, j) => {
-        const h = _hashStr(`${cc.chapter}-sc-${m.id}`);
-        out.push({
-          kind: "myth",
-          id: `sc-${m.id}`,
-          x: (j % 2 === 0 ? -1 : 1) * (5 + (h % 7)),
-          z: zAt((j + 0.25) / 4),
-          rot: (h % 14) - 7,
-          text: m.myth,
-        });
-      });
-      pool.slice(Math.max(4, pool.length - 2)).forEach((m, j) => {
-        const h = _hashStr(`${cc.chapter}-af-${m.id}`);
-        out.push({
-          kind: "truth",
-          id: `af-${m.id}`,
-          x: (j % 2 === 0 ? 1 : -1) * (5 + (h % 6)),
-          z: zAt((j + 0.65) / 2),
-          rot: (h % 12) - 6,
-          text: m.truth,
-        });
+      pool.slice(0, 3).forEach((m) => items.push({ kind: "myth", id: `sc-${m.id}`, text: m.myth }));
+      pool.slice(Math.max(3, pool.length - 2)).forEach((m) => items.push({ kind: "truth", id: `af-${m.id}`, text: m.truth }));
+
+      // deterministic interleave, then cap the count so the ladder keeps >= MIN_DZ between items
+      items.sort((a, b) => (_hashStr(a.id) % 997) - (_hashStr(b.id) % 997));
+      const use = items.slice(0, Math.max(2, Math.min(items.length, Math.floor(span / MIN_DZ))));
+
+      // ladder: one unique z-slot per item; lanes cycle per family so neighbours never share x
+      let mi = 0;
+      let ti = 0;
+      use.forEach((it, k) => {
+        const h = _hashStr(it.id);
+        const z = zAt((k + 0.5) / use.length);
+        if (it.kind === "mark") {
+          out.push({
+            kind: "mark",
+            id: it.id,
+            x: MARK_LANES[mi++ % MARK_LANES.length] + ((h % 7) - 3) * 0.18,
+            z,
+            rot: (h % 50) - 25,
+            mark: it.mark!,
+            size: 24 + (h % 18), // 24–42: small & delicate
+            accent: DOODLE_ACCENTS[h % DOODLE_ACCENTS.length],
+          });
+        } else {
+          out.push({
+            kind: it.kind,
+            id: it.id,
+            x: TEXT_LANES[ti++ % TEXT_LANES.length] + ((h % 5) - 2) * 0.12,
+            z,
+            rot: (h % 12) - 6,
+            text: it.text!,
+          });
+        }
       });
     }
     return out;
