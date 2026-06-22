@@ -338,3 +338,40 @@ html[data-playing="true"] .gethelp-label {
 @media (max-width: 640px) {
   .tb-label { display: none; }
 }
+
+/* Ambient canvas decor — recoloured hand-drawn marks (mask-tinted to a brand accent) and loose
+   scribbled text (myths struck-through in coral, relearned truths in violet). */
+.doodle-mark {
+  display: block;
+  opacity: 0.72;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+.canvas-scribble {
+  display: inline-block;
+  max-width: 150px;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.15;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+.canvas-scribble.is-myth {
+  color: var(--color-grow);
+  opacity: 0.8;
+  text-decoration: line-through;
+  text-decoration-color: var(--color-grow);
+  text-decoration-thickness: 2.5px;
+}
+.canvas-scribble.is-truth {
+  color: var(--violet-600);
+  opacity: 0.72;
+}

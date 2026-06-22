@@ -1579,11 +1579,22 @@ function MythNoteBody({
 }
 
 const DOODLE_MARKS = ["sparkle", "star", "heart", "squiggle", "spiral", "swirl", "zigzag", "arrow"];
-// Ambient chapter doodles (Chapter Canvas Theming doc): a few of the brand's hand-drawn marks
-// scattered faintly at the OUTER edges of each chapter's stretch — easter-egg texture, never
-// functional. Count follows each chapter's doodle set in the content docs.
+// Brand accent palette for the marks — coral / sun / teal / violet / sky, so the scatter reads as the
+// colourful, delicate hand-drawn texture from the marketing site (not one heavy violet block).
+const DOODLE_ACCENTS = ["var(--color-grow)", "var(--color-sun)", "var(--color-insight)", "var(--violet-400)", "var(--color-sky)"];
+
+type Decor =
+  | { kind: "mark"; id: string; x: number; z: number; rot: number; mark: string; size: number; accent: string }
+  | { kind: "myth"; id: string; x: number; z: number; rot: number; text: string }
+  | { kind: "truth"; id: string; x: number; z: number; rot: number; text: string };
+
+// Ambient chapter decor (Chapter Canvas Theming doc): the brand's signature scatter — small, multi-
+// colour hand-drawn marks PLUS loose text scribbled straight onto the paper: myths struck-through in
+// coral, relearned truths in violet (just like the marketing hero). Purely atmospheric — the real
+// interactive myths are the sticky notes; this text is decorative and uses myths OFFSET from the
+// sticky-note subset so nothing duplicates.
 function ChapterDoodles({ nodes, progress }: { nodes: SceneNode[]; progress: React.MutableRefObject<number> }) {
-  const placed = useMemo(() => {
+  const placed = useMemo<Decor[]>(() => {
     const us = chapterSpacedUs(nodes).nodeU;
     const chKeys = CHAPTERS.map((c) => c.key);
     const chZ = new Map<number, { lo: number; hi: number }>();
@@ -1596,23 +1607,57 @@ function ChapterDoodles({ nodes, progress }: { nodes: SceneNode[]; progress: Rea
       e.hi = Math.min(e.hi, z);
       chZ.set(ci + 1, e);
     });
-    const out: { id: string; x: number; z: number; rot: number; mark: string; size: number }[] = [];
+    const out: Decor[] = [];
     for (const cc of CHAPTER_CANVAS) {
       const range = chZ.get(cc.chapter);
       if (!range) continue;
-      const count = Math.min(6, Math.max(4, cc.doodles?.length ?? 4));
-      for (let j = 0; j < count; j++) {
-        const h = _hashStr(`${cc.chapter}-doodle-${j}`);
-        const f = (j + 0.5) / count;
+      const z0 = range.lo - NODE_DZ;
+      const z1 = range.hi + NODE_DZ;
+      const zAt = (f: number) => z0 + (z1 - z0) * f;
+
+      // 1) small multi-colour marks, scattered in the gap between the path swing and the notes
+      const markCount = Math.min(6, Math.max(4, cc.doodles?.length ?? 4));
+      for (let j = 0; j < markCount; j++) {
+        const h = _hashStr(`${cc.chapter}-mark-${j}`);
         out.push({
-          id: `d-${cc.chapter}-${j}`,
-          x: (j % 2 === 0 ? 1 : -1) * (4.5 + (h % 5)), // 4.5–8.5: the visible gap between the path and notes
-          z: range.lo - NODE_DZ + (range.hi - range.lo) * f,
-          rot: (h % 40) - 20,
+          kind: "mark",
+          id: `mk-${cc.chapter}-${j}`,
+          x: (j % 2 === 0 ? 1 : -1) * (4.5 + (h % 6)), // 4.5–9.5
+          z: zAt((j + 0.5) / markCount),
+          rot: (h % 50) - 25,
           mark: DOODLE_MARKS[h % DOODLE_MARKS.length],
-          size: 52 + (h % 38),
+          size: 26 + (h % 22), // 26–48: small & delicate
+          accent: DOODLE_ACCENTS[h % DOODLE_ACCENTS.length],
         });
       }
+
+      // 2) loose scribbled text — myths struck-through, a couple of relearned truths. The sticky notes
+      //    take i % step === 0, so this pool (i % step !== 0) never collides; slice 0–4 = myths, last 2 = truths.
+      const all = CANVAS_MYTHS.filter((m) => m.chapter === cc.chapter);
+      const step = Math.max(2, Math.round(all.length / 6));
+      const pool = all.filter((_, i) => i % step !== 0);
+      pool.slice(0, 4).forEach((m, j) => {
+        const h = _hashStr(`${cc.chapter}-sc-${m.id}`);
+        out.push({
+          kind: "myth",
+          id: `sc-${m.id}`,
+          x: (j % 2 === 0 ? -1 : 1) * (5 + (h % 7)),
+          z: zAt((j + 0.25) / 4),
+          rot: (h % 14) - 7,
+          text: m.myth,
+        });
+      });
+      pool.slice(Math.max(4, pool.length - 2)).forEach((m, j) => {
+        const h = _hashStr(`${cc.chapter}-af-${m.id}`);
+        out.push({
+          kind: "truth",
+          id: `af-${m.id}`,
+          x: (j % 2 === 0 ? 1 : -1) * (5 + (h % 6)),
+          z: zAt((j + 0.65) / 2),
+          rot: (h % 12) - 6,
+          text: m.truth,
+        });
+      });
     }
     return out;
   }, [nodes]);
@@ -1630,16 +1675,24 @@ function ChapterDoodles({ nodes, progress }: { nodes: SceneNode[]; progress: Rea
     <>
       {vis.map((m) => (
         <group key={m.id} position={[m.x, 0.12, m.z]}>
-          <Html center distanceFactor={22} zIndexRange={[8, 2]} style={{ pointerEvents: "none", width: m.size, height: m.size }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={`/brand/doodles/${m.mark}.svg`}
-              alt=""
-              draggable={false}
-              width={m.size}
-              height={m.size}
-              style={{ width: m.size, height: m.size, objectFit: "contain", display: "block", opacity: 0.62, transform: `rotate(${m.rot}deg)`, userSelect: "none" }}
-            />
+          <Html center distanceFactor={22} zIndexRange={[8, 2]} style={{ pointerEvents: "none" }}>
+            {m.kind === "mark" ? (
+              <div
+                className="doodle-mark"
+                style={{
+                  width: m.size,
+                  height: m.size,
+                  backgroundColor: m.accent,
+                  WebkitMaskImage: `url(/brand/doodles/${m.mark}.svg)`,
+                  maskImage: `url(/brand/doodles/${m.mark}.svg)`,
+                  transform: `rotate(${m.rot}deg)`,
+                }}
+              />
+            ) : (
+              <span className={`canvas-scribble ${m.kind === "myth" ? "is-myth" : "is-truth"}`} style={{ transform: `rotate(${m.rot}deg)` }}>
+                {m.text}
+              </span>
+            )}
           </Html>
         </group>
       ))}
