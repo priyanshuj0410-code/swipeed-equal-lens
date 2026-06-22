@@ -1,0 +1,35 @@
+{
+  "node": "g12",
+  "gameId": "smart-screen",
+  "label": "Smart Screen Heroes",
+  "chapter": 2,
+  "attested_at": "2026-06-23T03:33:43+05:30",
+  "notes": "Read GDD 12 (11pp) + full 84-scenario library; shared bible/transition/Ch.2 personas read earlier this session. 7 mechanics (branch 24, reflect 19, strike-rewrite 16, sort 9, spot 7, role-play 6, build 3). 0% binary, 16 myths. Registry id 'smart-screen' (library 'smart-screen-heroes' is aspirational). Media literacy; ad-spotting signature (spot); screen hygiene as self-care; kind online; not anti-tech. Real/pretend & ad/content sorts are NEUTRAL distinctions (stay blue/purple). Anchors Reyansh (YouTube-fluent)/Aditi (parent, first device). Builds on/prereq g11; completes Ch.2.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 12 — Smart Screen Heroes (reworked v2).pdf",
+      "sha256": "baef1fced4a04a5e30cb11616fe702b4b4c4fbb5af5b3aa0d9d0bab94ad12595",
+      "bytes": 60608
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 2 User Personas.pdf",
+      "sha256": "bdfe6bede01a444e875c9cbe8029e57d124ab2d7a3a6705ba3fc0c75ccd7ccca",
+      "bytes": 77040
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 12 Smart Screen Heroes — Scenario Library.json",
+      "sha256": "2e1ff64f2e45f73f886d353b23420e2e9150fa67ce184505217d20dfd51d317a",
+      "bytes": 57079
+    }
+  }
+}
