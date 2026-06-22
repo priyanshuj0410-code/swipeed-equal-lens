@@ -1,0 +1,35 @@
+{
+  "node": "g11",
+  "gameId": "not-funny",
+  "label": "Not Fair, Not Funny",
+  "chapter": 2,
+  "attested_at": "2026-06-23T03:28:19+05:30",
+  "notes": "Read GDD 11 (11pp) + full 84-scenario library; shared bible/transition/Ch.2 personas read earlier this session. 8 mechanics (branch 24, reflect 22, strike-rewrite 15, role-play 9, sort 7, build 3, spot 3, match 1). 0% binary, 15 myths. Registry id 'not-funny' (library 'not-fair-not-funny' is aspirational). Impact-over-intent; upstander/ally moves; protect the target; reporting-not-tattling. Anchors Faizan (teased)/Ananya (ally)/Reyansh (checks own jokes). Builds on/prereq g10.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 11 — Not Fair, Not Funny (reworked v2).pdf",
+      "sha256": "075a055c4e4793693b93f3fe8a5f70cbec186f25e2d2e8dda64dc0bffbeb511c",
+      "bytes": 62272
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 2 User Personas.pdf",
+      "sha256": "bdfe6bede01a444e875c9cbe8029e57d124ab2d7a3a6705ba3fc0c75ccd7ccca",
+      "bytes": 77040
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 11 Not Fair Not Funny — Scenario Library.json",
+      "sha256": "a1a81bb8fb005d065d5896747387810f0894772a078c52c6043003ed46d6ac3c",
+      "bytes": 41291
+    }
+  }
+}
