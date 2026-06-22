@@ -16,5 +16,19 @@ if git diff --cached --name-only | grep -qE '^src/(content|components)/games/'; 
     echo "   Fix it, or bypass once with:  SWIPEED_STATUS_OVERRIDE=1 git commit ..."
     exit 1
   fi
+
+  # Read-first source-doc gate: a NEW v2 build may not be committed without a hash-pinned attestation
+  # that its bible + transition plan + GDD + chapter personas + scenario library were read. See read_first.py.
+  echo
+  if python3 "$ROOT/scripts/read_first.py" --gate; then
+    :
+  else
+    echo
+    echo "⛔ Commit blocked: a NEW game build is staged with no valid read-first attestation."
+    echo "   Read its 5 source docs, then:  python3 scripts/read_first.py --attest gXX  &&  git add .read-first/gXX.json"
+    echo "   (inspect required docs first with:  python3 scripts/read_first.py --require gXX)"
+    echo "   Deliberate bypass once with:  READ_FIRST_OVERRIDE=1 git commit ..."
+    exit 1
+  fi
 fi
 exit 0
