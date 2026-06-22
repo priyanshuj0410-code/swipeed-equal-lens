@@ -330,6 +330,11 @@ html[data-playing="true"] .gethelp-label {
 .myth-card .myth-hint { display: block; margin-top: 4px; font-size: 0.64rem; font-weight: 600; opacity: 0.5; }
 .myth-card .myth-expl { margin-top: 4px; font-size: 0.66rem; font-weight: 600; opacity: 0.72; }
 
-/* Path tool dock — the brand UN/RE toolbar (big mascots, icon-only), brand-docked bottom-centre. */
+/* Path tool dock — the brand UN/RE toolbar, brand-docked bottom-centre. RESPONSIVE: full labels
+   on web, icon-only on mobile. */
 .tb-pill { max-width: calc(100vw - 1.5rem); overflow-x: auto; }
 .tb-pill .tb-mascot { height: 2rem; width: auto; display: block; }
+.tb-label { display: inline-block; }
+@media (max-width: 640px) {
+  .tb-label { display: none; }
+}
