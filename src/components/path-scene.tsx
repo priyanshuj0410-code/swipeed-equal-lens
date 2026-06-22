@@ -1620,8 +1620,11 @@ function MythInk({ mode, pointers, onComplete }: { mode: "erase" | "draw"; point
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     if (mode === "erase") {
+      // paint the surface behind the words to "rub them out": a sticky-note's own paper (its bg colour),
+      // or — for a loose myth scribbled straight on the canvas — the page's paper token.
       const bg = getComputedStyle(c.parentElement as HTMLElement).backgroundColor;
-      const col = bg && bg !== "rgba(0, 0, 0, 0)" ? bg : "#fbf7ef";
+      const paper = getComputedStyle(document.documentElement).getPropertyValue("--color-paper").trim() || "#fbf7ef";
+      const col = bg && bg !== "rgba(0, 0, 0, 0)" ? bg : paper;
       ctx.strokeStyle = col;
       ctx.fillStyle = col;
       ctx.lineWidth = 24;
@@ -1728,15 +1731,31 @@ const DOODLE_ACCENTS = ["var(--color-grow)", "var(--color-sun)", "var(--color-in
 
 type Decor =
   | { kind: "mark"; id: string; x: number; z: number; rot: number; mark: string; size: number; accent: string }
-  | { kind: "myth"; id: string; x: number; z: number; rot: number; text: string }
+  | { kind: "myth"; id: string; x: number; z: number; rot: number; text: string; truth: string; explanation?: string }
   | { kind: "truth"; id: string; x: number; z: number; rot: number; text: string };
 
 // Ambient chapter decor (Chapter Canvas Theming doc): the brand's signature scatter — small, multi-
 // colour hand-drawn marks PLUS loose text scribbled straight onto the paper: myths struck-through in
-// coral, relearned truths in violet (just like the marketing hero). Purely atmospheric — the real
-// interactive myths are the sticky notes; this text is decorative and uses myths OFFSET from the
-// sticky-note subset so nothing duplicates.
-function ChapterDoodles({ nodes, progress }: { nodes: SceneNode[]; progress: React.MutableRefObject<number> }) {
+// coral, relearned truths in violet (just like the marketing hero). The struck MYTHS here are interactive
+// just like the sticky notes — with a tool selected you rub them out (UN) and draw the truth (RE); marks and
+// the standalone truth scribbles stay decorative. Uses myths OFFSET from the sticky-note subset so nothing duplicates.
+function ChapterDoodles({ nodes, progress, pointers }: { nodes: SceneNode[]; progress: React.MutableRefObject<number>; pointers: React.MutableRefObject<Map<number, number>> }) {
+  // the loose "written on canvas" myths are interactive too (not just the sticky notes): with UN you rub the
+  // struck myth out, with RE you draw the truth in the cleared space → the truth scribble reveals. Phase
+  // persists across the scroll-window re-renders; the toolbar's reset clears it.
+  const { tool, resetSeq } = useUnlearnTool();
+  const [phases, setPhases] = useState<Record<string, MythPhase>>({});
+  useEffect(() => {
+    if (resetSeq > 0) setPhases({});
+  }, [resetSeq]);
+  const advance = useCallback((id: string) => {
+    setPhases((p) => {
+      const cur = p[id] ?? "myth";
+      const next: MythPhase = cur === "myth" ? "erased" : "truth";
+      if (cur === "truth" || next === cur) return p;
+      return { ...p, [id]: next };
+    });
+  }, []);
   const placed = useMemo<Decor[]>(() => {
     const us = chapterSpacedUs(nodes).nodeU;
     const chKeys = CHAPTERS.map((c) => c.key);
@@ -1756,7 +1775,7 @@ function ChapterDoodles({ nodes, progress }: { nodes: SceneNode[]; progress: Rea
     const TEXT_LANES = [-6, 6, -4.3, 4.3];
     const MIN_DZ = 2.6; // vertical breathing room between consecutive decor items
     const out: Decor[] = [];
-    type Item = { kind: "mark" | "myth" | "truth"; id: string; mark?: string; text?: string };
+    type Item = { kind: "mark" | "myth" | "truth"; id: string; mark?: string; text?: string; truth?: string; explanation?: string };
     for (const cc of CHAPTER_CANVAS) {
       const range = chZ.get(cc.chapter);
       if (!range) continue;
@@ -1776,7 +1795,7 @@ function ChapterDoodles({ nodes, progress }: { nodes: SceneNode[]; progress: Rea
       const all = CANVAS_MYTHS.filter((m) => m.chapter === cc.chapter);
       const step = Math.max(2, Math.round(all.length / 6));
       const pool = all.filter((_, i) => i % step !== 0);
-      pool.slice(0, 3).forEach((m) => items.push({ kind: "myth", id: `sc-${m.id}`, text: m.myth }));
+      pool.slice(0, 3).forEach((m) => items.push({ kind: "myth", id: `sc-${m.id}`, text: m.myth, truth: m.truth, explanation: m.explanation }));
       pool.slice(Math.max(3, pool.length - 2)).forEach((m) => items.push({ kind: "truth", id: `af-${m.id}`, text: m.truth }));
 
       // deterministic interleave, then cap the count so the ladder keeps >= MIN_DZ between items
@@ -1801,14 +1820,13 @@ function ChapterDoodles({ nodes, progress }: { nodes: SceneNode[]; progress: Rea
             accent: DOODLE_ACCENTS[h % DOODLE_ACCENTS.length],
           });
         } else {
-          out.push({
-            kind: it.kind,
-            id: it.id,
-            x: TEXT_LANES[ti++ % TEXT_LANES.length] + ((h % 5) - 2) * 0.12,
-            z,
-            rot: (h % 12) - 6,
-            text: it.text!,
-          });
+          const x = TEXT_LANES[ti++ % TEXT_LANES.length] + ((h % 5) - 2) * 0.12;
+          const rot = (h % 12) - 6;
+          if (it.kind === "myth") {
+            out.push({ kind: "myth", id: it.id, x, z, rot, text: it.text!, truth: it.truth ?? "", explanation: it.explanation });
+          } else {
+            out.push({ kind: "truth", id: it.id, x, z, rot, text: it.text! });
+          }
         }
       });
     }
@@ -1824,31 +1842,58 @@ function ChapterDoodles({ nodes, progress }: { nodes: SceneNode[]; progress: Rea
     }
   });
   const vis = placed.filter((m) => m.z <= cz.current + 13 && m.z >= cz.current - 13);
+  const active = tool !== "none";
   return (
     <>
-      {vis.map((m) => (
-        <group key={m.id} position={[m.x, 0.12, m.z]}>
-          <Html center distanceFactor={22} zIndexRange={[8, 2]} style={{ pointerEvents: "none" }}>
-            {m.kind === "mark" ? (
-              <div
-                className="doodle-mark"
-                style={{
-                  width: m.size,
-                  height: m.size,
-                  backgroundColor: m.accent,
-                  WebkitMaskImage: `url(/brand/doodles/${m.mark}.svg)`,
-                  maskImage: `url(/brand/doodles/${m.mark}.svg)`,
-                  transform: `rotate(${m.rot}deg)`,
-                }}
-              />
-            ) : (
-              <span className={`canvas-scribble ${m.kind === "myth" ? "is-myth" : "is-truth"}`} style={{ transform: `rotate(${m.rot}deg)` }}>
-                {m.text}
-              </span>
-            )}
-          </Html>
-        </group>
-      ))}
+      {vis.map((m) => {
+        if (m.kind === "mark") {
+          return (
+            <group key={m.id} position={[m.x, 0.12, m.z]}>
+              <Html center distanceFactor={22} zIndexRange={[8, 2]} style={{ pointerEvents: "none" }}>
+                <div
+                  className="doodle-mark"
+                  style={{
+                    width: m.size,
+                    height: m.size,
+                    backgroundColor: m.accent,
+                    WebkitMaskImage: `url(/brand/doodles/${m.mark}.svg)`,
+                    maskImage: `url(/brand/doodles/${m.mark}.svg)`,
+                    transform: `rotate(${m.rot}deg)`,
+                  }}
+                />
+              </Html>
+            </group>
+          );
+        }
+        if (m.kind === "truth") {
+          return (
+            <group key={m.id} position={[m.x, 0.12, m.z]}>
+              <Html center distanceFactor={22} zIndexRange={[8, 2]} style={{ pointerEvents: "none" }}>
+                <span className="canvas-scribble is-truth" style={{ transform: `rotate(${m.rot}deg)` }}>{m.text}</span>
+              </Html>
+            </group>
+          );
+        }
+        // myth — interactive: erase the struck myth (UN), draw the truth (RE), then it reveals
+        const ph: MythPhase = phases[m.id] ?? "myth";
+        const inkMode: "erase" | "draw" | null = ph === "myth" && tool === "eraser" ? "erase" : ph === "erased" && tool === "pen" ? "draw" : null;
+        return (
+          <group key={m.id} position={[m.x, 0.12, m.z]}>
+            {/* raise the interactive myths above the decorative scatter so they're tappable while a tool is active */}
+            <Html center distanceFactor={22} zIndexRange={active && ph !== "truth" ? [17, 5] : [8, 2]} style={{ pointerEvents: active && ph !== "truth" ? "auto" : "none" }}>
+              <div className="canvas-myth" style={{ transform: `rotate(${m.rot}deg)`, cursor: active && ph !== "truth" ? "crosshair" : "default", touchAction: "none" }}>
+                {ph === "truth" ? (
+                  <span className="canvas-scribble is-truth">{m.truth}</span>
+                ) : (
+                  // keep the words in the DOM (visibility:hidden in the erased phase preserves the draw box)
+                  <span className="canvas-scribble is-myth" style={{ visibility: ph === "erased" ? "hidden" : "visible" }}>{m.text}</span>
+                )}
+                {inkMode && <MythInk key={`${m.id}-${inkMode}`} mode={inkMode} pointers={pointers} onComplete={() => advance(m.id)} />}
+              </div>
+            </Html>
+          </group>
+        );
+      })}
     </>
   );
 }
@@ -2164,7 +2209,7 @@ export function PathScene({
           Nodes first so the chapter banners (rendered after) stack ABOVE the node labels. */}
       {phase >= 1 && !playing && (
         <>
-          <ChapterDoodles nodes={nodes} progress={progress} />
+          <ChapterDoodles nodes={nodes} progress={progress} pointers={pointersRef} />
           <CanvasContent nodes={nodes} progress={progress} pointers={pointersRef} />
           <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} canvas focusIndex={focusIndex} playerName={playerName} />
           <ChapterBanners chapters={chapters} nodes={nodes} progress={progress} />
