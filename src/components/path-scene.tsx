@@ -7,7 +7,7 @@ import { Check, Lock, Play, Trophy } from "lucide-react";
 import { tokens } from "@equal-lens/brand"; // canvas-world brand colours — single source (retheme via the library)
 import { NODES, CHAPTERS, type Chapter } from "@/content/path";
 import { CANVAS_MYTHS, CHAPTER_CANVAS } from "@/content/chapter-canvas";
-import { useUnlearnTool, type UnlearnToolName } from "@/lib/unlearn-tool";
+import { unlearnTool, useUnlearnTool, type UnlearnToolName } from "@/lib/unlearn-tool";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Card as GameCardT, Flag as FlagT } from "@/lib/types";
 
@@ -1510,7 +1510,7 @@ function CanvasContent({ nodes, progress }: { nodes: SceneNode[]; progress: Reac
         const ph = phases[m.id] ?? { erase: 0, reveal: 0, phase: "myth" as const };
         return (
           <group key={m.id} position={[m.x, 0.14, m.z]}>
-            <Html center distanceFactor={18} zIndexRange={[18, 6]} style={{ pointerEvents: active ? "auto" : "none" }}>
+            <Html center distanceFactor={21.6} zIndexRange={[18, 6]} style={{ pointerEvents: active ? "auto" : "none" }}>
               <div
                 className={`note ${m.tone} myth-card select-none`}
                 style={{ transform: `rotate(${m.rot}deg)`, cursor: active ? "pointer" : "default", touchAction: "none" }}
@@ -1574,6 +1574,73 @@ function MythNoteBody({
       <span className="note__chip note__chip--truth">truth ✓</span>
       <p className="myth-text myth-truth">{m.truth}</p>
       {m.explanation && <p className="myth-expl">{m.explanation}</p>}
+    </>
+  );
+}
+
+const DOODLE_MARKS = ["sparkle", "star", "heart", "squiggle", "spiral", "swirl", "zigzag", "arrow"];
+// Ambient chapter doodles (Chapter Canvas Theming doc): a few of the brand's hand-drawn marks
+// scattered faintly at the OUTER edges of each chapter's stretch — easter-egg texture, never
+// functional. Count follows each chapter's doodle set in the content docs.
+function ChapterDoodles({ nodes, progress }: { nodes: SceneNode[]; progress: React.MutableRefObject<number> }) {
+  const placed = useMemo(() => {
+    const us = chapterSpacedUs(nodes).nodeU;
+    const chKeys = CHAPTERS.map((c) => c.key);
+    const chZ = new Map<number, { lo: number; hi: number }>();
+    nodes.forEach((n, i) => {
+      const ci = chKeys.indexOf(n.chapter ?? "");
+      if (ci < 0) return;
+      const z = CURVE.getPointAt(us[i]).z;
+      const e = chZ.get(ci + 1) ?? { lo: z, hi: z };
+      e.lo = Math.max(e.lo, z);
+      e.hi = Math.min(e.hi, z);
+      chZ.set(ci + 1, e);
+    });
+    const out: { id: string; x: number; z: number; rot: number; mark: string; size: number }[] = [];
+    for (const cc of CHAPTER_CANVAS) {
+      const range = chZ.get(cc.chapter);
+      if (!range) continue;
+      const count = Math.min(4, Math.max(2, cc.doodles?.length ?? 3));
+      for (let j = 0; j < count; j++) {
+        const h = _hashStr(`${cc.chapter}-doodle-${j}`);
+        const f = (j + 0.5) / count;
+        out.push({
+          id: `d-${cc.chapter}-${j}`,
+          x: (j % 2 === 0 ? 1 : -1) * (13 + (h % 6)), // 13–18: outside the myth notes (8–12)
+          z: range.lo - NODE_DZ + (range.hi - range.lo) * f,
+          rot: (h % 40) - 20,
+          mark: DOODLE_MARKS[h % DOODLE_MARKS.length],
+          size: 26 + (h % 18),
+        });
+      }
+    }
+    return out;
+  }, [nodes]);
+  const [, force] = useState(0);
+  const cz = useRef(CURVE.getPointAt(clamp01(progress.current)).z);
+  useFrame(() => {
+    const z = CURVE.getPointAt(clamp01(progress.current)).z;
+    if (Math.abs(z - cz.current) > 4) {
+      cz.current = z;
+      force((n) => n + 1);
+    }
+  });
+  const vis = placed.filter((m) => m.z <= cz.current + 13 && m.z >= cz.current - 13);
+  return (
+    <>
+      {vis.map((m) => (
+        <group key={m.id} position={[m.x, 0.12, m.z]}>
+          <Html center distanceFactor={20} zIndexRange={[8, 2]} style={{ pointerEvents: "none" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`/brand/doodles/${m.mark}.svg`}
+              alt=""
+              draggable={false}
+              style={{ width: m.size, opacity: 0.5, transform: `rotate(${m.rot}deg)`, userSelect: "none" }}
+            />
+          </Html>
+        </group>
+      ))}
     </>
   );
 }
@@ -1744,11 +1811,11 @@ export function PathScene({
     let lastY: number | null = null;
     let dragging = false;
     const onWheel = (e: WheelEvent) => {
-      if (playingRef.current) return;
+      if (playingRef.current || unlearnTool.get().tool !== "none") return; // travel only in Browse mode
       progress.current = clamp01(progress.current - e.deltaY * 0.0008);
     };
     const onDown = (e: PointerEvent) => {
-      if (playingRef.current) return;
+      if (playingRef.current || unlearnTool.get().tool !== "none") return; // travel only in Browse mode
       dragging = true;
       lastY = e.clientY;
     };
@@ -1801,6 +1868,7 @@ export function PathScene({
           Nodes first so the chapter banners (rendered after) stack ABOVE the node labels. */}
       {phase >= 1 && !playing && (
         <>
+          <ChapterDoodles nodes={nodes} progress={progress} />
           <CanvasContent nodes={nodes} progress={progress} />
           <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} canvas />
           <ChapterBanners chapters={chapters} nodes={nodes} progress={progress} />
