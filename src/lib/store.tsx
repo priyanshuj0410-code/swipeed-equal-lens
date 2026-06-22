@@ -43,7 +43,7 @@ const DEFAULT_PROFILE: Profile = {
 type ProfileContextValue = {
   profile: Profile;
   ready: boolean;
-  completeOnboarding: (p: { name: string; avatar: string; locale: string }) => void;
+  completeOnboarding: (p: { name: string; avatar: string; locale: string; entryAgeGate?: number }) => void;
   setSchoolComfort: (v: boolean) => void;
   setTextScale: (v: number) => void;
   recordCard: (signId: SignId | undefined, correct: boolean) => void;
@@ -107,7 +107,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
   }, [profile.textScale]);
 
   const completeOnboarding = useCallback(
-    (p: { name: string; avatar: string; locale: string }) =>
+    (p: { name: string; avatar: string; locale: string; entryAgeGate?: number }) =>
       setProfile((prev) => ({ ...prev, onboarded: true, ...p })),
     []
   );

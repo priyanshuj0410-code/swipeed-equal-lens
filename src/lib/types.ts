@@ -102,6 +102,7 @@ export type Profile = {
   name: string;
   avatar: string;
   locale: string;
+  entryAgeGate?: number; // chosen age band at onboarding (a chapter ageGate: 3/6/9/12/15/18/22/25); drives node gating + path entry. undefined = legacy/ungated.
   schoolComfort: boolean;
   textScale: number; // 1 | 1.15 | 1.3
   coins: number;
