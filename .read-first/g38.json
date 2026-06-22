@@ -1,0 +1,35 @@
+{
+  "node": "g38",
+  "gameId": "mind-matters",
+  "label": "Mind Matters",
+  "chapter": 3,
+  "attested_at": "2026-06-23T04:13:57+05:30",
+  "notes": "Read GDD 38 (11pp) + Ch.3 personas + bible + transition + full 84-scenario library. 7 mechanics (branch 25, strike-rewrite 16, sort 11, reflect 10, role-play 8, build 8, match 6). 0% binary, 16 myths. Registry id mind-matters (matches). Mental-wellbeing game; branch-led coping chooser + build-your-toolkit + de-stigmatising strike-rewrite. Wellbeing-safe: healthy coping only (no pain-based tricks); NEVER diagnoses; no harsh self-talk; routes big/lasting distress + dark thoughts to a trusted adult + Childline 1098/112. Builds on g01; prereq g13; pairs g39/g41. Anchors Aarav/Diya/Asha/Rohit.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 38 — Mind Matters (reworked v2).pdf",
+      "sha256": "1ec513a86bb8078b9761c5f80b6a693ce2f73c1cf5cf136b1a72b0c4c88a347e",
+      "bytes": 65141
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 3 User Personas.pdf",
+      "sha256": "7b189f9027939445b44314cef124bba0fce20c3ec70ba115d772857b77b93eef",
+      "bytes": 76200
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 38 Mind Matters — Scenario Library.json",
+      "sha256": "3ee120d10e2dcfe856523df49713c46c47f68f2584047af1ed42912e4355666a",
+      "bytes": 42268
+    }
+  }
+}
