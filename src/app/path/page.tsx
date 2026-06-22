@@ -135,6 +135,7 @@ export default function PathPage() {
             onSelectNode={handleSelect}
             playing={playing}
             focusIndex={focusIndex}
+            playerName={profile.name}
           />
         ) : null}
       </div>

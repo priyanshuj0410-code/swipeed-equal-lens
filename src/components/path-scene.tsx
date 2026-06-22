@@ -8,6 +8,7 @@ import { tokens } from "@equal-lens/brand"; // canvas-world brand colours — si
 import { NODES, CHAPTERS, type Chapter } from "@/content/path";
 import { CANVAS_MYTHS, CHAPTER_CANVAS } from "@/content/chapter-canvas";
 import { unlearnTool, useUnlearnTool, type UnlearnToolName } from "@/lib/unlearn-tool";
+import { firstName } from "@/lib/personalize";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Card as GameCardT, Flag as FlagT } from "@/lib/types";
 
@@ -1217,6 +1218,7 @@ function Node({
   reduced,
   canvas,
   active,
+  playerName,
 }: {
   node: SceneNode;
   u: number;
@@ -1225,6 +1227,7 @@ function Node({
   reduced: boolean;
   canvas: boolean;
   active: boolean; // the single "play me next" node — gets Lensy + the re-sketching ring
+  playerName?: string;
 }) {
   const pos = useMemo(() => CURVE.getPointAt(u), [u]);
   const spr = useRef<THREE.Sprite>(null);
@@ -1334,7 +1337,7 @@ function Node({
                 </svg>
                 <div className="pointer-events-none absolute -top-11 right-0 flex translate-x-1/4 flex-col items-center">
                   <span style={{ fontFamily: "var(--font-hand)" }} className="mb-0.5 whitespace-nowrap rounded-full border-2 border-[var(--violet-600)] bg-[var(--color-paper)] px-2 py-0.5 text-[13px] font-bold text-[var(--color-ink)]">
-                    Play?
+                    {firstName(playerName) ? `Play, ${firstName(playerName)}?` : "Play?"}
                   </span>
                   <img src="/brand/lensy/lensy-wave.svg" alt="" className="anim-bob w-16" />
                 </div>
@@ -1858,6 +1861,7 @@ function Nodes({
   reduced,
   canvas,
   focusIndex,
+  playerName,
 }: {
   nodes: SceneNode[];
   progress: React.MutableRefObject<number>;
@@ -1865,6 +1869,7 @@ function Nodes({
   reduced: boolean;
   canvas: boolean;
   focusIndex?: number;
+  playerName?: string;
 }) {
   const total = nodes.length;
   const us = useMemo(() => chapterSpacedUs(nodes).nodeU, [nodes]);
@@ -1901,7 +1906,7 @@ function Nodes({
     <>
       {items.map((node, k) => {
         const i = from + k;
-        return <Node key={node.id} node={node} u={us[i]} progress={progress} onSelect={onSelect} reduced={reduced} canvas={canvas} active={canvas && i === activeIndex} />;
+        return <Node key={node.id} node={node} u={us[i]} progress={progress} onSelect={onSelect} reduced={reduced} canvas={canvas} active={canvas && i === activeIndex} playerName={playerName} />;
       })}
     </>
   );
@@ -2008,6 +2013,7 @@ export function PathScene({
   onSelectNode,
   playing = false,
   focusIndex,
+  playerName,
 }: {
   nodes?: SceneNode[];
   chapters?: Chapter[];
@@ -2016,6 +2022,8 @@ export function PathScene({
   playing?: boolean;
   /** node index to focus on load (the chosen age band's entry node); falls back to first playable */
   focusIndex?: number;
+  /** the learner's name, for the "Play, <name>?" cue on the active node */
+  playerName?: string;
 }) {
   // focus on load: the chosen age-band node when given, else the first playable lesson, else first completed
   const startU = useMemo(() => {
@@ -2158,7 +2166,7 @@ export function PathScene({
         <>
           <ChapterDoodles nodes={nodes} progress={progress} />
           <CanvasContent nodes={nodes} progress={progress} pointers={pointersRef} />
-          <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} canvas focusIndex={focusIndex} />
+          <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} canvas focusIndex={focusIndex} playerName={playerName} />
           <ChapterBanners chapters={chapters} nodes={nodes} progress={progress} />
           <Suspense fallback={null}>
             <Companion progress={progress} />
