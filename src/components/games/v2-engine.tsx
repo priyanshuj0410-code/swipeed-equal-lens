@@ -27,6 +27,7 @@ const MECH: Record<V2Mechanic, { emoji: string; verb: string }> = {
   match: { emoji: "🔗", verb: "Match them up" },
   build: { emoji: "🧩", verb: "Build it" },
   "explore-label": { emoji: "🔬", verb: "Find the part" },
+  spot: { emoji: "🕵️", verb: "Spot the trick" },
 };
 const COPLAY: Record<V2Mechanic, string> = {
   reflect: "Wonder it over together — there's no wrong answer here.",
@@ -37,6 +38,7 @@ const COPLAY: Record<V2Mechanic, string> = {
   match: "Match them up together.",
   build: "Help them name the grown-ups they trust.",
   "explore-label": "Explore the body lab together — wonder what each part does.",
+  spot: "Spot the tricky red flag together — talk about what makes it unsafe.",
 };
 
 // Tint a sort/bin label by meaning (colour is NEVER the only signal — every bin shows its word + an emoji).
@@ -47,7 +49,7 @@ function binStyle(label: string, idx = 0): { emoji: string; tint: string } {
   const o = label.toLowerCase();
   if (/uh-oh|uhoh/.test(o)) return { emoji: "😬", tint: "#F0A93B" };
   // genuinely unsafe / false / not-okay (checked before "tell" so "unsafe secret, tell!" reads unsafe)
-  if (/unsafe|not safe|not okay|not the right|doesn|unkind|not kind|not a good|makes it bigger|not allowed|not-so-happy|uncomfy|hurts|\bmyth\b|shame|bad secret|not a family|not love|leaves someone out|not helping|not my circle|not healthy|not clean|spreads germs|gets stinky|silly rule|not so good|not needed|not fair|leaves out|silly old|not good|not true|too-tight|tight box|not respectful|breaks it/.test(o)) return { emoji: "🛑", tint: "#E05C52" };
+  if (/unsafe|not safe|not okay|not the right|doesn|unkind|not kind|not a good|makes it bigger|not allowed|not-so-happy|uncomfy|hurts|\bmyth\b|shame|bad secret|not a family|not love|leaves someone out|not helping|not my circle|not healthy|not clean|spreads germs|gets stinky|silly rule|not so good|not needed|not fair|leaves out|silly old|not good|not true|too-tight|tight box|not respectful|breaks it|tricky|risky/.test(o)) return { emoji: "🛑", tint: "#E05C52" };
   // a telling / speak-up action bin — distinct from good/bad, not a "danger" colour
   if (/tell a grown|tell someone|speak up|tell right|tell!|^tell\b/.test(o)) return { emoji: "🗣️", tint: "#F0A93B" };
   // affirming / true / okay / safe / belonging / clean-healthy / fair-inclusive
@@ -104,7 +106,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     return s.hook;
   };
   const resolveLine = (s: Scenario): string =>
-    s.type === "reflect" ? s.affirm : s.type === "branch" ? s.debrief : s.type === "strike-rewrite" ? `${s.myth.re} ${s.myth.why}` : s.type === "explore-label" ? s.reveal : s.relearn;
+    s.type === "reflect" ? s.affirm : s.type === "branch" ? s.debrief : s.type === "strike-rewrite" ? `${s.myth.re} ${s.myth.why}` : s.type === "explore-label" ? s.reveal : s.type === "spot" ? s.why : s.relearn;
   // A beat is a "safety" beat (gets the "never your fault" reassurance + the help pill) if its category is
   // listed OR it's a branch with an escape-and-tell best choice (outcome:"safe") — so grooming/unsafe-touch
   // beats that live in other categories (e.g. consent-stop) still surface the reassurance.
@@ -294,6 +296,7 @@ function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; 
     case "match": return <MatchPlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
     case "build": return <BuildPlay sc={sc} onSolved={onSolved} say={say} labels={buildLabels} />;
     case "explore-label": return <ExploreLabelPlay sc={sc} onSolved={onSolved} say={say} />;
+    case "spot": return <SpotPlay sc={sc} onSolved={onSolved} say={say} />;
   }
 }
 
@@ -498,6 +501,29 @@ function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type:
         ))}
       </div>
       {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Keep exploring — find {sc.find}. 💛</p>}
+    </div>
+  );
+}
+
+// spot — tap the "trick"/red-flag in the scene; the item with trick:true is the answer, and `why` explains it
+// on resolve. A wrong tap warmly re-asks (no fail). The safety squad's signature spot-the-trick verb.
+function SpotPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "spot" }>; onSolved: () => void; say: (t: string) => void }) {
+  const [items] = useState(() => shuffle(sc.scene)); // shuffle so the trick slot varies
+  const [wrong, setWrong] = useState(false);
+  const choose = (it: { id: string; text: string; trick: boolean }) => {
+    if (it.trick) { vibrate(12); onSolved(); }
+    else { setWrong(true); say("That one's okay. Which one is the tricky red flag?"); }
+  };
+  return (
+    <div className="flex flex-col gap-2.5">
+      <div className="grid grid-cols-1 gap-2.5">
+        {items.map((it) => (
+          <button key={it.id} type="button" onClick={() => choose(it)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
+            <span className="text-2xl" aria-hidden>🚩</span><span className="flex-1">{it.text}</span>
+          </button>
+        ))}
+      </div>
+      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Keep looking — which one is the tricky red flag? 💛</p>}
     </div>
   );
 }
