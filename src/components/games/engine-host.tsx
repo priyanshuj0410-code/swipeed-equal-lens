@@ -152,6 +152,10 @@ const GAMES: Record<string, EngineGame> = {
   "rabbit-hole": dynamic(() => import("@/components/games/rabbit-hole").then((m) => m.RabbitHoleGame), {
     ssr: false,
   }),
+  // Chapter 6 — adult journey (18–22)
+  "consent-real": dynamic(() => import("@/components/games/consent-real").then((m) => m.ConsentRealGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {
