@@ -1688,6 +1688,140 @@ function MythInk({ mode, pointers, onComplete }: { mode: "erase" | "draw"; point
   return <canvas ref={ref} className="myth-ink" aria-hidden onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp} />;
 }
 
+// Free scribble on the whole canvas with RE — a full-viewport coral-ink layer, active only when the pen
+// (Relearn) tool is selected. It sits BELOW the myth notes + path nodes (so drawing the truth on an erased
+// myth, and tapping a node, still take priority where they are) and ABOVE the 3D world, so you can doodle on
+// the open paper anywhere else. One finger draws, two fingers scroll (shared pointer map). Strokes persist on
+// screen and clear with the toolbar's Reset.
+function FreeDrawLayer({ pointers }: { pointers: React.MutableRefObject<Map<number, number>> }) {
+  const { tool, resetSeq } = useUnlearnTool();
+  const active = tool === "pen";
+  const ref = useRef<HTMLCanvasElement>(null);
+  const drawing = useRef(false);
+  const last = useRef<{ x: number; y: number } | null>(null);
+
+  // size the backing store to the canvas's actual on-screen box (the fullscreen <Html> wrapper can carry an
+  // offset, so use the live rect — strokes map by getBoundingClientRect at draw time and stay self-consistent);
+  // preserve existing strokes across a resize.
+  const fit = useCallback(() => {
+    const c = ref.current;
+    if (!c) return;
+    const r = c.getBoundingClientRect();
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const bw = Math.max(1, Math.round((r.width || window.innerWidth) * dpr));
+    const bh = Math.max(1, Math.round((r.height || window.innerHeight) * dpr));
+    if (c.width === bw && c.height === bh) return;
+    const ctx0 = c.getContext("2d");
+    let snap: ImageData | null = null;
+    try {
+      if (ctx0 && c.width && c.height) snap = ctx0.getImageData(0, 0, c.width, c.height);
+    } catch {}
+    c.width = bw;
+    c.height = bh;
+    const ctx = c.getContext("2d");
+    if (ctx) {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (snap) {
+        ctx.save();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.putImageData(snap, 0, 0);
+        ctx.restore();
+      }
+    }
+  }, []);
+  useEffect(() => {
+    fit();
+    const on = () => fit();
+    window.addEventListener("resize", on);
+    return () => window.removeEventListener("resize", on);
+  }, [fit]);
+  // (re)size when the pen is selected — the canvas may not have been laid out at first mount
+  useEffect(() => {
+    if (active) fit();
+  }, [active, fit]);
+  // the toolbar Reset wipes the free scribbles too
+  useEffect(() => {
+    const c = ref.current;
+    const ctx = c?.getContext("2d");
+    if (ctx && c) ctx.clearRect(0, 0, c.width, c.height);
+  }, [resetSeq]);
+
+  const stroke = (clientX: number, clientY: number) => {
+    const c = ref.current;
+    if (!c) return;
+    const ctx = c.getContext("2d");
+    if (!ctx) return;
+    const r = c.getBoundingClientRect();
+    const x = clientX - r.left;
+    const y = clientY - r.top;
+    const grow = getComputedStyle(document.documentElement).getPropertyValue("--color-grow").trim() || "#ff6b4a";
+    ctx.strokeStyle = grow;
+    ctx.fillStyle = grow;
+    ctx.lineWidth = 4;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    if (last.current) {
+      ctx.beginPath();
+      ctx.moveTo(last.current.x, last.current.y);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.arc(x, y, 2.4, 0, Math.PI * 2);
+    ctx.fill();
+    last.current = { x, y };
+  };
+  const onDown = (e: React.PointerEvent) => {
+    if (!active || pointers.current.size >= 2) return;
+    e.stopPropagation();
+    try {
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    } catch {}
+    drawing.current = true;
+    last.current = null;
+    fit();
+    stroke(e.clientX, e.clientY);
+  };
+  const onMove = (e: React.PointerEvent) => {
+    if (pointers.current.size >= 2) {
+      if (drawing.current) {
+        drawing.current = false;
+        last.current = null;
+        try {
+          (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+        } catch {}
+      }
+      return;
+    }
+    if (!drawing.current) return;
+    e.stopPropagation();
+    stroke(e.clientX, e.clientY);
+  };
+  const onUp = (e: React.PointerEvent) => {
+    drawing.current = false;
+    last.current = null;
+    try {
+      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    } catch {}
+  };
+
+  // zIndexRange [4,4] = a constant z BELOW every interactive myth note (z ≥ 5) and node, ABOVE the 3D world
+  return (
+    <Html fullscreen zIndexRange={[4, 4]} style={{ pointerEvents: active ? "auto" : "none" }}>
+      <canvas
+        ref={ref}
+        className="free-ink"
+        aria-hidden
+        style={{ width: "100%", height: "100%", touchAction: "none", pointerEvents: active ? "auto" : "none" }}
+        onPointerDown={onDown}
+        onPointerMove={onMove}
+        onPointerUp={onUp}
+        onPointerCancel={onUp}
+      />
+    </Html>
+  );
+}
+
 function MythNoteBody({
   phase,
   m,
@@ -2209,6 +2343,7 @@ export function PathScene({
           Nodes first so the chapter banners (rendered after) stack ABOVE the node labels. */}
       {phase >= 1 && !playing && (
         <>
+          <FreeDrawLayer pointers={pointersRef} />
           <ChapterDoodles nodes={nodes} progress={progress} pointers={pointersRef} />
           <CanvasContent nodes={nodes} progress={progress} pointers={pointersRef} />
           <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} canvas focusIndex={focusIndex} playerName={playerName} />
