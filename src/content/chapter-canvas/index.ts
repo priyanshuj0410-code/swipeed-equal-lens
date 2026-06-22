@@ -1,12 +1,17 @@
 // Per-chapter canvas content (myths / facts / doodles), authored from the GDD "myths vs truth"
 // banks — see "SwipeEd Canvas — Chapter N.json" + the "Chapter Canvas Theming" design doc.
 // The canvas world dresses each chapter's stretch of the path with that chapter's struck-through
-// myths (bias on the page) and the truth RE writes in their place. Light theme (kids ch.1–5).
+// myths (bias on the page) and the truth RE writes in their place. Light theme (kids ch.1–5);
+// dark/adult theme (ch.6–8: College, Building a Life, Parenthood + Parent Layer), authored from the
+// adult GDD myth banks (GDD 44–69) + the master node table.
 import ch1 from "./chapter-1.json";
 import ch2 from "./chapter-2.json";
 import ch3 from "./chapter-3.json";
 import ch4 from "./chapter-4.json";
 import ch5 from "./chapter-5.json";
+import ch6 from "./chapter-6.json";
+import ch7 from "./chapter-7.json";
+import ch8 from "./chapter-8.json";
 
 export type CanvasMyth = {
   id: string;
@@ -31,7 +36,7 @@ export type ChapterCanvas = {
   canvasFeel?: string;
 };
 
-export const CHAPTER_CANVAS = [ch1, ch2, ch3, ch4, ch5] as unknown as ChapterCanvas[];
+export const CHAPTER_CANVAS = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8] as unknown as ChapterCanvas[];
 
 // All myths, tagged with their chapter number, in path order.
 export const CANVAS_MYTHS: CanvasMyth[] = CHAPTER_CANVAS.flatMap((c) =>
