@@ -1465,7 +1465,7 @@ const _hashStr = (s: string) => {
 // struck-through sticky notes along that chapter's stretch of the path — bias drawn on the page
 // (teal UN strike) with the truth RE writes (coral) below. A curated few per chapter; windowed so
 // only the nearby notes mount.
-function CanvasContent({ nodes, progress }: { nodes: SceneNode[]; progress: React.MutableRefObject<number> }) {
+function CanvasContent({ nodes, progress, pointers }: { nodes: SceneNode[]; progress: React.MutableRefObject<number>; pointers: React.MutableRefObject<Map<number, number>> }) {
   const { tool, hide, resetSeq } = useUnlearnTool();
   const placed = useMemo(() => {
     const us = chapterSpacedUs(nodes).nodeU;
@@ -1508,24 +1508,18 @@ function CanvasContent({ nodes, progress }: { nodes: SceneNode[]; progress: Reac
     return out;
   }, [nodes]);
 
-  // persistent phase per myth id (survives the scroll-window unmount); reset by the toolbar
-  const [phases, setPhases] = useState<Record<string, { erase: number; reveal: number; phase: "myth" | "erased" | "truth" }>>({});
+  // persistent phase per myth id (survives the scroll-window unmount); reset by the toolbar. The ink layer
+  // (MythInk) owns the partial erase/draw progress and calls advance() when a stage (myth→erased→truth) completes.
+  const [phases, setPhases] = useState<Record<string, MythPhase>>({});
   useEffect(() => {
     if (resetSeq > 0) setPhases({});
   }, [resetSeq]);
-  const pressing = useRef(false);
-  const smudge = useCallback((id: string, t: UnlearnToolName, amt: number) => {
+  const advance = useCallback((id: string) => {
     setPhases((p) => {
-      const cur = p[id] ?? { erase: 0, reveal: 0, phase: "myth" as const };
-      if (t === "eraser" && cur.phase === "myth") {
-        const erase = Math.min(1, cur.erase + amt);
-        return { ...p, [id]: { ...cur, erase, phase: erase >= 1 ? "erased" : "myth" } };
-      }
-      if (t === "pen" && cur.phase === "erased") {
-        const reveal = Math.min(1, cur.reveal + amt);
-        return { ...p, [id]: { ...cur, reveal, phase: reveal >= 1 ? "truth" : "erased" } };
-      }
-      return p;
+      const cur = p[id] ?? "myth";
+      const next: MythPhase = cur === "myth" ? "erased" : "truth";
+      if (cur === "truth" || next === cur) return p;
+      return { ...p, [id]: next };
     });
   }, []);
 
@@ -1545,33 +1539,18 @@ function CanvasContent({ nodes, progress }: { nodes: SceneNode[]; progress: Reac
   return (
     <>
       {vis.map((m) => {
-        const ph = phases[m.id] ?? { erase: 0, reveal: 0, phase: "myth" as const };
+        const ph: MythPhase = phases[m.id] ?? "myth";
+        // the note only takes ink for the matching tool+phase: UN erases the myth, RE draws over the erased space
+        const inkMode: "erase" | "draw" | null = ph === "myth" && tool === "eraser" ? "erase" : ph === "erased" && tool === "pen" ? "draw" : null;
         return (
           <group key={m.id} position={[m.x, 0.14, m.z]}>
             <Html center distanceFactor={21.6} zIndexRange={[18, 6]} style={{ pointerEvents: active ? "auto" : "none" }}>
               <div
                 className={`note ${m.tone} myth-card select-none`}
-                style={{ transform: `rotate(${m.rot}deg)`, cursor: active ? "pointer" : "default", touchAction: "none" }}
-                onPointerDown={(e) => {
-                  if (!active) return;
-                  e.stopPropagation();
-                  try {
-                    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-                  } catch {}
-                  pressing.current = true;
-                  smudge(m.id, tool, 0.4);
-                }}
-                onPointerMove={(e) => {
-                  if (active && pressing.current) {
-                    e.stopPropagation();
-                    smudge(m.id, tool, 0.18);
-                  }
-                }}
-                onPointerUp={() => {
-                  pressing.current = false;
-                }}
+                style={{ transform: `rotate(${m.rot}deg)`, cursor: active ? "crosshair" : "default", touchAction: "none" }}
               >
-                <MythNoteBody ph={ph} m={m} />
+                <MythNoteBody phase={ph} m={m} tool={tool} />
+                {inkMode && <MythInk key={`${m.id}-${inkMode}`} mode={inkMode} pointers={pointers} onComplete={() => advance(m.id)} />}
               </div>
             </Html>
           </group>
@@ -1581,29 +1560,150 @@ function CanvasContent({ nodes, progress }: { nodes: SceneNode[]; progress: Reac
   );
 }
 
+type MythPhase = "myth" | "erased" | "truth";
+
+// The UN/RE ink layer over a myth note — REAL drawing on the path canvas. UN (erase): rub the eraser across
+// the myth and it wipes away under your finger (the note's own paper paints over the words). RE (draw):
+// scribble the truth in coral "Grow" ink in the cleared space. No-fail — a tap counts, and ~half the note
+// erased (or a few strokes drawn) completes the stage. Two fingers never draw; they scroll the path (the
+// shared pointers map). The note's DOM text stays under the canvas for screen readers (canvas is aria-hidden).
+function MythInk({ mode, pointers, onComplete }: { mode: "erase" | "draw"; pointers: React.MutableRefObject<Map<number, number>>; onComplete: () => void }) {
+  const ref = useRef<HTMLCanvasElement>(null);
+  const cells = useRef<Set<number>>(new Set()); // coarse coverage grid (which COLS×ROWS cells were touched)
+  const last = useRef<{ x: number; y: number } | null>(null);
+  const drawing = useRef(false);
+  const done = useRef(false);
+  const COLS = 6;
+  const ROWS = 4;
+  const need = mode === "erase" ? 12 : 5; // erase ~half the 24 cells; draw a few strokes
+
+  // size the backing store to the note's on-screen box (it lives inside a scaled R3F <Html>); the size
+  // guard means we only clear when the box actually changes, so accumulated ink survives between strokes.
+  const fit = useCallback(() => {
+    const c = ref.current;
+    if (!c) return;
+    const r = c.getBoundingClientRect();
+    const w = c.clientWidth || r.width || 1;
+    const h = c.clientHeight || r.height || 1;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const bw = Math.max(1, Math.round(w * dpr));
+    const bh = Math.max(1, Math.round(h * dpr));
+    if (c.width !== bw || c.height !== bh) {
+      c.width = bw;
+      c.height = bh;
+    }
+    const ctx = c.getContext("2d");
+    if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }, []);
+  useEffect(() => {
+    fit();
+  }, [fit]);
+
+  const stamp = (clientX: number, clientY: number) => {
+    const c = ref.current;
+    if (!c || done.current) return;
+    const ctx = c.getContext("2d");
+    if (!ctx) return;
+    const r = c.getBoundingClientRect();
+    const w = c.clientWidth || r.width;
+    const h = c.clientHeight || r.height;
+    const x = ((clientX - r.left) / r.width) * w;
+    const y = ((clientY - r.top) / r.height) * h;
+    const gx = Math.max(0, Math.min(COLS - 1, Math.floor((x / w) * COLS)));
+    const gy = Math.max(0, Math.min(ROWS - 1, Math.floor((y / h) * ROWS)));
+    cells.current.add(gy * COLS + gx);
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    if (mode === "erase") {
+      const bg = getComputedStyle(c.parentElement as HTMLElement).backgroundColor;
+      const col = bg && bg !== "rgba(0, 0, 0, 0)" ? bg : "#fbf7ef";
+      ctx.strokeStyle = col;
+      ctx.fillStyle = col;
+      ctx.lineWidth = 24;
+    } else {
+      const grow = getComputedStyle(document.documentElement).getPropertyValue("--color-grow").trim() || "#ff6b4a";
+      ctx.strokeStyle = grow;
+      ctx.fillStyle = grow;
+      ctx.lineWidth = 4.5;
+    }
+    if (last.current) {
+      ctx.beginPath();
+      ctx.moveTo(last.current.x, last.current.y);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.arc(x, y, mode === "erase" ? 13 : 3.2, 0, Math.PI * 2);
+    ctx.fill();
+    last.current = { x, y };
+    if (cells.current.size >= need && !done.current) {
+      done.current = true;
+      onComplete();
+    }
+  };
+
+  const onDown = (e: React.PointerEvent) => {
+    if (pointers.current.size >= 2) return; // two fingers down → leave it for the path scroll
+    e.stopPropagation();
+    try {
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    } catch {}
+    drawing.current = true;
+    last.current = null;
+    fit();
+    stamp(e.clientX, e.clientY);
+  };
+  const onMove = (e: React.PointerEvent) => {
+    if (pointers.current.size >= 2) {
+      // a second finger arrived mid-stroke → stop drawing and release, so the gesture scrolls the path
+      if (drawing.current) {
+        drawing.current = false;
+        last.current = null;
+        try {
+          (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+        } catch {}
+      }
+      return;
+    }
+    if (!drawing.current) return;
+    e.stopPropagation();
+    stamp(e.clientX, e.clientY);
+  };
+  const onUp = (e: React.PointerEvent) => {
+    drawing.current = false;
+    last.current = null;
+    try {
+      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    } catch {}
+  };
+
+  return <canvas ref={ref} className="myth-ink" aria-hidden onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp} />;
+}
+
 function MythNoteBody({
-  ph,
+  phase,
   m,
+  tool,
 }: {
-  ph: { erase: number; reveal: number; phase: "myth" | "erased" | "truth" };
+  phase: MythPhase;
   m: { myth: string; truth: string; explanation?: string };
+  tool: UnlearnToolName;
 }) {
-  if (ph.phase === "myth") {
+  if (phase === "myth") {
     return (
       <>
         <span className="note__chip">myth</span>
-        <p className="myth-text" style={{ opacity: 1 - ph.erase * 0.92, filter: `blur(${ph.erase * 3}px)` }}>
-          {m.myth}
-        </p>
-        <span className="myth-hint">rub me out with UN →</span>
+        {/* the words stay in the DOM (for screen readers); the UN ink canvas paints over them as you rub */}
+        <p className="myth-text">{m.myth}</p>
+        <span className="myth-hint">{tool === "eraser" ? "rub me out →" : "pick UN to rub me out →"}</span>
       </>
     );
   }
-  if (ph.phase === "erased") {
+  if (phase === "erased") {
     return (
       <>
         <span className="note__chip note__chip--truth">now relearn</span>
-        <span className="myth-hint">draw the truth with RE →</span>
+        <span className="myth-hint">{tool === "pen" ? "draw the truth →" : "pick RE to draw the truth →"}</span>
       </>
     );
   }
@@ -1912,6 +2012,9 @@ export function PathScene({
     return i >= 0 ? chapterSpacedUs(nodes).nodeU[i] : 0;
   }, [nodes]);
   const progress = useRef(startU);
+  // live map of every pointer currently on the screen (pointerId -> clientY). Shared with the interactive
+  // myth notes so the canvas can offer "one finger draws, two fingers scroll" — drawing never locks travel.
+  const pointersRef = useRef<Map<number, number>>(new Map());
   // u where the world flips to the adult (dark) theme — midway between the last kids node and the
   // first adult one (Ch.6+). >1 (never) when there are no adult chapters.
   const adultStartU = useMemo(() => {
@@ -1949,40 +2052,69 @@ export function PathScene({
   useEffect(() => {
     setReduced(window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false);
 
-    let lastY: number | null = null;
-    let dragging = false;
+    const pts = pointersRef.current; // pointerId -> clientY for every finger down right now
+    let lastSingleY: number | null = null; // single-finger Browse-drag anchor
+    let lastAvgY: number | null = null; // two-finger scroll anchor
+    const avgY = () => {
+      if (!pts.size) return null;
+      let s = 0;
+      pts.forEach((y) => (s += y));
+      return s / pts.size;
+    };
     const onWheel = (e: WheelEvent) => {
-      if (playingRef.current || unlearnTool.get().tool !== "none") return; // travel only in Browse mode
+      if (playingRef.current || unlearnTool.get().tool !== "none") return; // wheel travels in Browse only
       progress.current = clamp01(progress.current - e.deltaY * 0.0008);
     };
     const onDown = (e: PointerEvent) => {
-      if (playingRef.current || unlearnTool.get().tool !== "none") return; // travel only in Browse mode
-      dragging = true;
-      lastY = e.clientY;
+      pts.set(e.pointerId, e.clientY);
+      if (pts.size >= 2) {
+        lastAvgY = avgY(); // entering two-finger: re-anchor scroll, abandon any single-finger drag
+        lastSingleY = null;
+        return;
+      }
+      // single finger drives the path only in Browse mode, so a draw tool can paint on a note instead
+      lastSingleY = playingRef.current || unlearnTool.get().tool !== "none" ? null : e.clientY;
     };
     const onMove = (e: PointerEvent) => {
-      if (!dragging || lastY == null) return;
-      progress.current = clamp01(progress.current + (e.clientY - lastY) * 0.0012);
-      lastY = e.clientY;
+      if (!pts.has(e.pointerId)) return;
+      pts.set(e.pointerId, e.clientY);
+      // TWO-FINGER SCROLL — works in every mode (Browse AND while a draw tool is active): drawing never
+      // locks travel. One finger draws/erases a myth; two fingers scroll the path.
+      if (pts.size >= 2) {
+        const a = avgY();
+        if (a != null && lastAvgY != null && !playingRef.current) {
+          progress.current = clamp01(progress.current + (a - lastAvgY) * 0.0014);
+        }
+        lastAvgY = a;
+        return;
+      }
+      if (lastSingleY == null) return; // single-finger drag (Browse only)
+      progress.current = clamp01(progress.current + (e.clientY - lastSingleY) * 0.0012);
+      lastSingleY = e.clientY;
     };
-    const onUp = () => {
-      dragging = false;
-      lastY = null;
+    const onUp = (e: PointerEvent) => {
+      pts.delete(e.pointerId);
+      lastAvgY = pts.size >= 2 ? avgY() : null;
+      lastSingleY = null;
     };
+    // CAPTURE phase so these run BEFORE the myth notes' React handlers: a note reads pointersRef.size to
+    // decide draw-vs-scroll, and a note's stopPropagation can never swallow two-finger travel.
+    const capOpts = { passive: true, capture: true } as const;
     window.addEventListener("wheel", onWheel, { passive: true });
-    window.addEventListener("pointerdown", onDown, { passive: true });
-    window.addEventListener("pointermove", onMove, { passive: true });
-    window.addEventListener("pointerup", onUp, { passive: true });
-    window.addEventListener("pointercancel", onUp, { passive: true });
+    window.addEventListener("pointerdown", onDown, capOpts);
+    window.addEventListener("pointermove", onMove, capOpts);
+    window.addEventListener("pointerup", onUp, capOpts);
+    window.addEventListener("pointercancel", onUp, capOpts);
     const fire = () => window.dispatchEvent(new Event("resize"));
     const raf = requestAnimationFrame(fire);
     const timers = [setTimeout(fire, 80), setTimeout(fire, 300)];
     return () => {
       window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("pointerdown", onDown);
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerup", onUp);
-      window.removeEventListener("pointercancel", onUp);
+      window.removeEventListener("pointerdown", onDown, { capture: true });
+      window.removeEventListener("pointermove", onMove, { capture: true });
+      window.removeEventListener("pointerup", onUp, { capture: true });
+      window.removeEventListener("pointercancel", onUp, { capture: true });
+      pts.clear();
       cancelAnimationFrame(raf);
       timers.forEach(clearTimeout);
     };
@@ -2011,7 +2143,7 @@ export function PathScene({
       {phase >= 1 && !playing && (
         <>
           <ChapterDoodles nodes={nodes} progress={progress} />
-          <CanvasContent nodes={nodes} progress={progress} />
+          <CanvasContent nodes={nodes} progress={progress} pointers={pointersRef} />
           <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} canvas />
           <ChapterBanners chapters={chapters} nodes={nodes} progress={progress} />
           <Suspense fallback={null}>

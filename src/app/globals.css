@@ -322,13 +322,26 @@ html[data-playing="true"] .gethelp-label {
 /* Interactive myth notes on the path — the brand .note sized for the canvas. Drag UN to smudge the
    myth (blur + fade), then RE to reveal the truth + a short why. */
 .myth-card {
+  position: relative; /* anchor the UN/RE ink canvas (.myth-ink) */
   width: 10.5rem;
-  min-height: 0;
+  min-height: 3.4rem; /* keep a drawable area in the erased phase, so RE has room to scribble the truth */
   gap: 4px;
   padding: 0.65rem 0.8rem;
   border-radius: 0.6rem;
   font-size: 0.78rem;
   line-height: 1.25;
+}
+/* the UN/RE drawing surface — covers the note; UN paints the note's paper over the myth (erasing it),
+   RE draws coral ink. Sits above the text but the words stay in the DOM (aria) underneath. */
+.myth-ink {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  z-index: 2;
+  touch-action: none;
+  pointer-events: auto;
 }
 .myth-card .note__chip { font-size: 0.58rem; padding: 0.08rem 0.45rem; }
 .myth-card .myth-text { margin-top: 4px; font-weight: 700; transition: opacity 0.1s ease, filter 0.1s ease; }
