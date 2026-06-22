@@ -5,7 +5,7 @@
 // researched typed library + config. Reused by Feelings Friends (g01), My Body My Rules (g02), and the rest
 // of the chapter as they retrofit to v2.
 
-export type V2Mechanic = "reflect" | "role-play" | "strike-rewrite" | "branch" | "sort" | "match" | "build" | "explore-label";
+export type V2Mechanic = "reflect" | "role-play" | "strike-rewrite" | "branch" | "sort" | "match" | "build" | "explore-label" | "spot";
 
 type Base = { id: string; cat: string; persona: string; source: string; relearn: string; hook: string };
 
@@ -26,9 +26,12 @@ export type BuildScenario = Base & { type: "build"; prompt: string; pieces: stri
 // explore-label — tap the body part (of `parts`) that matches the `find` clue; the right one (`answer`)
 // lights up with a fun `reveal` fact. A wrong tap warmly re-asks (no fail). The body-lab's signature verb.
 export type ExploreLabelScenario = Base & { type: "explore-label"; parts: string[]; find: string; answer: string; reveal: string };
+// spot — tap the "trick"/red-flag in the `scene` (the item with trick:true is the answer); `why` explains it
+// on resolve. A wrong tap warmly re-asks (no fail). The safety game's signature spot-the-trick verb.
+export type SpotScenario = Base & { type: "spot"; scene: { id: string; text: string; trick: boolean }[]; why: string };
 
 export type Scenario =
-  | ReflectScenario | RolePlayScenario | StrikeRewriteScenario | BranchScenario | SortScenario | MatchScenario | BuildScenario | ExploreLabelScenario;
+  | ReflectScenario | RolePlayScenario | StrikeRewriteScenario | BranchScenario | SortScenario | MatchScenario | BuildScenario | ExploreLabelScenario | SpotScenario;
 
 // A game's home categories (theme tiles + the sticker book).
 export type GameCategory = { id: string; emoji: string; label: string };
