@@ -156,6 +156,15 @@ const GAMES: Record<string, EngineGame> = {
   "consent-real": dynamic(() => import("@/components/games/consent-real").then((m) => m.ConsentRealGame), {
     ssr: false,
   }),
+  "swipe-right": dynamic(() => import("@/components/games/swipe-right").then((m) => m.SwipeRightGame), {
+    ssr: false,
+  }),
+  "real-relationships": dynamic(() => import("@/components/games/real-relationships").then((m) => m.RealRelationshipsGame), {
+    ssr: false,
+  }),
+  "own-your-health": dynamic(() => import("@/components/games/own-your-health").then((m) => m.OwnYourHealthGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {
