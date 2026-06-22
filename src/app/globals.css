@@ -375,6 +375,15 @@ html[data-playing="true"] .gethelp-label {
   pointer-events: none;
   user-select: none;
 }
+/* wrapper that makes a loose "written on canvas" myth interactive — anchors the UN/RE ink canvas over the
+   scribbled text, with a floor height so RE still has room to draw once the myth is erased. */
+.canvas-myth {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 200px;
+  min-height: 44px;
+}
 .canvas-scribble {
   display: inline-block;
   width: 200px;
