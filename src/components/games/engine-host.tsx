@@ -165,6 +165,21 @@ const GAMES: Record<string, EngineGame> = {
   "own-your-health": dynamic(() => import("@/components/games/own-your-health").then((m) => m.OwnYourHealthGame), {
     ssr: false,
   }),
+  "money-independence": dynamic(() => import("@/components/games/money-independence").then((m) => m.MoneyIndependenceGame), {
+    ssr: false,
+  }),
+  "mind-belonging": dynamic(() => import("@/components/games/mind-belonging").then((m) => m.MindBelongingGame), {
+    ssr: false,
+  }),
+  "find-your-feet": dynamic(() => import("@/components/games/find-your-feet").then((m) => m.FindYourFeetGame), {
+    ssr: false,
+  }),
+  "equal-confident": dynamic(() => import("@/components/games/equal-confident").then((m) => m.EqualConfidentGame), {
+    ssr: false,
+  }),
+  "know-your-rights": dynamic(() => import("@/components/games/know-your-rights").then((m) => m.KnowYourRightsGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {
