@@ -5,7 +5,7 @@
 // researched typed library + config. Reused by Feelings Friends (g01), My Body My Rules (g02), and the rest
 // of the chapter as they retrofit to v2.
 
-export type V2Mechanic = "reflect" | "role-play" | "strike-rewrite" | "branch" | "sort" | "match" | "build";
+export type V2Mechanic = "reflect" | "role-play" | "strike-rewrite" | "branch" | "sort" | "match" | "build" | "explore-label";
 
 type Base = { id: string; cat: string; persona: string; source: string; relearn: string; hook: string };
 
@@ -23,9 +23,12 @@ export type SortScenario = Base & { type: "sort"; items: { id: string; text: str
 export type MatchScenario = Base & { type: "match"; pairs: { left: string; right: string }[] };
 // build — assemble a team (order-free) or a plan (sequence) from `pieces`; `key` is the set/ordered answer.
 export type BuildScenario = Base & { type: "build"; prompt: string; pieces: string[]; mode: "assemble" | "sequence"; key: string[] };
+// explore-label — tap the body part (of `parts`) that matches the `find` clue; the right one (`answer`)
+// lights up with a fun `reveal` fact. A wrong tap warmly re-asks (no fail). The body-lab's signature verb.
+export type ExploreLabelScenario = Base & { type: "explore-label"; parts: string[]; find: string; answer: string; reveal: string };
 
 export type Scenario =
-  | ReflectScenario | RolePlayScenario | StrikeRewriteScenario | BranchScenario | SortScenario | MatchScenario | BuildScenario;
+  | ReflectScenario | RolePlayScenario | StrikeRewriteScenario | BranchScenario | SortScenario | MatchScenario | BuildScenario | ExploreLabelScenario;
 
 // A game's home categories (theme tiles + the sticker book).
 export type GameCategory = { id: string; emoji: string; label: string };
