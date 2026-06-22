@@ -44,11 +44,11 @@ function binStyle(label: string, idx = 0): { emoji: string; tint: string } {
   const o = label.toLowerCase();
   if (/uh-oh|uhoh/.test(o)) return { emoji: "😬", tint: "#F0A93B" };
   // genuinely unsafe / false / not-okay (checked before "tell" so "unsafe secret, tell!" reads unsafe)
-  if (/unsafe|not safe|not okay|not the right|doesn|unkind|not kind|not a good|makes it bigger|not allowed|not-so-happy|uncomfy|hurts|\bmyth\b|shame|bad secret/.test(o)) return { emoji: "🛑", tint: "#E05C52" };
+  if (/unsafe|not safe|not okay|not the right|doesn|unkind|not kind|not a good|makes it bigger|not allowed|not-so-happy|uncomfy|hurts|\bmyth\b|shame|bad secret|not a family|not love|leaves someone out|not helping|not my circle/.test(o)) return { emoji: "🛑", tint: "#E05C52" };
   // a telling / speak-up action bin — distinct from good/bad, not a "danger" colour
   if (/tell a grown|tell someone|speak up|tell right|tell!|^tell\b/.test(o)) return { emoji: "🗣️", tint: "#F0A93B" };
-  // affirming / true / okay / safe
-  if (/^safe|safe touch|mine|my choice|happy|keep|respects|trusted|surprise|\bokay\b|consent|calms|\bhelps\b|kind|good way|comfy|happy-ish|\btrue\b|fact/.test(o)) return { emoji: "💚", tint: "#62B84B" };
+  // affirming / true / okay / safe / belonging
+  if (/^safe|safe touch|mine|my choice|happy|keep|respects|trusted|surprise|\bokay\b|consent|calms|\bhelps\b|kind|good way|comfy|happy-ish|\btrue\b|fact|real family|real, loving|family love|everyone belongs|\bbelong|my circle|makes them family|holds family|helping/.test(o)) return { emoji: "💚", tint: "#62B84B" };
   // neutral categorisation (feeling vs action, private vs not-private) — distinct tints, no valence
   return idx === 0 ? { emoji: "🔵", tint: "#5B9BD5" } : { emoji: "🟣", tint: "#7C5CFC" };
 }
@@ -62,7 +62,7 @@ function binStyles(bins: { label: string }[]): { emoji: string; tint: string }[]
 const vibrate = (ms: number | number[]) => { try { navigator.vibrate?.(ms); } catch { /* unsupported */ } };
 
 export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () => void }) {
-  const { scenarios, gameId, title, greet, categories, badge, helpLine, helpLabel, reassureCats = [], reassure } = config;
+  const { scenarios, gameId, title, greet, categories, badge, helpLine, helpLabel, reassureCats = [], reassure, buildLabels } = config;
   const [view, setView] = useState<"home" | "play" | "done">("home");
   const [queue, setQueue] = useState<Scenario[]>([]);
   const [qi, setQi] = useState(0);
@@ -244,7 +244,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
               )}
             </div>
 
-            {phase === "play" && <Play key={sc.id} sc={sc} onSolved={solve} say={say} reduceMotion={reduceMotion} />}
+            {phase === "play" && <Play key={sc.id} sc={sc} onSolved={solve} say={say} reduceMotion={reduceMotion} buildLabels={buildLabels} />}
 
             {/* Resolve — the truth + reassurance + Next */}
             {phase === "resolve" && (
@@ -273,7 +273,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 }
 
 // ============================ the seven mechanic renderers ============================
-function Play({ sc, onSolved, say, reduceMotion }: { sc: Scenario; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
+function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string } }) {
   switch (sc.type) {
     case "reflect": return <ReflectPlay sc={sc} onSolved={onSolved} />;
     case "role-play": return <RolePlayPlay sc={sc} onSolved={onSolved} />;
@@ -281,7 +281,7 @@ function Play({ sc, onSolved, say, reduceMotion }: { sc: Scenario; onSolved: () 
     case "branch": return <BranchPlay sc={sc} onSolved={onSolved} say={say} />;
     case "sort": return <SortPlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
     case "match": return <MatchPlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
-    case "build": return <BuildPlay sc={sc} onSolved={onSolved} say={say} />;
+    case "build": return <BuildPlay sc={sc} onSolved={onSolved} say={say} labels={buildLabels} />;
   }
 }
 
@@ -433,7 +433,7 @@ function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
 }
 
 // build — assemble a trusted-adults team (order-free) or a telling plan (in sequence).
-function BuildPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "build" }>; onSolved: () => void; say: (t: string) => void }) {
+function BuildPlay({ sc, onSolved, say, labels }: { sc: Extract<Scenario, { type: "build" }>; onSolved: () => void; say: (t: string) => void; labels?: { assemble?: string; sequence?: string } }) {
   const [chosen, setChosen] = useState<string[]>([]);
   // For a sequence (ordering) puzzle, shuffle the buttons so the answer isn't "tap top-to-bottom".
   const [display] = useState(() => (sc.mode === "sequence" ? shuffle(sc.pieces) : sc.pieces));
@@ -461,7 +461,7 @@ function BuildPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "build
         ))}
       </div>
       <button type="button" disabled={!enough} onClick={onSolved} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
-        <ShieldCheck className="size-5" aria-hidden /> {sc.mode === "sequence" ? "That's my plan!" : "That's my team!"}
+        <ShieldCheck className="size-5" aria-hidden /> {sc.mode === "sequence" ? (labels?.sequence ?? "That's my plan!") : (labels?.assemble ?? "That's my team!")}
       </button>
     </div>
   );
