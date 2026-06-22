@@ -403,6 +403,44 @@ function makePathStrokeTex() {
 const CANVAS_PAPER = tokens.light.paper; // #FBF9FF — from @equal-lens/brand
 const CANVAS_DOT = tokens.light.mist; // #E7E0F1 — from @equal-lens/brand
 const CANVAS_INK = tokens.light.ink; // #221436 — hand-drawn outline / Ink
+// Adult chapters (Ch.6–8) use the brand's dark [data-audience="adult"] flip. The DOM overlays inherit
+// it from the CSS tokens; the 3D dotted-paper surfaces read these SHARED THREE.Colors, which the
+// ThemeController lerps as the camera crosses from the kids' stretch into the adult one.
+const CANVAS_PAPER_DARK = tokens.dark.paper; // #15101F
+const CANVAS_DOT_DARK = tokens.dark.mist; // #3A2E4D
+const _themePaper = new THREE.Color(CANVAS_PAPER); // the live paper colour, shared by every material
+const _themeDot = new THREE.Color(CANVAS_DOT); // the live dot colour
+const _LIGHT_PAPER = new THREE.Color(CANVAS_PAPER);
+const _DARK_PAPER = new THREE.Color(CANVAS_PAPER_DARK);
+const _LIGHT_DOT = new THREE.Color(CANVAS_DOT);
+const _DARK_DOT = new THREE.Color(CANVAS_DOT_DARK);
+
+// The brand's dark palette (tokens.dark). Applied as INLINE custom properties on <html> for the
+// adult chapters: inline styles beat every selector and inherit to all descendants, so the DOM
+// overlays flip reliably even though Tailwind v4's @import layering out-cascades the brand's own
+// [data-audience="adult"] block. data-audience is still toggled for color-scheme + the brand's
+// component-level dark rules (.note, …) and the app's derived-token block.
+const ADULT_TOKENS: Record<string, string> = {
+  "--color-paper": "#15101f",
+  "--color-surface": "#221a30",
+  "--color-mist": "#3a2e4d",
+  "--color-ink": "#f1ecfa",
+  "--color-brand": "#c9b8e6",
+  "--color-brandsoft": "#b3a4d6",
+  "--color-band": "#241b38",
+  "--dot": "#2a2140",
+};
+function applyAudience(adult: boolean) {
+  if (typeof document === "undefined") return;
+  const el = document.documentElement;
+  if (adult) {
+    el.setAttribute("data-audience", "adult");
+    for (const k in ADULT_TOKENS) el.style.setProperty(k, ADULT_TOKENS[k]);
+  } else {
+    el.removeAttribute("data-audience");
+    for (const k in ADULT_TOKENS) el.style.removeProperty(k);
+  }
+}
 
 // Canvas skin — the sky: the brand dotted paper on the distant backdrop, drawn in SCREEN space.
 // Knobs: uPx (pixel spacing) + uDotPx (dot radius px).
@@ -414,8 +452,8 @@ function CanvasSky() {
         depthWrite: false,
         fog: false,
         uniforms: {
-          uPaper: { value: new THREE.Color(CANVAS_PAPER) },
-          uDot: { value: new THREE.Color(CANVAS_DOT) },
+          uPaper: { value: _themePaper },
+          uDot: { value: _themeDot },
           uPx: { value: 45.0 }, // dot spacing (×1.5 — more space between dots)
           uDotPx: { value: 2.0 }, // dot radius (×2 — bigger dots)
         },
@@ -456,8 +494,8 @@ function CanvasGround() {
   const mat = useMemo(() => {
     const m = new THREE.ShaderMaterial({
       uniforms: {
-        uPaper: { value: new THREE.Color(CANVAS_PAPER) },
-        uDot: { value: new THREE.Color(CANVAS_DOT) },
+        uPaper: { value: _themePaper },
+        uDot: { value: _themeDot },
         uGap: { value: 0.44 }, // world units between dots (smaller = finer/denser)
         uRadius: { value: 0.02 }, // dot radius in world units (smaller = finer dots)
       },
@@ -700,8 +738,8 @@ function CanvasCorridor({ nodes }: { nodes: SceneNode[] }) {
     return new THREE.ShaderMaterial({
       side: THREE.DoubleSide,
       uniforms: {
-        uPaper: { value: new THREE.Color(CANVAS_PAPER) },
-        uDot: { value: new THREE.Color(CANVAS_DOT) },
+        uPaper: { value: _themePaper },
+        uDot: { value: _themeDot },
         uGap: { value: 0.3 },
         uRadius: { value: 0.013 },
         uCorner: { value: 0.9 }, // softer corner shadow (closer to 1 = gentler)
@@ -777,8 +815,8 @@ function makeDoorMaterial() {
   return new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
     uniforms: {
-      uPaper: { value: new THREE.Color(CANVAS_PAPER) },
-      uDot: { value: new THREE.Color(CANVAS_DOT) },
+      uPaper: { value: _themePaper },
+      uDot: { value: _themeDot },
       uInk: { value: new THREE.Color("#221436") },
       uGap: { value: 0.3 },
       uRadius: { value: 0.013 },
@@ -1796,13 +1834,34 @@ function Companion({ progress }: { progress: React.MutableRefObject<number> }) {
   );
 }
 
-// Flat #FBF9FF paper background, no fog (the canvas world is season-independent).
+// Flat paper background, no fog (the canvas world is season-independent). Uses the shared _themePaper
+// instance so the ThemeController's retint also drives the scene clear colour.
 function CanvasBackground() {
   const scene = useThree((s) => s.scene);
   useEffect(() => {
     scene.fog = null;
-    scene.background = new THREE.Color(tokens.light.paper);
+    scene.background = _themePaper;
   }, [scene]);
+  return null;
+}
+
+// Theme controller — flips the world to the brand's dark "adult" palette across the Ch.5→Ch.6
+// boundary. It lerps the shared dotted-paper colours (3D) and toggles [data-audience="adult"] on
+// <html> so the DOM overlays (toolbar, nodes, banners, background) inherit the dark token flip too.
+function ThemeController({ progress, adultStartU }: { progress: React.MutableRefObject<number>; adultStartU: number }) {
+  const isAdult = useRef(false);
+  useFrame(() => {
+    // hysteresis so a scroll parked exactly on the boundary doesn't strobe the attribute
+    const adult = isAdult.current
+      ? progress.current >= adultStartU - 0.012
+      : progress.current >= adultStartU + 0.012;
+    _themePaper.lerp(adult ? _DARK_PAPER : _LIGHT_PAPER, 0.08);
+    _themeDot.lerp(adult ? _DARK_DOT : _LIGHT_DOT, 0.08);
+    if (adult !== isAdult.current) {
+      isAdult.current = adult;
+      applyAudience(adult);
+    }
+  });
   return null;
 }
 
@@ -1853,6 +1912,23 @@ export function PathScene({
     return i >= 0 ? chapterSpacedUs(nodes).nodeU[i] : 0;
   }, [nodes]);
   const progress = useRef(startU);
+  // u where the world flips to the adult (dark) theme — midway between the last kids node and the
+  // first adult one (Ch.6+). >1 (never) when there are no adult chapters.
+  const adultStartU = useMemo(() => {
+    const i = nodes.findIndex((n) => /Ch\.[678]/.test(n.chapter ?? ""));
+    if (i <= 0) return 2;
+    const us = chapterSpacedUs(nodes).nodeU;
+    return (us[i] + us[i - 1]) / 2;
+  }, [nodes]);
+  // set the initial theme instantly (no lerp) for a deep-link/return into the adult stretch; always
+  // clear the flag when leaving the path so other pages stay in the kids theme.
+  useEffect(() => {
+    const adult = progress.current >= adultStartU;
+    _themePaper.copy(adult ? _DARK_PAPER : _LIGHT_PAPER);
+    _themeDot.copy(adult ? _DARK_DOT : _LIGHT_DOT);
+    applyAudience(adult);
+    return () => applyAudience(false);
+  }, [adultStartU]);
   const [reduced, setReduced] = useState(false);
   // staged load (keeps mobile from uploading everything in one frame):
   // 0 = sky + land + mountains, 1 = + the path & nodes, 2 = + streamed foliage.
@@ -1926,6 +2002,7 @@ export function PathScene({
       <CanvasGround />
       <ProgressTrail progress={progress} />
       <FollowCam progress={progress} />
+      <ThemeController progress={progress} adultStartU={adultStartU} />
       {/* soft, season-free lighting — enough to light Sam (the only lit 3D object) */}
       <hemisphereLight args={["#ffffff", "#e7e0f1", 1.1]} />
       <directionalLight position={[6, 14, 8]} intensity={1.15} />

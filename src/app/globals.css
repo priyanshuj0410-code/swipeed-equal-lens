@@ -170,6 +170,12 @@
   --sidebar-accent-foreground: #f1ecfa;
 }
 
+/* NOTE: the brand's [data-audience="adult"] palette flip gets out-cascaded by Tailwind v4's @import
+   layering, so the dark --color-paper/-ink/-surface/-brand/-dot values are applied at runtime as
+   INLINE custom properties on <html> by the path's ThemeController (see path-scene.tsx) — inline
+   styles beat any selector and inherit everywhere, sidestepping the layer fight. The derived tokens
+   above (--brand-500, --secondary, …) then resolve against those dark values automatically. */
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
