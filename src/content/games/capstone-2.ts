@@ -1,25 +1,50 @@
-// Capstone 2 — "Fair & Safe Explorer" (node c2): the Chapter 2 (ages 6–9) graduation. Not a new lesson —
-// a warm, no-fail celebration where Sam helps the child look back at the eight big ideas they learned
-// across the chapter (Body Lab Juniors → Smart Screen Heroes), lighting a star for each, then awards the
-// chapter. Audio-first, co-played. Mirrors Capstone 1.
+// Content for Capstone 2 — Fair & Safe Explorer (node c2, Chapter 2 graduation, ages 6–9). NEW rich build to
+// GDD c2 ("Capstone format v1"), following the c1 template. Not a lesson, never a test: a joyful, no-fail
+// celebration that lights up the explorer's map and consolidates all eight Chapter 2 truths through spaced,
+// VARIED retrieval (gallery · match · sort · spot · build · swipe), then crowns it with a golden compass and
+// a certificate. Faithful from the Landing JSON, rendered by the shared rich engine
+// (components/games/capstone-rich.tsx). gameId "capstone-2" (the Landing's "capstone-ch2" is design-doc only).
 
-export type Recap = { emoji: string; idea: string; sam: string };
+import type { CapstoneConfig } from "./capstone-schema";
 
-// One big idea per Chapter-2 game, in play order.
-export const RECAP: Recap[] = [
-  { emoji: "🧪", idea: "Every body is amazing — and every skin is good!", sam: "You explored how bodies work, and learned every skin is good." },
-  { emoji: "🪞", idea: "Boy or girl, I can like anything — those 'rules' are made up!", sam: "You learned that gender 'rules' are just made up." },
-  { emoji: "🦺", idea: "I know safe from unsafe — and I tell a grown-up I trust.", sam: "You became a Safety Squad hero." },
-  { emoji: "🤝", idea: "A true friend is kind — and I know the difference!", sam: "You learned what makes a real friend." },
-  { emoji: "💗", idea: "I notice feelings, calm the big ones, and get along!", sam: "You grew Heart Smart." },
-  { emoji: "⚖️", idea: "Everyone shares; every child deserves the same chances!", sam: "You made your world fair." },
-  { emoji: "🙅", idea: "If it hurts, it's not a joke — I stand up, kindly!", sam: "You became an ally." },
-  { emoji: "📱", idea: "Real or pretend? I think for myself, stay healthy, and am kind!", sam: "You became a Smart Screen Hero." },
-];
-
-export const SAM = {
-  greet: "Look how much you've learned! Let's light a star for each big idea. Tap one!",
-  more: "Yes! Tap another star.",
-  graduate: "You did it! Chapter Two complete — you're a Fair & Safe Explorer!",
-  complete: "Graduation day! You're ready for the next adventure. 🎓",
+export const CAPSTONE_2: CapstoneConfig = {
+  gameId: "capstone-2",
+  capstone: "Fair & Safe Explorer",
+  node: "c2",
+  chapter: 2,
+  ages: "6-9",
+  arrival: "Lensy: explorer, you made it across the whole map of Chapter 2! Let's wander back over everywhere you went and light up each place you learned something.",
+  canvasPayoff: "The Explorer's map fills in. Every place you visited in Chapter 2 lights up at once, the body-lab, the friendship trail, the fair-play field, the safety lookout and the screen-smart signal tower, and little flags with your stickers pop up across the whole map.",
+  threadsRecapped: ["A", "E", "B", "D", "C", "G"],
+  recap: [
+    {"node":"g06","game":"Body Lab Juniors","thread":"A · Body & Growing Up","bigTruth":"You know how your body works, that we're alike inside, and that every body is good.","glyph":"body-lab"},
+    {"node":"g07","game":"What Makes Me, Me","thread":"E · Gender & Respect","bigTruth":"Every single kid is a different, wonderful 'me'.","glyph":"unique-me"},
+    {"node":"g08","game":"Safety Squad","thread":"B · Safety, Consent & Boundaries","bigTruth":"A safety hero spots it, acts on it, and tells a trusted grown-up.","glyph":"safety-badge"},
+    {"node":"g09","game":"Friend or Frenemy?","thread":"D · Relationships","bigTruth":"You can spot real friends, be one, and hold out for steady, kind people.","glyph":"true-friend"},
+    {"node":"g41","game":"Heart Smart","thread":"C · Feelings & Life Skills","bigTruth":"You always have a tool for a big feeling; you're never stuck.","glyph":"heart-tool"},
+    {"node":"g10","game":"Fair Play World","thread":"E · Gender & Respect","bigTruth":"Fairness is a daily habit you can keep building.","glyph":"fair-play-cup"},
+    {"node":"g11","game":"Not Fair, Not Funny","thread":"E · Gender & Respect","bigTruth":"When everyone's an ally, everyone is safer and kinder.","glyph":"ally-shield"},
+    {"node":"g12","game":"Smart Screen Heroes","thread":"G · Values, Rights & Media","bigTruth":"You can be screen-smart, and help others be screen-smart too.","glyph":"screen-smart"},
+  ],
+  playback: [
+    {"id":"c2-p1","from":"all","type":"gallery","frame":"Your explorer sticker book! Eight flags from eight adventures. Tap any flag to hear what you discovered there.","stickers":["body-lab","unique-me","safety-badge","true-friend","heart-tool","fair-play-cup","ally-shield","screen-smart"],"celebrate":"Eight adventures, eight stickers, what an explorer."},
+    {"id":"c2-p2","from":"g06","type":"match","frame":"Quick happy recap from the body-lab, match each part to the job it does. You're the expert now.","pairs":[{"left":"Heart","right":"Pumps blood"},{"left":"Lungs","right":"Take in air"},{"left":"Brain","right":"Thinks and feels"}],"celebrate":"Body expert, every body is amazing and good."},
+    {"id":"c2-p3","from":"g08","type":"sort","frame":"At the safety lookout, sort what a safety hero does, just for the joy of knowing it.","items":[{"id":"a","text":"Spot something unsafe"},{"id":"b","text":"Tell a trusted grown-up"},{"id":"c","text":"Keep a scary secret"}],"bins":[{"id":"hero","label":"Safety hero move"},{"id":"no","label":"Not a hero move"}],"key":{"a":"hero","b":"hero","c":"no"},"celebrate":"Spot it, act, tell, you've got the hero moves."},
+    {"id":"c2-p4","from":"g11","type":"spot","frame":"On the fair-play field, spot the kind ally move, every answer here is a good one.","scene":[{"text":"Standing up for someone left out","trick":true},{"text":"A sunny sky","trick":false},{"text":"\"That joke isn't funny, it's mean\"","trick":true}],"why":"Allies stand up and speak up, and that keeps everyone safer.","celebrate":"You spot an ally a mile away, because you are one."},
+    {"id":"c2-p5","from":"g09","type":"build","frame":"On the friendship trail, build your 'real friend' recipe. Add what a true friend brings.","pieces":["is kind even when no one's looking","is happy for you","says sorry and means it"],"mode":"assemble","celebrate":"That's a real friend, and you know how to be one."},
+    {"id":"c2-p6","from":"g10","type":"swipe","frame":"Cheer for fairness! Swipe up every time it's fair.","cue":"Everyone gets a turn. Anyone can play any game. Sharing the last laddoo.","up":"That's fair!","celebrate":"Fairness champion, you keep building it every day."},
+    {"id":"c2-p7","from":"g41","type":"match","frame":"Heart-smart recap, match the big feeling to a tool that helps. You're never stuck.","pairs":[{"left":"Very angry","right":"Take slow breaths"},{"left":"Sad","right":"Talk to someone kind"},{"left":"Worried","right":"Name it out loud"}],"celebrate":"So many tools, you always have one."},
+    {"id":"c2-p8","from":"g12","type":"sort","frame":"At the signal tower, sort screen-smart from not-so-smart, you know these well.","items":[{"id":"a","text":"Tell a grown-up about a creepy message"},{"id":"b","text":"Share a friend's secret photo"},{"id":"c","text":"Pause before believing everything online"}],"bins":[{"id":"smart","label":"Screen-smart"},{"id":"not","label":"Not screen-smart"}],"key":{"a":"smart","b":"not","c":"smart"},"celebrate":"Screen-smart hero, and you help others be smart too."},
+  ],
+  reflect: [
+    {"id":"c2-r1","prompt":"Lensy: which explorer-skill are you proudest of?","options":["Being a safety hero","Being a real friend","Standing up as an ally","Being screen-smart"],"affirm":"That's a brilliant skill to carry, and you earned it."},
+    {"id":"c2-r2","prompt":"Lensy: who is a real, steady-kind friend in your life?","options":["A school friend","A cousin or sibling","A neighbour","My best friend"],"affirm":"Lucky you, and lucky them to have a friend like you."},
+    {"id":"c2-r3","prompt":"Lensy: what do you do now when a big feeling shows up?","options":["Breathe","Name it","Talk to someone","Use my tools"],"affirm":"You're never stuck, you've always got a way through."},
+    {"id":"c2-r4","prompt":"Lensy: which idea will you take exploring into the next chapter?","options":["Every body is good","Fairness every day","Be a kind ally","Spot it and tell"],"affirm":"Pack it in your explorer bag, it's yours now."},
+  ],
+  celebration: {"glyph": "explorer-compass", "certificate": "This certifies that you are now a Fair & Safe Explorer. You understand your amazing body, you spot real friends, you have tools for big feelings, you play fair and stand up as an ally, and you're a safety and screen-smart hero. The whole map is yours to explore.", "stickerBook": "All eight Chapter 2 flags are now planted across your map, with a shiny golden explorer-compass on top, your Chapter 2 graduation sticker."},
+  preview: "Next, Chapter 3: Growing Up Smart. You'll explore on your own a bit more, with bodies that are starting to change, trickier friendship choices, and Lensy right beside you as your trusted guide.",
+  share: "Show a grown-up your filled-in explorer map and tell them about your favourite adventure. Maybe teach them one safety-hero move or one feelings tool.",
+  doneTitle: "🎓 Chapter Two complete!",
+  coins: 25,
 };
