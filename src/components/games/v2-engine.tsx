@@ -25,6 +25,7 @@ const MECH: Record<V2Mechanic, { emoji: string; verb: string }> = {
   sort: { emoji: "🗂️", verb: "Sort them" },
   match: { emoji: "🔗", verb: "Match them up" },
   build: { emoji: "🧩", verb: "Build it" },
+  "explore-label": { emoji: "🔬", verb: "Find the part" },
 };
 const COPLAY: Record<V2Mechanic, string> = {
   reflect: "Wonder it over together — there's no wrong answer here.",
@@ -34,6 +35,7 @@ const COPLAY: Record<V2Mechanic, string> = {
   sort: "Sort them together and chat about each one.",
   match: "Match them up together.",
   build: "Help them name the grown-ups they trust.",
+  "explore-label": "Explore the body lab together — wonder what each part does.",
 };
 
 // Tint a sort/bin label by meaning (colour is NEVER the only signal — every bin shows its word + an emoji).
@@ -44,11 +46,11 @@ function binStyle(label: string, idx = 0): { emoji: string; tint: string } {
   const o = label.toLowerCase();
   if (/uh-oh|uhoh/.test(o)) return { emoji: "😬", tint: "#F0A93B" };
   // genuinely unsafe / false / not-okay (checked before "tell" so "unsafe secret, tell!" reads unsafe)
-  if (/unsafe|not safe|not okay|not the right|doesn|unkind|not kind|not a good|makes it bigger|not allowed|not-so-happy|uncomfy|hurts|\bmyth\b|shame|bad secret|not a family|not love|leaves someone out|not helping|not my circle|not healthy|not clean|spreads germs|gets stinky|silly rule|not so good|not needed|not fair|leaves out|silly old/.test(o)) return { emoji: "🛑", tint: "#E05C52" };
+  if (/unsafe|not safe|not okay|not the right|doesn|unkind|not kind|not a good|makes it bigger|not allowed|not-so-happy|uncomfy|hurts|\bmyth\b|shame|bad secret|not a family|not love|leaves someone out|not helping|not my circle|not healthy|not clean|spreads germs|gets stinky|silly rule|not so good|not needed|not fair|leaves out|silly old|not good|not true/.test(o)) return { emoji: "🛑", tint: "#E05C52" };
   // a telling / speak-up action bin — distinct from good/bad, not a "danger" colour
   if (/tell a grown|tell someone|speak up|tell right|tell!|^tell\b/.test(o)) return { emoji: "🗣️", tint: "#F0A93B" };
   // affirming / true / okay / safe / belonging / clean-healthy / fair-inclusive
-  if (/^safe|safe touch|mine|my choice|happy|keep|respects|trusted|surprise|\bokay\b|consent|calms|\bhelps\b|kind|good way|comfy|happy-ish|\btrue\b|fact|real family|real, loving|family love|everyone belongs|\bbelong|my circle|makes them family|holds family|helping|healthy|clean habit|good for teeth|stops germs|stays fresh|good washing|wash now|anyone can|for anyone|yes, anyone|\bfair\b|includes everyone/.test(o)) return { emoji: "💚", tint: "#62B84B" };
+  if (/^safe|safe touch|mine|my choice|happy|keep|respects|trusted|surprise|\bokay\b|consent|calms|\bhelps\b|kind|good way|comfy|happy-ish|\btrue\b|fact|real family|real, loving|family love|everyone belongs|\bbelong|my circle|makes them family|holds family|helping|healthy|clean habit|good for teeth|stops germs|stays fresh|good washing|wash now|anyone can|for anyone|yes, anyone|\bfair\b|includes everyone|good body/.test(o)) return { emoji: "💚", tint: "#62B84B" };
   // neutral categorisation (feeling vs action, private vs not-private) — distinct tints, no valence
   return idx === 0 ? { emoji: "🔵", tint: "#5B9BD5" } : { emoji: "🟣", tint: "#7C5CFC" };
 }
@@ -91,10 +93,11 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     if (s.type === "reflect") return `${s.hook} ${s.prompt}`;
     if (s.type === "role-play") return `${s.hook} ${s.setup}`;
     if (s.type === "build") return `${s.hook} ${s.prompt}`;
+    if (s.type === "explore-label") return `${s.hook} Find ${s.find}.`;
     return s.hook;
   };
   const resolveLine = (s: Scenario): string =>
-    s.type === "reflect" ? s.affirm : s.type === "branch" ? s.debrief : s.type === "strike-rewrite" ? `${s.myth.re} ${s.myth.why}` : s.relearn;
+    s.type === "reflect" ? s.affirm : s.type === "branch" ? s.debrief : s.type === "strike-rewrite" ? `${s.myth.re} ${s.myth.why}` : s.type === "explore-label" ? s.reveal : s.relearn;
   // A beat is a "safety" beat (gets the "never your fault" reassurance + the help pill) if its category is
   // listed OR it's a branch with an escape-and-tell best choice (outcome:"safe") — so grooming/unsafe-touch
   // beats that live in other categories (e.g. consent-stop) still surface the reassurance.
@@ -239,6 +242,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
               {sc.type === "reflect" && <p className="text-sm font-semibold text-foreground/70">{sc.prompt}</p>}
               {sc.type === "role-play" && <p className="text-sm font-semibold text-foreground/70">{sc.setup}</p>}
               {sc.type === "build" && <p className="text-sm font-semibold text-foreground/70">{sc.prompt}</p>}
+              {sc.type === "explore-label" && <p className="text-sm font-semibold text-foreground/70">🔬 Find: {sc.find}</p>}
               {(sc.type === "branch" || sc.type === "sort" || sc.type === "match" || sc.type === "strike-rewrite") && (
                 <p className="text-sm font-semibold text-foreground/70">{MECH[sc.type].verb}</p>
               )}
@@ -282,6 +286,7 @@ function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; 
     case "sort": return <SortPlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
     case "match": return <MatchPlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
     case "build": return <BuildPlay sc={sc} onSolved={onSolved} say={say} labels={buildLabels} />;
+    case "explore-label": return <ExploreLabelPlay sc={sc} onSolved={onSolved} say={say} />;
   }
 }
 
@@ -463,6 +468,29 @@ function BuildPlay({ sc, onSolved, say, labels }: { sc: Extract<Scenario, { type
       <button type="button" disabled={!enough} onClick={onSolved} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
         <ShieldCheck className="size-5" aria-hidden /> {sc.mode === "sequence" ? (labels?.sequence ?? "That's my plan!") : (labels?.assemble ?? "That's my team!")}
       </button>
+    </div>
+  );
+}
+
+// explore-label — tap the body part that matches the clue; the right one lights up with the reveal fact
+// (shown on resolve). A wrong tap warmly re-asks (no fail). The body-lab's signature discovery verb.
+function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "explore-label" }>; onSolved: () => void; say: (t: string) => void }) {
+  const [parts] = useState(() => shuffle(sc.parts)); // shuffle so the answer slot varies
+  const [wrong, setWrong] = useState(false);
+  const choose = (p: string) => {
+    if (p === sc.answer) { vibrate(12); onSolved(); }
+    else { setWrong(true); say(`Not quite — find ${sc.find}.`); }
+  };
+  return (
+    <div className="flex flex-col gap-2.5">
+      <div className="grid grid-cols-1 gap-2.5">
+        {parts.map((p) => (
+          <button key={p} type="button" onClick={() => choose(p)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
+            <span className="text-2xl" aria-hidden>🔍</span><span className="flex-1">{p}</span>
+          </button>
+        ))}
+      </div>
+      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Keep exploring — find {sc.find}. 💛</p>}
     </div>
   );
 }
