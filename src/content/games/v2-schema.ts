@@ -42,6 +42,8 @@ export type V2GameConfig = {
   helpLabel?: string; // the help button's text (e.g. "Get help — Childline 1098"); defaults to "Get help"
   reassureCats?: string[]; // categories whose beats end on a "never your fault" reassurance
   reassure?: string;
+  // the "done" button label for the build mechanic (per game — a team / a garden / a kit / a plan)
+  buildLabels?: { assemble?: string; sequence?: string };
 };
 
 export const shuffle = <T,>(a: T[]): T[] =>

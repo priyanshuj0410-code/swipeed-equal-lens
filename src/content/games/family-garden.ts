@@ -1,74 +1,139 @@
-// Content for My Family Garden (node #3, ages 3–6) — the start of the Relationships thread.
-// Audio-first, no-fail. Radically inclusive family-builder (joint-family-led), and a Kindness Garden
-// that blooms with every caring act. Affection & care only — no romantic content.
+// Content for My Family Garden (node g03, ages 3–6) — reworked to GDD 03 v2 (mechanic-embodying). "Every
+// family is made of love." 82 researched, India-grounded scenarios across six categories, each re-encoded to
+// one of the seven shared v2 play actions (reflect / role-play / strike-rewrite / branch / sort / match /
+// build) — no binary "tap the right card", led by the signature grow-your-garden build. Affirms every family
+// shape (joint, single-parent, grandparent-led, adoptive, blended, two-homes); a family is the people who
+// love & care for you, in any shape, and every one is real and good. Empower never frighten; pride not shame.
+// Rendered by the shared engine (components/games/v2-engine.tsx). gameId "family-garden". DO NOT RENAME.
 
-export type Member = { id: string; name: string; emoji: string };
-// Joint/extended family led (the beloved Indian default), warmly including every other shape + pets.
-export const MEMBERS: Member[] = [
-  { id: "mum", name: "Mum", emoji: "👩" },
-  { id: "dad", name: "Dad", emoji: "👨" },
-  { id: "grandma", name: "Grandma", emoji: "👵" },
-  { id: "grandpa", name: "Grandpa", emoji: "👴" },
-  { id: "aunty", name: "Aunty", emoji: "👩‍🦰" },
-  { id: "uncle", name: "Uncle", emoji: "👨‍🦱" },
-  { id: "cousin", name: "Cousin", emoji: "🧒" },
-  { id: "sister", name: "Sister", emoji: "👧" },
-  { id: "brother", name: "Brother", emoji: "👦" },
-  { id: "baby", name: "Baby", emoji: "👶" },
-  { id: "guardian", name: "Carer", emoji: "🧑" },
-  { id: "dog", name: "Dog", emoji: "🐶" },
-  { id: "cat", name: "Cat", emoji: "🐱" },
+import type { Scenario, V2GameConfig } from "./v2-schema";
+
+const SCENARIOS: Scenario[] = [
+  // — What's a family? —
+  {"id":"fg-001","cat":"what-is-family","type":"build","hook":"Lensy: let's grow your family garden! Plant the people who love and care for you.","prompt":"Add your family flowers (anyone who cares for you).","pieces":["a parent","a grandparent","a sibling","an aunt or uncle","a guardian","someone who loves you"],"mode":"assemble","key":["a parent","a grandparent","a sibling","an aunt or uncle","a guardian","someone who loves you"],"relearn":"A family is the people who love and care for you.","persona":"any","source":"family forms"},
+  {"id":"fg-002","cat":"what-is-family","type":"strike-rewrite","hook":"\"A family has to be a mum, a dad and kids.\"","myth":{"un":"A real family is only a mum, a dad and kids.","re":"A family is anyone who loves and cares for you.","why":"Love and care make a family, not a fixed shape."},"relearn":"A family is the people who love and care for you.","persona":"any","source":"family diversity"},
+  {"id":"fg-003","cat":"what-is-family","type":"reflect","hook":"Lensy: who in your life loves and cares for you?","prompt":"Think of one (or more!).","options":["Amma/Appa","Dadi/Nana","A big sibling","Someone special to me"],"affirm":"Those people are your family. How lucky you all are.","relearn":"The people who care for you are your family.","persona":"any","source":"belonging"},
+  {"id":"fg-004","cat":"what-is-family","type":"match","hook":"Match each family member to a caring thing they do.","pairs":[{"left":"A parent","right":"Tucks you in"},{"left":"A grandparent","right":"Tells you stories"},{"left":"A sibling","right":"Plays with you"}],"relearn":"Families show love through everyday caring things.","persona":"any","source":"care"},
+  {"id":"fg-005","cat":"what-is-family","type":"sort","hook":"Sort: makes someone family, or not really?","items":[{"id":"a","text":"They love and care for you"},{"id":"b","text":"They look exactly like you"},{"id":"c","text":"They keep you safe"},{"id":"d","text":"They're famous"}],"bins":[{"id":"yes","label":"Makes them family"},{"id":"no","label":"Not what matters"}],"key":{"a":"yes","b":"no","c":"yes","d":"no"},"relearn":"Love, care and keeping you safe make family, not looks or fame.","persona":"any","source":"family forms"},
+  {"id":"fg-006","cat":"what-is-family","type":"reflect","hook":"Lensy: a family can be big or small. Is small okay?","prompt":"What do you think?","options":["Yes","Small is lovely too","Any size is okay"],"affirm":"Big or small, a family full of love is just right.","relearn":"Families come in all sizes, and every size is good.","persona":"any","source":"family diversity"},
+  {"id":"fg-007","cat":"what-is-family","type":"role-play","hook":"A friend asks \"what's a family?\"","setup":"Tell them. Say:","yourLine":[{"text":"\"The people who love and care for you.\"","best":true},{"text":"\"Only a mum, dad and kids.\""}],"relearn":"A family is the people who love and care for you.","persona":"any","source":"family forms / voice"},
+  {"id":"fg-008","cat":"what-is-family","type":"build","hook":"Add the helpers who care for you to your garden.","prompt":"Plant anyone who looks after you.","pieces":["a teacher who cares","a kind neighbour","a guardian","a family friend"],"mode":"assemble","key":["a teacher who cares","a kind neighbour","a guardian","a family friend"],"relearn":"Your circle of care can be wider than you think.","persona":"Kabir","source":"care network"},
+  {"id":"fg-009","cat":"what-is-family","type":"match","hook":"Match the word to who it can be.","pairs":[{"left":"Caregiver","right":"Anyone who looks after you"},{"left":"Guardian","right":"A grown-up who keeps you safe"},{"left":"Family","right":"The people who love you"}],"relearn":"Many words, one idea: the people who care for you.","persona":"any","source":"care"},
+  {"id":"fg-010","cat":"what-is-family","type":"reflect","hook":"Lensy: families can live together or apart and still be family. True?","prompt":"What do you think?","options":["Yes","Even far away","Love stretches far"],"affirm":"Yes, love makes family even across distance.","relearn":"Families stay families even when they live apart.","persona":"Kabir","source":"family forms"},
+  {"id":"fg-011","cat":"what-is-family","type":"strike-rewrite","hook":"\"You only have one family.\"","myth":{"un":"You can only ever have one family.","re":"Your circle of people who love you can be wide.","why":"Care isn't limited to one home."},"relearn":"Your family of caring people can be wide and warm.","persona":"any","source":"family forms"},
+  {"id":"fg-012","cat":"what-is-family","type":"build","hook":"Finish the centre of your garden.","prompt":"Add a sign in the middle.","pieces":["my people","love grows here","we care for each other"],"mode":"assemble","key":["my people","love grows here","we care for each other"],"relearn":"Your family garden is where your people and love grow.","persona":"any","source":"belonging"},
+
+  // — Family shapes —
+  {"id":"fg-013","cat":"family-shapes","type":"sort","hook":"All of these are real families. Sort by who's in them (all good!).","items":[{"id":"a","text":"Mum, dad and kids"},{"id":"b","text":"A joint family with grandparents"},{"id":"c","text":"One parent and a child"},{"id":"d","text":"Grandparents raising kids"}],"bins":[{"id":"real","label":"A real family"},{"id":"no","label":"Not a family"}],"key":{"a":"real","b":"real","c":"real","d":"real"},"relearn":"Families come in many shapes, and all of them are real.","persona":"any","source":"family diversity"},
+  {"id":"fg-014","cat":"family-shapes","type":"strike-rewrite","hook":"\"A family with only one parent isn't a proper family.\"","myth":{"un":"A one-parent family isn't a proper family.","re":"A single parent and child are a complete, loving family.","why":"Love, not the number of parents, makes a family."},"relearn":"A single-parent family is a real, whole family.","persona":"any","source":"family diversity"},
+  {"id":"fg-015","cat":"family-shapes","type":"match","hook":"Match each child to who they live with, all families.","pairs":[{"left":"Aanya","right":"Her dadi and dada"},{"left":"Rohan","right":"His mum"},{"left":"Meera","right":"Her two parents and cousins"}],"relearn":"Children live in all sorts of loving families.","persona":"any","source":"family diversity"},
+  {"id":"fg-016","cat":"family-shapes","type":"strike-rewrite","hook":"\"Grandparents can't be the ones raising you.\"","myth":{"un":"Grandparents can't be the ones who raise you.","re":"Many kids are lovingly raised by grandparents.","why":"In India this is common and wonderful."},"relearn":"Grandparents raising you is a real, loving family.","persona":"India","source":"India family forms"},
+  {"id":"fg-017","cat":"family-shapes","type":"build","hook":"Build a joint family garden.","prompt":"Add the many people who can share one home.","pieces":["parents","grandparents","aunts & uncles","cousins"],"mode":"assemble","key":["parents","grandparents","aunts & uncles","cousins"],"relearn":"A joint family, with many people in one home, is full of love.","persona":"Sunita","source":"India joint family"},
+  {"id":"fg-018","cat":"family-shapes","type":"strike-rewrite","hook":"\"Adopted kids aren't really part of the family.\"","myth":{"un":"Adopted children aren't really family.","re":"An adopted child is fully, truly family.","why":"Families are made by love, and choosing each other counts."},"relearn":"Adopted children are completely, truly family.","persona":"any","source":"adoption"},
+  {"id":"fg-019","cat":"family-shapes","type":"reflect","hook":"Lensy: some kids have two homes (after parents live apart). Still a family?","prompt":"What do you think?","options":["Yes","Two homes, lots of love","Of course"],"affirm":"Yes, two homes can both be full of family love.","relearn":"A child with two homes still has a loving family.","persona":"any","source":"family diversity"},
+  {"id":"fg-020","cat":"family-shapes","type":"sort","hook":"Sort: a real, loving family, or 'not a family'? (Trick: all real!)","items":[{"id":"a","text":"A blended family with step-siblings"},{"id":"b","text":"An adoptive family"},{"id":"c","text":"A child raised by an aunt"},{"id":"d","text":"A family with one child"}],"bins":[{"id":"real","label":"Real, loving family"},{"id":"no","label":"Not a family"}],"key":{"a":"real","b":"real","c":"real","d":"real"},"relearn":"Blended, adoptive, aunt-led, one-child, all real families.","persona":"any","source":"family diversity"},
+  {"id":"fg-021","cat":"family-shapes","type":"match","hook":"Match the family word to what it means, simply.","pairs":[{"left":"Joint family","right":"Many relatives in one home"},{"left":"Blended family","right":"Two families joined together"},{"left":"Adoptive family","right":"A family that chose its child"}],"relearn":"There are lovely words for the many shapes of family.","persona":"any","source":"family forms"},
+  {"id":"fg-022","cat":"family-shapes","type":"strike-rewrite","hook":"\"A big family is better than a small one.\"","myth":{"un":"A big family is better than a small family.","re":"Big or small, what matters is the love inside.","why":"Love isn't measured by how many."},"relearn":"Family size doesn't decide how good a family is.","persona":"any","source":"family diversity"},
+  {"id":"fg-023","cat":"family-shapes","type":"reflect","hook":"Lensy: have you seen lots of different families around you?","prompt":"What have you noticed?","options":["Big ones","Small ones","All sorts!","Lots of love"],"affirm":"All those different families, each one real and full of love.","relearn":"Families around us come in wonderful variety.","persona":"any","source":"family diversity"},
+  {"id":"fg-024","cat":"family-shapes","type":"build","hook":"Plant a 'families come in all shapes' flowerbed.","prompt":"Add different family shapes (all good).","pieces":["one parent","grandparents raising kids","a joint family","an adoptive family","a blended family"],"mode":"assemble","key":["one parent","grandparents raising kids","a joint family","an adoptive family","a blended family"],"relearn":"Every shape of family belongs in the garden.","persona":"any","source":"family diversity"},
+  {"id":"fg-025","cat":"family-shapes","type":"branch","hook":"A classmate says \"you live with your grandparents? That's weird.\"","options":[{"text":"Say \"my grandparents are my family and I love them\"","consequence":"You stand proud; the teasing has no power.","outcome":"proud","best":true},{"text":"Feel ashamed of your family","consequence":"You feel bad about a family that loves you.","outcome":"missed"}],"debrief":"Every family shape is real and good; yours is too.","relearn":"Being raised by grandparents is a real, loving family.","persona":"India","source":"India family forms"},
+  {"id":"fg-026","cat":"family-shapes","type":"strike-rewrite","hook":"\"Everyone's family looks the same as mine.\"","myth":{"un":"Every family looks the same.","re":"Families look all sorts of ways, and that's normal.","why":"Variety is the truth of families."},"relearn":"Families look all sorts of ways; that's completely normal.","persona":"any","source":"family diversity"},
+  {"id":"fg-027","cat":"family-shapes","type":"reflect","hook":"Lensy: a family far away (a parent working in another city) is still family. True?","prompt":"What do you think?","options":["Yes","Love stretches","Still my family"],"affirm":"Yes, a parent far away for work is still your loving family.","relearn":"A family member far away is still family.","persona":"Kabir","source":"India migration / family"},
+  {"id":"fg-028","cat":"family-shapes","type":"match","hook":"Match the child to a happy thing about their family.","pairs":[{"left":"Lives in a joint family","right":"Always someone to play with"},{"left":"Lives with one parent","right":"Lots of close time together"},{"left":"Was adopted","right":"A family that chose them"}],"relearn":"Every family shape has its own special joys.","persona":"any","source":"family diversity"},
+
+  // — Made of love —
+  {"id":"fg-029","cat":"made-of-love","type":"strike-rewrite","hook":"\"Families have to share the same blood.\"","myth":{"un":"You're only family if you share the same blood.","re":"Families are made of love and care, not only blood.","why":"Adoptive, chosen and step-families are fully family."},"relearn":"Families are made of love and care, not only blood.","persona":"any","source":"family bonds"},
+  {"id":"fg-030","cat":"made-of-love","type":"sort","hook":"Sort: shows family love, or not?","items":[{"id":"a","text":"Caring when you're sick"},{"id":"b","text":"Shouting and never listening"},{"id":"c","text":"Cheering you on"},{"id":"d","text":"Keeping you safe"}],"bins":[{"id":"love","label":"Family love"},{"id":"no","label":"Not love"}],"key":{"a":"love","b":"no","c":"love","d":"love"},"relearn":"Family love is caring, cheering and keeping you safe.","persona":"any","source":"care"},
+  {"id":"fg-031","cat":"made-of-love","type":"match","hook":"Match the loving action to the feeling it gives.","pairs":[{"left":"A warm hug","right":"You feel safe"},{"left":"\"I'm proud of you\"","right":"You feel valued"},{"left":"Listening to you","right":"You feel heard"}],"relearn":"Loving families leave you feeling safe, valued and heard.","persona":"any","source":"care"},
+  {"id":"fg-032","cat":"made-of-love","type":"reflect","hook":"Lensy: what's a way your family shows love?","prompt":"Think of one.","options":["Hugs","Cooking for me","Playing","Saying kind words"],"affirm":"That's love in action. Families show love in everyday ways.","relearn":"Family love shows up in everyday caring.","persona":"any","source":"care"},
+  {"id":"fg-033","cat":"made-of-love","type":"strike-rewrite","hook":"\"Step-parents can't really love you.\"","myth":{"un":"A step-parent can't really love you.","re":"Step-parents can love and care for you fully.","why":"Love grows through caring, not only birth."},"relearn":"Step-parents can be loving, caring family.","persona":"any","source":"blended families"},
+  {"id":"fg-034","cat":"made-of-love","type":"role-play","hook":"You want to show your family you love them.","setup":"Say or do one loving thing. Say:","yourLine":[{"text":"\"I love you, thank you for caring for me.\"","best":true},{"text":"Nothing at all"}],"relearn":"Love grows both ways; you can show it too.","persona":"any","source":"reciprocity / voice"},
+  {"id":"fg-035","cat":"made-of-love","type":"sort","hook":"Sort: what holds a family together?","items":[{"id":"a","text":"Love"},{"id":"b","text":"Looking identical"},{"id":"c","text":"Caring for each other"},{"id":"d","text":"Being rich"}],"bins":[{"id":"yes","label":"Holds family together"},{"id":"no","label":"Doesn't matter"}],"key":{"a":"yes","b":"no","c":"yes","d":"no"},"relearn":"Love and care hold a family together, not looks or money.","persona":"any","source":"family bonds"},
+  {"id":"fg-036","cat":"made-of-love","type":"reflect","hook":"Lensy: love can grow over time, even with new family. True?","prompt":"What do you think?","options":["Yes","Love grows","With time, yes"],"affirm":"Yes, love grows with care and time, including with new family.","relearn":"Family love can grow over time.","persona":"any","source":"blended families"},
+  {"id":"fg-037","cat":"made-of-love","type":"match","hook":"Match who you can feel loved by.","pairs":[{"left":"A birth parent","right":"Can love you"},{"left":"An adoptive parent","right":"Can love you"},{"left":"A grandparent","right":"Can love you"}],"relearn":"Many kinds of grown-ups can love you fully.","persona":"any","source":"family bonds"},
+  {"id":"fg-038","cat":"made-of-love","type":"strike-rewrite","hook":"\"If you're adopted, your 'real' family is somewhere else.\"","myth":{"un":"Your adoptive family isn't your 'real' family.","re":"The family who loves and raises you is your real family.","why":"Real family is about love and care, every day."},"relearn":"The family who loves and raises you is your real family.","persona":"any","source":"adoption"},
+  {"id":"fg-039","cat":"made-of-love","type":"reflect","hook":"Lensy: love is the soil your family garden grows in. How does that feel?","prompt":"Pick one.","options":["Warm","Nice","Cosy"],"affirm":"Love is the soil where families grow. Yours is growing beautifully.","relearn":"Love is what families grow in.","persona":"any","source":"belonging"},
+  {"id":"fg-040","cat":"made-of-love","type":"branch","hook":"A friend says \"your family isn't real because you're adopted.\"","options":[{"text":"Say \"my family loves me, so it's real\"","consequence":"You stand proud; love makes it real.","outcome":"proud","best":true},{"text":"Believe them and feel sad","consequence":"You doubt a family that truly loves you.","outcome":"missed"}],"debrief":"The family who loves and raises you is your real family.","relearn":"Adopted families are real families, made of love.","persona":"any","source":"adoption"},
+
+  // — Every family's real —
+  {"id":"fg-041","cat":"all-real-good","type":"strike-rewrite","hook":"\"Some families are wrong or weird.\"","myth":{"un":"Some families are wrong or weird.","re":"Every loving family is real and good.","why":"Different doesn't mean wrong."},"relearn":"Every loving family is real and good.","persona":"any","source":"family diversity"},
+  {"id":"fg-042","cat":"all-real-good","type":"branch","hook":"Kids are laughing at a classmate's family for being different.","options":[{"text":"Say \"all families are different and good\"","consequence":"The teasing loses steam; your classmate feels safe.","outcome":"ally","best":true},{"text":"Laugh along","consequence":"Your classmate feels hurt and alone.","outcome":"bystander"}],"debrief":"Every family is real and good; you can stand up for that.","relearn":"You can stand up for a friend's family.","persona":"ally seed","source":"bystander"},
+  {"id":"fg-043","cat":"all-real-good","type":"role-play","hook":"A friend feels shy that their family is different.","setup":"Make them feel proud. Say:","yourLine":[{"text":"\"Your family sounds lovely and special.\"","best":true},{"text":"\"That's so weird.\""}],"relearn":"All families are different and good; help a friend feel proud.","persona":"any","source":"support / voice"},
+  {"id":"fg-044","cat":"all-real-good","type":"sort","hook":"Sort: kind about families, or unkind?","items":[{"id":"a","text":"\"Tell me about your family!\""},{"id":"b","text":"\"Your family is weird.\""},{"id":"c","text":"\"Cool, you live with cousins!\""},{"id":"d","text":"Laughing at someone's home"}],"bins":[{"id":"kind","label":"Kind"},{"id":"unkind","label":"Unkind"}],"key":{"a":"kind","b":"unkind","c":"kind","d":"unkind"},"relearn":"Be curious-and-kind about families, never teasing.","persona":"any","source":"empathy"},
+  {"id":"fg-045","cat":"all-real-good","type":"strike-rewrite","hook":"\"You should be embarrassed if your family is different.\"","myth":{"un":"A different family is something to be embarrassed about.","re":"Your family is something to be proud of.","why":"Love is never embarrassing."},"relearn":"Be proud of your family, whatever its shape.","persona":"any","source":"self-esteem"},
+  {"id":"fg-046","cat":"all-real-good","type":"reflect","hook":"Lensy: every family in our class garden is real and good. Agree?","prompt":"What do you think?","options":["Yes","All of them","Every one"],"affirm":"Yes, every family in the garden is real and good.","relearn":"Every family is real and good.","persona":"any","source":"family diversity"},
+  {"id":"fg-047","cat":"all-real-good","type":"match","hook":"Match the different family to one good thing about it.","pairs":[{"left":"Single-parent family","right":"Lots of one-on-one love"},{"left":"Joint family","right":"Always company"},{"left":"Adoptive family","right":"Chose each other"}],"relearn":"Every family has its own goodness.","persona":"any","source":"family diversity"},
+  {"id":"fg-048","cat":"all-real-good","type":"branch","hook":"A new kid is quiet because their family is different from the others'.","options":[{"text":"Say \"I'd love to hear about your family\"","consequence":"They open up; they feel they belong.","outcome":"kind","best":true},{"text":"Ignore them","consequence":"They keep feeling like an outsider.","outcome":"missed"}],"debrief":"Curiosity and warmth help every family feel it belongs.","relearn":"Welcoming a different family helps a friend belong.","persona":"Kabir","source":"inclusion"},
+  {"id":"fg-049","cat":"all-real-good","type":"strike-rewrite","hook":"\"Only families like the ones on TV are normal.\"","myth":{"un":"Only families like the ones on TV are normal.","re":"Real families are far more varied than TV shows.","why":"TV shows a narrow slice of family life."},"relearn":"Real families are wonderfully varied, more than TV shows.","persona":"media","source":"media literacy"},
+  {"id":"fg-050","cat":"all-real-good","type":"reflect","hook":"Lensy: it's good to be proud of your family. How do you feel about yours?","prompt":"Pick one.","options":["Proud","Happy","Love them"],"affirm":"Hold onto that. Your family is yours to be proud of.","relearn":"You can be proud of your family.","persona":"any","source":"belonging"},
+  {"id":"fg-051","cat":"all-real-good","type":"role-play","hook":"Someone asks about your family in a kind way.","setup":"Tell them proudly. Say:","yourLine":[{"text":"\"My family is ___, and I love them.\"","best":true},{"text":"\"I'd rather not say.\""}],"relearn":"You can share about your family with pride.","persona":"any","source":"self-expression / voice"},
+  {"id":"fg-052","cat":"all-real-good","type":"sort","hook":"Sort: makes a family good, or doesn't matter?","items":[{"id":"a","text":"They love each other"},{"id":"b","text":"They're all the same age"},{"id":"c","text":"They help each other"},{"id":"d","text":"They have a big house"}],"bins":[{"id":"good","label":"Makes it good"},{"id":"no","label":"Doesn't matter"}],"key":{"a":"good","b":"no","c":"good","d":"no"},"relearn":"Love and helping make a family good, not size or money.","persona":"any","source":"family bonds"},
+
+  // — Helping & belonging —
+  {"id":"fg-053","cat":"helping-belonging","type":"strike-rewrite","hook":"\"Only some people in the family should help at home.\"","myth":{"un":"Only some people (like mum or the girls) should help at home.","re":"Everyone in the family helps each other.","why":"A home runs on everyone pitching in (see Can-Do Kids)."},"relearn":"Everyone in the family helps each other.","persona":"Sunita","source":"gender-equal caregiving"},
+  {"id":"fg-054","cat":"helping-belonging","type":"sort","hook":"Sort: helping the family, or not?","items":[{"id":"a","text":"Tidying your toys"},{"id":"b","text":"Leaving a mess for others"},{"id":"c","text":"Helping set the table"},{"id":"d","text":"Refusing to ever help"}],"bins":[{"id":"help","label":"Helping"},{"id":"no","label":"Not helping"}],"key":{"a":"help","b":"no","c":"help","d":"no"},"relearn":"Everyone, even little ones, can help the family.","persona":"any","source":"responsibility"},
+  {"id":"fg-055","cat":"helping-belonging","type":"branch","hook":"Your sister does all the chores while your brother just plays.","options":[{"text":"Say \"let's all help, by turns\"","consequence":"Everyone pitches in; it's fair and faster.","outcome":"fair","best":true},{"text":"Leave it unfair","consequence":"One kid does it all; that's not fair.","outcome":"unfair"}],"debrief":"Helping the family is for everyone, by turns, not by gender.","relearn":"Everyone helps the family, by turns.","persona":"Sunita","source":"fairness"},
+  {"id":"fg-056","cat":"helping-belonging","type":"role-play","hook":"You want to pitch in at home.","setup":"Offer to help. Say:","yourLine":[{"text":"\"I can help too! What can I do?\"","best":true},{"text":"\"That's not my job.\""}],"relearn":"Offering to help is a lovely way to show family love.","persona":"any","source":"voice / responsibility"},
+  {"id":"fg-057","cat":"helping-belonging","type":"reflect","hook":"Lensy: when everyone helps, how does the family feel?","prompt":"Pick one.","options":["Happier","Closer","Like a team"],"affirm":"When everyone helps, families feel like a happy team.","relearn":"Helping each other makes a family a team.","persona":"any","source":"belonging"},
+  {"id":"fg-058","cat":"helping-belonging","type":"match","hook":"Match the family helper to their turn.","pairs":[{"left":"Appa","right":"Cooks tonight"},{"left":"Amma","right":"Fixes the shelf"},{"left":"You","right":"Tidy your things"}],"relearn":"Everyone, of any gender, can take any turn helping.","persona":"Sunita","source":"gender-equal caregiving"},
+  {"id":"fg-059","cat":"helping-belonging","type":"strike-rewrite","hook":"\"If you need help, you're a burden.\"","myth":{"un":"Needing help from your family makes you a burden.","re":"Families are for helping each other; asking is okay.","why":"Everyone needs help sometimes."},"relearn":"It's okay to need and ask your family for help.","persona":"any","source":"belonging"},
+  {"id":"fg-060","cat":"helping-belonging","type":"branch","hook":"You're sad and not sure whether to tell your family.","options":[{"text":"Tell someone in your family who cares","consequence":"They comfort you; you feel less alone.","outcome":"supported","best":true},{"text":"Keep it all inside","consequence":"The sad feeling sits there alone.","outcome":"missed"}],"debrief":"Family is exactly who you can share feelings with.","relearn":"You can share your feelings with people who love you.","persona":"any","source":"emotional support"},
+  {"id":"fg-061","cat":"helping-belonging","type":"reflect","hook":"Lensy: everyone in a family belongs. Do you belong in yours?","prompt":"What do you think?","options":["Yes","I belong","We belong together"],"affirm":"Yes, you belong, fully and always.","relearn":"You belong in your family, fully and always.","persona":"any","source":"belonging"},
+  {"id":"fg-062","cat":"helping-belonging","type":"build","hook":"Build a 'we help each other' path through your garden.","prompt":"Add helping stones (anyone can do any).","pieces":["cook","clean","fix","comfort","listen"],"mode":"assemble","key":["cook","clean","fix","comfort","listen"],"relearn":"In a family, everyone can do every kind of helping.","persona":"Sunita","source":"gender-equal caregiving"},
+  {"id":"fg-063","cat":"helping-belonging","type":"role-play","hook":"A family member helped you today.","setup":"Thank them. Say:","yourLine":[{"text":"\"Thank you for helping me.\"","best":true},{"text":"Say nothing"}],"relearn":"Saying thank you keeps family love growing.","persona":"any","source":"gratitude / voice"},
+  {"id":"fg-064","cat":"helping-belonging","type":"sort","hook":"Sort: helps everyone belong, or leaves someone out?","items":[{"id":"a","text":"Sharing chores fairly"},{"id":"b","text":"Always favouring one kid"},{"id":"c","text":"Including everyone at dinner"},{"id":"d","text":"Ignoring the quiet one"}],"bins":[{"id":"belong","label":"Everyone belongs"},{"id":"out","label":"Leaves someone out"}],"key":{"a":"belong","b":"out","c":"belong","d":"out"},"relearn":"Fairness and including everyone help a whole family belong.","persona":"any","source":"belonging"},
+
+  // — My family —
+  {"id":"fg-065","cat":"my-family","type":"build","hook":"Grow YOUR family garden, just as it is.","prompt":"Plant your real people (whoever they are).","pieces":["the grown-ups who care for me","my brothers/sisters/cousins","my grandparents","anyone who loves me"],"mode":"assemble","key":["the grown-ups who care for me","my brothers/sisters/cousins","my grandparents","anyone who loves me"],"relearn":"Your family garden is yours, exactly as it is, and it's lovely.","persona":"any","source":"belonging"},
+  {"id":"fg-066","cat":"my-family","type":"reflect","hook":"Lensy: who's the first person you'd plant in your garden?","prompt":"Think of them.","options":["A parent","A grandparent","A sibling","Someone special"],"affirm":"What a lovely person to start your garden with.","relearn":"Your family starts with the people closest to your heart.","persona":"any","source":"belonging"},
+  {"id":"fg-067","cat":"my-family","type":"strike-rewrite","hook":"\"Friends can never be like family.\"","myth":{"un":"Friends can never feel like family.","re":"Close friends who love and care for you can feel like family.","why":"Chosen family is real family too."},"relearn":"Close, caring friends can be family too.","persona":"any","source":"chosen family"},
+  {"id":"fg-068","cat":"my-family","type":"match","hook":"Match your people to the love they give.","pairs":[{"left":"My grown-up","right":"Keeps me safe"},{"left":"My sibling/cousin","right":"Plays with me"},{"left":"My grandparent","right":"Tells me stories"}],"relearn":"Each of your people gives a special kind of love.","persona":"any","source":"care"},
+  {"id":"fg-069","cat":"my-family","type":"branch","hook":"A neighbour's child has no one to play with after school.","options":[{"text":"Invite them to play with your family","consequence":"They feel welcomed; your circle of care grows.","outcome":"kind","best":true},{"text":"Leave them out","consequence":"They stay lonely.","outcome":"missed"}],"debrief":"Care can stretch beyond your home to others who need it.","relearn":"You can widen your circle of care to others.","persona":"Kabir","source":"community / care"},
+  {"id":"fg-070","cat":"my-family","type":"reflect","hook":"Lensy: your family garden can keep growing. Who might join it?","prompt":"Imagine one.","options":["A new sibling","A new friend","A pet I love","Someone new who cares"],"affirm":"Gardens grow, and so do families. Lovely.","relearn":"Your family of caring people can keep growing.","persona":"any","source":"family forms"},
+  {"id":"fg-071","cat":"my-family","type":"role-play","hook":"You want your family to know you love them.","setup":"Say it from the heart:","yourLine":[{"text":"\"I love my family, just as we are.\"","best":true},{"text":"\"I wish we were different.\""}],"relearn":"Loving your family as it is feels good for everyone.","persona":"any","source":"belonging / voice"},
+  {"id":"fg-072","cat":"my-family","type":"reflect","hook":"Lensy: what's the best thing about your family?","prompt":"Pick one (or your own).","options":["We have fun","We help each other","We love each other","They're mine"],"affirm":"That's the heart of your family garden. Treasure it.","relearn":"There's something special to love about your family.","persona":"any","source":"belonging"},
+  {"id":"fg-073","cat":"my-family","type":"build","hook":"Add a sunny spot for the people who care for you outside home.","prompt":"Plant your wider circle.","pieces":["a caring teacher","a kind neighbour","a close family friend","a guardian"],"mode":"assemble","key":["a caring teacher","a kind neighbour","a close family friend","a guardian"],"relearn":"Caring people outside your home are part of your circle too.","persona":"Kabir","source":"care network"},
+  {"id":"fg-074","cat":"my-family","type":"sort","hook":"Sort: belongs in my circle of care, or not?","items":[{"id":"a","text":"A grown-up who keeps me safe"},{"id":"b","text":"A stranger I've never met"},{"id":"c","text":"Someone who loves me"},{"id":"d","text":"Someone who's unkind to me"}],"bins":[{"id":"yes","label":"My circle of care"},{"id":"no","label":"Not my circle"}],"key":{"a":"yes","b":"no","c":"yes","d":"no"},"relearn":"Your circle of care is the people who love and keep you safe.","persona":"any","source":"care network"},
+
+  // — Family shapes —
+  {"id":"fg-075","cat":"family-shapes","type":"reflect","hook":"Lensy: two friends can have totally different families and both be happy. True?","prompt":"What do you think?","options":["Yes","Both happy","Different and good"],"affirm":"Yes, different families can both be full of happiness.","relearn":"Different families can each be happy and good.","persona":"any","source":"family diversity"},
+
+  // — Made of love —
+  {"id":"fg-076","cat":"made-of-love","type":"branch","hook":"Your new step-sibling is shy in your home.","options":[{"text":"Share a toy and play together","consequence":"You start to feel like family; love grows.","outcome":"warm","best":true},{"text":"Ignore them because they're 'not real' family","consequence":"You both miss out on a new bond.","outcome":"missed"}],"debrief":"Blended families grow love through everyday kindness.","relearn":"You can help a new family member feel they belong.","persona":"any","source":"blended families"},
+
+  // — Every family's real —
+  {"id":"fg-077","cat":"all-real-good","type":"strike-rewrite","hook":"\"Having no siblings means your family is incomplete.\"","myth":{"un":"A family with one child is incomplete.","re":"A family of any size is complete with love.","why":"Completeness comes from love, not numbers."},"relearn":"A one-child family is complete and good.","persona":"any","source":"family diversity"},
+
+  // — Helping & belonging —
+  {"id":"fg-078","cat":"helping-belonging","type":"role-play","hook":"A family member is tired after a long day.","setup":"Offer kindness. Say:","yourLine":[{"text":"\"Can I help you rest?\"","best":true},{"text":"Demand they play right now"}],"relearn":"Noticing and helping each other is family love in action.","persona":"any","source":"empathy / voice"},
+
+  // — My family —
+  {"id":"fg-079","cat":"my-family","type":"reflect","hook":"Lensy: your garden is full and growing. How does it feel?","prompt":"Pick one.","options":["Warm","Happy","Full of love"],"affirm":"Your family garden is full of love, and so are you.","relearn":"Your family garden, however it looks, is full of love.","persona":"any","source":"belonging"},
+
+  // — Every family's real —
+  {"id":"fg-080","cat":"all-real-good","type":"branch","hook":"Capstone: a classmate is teased because their family is different.","options":[{"text":"Stand up: \"every family is real and good\"","consequence":"You protect a friend and the whole class learns.","outcome":"ally","best":true},{"text":"Stay quiet","consequence":"Your classmate feels alone.","outcome":"bystander"}],"debrief":"Every loving family is real and good; you can say so.","relearn":"You can stand up for every kind of family.","persona":"ally seed","source":"bystander / consolidation"},
+
+  // — My family —
+  {"id":"fg-081","cat":"my-family","type":"build","hook":"Capstone: finish your family garden with a banner.","prompt":"Pick your banner.","pieces":["My family is made of love","Every family is real","We belong together"],"mode":"assemble","key":["My family is made of love","Every family is real","We belong together"],"relearn":"Your family is made of love, real, and a place you belong.","persona":"any","source":"consolidation"},
+  {"id":"fg-082","cat":"my-family","type":"reflect","hook":"Lensy: what will you carry from the family garden?","prompt":"Pick your motto.","options":["Family is made of love","Every family is good","I belong","All families are real"],"affirm":"Carry that. Every family, including yours, is real and full of love.","relearn":"Families are made of love, come in all shapes, and everyone belongs.","persona":"any","source":"consolidation"},
 ];
 
-// Flowers that bloom in the Kindness Garden (one per kind act).
-export const FLOWERS = ["🌸", "🌼", "🌷", "🌻", "🌺", "🪷", "💐", "🌹"];
-export const GARDEN_TARGET = 8; // a full garden → the celebratory finish
-
-// Families Love & Care — a short scene; tap the caring thing. No "wrong"; a gentle nudge guides.
-export type CareScene = { text: string; options: { emoji: string; label: string; caring: boolean }[]; sam: string };
-export const CARE_SCENES: CareScene[] = [
-  { text: "Your little brother is sad.", sam: "Comforting someone is caring. 💛", options: [{ emoji: "🤗", label: "Give a hug", caring: true }, { emoji: "📺", label: "Watch TV", caring: false }] },
-  { text: "Grandma is carrying heavy bags.", sam: "Helping is a lovely way to care!", options: [{ emoji: "💪", label: "Help carry", caring: true }, { emoji: "🏃", label: "Run ahead", caring: false }] },
-  { text: "It's a festival at home!", sam: "Celebrating together is family love. ✨", options: [{ emoji: "🪔", label: "Celebrate together", caring: true }, { emoji: "😴", label: "Stay in bed", caring: false }] },
-  { text: "Dad made everyone dinner.", sam: "Saying thank you is caring!", options: [{ emoji: "🙏", label: "Say thank you", caring: true }, { emoji: "🤐", label: "Say nothing", caring: false }] },
-];
-
-// Friends Forever — kind friend actions (each blooms a flower).
-export type Act = { emoji: string; label: string; sam: string };
-export const FRIEND_ACTS: Act[] = [
-  { emoji: "🧸", label: "Share a toy", sam: "Sharing makes friends happy!" },
-  { emoji: "🔁", label: "Take turns", sam: "Taking turns is fair and kind." },
-  { emoji: "🤝", label: "Include the new kid", sam: "Including someone is a big kindness." },
-  { emoji: "🙇", label: "Say sorry", sam: "Saying sorry is brave and kind." },
-  { emoji: "📣", label: "Cheer a friend", sam: "Cheering a friend on — lovely!" },
-];
-
-// Kindness Garden — the signature mode: do a kind act, a flower blooms.
-export const KIND_ACTS: Act[] = [
-  { emoji: "🧸", label: "Share a toy", sam: "A flower for sharing! 🌸" },
-  { emoji: "🛍️", label: "Help carry the shopping", sam: "A flower for helping!" },
-  { emoji: "🙏", label: "Say thank you", sam: "A flower for kind words!" },
-  { emoji: "🤗", label: "Comfort a friend", sam: "A flower for comforting!" },
-  { emoji: "👋", label: "Include someone", sam: "A flower for including!" },
-  { emoji: "💧", label: "Water the plants", sam: "A flower for caring for living things!" },
-];
-
-// Kinds of Love — family / friend / pet affection, and ways we show it.
-export const LOVES: Act[] = [
-  { emoji: "👨‍👩‍👧", label: "Family love", sam: "Family love — shown by spending time together. 💛" },
-  { emoji: "🧑‍🤝‍🧑", label: "Friend love", sam: "Friend love — shown by sharing and including." },
-  { emoji: "🐾", label: "Pet love", sam: "Pet love — shown by feeding and cuddling them." },
-];
-
-export const SAM = {
-  greet: "Welcome to your Kindness Garden! Let's grow it together. 🌱",
-  home: "What shall we play?",
-  family: "Build your family! Add anyone who loves you.",
-  familyDone: "What a wonderful family! Every family is special — and yours is one of them. 💛",
-  care: "What's the caring thing to do?",
-  friends: "Let's be a good friend!",
-  garden: "Do a kind thing and watch a flower bloom!",
-  love: "There are many kinds of love. Tap to see!",
-  bloom: "Your garden is blooming! 🌷",
-  complete: "Your Kindness Garden is full of flowers! Kindness makes the world beautiful. 🌸",
+export const FAMILY_GARDEN: V2GameConfig = {
+  gameId: "family-garden",
+  title: "My Family Garden",
+  greet: "Welcome to your family garden! Let's plant the people who love and care for you. 🌱💛",
+  scenarios: SCENARIOS,
+  categories: [
+  { id: "what-is-family", emoji: "🏡", label: "What's a family?" },
+  { id: "family-shapes", emoji: "🌈", label: "Family shapes" },
+  { id: "made-of-love", emoji: "💗", label: "Made of love" },
+  { id: "all-real-good", emoji: "✅", label: "Every family's real" },
+  { id: "helping-belonging", emoji: "🤝", label: "Helping & belonging" },
+  { id: "my-family", emoji: "🪴", label: "My family" },
+  ],
+  badge: {
+    title: "Family Gardener! 🌳",
+    blurb: "A family is the people who love and care for you, in any shape — and every one is real and good. 💛",
+  },
+  buildLabels: { assemble: "That's my garden!" },
 };
