@@ -81,7 +81,7 @@ const WINTER_Z_MAX = Math.max(_wzA, _wzB) + 26;
 const WINTER_Z_MIN = Math.min(_wzA, _wzB) - 26;
 const inWinter = (z: number) => z <= WINTER_Z_MAX && z >= WINTER_Z_MIN;
 
-export type NodeState = "completed" | "playable" | "soon";
+export type NodeState = "completed" | "playable" | "soon" | "locked";
 export type SceneNode = {
   id: string;
   label: string;
@@ -1137,7 +1137,7 @@ function DrawnPath() {
 // greyed) and the icon — colour carries the thread, per the single-path design.
 function nodeShades(hex: string, state: NodeState, capstone: boolean) {
   const c = new THREE.Color(hex);
-  if (state === "soon") c.lerp(new THREE.Color("#8b93a0"), capstone ? 0.22 : 0.72); // capstones stay gold; not-built lessons grey out
+  if (state === "soon" || state === "locked") c.lerp(new THREE.Color("#8b93a0"), capstone ? 0.22 : 0.72); // capstones stay gold; not-built/locked lessons grey out
   const hx = (x: THREE.Color) => `#${x.getHexString()}`;
   return {
     badge: hx(c.clone().lerp(new THREE.Color("#000000"), 0.12)),
@@ -1230,9 +1230,11 @@ function Node({
   const spr = useRef<THREE.Sprite>(null);
   const cap = !!node.capstone;
   const soon = node.state === "soon";
+  const locked = node.state === "locked";
+  const blocked = soon || locked; // non-interactive: not-built ("soon") OR prereq-gated ("locked")
   const completed = node.state === "completed";
   const tilt = completed ? ([...node.id].reduce((s, c) => s + c.charCodeAt(0), 0) % 9) - 4 : 0; // jaunty 'stuck-on' angle per node
-  const greyEmoji = soon && !cap; // capstones keep their gold; not-built lessons grey out
+  const greyEmoji = blocked && !cap; // capstones keep their gold; not-built/locked lessons grey out
   const tex = useEmojiTexture(node.emoji, greyEmoji);
   const st = nodeShades(node.hex, node.state, cap);
   const bob = node.state === "playable";
@@ -1277,7 +1279,7 @@ function Node({
   };
   const select = () => {
     progress.current = u;
-    if (!soon) onSelect?.(node);
+    if (!blocked) onSelect?.(node);
   };
   // ---- canvas skin: a real Equal Lens DOM sticker (drei <Html>) using the site's own .sticker-soft
   // recipe + brand tokens — so it auto dark-flips, always faces the camera, and reuses the actual CSS
@@ -1290,8 +1292,8 @@ function Node({
           <div className="pointer-events-none relative flex flex-col items-center" style={{ visibility: occluded ? "hidden" : "visible" }}>
             <button
               type="button"
-              aria-label={`${node.label} — ${cap ? "capstone, " : ""}${soon ? "locked" : node.state === "completed" ? "done" : "play"}`}
-              disabled={soon}
+              aria-label={`${node.label} — ${cap ? "capstone, " : ""}${locked ? "locked, finish earlier lessons first" : soon ? "coming soon" : node.state === "completed" ? "done" : "play"}`}
+              disabled={blocked}
               onPointerDown={(e) => e.stopPropagation()}
               onPointerOver={() => setHovered(true)}
               onPointerOut={() => setHovered(false)}
@@ -1302,18 +1304,18 @@ function Node({
               onBlur={() => setHovered(false)}
               onClick={select}
               style={completed ? { transform: `rotate(${tilt}deg)` } : undefined}
-              className={`pointer-events-auto relative grid place-items-center rounded-full focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--violet-200)] disabled:cursor-default ${cap ? "size-40 bg-[var(--color-sun)]" : "size-32 bg-[var(--color-paper)]"} ${soon ? "node-locked" : completed ? "sticker-soft" : "sticker-soft hover-pop"}`}
+              className={`pointer-events-auto relative grid place-items-center rounded-full focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--violet-200)] disabled:cursor-default ${cap ? "size-40 bg-[var(--color-sun)]" : "size-32 bg-[var(--color-paper)]"} ${blocked ? "node-locked" : completed ? "sticker-soft" : "sticker-soft hover-pop"}`}
             >
-              <span className={`leading-none ${cap ? "text-[64px]" : "text-[52px]"} ${soon ? "opacity-50 grayscale" : ""}`}>{node.emoji}</span>
+              <span className={`leading-none ${cap ? "text-[64px]" : "text-[52px]"} ${blocked ? "opacity-50 grayscale" : ""}`}>{node.emoji}</span>
               {/* up-next: a small Grow-Coral play mark. done: a coral 'earned' check badge stamped on the corner */}
-              {!soon && !active && !completed && (
+              {!blocked && !active && !completed && (
                 <span className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[var(--color-grow)]" aria-hidden>
                   <svg viewBox="0 0 20 20" className="size-6">
                     <path d="M6 4 L6 16 L16 10 Z" fill="currentColor" />
                   </svg>
                 </span>
               )}
-              {!soon && completed && (
+              {completed && (
                 <span className={`absolute -right-1 -top-1 grid size-9 place-items-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-grow)] text-[var(--color-paper)] ${beat ? "beat-badge" : ""}`} aria-hidden>
                   <svg viewBox="0 0 20 20" className="size-5">
                     <path d="M4 11 l4 4 l8 -10" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
@@ -1855,17 +1857,24 @@ function Nodes({
   onSelect,
   reduced,
   canvas,
+  focusIndex,
 }: {
   nodes: SceneNode[];
   progress: React.MutableRefObject<number>;
   onSelect?: (n: SceneNode) => void;
   reduced: boolean;
   canvas: boolean;
+  focusIndex?: number;
 }) {
   const total = nodes.length;
   const us = useMemo(() => chapterSpacedUs(nodes).nodeU, [nodes]);
-  // exactly one Active node = the next in the chain (first still-playable lesson); the rest are quiet
-  const activeIndex = useMemo(() => nodes.findIndex((n) => n.state === "playable"), [nodes]);
+  // exactly one Active node = the next in the chain — the first still-playable lesson AT OR AFTER the
+  // chosen-age entry point (so the glow sits on the user's band, not a revision node), else the first playable
+  const activeIndex = useMemo(() => {
+    const f = focusIndex ?? 0;
+    const fwd = nodes.findIndex((n, i) => i >= f && n.state === "playable");
+    return fwd >= 0 ? fwd : nodes.findIndex((n) => n.state === "playable");
+  }, [nodes, focusIndex]);
   const [start, setStart] = useState(0);
   const startRef = useRef(0);
   useFrame(() => {
@@ -1998,19 +2007,24 @@ export function PathScene({
   chapters = [],
   onSelectNode,
   playing = false,
+  focusIndex,
 }: {
   nodes?: SceneNode[];
   chapters?: Chapter[];
   onSelectNode?: (n: SceneNode) => void;
   /** true while ANY game (swipe or engine) is being played in place — freezes the camera & hides nodes */
   playing?: boolean;
+  /** node index to focus on load (the chosen age band's entry node); falls back to first playable */
+  focusIndex?: number;
 }) {
-  // focus on load: the first playable lesson, else the first completed one, else the start
+  // focus on load: the chosen age-band node when given, else the first playable lesson, else first completed
   const startU = useMemo(() => {
+    const us = chapterSpacedUs(nodes).nodeU;
+    if (focusIndex != null && focusIndex >= 0 && focusIndex < nodes.length) return us[focusIndex];
     let i = nodes.findIndex((n) => n.state === "playable");
     if (i < 0) i = nodes.findIndex((n) => n.state === "completed");
-    return i >= 0 ? chapterSpacedUs(nodes).nodeU[i] : 0;
-  }, [nodes]);
+    return i >= 0 ? us[i] : 0;
+  }, [nodes, focusIndex]);
   const progress = useRef(startU);
   // live map of every pointer currently on the screen (pointerId -> clientY). Shared with the interactive
   // myth notes so the canvas can offer "one finger draws, two fingers scroll" — drawing never locks travel.
@@ -2144,7 +2158,7 @@ export function PathScene({
         <>
           <ChapterDoodles nodes={nodes} progress={progress} />
           <CanvasContent nodes={nodes} progress={progress} pointers={pointersRef} />
-          <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} canvas />
+          <Nodes nodes={nodes} progress={progress} onSelect={onSelectNode} reduced={reduced} canvas focusIndex={focusIndex} />
           <ChapterBanners chapters={chapters} nodes={nodes} progress={progress} />
           <Suspense fallback={null}>
             <Companion progress={progress} />

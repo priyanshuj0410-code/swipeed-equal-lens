@@ -15,6 +15,7 @@ import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { EngineGameHost, hasEngineGame } from "@/components/games/engine-host";
 import { NODES, CHAPTERS } from "@/content/path";
+import { isNodeUnlocked, makeNodeCompleted, entryFocusIndex } from "@/lib/node-unlock";
 import { DECK_BY_ID, resolveDeckCards } from "@/content/decks";
 import type { SceneNode } from "@/components/path-scene";
 
@@ -63,25 +64,41 @@ export default function PathPage() {
         );
       return stars[game] != null;
     };
-    // All 41 nodes, in order. Built games are playable; everything else is "soon" (no gates).
-    return NODES.map((n): SceneNode => ({
-      id: n.id,
-      label: n.label,
-      state: n.game ? (isDone(n.game) ? "completed" : "playable") : "soon",
-      href: n.href,
-      emoji: n.emoji,
-      hex: n.hex,
-      capstone: n.type === "capstone",
-      game: n.game,
-      chapter: n.chapter,
-    }));
-  }, [profile.deckStars, profile.runDeckCleared]);
+    // Node gating (master-node-table driven): a built node is "completed" if done, "playable" if unlocked
+    // (earlier chapters + the chosen-age entry node + any node whose prereq is done), else "locked". Unbuilt
+    // nodes are "soon". Legacy users (no entryAgeGate) are ungated — everything built stays playable.
+    const entryAge = profile.entryAgeGate;
+    const isNodeDone = makeNodeCompleted(isDone);
+    return NODES.map((n): SceneNode => {
+      const state: SceneNode["state"] = !n.game
+        ? "soon"
+        : isDone(n.game)
+          ? "completed"
+          : isNodeUnlocked(n, isNodeDone, entryAge)
+            ? "playable"
+            : "locked";
+      return {
+        id: n.id,
+        label: n.label,
+        state,
+        href: n.href,
+        emoji: n.emoji,
+        hex: n.hex,
+        capstone: n.type === "capstone",
+        game: n.game,
+        chapter: n.chapter,
+      };
+    });
+  }, [profile.deckStars, profile.runDeckCleared, profile.entryAgeGate]);
+
+  // focus the path camera + "play me next" glow on the user's age band (its first node), not node #1
+  const focusIndex = useMemo(() => entryFocusIndex(profile.entryAgeGate), [profile.entryAgeGate]);
 
   // Every built game plays in place over the grassland — swipe decks via useSwipeGame, the
   // tap/sort/choose/sim engines via EngineGameHost. "soon" nodes have no game and don't act.
   const handleSelect = (node: SceneNode) => {
     const gid = node.game;
-    if (!gid) return; // not built yet
+    if (!gid || node.state === "locked") return; // not built yet, or gated behind a prerequisite
     if (gid === "mythbuster") {
       game.start("mythbuster", resolveDeckCards("mythbuster", profile.schoolComfort), DECK_BY_ID["mythbuster"]?.swipe);
       return;
@@ -117,6 +134,7 @@ export default function PathPage() {
             chapters={CHAPTERS}
             onSelectNode={handleSelect}
             playing={playing}
+            focusIndex={focusIndex}
           />
         ) : null}
       </div>

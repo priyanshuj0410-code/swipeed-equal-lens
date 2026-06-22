@@ -5,12 +5,26 @@ import { useProfile } from "@/lib/store";
 
 const AVATARS = ["🦊", "🐼", "🦉", "🐯", "🐸", "🐙", "🦄", "🐱"];
 
-/** First-run onboarding: a brand sticker card on dotted paper — pick a name + avatar, language, safety note. */
+// Age bands map to the path chapters (each `ageGate` is a chapter entry point). Picking one drops the
+// learner at their age-appropriate chapter; earlier chapters stay open for revision (see node-unlock.ts).
+const AGE_BANDS: { ageGate: number; label: string }[] = [
+  { ageGate: 3, label: "3–6" },
+  { ageGate: 6, label: "6–9" },
+  { ageGate: 9, label: "9–12" },
+  { ageGate: 12, label: "12–15" },
+  { ageGate: 15, label: "15–18" },
+  { ageGate: 18, label: "18–22" },
+  { ageGate: 22, label: "22+" },
+  { ageGate: 25, label: "Parent" },
+];
+
+/** First-run onboarding: a brand sticker card on dotted paper — pick a name + avatar, age band, language, safety note. */
 export function Onboarding() {
   const { completeOnboarding } = useProfile();
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState(AVATARS[0]);
-  const canStart = name.trim().length > 0;
+  const [ageGate, setAgeGate] = useState<number | null>(null);
+  const canStart = name.trim().length > 0 && ageGate != null;
 
   return (
     <>
@@ -80,6 +94,29 @@ export function Onboarding() {
             </div>
           </div>
 
+          {/* age band — picks the chapter to start at (earlier chapters stay open for revision) */}
+          <div className="flex flex-col gap-1.5">
+            <span className="text-sm font-bold text-[var(--color-ink)]">How old are you?</span>
+            <div className="grid grid-cols-4 gap-1.5">
+              {AGE_BANDS.map((b) => (
+                <button
+                  key={b.ageGate}
+                  type="button"
+                  onClick={() => setAgeGate(b.ageGate)}
+                  aria-pressed={ageGate === b.ageGate}
+                  className={`grid h-11 place-items-center rounded-xl text-sm font-bold transition-transform active:scale-90 ${
+                    ageGate === b.ageGate
+                      ? "border-[2.5px] border-[var(--color-brand)] bg-[var(--violet-100)] text-[var(--color-ink)] shadow-[2px_2px_0_var(--violet-200)]"
+                      : "border-2 border-[var(--color-mist)] bg-[var(--color-paper)] text-[var(--color-ink)] hover:-translate-y-0.5"
+                  }`}
+                >
+                  {b.label}
+                </button>
+              ))}
+            </div>
+            <span className="text-xs font-medium text-[color-mix(in_oklch,var(--color-ink),transparent_45%)]">We&apos;ll start you at the right chapter — earlier ones stay open to revisit.</span>
+          </div>
+
           {/* language */}
           <div className="flex flex-col gap-1.5">
             <span className="text-sm font-bold text-[var(--color-ink)]">Language</span>
@@ -109,7 +146,7 @@ export function Onboarding() {
           <button
             type="button"
             disabled={!canStart}
-            onClick={() => completeOnboarding({ name: name.trim(), avatar, locale: "en-IN" })}
+            onClick={() => completeOnboarding({ name: name.trim(), avatar, locale: "en-IN", entryAgeGate: ageGate ?? undefined })}
             className="mt-1 inline-flex h-14 w-full items-center justify-center gap-1 rounded-full border-[2.5px] border-[var(--color-ink)] bg-[var(--color-grow)] font-[family-name:var(--font-hand)] text-lg font-extrabold text-[var(--color-ink)] shadow-[4px_4px_0_var(--color-ink)] transition-transform hover:-translate-y-0.5 active:translate-y-0 active:shadow-[2px_2px_0_var(--color-ink)] disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-45 disabled:shadow-[4px_4px_0_var(--color-ink)]"
           >
             Start playing
