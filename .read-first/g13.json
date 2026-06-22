@@ -1,0 +1,35 @@
+{
+  "node": "g13",
+  "gameId": "puberty-quest",
+  "label": "Puberty Quest",
+  "chapter": 3,
+  "attested_at": "2026-06-23T03:55:49+05:30",
+  "notes": "Read GDD 13 (11pp) + Chapter 3 personas (13pp, new chapter) + build bible + transition + full 85-scenario library. 7 mechanics (strike-rewrite 23, reflect 23, branch 20, match 6, sort 5, build 4, role-play 4). 0% binary, 23 myths (densest taboo-bust). Registry id puberty-quest (matches). Ch.3 register: matter-of-fact, near-peer (Lensy older), PRIVATE/SOLO. Taboo-busting periods + dignity + period poverty; gender-inclusive (boys learn re periods); accurate proper names; route to trusted sources. Anchors Diya/Aarav/Priya/Lakshmi/Asha. Builds on g06; feeds g14/g38.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 13 — Puberty Quest (reworked v2).pdf",
+      "sha256": "049ae852a55fac9e382bc6fb2131036186b3e8c42998c703476c5f23fd6269d1",
+      "bytes": 62910
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 3 User Personas.pdf",
+      "sha256": "7b189f9027939445b44314cef124bba0fce20c3ec70ba115d772857b77b93eef",
+      "bytes": 76200
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 13 Puberty Quest — Scenario Library.json",
+      "sha256": "617e273bb8e73fdfccba68c4a040a31d9fdb35f7d2f7d1c8eb4019498afe9c4d",
+      "bytes": 56430
+    }
+  }
+}
