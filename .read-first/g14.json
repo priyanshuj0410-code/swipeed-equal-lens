@@ -1,0 +1,35 @@
+{
+  "node": "g14",
+  "gameId": "amazing-journey",
+  "label": "The Amazing Journey",
+  "chapter": 3,
+  "attested_at": "2026-06-23T04:20:02+05:30",
+  "notes": "Read GDD 14 (11pp) + Ch.3 personas + bible + transition + full 84-scenario library. 7 mechanics (reflect 28, strike-rewrite 20, branch 10, match 8, sort 8, build 6, role-play 4). 0% binary, 20 myths. Registry id amazing-journey (library 'the-amazing-journey' aspirational). Reproduction as wonder+science; private/solo; accurate & inclusive (egg+sperm, uterus, vaginal/C-section birth; adoption/IVF/surrogacy all real & loved); never graphic; busts 'mother's fault for a girl' (sex from sperm); scope-disciplined (contraception/STIs later). Builds on g06+g13; prereq g38; family-diversity links g03. Anchors Diya/Aarav/Asha/adopted child.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 14 — The Amazing Journey (reworked v2).pdf",
+      "sha256": "cc31b3f56e7eba028a0ff0a2978967de07d017d609f1b0afd77761083f06351a",
+      "bytes": 61893
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 3 User Personas.pdf",
+      "sha256": "7b189f9027939445b44314cef124bba0fce20c3ec70ba115d772857b77b93eef",
+      "bytes": 76200
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 14 The Amazing Journey — Scenario Library.json",
+      "sha256": "be02775276a61101672415b095e4022334b1893435998b014649c408ec6ad56e",
+      "bytes": 40376
+    }
+  }
+}
