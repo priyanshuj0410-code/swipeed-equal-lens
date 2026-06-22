@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "status": "python3 scripts/swipeed_status.py"
+    "status": "python3 scripts/swipeed_status.py",
+    "read-first": "python3 scripts/read_first.py"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
