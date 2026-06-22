@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Volume2, VolumeX, Home, RotateCcw, Sparkles, ShieldCheck, Phone, Users } from "lucide-react";
+import { greetWithName } from "@/lib/personalize";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { Sam } from "@/components/games/sam";
@@ -75,19 +76,25 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const [coplay, setCoplay] = useState(false);
   // Calm Mode is the app-wide setting; the store syncs profile.calmMode → juice.setCalm(), so the toggle
   // actually drives prefersReducedMotion() (suppressing confetti + motion).
-  const { profile, setCalmMode } = useProfile();
+  const { profile, setCalmMode, ready } = useProfile();
   const calmMode = profile.calmMode ?? false; // the in-app toggle state (drives the Sparkles button)
+  // warm, personalised opener — "Aanya! <greet>" once the name has hydrated (empty name → unchanged)
+  const greeting = useMemo(() => greetWithName(greet, profile.name), [greet, profile.name]);
   const reduceMotion = prefersReducedMotion(); // calm OR the OS prefers-reduced-motion setting — gates all motion
   const sc = queue[qi];
 
   const say = useCallback((t: string, onEnd?: () => void) => { setBubble(t); speak(t, { muted, onEnd }); }, [muted]);
 
+  // greet once — but wait for the profile (name) to hydrate so the opener can be personalised
+  const greetedRef = useRef(false);
   useEffect(() => {
-    speak(greet, { muted });
-    return () => stopSpeaking();
-    // greet once
+    if (greetedRef.current || !ready) return;
+    greetedRef.current = true;
+    setBubble(greeting);
+    speak(greeting, { muted });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [ready, greeting]);
+  useEffect(() => () => stopSpeaking(), []);
 
   const hookLine = (s: Scenario): string => {
     if (s.type === "reflect") return `${s.hook} ${s.prompt}`;
