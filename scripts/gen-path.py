@@ -31,6 +31,7 @@ GAME = {
     # Chapter 6 — adult journey (18–22)
     "g44": "consent-real", "g45": "swipe-right", "g46": "real-relationships", "g47": "own-your-health",
     "g48": "money-independence", "g49": "mind-belonging", "g52": "find-your-feet", "g50": "equal-confident", "g51": "know-your-rights",
+    "c6": "capstone-6",
 }
 
 def href_for(game):
