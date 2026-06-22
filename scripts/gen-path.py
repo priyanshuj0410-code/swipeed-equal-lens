@@ -43,6 +43,12 @@ EMOJI = {
     "g13": "🌱", "g14": "🧬", "g15": "🤖", "g16": "🔀", "g17": "🎬", "g18": "🌪️", "g19": "📣", "g20": "🦠", "c3": "🏆",
     "g21": "💪", "g22": "🗓️", "g23": "🧫", "g24": "🚦", "g25": "💡", "g26": "🟰", "g27": "✊", "g40": "🧱", "g43": "🕳️", "g28": "🔍", "c4": "🏆",
     "g29": "🧭", "g30": "🩺", "g31": "💚", "g32": "🌈", "g33": "💼", "g34": "🌍", "g35": "🏛️", "g36": "🔓", "c5": "🏆",
+    # Ch.6 · 18–22 (College / Standing on My Own)
+    "g44": "🫶", "g45": "💘", "g46": "💞", "g47": "🌡️", "g48": "💰", "g49": "🫂", "g52": "👣", "g50": "🌟", "g51": "📜", "c6": "🏆",
+    # Ch.7 · 22 → first child (Building a Life)
+    "g53": "💍", "g54": "🛤️", "g55": "🧺", "g56": "🏠", "g57": "🗺️", "g58": "💵", "g59": "🤰", "g60": "👪", "c7": "🏆",
+    # Ch.8 · Parenthood + Parent Layer
+    "g61": "💑", "g62": "🍼", "g63": "🌿", "g64": "💬", "g65": "🔄", "g66": "🏳️‍🌈", "g67": "🧩", "g68": "🎮", "g69": "🛟", "c8": "🏆",
 }
 
 CHAPTER_SUBTITLE = {
@@ -51,6 +57,9 @@ CHAPTER_SUBTITLE = {
     "Ch.3 · Ages 9–12": "Question the script",
     "Ch.4 · Ages 12–15": "Equality in practice",
     "Ch.5 · Ages 15–18": "Change the system",
+    "Ch.6 · Ages 18–22": "Standing on my own",
+    "Ch.7 · 22 → first child": "Building a life",
+    "Ch.8 · Parenthood (first child on)": "Raising the next generation",
 }
 
 def clean(v):
@@ -130,7 +139,7 @@ lines.append("// Edit the spreadsheet and rerun the generator. Phase 0: order + 
 lines.append("// regions; built games are playable, the rest render disabled ('not built'). No gates yet.")
 lines.append("")
 lines.append('export type NodeType = "lesson" | "capstone";')
-lines.append('export type ThreadKey = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "E/G" | "★";')
+lines.append('export type ThreadKey = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "E/G" | "D/E" | "F/D" | "★";')
 lines.append("")
 lines.append("export type GameNode = {")
 lines.append("  order: number;")
@@ -175,7 +184,7 @@ lines.append("    emoji: n.emoji,")
 lines.append("    kind: n.threadName,")
 lines.append('    status: (n.game ? "active" : "locked") as PathStatus,')
 lines.append("    href: n.href,")
-lines.append('    tag: (n.thread === "E" || n.thread === "E/G") ? ("gender" as const) : undefined,')
+lines.append('    tag: (n.thread === "E" || n.thread === "E/G" || n.thread === "D/E") ? ("gender" as const) : undefined,')
 lines.append("  })),")
 lines.append("}));")
 lines.append("")
