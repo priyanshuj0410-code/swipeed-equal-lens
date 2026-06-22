@@ -329,3 +329,9 @@ html[data-playing="true"] .gethelp-label {
 .myth-card .myth-truth { color: var(--color-brand); }
 .myth-card .myth-hint { display: block; margin-top: 4px; font-size: 0.64rem; font-weight: 600; opacity: 0.5; }
 .myth-card .myth-expl { margin-top: 4px; font-size: 0.66rem; font-weight: 600; opacity: 0.72; }
+
+/* Mobile toolbar — compact icon-only tool buttons (Hide/Reset keep their text). */
+@media (max-width: 640px) {
+  .tb-label { display: none; }
+  .toolbar { gap: 0.4rem; }
+}
