@@ -1600,17 +1600,17 @@ function ChapterDoodles({ nodes, progress }: { nodes: SceneNode[]; progress: Rea
     for (const cc of CHAPTER_CANVAS) {
       const range = chZ.get(cc.chapter);
       if (!range) continue;
-      const count = Math.min(4, Math.max(2, cc.doodles?.length ?? 3));
+      const count = Math.min(6, Math.max(4, cc.doodles?.length ?? 4));
       for (let j = 0; j < count; j++) {
         const h = _hashStr(`${cc.chapter}-doodle-${j}`);
         const f = (j + 0.5) / count;
         out.push({
           id: `d-${cc.chapter}-${j}`,
-          x: (j % 2 === 0 ? 1 : -1) * (13 + (h % 6)), // 13–18: outside the myth notes (8–12)
+          x: (j % 2 === 0 ? 1 : -1) * (4.5 + (h % 5)), // 4.5–8.5: the visible gap between the path and notes
           z: range.lo - NODE_DZ + (range.hi - range.lo) * f,
           rot: (h % 40) - 20,
           mark: DOODLE_MARKS[h % DOODLE_MARKS.length],
-          size: 26 + (h % 18),
+          size: 52 + (h % 38),
         });
       }
     }
@@ -1630,13 +1630,15 @@ function ChapterDoodles({ nodes, progress }: { nodes: SceneNode[]; progress: Rea
     <>
       {vis.map((m) => (
         <group key={m.id} position={[m.x, 0.12, m.z]}>
-          <Html center distanceFactor={20} zIndexRange={[8, 2]} style={{ pointerEvents: "none" }}>
+          <Html center distanceFactor={22} zIndexRange={[8, 2]} style={{ pointerEvents: "none", width: m.size, height: m.size }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={`/brand/doodles/${m.mark}.svg`}
               alt=""
               draggable={false}
-              style={{ width: m.size, opacity: 0.5, transform: `rotate(${m.rot}deg)`, userSelect: "none" }}
+              width={m.size}
+              height={m.size}
+              style={{ width: m.size, height: m.size, objectFit: "contain", display: "block", opacity: 0.62, transform: `rotate(${m.rot}deg)`, userSelect: "none" }}
             />
           </Html>
         </group>
