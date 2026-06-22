@@ -1,0 +1,35 @@
+{
+  "node": "g15",
+  "gameId": "boundary-bot",
+  "label": "Boundary Bot",
+  "chapter": 3,
+  "attested_at": "2026-06-23T04:37:45+05:30",
+  "notes": "Read GDD 15 (11pp) + Ch.3 personas + bible + transition + full 85-scenario library. 7 mechanics (branch 23, reflect 19, strike-rewrite 17, role-play 12, sort 7, spot 4, build 3). 0% binary, 17 myths. Registry id boundary-bot (matches). Consent & boundaries; say-the-line + pressure-escape-kit + spot-the-red-flag. Empower never frighten; consent both-ways (set own AND respect others', mutual); safe-to-be-wrong (froze/gave-in → self-compassion, crossed boundary never your fault); online red flags (photo-request) taught calmly; gender-inclusive consent (boys ask too); private/solo; route crossed boundaries to trusted adult + Childline 1098. Builds on g08+g02; prereq g14; feeds Ch.4.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 15 — Boundary Bot (reworked v2).pdf",
+      "sha256": "0619e0fd6c6483491568471f3c8a5e6918d25f737c1291016919a89767e2e9f1",
+      "bytes": 60233
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 3 User Personas.pdf",
+      "sha256": "7b189f9027939445b44314cef124bba0fce20c3ec70ba115d772857b77b93eef",
+      "bytes": 76200
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 15 Boundary Bot — Scenario Library.json",
+      "sha256": "61999a89dd96eb84ceca315d250003dab34406c78d62a03373779941552de0b3",
+      "bytes": 56766
+    }
+  }
+}
