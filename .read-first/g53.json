@@ -1,0 +1,35 @@
+{
+  "node": "g53",
+  "gameId": "choosing-building",
+  "label": "Choosing & Building",
+  "chapter": 7,
+  "attested_at": "2026-06-24T00:07:55+05:30",
+  "notes": "Choosing & Building: NEW Ch.7 build (not retrofit). Wired gameId choosing-building into gen-path GAME dict + regen path.ts (g53 now playable) + registered in engine-host (export ChoosingBuildingGame). 84 scenarios faithfully mapped from GDD 53 JSON: 6 cats (choosing-well/what-it-takes/commitment-clearly/love-and-arranged/starting-strong/tools-and-help), 7 types (branch 18/strike-rewrite 15/sort 14/reflect 12/role-play 10/match 8/spot 7), 0% binary. Opens Ch.7 (Building a Life), 'me'->'us': choosing well (values over sparks), what it takes (communication/trust/repair, build us without erasing me), commitment clearly (eyes-open not pressure; busts 'marriage will fix me'), love & arranged (both paths same skills, CONSENT always, family respected but couple's judgement leads), starting strong (equality day one). Every path respected incl not marrying; forced/coerced marriage routed to 181/1091/112/Childline 1098 (reassureCats commitment-clearly+love-and-arranged). India: timeline/in-laws/'log kya kahenge' pressures. binStyle: NO change needed (no mis-colors; both-neutral bins are legit judgment pairs). Spot ids injected (7). Builds on g46/g31; sets up g55/g57.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 53 — Choosing and Building (reworked v2).pdf",
+      "sha256": "8eafa126f553c938d8f7a96a4b7ebbd2fe1896ffe03e8e3c0d6e23bd556abe2d",
+      "bytes": 65026
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 7 User Personas.pdf",
+      "sha256": "991b57b1073424815868baee6c8bf0c1f062510ef2d1ba02d470a0c5fd8d9fd9",
+      "bytes": 82783
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 53 Choosing and Building — Scenario Library.json",
+      "sha256": "3cb0287b84ef9423fdbaa4c39ceea118fe73d73f25f2974568bc724eed841ec3",
+      "bytes": 68113
+    }
+  }
+}
