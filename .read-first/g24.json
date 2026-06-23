@@ -1,0 +1,35 @@
+{
+  "node": "g24",
+  "gameId": "glrl",
+  "label": "Green Light / Red Light",
+  "chapter": 4,
+  "attested_at": "2026-06-23T12:17:42+05:30",
+  "notes": "Read GDD 24 library in full (84 scenarios: what-is-consent/green-flags/red-flags/read-any/say-and-hear/when-wrong); the teen flagship. NEW 10th v2 mechanic 'swipe' (28 scenarios, the namesake green/red flag-reading verb): added SwipeScenario to schema + SwipePlay renderer (left/right flag buttons, colour+emoji+label, no-fail nudge). gameId trap: library 'green-light-red-light' vs registry 'glrl' -> config uses 'glrl'. FRIES consent model; safeguarding when-wrong (never your fault, Childline 1098/112, leaving=strength) read verbatim. binStyle: consent + healthier valenced; flag-reading sort bins neutral (swipe handles flag colour). Spot ids injected (2). GATED at path layer.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 24 — Green Light Red Light (reworked v2).pdf",
+      "sha256": "89b55681013165cb474ceb560b6e5ceda6f3e9c10543095b0fd9014b3b83db74",
+      "bytes": 62722
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 4 User Personas.pdf",
+      "sha256": "d86c9016bf58be6ef0771e9fcd923c987043e4286038da4cdeffb424de927c4d",
+      "bytes": 76452
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 24 Green Light Red Light — Scenario Library.json",
+      "sha256": "19e772ffafbd733b9eb62f971cd7ef94dfe8c09bbafeb6706049d47d22033930",
+      "bytes": 37261
+    }
+  }
+}

@@ -28,6 +28,7 @@ const MECH: Record<V2Mechanic, { emoji: string; verb: string }> = {
   build: { emoji: "🧩", verb: "Build it" },
   "explore-label": { emoji: "🔬", verb: "Find the part" },
   spot: { emoji: "🕵️", verb: "Spot the trick" },
+  swipe: { emoji: "🚦", verb: "Read the flag" },
 };
 const COPLAY: Record<V2Mechanic, string> = {
   reflect: "Wonder it over together — there's no wrong answer here.",
@@ -39,6 +40,7 @@ const COPLAY: Record<V2Mechanic, string> = {
   build: "Help them name the grown-ups they trust.",
   "explore-label": "Explore the body lab together — wonder what each part does.",
   spot: "Spot the tricky red flag together — talk about what makes it unsafe.",
+  swipe: "Read each flag together — green or red? Talk about why.",
 };
 
 // Tint a sort/bin label by meaning (colour is NEVER the only signal — every bin shows its word + an emoji).
@@ -49,11 +51,11 @@ function binStyle(label: string, idx = 0): { emoji: string; tint: string } {
   const o = label.toLowerCase();
   if (/uh-oh|uhoh/.test(o)) return { emoji: "😬", tint: "#F0A93B" };
   // genuinely unsafe / false / not-okay (checked before "tell" so "unsafe secret, tell!" reads unsafe)
-  if (/unsafe|not safe|not okay|not the right|doesn|unkind|not kind|not a good|makes it bigger|not allowed|not-so-happy|uncomfy|hurts|\bmyth\b|shame|bad secret|not a family|not love|leaves someone out|not helping|not my circle|not healthy|not clean|spreads germs|gets stinky|silly rule|not so good|not fair|leaves out|silly old|not good|not true|too-tight|tight box|not respectful|breaks it|tricky|risky|frenemy|makes it worse|\bfuels\b|not empathic|unfair|hogging|blocks it|one gender|not really fair|mean teasing|put-down|not an ally|not a real check|not so great|hard on me|pushy trick|unhelpful|harmful|neglected|\bfalse\b|adds stress|harsh|unhealthy|revs up|hard on your mind|not real|muddled|not a boundary|not consent|crosses|not helpful|long loss|going along|dodging|only-now|regret later|rushes you|stereotype|made-up rule|repeats it|\bharms\b|disrespect|\bfails\b|ranks a group higher|\bharm\b|silent bystander|\bweak|not reliable|harming|pressuring|toxic|keeps you down|avoidant|chips at|unreliable|made up|rumour|spreads stigma|stigmatis/.test(o)) return { emoji: "🛑", tint: "#E05C52" };
+  if (/unsafe|not safe|not okay|not the right|doesn|unkind|not kind|not a good|makes it bigger|not allowed|not-so-happy|uncomfy|hurts|\bmyth\b|shame|bad secret|not a family|not love|leaves someone out|not helping|not my circle|not healthy|not clean|spreads germs|gets stinky|silly rule|not so good|not fair|leaves out|silly old|not good|not true|too-tight|tight box|not respectful|breaks it|tricky|risky|frenemy|makes it worse|\bfuels\b|not empathic|unfair|hogging|blocks it|one gender|not really fair|mean teasing|put-down|not an ally|not a real check|not so great|hard on me|pushy trick|unhelpful|harmful|neglected|\bfalse\b|adds stress|harsh|unhealthy|revs up|hard on your mind|not real|muddled|not a boundary|not consent|crosses|not helpful|long loss|going along|dodging|only-now|regret later|rushes you|stereotype|made-up rule|repeats it|\bharms\b|disrespect|\bfails\b|ranks a group higher|\bharm\b|silent bystander|\bweak|not reliable|harming|pressuring|toxic|keeps you down|avoidant|chips at|unreliable|made up|rumour|spreads stigma|stigmatis|ignores/.test(o)) return { emoji: "🛑", tint: "#E05C52" };
   // a telling / speak-up action bin — distinct from good/bad, not a "danger" colour
   if (/tell a grown|tell someone|speak up|tell right|tell!|^tell\b/.test(o)) return { emoji: "🗣️", tint: "#F0A93B" };
   // affirming / true / okay / safe / belonging / clean-healthy / fair-inclusive
-  if (/^safe|safe touch|mine|my choice|happy|keep|respects|trusted|surprise|\bokay\b|consent|calms|\bhelps\b|kind|good way|comfy|happy-ish|\btrue\b|fact|real family|real, loving|family love|everyone belongs|\bbelong|my circle|makes them family|holds family|helping|healthy|clean habit|good for teeth|stops germs|stays fresh|good washing|wash now|anyone can|for anyone|yes, anyone|\bfair\b|includes everyone|good body|respectful|builds respect|real friend|good friend|friendly|\brepair\b|empathic|fun teasing|fine fun|ally move|good check|great choice|good for me|trustworthy|reliable|cared-for mind|eases stress|really needed|real path|correct|good move|real option|good long-term|owning it|thinking ahead|wise choice|\banyone\b|real reason|caring reason|real change|\bpasses\b|treats all equally|fun for all|just fine|upstander|harmless|good defence|real health|caring for|real resilience|real coping|builds it|helpful|stops spread|reduces stigma/.test(o)) return { emoji: "💚", tint: "#62B84B" };
+  if (/^safe|safe touch|mine|my choice|happy|keep|respects|trusted|surprise|\bokay\b|consent|calms|\bhelps\b|kind|good way|comfy|happy-ish|\btrue\b|fact|real family|real, loving|family love|everyone belongs|\bbelong|my circle|makes them family|holds family|helping|healthy|clean habit|good for teeth|stops germs|stays fresh|good washing|wash now|anyone can|for anyone|yes, anyone|\bfair\b|includes everyone|good body|respectful|builds respect|real friend|good friend|friendly|\brepair\b|empathic|fun teasing|fine fun|ally move|good check|great choice|good for me|trustworthy|reliable|cared-for mind|eases stress|really needed|real path|correct|good move|real option|good long-term|owning it|thinking ahead|wise choice|\banyone\b|real reason|caring reason|real change|\bpasses\b|treats all equally|fun for all|just fine|upstander|harmless|good defence|real health|caring for|real resilience|real coping|builds it|helpful|stops spread|reduces stigma|healthier/.test(o)) return { emoji: "💚", tint: "#62B84B" };
   // neutral categorisation (feeling vs action, private vs not-private) — distinct tints, no valence
   return idx === 0 ? { emoji: "🔵", tint: "#5B9BD5" } : { emoji: "🟣", tint: "#7C5CFC" };
 }
@@ -297,7 +299,40 @@ function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; 
     case "build": return <BuildPlay sc={sc} onSolved={onSolved} say={say} labels={buildLabels} />;
     case "explore-label": return <ExploreLabelPlay sc={sc} onSolved={onSolved} say={say} />;
     case "spot": return <SpotPlay sc={sc} onSolved={onSolved} say={say} />;
+    case "swipe": return <SwipePlay sc={sc} onSolved={onSolved} say={say} />;
   }
+}
+
+// swipe — read the cue, then swipe it the right way: two directional flag buttons (left/right). Colour is never
+// the only signal (each side carries its word + a flag emoji). A wrong swipe gives a warm nudge (no fail); the
+// right read advances (the relearn shows on resolve). The teen flagship's green-light / red-light reading verb.
+function flagSide(label: string): { emoji: string; tint: string } {
+  const o = label.toLowerCase();
+  if (/green|healthy|safe|ok|consent|yes/.test(o)) return { emoji: "💚", tint: "#62B84B" };
+  if (/red|unhealthy|unsafe|not ok|no\b/.test(o)) return { emoji: "🚩", tint: "#E05C52" };
+  return { emoji: "🤔", tint: "#5B9BD5" };
+}
+function SwipePlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "swipe" }>; onSolved: () => void; say: (t: string) => void }) {
+  const [wrong, setWrong] = useState<"left" | "right" | null>(null);
+  const choose = (side: "left" | "right") => {
+    if (side === sc.answer) { vibrate(12); onSolved(); }
+    else { setWrong(side); say("Look again — read the flag."); }
+  };
+  const L = flagSide(sc.left), R = flagSide(sc.right);
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="glass-card flex min-h-24 items-center justify-center rounded-3xl px-5 py-6 text-center text-[15px] font-bold text-foreground backdrop-blur-[12px]">{sc.cue}</div>
+      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Look again — is that healthy? 💛</p>}
+      <div className="grid grid-cols-2 gap-2.5">
+        <button type="button" aria-label={`Swipe left: ${sc.left}`} onClick={() => choose("left")} className="flex flex-col items-center justify-center gap-1 rounded-2xl py-5 text-base font-extrabold text-white transition-transform active:scale-95" style={{ background: L.tint }}>
+          <span className="text-3xl" aria-hidden>{L.emoji}</span><span>← {sc.left}</span>
+        </button>
+        <button type="button" aria-label={`Swipe right: ${sc.right}`} onClick={() => choose("right")} className="flex flex-col items-center justify-center gap-1 rounded-2xl py-5 text-base font-extrabold text-white transition-transform active:scale-95" style={{ background: R.tint }}>
+          <span className="text-3xl" aria-hidden>{R.emoji}</span><span>{sc.right} →</span>
+        </button>
+      </div>
+    </div>
+  );
 }
 
 // reflect — every option is affirming; tap any (no wrong answer).

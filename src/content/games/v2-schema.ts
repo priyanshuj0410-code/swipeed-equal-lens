@@ -5,7 +5,7 @@
 // researched typed library + config. Reused by Feelings Friends (g01), My Body My Rules (g02), and the rest
 // of the chapter as they retrofit to v2.
 
-export type V2Mechanic = "reflect" | "role-play" | "strike-rewrite" | "branch" | "sort" | "match" | "build" | "explore-label" | "spot";
+export type V2Mechanic = "reflect" | "role-play" | "strike-rewrite" | "branch" | "sort" | "match" | "build" | "explore-label" | "spot" | "swipe";
 
 type Base = { id: string; cat: string; persona: string; source: string; relearn: string; hook: string };
 
@@ -29,9 +29,13 @@ export type ExploreLabelScenario = Base & { type: "explore-label"; parts: string
 // spot — tap the "trick"/red-flag in the `scene` (the item with trick:true is the answer); `why` explains it
 // on resolve. A wrong tap warmly re-asks (no fail). The safety game's signature spot-the-trick verb.
 export type SpotScenario = Base & { type: "spot"; scene: { id: string; text: string; trick: boolean }[]; why: string };
+// swipe — read the `cue` and swipe it the right way: `left`/`right` are the two reading labels (e.g. "Red flag" /
+// "Green flag"), `answer` is the correct side. A wrong swipe warmly re-asks (no fail); `relearn` shows on resolve.
+// The teen flagship's signature green-light / red-light flag-reading verb (Green Light / Red Light, g24).
+export type SwipeScenario = Base & { type: "swipe"; cue: string; left: string; right: string; answer: "left" | "right" };
 
 export type Scenario =
-  | ReflectScenario | RolePlayScenario | StrikeRewriteScenario | BranchScenario | SortScenario | MatchScenario | BuildScenario | ExploreLabelScenario | SpotScenario;
+  | ReflectScenario | RolePlayScenario | StrikeRewriteScenario | BranchScenario | SortScenario | MatchScenario | BuildScenario | ExploreLabelScenario | SpotScenario | SwipeScenario;
 
 // A game's home categories (theme tiles + the sticker book).
 export type GameCategory = { id: string; emoji: string; label: string };
