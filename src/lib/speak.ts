@@ -8,9 +8,28 @@
 //     muted/unavailable it still fires after a length-based fallback, so pacing holds;
 //   • `replay()` re-speaks the last line; `stopSpeaking()` cancels whichever engine is active.
 
-import { kokoroReady, kokoroFailed, kokoroSpeak, kokoroStop, warmKokoro, setKokoroVoice } from "./tts-kokoro";
+import { kokoroReady, kokoroFailed, kokoroSpeak, kokoroStop, warmKokoro, setKokoroVoice, setKokoroSpeed } from "./tts-kokoro";
 
 const LOCALE = "en-IN";
+
+// — Web Speech voice / rate / pitch are tunable from the voice lab (/voice), persisted in localStorage —
+let cachedVoices: SpeechSynthesisVoice[] = [];
+function refreshVoices() { try { cachedVoices = window.speechSynthesis?.getVoices() ?? cachedVoices; } catch { /* ignore */ } }
+if (typeof window !== "undefined" && window.speechSynthesis) {
+  refreshVoices();
+  try { window.speechSynthesis.addEventListener("voiceschanged", refreshVoices); } catch { /* ignore */ }
+}
+function chosenWebVoice(): SpeechSynthesisVoice | null {
+  try {
+    const uri = localStorage.getItem("swipeed.webVoiceURI");
+    if (!uri) return null;
+    if (!cachedVoices.length) refreshVoices();
+    return cachedVoices.find((v) => v.voiceURI === uri) ?? null;
+  } catch { return null; }
+}
+function numPref(key: string, def: number): number {
+  try { const v = parseFloat(localStorage.getItem(key) ?? ""); return Number.isFinite(v) ? v : def; } catch { return def; }
+}
 
 // Remove emoji / pictographs / skin-tone modifiers / ZWJ / regional indicators / variation selectors.
 // Digits (e.g. "1098") are intentionally kept.
@@ -44,6 +63,8 @@ function resolveEngine(): Engine {
     if (engine === "kokoro") {
       const name = localStorage.getItem("swipeed.voiceName");
       if (name) setKokoroVoice(name);
+      const sp = localStorage.getItem("swipeed.kokoroSpeed");
+      if (sp) setKokoroSpeed(parseFloat(sp));
       warmKokoro(); // start the one-time model download now (device voice covers us until it's ready)
     }
   } catch { engine = "web"; }
@@ -86,8 +107,10 @@ function run(text: string, opts: Opts) {
     synth.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = locale;
-    u.rate = 0.95;
-    u.pitch = 1.08;
+    const v = chosenWebVoice();
+    if (v) { u.voice = v; u.lang = v.lang; }
+    u.rate = numPref("swipeed.rate", 0.95);
+    u.pitch = numPref("swipeed.pitch", 1.08);
     u.onend = fire;
     u.onerror = fire;
     window.setTimeout(fire, fallbackMs(text) + 2000); // safety: some browsers don't fire onend reliably
@@ -95,6 +118,13 @@ function run(text: string, opts: Opts) {
   } catch {
     if (onEnd) window.setTimeout(fire, fallbackMs(text));
   }
+}
+
+/** Re-read the persisted voice prefs (called by the voice lab after Save) so a changed engine takes effect
+ * without a full reload. Web voice / rate / pitch are already read fresh on every line. */
+export function applyVoicePrefs() {
+  engineResolved = false;
+  resolveEngine();
 }
 
 export function speak(text: string, opts: Opts = {}) {
