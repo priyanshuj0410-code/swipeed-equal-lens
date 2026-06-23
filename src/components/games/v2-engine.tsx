@@ -106,6 +106,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     if (s.type === "role-play") return `${s.hook} ${s.setup}`;
     if (s.type === "build") return `${s.hook} ${s.prompt}`;
     if (s.type === "explore-label") return `${s.hook} Find ${s.find}.`;
+    if (s.type === "swipe") return `${s.hook} ${s.cue}`; // swipe's cue is the content (the card has no hook card) — speak it
     return s.hook;
   };
   const resolveLine = (s: Scenario): string =>
@@ -251,18 +252,21 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
         {/* ---------- PLAY ---------- */}
         {view === "play" && sc && (
           <>
-            {/* Hook */}
-            <div className="glass-card flex flex-col items-center gap-1.5 rounded-2xl px-5 py-5 text-center backdrop-blur-[12px] backdrop-saturate-150">
-              <span className="text-3xl" aria-hidden>{MECH[sc.type].emoji}</span>
-              <p className="font-display text-base font-bold text-foreground">{sc.hook}</p>
-              {sc.type === "reflect" && <p className="text-sm font-semibold text-foreground/70">{sc.prompt}</p>}
-              {sc.type === "role-play" && <p className="text-sm font-semibold text-foreground/70">{sc.setup}</p>}
-              {sc.type === "build" && <p className="text-sm font-semibold text-foreground/70">{sc.prompt}</p>}
-              {sc.type === "explore-label" && <p className="text-sm font-semibold text-foreground/70">🔬 Find: {sc.find}</p>}
-              {(sc.type === "branch" || sc.type === "sort" || sc.type === "match" || sc.type === "strike-rewrite") && (
-                <p className="text-sm font-semibold text-foreground/70">{MECH[sc.type].verb}</p>
-              )}
-            </div>
+            {/* Hook — skipped for swipe, where the hook is pure instruction (Sam + the bottom hint cover it) and
+                the cue card is the breathable hero. */}
+            {sc.type !== "swipe" && (
+              <div className="glass-card flex flex-col items-center gap-1.5 rounded-2xl px-5 py-5 text-center backdrop-blur-[12px] backdrop-saturate-150">
+                <span className="text-3xl" aria-hidden>{MECH[sc.type].emoji}</span>
+                <p className="font-display text-base font-bold text-foreground">{sc.hook}</p>
+                {sc.type === "reflect" && <p className="text-sm font-semibold text-foreground/70">{sc.prompt}</p>}
+                {sc.type === "role-play" && <p className="text-sm font-semibold text-foreground/70">{sc.setup}</p>}
+                {sc.type === "build" && <p className="text-sm font-semibold text-foreground/70">{sc.prompt}</p>}
+                {sc.type === "explore-label" && <p className="text-sm font-semibold text-foreground/70">🔬 Find: {sc.find}</p>}
+                {(sc.type === "branch" || sc.type === "sort" || sc.type === "match" || sc.type === "strike-rewrite") && (
+                  <p className="text-sm font-semibold text-foreground/70">{MECH[sc.type].verb}</p>
+                )}
+              </div>
+            )}
 
             {phase === "play" && <Play key={sc.id} sc={sc} onSolved={solve} say={say} reduceMotion={reduceMotion} buildLabels={buildLabels} />}
 
@@ -308,26 +312,19 @@ function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; 
   }
 }
 
-// swipe — the teen flagship's signature verb: physically SWIPE the cue card to a side (drag it, or ←/→ keys).
-// NO buttons (the gesture/keys ARE the input). Drag past a forgiving threshold (or flick) commits that side;
-// a short drag springs back (a no-fail "not yet"); a wrong side springs back + a warm nudge. The two edge zones
-// are visual targets only (word + flag emoji, so colour is never the only signal). Keyboard: the card is the
-// focusable control — ArrowLeft = left, ArrowRight = right (the gesture's keyboard equivalent). Reduced motion
-// degrades the fly-off/spring to instant. Valence tint is by label meaning, falling back to side-distinct
-// neutral tints when a label carries no flag/health keyword (never a false green/red).
+// swipe — the teen flagship's signature verb: physically SWIPE the breathable cue card to a side (drag it, or
+// ←/→ keys). NO buttons (the gesture/keys ARE the input). The red/green signal lives IN the swipe: as you drag,
+// the card tints toward that side and an edge badge (word + flag emoji, so colour is never the only signal)
+// fades in — no static side columns eating the width, no redundant instruction card (Sam + the slim hint cover
+// it). Drag past a forgiving threshold (or flick) commits; a short drag springs back (a no-fail "not yet"); a
+// wrong side springs back + a warm nudge. Keyboard: the card is the focusable control — ArrowLeft = left,
+// ArrowRight = right. Reduced motion degrades the fly-off/spring/tint to instant. Valence tint is by label
+// meaning, falling back to side-distinct neutral tints when a label has no flag/health keyword.
 function flagSide(label: string, side: "left" | "right"): { emoji: string; tint: string } {
   const o = label.toLowerCase();
   if (/green|healthy|safe|consent|\byes\b|\bok\b|\btrue\b|kind|respect/.test(o)) return { emoji: "💚", tint: "#62B84B" };
   if (/\bred\b|unhealthy|unsafe|\bno\b|not ok|\bfalse\b|cross|disrespect|pressure/.test(o)) return { emoji: "🚩", tint: "#E05C52" };
   return side === "left" ? { emoji: "👈", tint: "#5B9BD5" } : { emoji: "👉", tint: "#7C5CFC" };
-}
-// a swipe commit-edge: a visual target only (word + flag emoji), brightening as the card is dragged toward it.
-function SwipeZone({ s, label, active }: { s: { emoji: string; tint: string }; label: string; active: boolean }) {
-  return (
-    <div className="flex w-16 shrink-0 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 text-center text-[11px] font-extrabold leading-tight text-white transition-opacity" style={{ background: s.tint, opacity: active ? 1 : 0.4 }} aria-hidden>
-      <span className="text-2xl">{s.emoji}</span>{label}
-    </div>
-  );
 }
 function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "swipe" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -335,7 +332,7 @@ function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
   const [flyTo, setFlyTo] = useState<0 | 1 | -1>(0); // committing fly-off direction
   const [wrong, setWrong] = useState(false);
   const L = flagSide(sc.left, "left"), R = flagSide(sc.right, "right");
-  const threshold = () => Math.max(72, (cardRef.current?.offsetWidth ?? 260) * 0.28);
+  const threshold = () => Math.max(72, (cardRef.current?.offsetWidth ?? 300) * 0.25);
 
   const commit = (side: "left" | "right") => {
     if (side === sc.answer) {
@@ -358,26 +355,37 @@ function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
     if (e.key === "ArrowLeft") { e.preventDefault(); commit("left"); }
     else if (e.key === "ArrowRight") { e.preventDefault(); commit("right"); }
   };
-  const lit = dx < -8 ? "left" : dx > 8 ? "right" : null;
-  const tx = flyTo !== 0 ? flyTo * 640 : dx;
+  const dir = dx < -8 ? "left" : dx > 8 ? "right" : null;
+  const edge = dir === "left" ? L : dir === "right" ? R : null;
+  const tx = flyTo !== 0 ? flyTo * 700 : dx;
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-stretch gap-2">
-        <SwipeZone s={L} label={sc.left} active={lit === "left"} />
-        <div
-          ref={cardRef} tabIndex={0} role="group"
-          aria-roledescription="card you swipe left or right"
-          aria-label={`${sc.cue}. Press Left arrow for ${sc.left}, or Right arrow for ${sc.right}.`}
-          onKeyDown={onKeyDown}
-          {...drag.handlers}
-          className="glass-card flex min-h-28 flex-1 cursor-grab select-none items-center justify-center rounded-3xl px-4 py-6 text-center text-[15px] font-bold text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
-          style={{ transform: `translateX(${tx}px) rotate(${tx * 0.04}deg)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.25s ease-out", touchAction: "pan-y" }}
-        >
-          {sc.cue}
-        </div>
-        <SwipeZone s={R} label={sc.right} active={lit === "right"} />
+      <div
+        ref={cardRef} tabIndex={0} role="group"
+        aria-roledescription="card you swipe left or right"
+        aria-label={`${sc.cue}. Press Left arrow for ${sc.left}, or Right arrow for ${sc.right}.`}
+        onKeyDown={onKeyDown}
+        {...drag.handlers}
+        className="glass-card relative flex min-h-52 w-full cursor-grab select-none items-center justify-center rounded-3xl px-7 py-12 text-center text-[19px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
+        style={{ transform: `translateX(${tx}px) rotate(${tx * 0.035}deg)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.25s ease-out", touchAction: "pan-y", boxShadow: edge ? `inset 0 0 0 3px ${edge.tint}, 0 8px 30px color-mix(in srgb, ${edge.tint} 30%, transparent)` : undefined }}
+      >
+        {/* the chosen-side badge appears only while swiping — the signal lives in the gesture */}
+        {edge && (
+          <span className={`absolute top-3 ${dir === "left" ? "left-3" : "right-3"} flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-extrabold text-white`} style={{ background: edge.tint }} aria-hidden>
+            {dir === "left" ? <>{edge.emoji} {sc.left}</> : <>{sc.right} {edge.emoji}</>}
+          </span>
+        )}
+        {sc.cue}
       </div>
-      <p className="text-center text-xs font-semibold text-foreground/60">{wrong ? "Look again — is that healthy? 💛" : "Swipe the card — or use ← → keys"}</p>
+      {wrong ? (
+        <p className="text-center text-xs font-semibold text-foreground/60">Look again — is that healthy? 💛</p>
+      ) : (
+        <div className="flex items-center justify-between px-1 text-xs font-bold text-foreground/55">
+          <span className="flex items-center gap-1">👈 {sc.left}</span>
+          <span className="text-foreground/40">← → keys</span>
+          <span className="flex items-center gap-1">{sc.right} 👉</span>
+        </div>
+      )}
     </div>
   );
 }
