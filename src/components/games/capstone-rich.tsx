@@ -1,10 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Volume2, VolumeX, RotateCcw, Check, ArrowRight, ChevronUp, Home } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState, Fragment } from "react";
+import { Volume2, VolumeX, RotateCcw, Check, ChevronUp, Home } from "lucide-react";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { Sam } from "@/components/games/sam";
+import { UnReBeat } from "@/components/games/un-re";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import { prefersReducedMotion } from "@/lib/juice";
@@ -135,26 +136,26 @@ function MatchLap({ lap, say, onSolved, reduceMotion }: LapProps<CapMatchLap>) {
   return (
     <div className="flex flex-1 flex-col justify-start gap-2.5">
       <p className="text-center text-xs font-semibold text-foreground/60">{wrong ? "Not a match — try another. 💛" : "draw a line from each card to its match"}</p>
+      {/* one grid with auto-rows:1fr so every cell (left & right) is the SAME height — tidy cords */}
       <div ref={wrap} className="relative">
-        <div className="grid grid-cols-2 gap-2.5">
-          <div className="flex flex-col gap-2">
-            {lap.pairs.map((p) => (
-              <button key={p.left} type="button" data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={matched.includes(p.left)} onClick={() => { setSelLeft(p.left); setWrong(false); }} {...pointer.handlers}
-                className={`glass-card touch-none rounded-2xl px-3 py-3 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !reduceMotion ? "animate-pulse" : ""}`}
-                style={matched.includes(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
-                {matched.includes(p.left) ? `${tokenOf(p.left)} ${p.left}` : p.left}
-              </button>
-            ))}
-          </div>
-          <div className="flex flex-col gap-2">
-            {rights.map((r) => (
-              <button key={r} type="button" ref={(el) => { rightEls.current[r] = el; }} disabled={rightDone(r)} onClick={() => { if (selLeft) connect(selLeft, r); }}
-                className="glass-card rounded-2xl px-3 py-3 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100"
-                style={rightDone(r) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : hover === r ? { boxShadow: "inset 0 0 0 3.5px var(--color-ink)" } : undefined}>
-                {rightDone(r) ? `${rightToken(r)} ${r}` : r}
-              </button>
-            ))}
-          </div>
+        <div className="grid grid-cols-2 gap-2.5" style={{ gridAutoRows: "1fr" }}>
+          {lap.pairs.map((p, i) => {
+            const r = rights[i];
+            return (
+              <Fragment key={i}>
+                <button type="button" data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={matched.includes(p.left)} onClick={() => { setSelLeft(p.left); setWrong(false); }} {...pointer.handlers}
+                  className={`glass-card flex touch-none items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !reduceMotion ? "animate-pulse" : ""}`}
+                  style={matched.includes(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
+                  {matched.includes(p.left) ? `${tokenOf(p.left)} ${p.left}` : p.left}
+                </button>
+                <button type="button" ref={(el) => { rightEls.current[r] = el; }} disabled={rightDone(r)} onClick={() => { if (selLeft) connect(selLeft, r); }}
+                  className="glass-card flex items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100"
+                  style={rightDone(r) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : hover === r ? { boxShadow: "inset 0 0 0 3.5px var(--color-ink)" } : undefined}>
+                  {rightDone(r) ? `${rightToken(r)} ${r}` : r}
+                </button>
+              </Fragment>
+            );
+          })}
         </div>
         <ConnectorOverlay cords={locked} live={live} />
       </div>
@@ -303,19 +304,18 @@ function SpotLap({ lap, say, onSolved }: Omit<LapProps<CapSpotLap>, "reduceMotio
   );
 }
 
-// — Swipe: cheer it on by SWIPING the breathable card UP (drag up, or ↑ key); no buttons —
+// — Swipe: cheer it on by SWIPING the breathable card UP (drag up, or ↑ key); no buttons. On commit the card
+// is replaced by a compact "cheered!" confirmation (it does NOT fly off-screen and leave an empty box). —
 function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [dy, setDy] = useState(0);
-  const [flew, setFlew] = useState(false);
+  const [solved, setSolved] = useState(false);
   const doneRef = useRef(false);
   useEffect(() => { say(`${lap.frame} ${lap.cue}`); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const threshold = () => Math.max(64, (cardRef.current?.offsetHeight ?? 240) * 0.2);
+  const threshold = () => Math.max(56, (cardRef.current?.offsetHeight ?? 220) * 0.18);
   const commit = () => {
-    if (doneRef.current) return; doneRef.current = true; celebrate("big"); say(`${lap.up} ${lap.celebrate}`);
-    if (reduceMotion) { vibrate(12); onSolved(); }
-    else { setFlew(true); setTimeout(() => { vibrate(12); onSolved(); }, 230); }
+    if (doneRef.current) return; doneRef.current = true; setSolved(true); vibrate(12); celebrate("big"); say(`${lap.up} ${lap.celebrate}`); onSolved();
   };
   const drag = usePointerDrag({
     onMove: (s) => setDy(Math.min(0, s.dy)),
@@ -323,14 +323,23 @@ function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
     onTap: () => setDy(0),
   });
   const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "ArrowUp" || e.key === "Enter" || e.key === " ") { e.preventDefault(); commit(); } };
+  if (solved) {
+    return (
+      <div className="flex flex-1 flex-col items-center justify-center">
+        <div className={`${card} flex flex-col items-center gap-2 px-6 py-7 text-center`} style={{ boxShadow: "6px 6px 0 0 #62B84B" }}>
+          <span className="text-5xl" aria-hidden>💚</span>
+          <p className="text-base font-bold text-foreground">{lap.up}</p>
+        </div>
+      </div>
+    );
+  }
   const lifting = dy < -8;
-  const ty = flew ? -700 : dy;
   return (
     <div className="flex flex-1 flex-col gap-3">
       <div ref={cardRef} tabIndex={0} role="group" aria-roledescription="card you swipe up to cheer on"
         aria-label={`${lap.cue}. Press Up arrow to cheer it on.`} onKeyDown={onKeyDown} {...drag.handlers}
         className="glass-card relative flex min-h-72 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[19px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
-        style={{ transform: `translateY(${ty}px)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.25s ease-out", touchAction: "pan-x", boxShadow: lifting ? "0 -6px 0 0 #62B84B" : undefined }}>
+        style={{ transform: `translateY(${dy}px)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.2s ease-out", touchAction: "pan-x", boxShadow: lifting ? "0 -6px 0 0 #62B84B" : undefined }}>
         {lifting && (
           <>
             <div className="pointer-events-none absolute inset-0" style={{ background: "#62B84B", opacity: 0.16 }} aria-hidden />
@@ -390,18 +399,23 @@ function StrikeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapStrikeLap>)
     onMove: (s) => { const p = Math.min(1, s.distance / THRESH); setProgress(p); if (p >= 1) finish(); },
   });
   const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setProgress(1); finish(); } };
+  // Once the myth is rubbed out, the reveal is the SHARED UN/RE card (UN eraser → RE pencil), exactly like the
+  // lesson engine's strike resolve — not plain text.
+  if (solved) {
+    return (
+      <div className="flex flex-1 flex-col">
+        <UnReBeat un={lap.myth.un} re={`${lap.myth.re} ${lap.myth.why}`} fill />
+      </div>
+    );
+  }
   return (
     <div className="flex flex-1 flex-col gap-2.5">
       <div tabIndex={0} role="button" aria-label={`Rub out the myth: ${lap.myth.un}`} onKeyDown={onKeyDown} {...drag.handlers}
         className="glass-card relative flex min-h-48 flex-1 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
-        <p className="text-[19px] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? (solved ? 0.12 : 1) : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{lap.myth.un}</p>
-        {!solved && <span className="pointer-events-none absolute bottom-2 right-3 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>}
+        <p className="text-[19px] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? 1 : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{lap.myth.un}</p>
+        <span className="pointer-events-none absolute bottom-2 right-3 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>
       </div>
-      {solved ? (
-        <p className="text-center text-sm font-semibold" style={{ color: "var(--color-grow)" }}>{lap.myth.re}</p>
-      ) : (
-        <p className="text-center text-xs font-semibold text-foreground/60">Scrub the myth away — or press Enter</p>
-      )}
+      <p className="text-center text-xs font-semibold text-foreground/60">Scrub the myth away — or press Enter</p>
     </div>
   );
 }
@@ -463,8 +477,9 @@ function ReflectView({ reflect, say, onSolved }: { reflect: CapReflect; say: (t:
 }
 
 // — Celebration: certificate + graduation glyph (terminal; its own graduate CTA) —
-function CelebrationView({ config, say, onGraduate }: { config: CapstoneConfig; say: (t: string) => void; onGraduate: () => void }) {
-  useEffect(() => { say(config.celebration.certificate); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
+function CelebrationView({ config, say, onGraduate }: { config: CapstoneConfig; say: (t: string, bubbleText?: string) => void; onGraduate: () => void }) {
+  // speak the full certificate, but keep the bubble short (the certificate is shown in full in its card below).
+  useEffect(() => { say(config.celebration.certificate, "🎓 You did it! Your certificate's ready — stand tall, you've earned it."); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="flex flex-1 flex-col justify-start gap-3">
@@ -500,7 +515,9 @@ export function RichCapstone({ config, onExit }: { config: CapstoneConfig; onExi
   const [bubble, setBubble] = useState(config.arrival);
   const [canNext, setCanNext] = useState(true); // arrival can advance immediately
 
-  const say = useCallback((t: string) => { setBubble(t); speak(t, { muted }); }, [muted]);
+  // say() speaks `t` (and mirrors it to the aria-live bubble). An optional `bubbleText` lets a long spoken line
+  // (e.g. the graduation certificate) show a SHORT bubble while the full text is still spoken + shown in its card.
+  const say = useCallback((t: string, bubbleText?: string) => { setBubble(bubbleText ?? t); speak(t, { muted }); }, [muted]);
   useEffect(() => () => stopSpeaking(), []);
 
   const cur = seq[step];
@@ -539,7 +556,7 @@ export function RichCapstone({ config, onExit }: { config: CapstoneConfig; onExi
       <Sam size={52} />
       <div className="relative min-w-0 flex-1">
         <span className="absolute -left-1 bottom-2.5 size-3 rotate-45 rounded-[3px]" style={{ background: "var(--color-mist)" }} aria-hidden />
-        <span role="status" aria-live="polite" aria-atomic="true" className="relative inline-block max-w-full rounded-2xl rounded-bl-md px-3.5 py-2.5 text-left text-[15px] font-semibold leading-snug" style={{ background: "var(--color-mist)", color: "var(--color-ink)" }}>{bubble}</span>
+        <span role="status" aria-live="polite" aria-atomic="true" className="relative inline-block max-h-[34vh] max-w-full overflow-y-auto rounded-2xl rounded-bl-md px-3.5 py-2.5 text-left text-[15px] font-semibold leading-snug" style={{ background: "var(--color-mist)", color: "var(--color-ink)" }}>{bubble}</span>
       </div>
     </div>
   );
@@ -579,7 +596,7 @@ export function RichCapstone({ config, onExit }: { config: CapstoneConfig; onExi
           <div className="flex flex-col items-stretch gap-1.5">
             {canNext && (
               <button type="button" onClick={next} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
-                {nextLabel} {cur.kind === "arrival" ? null : <ArrowRight className="size-5" aria-hidden />}
+                {nextLabel}
               </button>
             )}
             <p className="text-center text-xs text-foreground/55">{step + 1} / {seq.length}</p>

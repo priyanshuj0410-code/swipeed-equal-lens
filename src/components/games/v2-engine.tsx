@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, Fragment } from "react";
 import { Volume2, VolumeX, Home, RotateCcw, ShieldCheck, Phone } from "lucide-react";
 import { greetWithName } from "@/lib/personalize";
 import { GameShell } from "@/components/game-shell";
@@ -158,7 +158,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
       <Sam size={52} />
       <div className="relative min-w-0 flex-1">
         <span className="absolute -left-1 bottom-2.5 size-3 rotate-45 rounded-[3px]" style={{ background: "var(--color-mist)" }} aria-hidden />
-        <span role="status" aria-live="polite" aria-atomic="true" className="relative inline-block max-w-full rounded-2xl rounded-bl-md px-3.5 py-2.5 text-left text-[15px] font-semibold leading-snug" style={{ background: "var(--color-mist)", color: "var(--color-ink)" }}>{bubble}</span>
+        <span role="status" aria-live="polite" aria-atomic="true" className="relative inline-block max-h-[34vh] max-w-full overflow-y-auto rounded-2xl rounded-bl-md px-3.5 py-2.5 text-left text-[15px] font-semibold leading-snug" style={{ background: "var(--color-mist)", color: "var(--color-ink)" }}>{bubble}</span>
       </div>
     </div>
   );
@@ -587,26 +587,26 @@ function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
   return (
     <div className="flex flex-col gap-2.5">
       {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Not a match — try another. 💛</p>}
+      {/* one grid with auto-rows:1fr so every cell (left & right) is the SAME height — tidy, aligned cords */}
       <div ref={wrap} className="relative">
-        <div className="grid grid-cols-2 gap-2.5">
-          <div className="flex flex-col gap-2">
-            {sc.pairs.map((p) => (
-              <button key={p.left} type="button" data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={matched.includes(p.left)} onClick={() => { setSelLeft(p.left); setWrong(false); }} {...pointer.handlers}
-                className={`glass-card touch-none rounded-2xl px-3 py-3 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !reduceMotion ? "animate-pulse" : ""}`}
-                style={matched.includes(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
-                {matched.includes(p.left) ? `${tokenOf(p.left)} ${p.left}` : p.left}
-              </button>
-            ))}
-          </div>
-          <div className="flex flex-col gap-2">
-            {rights.map((r) => (
-              <button key={r} type="button" ref={(el) => { rightEls.current[r] = el; }} disabled={rightDone(r)} onClick={() => { if (selLeft) connect(selLeft, r); }}
-                className="glass-card rounded-2xl px-3 py-3 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100"
-                style={rightDone(r) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : hover === r ? { boxShadow: "inset 0 0 0 3.5px var(--color-ink)" } : undefined}>
-                {rightDone(r) ? `${rightToken(r)} ${r}` : r}
-              </button>
-            ))}
-          </div>
+        <div className="grid grid-cols-2 gap-2.5" style={{ gridAutoRows: "1fr" }}>
+          {sc.pairs.map((p, i) => {
+            const r = rights[i];
+            return (
+              <Fragment key={i}>
+                <button type="button" data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={matched.includes(p.left)} onClick={() => { setSelLeft(p.left); setWrong(false); }} {...pointer.handlers}
+                  className={`glass-card flex touch-none items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !reduceMotion ? "animate-pulse" : ""}`}
+                  style={matched.includes(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
+                  {matched.includes(p.left) ? `${tokenOf(p.left)} ${p.left}` : p.left}
+                </button>
+                <button type="button" ref={(el) => { rightEls.current[r] = el; }} disabled={rightDone(r)} onClick={() => { if (selLeft) connect(selLeft, r); }}
+                  className="glass-card flex items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100"
+                  style={rightDone(r) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : hover === r ? { boxShadow: "inset 0 0 0 3.5px var(--color-ink)" } : undefined}>
+                  {rightDone(r) ? `${rightToken(r)} ${r}` : r}
+                </button>
+              </Fragment>
+            );
+          })}
         </div>
         <ConnectorOverlay cords={locked} live={live} />
       </div>
