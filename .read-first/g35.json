@@ -1,0 +1,35 @@
+{
+  "node": "g35",
+  "gameId": "justice-league",
+  "label": "Justice League: Rights Edition",
+  "chapter": 5,
+  "attested_at": "2026-06-23T18:48:05+05:30",
+  "notes": "Justice League: Rights Edition: gameId justice-league matches registry (export JusticeLeagueGame). 84 scenarios faithfully mapped from GDD 35 JSON: 6 cats (know-your-rights/know-the-law/get-justice/rights-in-action/educational-not-advice/your-rights-toolkit), 7 types (branch 19/reflect 18/sort 15/match 13/strike-rewrite 12/spot 4/role-play 3), 0% binary. Rights & redress; empowerment through knowledge; EDUCATIONAL NOT legal advice (plain-language law, demystified redress, real authorities + free legal aid, never promises outcomes). India: constitutional rights, POCSO(18), POSH IC, child-marriage law(18/21), DV Act, cyber-law; routes trusted adult/police(Zero FIR)/Internal Committees/Child Welfare Committees/NALSA legal aid 15100/helplines 1098-181-1091-112-1930 (reassureCats get-justice+your-rights-toolkit+educational-not-advice). binStyle: safe-negation guard += 'not a violation'->green (jl-053 'Not a violation' = safe side); NEG += 'violates'->red (jl-008 'Violates them', jl-053 'Likely violation'); regression-clean (tokens g35-only). Categorisation/corrective bins (what-it-means/what-it-isn't/real-route/in-the-toolkit/112-vs-committee) correctly left neutral. Spot ids injected (4).",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 35 — Justice League Rights Edition (reworked v2).pdf",
+      "sha256": "0e6f042d96efe428d3cdae1dfd898453cedc49fecbe65abd1b34cc1212c540ff",
+      "bytes": 65727
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 5 User Personas.pdf",
+      "sha256": "0aa28ddba75fd7ae198bc3ae24e7e01b1ef87b3e16c986e842dcd0c249fbfd45",
+      "bytes": 74728
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 35 Justice League — Scenario Library.json",
+      "sha256": "dbb3aad6348836c11f9c8c6fbd872e6d83ed8c841682e1ad254d32cf6ce463f3",
+      "bytes": 65227
+    }
+  }
+}
