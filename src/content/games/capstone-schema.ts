@@ -62,5 +62,9 @@ export const GLYPH_EMOJI: Record<string, string> = {
   "body-confident": "🪞", "bounce-spark": "✨", "plan-it": "📅", "outbreak-shield": "🛡️",
   "green-red-light": "🚦", "mythbuster": "🧪", "equalize": "⚖️", "stand-up": "🦸",
   "firewall": "🔒", "rabbit-hole": "🕳️", "reality-check": "🔍", "reading-relationships-star": "🌠",
+  // Chapter 5 (c5 — Ready for the World; the close of the whole 4–18 journey)
+  "choice-compass": "🧭", "status-strength": "🩺", "mutual-hearts": "💞", "spectrum-prism": "🌈",
+  "lead-torch": "🔦", "change-spark": "⚡", "rights-shield": "🛡️", "life-toolkit": "🧰",
+  "decoder-lens": "🔍", "ready-for-the-world-star": "🌅",
 };
 export const glyphEmoji = (g: string): string => GLYPH_EMOJI[g] ?? "⭐";
