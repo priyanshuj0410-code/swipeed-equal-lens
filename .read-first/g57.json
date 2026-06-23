@@ -1,0 +1,35 @@
+{
+  "node": "g57",
+  "gameId": "family-map",
+  "label": "The Family Map",
+  "chapter": 7,
+  "attested_at": "2026-06-24T01:13:43+05:30",
+  "notes": "",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 57 — The Family Map (reworked v2).pdf",
+      "sha256": "6ce2b20d739df85d78dcb42619f8fd42aabc270ea937cb0aeb0b7a49162b3f2f",
+      "bytes": 66325
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 7 User Personas.pdf",
+      "sha256": "991b57b1073424815868baee6c8bf0c1f062510ef2d1ba02d470a0c5fd8d9fd9",
+      "bytes": 82783
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 57 The Family Map — Scenario Library.json",
+      "sha256": "0e7b0094c7444400daafcbc216e2c61b5ec039dda72233d8bcecc264ba4de6b0",
+      "bytes": 72045
+    }
+  }
+}
