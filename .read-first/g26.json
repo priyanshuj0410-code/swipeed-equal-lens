@@ -1,0 +1,35 @@
+{
+  "node": "g26",
+  "gameId": "equalize",
+  "label": "Equalize",
+  "chapter": 4,
+  "attested_at": "2026-06-23T16:49:51+05:30",
+  "notes": "Read GDD 26 library in full (84 scenarios: belief-vs-practice/unpaid-load/pay-and-power/pays-off/child-marriage/rebalance-it), incl. all child-marriage scenarios verbatim — rights-based, non-graphic, legally accurate (illegal/18 in India), never-blame-the-target, evenhanded (harms boys too), routes at-risk to trusted adult/Childline 1098. gameId 'equalize' matches registry (no trap). build modes assemble+sequence (keys==pieces, no distractors) -> buildLabels set. No spots. binStyle: existing regexes handle valenced pairs (fair/unfair, fact/myth, anyone/one-gender, helps-men); the rest are acceptable neutral two-category distinctions (belief/practice, work/rest) — emulated all 15 bins, no mis-color, no engine change. reassureCats=['child-marriage'] + reassure + Childline helpLine.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 26 — Equalize (reworked v2).pdf",
+      "sha256": "7e22b58d1603278be7f03e6ac515a78b5734b554ef72c593e902ac9529990c12",
+      "bytes": 62405
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 4 User Personas.pdf",
+      "sha256": "d86c9016bf58be6ef0771e9fcd923c987043e4286038da4cdeffb424de927c4d",
+      "bytes": 76452
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 26 Equalize — Scenario Library.json",
+      "sha256": "e85e962feda990ca95697ba8b730e3fb2f350d57a2cc8828ae29f7863f1a68db",
+      "bytes": 43375
+    }
+  }
+}
