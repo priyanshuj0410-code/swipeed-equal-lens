@@ -1,0 +1,35 @@
+{
+  "node": "g49",
+  "gameId": "mind-belonging",
+  "label": "Mind & Belonging",
+  "chapter": 6,
+  "attested_at": "2026-06-23T19:47:57+05:30",
+  "notes": "Mind & Belonging: gameId mind-belonging matches registry (export MindBelongingGame). Reworks ModesEngine build onto v2 engine. 84 scenarios faithfully mapped from GDD 49 JSON: 6 cats (settling-in/find-your-people/cope-well/mind-and-self-worth/reach-out/tools-and-help), 7 types (branch 19/strike-rewrite 15/sort 14/reflect 12/role-play 10/spot 7/match 7), 0% binary. College mental health/loneliness/leaving home/body image/help-seeking. 5 modes: settling in (homesickness normalised), find your people, cope well (HEALTHY coping ONLY, body image), reach out (help=strength), tools & crisis routing. HIGH-CARE: distress met with warmth + immediate help route never assessment Qs; healthy coping only (no pain/restriction/shock/self-harm reinforcement); anti-stigma, NOT therapy; serious distress->professionals. India: hostel isolation, academic pressure, stigma esp young men; Tele-MANAS 14416 primary/KIRAN 1800-599-0019/campus counsellors (reassureCats settling-in+cope-well+mind-and-self-worth+reach-out). binStyle: NO change needed (no mis-colors; 'Deepens' is good in mb-083 but bad in mb-008 so deliberately did NOT add a generic deepens token; both-neutral bins are legit when-to-escalate judgment calls). Spot ids injected (7). Builds on g39; continues g42; pairs g48/g52.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 49 — Mind and Belonging (reworked v2).pdf",
+      "sha256": "625f4563fa6a525edd172fe1cd9fd016108c6f7b994891b4294e9fbe3b4c09e3",
+      "bytes": 65376
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 6 User Personas.pdf",
+      "sha256": "352e9362b69c5b5c5df7565066cbff0bf697a54efe848d6777390e2626065f38",
+      "bytes": 80363
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 49 Mind and Belonging — Scenario Library.json",
+      "sha256": "f94d2791e4825e27a07731354e27f6d3546b164480362a9dd8bc637c13ba10ec",
+      "bytes": 66502
+    }
+  }
+}
