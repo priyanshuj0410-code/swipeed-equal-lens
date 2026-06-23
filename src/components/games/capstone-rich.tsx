@@ -326,25 +326,26 @@ function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
   const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "ArrowUp" || e.key === "Enter" || e.key === " ") { e.preventDefault(); commit(); } };
   if (solved) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center">
-        <div className={`${card} flex flex-col items-center gap-2 px-6 py-7 text-center`} style={{ boxShadow: "6px 6px 0 0 #62B84B" }}>
-          <span className="text-5xl" aria-hidden>💚</span>
-          <p className="text-base font-bold text-foreground">{lap.up}</p>
+      <div className="flex flex-1 flex-col">
+        <div className={`${card} flex min-h-72 w-full flex-1 flex-col items-center justify-center gap-3 rounded-3xl px-6 py-12 text-center`} style={{ boxShadow: "6px 6px 0 0 #62B84B" }}>
+          <span className="text-6xl" aria-hidden>💚</span>
+          <p className="text-lg font-bold text-foreground">{lap.up}</p>
         </div>
       </div>
     );
   }
   const lifting = dy < -8;
+  // Full-height breathable card (it just nudges up a touch and commits — the clamp/threshold keep it robust).
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-3">
+    <div className="flex flex-1 flex-col gap-3">
       <div tabIndex={0} role="group" aria-roledescription="card you swipe up to cheer on"
         aria-label={`${lap.cue}. Press Up arrow to cheer it on.`} onKeyDown={onKeyDown} {...drag.handlers}
-        className="glass-card relative flex min-h-56 w-full max-h-[22rem] flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-10 text-center text-[18px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
+        className="glass-card relative flex min-h-72 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[19px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
         style={{ transform: `translateY(${dy}px)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.2s ease-out", touchAction: "pan-x", boxShadow: lifting ? "0 -6px 0 0 #62B84B" : undefined }}>
         {lifting && (
           <>
             <div className="pointer-events-none absolute inset-0" style={{ background: "#62B84B", opacity: 0.16 }} aria-hidden />
-            <span className="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 text-6xl" style={{ opacity: 0.2 }} aria-hidden>💚</span>
+            <span className="pointer-events-none absolute left-1/2 top-4 -translate-x-1/2 text-7xl" style={{ opacity: 0.2 }} aria-hidden>💚</span>
             <span className="absolute left-1/2 top-3 flex -translate-x-1/2 items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-extrabold text-white shadow-md" style={{ background: "#62B84B" }} aria-hidden><ChevronUp className="size-4" /> {lap.up}</span>
           </>
         )}
