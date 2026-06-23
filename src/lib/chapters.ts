@@ -30,39 +30,46 @@ export const CHAPTERS: { ch: number; ages: string; persona: string; emoji: strin
 
 export type VoiceCfg = {
   engine: "web" | "kokoro";
-  webVoiceURI?: string;
+  webVoiceURI?: string;       // a SPECIFIC device voice (set in the lab) — only resolves where that voice exists
+  webVoicePrefer?: string[];  // PORTABLE preference: pick the first available voice whose name/lang matches one of these
   rate?: number;
   pitch?: number;
   kokoroVoice?: string;
   kokoroSpeed?: number;
 };
 
-export const VOICES_KEY = "swipeed.voices"; // localStorage JSON: { "1": VoiceCfg, …, "8": VoiceCfg, "default": VoiceCfg }
+export const VOICES_KEY = "swipeed.voices"; // localStorage JSON: per-device OVERRIDES of BUILTIN { "1"…"8" | "default": VoiceCfg }
 
+// — APP-WIDE DEFAULTS (shipped in code → every user/device gets these unless they override in /voice) —
+// Device voices differ per device, so the default expresses a PORTABLE preference (best Indian/UK/US English
+// voice available on that device) plus age-tuned rate/pitch, rather than one fixed voice that wouldn't exist
+// everywhere. For a single identical voice on every device, switch a chapter's engine to "kokoro" here (costs
+// the one-time model download) or move to pre-generated clips.
+const PREFER = ["en-IN", "india", "rishi", "veena", "heera", "en-GB", "google uk english female", "serena", "daniel", "en-US", "google us english", "samantha"];
+const web = (rate: number, pitch: number): VoiceCfg => ({ engine: "web", rate, pitch, webVoicePrefer: PREFER, kokoroVoice: "af_heart", kokoroSpeed: 1 });
+export const BUILTIN: Record<string, VoiceCfg> = {
+  default: web(0.97, 1.05),
+  "1": web(0.9, 1.15),  // littlest learners — slower, brighter
+  "2": web(0.92, 1.12),
+  "3": web(0.95, 1.08),
+  "4": web(0.97, 1.06),
+  "5": web(1.0, 1.04),
+  "6": web(1.0, 1.02),  // college / young adult — natural
+  "7": web(1.0, 1.0),
+  "8": web(1.0, 1.0),
+};
+
+/** The user's per-device OVERRIDES from /voice (empty if they've never saved on this device). */
 export function readVoiceMap(): Record<string, VoiceCfg> {
   try {
     const raw = localStorage.getItem(VOICES_KEY);
     if (raw) return JSON.parse(raw) as Record<string, VoiceCfg>;
   } catch { /* ignore */ }
-  // legacy: a single global voice saved before per-chapter existed → use it as the default.
-  try {
-    const legacy: VoiceCfg = {
-      engine: localStorage.getItem("swipeed.voice") === "kokoro" ? "kokoro" : "web",
-      webVoiceURI: localStorage.getItem("swipeed.webVoiceURI") || undefined,
-      rate: numOr(localStorage.getItem("swipeed.rate")),
-      pitch: numOr(localStorage.getItem("swipeed.pitch")),
-      kokoroVoice: localStorage.getItem("swipeed.voiceName") || undefined,
-      kokoroSpeed: numOr(localStorage.getItem("swipeed.kokoroSpeed")),
-    };
-    return { default: legacy };
-  } catch { return {}; }
+  return {};
 }
 
+/** The effective config for a chapter: a saved per-device override wins, else the app-wide BUILTIN default. */
 export function cfgForChapter(map: Record<string, VoiceCfg>, ch: number | null): VoiceCfg {
-  return (ch != null && map[String(ch)]) || map.default || { engine: "web" };
-}
-
-function numOr(v: string | null): number | undefined {
-  const n = parseFloat(v ?? "");
-  return Number.isFinite(n) ? n : undefined;
+  const k = ch != null ? String(ch) : "default";
+  return map[k] || map.default || BUILTIN[k] || BUILTIN.default;
 }
