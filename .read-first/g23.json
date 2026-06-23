@@ -1,0 +1,35 @@
+{
+  "node": "g23",
+  "gameId": "outbreak",
+  "label": "Outbreak: Stop the Spread",
+  "chapter": 4,
+  "attested_at": "2026-06-23T12:09:21+05:30",
+  "notes": "Read GDD 23 library in full (84 scenarios: how-stis-spread/silent-part/stop-the-spread/test-and-treat/bust-myths/end-stigma), incl. all end-stigma + silent-part + test-and-treat verbatim; gameId trap: library 'outbreak-stop-the-spread' vs registry 'outbreak' -> config uses 'outbreak'. Anti-stigma like g20: ALL transmission-fact bins (can spread STIs/does not, real route/safe everyday, worth-protecting/no-risk, real-tool/not, spreads-it) stay NEUTRAL; valenced only myth/false, reliable, and stigma-behavior (reduces/spreads stigma, kind/stigmatising); emulated all 16 g23 bins + g20 regression (all transmission bins still neutral). Non-explicit; clinic/doctor routing; HPV vaccine India fact. GATED at path layer.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 23 — Outbreak Stop the Spread (reworked v2).pdf",
+      "sha256": "6e285f56f1ba9ae4ea738ac70da45246fea9a100e2a6d5d72e8dd506cefe270d",
+      "bytes": 63621
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 4 User Personas.pdf",
+      "sha256": "d86c9016bf58be6ef0771e9fcd923c987043e4286038da4cdeffb424de927c4d",
+      "bytes": 76452
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 23 Outbreak Stop the Spread — Scenario Library.json",
+      "sha256": "1329b524db179833d6c20e06f8547599a45f5eb4fd37c1104d083d2b504c0bd6",
+      "bytes": 42779
+    }
+  }
+}
