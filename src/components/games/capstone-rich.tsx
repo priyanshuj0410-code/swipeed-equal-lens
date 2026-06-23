@@ -304,22 +304,23 @@ function SpotLap({ lap, say, onSolved }: Omit<LapProps<CapSpotLap>, "reduceMotio
   );
 }
 
-// — Swipe: cheer it on by SWIPING the breathable card UP (drag up, or ↑ key); no buttons. On commit the card
-// is replaced by a compact "cheered!" confirmation (it does NOT fly off-screen and leave an empty box). —
+// — Swipe: cheer it on by nudging the card UP (drag up, or ↑ key); no buttons. ROBUST: it commits the moment
+// the drag passes a small fixed threshold (during the move — so a release can never leave it half-done), the
+// travel is clamped so the card can't fly off-screen, and on commit the card is replaced by a compact
+// "cheered!" confirmation (never a stuck empty box). The card is height-capped so it's a sane target on desktop.
 function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
-  const cardRef = useRef<HTMLDivElement>(null);
   const [dy, setDy] = useState(0);
   const [solved, setSolved] = useState(false);
   const doneRef = useRef(false);
   useEffect(() => { say(`${lap.frame} ${lap.cue}`); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const threshold = () => Math.max(56, (cardRef.current?.offsetHeight ?? 220) * 0.18);
+  const THRESH = 56; // px up — small & fixed (not a fraction of a tall card)
   const commit = () => {
-    if (doneRef.current) return; doneRef.current = true; setSolved(true); vibrate(12); celebrate("big"); say(`${lap.up} ${lap.celebrate}`); onSolved();
+    if (doneRef.current) return; doneRef.current = true; setSolved(true); setDy(0); vibrate(12); celebrate("big"); say(`${lap.up} ${lap.celebrate}`); onSolved();
   };
   const drag = usePointerDrag({
-    onMove: (s) => setDy(Math.min(0, s.dy)),
-    onEnd: (s) => { if (s.dy < -threshold() || s.vy < -0.5) commit(); else setDy(0); },
+    onMove: (s) => { setDy(Math.max(-110, Math.min(0, s.dy))); if (s.dy < -THRESH || s.vy < -0.55) commit(); }, // commit DURING the drag
+    onEnd: () => { if (!doneRef.current) setDy(0); }, // didn't reach it → spring back
     onTap: () => setDy(0),
   });
   const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "ArrowUp" || e.key === "Enter" || e.key === " ") { e.preventDefault(); commit(); } };
@@ -335,15 +336,15 @@ function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
   }
   const lifting = dy < -8;
   return (
-    <div className="flex flex-1 flex-col gap-3">
-      <div ref={cardRef} tabIndex={0} role="group" aria-roledescription="card you swipe up to cheer on"
+    <div className="flex flex-1 flex-col items-center justify-center gap-3">
+      <div tabIndex={0} role="group" aria-roledescription="card you swipe up to cheer on"
         aria-label={`${lap.cue}. Press Up arrow to cheer it on.`} onKeyDown={onKeyDown} {...drag.handlers}
-        className="glass-card relative flex min-h-72 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[19px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
+        className="glass-card relative flex min-h-56 w-full max-h-[22rem] flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-10 text-center text-[18px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
         style={{ transform: `translateY(${dy}px)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.2s ease-out", touchAction: "pan-x", boxShadow: lifting ? "0 -6px 0 0 #62B84B" : undefined }}>
         {lifting && (
           <>
             <div className="pointer-events-none absolute inset-0" style={{ background: "#62B84B", opacity: 0.16 }} aria-hidden />
-            <span className="pointer-events-none absolute left-1/2 top-4 -translate-x-1/2 text-7xl" style={{ opacity: 0.2 }} aria-hidden>💚</span>
+            <span className="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 text-6xl" style={{ opacity: 0.2 }} aria-hidden>💚</span>
             <span className="absolute left-1/2 top-3 flex -translate-x-1/2 items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-extrabold text-white shadow-md" style={{ background: "#62B84B" }} aria-hidden><ChevronUp className="size-4" /> {lap.up}</span>
           </>
         )}
