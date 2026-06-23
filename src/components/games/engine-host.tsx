@@ -1,9 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, type ComponentType } from "react";
-import { setNarrationChapter } from "@/lib/speak";
-import { chapterOf } from "@/lib/chapters";
+import type { ComponentType } from "react";
 
 // Registry of non-swipe "engine" games. Each is a pure-DOM overlay (the grassland behind
 // it comes from the path or the /game route), takes an `onExit`, and is code-split.
@@ -191,13 +189,8 @@ export function hasEngineGame(id: string): boolean {
   return id in GAMES;
 }
 
-/** Renders the engine game for `id` in place, or nothing if there's no such game. Also tells the narration
- * engine which chapter is playing, so Lensy speaks in that chapter's configured voice. */
+/** Renders the engine game for `id` in place, or nothing if there's no such game. */
 export function EngineGameHost({ id, onExit }: { id: string; onExit: () => void }) {
-  useEffect(() => {
-    setNarrationChapter(chapterOf(id));
-    return () => setNarrationChapter(null);
-  }, [id]);
   const Game = GAMES[id];
   if (!Game) return null;
   return <Game onExit={onExit} />;
