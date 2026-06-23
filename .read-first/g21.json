@@ -1,0 +1,35 @@
+{
+  "node": "g21",
+  "gameId": "body-confident",
+  "label": "Body Confident",
+  "chapter": 4,
+  "attested_at": "2026-06-23T11:48:21+05:30",
+  "notes": "Read GDD 21 library in full (84 scenarios: changing-body/real-vs-filtered/worth-not-looks/beauty-myths/care-not-fix/when-heavy), incl. all when-heavy distress-routing + care-not-fix + colourism/skin-tone scenarios verbatim; gameId 'body-confident' matches registry (no trap); wellbeing-safe (no diet/ideal-body framing; disordered-eating signs route to trusted adult/counsellor/doctor + Childline 1098). binStyle: real/filtered + reach-out/off-day stay neutral; valenced care/fix, kind/pressuring, trusted/not-reliable, healthy/harmful; emulated all 13 sort bins + repo-wide regression check clean.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 21 — Body Confident (reworked v2).pdf",
+      "sha256": "59681553c15772d358b1eed9b3b3d8cf5b32618e926a2b415faf5962c647b2e7",
+      "bytes": 63130
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 4 User Personas.pdf",
+      "sha256": "d86c9016bf58be6ef0771e9fcd923c987043e4286038da4cdeffb424de927c4d",
+      "bytes": 76452
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 21 Body Confident — Scenario Library.json",
+      "sha256": "bde627bd0b64252a9d119475c970230d3622e669461ed7935c5819c142baf0e7",
+      "bytes": 42238
+    }
+  }
+}
