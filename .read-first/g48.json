@@ -1,0 +1,35 @@
+{
+  "node": "g48",
+  "gameId": "money-independence",
+  "label": "Money & Independence",
+  "chapter": 6,
+  "attested_at": "2026-06-23T19:44:28+05:30",
+  "notes": "Money & Independence: gameId money-independence matches registry (export MoneyIndependenceGame). Reworks ModesEngine build onto v2 engine. 84 scenarios faithfully mapped from GDD 48 JSON: 6 cats (budget-it/save-and-traps/earn-and-ask/money-and-love/money-is-freedom/tools-and-help), 7 types (branch 20/sort 16/strike-rewrite 15/reflect 12/match 8/role-play 8/spot 5), 0% binary. Money = independence/safety/choices: budget it (light sim), save & avoid traps (debt/EMIs/BNPL/scams), earn & ask (payslips/pay gap/negotiating), money & love (fair money; FINANCIAL CONTROL as abuse under DV Act -> 181/1091), money is freedom. EDUCATIONAL not financial advice; no products promoted; no real data collected. India: UPI/EMIs/payslips/pay gap (reassureCats money-and-love+money-is-freedom). binStyle: added \\btrap\\b->red (covers Debt trap/Trap; all 'trap' labels are bad-side incl firewall/life-ready 'A trap') + sensible->green (g48-only); categorisation bins (Need/Want, Fixed/Flexible, Raises it/Doesn't, Toward freedom/Away, Normal/Control, Protects/Erodes) left neutral by design. Spot ids injected (5). Builds on g42; pairs g49/g52; continues into g58.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 48 — Money and Independence (reworked v2).pdf",
+      "sha256": "21e2f2d2acb5a5a3cecb8901bd40783cdbc0fccde2302081ffe9e911327e9c01",
+      "bytes": 64431
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 6 User Personas.pdf",
+      "sha256": "352e9362b69c5b5c5df7565066cbff0bf697a54efe848d6777390e2626065f38",
+      "bytes": 80363
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 48 Money and Independence — Scenario Library.json",
+      "sha256": "a79a1180f24858004b50d6cfe7d0062ea19f08df8bac104069e6877cfec59772",
+      "bytes": 65101
+    }
+  }
+}
