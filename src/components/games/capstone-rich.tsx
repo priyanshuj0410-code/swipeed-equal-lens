@@ -9,7 +9,7 @@ import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import {
   type CapstoneConfig, type CapLap, type CapRecap, type CapReflect,
-  type CapMatchLap, type CapSortLap, type CapBuildLap, type CapSpotLap, type CapSwipeLap, type CapGalleryLap, type CapBranchLap,
+  type CapMatchLap, type CapSortLap, type CapBuildLap, type CapSpotLap, type CapSwipeLap, type CapGalleryLap, type CapBranchLap, type CapStrikeLap,
   glyphEmoji,
 } from "@/content/games/capstone-schema";
 
@@ -251,6 +251,27 @@ function BranchLap({ lap, say, onNext }: { lap: CapBranchLap; say: (t: string) =
   );
 }
 
+// — Strike-rewrite: rub out a myth you can now bust in your sleep, then see the truth (no-fail) —
+function StrikeLap({ lap, say, onNext }: { lap: CapStrikeLap; say: (t: string) => void; onNext: () => void }) {
+  const [solved, setSolved] = useState(false);
+  useEffect(() => { say(`${lap.frame} ${lap.myth.un}`); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const bust = () => { setSolved(true); celebrate("big"); say(`${lap.myth.re} ${lap.myth.why} ${lap.celebrate}`); };
+  return (
+    <>
+      <div className={`${card} flex flex-col items-center gap-2 px-5 py-6 text-center`}>
+        <p className={`font-display text-base font-bold ${solved ? "text-foreground/40 line-through" : "text-foreground"}`}>{lap.myth.un}</p>
+        {solved && <p className="text-sm font-semibold" style={{ color: "var(--color-grow)" }}>{lap.myth.re}</p>}
+      </div>
+      {solved ? <NextBtn onClick={onNext} /> : (
+        <button type="button" onClick={bust} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-bold text-slate-900 transition-transform active:scale-95">
+          <span aria-hidden>✏️</span> Rub out the myth
+        </button>
+      )}
+    </>
+  );
+}
+
 function LapView({ lap, recap, say, onNext }: { lap: CapLap; recap: CapRecap[]; say: (t: string) => void; onNext: () => void }) {
   switch (lap.type) {
     case "gallery": return <GalleryLap lap={lap} recap={recap} say={say} onNext={onNext} />;
@@ -260,6 +281,7 @@ function LapView({ lap, recap, say, onNext }: { lap: CapLap; recap: CapRecap[]; 
     case "spot": return <SpotLap lap={lap} say={say} onNext={onNext} />;
     case "swipe": return <SwipeLap lap={lap} say={say} onNext={onNext} />;
     case "branch": return <BranchLap lap={lap} say={say} onNext={onNext} />;
+    case "strike-rewrite": return <StrikeLap lap={lap} say={say} onNext={onNext} />;
   }
 }
 
