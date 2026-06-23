@@ -40,6 +40,7 @@ GAME = {
     "g61": "us-after-kids", "g62": "equal-parents", "g63": "looking-after-you", "g64": "the-talks",
     "g65": "break-the-cycle", "g66": "raising-gender-diverse-kids", "g67": "raising-neurodiverse-kids",
     "g68": "navigating-addictions", "g69": "be-the-safe-adult",
+    "c8": "capstone-8",
 }
 
 def href_for(game):
