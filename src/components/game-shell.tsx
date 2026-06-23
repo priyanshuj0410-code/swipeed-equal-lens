@@ -15,12 +15,16 @@ export function GameShell({
   tools,
   onExit,
   children,
+  align = "center",
 }: {
   title: string;
   progress?: { current: number; total: number };
   tools?: React.ReactNode;
   onExit: () => void;
   children: React.ReactNode;
+  // "center" (default) vertically centres the content; "fill" stretches it to full height so the child can
+  // pin its own top/bottom rows (used by the v2 engine to stop content "dancing" between beats).
+  align?: "center" | "fill";
 }) {
   // collapse the global Get Help button to its icon while a game is on screen
   useEffect(() => {
@@ -56,7 +60,7 @@ export function GameShell({
           (e.g. Flag-pedia) scrolls from the top instead of being clipped. An opaque app-bg layer hides the
           path/scene behind it while a game is on, so the game is the calm focus (not floating over the curve). */}
       <div className="fixed inset-0 z-40 overflow-y-auto" style={{ backgroundColor: "var(--color-paper)", backgroundImage: "var(--app-bg)" }}>
-        <div className="flex min-h-full items-center justify-center px-4 pb-24 pt-20">
+        <div className={`flex min-h-full justify-center px-4 pt-20 ${align === "fill" ? "items-stretch pb-5" : "items-center pb-24"}`}>
           {children}
         </div>
       </div>
