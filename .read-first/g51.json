@@ -1,0 +1,35 @@
+{
+  "node": "g51",
+  "gameId": "know-your-rights",
+  "label": "Know Your Rights (Adult)",
+  "chapter": 6,
+  "attested_at": "2026-06-23T20:14:04+05:30",
+  "notes": "Know Your Rights (Adult): gameId know-your-rights matches registry (export KnowYourRightsGame). Reworks ModesEngine build onto v2 engine. 84 scenarios faithfully mapped from GDD 51 JSON: 6 cats (rights-at-work/harassment-and-posh/renting-and-consumer/cyber-and-data/claim-it/tools-and-help), 7 types (branch 18/strike-rewrite 16/sort 13/reflect 12/match 10/role-play 8/spot 7), 0% binary. CLOSES Ch.6 by turning Justice League (g35) rights work into adult arenas: rights at work (labour/contracts/pay/interns), harassment & POSH (Internal Committee), renting & consumer, cyber & data, claim it (UN&RE redress & free legal aid), tools/help. EDUCATIONAL NOT legal advice; all law content flagged for expert review/localisation/currency. India: POSH Act 2013 & ICs (10+ employees, 3-month window, interns covered), Consumer Protection Act 2019, DPDP, NALSA legal aid 15100, police/FIR Zero FIR; helplines 181/1091/112/1930/1098 (reassureCats harassment-and-posh+claim-it+cyber-and-data). binStyle: added exploitation/dead end/hinders->red (all g51-only, clearly bad-side; improved kr-042/057/063). Spot ids injected (7). Builds on g35; pairs g50; precedes c6.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 51 — Know Your Rights (reworked v2).pdf",
+      "sha256": "ba8c111d73551ff76834ad461dc73eb851fdc33804bc08ffd5d8783c6d754c53",
+      "bytes": 66031
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 6 User Personas.pdf",
+      "sha256": "352e9362b69c5b5c5df7565066cbff0bf697a54efe848d6777390e2626065f38",
+      "bytes": 80363
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 51 Know Your Rights — Scenario Library.json",
+      "sha256": "9e8900a8d2704bf829a2693b5842732869fc4339f72bdfb0b3626a89c8cc817e",
+      "bytes": 66949
+    }
+  }
+}
