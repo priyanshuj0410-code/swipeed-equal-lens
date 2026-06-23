@@ -1,0 +1,35 @@
+{
+  "node": "g66",
+  "gameId": "raising-gender-diverse-kids",
+  "label": "Raising Gender-Diverse Kids",
+  "chapter": 8,
+  "attested_at": "2026-06-24T03:05:36+05:30",
+  "notes": "",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 66 — Raising Gender-Diverse Kids (reworked v2).pdf",
+      "sha256": "5cc25a72b82f86e8b1df4163b81e08fd6a7adf2520ce8887b59852bf2dd52424",
+      "bytes": 66470
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 8 User Personas.pdf",
+      "sha256": "5227e2572165a8d91b62d205472e5ac2da433312b8ac47bcbb59826cbccb844b",
+      "bytes": 78557
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 66 Raising Gender-Diverse Kids — Scenario Library.json",
+      "sha256": "00b040440068a46fd8a3c2f92827c03a56ed3d8a53dd7de46534251f4aea9e63",
+      "bytes": 73755
+    }
+  }
+}
