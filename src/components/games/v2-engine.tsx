@@ -215,7 +215,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
           {view === "play" && sc && phase === "resolve" && (
             <>
               {sc.type === "strike-rewrite" ? (
-                <UnReBeat un={sc.myth.un} re={`${sc.myth.re} ${sc.myth.why}`} />
+                <UnReBeat un={sc.myth.un} re={`${sc.myth.re} ${sc.myth.why}`} fill />
               ) : (
                 <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold leading-relaxed backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {resolveLine(sc)}</div>
               )}
@@ -399,9 +399,9 @@ function StrikePlay({ sc, onSolved, reduceMotion }: { sc: Extract<Scenario, { ty
   });
   const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setProgress(1); finish(); } };
   return (
-    <div className="flex flex-col gap-2.5">
+    <div className="flex flex-1 flex-col gap-2.5">
       <div tabIndex={0} role="button" aria-label={`Rub out the myth: ${sc.myth.un}`} onKeyDown={onKeyDown} {...drag.handlers}
-        className="glass-card relative flex min-h-56 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
+        className="glass-card relative flex min-h-48 flex-1 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
         <p className="text-[19px] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? (progress >= 1 ? 0.12 : 1) : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{sc.myth.un}</p>
         <span className="pointer-events-none absolute bottom-2 right-3 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>
       </div>

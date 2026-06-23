@@ -2197,11 +2197,14 @@ export function PathScene({
       pts.forEach((y) => (s += y));
       return s / pts.size;
     };
+    // freeze path travel while a full-screen overlay (the Toolkit / a tool / breathing) is open
+    const overlayOpen = () => document.documentElement.dataset.overlay === "1";
     const onWheel = (e: WheelEvent) => {
-      if (playingRef.current) return; // a wheel (incl. a trackpad two-finger swipe) ALWAYS travels — even
-      progress.current = clamp01(progress.current - e.deltaY * 0.0008); // while a draw tool is active
+      if (playingRef.current || overlayOpen()) return; // a wheel (incl. a trackpad two-finger swipe) travels
+      progress.current = clamp01(progress.current - e.deltaY * 0.0008); // even while a draw tool is active
     };
     const onDown = (e: PointerEvent) => {
+      if (overlayOpen()) return;
       pts.set(e.pointerId, e.clientY);
       if (pts.size >= 2) {
         lastAvgY = avgY(); // entering two-finger: re-anchor scroll, abandon any single-finger drag
@@ -2212,6 +2215,7 @@ export function PathScene({
       lastSingleY = playingRef.current || unlearnTool.get().tool !== "none" ? null : e.clientY;
     };
     const onMove = (e: PointerEvent) => {
+      if (overlayOpen()) return;
       if (!pts.has(e.pointerId)) return;
       pts.set(e.pointerId, e.clientY);
       // TWO-FINGER SCROLL — works in every mode (Browse AND while a draw tool is active): drawing never

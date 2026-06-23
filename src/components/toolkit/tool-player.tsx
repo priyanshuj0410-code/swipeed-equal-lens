@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X, Volume2, VolumeX, Phone, ExternalLink, Wind } from "lucide-react";
+import { X, Volume2, VolumeX, Wind } from "lucide-react";
 import { Sam } from "@/components/games/sam";
 import { BreathingSpace } from "@/components/toolkit/breathing-space";
 import { useProfile } from "@/lib/store";
 import { toolById, toolLevel } from "@/lib/toolkit";
 import { TOOL_GUIDE } from "@/content/toolkit";
-import { HELP } from "@/content/help";
 import { speak, stopSpeaking } from "@/lib/speak";
 import type { ToolId } from "@/lib/types";
 
@@ -94,29 +93,7 @@ export function ToolPlayer({ toolId, onClose }: { toolId: ToolId; onClose: () =>
                 </button>
               )}
 
-              {s.kind === "helplines" && (
-                <div className="flex flex-col gap-2">
-                  {HELP.lines.map((line) => (
-                    <a
-                      key={line.name}
-                      href={line.href}
-                      target={line.href.startsWith("http") ? "_blank" : undefined}
-                      rel="noopener noreferrer"
-                      className="glass-card flex items-center justify-between gap-2 rounded-2xl px-4 py-2.5 backdrop-blur-[12px]"
-                    >
-                      <span className="flex flex-col">
-                        <span className="text-sm font-semibold text-foreground">{line.name}</span>
-                        <span className="text-xs text-foreground/60">{line.detail}</span>
-                      </span>
-                      {line.href.startsWith("tel:") ? (
-                        <Phone className="size-4 shrink-0 text-foreground/70" aria-hidden />
-                      ) : (
-                        <ExternalLink className="size-4 shrink-0 text-foreground/70" aria-hidden />
-                      )}
-                    </a>
-                  ))}
-                </div>
-              )}
+              {/* the actual helpline numbers live in the toolkit's "Get help" view now — not duplicated here */}
             </div>
           ))}
         </div>
