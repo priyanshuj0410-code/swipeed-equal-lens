@@ -37,7 +37,7 @@ GAME = {
     "g57": "family-map", "g58": "money-together", "g59": "if-when-whether", "g60": "many-ways-to-family",
     "c7": "capstone-7",
     # Chapter 8 — Parenthood (first child on)
-    "g61": "us-after-kids", "g62": "equal-parents", "g63": "looking-after-you",
+    "g61": "us-after-kids", "g62": "equal-parents", "g63": "looking-after-you", "g64": "the-talks",
 }
 
 def href_for(game):
