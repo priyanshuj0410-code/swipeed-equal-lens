@@ -1,0 +1,35 @@
+{
+  "node": "g52",
+  "gameId": "find-your-feet",
+  "label": "Find Your Feet",
+  "chapter": 6,
+  "attested_at": "2026-06-23T20:07:12+05:30",
+  "notes": "Find Your Feet: gameId find-your-feet matches registry (export FindYourFeetGame). Reworks ModesEngine build onto v2 engine. 84 scenarios faithfully mapped from GDD 52 JSON: 6 cats (comparison-trap/not-all-sorted/bounce-from-setbacks/worth-beyond-cv/your-path/tools-and-help), 7 types (branch 18/strike-rewrite 16/sort 14/reflect 12/role-play 9/match 8/spot 7), 0% binary. Career & future anxiety: no one has it figured out. 5 modes: comparison trap (UN&RE), don't need it all sorted, bounce from setbacks (failure=information, a comma not a full stop), your path (worth beyond CV), tools & crisis routing. WELLBEING-SENSITIVE: healthy coping only, never reinforces hopelessness/'you've failed', worth-beyond-CV; warm crisis routing (Tele-MANAS 14416/KIRAN 1800-599-0019/counsellor); NOT careers-counselling or therapy, signposts both (reassureCats comparison-trap+not-all-sorted+bounce-from-setbacks+worth-beyond-cv). India: placement seasons, JEE/NEET/UPSC, settled-job ideal, peer comparison. binStyle: NO change needed (clear good/bad bins already colored ff-011/015/038/051/075/078; nuanced 'real vs illusion' framing bins (highlight-reel/real-picture, growth/fixed, values-based/approval-chasing, yours/someone-else's, fits/misfit) left neutral by design). Spot ids injected (7). Builds on g42/g39; pairs g48/g49.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 52 — Find Your Feet (reworked v2).pdf",
+      "sha256": "e537be3bfaf121ac89f15df1e9677f404e90efa9b53c9223a809a41c4e0f28e1",
+      "bytes": 65185
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 6 User Personas.pdf",
+      "sha256": "352e9362b69c5b5c5df7565066cbff0bf697a54efe848d6777390e2626065f38",
+      "bytes": 80363
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 52 Find Your Feet — Scenario Library.json",
+      "sha256": "a1d7d990b4a6253ca541215af42d291a66731a6fb056bb6eef2a84a0c2c6e047",
+      "bytes": 65532
+    }
+  }
+}
