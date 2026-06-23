@@ -1,0 +1,35 @@
+{
+  "node": "g19",
+  "gameId": "speak-up",
+  "label": "Speak Up",
+  "chapter": 3,
+  "attested_at": "2026-06-23T11:13:42+05:30",
+  "notes": "Read GDD 19 (11pp) + Ch.3 personas + bible + transition + full 85-scenario library. 7 mechanics (branch 25, role-play 14, sort 12, spot 10, reflect 10, strike-rewrite 10, match 4; no build). 0% binary, 10 myths. Registry id speak-up (matches). The bystander-to-upstander game; five-moves chooser (the 5 Ds: Direct/Distract/Delegate/Delay/Document) is the reference for g27 & g20. Safety-over-heroics (never confront danger alone; get-help always honoured); never-blame-the-target; telling-not-tattling; freezing-is-okay (second chance); Childline 1098/112. Builds on g11; prereq g18. spot scenes lack inner ids → generator injects them.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 19 — Speak Up (reworked v2).pdf",
+      "sha256": "63a5aa2b8434476a842455227cd7824ae60865687696da55d7bfe93a0a6a2987",
+      "bytes": 64952
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 3 User Personas.pdf",
+      "sha256": "7b189f9027939445b44314cef124bba0fce20c3ec70ba115d772857b77b93eef",
+      "bytes": 76200
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 19 Speak Up — Scenario Library.json",
+      "sha256": "bb2c01bb4727ad2061844afe27bbfa8b9f293ad07596d572bb95599ef240a110",
+      "bytes": 59924
+    }
+  }
+}
