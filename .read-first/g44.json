@@ -1,0 +1,35 @@
+{
+  "node": "g44",
+  "gameId": "consent-real",
+  "label": "Consent, For Real",
+  "chapter": 6,
+  "attested_at": "2026-06-23T19:27:06+05:30",
+  "notes": "Consent, For Real: gameId TRAP — library says consent-for-real, registry is consent-real (export ConsentRealGame); config uses consent-real. Reworks the old ModesEngine build onto the shared v2 engine. 84 scenarios faithfully mapped from GDD 44 JSON: 6 cats (real-situations/drinks-and-capacity/spot-the-pressure/after-harm-support/consent-culture/tools-and-help), 7 types (branch 21/strike-rewrite 16/sort 14/reflect 13/role-play 10/spot 6/match 4), 0% binary. Adult consent in practice (enthusiastic/ongoing/freely-given/revocable/sober-enough yes between equals); parties/drinks/apps/hostel. SURVIVOR-CENTRED (believe, never blame, respect reporting choices, signpost help; responsibility only on the person who ignored consent); even-handed across genders (male & LGBTQ+ survivors especially silenced); trauma-aware, strictly non-graphic. India: campus/hostel, Internal Committee POSH/UGC; helplines 181/1091/112 (reassureCats drinks-and-capacity+spot-the-pressure+after-harm-support). binStyle: added enthusiastic/looking out/survivor-centred/real route/capacity present->green (collision-checked: enthusiastic also greens glrl 'Specific / Enthusiastic'; real route also greens outbreak/justice-league good bins; all correct). Rejected ^pressure->red (would mis-color bounce/firewall Pressure bins of unknown valence) — Pressure bad-sides left neutral. cr-008 'Not really'->red correct (via 'not real'). Spot ids injected (6).",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 44 — Consent For Real (reworked v2).pdf",
+      "sha256": "3d796844609599b1af327c942bd1ce3a1160d2dda503ba5125396bb5a3ffac58",
+      "bytes": 65351
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 6 User Personas.pdf",
+      "sha256": "352e9362b69c5b5c5df7565066cbff0bf697a54efe848d6777390e2626065f38",
+      "bytes": 80363
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 44 Consent For Real — Scenario Library.json",
+      "sha256": "3bcb0d6037817358549b8eee8403fd070112317d083607d6ccc725e9f2506020",
+      "bytes": 47820
+    }
+  }
+}
