@@ -42,7 +42,8 @@ export function ToolkitDrawer() {
       {open === "drawer" && (
         <div className="fixed inset-0 z-[55] flex items-end justify-center bg-slate-950/60 backdrop-blur-sm" onClick={() => setOpen(null)}>
           <div
-            className="glass-card w-full max-w-sm rounded-t-3xl p-5 pb-8 backdrop-blur-[16px] backdrop-saturate-150 animate-in slide-in-from-bottom duration-300"
+            className="glass-card w-full max-w-sm rounded-t-3xl p-5 pb-12 backdrop-blur-[16px] backdrop-saturate-150 animate-in slide-in-from-bottom duration-300"
+            style={{ paddingBottom: "max(3rem, calc(env(safe-area-inset-bottom) + 1.5rem))" }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-3 flex items-center justify-between">

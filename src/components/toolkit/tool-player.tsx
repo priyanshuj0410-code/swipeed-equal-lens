@@ -36,7 +36,7 @@ export function ToolPlayer({ toolId, onClose }: { toolId: ToolId; onClose: () =>
   };
 
   return (
-    <div className="fixed inset-0 z-[60] overflow-y-auto bg-slate-950/80 backdrop-blur-xl">
+    <div className="fixed inset-0 z-[60] overflow-y-auto" style={{ backgroundColor: "var(--color-paper)", backgroundImage: "var(--app-bg)" }}>
       <div className="mx-auto flex min-h-full w-full max-w-sm flex-col gap-4 px-4 pb-10 pt-16">
         <button
           type="button"

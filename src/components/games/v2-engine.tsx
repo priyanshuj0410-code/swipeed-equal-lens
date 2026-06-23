@@ -162,7 +162,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const StickerBook = (
     <div className="flex items-center justify-center gap-2" aria-label={`${stickers.size} of ${categories.length} earned`}>
       {categories.map((c) => (
-        <span key={c.id} className={`grid place-items-center rounded-full ${stickers.has(c.id) ? "size-6 text-sm" : "size-2.5"} ${stickers.has(c.id) && !reduceMotion ? "animate-in zoom-in duration-300" : ""}`} style={{ background: stickers.has(c.id) ? "var(--color-sun)" : "var(--color-mist)", opacity: stickers.has(c.id) ? 1 : 0.55 }} aria-hidden>{stickers.has(c.id) ? c.emoji : ""}</span>
+        <span key={c.id} className={`grid place-items-center rounded-full ${stickers.has(c.id) ? "size-6 text-lg" : "size-2.5"} ${stickers.has(c.id) && !reduceMotion ? "animate-in zoom-in duration-300" : ""}`} style={{ background: stickers.has(c.id) ? "transparent" : "var(--color-mist)", opacity: stickers.has(c.id) ? 1 : 0.55 }} aria-hidden>{stickers.has(c.id) ? c.emoji : ""}</span>
       ))}
     </div>
   );
@@ -223,9 +223,6 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
                 <div className="glass-pill rounded-2xl px-4 py-2.5 text-center text-sm font-medium backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{reassure}</div>
               )}
               {reassure && isSafetyBeat(sc) && HelpPill}
-              <button type="button" onClick={next} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
-                {qi + 1 >= queue.length ? "Finish ⭐" : "Next →"}
-              </button>
             </>
           )}
         </div>
@@ -239,7 +236,12 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
           </button>
         )}
         {view === "play" && (
-          <div className="flex flex-col items-stretch gap-1">
+          <div className="flex flex-col items-stretch gap-1.5">
+            {phase === "resolve" && (
+              <button type="button" onClick={next} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
+                {qi + 1 >= queue.length ? "Finish ⭐" : "Next →"}
+              </button>
+            )}
             <p className="text-center text-xs text-foreground/55">{qi + 1} / {queue.length}</p>
             {HomeBtn}
           </div>
@@ -351,7 +353,7 @@ function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
 // resolve (affect-labelling). Tap IS the right verb here — a drag would add ceremony and hurt the 3–6 band.
 function ReflectPlay({ sc, onSolved }: { sc: Extract<Scenario, { type: "reflect" }>; onSolved: (picked?: string) => void }) {
   return (
-    <div className={`grid gap-2.5 ${sc.options.length >= 3 ? "grid-cols-2" : "grid-cols-1"}`}>
+    <div className="grid grid-cols-1 gap-2.5">
       {sc.options.map((o) => (
         <button key={o} type="button" onClick={() => onSolved(o)} className="glass-card flex items-center justify-center rounded-2xl px-3 py-4 text-center text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.96]">{o}</button>
       ))}
@@ -397,9 +399,9 @@ function StrikePlay({ sc, onSolved, reduceMotion }: { sc: Extract<Scenario, { ty
   });
   const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setProgress(1); finish(); } };
   return (
-    <div className="flex flex-1 flex-col gap-2.5">
+    <div className="flex flex-col gap-2.5">
       <div tabIndex={0} role="button" aria-label={`Rub out the myth: ${sc.myth.un}`} onKeyDown={onKeyDown} {...drag.handlers}
-        className="glass-card relative flex min-h-48 flex-1 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
+        className="glass-card relative flex min-h-56 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
         <p className="text-[19px] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? (progress >= 1 ? 0.12 : 1) : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{sc.myth.un}</p>
         <span className="pointer-events-none absolute bottom-2 right-3 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>
       </div>
