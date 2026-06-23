@@ -1,0 +1,35 @@
+{
+  "node": "g42",
+  "gameId": "life-ready",
+  "label": "Life Ready",
+  "chapter": 5,
+  "attested_at": "2026-06-23T18:52:19+05:30",
+  "notes": "Life Ready: gameId life-ready matches registry (export LifeReadyGame). 85 scenarios (GDD has 85) faithfully mapped from GDD 42 JSON: 6 cats (know-yourself/decide-like-an-adult/handle-the-big-stuff/people-skills/support-network/life-ready-toolkit), 7 types (reflect 26/branch 24/strike-rewrite 12/sort 10/match 6/role-play 5/spot 2), 0% binary. Culmination of feelings/life-skills thread (Feelings Friends->Heart Smart->Mind Matters->Bounce->Life Ready); know yourself/decide like an adult/handle the big stuff/people skills/support network. Healthy strategies only; pressure-free (no single right path beyond safety/law); help-seeking lifelong strength; NOT therapy. India board-exam/family-career pressure; routes distress Tele-MANAS 14416/KIRAN 1800-599-0019/Manodarpan/trusted adult (reassureCats handle-the-big-stuff+support-network). binStyle: added makes it harder/isolates you/avoids it/poor basis/strains->red + builds support/strengthens/good basis/emotional intelligence->green; regression-clean (incidentally fixed my-choices 'Poor basis' bin to red/green); toolkit/method categorisation bins left neutral. Spot ids injected (2).",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 42 — Life Ready (reworked v2).pdf",
+      "sha256": "f30c80f631ad83db8d97a4df9d7c96e54d034cd4a9ddb59ada073a2b82c3d869",
+      "bytes": 64928
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 5 User Personas.pdf",
+      "sha256": "0aa28ddba75fd7ae198bc3ae24e7e01b1ef87b3e16c986e842dcd0c249fbfd45",
+      "bytes": 74728
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 42 Life Ready — Scenario Library.json",
+      "sha256": "58efc2cfb95d93db8c48afcbbbb1e6b30ae7d2babc88ad900ebbdeebe5d028b3",
+      "bytes": 62686
+    }
+  }
+}
