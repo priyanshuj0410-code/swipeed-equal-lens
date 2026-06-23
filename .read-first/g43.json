@@ -1,0 +1,35 @@
+{
+  "node": "g43",
+  "gameId": "rabbit-hole",
+  "label": "The Rabbit Hole",
+  "chapter": 4,
+  "attested_at": "2026-06-23T17:22:44+05:30",
+  "notes": "Read GDD 43 library in full (84 scenarios: the-funnel/follow-the-money/spot-the-hook/real-strong/have-each-others-backs/the-need-underneath), incl. all the-need-underneath + real-strong verbatim — THE ONE RULE never-shame-the-boy (funnel/grift is the target), validates real needs (loneliness normal not a defect), asking-for-help-is-strength, positive masculinity (real strength lifts people/strong-and-kind/confidence built not bought/you're enough AND can grow), evenhanded (manosphere harms boys), never platforms real influencers, routes Tele-MANAS 14416 + trusted adult + 1930/1098. gameId trap: library 'the-rabbit-hole' vs registry 'rabbit-hole' -> config uses 'rabbit-hole'. binStyle: added grift->red + real strength/genuine->green; emulated all 12 bins, no mis-color. Spot ids injected (12). No builds. reassureCats=['the-need-underneath'] + reassure + Tele-MANAS helpLine.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 43 — The Rabbit Hole (reworked v2).pdf",
+      "sha256": "242af354f28211af597c6680b508857499a57b29686ebb5c2712fc7deecf1803",
+      "bytes": 66871
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 4 User Personas.pdf",
+      "sha256": "d86c9016bf58be6ef0771e9fcd923c987043e4286038da4cdeffb424de927c4d",
+      "bytes": 76452
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 43 The Rabbit Hole — Scenario Library.json",
+      "sha256": "1a1a2237a81a465885cd6f5ce27381e654d164fe008788796ed1a3772e2ec576",
+      "bytes": 62251
+    }
+  }
+}
