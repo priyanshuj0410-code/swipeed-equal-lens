@@ -1,0 +1,35 @@
+{
+  "node": "g59",
+  "gameId": "if-when-whether",
+  "label": "If, When & Whether",
+  "chapter": 7,
+  "attested_at": "2026-06-24T01:23:43+05:30",
+  "notes": "",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 59 — If, When & Whether (reworked v2).pdf",
+      "sha256": "155cfc0fdcae86ebe3cb8b8e79b8e9b6234cd258326cbd9a843cc0a01116e92c",
+      "bytes": 65545
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 7 User Personas.pdf",
+      "sha256": "991b57b1073424815868baee6c8bf0c1f062510ef2d1ba02d470a0c5fd8d9fd9",
+      "bytes": 82783
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 59 If When and Whether — Scenario Library.json",
+      "sha256": "f4883614b20001c5a18336a7d2932247c76a350a64c5e9803915bdcfa6e57c97",
+      "bytes": 70552
+    }
+  }
+}

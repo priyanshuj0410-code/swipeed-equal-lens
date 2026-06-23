@@ -202,6 +202,9 @@ const GAMES: Record<string, EngineGame> = {
   "money-together": dynamic(() => import("@/components/games/money-together").then((m) => m.MoneyTogetherGame), {
     ssr: false,
   }),
+  "if-when-whether": dynamic(() => import("@/components/games/if-when-whether").then((m) => m.IfWhenWhetherGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {
