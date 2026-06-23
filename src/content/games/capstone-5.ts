@@ -16,8 +16,8 @@ export const CAPSTONE_5: CapstoneConfig = {
   "node": "c5",
   "chapter": 5,
   "ages": "15-18",
-  "arrival": "look how far you've come. Not just this chapter, the whole way, from a small kid naming feelings to a near-adult ready for the world. This chapter you took real ownership: your choices and your future, your health and your status, consent, identity, leadership, changing what's unfair, your rights, real-life skills, and reading the whole information world. Let's take a calm, proud walk back through everything you can now do, and everything you've grown into.",
-  "canvasPayoff": "The Ready for the World canvas opens on a sunrise over a whole landscape, and as it brightens, the entire journey lights up behind you: the Friendship Garden of your earliest years, the Explorer's map, the Growing Up world, the night city of Reading Relationships, and now this chapter's skyline rising tallest of all. One by one your nine Chapter 5 stickers ignite like windows in that skyline, and then every chapter you've ever finished glows together, ages 4 to 18, a whole world you built. Your nine stickers rise into the dawn as a constellation called Ready for the World.",
+  "arrival": "Look how far you've come — from a small kid naming feelings to a near-adult ready for the world. Let's take a calm, proud walk back through it all.",
+  "canvasPayoff": "Sunrise over the whole landscape: every chapter you've finished glows together, 4 to 18. Your nine stickers rise into the dawn as one bright constellation.",
   "threadsRecapped": [
     "B",
     "C",
@@ -312,11 +312,11 @@ export const CAPSTONE_5: CapstoneConfig = {
   ],
   "celebration": {
     "glyph": "ready-for-the-world-star",
-    "certificate": "This certifies that you are Ready for the World, a graduate of Chapter 5 and of the whole SwipeEd journey, ages 4 to 18. You own your choices and your future, you hold the facts about your health and know that knowing your status is strength, you live consent as mutual and respect every identity on the spectrum, you lead and you change what's unfair, you know your rights and how to claim them, you carry real-life skills and the courage to ask for help, and you can read the whole information world and keep learning for life. You've grown a great deal, across fifteen years, and you did it yourself. Unlearn. Relearn. Grow.",
-    "stickerBook": "All nine Chapter 5 stickers now blaze in your Ready for the World constellation, crowned by a golden graduation star. Beneath it, every chapter sticker you've earned since age 4 glows together, the whole journey, complete."
+    "certificate": "This certifies you are Ready for the World — a graduate of Chapter 5 and the whole SwipeEd journey, ages 4 to 18. You did it yourself. Unlearn. Relearn. Grow.",
+    "stickerBook": "All nine Chapter 5 stickers blaze in your Ready for the World constellation, crowned by a golden graduation star. Every sticker since age 4 glows with them."
   },
-  "preview": "Next, Chapter 6: College (ages 18-22). The kids' journey is complete, and the adult one begins, leaving home, independence, real relationships and choices of your own. It goes deeper and more real, always at your own pace, and Lensy is still right beside you.",
-  "share": "This whole journey is yours, so this is your call: if you'd like, share one thing you're proud of growing into with a grown-up you trust, maybe someone who's watched you grow up. Or simply hold it for yourself, that's completely okay too. Either way, you've earned this.",
+  "preview": "Next, Chapter 6: College (ages 18–22). The kids' journey is complete; the adult one begins — and Lensy is still right beside you.",
+  "share": "Your call: share one thing you're proud of growing into with a grown-up you trust, or simply hold it for yourself. Either way, you've earned this.",
   "doneTitle": "🎓🌟 The whole journey complete!",
   "coins": 50
 };

@@ -17,8 +17,8 @@ export const CAPSTONE_6: CapstoneConfig = {
   "node": "c6",
   "chapter": 6,
   "ages": "18-22",
-  "arrival": "look at you, standing on your own. A year or two ago someone else held the phone; now it's all yours. This chapter you took the wheel of an adult life, consent and dating, your health and your money, your mind, your worth, your equality and your rights, and you carried it. Let's take a calm, proud walk back through everything you can now handle for yourself.",
-  "canvasPayoff": "The Standing on My Own canvas opens on a young adult at the centre of their own life, a room of their own in a new city, the lights of the world beyond the window. As it settles, the nine things you grew this chapter switch on around you like the furniture of an independent life: a steady relationship, a health you own, a budget that holds, a calm mind, a path of your own, a clear voice, your rights in your pocket. Your nine stickers rise into the night as a constellation called Standing on My Own.",
+  "arrival": "look at you, standing on your own. This chapter you took the wheel of an adult life — health, money, mind and worth — and carried it. Let's walk it back.",
+  "canvasPayoff": "The canvas opens on a room of your own in a new city, the world's lights beyond the window. Nine stickers rise as the Standing on My Own constellation.",
   "threadsRecapped": [
     "B",
     "C",
@@ -97,7 +97,7 @@ export const CAPSTONE_6: CapstoneConfig = {
       "id": "c6-p1",
       "from": "all",
       "type": "gallery",
-      "frame": "Your Standing on My Own constellation, nine stickers from a whole chapter of growing into an adult life. Tap any star to revisit what you can now handle for yourself.",
+      "frame": "Your Standing on My Own constellation — nine stickers from a whole chapter of growing into adult life. Tap any star to revisit what you can now handle yourself.",
       "stickers": [
         "consent-real",
         "swipe-smart",
@@ -300,11 +300,11 @@ export const CAPSTONE_6: CapstoneConfig = {
   ],
   "celebration": {
     "glyph": "standing-on-my-own-star",
-    "certificate": "This certifies that you are Standing on My Own, a graduate of Chapter 6 and a genuinely independent young adult. You live consent as mutual and respect, you date safely and treat people as people, you build healthy relationships and can leave an unhealthy one, you own your health with confidence and no shame, you handle your money and guard your independence, you look after your mind and reach for help as a strength, you hold your worth apart from your CV, you claim your voice and act as an ally, and you know your rights and how to claim them. You took the wheel of an adult life, and you can drive it. Stand tall, you've earned it.",
-    "stickerBook": "All nine Chapter 6 stickers now shine in your Standing on My Own constellation, crowned by a golden graduation star. Beneath it, every chapter sticker since age 4 glows on, a whole life of growing, with the adult chapters still ahead."
+    "certificate": "This certifies that you are Standing on My Own — a Chapter 6 graduate and independent young adult who took the wheel of your life. Stand tall, you've earned it.",
+    "stickerBook": "All nine Chapter 6 stickers shine in your Standing on My Own constellation, crowned by a golden graduation star, every sticker since age 4 glowing beneath it."
   },
-  "preview": "Next, Chapter 7: Building a Life (ages 22 onward). Standing on your own is the start; now comes building, partnerships and commitment, a home and shared money, the choices about whether and when to start a family, all built, together or solo, on the independence you just earned. It goes deeper and more real, at your own pace, with Lensy still beside you.",
-  "share": "This whole chapter is yours, so this is your call: if you'd like, tell someone you trust one thing you're proud of growing into, maybe someone who remembers you before you left home. Or simply hold it for yourself, that's completely okay too. Either way, you've earned this.",
+  "preview": "Next, Chapter 7: Building a Life (ages 22 on). Now comes partnership, a home, shared money and family choices, all built on the independence you earned.",
+  "share": "Your call: tell someone you trust one thing you're proud of growing into — maybe someone who knew you before you left home. Or hold it close; you've earned it.",
   "doneTitle": "🎓 Standing on my own!",
   "coins": 50
 };

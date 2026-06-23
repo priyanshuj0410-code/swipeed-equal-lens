@@ -20,8 +20,8 @@ export const CAPSTONE_7: CapstoneConfig = {
   "node": "c7",
   "chapter": 7,
   "ages": "22+",
-  "arrival": "Lensy: look at what you've built. Choosing a partner with your eyes open, or choosing your own path with your head high. Sharing a home fairly, keeping your own footing, knowing money and consent and where help lives, and saying every family is real. This chapter was the turn from 'me' to 'us', without ever losing the 'me'. Take a breath, this is yours.",
-  "canvasPayoff": "The A Life, Built canvas blooms into a warm home with the door open: two chairs at a table and one pulled up by choice, a shared ledger and a personal one side by side, a family of whatever shape glowing in the window, and a path leading out to a horizon that is wholly the player's own. Eight stickers ring it like lights, and a golden graduation star settles over the doorway as the chapter completes.",
+  "arrival": "Lensy: look at what you've built — a partner chosen well or your own path held high, a fair home, your own footing. The turn to 'us', never losing the 'me'.",
+  "canvasPayoff": "The canvas blooms into a warm home, door open: chairs at a shared table, a family of any shape in the window, a path to your own horizon, lit by eight stickers.",
   "threadsRecapped": [
     "B",
     "C",
@@ -34,7 +34,7 @@ export const CAPSTONE_7: CapstoneConfig = {
       "node": "g53",
       "game": "Choosing & Building",
       "thread": "D · Relationships",
-      "bigTruth": "You choose a partner on values, respect and how they handle conflict, not just sparks, and a lasting partnership is built daily through communication, trust and repair; every path is valid and consent is always central.",
+      "bigTruth": "You choose a partner on values, respect and how they handle conflict, not just sparks; lasting love is built daily through trust, repair and consent.",
       "glyph": "choosing-building"
     },
     {
@@ -92,7 +92,7 @@ export const CAPSTONE_7: CapstoneConfig = {
       "id": "c7-p1",
       "from": "all",
       "type": "gallery",
-      "frame": "Your A Life, Built constellation, eight stickers from a whole chapter of building an adult life, with a partner or on your own terms. Tap any star to revisit what you now carry.",
+      "frame": "Your A Life, Built constellation — eight stickers from a whole chapter of building an adult life, with a partner or on your own terms. Tap any star to revisit.",
       "stickers": [
         "choosing-building",
         "your-path",
@@ -285,9 +285,9 @@ export const CAPSTONE_7: CapstoneConfig = {
   ],
   "celebration": {
     "glyph": "a-life-built-star",
-    "certificate": "This certifies that you have built A Life, a graduate of Chapter 7 and someone making an adult life on your own terms. You choose partners on values and consent, you build us without disappearing into it, you share the whole load and keep both careers counting, you live respect and consent at home and know that abuse is never your fault, you set kind boundaries with family and stand as a team, you keep money open, fair and both-independent, you hold whether, when and how many as your own free choice, and you know that family is built in many ways, all of them real. Together or on your own terms, you are building a life that is truly yours. Stand tall, you have earned this.",
-    "stickerBook": "All eight Chapter 7 stickers now glow in your A Life, Built constellation, crowned by a golden graduation star. Beneath it, every chapter sticker since age 3 still shines, a whole life of growing, with Parenthood waiting as the final chapter ahead."
+    "certificate": "This certifies you a graduate of Chapter 7 — A Life, Built. You choose on values, share the load, keep money fair, live consent at home. Stand tall.",
+    "stickerBook": "All eight Chapter 7 stickers now glow in your A Life, Built constellation, crowned by a golden graduation star — every sticker since age 3 shining beneath it."
   },
-  "preview": "Next, Chapter 8: Parenthood. You've built a life and learned that family comes in many forms; the final chapter is for those who take the parenting path, raising a child with the same equality, consent, warmth and confidence you've carried the whole way. It is the last chapter of the journey, and a full circle back to the very first feelings you ever named.",
-  "share": "This whole chapter is yours, so this is your call: if it feels right, tell someone you trust one thing you're proud of building this year, a fairer home, a clearer boundary, a choice that was truly your own. Saying it out loud is a grown-up kind of celebration."
+  "preview": "Next, Chapter 8: Parenthood — the final chapter, for those who parent. Raise a child with the equality, consent and warmth you've carried all along.",
+  "share": "Your call: if it feels right, tell someone you trust one thing you're proud of building — a fairer home, a clearer boundary, a choice of your own."
 };

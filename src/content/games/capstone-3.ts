@@ -14,8 +14,8 @@ export const CAPSTONE_3: CapstoneConfig = {
   node: "c3",
   chapter: 3,
   ages: "9-12",
-  arrival: "Lensy: look how far you've come. When this chapter started, a lot of this was brand new, now it's just part of how you think. Let's take a quiet walk back through everything you've grown into.",
-  canvasPayoff: "The Growing-Up map lights up at dusk. One by one, every skill you built this chapter switches on like a light across your own private city skyline, until the whole place is glowing, and your nine stickers rise into the sky like a constellation called Growing Up Smart.",
+  arrival: "Lensy: look how far you've come. When this chapter started, so much was brand new — now it's just how you think. Let's walk back through it together.",
+  canvasPayoff: "The Growing-Up map lights up at dusk. Every skill you built switches on across your skyline, until your nine stickers rise like a constellation.",
   threadsRecapped: ["A","C","F","B","D","E"],
   recap: [
     {"node":"g13","game":"Puberty Quest","thread":"A · Body & Growing Up","bigTruth":"Growing up and a changing body are normal; being patient and kind to yourself is the heart of it.","glyph":"growing-body"},
@@ -46,9 +46,9 @@ export const CAPSTONE_3: CapstoneConfig = {
     {"id":"c3-r3","prompt":"Lensy: when something's hard now, what do you reach for?","options":["A coping tool","A trusted person","My own values","A deep breath"],"affirm":"You've built real ways to handle hard things."},
     {"id":"c3-r4","prompt":"Lensy: what will you carry into the teen years ahead?","options":["Be kind to myself","Choose my values","Speak up","Keep growing"],"affirm":"Carry it forward, the next chapter's ready for you."},
   ],
-  celebration: {"glyph":"growing-up-star","certificate":"This certifies that you are now a Growing Up Smart graduate. You understand your changing body and mind, you have tools for big feelings, you make thoughtful choices, you flip stereotypes and stand up for others, and you hold the facts about your body with calm confidence. You've grown a lot, and you did it yourself.","stickerBook":"All nine Chapter 3 stickers now shine in your Growing-Up constellation, topped by a golden Growing-Up star, your Chapter 3 graduation sticker."},
-  preview: "Next, Chapter 4: Reading Relationships (ages 12-15). Relationships get more real, you'll explore attraction, deeper consent, and reading the people around you, all at your own pace, with Lensy still beside you.",
-  share: "This chapter is more your own, so this is your call: if you'd like, share one thing you're proud of learning with a grown-up you trust. Or just keep it for yourself, that's okay too.",
+  celebration: {"glyph":"growing-up-star","certificate":"This certifies that you are a Growing Up Smart graduate. You understand your body and mind, handle big feelings, choose well, and stand up for others.","stickerBook":"All nine Chapter 3 stickers now shine in your Growing-Up constellation, topped by a golden Growing-Up star, your Chapter 3 graduation sticker."},
+  preview: "Next, Chapter 4: Reading Relationships (ages 12–15). Relationships get more real — attraction, deeper consent, reading people — at your own pace.",
+  share: "This chapter is more your own, so it's your call: if you'd like, share one thing you're proud of with a grown-up you trust. Or keep it for yourself.",
   doneTitle: "🎓 Chapter Three complete!",
   coins: 30,
 };

@@ -486,6 +486,15 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
     onEnd: (s) => { const id = dragId.current; dragId.current = null; const bin = hitTestZone(s.x, s.y, zones(), 44); setDrag(null); setHover(null); if (id && bin) place(id, bin); },
     onTap: () => { dragId.current = null; setDrag(null); setHover(null); }, // arming already happened in onStart
   });
+  // Safety net: a pointerup/cancel ANYWHERE clears the floating ghost, even if the chip's own pointerup was missed
+  // (pointer-capture loss, a fast release off-element, or a mid-drag re-render) — otherwise a dragged chip could
+  // "stick" to the cursor. The chip's own onEnd still runs first (so a valid drop still places), then this clears.
+  useEffect(() => {
+    const clear = () => { dragId.current = null; setDrag(null); setHover(null); };
+    window.addEventListener("pointerup", clear);
+    window.addEventListener("pointercancel", clear);
+    return () => { window.removeEventListener("pointerup", clear); window.removeEventListener("pointercancel", clear); };
+  }, []);
 
   // one dropzone: a single dashed border + translucent tint fill (no card double-border); flex-1 so two bins
   // stacked top/bottom each grow big. Tap to drop the armed chip, or release a dragged chip over it.
