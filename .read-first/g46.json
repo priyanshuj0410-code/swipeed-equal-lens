@@ -1,0 +1,35 @@
+{
+  "node": "g46",
+  "gameId": "real-relationships",
+  "label": "Real Relationships",
+  "chapter": 6,
+  "attested_at": "2026-06-23T19:36:48+05:30",
+  "notes": "Real Relationships: gameId real-relationships matches registry (export RealRelationshipsGame). Reworks ModesEngine build onto v2 engine. 84 scenarios faithfully mapped from GDD 46 JSON: 6 cats (what-healthy-looks-like/fight-right/red-flags-grown-up/leaving-safely/breakups/tools-and-help), 7 types (branch 21/sort 16/strike-rewrite 14/reflect 13/role-play 9/spot 6/match 5), 0% binary. Healthy relationships built not found; fight right (Four Horsemen+repair); red flags grown up (coercive control, jealousy-as-love, isolation, gaslighting); leaving safely & breakups. ABUSE-AWARE: coercive control named; leaving valid/brave/never target's fault; exit can escalate. Breakup wellbeing-safe; even-handed; non-graphic. India: family scrutiny, caring-vs-controlling romanticised; helplines 181/1091/112 (reassureCats red-flags-grown-up+leaving-safely+breakups). binStyle: FIXED two POS-'keep' bad-green mis-colors -> added keeps stuck (rr-073) + keeps it lopsided (pre-existing equalize bug) ->red, plus smothering/wrecker->red; all g46 bins now clean. Spot ids injected (6). Builds on g24/g31/g09.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 46 — Real Relationships (reworked v2).pdf",
+      "sha256": "524a88208f719b78ec88e73617962e5a0faaa0abfcd4c29796776b305c572439",
+      "bytes": 64270
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 6 User Personas.pdf",
+      "sha256": "352e9362b69c5b5c5df7565066cbff0bf697a54efe848d6777390e2626065f38",
+      "bytes": 80363
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 46 Real Relationships — Scenario Library.json",
+      "sha256": "4af598f12f0f9c141ccc19d71591f9a068429c10b4bb54d1f3f03faa20ad4188",
+      "bytes": 65878
+    }
+  }
+}
