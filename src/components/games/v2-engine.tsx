@@ -201,8 +201,8 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
         {StickerBook}
         {SamSays}
 
-        {/* ---- MIDDLE (grows; holds the view) ---- */}
-        <div className="flex flex-1 flex-col justify-center gap-4 py-1">
+        {/* ---- MIDDLE (grows; holds the view, top-aligned right under Lensy) ---- */}
+        <div className="flex flex-1 flex-col justify-start gap-4 py-1">
           {/* HOME */}
           {view === "home" && (
             <>
@@ -318,14 +318,14 @@ function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
   const edge = dir === "left" ? L : dir === "right" ? R : null;
   const tx = flyTo !== 0 ? flyTo * 700 : dx;
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-1 flex-col gap-3">
       <div
         ref={cardRef} tabIndex={0} role="group"
         aria-roledescription="card you swipe left or right"
         aria-label={`${sc.cue}. Press Left arrow for ${sc.left}, or Right arrow for ${sc.right}.`}
         onKeyDown={onKeyDown}
         {...drag.handlers}
-        className="glass-card relative flex min-h-72 w-full cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[20px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
+        className="glass-card relative flex min-h-72 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[20px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
         style={{ transform: `translateX(${tx}px) rotate(${tx * 0.035}deg)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.25s ease-out", touchAction: "pan-y", boxShadow: edge ? `6px 6px 0 0 ${edge.tint}` : undefined }}
       >
         {/* while swiping, the chosen side fills the card with its colour + a big watermark flag + a clear badge */}
