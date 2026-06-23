@@ -1,0 +1,35 @@
+{
+  "node": "g18",
+  "gameId": "norm-storm",
+  "label": "Norm Storm",
+  "chapter": 3,
+  "attested_at": "2026-06-23T10:59:26+05:30",
+  "notes": "Read GDD 18 (11pp) + Ch.3 personas + bible + transition + full 84-scenario library. 7 mechanics (sort 20, strike-rewrite 16, branch 13, reflect 12, role-play 9, spot 9, match 5; no build). 0% binary, 16 myths. Registry id norm-storm (matches). Sort-led norms game; help/harm sorting board + strike-rewrite flip; the good-norm test (respect/harm/fairness) is the reusable lens for g19. Question-with-respect (love culture/elders AND ask 'is this fair?'); keep-the-good (not 'all rules bad'); heavy topics (dowry/son-preference/untouchability/period-stigma) framed as norms to question, never graphic; change-is-real (India's changed norms). Builds on g17; prereq g17. spot scenes lack inner ids → generator injects them.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 18 — Norm Storm (reworked v2).pdf",
+      "sha256": "09035bf63bd9eae63e22b933e2c5fa5cff3e10f73d798cdb3e59c73ddc672681",
+      "bytes": 60326
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 3 User Personas.pdf",
+      "sha256": "7b189f9027939445b44314cef124bba0fce20c3ec70ba115d772857b77b93eef",
+      "bytes": 76200
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 18 Norm Storm — Scenario Library.json",
+      "sha256": "1afdd247c90f0d5eb55105ada483180473f80da4a57f20f0577dc3bba38e632e",
+      "bytes": 60004
+    }
+  }
+}
