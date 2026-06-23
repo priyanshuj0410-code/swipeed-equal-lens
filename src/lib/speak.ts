@@ -10,17 +10,23 @@
 
 import { kokoroReady, kokoroFailed, kokoroSpeak, kokoroStop, warmKokoro, setKokoroVoice, setKokoroSpeed } from "./tts-kokoro";
 import { readVoiceMap, cfgForChapter, type VoiceCfg } from "./chapters";
+import { clean, audioKey, audioFolder } from "./audio-key";
 
 const LOCALE = "en-IN";
 
-// Remove emoji / pictographs / skin-tone modifiers / ZWJ / regional indicators / variation selectors.
-// Digits (e.g. "1098") are intentionally kept.
-function clean(text: string): string {
-  return text
-    .replace(/[\u{1F1E6}-\u{1F1FF}\u{1F3FB}-\u{1F3FF}\u{FE0F}\u{200D}\u{20E3}]/gu, "")
-    .replace(/\p{Extended_Pictographic}/gu, "")
-    .replace(/\s+/g, " ")
-    .trim();
+// — pre-generated clips (option C): if a line was rendered at build time, play that file (one consistent voice,
+// instant, offline) instead of the live TTS engine. The manifest (a set of "<folder>/<hash>" keys) is fetched
+// once; until it loads, the live engine covers us; any line not in the manifest also falls back. —
+let manifest: Set<string> | null = null;
+let manifestTried = false;
+function ensureManifest() {
+  if (manifestTried || typeof window === "undefined") return;
+  manifestTried = true;
+  fetch("/audio/manifest.json").then((r) => (r.ok ? r.json() : [])).then((arr: string[]) => { manifest = new Set(arr); }).catch(() => { manifest = new Set(); });
+}
+let clipAudio: HTMLAudioElement | null = null;
+function stopClip() {
+  if (clipAudio) { clipAudio.onended = null; clipAudio.onerror = null; try { clipAudio.pause(); } catch { /* ignore */ } clipAudio = null; }
 }
 
 // Rough spoken length, used as the fallback/safety timing (≈ words × 320ms, clamped).
@@ -87,6 +93,22 @@ function run(text: string, opts: Opts) {
     cb?.();
   };
 
+  // — Pre-generated clip (if this exact line was rendered for this chapter): play it instantly —
+  ensureManifest();
+  if (!muted && text && manifest) {
+    const key = `${audioFolder(currentChapter)}/${audioKey(text)}`;
+    if (manifest.has(key)) {
+      stopClip();
+      const el = new Audio(`/audio/${key}.mp3`);
+      clipAudio = el;
+      const done = () => { if (clipAudio === el) clipAudio = null; fire(); };
+      el.onended = done;
+      el.onerror = done; // manifest is authoritative, but never hang pacing on a missing file
+      el.play().catch(done);
+      return;
+    }
+  }
+
   const cfg = muted ? null : activeCfg();
 
   // — Kokoro (this chapter chose it): only when ready; otherwise warm it and use the device voice this line —
@@ -145,4 +167,5 @@ export function stopSpeaking() {
   } catch {
     /* ignore */
   }
+  stopClip();
 }
