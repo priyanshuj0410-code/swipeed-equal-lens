@@ -9,7 +9,7 @@ import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import {
   type CapstoneConfig, type CapLap, type CapRecap, type CapReflect,
-  type CapMatchLap, type CapSortLap, type CapBuildLap, type CapSpotLap, type CapSwipeLap, type CapGalleryLap, type CapBranchLap, type CapStrikeLap,
+  type CapMatchLap, type CapSortLap, type CapBuildLap, type CapSpotLap, type CapSwipeLap, type CapGalleryLap, type CapBranchLap, type CapStrikeLap, type CapRolePlayLap,
   glyphEmoji,
 } from "@/content/games/capstone-schema";
 
@@ -272,6 +272,30 @@ function StrikeLap({ lap, say, onNext }: { lap: CapStrikeLap; say: (t: string) =
   );
 }
 
+// — Role-play: say the line you've grown into; the values-led line cheers you on (no-fail) —
+function RolePlayLap({ lap, say, onNext }: { lap: CapRolePlayLap; say: (t: string) => void; onNext: () => void }) {
+  const [solved, setSolved] = useState(false);
+  const [chosen, setChosen] = useState<number | null>(null);
+  useEffect(() => { say(`${lap.frame} ${lap.setup}`); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const choose = (i: number) => {
+    if (lap.yourLine[i].best) { setChosen(i); setSolved(true); celebrate("big"); say(lap.celebrate); }
+    else { say("That's okay — try the bolder line, the one that speaks up."); }
+  };
+  return (
+    <>
+      <div className="grid grid-cols-1 gap-2">
+        {lap.yourLine.map((o, i) => (
+          <button key={i} type="button" disabled={solved} onClick={() => choose(i)} className={`${card} px-4 py-3 text-left text-sm font-semibold text-foreground transition-transform active:scale-[0.98] ${solved && chosen === i ? "ring-2 ring-[var(--accent-amber)]" : ""}`}>
+            {o.text}{solved && chosen === i && " ✓"}
+          </button>
+        ))}
+      </div>
+      {solved ? <NextBtn onClick={onNext} /> : <p className="text-center text-xs text-foreground/60">say your line</p>}
+    </>
+  );
+}
+
 function LapView({ lap, recap, say, onNext }: { lap: CapLap; recap: CapRecap[]; say: (t: string) => void; onNext: () => void }) {
   switch (lap.type) {
     case "gallery": return <GalleryLap lap={lap} recap={recap} say={say} onNext={onNext} />;
@@ -282,6 +306,7 @@ function LapView({ lap, recap, say, onNext }: { lap: CapLap; recap: CapRecap[]; 
     case "swipe": return <SwipeLap lap={lap} say={say} onNext={onNext} />;
     case "branch": return <BranchLap lap={lap} say={say} onNext={onNext} />;
     case "strike-rewrite": return <StrikeLap lap={lap} say={say} onNext={onNext} />;
+    case "role-play": return <RolePlayLap lap={lap} say={say} onNext={onNext} />;
   }
 }
 
