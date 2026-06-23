@@ -211,6 +211,10 @@ const GAMES: Record<string, EngineGame> = {
   "capstone-7": dynamic(() => import("@/components/games/capstone-7").then((m) => m.CapstoneSevenGame), {
     ssr: false,
   }),
+  // Chapter 8 — Parenthood (first child on)
+  "us-after-kids": dynamic(() => import("@/components/games/us-after-kids").then((m) => m.UsAfterKidsGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {

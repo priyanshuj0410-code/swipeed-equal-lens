@@ -1,0 +1,35 @@
+{
+  "node": "g61",
+  "gameId": "us-after-kids",
+  "label": "Us, After Kids",
+  "chapter": 8,
+  "attested_at": "2026-06-24T02:36:51+05:30",
+  "notes": "",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 61 — Us, After Kids (reworked v2).pdf",
+      "sha256": "3512a3da586275894b33787866c640e40000627497795a6a7b777eeae40db710",
+      "bytes": 65492
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 8 User Personas.pdf",
+      "sha256": "5227e2572165a8d91b62d205472e5ac2da433312b8ac47bcbb59826cbccb844b",
+      "bytes": 78557
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 61 Us After Kids — Scenario Library.json",
+      "sha256": "6fe3573049eb5df807412c8c91fcd787c553f40a34191cc826f233d9af5ab1c5",
+      "bytes": 72795
+    }
+  }
+}
