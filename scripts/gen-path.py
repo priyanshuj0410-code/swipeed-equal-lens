@@ -38,7 +38,7 @@ GAME = {
     "c7": "capstone-7",
     # Chapter 8 — Parenthood (first child on)
     "g61": "us-after-kids", "g62": "equal-parents", "g63": "looking-after-you", "g64": "the-talks",
-    "g65": "break-the-cycle", "g66": "raising-gender-diverse-kids",
+    "g65": "break-the-cycle", "g66": "raising-gender-diverse-kids", "g67": "raising-neurodiverse-kids",
 }
 
 def href_for(game):
