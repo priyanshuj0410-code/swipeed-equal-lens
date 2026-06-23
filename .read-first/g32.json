@@ -1,0 +1,35 @@
+{
+  "node": "g32",
+  "gameId": "spectrum",
+  "label": "Spectrum",
+  "chapter": 5,
+  "attested_at": "2026-06-23T18:30:17+05:30",
+  "notes": "Spectrum: gameId spectrum matches registry (export SpectrumGame). 84 scenarios faithfully mapped from GDD 32 JSON: 6 cats (the-spectrum/myths-and-respect/dignity-for-all/being-you/stand-against-bullying/support-and-rights), 7 types (reflect 27/branch 17/strike-rewrite 14/sort 10/role-play 7/match 5/spot 4), 0% binary. Respect is a value not a debate; busts harmful myths WITHOUT disparaging family/beliefs; separates honest belief-differences from the dignity floor. No pressure to label, full confidentiality, never outs. India 2018 decrim/NALSA/constitutional dignity; routes distress/family-conflict to Tele-MANAS 14416/KIRAN 1800-599-0019/Childline 1098/trusted adult (reassureCats being-you+stand-against-bullying+support-and-rights). binStyle: NO change needed (all 10 sort bins emulated clean: good side green/neutral, bad side red/neutral, no collisions). Spot ids injected (4).",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 32 — Spectrum (reworked v2).pdf",
+      "sha256": "2e6dd852f22d1be28789e7ed046736a144efddb63635f294e4d283ad0d2bd6d9",
+      "bytes": 63536
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 5 User Personas.pdf",
+      "sha256": "0aa28ddba75fd7ae198bc3ae24e7e01b1ef87b3e16c986e842dcd0c249fbfd45",
+      "bytes": 74728
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 32 Spectrum — Scenario Library.json",
+      "sha256": "cfab58e43974c1617577bf94a3217d7e87025fd96d50c83ca4d3545e6c17257d",
+      "bytes": 61627
+    }
+  }
+}
