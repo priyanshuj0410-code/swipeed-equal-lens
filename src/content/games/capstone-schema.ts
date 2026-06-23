@@ -21,7 +21,10 @@ export type CapSwipeLap = { id: string; from: string; type: "swipe"; frame: stri
 export type CapBranchLap = { id: string; from: string; type: "branch"; frame: string; options: { text: string; consequence: string; outcome?: string; best?: boolean }[]; debrief: string; celebrate: string };
 // strike-rewrite victory lap — rub out a myth the chapter taught you to bust, then see the truth.
 export type CapStrikeLap = { id: string; from: string; type: "strike-rewrite"; frame: string; myth: { un: string; re: string; why: string }; celebrate: string };
-export type CapLap = CapGalleryLap | CapMatchLap | CapSortLap | CapBuildLap | CapSpotLap | CapSwipeLap | CapBranchLap | CapStrikeLap;
+// role-play victory lap — say the line you've grown into: pick the values-led `best` line to hear `celebrate`;
+// a non-best pick is a warm nudge to try the bolder line, never a buzzer.
+export type CapRolePlayLap = { id: string; from: string; type: "role-play"; frame: string; setup: string; yourLine: { text: string; best?: boolean }[]; celebrate: string };
+export type CapLap = CapGalleryLap | CapMatchLap | CapSortLap | CapBuildLap | CapSpotLap | CapSwipeLap | CapBranchLap | CapStrikeLap | CapRolePlayLap;
 
 export type CapRecap = { node: string; game: string; thread: string; bigTruth: string; glyph: string };
 export type CapReflect = { id: string; prompt: string; options: string[]; affirm: string };
@@ -66,5 +69,9 @@ export const GLYPH_EMOJI: Record<string, string> = {
   "choice-compass": "🧭", "status-strength": "🩺", "mutual-hearts": "💞", "spectrum-prism": "🌈",
   "lead-torch": "🔦", "change-spark": "⚡", "rights-shield": "🛡️", "life-toolkit": "🧰",
   "decoder-lens": "🔍", "ready-for-the-world-star": "🌅",
+  // Chapter 6 (c6 — Standing on My Own; the College graduation)
+  "consent-real": "🫶", "swipe-smart": "💘", "real-relationships": "💞", "own-health": "🩺",
+  "independence-key": "🔑", "mind-belonging": "🫂", "find-feet": "🧭", "equal-confident": "🗣️",
+  "standing-on-my-own-star": "🌟",
 };
 export const glyphEmoji = (g: string): string => GLYPH_EMOJI[g] ?? "⭐";
