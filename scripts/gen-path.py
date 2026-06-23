@@ -33,7 +33,7 @@ GAME = {
     "g48": "money-independence", "g49": "mind-belonging", "g52": "find-your-feet", "g50": "equal-confident", "g51": "know-your-rights",
     "c6": "capstone-6",
     # Chapter 7 — Building a Life (22 → first child)
-    "g53": "choosing-building", "g54": "your-path-your-call", "g55": "equal-partners",
+    "g53": "choosing-building", "g54": "your-path-your-call", "g55": "equal-partners", "g56": "respect-at-home",
 }
 
 def href_for(game):
