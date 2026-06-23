@@ -1,0 +1,35 @@
+{
+  "node": "g17",
+  "gameId": "flip-script",
+  "label": "Flip the Script",
+  "chapter": 3,
+  "attested_at": "2026-06-23T10:45:07+05:30",
+  "notes": "Read GDD 17 (11pp) + Ch.3 personas + bible + transition + full 84-scenario library. 7 mechanics (strike-rewrite 29, spot 14, reflect 12, branch 10, role-play 9, sort 7, match 3; NO build). 0% binary, 14 spot-checks. Registry id flip-script (library 'flip-the-script' aspirational). THE strike-rewrite flagship — flip+spot renderers are reference for the gender thread (g25/g26/g12/g18). Spot stereotypes in media → flip the script → call it out kindly. Question-don't-preach; respectful of culture (question elders without attacking); no-one's-the-villain (learned scripts); all genders freed (boy AND girl scripts); safe-to-call-out. Builds on g10; prereq g16. Anchors Aarav/Diya/Asha/Rohit.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 17 — Flip the Script (reworked v2).pdf",
+      "sha256": "4c14540bdca631af7dfb646030f70d2409e17551ea48382831ec5ae4ce8ce7fd",
+      "bytes": 60429
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 3 User Personas.pdf",
+      "sha256": "7b189f9027939445b44314cef124bba0fce20c3ec70ba115d772857b77b93eef",
+      "bytes": 76200
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 17 Flip the Script — Scenario Library.json",
+      "sha256": "9473781a9a097057443ba0cace66fd5fc11f282aab5dc464c13890956bea486b",
+      "bytes": 38209
+    }
+  }
+}
