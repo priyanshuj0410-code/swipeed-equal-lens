@@ -1,0 +1,35 @@
+{
+  "node": "g50",
+  "gameId": "equal-confident",
+  "label": "Equal & Confident",
+  "chapter": 6,
+  "attested_at": "2026-06-23T20:10:40+05:30",
+  "notes": "Equal & Confident: gameId equal-confident matches registry (export EqualConfidentGame). Reworks ModesEngine build onto v2 engine. 84 scenarios faithfully mapped from GDD 50 JSON: 6 cats (claim-your-voice/lead-the-room/spot-counter-bias/be-the-ally/equality-lifts-everyone/tools-and-help), 7 types (branch 19/strike-rewrite 15/sort 14/reflect 14/role-play 13/spot 5/match 4), 0% binary. Gender equality at college/work; voice/leadership/allyship: claim your voice, lead the room (no title), spot & counter bias (interruptions, 'bossy' double-bind, office housework), be the ally, equality lifts everyone (NOT zero-sum). Evenhanded, never anti-boy. Harassment routes to POSH Internal Committees / 181 (rights/redress in g51) (reassureCats claim-your-voice+spot-counter-bias+be-the-ally). India: women under-represented in workforce/leadership. binStyle: added shrinks it/just optics/fades you out/drains it->red (all g50-only, clearly bad-side; improved ec-006/014/075/082); ec-027 'Fair'->green is correct (bin order bad-first). Spot ids injected (5). Builds on g33/g26; pairs g51; feeds g55/g62.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 50 — Equal and Confident (reworked v2).pdf",
+      "sha256": "6e148c0a7926f90ed0ecef8ed1376a6d133ca9dfdb73517e9fac2d586ba8189d",
+      "bytes": 64113
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 6 User Personas.pdf",
+      "sha256": "352e9362b69c5b5c5df7565066cbff0bf697a54efe848d6777390e2626065f38",
+      "bytes": 80363
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 50 Equal and Confident — Scenario Library.json",
+      "sha256": "f0c1e36e54c165d9a6dce3a22d1a3e27257676df958147d5ae2bd18cbb8e8fc9",
+      "bytes": 65157
+    }
+  }
+}
