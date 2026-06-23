@@ -199,6 +199,9 @@ const GAMES: Record<string, EngineGame> = {
   "family-map": dynamic(() => import("@/components/games/family-map").then((m) => m.FamilyMapGame), {
     ssr: false,
   }),
+  "money-together": dynamic(() => import("@/components/games/money-together").then((m) => m.MoneyTogetherGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {

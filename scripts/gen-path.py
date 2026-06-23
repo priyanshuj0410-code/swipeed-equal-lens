@@ -34,7 +34,7 @@ GAME = {
     "c6": "capstone-6",
     # Chapter 7 — Building a Life (22 → first child)
     "g53": "choosing-building", "g54": "your-path-your-call", "g55": "equal-partners", "g56": "respect-at-home",
-    "g57": "family-map",
+    "g57": "family-map", "g58": "money-together",
 }
 
 def href_for(game):
