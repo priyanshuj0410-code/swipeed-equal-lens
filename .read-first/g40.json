@@ -1,0 +1,35 @@
+{
+  "node": "g40",
+  "gameId": "firewall",
+  "label": "Firewall",
+  "chapter": 4,
+  "attested_at": "2026-06-23T17:12:45+05:30",
+  "notes": "Read GDD 40 library in full (84 scenarios: spot-grooming/think-before-share/sextortion-plan/myths-busted/lock-it-down/find-help-no-blame), incl. all sextortion-plan + find-help-no-blame verbatim — calm/non-explicit, the plan (don't pay/don't send more/block-but-keep-evidence/tell/report), unconditionally never-victim-blaming, POCSO/IT-Act protected-victim 'you won't be in trouble', routes cybercrime.gov.in/1930/Childline 1098. gameId 'firewall' matches registry. binStyle: added \\bsafe\\b/green flag/the truth->green, red flag/a trap/grows your risk/leaves you exposed->red, + safe-negation guard ('not a red flag'/'not a trap'->green before NEG) so GLRL gl-043 stays correct; emulated all 12 g40 bins + full cross-game regression clean. Spot ids injected (12). No builds. reassureCats=[spot-grooming,sextortion-plan,find-help-no-blame] + reassure + 1930/1098 helpLine.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 40 — Firewall (reworked v2).pdf",
+      "sha256": "26aaa24f1d9b7ce2cf0b5a98ad63510ccd418858e8ffcba2869c7ee11b03f620",
+      "bytes": 64060
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 4 User Personas.pdf",
+      "sha256": "d86c9016bf58be6ef0771e9fcd923c987043e4286038da4cdeffb424de927c4d",
+      "bytes": 76452
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 40 Firewall — Scenario Library.json",
+      "sha256": "ff74ed8a544ecf6927ebf2c57ba4c1f3a2ec09519f9e24672b525c7d925d4f44",
+      "bytes": 63709
+    }
+  }
+}
