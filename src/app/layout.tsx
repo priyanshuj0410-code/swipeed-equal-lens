@@ -42,7 +42,10 @@ export const viewport: Viewport = {
   themeColor: "#553286",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  // Allow pinch-zoom (WCAG 1.4.4 / 1.4.10) — never disable user scaling. Drag gestures scope their own
+  // touch-action, so zoom and gestures coexist.
+  maximumScale: 5,
+  userScalable: true,
   viewportFit: "cover",
 };
 
