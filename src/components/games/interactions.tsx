@@ -62,6 +62,7 @@ export function usePointerDrag(opts: PointerDragOptions) {
   }, [opts]);
 
   const finish = useCallback((e: React.PointerEvent) => {
+    try { (e.currentTarget as Element).releasePointerCapture(e.pointerId); } catch { /* already released */ }
     const s = state.current; if (!s) return;
     state.current = null; last.current = null; setDragging(false);
     if (Math.hypot(s.dx, s.dy) < tapThreshold) opts.onTap?.(e);

@@ -21,8 +21,8 @@ export const CAPSTONE_8: CapstoneConfig = {
   "node": "c8",
   "chapter": 8,
   "ages": "Parenthood",
-  "arrival": "Lensy: well, look at you. Eight chapters ago you were three years old, being co-played with by a grown-up. Now you ARE the grown-up, holding the phone, maybe a little nervous, ready to be the safe source you always deserved. You learned consent and bodies, friendship and feelings, growing up, the algorithm, the wider world, standing on your own, building a life, and now, raising someone new. The loop closes here, and it closes with you. Take a breath. This is the whole circle.",
-  "canvasPayoff": "The Full Circle canvas blooms into a warm doorway at golden hour: a parent kneeling to a small child's height, the same height the player started the whole journey at, with a phone held gently between them and an open door behind. Eight chapter-glyphs arc overhead like a rainbow of everything learned, and the nine Chapter 8 stars settle into a ring, a circle with no end, crowned by a single golden finale star as the eight-chapter journey completes and quietly begins again in the next generation.",
+  "arrival": "Lensy: look at you. Eight chapters ago you were three, co-played with by a grown-up. Now you ARE the grown-up you always deserved. The circle closes here.",
+  "canvasPayoff": "A doorway at golden hour: a parent kneeling to a child's height, phone held gently, eight glyphs arcing overhead, nine stars ringed and crowned by one finale.",
   "threadsRecapped": [
     "B",
     "C",
@@ -35,35 +35,35 @@ export const CAPSTONE_8: CapstoneConfig = {
       "node": "g61",
       "game": "Us, After Kids",
       "thread": "D · Relationships",
-      "bigTruth": "After a baby you're not a worse couple, just one under new load; the strain is common, so share the load, repair quickly, and let intimacy return at your own pace.",
+      "bigTruth": "After a baby you're not a worse couple, just one under new load; share it, repair quickly, and let intimacy return at your own pace.",
       "glyph": "us-after-kids"
     },
     {
       "node": "g62",
       "game": "Equal Parents",
       "thread": "E · Gender & Respect",
-      "bigTruth": "Both are real parents; sharing the care and the invisible mental load, not just helping, is the strongest protector of the couple, and children learn equality by watching you.",
+      "bigTruth": "Both are real parents; sharing the care and the invisible mental load — not just helping — protects the couple, and children learn equality by watching you.",
       "glyph": "equal-parents"
     },
     {
       "node": "g63",
       "game": "Looking After You",
       "thread": "C · Feelings & Life Skills",
-      "bigTruth": "You can't pour from an empty cup; self-care is part of childcare, struggling doesn't make you a bad parent, and reaching for help, including for postpartum mental health, is courage.",
+      "bigTruth": "You can't pour from an empty cup; self-care is part of childcare, struggling doesn't make you a bad parent, and reaching for help is courage.",
       "glyph": "looking-after-you"
     },
     {
       "node": "g64",
       "game": "The Talks (Age by Age)",
       "thread": "F · Parent Layer · RSE guidance",
-      "bigTruth": "It isn't one big talk but many small, age-right ones; talking and the proper body names keep children safer, and you give them honest facts alongside your own values.",
+      "bigTruth": "It isn't one big talk but many small, age-right ones; talking and proper body names keep children safer, and you give honest facts alongside your values.",
       "glyph": "the-talks"
     },
     {
       "node": "g65",
       "game": "Break the Cycle",
       "thread": "C · Parent Layer · Positive Parenting",
-      "bigTruth": "We parent the way we were parented, until we choose not to; lead with firm warmth not fear, repair when you slip, and heal your own wounds so the cycle stops with you.",
+      "bigTruth": "We parent the way we were parented, until we choose not to; lead with firm warmth not fear, repair when you slip, and the cycle stops with you.",
       "glyph": "break-the-cycle"
     },
     {
@@ -84,14 +84,14 @@ export const CAPSTONE_8: CapstoneConfig = {
       "node": "g68",
       "game": "Navigating Addictions",
       "thread": "B · Parent Layer · Positive Parenting",
-      "bigTruth": "Shame drives addiction underground while calm connection brings it to light; dependence is a treatable health issue, so respond without rupture and get help early.",
+      "bigTruth": "Shame drives addiction underground while calm connection brings it to light; dependence is a treatable health issue, so respond without rupture and get help.",
       "glyph": "navigating-addictions"
     },
     {
       "node": "g69",
       "game": "Be the Safe Adult",
       "thread": "B · Parent Layer · Safeguarding",
-      "bigTruth": "The biggest protection is a child who knows they can tell you anything; be tellable, notice the signs, and if they tell you, believe them, stay calm, never blame, and act.",
+      "bigTruth": "The biggest protection is a child who knows they can tell you anything; be tellable, notice the signs, and if they tell you, believe them and act.",
       "glyph": "safe-adult"
     }
   ],
@@ -100,7 +100,7 @@ export const CAPSTONE_8: CapstoneConfig = {
       "id": "c8-p1",
       "from": "all",
       "type": "gallery",
-      "frame": "Your Full Circle constellation, nine stars from a whole chapter of becoming the grown-up, and the close of an eight-chapter journey from age three. Tap any star to revisit what you can now give the next generation.",
+      "frame": "Your Full Circle constellation: nine stars from becoming the grown-up, closing an eight-chapter journey from age three. Tap any star to revisit it.",
       "stickers": [
         "us-after-kids",
         "equal-parents",
@@ -306,9 +306,9 @@ export const CAPSTONE_8: CapstoneConfig = {
   ],
   "celebration": {
     "glyph": "full-circle-star",
-    "certificate": "This certifies that you have come Full Circle, a graduate of Chapter 8, of Parenthood, and of the whole eight-chapter journey from age three to here. You protect the partnership and keep your own self, you parent as equals and share the load, you look after your own wellbeing and reach for help, you guide your child through bodies, consent and growing up with honest facts and your values, you discipline with warmth not fear and heal what was passed to you, you affirm a gender-diverse child and champion a neurodiverse one, you meet a child's struggles with connection not shame, and above all you are the safe adult your child can tell anything. The three-year-old of Chapter 1 became the trusted grown-up of Chapter 8. You are raising the next generation better than we were raised. The loop is complete. Stand tall, you have earned every star.",
-    "stickerBook": "All nine Chapter 8 stars now shine in your Full Circle constellation, crowned by the golden finale star. Beneath it, every sticker since age three glows on, eight whole chapters of growing, an entire life learned and now ready to be given to a child of your own. The journey that started with My Family Garden ends, and begins again, here."
+    "certificate": "This certifies you have come Full Circle — graduate of Chapter 8 and the journey from age three. You are the safe adult now. Stand tall, you earned every star.",
+    "stickerBook": "All nine Chapter 8 stars shine in your Full Circle constellation, crowned by the golden finale. Every sticker since age three glows on — a whole life to give."
   },
-  "preview": "There is no Chapter 9, because the next chapter is being written by the small person in front of you. The loop comes full circle: the child of Chapter 1 is now the safe, trusted adult, and a new three-year-old is about to start the very journey you just finished, this time with you as their safe source. That is the whole point of everything you learned: raising the next generation freer, safer and more loved than the last. The circle has no end. It just gets kinder each time around.",
-  "share": "This whole journey was yours, so this is your call: if it feels right, tell someone you trust, or simply tell yourself, one thing you want to give the next generation that you wished you'd had. Saying it out loud is how a circle, and a family, becomes kinder with each turn. However you mark it, you've come the whole way, and you are ready."
+  "preview": "There's no Chapter 9 — the next one is written by the small person in front of you. A new three-year-old is about to start your journey, with you to guide it.",
+  "share": "Your call: tell someone you trust, or just tell yourself, one thing you want to give the next generation that you wished you'd had. You've come the whole way."
 };
