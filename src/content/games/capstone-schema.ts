@@ -77,5 +77,9 @@ export const GLYPH_EMOJI: Record<string, string> = {
   "choosing-building": "💍", "your-path": "🛤️", "equal-partners": "🧺", "respect-home": "🏠",
   "family-map": "🗺️", "money-together": "💵", "if-when-whether": "🤰", "many-ways-family": "👪",
   "a-life-built-star": "🏡",
+  // Chapter 8 — Parenthood (c8 "Full Circle"); glyphs mirror each game's node emoji
+  "us-after-kids": "💑", "equal-parents": "🍼", "looking-after-you": "🌿", "the-talks": "💬",
+  "break-the-cycle": "🔄", "gender-diverse": "🏳️‍🌈", "neurodiverse": "🧩", "navigating-addictions": "🎮",
+  "safe-adult": "🛟", "full-circle-star": "🌳",
 };
 export const glyphEmoji = (g: string): string => GLYPH_EMOJI[g] ?? "⭐";
