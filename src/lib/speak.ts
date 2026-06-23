@@ -1,35 +1,17 @@
-// Audio narration for the youngest, pre-literate games (audio-first by spec). Default engine is the browser
-// SpeechSynthesis API; silently no-ops where unavailable. An OPT-IN in-browser neural voice (Kokoro, see
-// lib/tts-kokoro.ts) can be enabled with `?voice=kokoro` (and an optional `?v=<voice>`), which persists; while
-// its ~80 MB model is still downloading — or where it can't run — narration uses the device voice, then switches
-// to Kokoro once it's ready. `?voice=web` forces the device voice back. Other voice-model details:
-//   • strips emoji before speaking, so "😄" isn't read aloud as "smiling face" (digits like "1098" are kept);
-//   • `onEnd` fires when narration COMPLETES (callers can hold a transition until the audio is done); when
-//     muted/unavailable it still fires after a length-based fallback, so pacing holds;
-//   • `replay()` re-speaks the last line; `stopSpeaking()` cancels whichever engine is active.
+// Audio narration for the games (audio-first by spec). The voice is PER CHAPTER: each of the 8 chapters targets
+// a different persona/age band and can have its own voice, set in the /voice lab and stored as one JSON object
+// (lib/chapters.ts · `swipeed.voices`). The host (engine-host) calls setNarrationChapter(n) when a game loads, so
+// every line speaks in that chapter's voice. Each chapter picks an engine: the device SpeechSynthesis voice (a
+// chosen voice + rate/pitch) or the opt-in in-browser neural voice (Kokoro, lib/tts-kokoro.ts — a chosen voice +
+// speed). While Kokoro's ~80 MB model downloads, or where it can't run, that chapter falls back to the device
+// voice and switches once ready. Other details: strip emoji before speaking (keep digits like "1098"); `onEnd`
+// fires when a line finishes (length-based fallback when muted); `replay()` re-speaks the last line;
+// `stopSpeaking()` cancels whichever engine is active.
 
 import { kokoroReady, kokoroFailed, kokoroSpeak, kokoroStop, warmKokoro, setKokoroVoice, setKokoroSpeed } from "./tts-kokoro";
+import { readVoiceMap, cfgForChapter, type VoiceCfg } from "./chapters";
 
 const LOCALE = "en-IN";
-
-// — Web Speech voice / rate / pitch are tunable from the voice lab (/voice), persisted in localStorage —
-let cachedVoices: SpeechSynthesisVoice[] = [];
-function refreshVoices() { try { cachedVoices = window.speechSynthesis?.getVoices() ?? cachedVoices; } catch { /* ignore */ } }
-if (typeof window !== "undefined" && window.speechSynthesis) {
-  refreshVoices();
-  try { window.speechSynthesis.addEventListener("voiceschanged", refreshVoices); } catch { /* ignore */ }
-}
-function chosenWebVoice(): SpeechSynthesisVoice | null {
-  try {
-    const uri = localStorage.getItem("swipeed.webVoiceURI");
-    if (!uri) return null;
-    if (!cachedVoices.length) refreshVoices();
-    return cachedVoices.find((v) => v.voiceURI === uri) ?? null;
-  } catch { return null; }
-}
-function numPref(key: string, def: number): number {
-  try { const v = parseFloat(localStorage.getItem(key) ?? ""); return Number.isFinite(v) ? v : def; } catch { return def; }
-}
 
 // Remove emoji / pictographs / skin-tone modifiers / ZWJ / regional indicators / variation selectors.
 // Digits (e.g. "1098") are intentionally kept.
@@ -46,29 +28,35 @@ function fallbackMs(t: string): number {
   return Math.min(7000, Math.max(900, t.split(/\s+/).filter(Boolean).length * 320));
 }
 
-// — voice engine selection (resolved once, client-side; `?voice=` persists to localStorage) —
-type Engine = "web" | "kokoro";
-let engine: Engine = "web";
-let engineResolved = false;
-function resolveEngine(): Engine {
-  if (engineResolved || typeof window === "undefined") return engine;
-  engineResolved = true;
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const q = params.get("voice");
-    if (q === "kokoro" || q === "web") localStorage.setItem("swipeed.voice", q);
-    const vn = params.get("v");
-    if (vn) localStorage.setItem("swipeed.voiceName", vn);
-    engine = localStorage.getItem("swipeed.voice") === "kokoro" ? "kokoro" : "web";
-    if (engine === "kokoro") {
-      const name = localStorage.getItem("swipeed.voiceName");
-      if (name) setKokoroVoice(name);
-      const sp = localStorage.getItem("swipeed.kokoroSpeed");
-      if (sp) setKokoroSpeed(parseFloat(sp));
-      warmKokoro(); // start the one-time model download now (device voice covers us until it's ready)
-    }
-  } catch { engine = "web"; }
-  return engine;
+// — the chapter currently being played (set by the game host); picks which voice config applies —
+let currentChapter: number | null = null;
+function activeCfg(): VoiceCfg {
+  if (typeof window === "undefined") return { engine: "web" };
+  return cfgForChapter(readVoiceMap(), currentChapter);
+}
+export function setNarrationChapter(ch: number | null) {
+  currentChapter = ch;
+  const cfg = activeCfg();
+  if (cfg.engine === "kokoro") {
+    if (cfg.kokoroVoice) setKokoroVoice(cfg.kokoroVoice);
+    if (cfg.kokoroSpeed) setKokoroSpeed(cfg.kokoroSpeed);
+    warmKokoro(); // start the one-time model download (the device voice covers this chapter until it's ready)
+  }
+}
+/** Re-apply prefs after the /voice lab saves (re-warms Kokoro for the current chapter if needed). */
+export function applyVoicePrefs() { setNarrationChapter(currentChapter); }
+
+// — device-voice list (voices load async; refresh on voiceschanged) —
+let cachedVoices: SpeechSynthesisVoice[] = [];
+function refreshVoices() { try { cachedVoices = window.speechSynthesis?.getVoices() ?? cachedVoices; } catch { /* ignore */ } }
+if (typeof window !== "undefined" && window.speechSynthesis) {
+  refreshVoices();
+  try { window.speechSynthesis.addEventListener("voiceschanged", refreshVoices); } catch { /* ignore */ }
+}
+function voiceByURI(uri?: string): SpeechSynthesisVoice | null {
+  if (!uri) return null;
+  if (!cachedVoices.length) refreshVoices();
+  return cachedVoices.find((v) => v.voiceURI === uri) ?? null;
 }
 
 let gen = 0; // bumps on each new line so a stale utterance's callback can't fire
@@ -88,10 +76,12 @@ function run(text: string, opts: Opts) {
     cb?.();
   };
 
-  // — Kokoro (opt-in) path: only when ready; otherwise warm it and fall through to the device voice this time —
-  if (!muted && text && resolveEngine() === "kokoro" && !kokoroFailed()) {
+  const cfg = muted ? null : activeCfg();
+
+  // — Kokoro (this chapter chose it): only when ready; otherwise warm it and use the device voice this line —
+  if (cfg && text && cfg.engine === "kokoro" && !kokoroFailed()) {
     if (kokoroReady()) {
-      kokoroSpeak(text, { onEnd: fire, isCurrent: () => myGen === gen });
+      kokoroSpeak(text, { voice: cfg.kokoroVoice, speed: cfg.kokoroSpeed, onEnd: fire, isCurrent: () => myGen === gen });
       return;
     }
     warmKokoro();
@@ -107,10 +97,10 @@ function run(text: string, opts: Opts) {
     synth.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = locale;
-    const v = chosenWebVoice();
+    const v = voiceByURI(cfg?.webVoiceURI);
     if (v) { u.voice = v; u.lang = v.lang; }
-    u.rate = numPref("swipeed.rate", 0.95);
-    u.pitch = numPref("swipeed.pitch", 1.08);
+    u.rate = cfg?.rate ?? 0.95;
+    u.pitch = cfg?.pitch ?? 1.08;
     u.onend = fire;
     u.onerror = fire;
     window.setTimeout(fire, fallbackMs(text) + 2000); // safety: some browsers don't fire onend reliably
@@ -118,13 +108,6 @@ function run(text: string, opts: Opts) {
   } catch {
     if (onEnd) window.setTimeout(fire, fallbackMs(text));
   }
-}
-
-/** Re-read the persisted voice prefs (called by the voice lab after Save) so a changed engine takes effect
- * without a full reload. Web voice / rate / pitch are already read fresh on every line. */
-export function applyVoicePrefs() {
-  engineResolved = false;
-  resolveEngine();
 }
 
 export function speak(text: string, opts: Opts = {}) {
