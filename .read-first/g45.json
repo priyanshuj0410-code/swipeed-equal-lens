@@ -1,0 +1,35 @@
+{
+  "node": "g45",
+  "gameId": "swipe-right",
+  "label": "Swipe Right? — Dating & Apps",
+  "chapter": 6,
+  "attested_at": "2026-06-23T19:31:48+05:30",
+  "notes": "Swipe Right? — Dating & Apps: gameId swipe-right matches registry (export SwipeRightGame). Reworks old ModesEngine build onto shared v2 engine. 84 scenarios faithfully mapped from GDD 45 JSON: 6 cats (dating-now/meeting-safely/fakes-and-ghosts/date-with-respect/profiles-are-people/tools-and-help), 7 types (branch 19/strike-rewrite 15/sort 15/reflect 13/role-play 9/spot 8/match 5), 0% binary. Modern dating & app safety: meet safely, spot fakes/ghosts, rejection both ways, profiles are people. Practical safety NOT fear-mongering (public, tell a friend, own way home, video-verify); skeptical of fast love/money (romance scams); even-handed across genders/orientations. India: dating hidden from family->tell a friend; image-based abuse->cybercrime 1930/cybercrime.gov.in/1098/181 (reassureCats meeting-safely+fakes-and-ghosts+tools-and-help). binStyle: added disposable/draining->red; REJECTED 'real check'->green (would mis-color smart-screen's bad 'Not a real check'). Spot ids injected (8). Builds on g24/g40/g44.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 45 — Swipe Right (reworked v2).pdf",
+      "sha256": "813bd39abda50d3fc48154b7ff9a1bf18eb5f7ba1d8d50e321d56638bab07b6a",
+      "bytes": 64399
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 6 User Personas.pdf",
+      "sha256": "352e9362b69c5b5c5df7565066cbff0bf697a54efe848d6777390e2626065f38",
+      "bytes": 80363
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 45 Swipe Right — Scenario Library.json",
+      "sha256": "a5b87317d0c5594a21e8ef40250d525d85b36f4d90e2be066db0ff42a4bd37ac",
+      "bytes": 65017
+    }
+  }
+}
