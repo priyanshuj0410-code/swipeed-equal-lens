@@ -10,6 +10,7 @@ import { UnReBeat } from "@/components/games/un-re";
 import { useProfile } from "@/lib/store";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
+import { usePointerDrag, hitTestZone, ConnectorOverlay, type Cord } from "@/components/games/interactions";
 import { prefersReducedMotion } from "@/lib/juice";
 import { shuffle, byCat, type Scenario, type V2GameConfig, type V2Mechanic } from "@/content/games/v2-schema";
 
@@ -139,14 +140,16 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 
   const earn = (catId: string) => setStickers((p) => (p.has(catId) ? p : new Set(p).add(catId)));
 
-  // A renderer calls this when the child completes its interaction.
-  const solve = () => {
+  // A renderer calls this when the child completes its interaction. `picked` (reflect) lets us echo the chosen
+  // option back by name first ("Happy. <affirm>") so affect-labelling is audible.
+  const solve = (picked?: string) => {
     if (!sc) return;
     earn(sc.cat);
     celebrate("small");
     vibrate(sc.type === "role-play" ? [16, 40, 16] : 12);
     setPhase("resolve");
-    say(resolveLine(sc));
+    const line = resolveLine(sc);
+    say(picked && sc.type === "reflect" ? `${picked}. ${line}` : line);
   };
 
   const next = () => {
@@ -182,7 +185,9 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const SamSays = (
     <div className="flex items-center gap-3">
       <Sam size={64} />
-      <span className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
+      {/* aria-live: the bubble mirrors every say() — hook, nudge, result — so screen-reader / deaf / TTS-muted
+          users get parity (fixes the prior say()-is-speech-only gap) without per-renderer plumbing. */}
+      <span role="status" aria-live="polite" aria-atomic="true" className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
     </div>
   );
   const StickerBook = (
@@ -288,100 +293,164 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 }
 
 // ============================ the seven mechanic renderers ============================
-function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string } }) {
+function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; onSolved: (picked?: string) => void; say: (t: string) => void; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string } }) {
   switch (sc.type) {
     case "reflect": return <ReflectPlay sc={sc} onSolved={onSolved} />;
-    case "role-play": return <RolePlayPlay sc={sc} onSolved={onSolved} />;
-    case "strike-rewrite": return <StrikePlay onSolved={onSolved} />;
+    case "role-play": return <RolePlayPlay sc={sc} onSolved={onSolved} say={say} />;
+    case "strike-rewrite": return <StrikePlay sc={sc} onSolved={onSolved} reduceMotion={reduceMotion} />;
     case "branch": return <BranchPlay sc={sc} onSolved={onSolved} say={say} />;
     case "sort": return <SortPlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
     case "match": return <MatchPlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
-    case "build": return <BuildPlay sc={sc} onSolved={onSolved} say={say} labels={buildLabels} />;
+    case "build": return <BuildPlay sc={sc} onSolved={onSolved} say={say} labels={buildLabels} reduceMotion={reduceMotion} />;
     case "explore-label": return <ExploreLabelPlay sc={sc} onSolved={onSolved} say={say} />;
     case "spot": return <SpotPlay sc={sc} onSolved={onSolved} say={say} />;
-    case "swipe": return <SwipePlay sc={sc} onSolved={onSolved} say={say} />;
+    case "swipe": return <SwipePlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
   }
 }
 
-// swipe — read the cue, then swipe it the right way: two directional flag buttons (left/right). Colour is never
-// the only signal (each side carries its word + a flag emoji). A wrong swipe gives a warm nudge (no fail); the
-// right read advances (the relearn shows on resolve). The teen flagship's green-light / red-light reading verb.
-function flagSide(label: string): { emoji: string; tint: string } {
+// swipe — the teen flagship's signature verb: physically SWIPE the cue card to a side (drag it, or ←/→ keys).
+// NO buttons (the gesture/keys ARE the input). Drag past a forgiving threshold (or flick) commits that side;
+// a short drag springs back (a no-fail "not yet"); a wrong side springs back + a warm nudge. The two edge zones
+// are visual targets only (word + flag emoji, so colour is never the only signal). Keyboard: the card is the
+// focusable control — ArrowLeft = left, ArrowRight = right (the gesture's keyboard equivalent). Reduced motion
+// degrades the fly-off/spring to instant. Valence tint is by label meaning, falling back to side-distinct
+// neutral tints when a label carries no flag/health keyword (never a false green/red).
+function flagSide(label: string, side: "left" | "right"): { emoji: string; tint: string } {
   const o = label.toLowerCase();
-  if (/green|healthy|safe|ok|consent|yes/.test(o)) return { emoji: "💚", tint: "#62B84B" };
-  if (/red|unhealthy|unsafe|not ok|no\b/.test(o)) return { emoji: "🚩", tint: "#E05C52" };
-  return { emoji: "🤔", tint: "#5B9BD5" };
+  if (/green|healthy|safe|consent|\byes\b|\bok\b|\btrue\b|kind|respect/.test(o)) return { emoji: "💚", tint: "#62B84B" };
+  if (/\bred\b|unhealthy|unsafe|\bno\b|not ok|\bfalse\b|cross|disrespect|pressure/.test(o)) return { emoji: "🚩", tint: "#E05C52" };
+  return side === "left" ? { emoji: "👈", tint: "#5B9BD5" } : { emoji: "👉", tint: "#7C5CFC" };
 }
-function SwipePlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "swipe" }>; onSolved: () => void; say: (t: string) => void }) {
-  const [wrong, setWrong] = useState<"left" | "right" | null>(null);
-  const choose = (side: "left" | "right") => {
-    if (side === sc.answer) { vibrate(12); onSolved(); }
-    else { setWrong(side); say("Look again — read the flag."); }
+// a swipe commit-edge: a visual target only (word + flag emoji), brightening as the card is dragged toward it.
+function SwipeZone({ s, label, active }: { s: { emoji: string; tint: string }; label: string; active: boolean }) {
+  return (
+    <div className="flex w-16 shrink-0 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 text-center text-[11px] font-extrabold leading-tight text-white transition-opacity" style={{ background: s.tint, opacity: active ? 1 : 0.4 }} aria-hidden>
+      <span className="text-2xl">{s.emoji}</span>{label}
+    </div>
+  );
+}
+function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "swipe" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [dx, setDx] = useState(0);
+  const [flyTo, setFlyTo] = useState<0 | 1 | -1>(0); // committing fly-off direction
+  const [wrong, setWrong] = useState(false);
+  const L = flagSide(sc.left, "left"), R = flagSide(sc.right, "right");
+  const threshold = () => Math.max(72, (cardRef.current?.offsetWidth ?? 260) * 0.28);
+
+  const commit = (side: "left" | "right") => {
+    if (side === sc.answer) {
+      setWrong(false);
+      if (reduceMotion) { vibrate(12); onSolved(); }
+      else { setFlyTo(side === "left" ? -1 : 1); setTimeout(() => { vibrate(12); onSolved(); }, 250); }
+    } else { setWrong(true); setDx(0); say("Look again — read the flag, then swipe it the right way."); }
   };
-  const L = flagSide(sc.left), R = flagSide(sc.right);
+  const drag = usePointerDrag({
+    onMove: (s) => setDx(s.dx),
+    onEnd: (s) => {
+      const t = threshold();
+      if (s.dx > t || s.vx > 0.5) commit("right");
+      else if (s.dx < -t || s.vx < -0.5) commit("left");
+      else setDx(0); // spring back
+    },
+    onTap: () => setDx(0),
+  });
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") { e.preventDefault(); commit("left"); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); commit("right"); }
+  };
+  const lit = dx < -8 ? "left" : dx > 8 ? "right" : null;
+  const tx = flyTo !== 0 ? flyTo * 640 : dx;
   return (
     <div className="flex flex-col gap-3">
-      <div className="glass-card flex min-h-24 items-center justify-center rounded-3xl px-5 py-6 text-center text-[15px] font-bold text-foreground backdrop-blur-[12px]">{sc.cue}</div>
-      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Look again — is that healthy? 💛</p>}
-      <div className="grid grid-cols-2 gap-2.5">
-        <button type="button" aria-label={`Swipe left: ${sc.left}`} onClick={() => choose("left")} className="flex flex-col items-center justify-center gap-1 rounded-2xl py-5 text-base font-extrabold text-white transition-transform active:scale-95" style={{ background: L.tint }}>
-          <span className="text-3xl" aria-hidden>{L.emoji}</span><span>← {sc.left}</span>
-        </button>
-        <button type="button" aria-label={`Swipe right: ${sc.right}`} onClick={() => choose("right")} className="flex flex-col items-center justify-center gap-1 rounded-2xl py-5 text-base font-extrabold text-white transition-transform active:scale-95" style={{ background: R.tint }}>
-          <span className="text-3xl" aria-hidden>{R.emoji}</span><span>{sc.right} →</span>
-        </button>
+      <div className="flex items-stretch gap-2">
+        <SwipeZone s={L} label={sc.left} active={lit === "left"} />
+        <div
+          ref={cardRef} tabIndex={0} role="group"
+          aria-roledescription="card you swipe left or right"
+          aria-label={`${sc.cue}. Press Left arrow for ${sc.left}, or Right arrow for ${sc.right}.`}
+          onKeyDown={onKeyDown}
+          {...drag.handlers}
+          className="glass-card flex min-h-28 flex-1 cursor-grab select-none items-center justify-center rounded-3xl px-4 py-6 text-center text-[15px] font-bold text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
+          style={{ transform: `translateX(${tx}px) rotate(${tx * 0.04}deg)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.25s ease-out", touchAction: "pan-y" }}
+        >
+          {sc.cue}
+        </div>
+        <SwipeZone s={R} label={sc.right} active={lit === "right"} />
       </div>
+      <p className="text-center text-xs font-semibold text-foreground/60">{wrong ? "Look again — is that healthy? 💛" : "Swipe the card — or use ← → keys"}</p>
     </div>
   );
 }
 
-// reflect — every option is affirming; tap any (no wrong answer).
-function ReflectPlay({ sc, onSolved }: { sc: Extract<Scenario, { type: "reflect" }>; onSolved: () => void }) {
+// reflect — every option is affirming; tap any (no wrong answer). The chosen option is echoed back by name on
+// resolve (affect-labelling). Tap IS the right verb here — a drag would add ceremony and hurt the 3–6 band.
+function ReflectPlay({ sc, onSolved }: { sc: Extract<Scenario, { type: "reflect" }>; onSolved: (picked?: string) => void }) {
   return (
     <div className={`grid gap-2.5 ${sc.options.length >= 3 ? "grid-cols-2" : "grid-cols-1"}`}>
       {sc.options.map((o) => (
-        <button key={o} type="button" onClick={onSolved} className="glass-card flex items-center justify-center rounded-2xl px-3 py-4 text-center text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.96]">{o}</button>
+        <button key={o} type="button" onClick={() => onSolved(o)} className="glass-card flex items-center justify-center rounded-2xl px-3 py-4 text-center text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.96]">{o}</button>
       ))}
     </div>
   );
 }
 
-// role-play (voice) — the BEST line is a big tactile "say it loud" button; the passive line stays small.
-function RolePlayPlay({ sc, onSolved }: { sc: Extract<Scenario, { type: "role-play" }>; onSolved: () => void }) {
+// role-play (voice) — equal-weight, SHUFFLED speech cards: the child must read and choose the assertive line
+// (no more "tap the biggest green shape" tell — that was a binary tap the schema forbids). Tap a card = say it;
+// the assertive line advances, a passive line speaks and warmly re-opens (no fail). The success haptic now fires
+// once (in solve()) — the renderer no longer double-buzzes. Every card carries 🗣️ so the "voice" motif holds.
+function RolePlayPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "role-play" }>; onSolved: () => void; say: (t: string) => void }) {
+  const [lines] = useState(() => shuffle(sc.yourLine));
   const [nudge, setNudge] = useState(false);
-  const best = sc.yourLine.find((l) => l.best) ?? sc.yourLine[0];
-  const others = sc.yourLine.filter((l) => l !== best);
+  const choose = (l: { text: string; best?: boolean }) => {
+    if (l.best) onSolved();
+    else { setNudge(true); say("That's one way — now say the strong, brave line! 💪"); }
+  };
   return (
     <div className="flex flex-col gap-2.5">
-      <button type="button" onClick={() => { vibrate([16, 40, 16]); onSolved(); }} className="flex flex-col items-center justify-center gap-1.5 rounded-3xl bg-[var(--color-grow)] py-7 text-white ring-4 ring-[var(--color-ink)]/25 transition-transform active:scale-90">
-        <span className="text-4xl" aria-hidden>🗣️</span>
-        <span className="px-3 text-center text-lg font-extrabold leading-tight">{best.text}</span>
-        <span className="text-xs font-semibold opacity-80">Tap to say it, loud and brave</span>
-      </button>
-      {others.map((o) => (
-        <button key={o.text} type="button" onClick={() => setNudge(true)} className="glass-pill rounded-2xl px-4 py-2.5 text-center text-sm font-semibold text-foreground/70 backdrop-blur-md transition-transform active:scale-95">{o.text}</button>
+      {lines.map((l, i) => (
+        <button key={i} type="button" onClick={() => choose(l)} aria-label={`Say: ${l.text}`} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
+          <span className="text-2xl" aria-hidden>🗣️</span><span className="flex-1">{l.text}</span>
+        </button>
       ))}
-      {nudge && <p className="text-center text-xs font-semibold text-foreground/70">You can be even braver — say the strong words! 💪</p>}
+      {nudge && <p className="text-center text-xs font-semibold text-foreground/70">Say it loud and brave — pick the strong line! 💪</p>}
     </div>
   );
 }
 
-// strike-rewrite — tap to rub the myth out (the UN→RE truth shows on resolve).
-function StrikePlay({ onSolved }: { onSolved: () => void }) {
+// strike-rewrite — the myth is now VISIBLE and physically erasable (it used to act on nothing). Scrub a finger
+// back-and-forth across the myth card; it fades/blurs as you scrub, and past a forgiving threshold the UN→RE
+// truth resolves. Back-and-forth scrub is one of the easiest gestures for tiny hands (finger-painting). Keyboard
+// / screen-reader: the card is a focusable button — Enter/Space rubs it out in one go. Reduced motion → instant.
+function StrikePlay({ sc, onSolved, reduceMotion }: { sc: Extract<Scenario, { type: "strike-rewrite" }>; onSolved: () => void; reduceMotion: boolean }) {
+  const [progress, setProgress] = useState(0);
+  const doneRef = useRef(false);
+  const THRESH = 240; // px of scrubbing to fully erase (forgiving)
+  const finish = () => { if (doneRef.current) return; doneRef.current = true; vibrate(12); onSolved(); };
+  const drag = usePointerDrag({
+    tapThreshold: 4,
+    onMove: (s) => { const p = Math.min(1, s.distance / THRESH); setProgress(p); if (p >= 1) finish(); },
+  });
+  const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setProgress(1); finish(); } };
   return (
-    <button type="button" onClick={onSolved} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-insight)] text-base font-extrabold text-white transition-transform active:scale-95">
-      <span className="text-2xl" aria-hidden>✏️</span> Rub it out
-    </button>
+    <div className="flex flex-col gap-2.5">
+      <div tabIndex={0} role="button" aria-label={`Rub out the myth: ${sc.myth.un}`} onKeyDown={onKeyDown} {...drag.handlers}
+        className="glass-card relative flex min-h-24 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-2xl px-5 py-6 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
+        <p className="text-[15px] font-bold text-foreground" style={{ opacity: reduceMotion ? (progress >= 1 ? 0.12 : 1) : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{sc.myth.un}</p>
+        <span className="pointer-events-none absolute bottom-1.5 right-2.5 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>
+      </div>
+      <p className="text-center text-xs font-semibold text-foreground/60">Scrub the myth away — or press Enter</p>
+    </div>
   );
 }
 
 // branch — pick a choice; HEAR + see its consequence; the safe (best) choice leads on, others gently
 // redirect. If a scenario has no `best` at all, any pick advances (never a soft-lock).
 function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "branch" }>; onSolved: () => void; say: (t: string) => void }) {
+  const [opts] = useState(() => shuffle(sc.options)); // best is authored at index 0 — shuffle so there's no "tap the top" tell
   const [picked, setPicked] = useState<number | null>(null);
-  const hasBest = sc.options.some((o) => o.best);
+  const hasBest = opts.some((o) => o.best);
   if (picked !== null) {
-    const opt = sc.options[picked];
+    const opt = opts[picked];
     const advance = opt.best || !hasBest; // safe choice, or there is no "best" to find → move on
     return (
       <div className="flex flex-col gap-2.5">
@@ -396,7 +465,7 @@ function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "bran
   }
   return (
     <div className="flex flex-col gap-2.5">
-      {sc.options.map((o, i) => (
+      {opts.map((o, i) => (
         <button key={i} type="button" onClick={() => { setPicked(i); say(o.consequence); if (o.best) { vibrate(12); } }} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
           <span className="text-2xl" aria-hidden>🔀</span><span className="flex-1">{o.text}</span>
         </button>
@@ -405,109 +474,207 @@ function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "bran
   );
 }
 
-// sort — tap an item to pick it up, tap the bin it belongs in. Wrong bin gives a warm nudge (no fail).
+// sort — DRAG a chip into its bin (the bin under the finger highlights; release snaps it in). Tap-to-arm then
+// tap-a-bin is kept verbatim as the fallback — it IS the keyboard / screen-reader / ages-3–6 path (chips & bins
+// are native buttons). A wrong bin springs back + a warm nudge (no fail); colour is never the only signal (each
+// bin keeps its emoji + word). Reduced motion drops the lift/pulse animation, not the function.
 function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "sort" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
   const [placed, setPlaced] = useState<Record<string, string>>({});
   const [sel, setSel] = useState<string | null>(null);
   const [wrong, setWrong] = useState(false);
+  const [drag, setDrag] = useState<{ id: string; x: number; y: number } | null>(null);
+  const [hover, setHover] = useState<string | null>(null);
+  const binEls = useRef<Record<string, HTMLElement | null>>({});
+  const dragId = useRef<string | null>(null);
+  const styles = binStyles(sc.bins);
   const done = Object.keys(placed).length;
-  const drop = (binId: string) => {
-    if (!sel) return;
-    if (sc.key[sel] === binId) {
-      const np = { ...placed, [sel]: binId };
-      setPlaced(np); setSel(null); setWrong(false);
+  const itemText = (id: string) => sc.items.find((it) => it.id === id)?.text ?? "";
+  const zones = () => sc.bins.map((b) => ({ id: b.id, el: binEls.current[b.id] }));
+
+  const place = (itemId: string, binId: string) => {
+    if (sc.key[itemId] === binId) {
+      const np = { ...placed, [itemId]: binId }; setPlaced(np); setSel(null); setWrong(false);
+      const bin = sc.bins.find((b) => b.id === binId);
+      say(`${itemText(itemId)} — ${bin?.label}. ✓`);
       if (Object.keys(np).length >= sc.items.length) onSolved();
-    } else { setWrong(true); say("Hmm, try the other one."); }
+    } else { setWrong(true); say("Not there — try another bin."); }
   };
+  const arm = (id: string) => { setSel(id); setWrong(false); };
+  const pointer = usePointerDrag({
+    onStart: (s, e) => { const id = (e.currentTarget as HTMLElement).dataset.id ?? null; dragId.current = id; if (id) { arm(id); setDrag({ id, x: s.x, y: s.y }); } },
+    onMove: (s) => { const id = dragId.current; if (!id) return; setDrag({ id, x: s.x, y: s.y }); setHover(hitTestZone(s.x, s.y, zones(), 44)); },
+    onEnd: (s) => { const id = dragId.current; dragId.current = null; const bin = hitTestZone(s.x, s.y, zones(), 44); setDrag(null); setHover(null); if (id && bin) place(id, bin); },
+    onTap: () => { dragId.current = null; setDrag(null); setHover(null); }, // arming already happened in onStart
+  });
+
   return (
     <div className="flex flex-col gap-3">
-      {/* unplaced item chips */}
+      {/* the chip following the finger (pointer-events:none so it never blocks the hit-test) */}
+      {drag && !reduceMotion && (
+        <div className="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-[var(--color-sun)] px-3 py-2.5 text-sm font-bold text-slate-900 shadow-lg" style={{ left: drag.x, top: drag.y }}>{itemText(drag.id)}</div>
+      )}
+      {sel && !drag && <p className="text-center text-xs font-semibold text-foreground/70" aria-hidden>Carrying “{itemText(sel)}” — now pick a bin 👇</p>}
+      {/* unplaced item chips — draggable AND tap-to-arm */}
       <div className="flex flex-wrap justify-center gap-2">
         {sc.items.filter((it) => !placed[it.id]).map((it) => (
-          <button key={it.id} type="button" onClick={() => { setSel(it.id); setWrong(false); }} className={`glass-card rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 ${sel === it.id && !reduceMotion ? "animate-pulse" : ""}`} style={sel === it.id ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>{it.text}</button>
+          <button key={it.id} type="button" data-id={it.id} onClick={() => arm(it.id)} {...pointer.handlers}
+            className={`glass-card touch-none rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 ${sel === it.id && !drag && !reduceMotion ? "animate-pulse" : ""} ${drag?.id === it.id ? "opacity-30" : ""}`}
+            style={sel === it.id && !drag ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>{it.text}</button>
         ))}
       </div>
-      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Not quite — try the other one. 💛</p>}
-      {/* bins */}
+      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Not there — try another bin. 💛</p>}
+      {/* bins — tap to drop the armed chip, or release a dragged chip over one */}
       <div className="grid grid-cols-2 gap-2.5">
-        {(() => { const styles = binStyles(sc.bins); return sc.bins.map((b, bi) => {
+        {sc.bins.map((b, bi) => {
           const st = styles[bi];
           const inBin = sc.items.filter((it) => placed[it.id] === b.id);
+          const armed = (!!sel && !drag) || hover === b.id;
           return (
-            <button key={b.id} type="button" onClick={() => drop(b.id)} className="glass-card flex min-h-[5.5rem] flex-col items-center gap-1 rounded-2xl px-2 py-3 text-center backdrop-blur-[12px] transition-transform active:scale-[0.97]" style={{ boxShadow: `inset 0 0 0 2.5px ${st.tint}` }}>
+            <button key={b.id} type="button" ref={(el) => { binEls.current[b.id] = el; }} onClick={() => { if (sel) place(sel, b.id); }}
+              className="glass-card flex min-h-[5.5rem] flex-col items-center gap-1 rounded-2xl px-2 py-3 text-center backdrop-blur-[12px] transition-transform active:scale-[0.97]"
+              style={{ boxShadow: `inset 0 0 0 ${hover === b.id ? "3.5px" : "2.5px"} ${st.tint}`, background: hover === b.id ? "color-mix(in srgb, " + st.tint + " 16%, transparent)" : undefined }}>
               <span className="text-2xl" aria-hidden>{st.emoji}</span>
-              <span className="text-xs font-extrabold text-foreground">{b.label}</span>
+              <span className="text-xs font-extrabold text-foreground">{b.label}{armed ? " ⤵" : ""}</span>
               {inBin.map((it) => <span key={it.id} className="rounded-full bg-[var(--color-sun)] px-2 py-0.5 text-[11px] font-bold text-slate-900">{it.text} ✓</span>)}
             </button>
           );
-        }); })()}
+        })}
       </div>
       <p className="text-center text-xs text-foreground/55">{done} / {sc.items.length} sorted</p>
     </div>
   );
 }
 
-// match — tap a left, tap its right. A wrong pair gives a warm nudge (no fail).
+// match — DRAW a cord from a left cell to its right cell (a live cord follows the finger; release on the right
+// cell locks a persistent cord and stamps a shared number-token on BOTH ends, so the bond is readable without
+// colour AND without the cord). Tap-a-left then tap-a-right is kept as the keyboard / screen-reader / ages-3–6
+// fallback (cells are native buttons). A wrong release retracts + a warm nudge (no fail).
+const MATCH_GLYPHS = ["①", "②", "③", "④", "⑤", "⑥"];
+const MATCH_TINTS = ["#62B84B", "#7C5CFC", "#F0A93B", "#5B9BD5", "#E0727B", "#46B8A8"];
 function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "match" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
   const [rights] = useState(() => shuffle(sc.pairs.map((p) => p.right)));
-  const [matched, setMatched] = useState<Set<string>>(new Set());
+  const [matched, setMatched] = useState<string[]>([]); // left texts in connect order (→ shared glyph index)
   const [selLeft, setSelLeft] = useState<string | null>(null);
   const [wrong, setWrong] = useState(false);
-  const pick = (right: string) => {
-    if (!selLeft) return;
-    const correct = sc.pairs.find((p) => p.left === selLeft)?.right === right;
-    if (correct) {
-      const nm = new Set(matched).add(selLeft);
-      setMatched(nm); setSelLeft(null); setWrong(false);
-      if (nm.size >= sc.pairs.length) onSolved();
-    } else { setWrong(true); say("Hmm, try another."); }
+  const [live, setLive] = useState<Cord | null>(null);
+  const [locked, setLocked] = useState<Cord[]>([]);
+  const [hover, setHover] = useState<string | null>(null);
+  const wrap = useRef<HTMLDivElement>(null);
+  const leftEls = useRef<Record<string, HTMLElement | null>>({});
+  const rightEls = useRef<Record<string, HTMLElement | null>>({});
+  const dragLeft = useRef<string | null>(null);
+
+  const rightOf = (left: string) => sc.pairs.find((p) => p.left === left)?.right;
+  const tokenOf = (left: string) => MATCH_GLYPHS[matched.indexOf(left) % MATCH_GLYPHS.length];
+  const anchor = (el: HTMLElement | null, side: "l" | "r") => {
+    const w = wrap.current; if (!el || !w) return null;
+    const r = el.getBoundingClientRect(), c = w.getBoundingClientRect();
+    return { x: (side === "r" ? r.right : r.left) - c.left, y: r.top + r.height / 2 - c.top };
   };
-  const rightDone = (r: string) => sc.pairs.some((p) => p.right === r && matched.has(p.left));
+  const recompute = useCallback(() => {
+    const cords: Cord[] = [];
+    matched.forEach((left, i) => {
+      const r = rightOf(left); const a = anchor(leftEls.current[left], "r"); const b = r ? anchor(rightEls.current[r], "l") : null;
+      if (a && b) cords.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y, tint: MATCH_TINTS[i % MATCH_TINTS.length] });
+    });
+    setLocked(cords);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [matched]);
+  useEffect(() => { recompute(); const on = () => recompute(); window.addEventListener("resize", on); return () => window.removeEventListener("resize", on); }, [recompute]);
+
+  const rightZones = () => rights.map((r) => ({ id: r, el: rightEls.current[r] }));
+  const connect = (left: string, right: string) => {
+    if (rightOf(left) === right) {
+      const nm = [...matched, left]; setMatched(nm); setSelLeft(null); setWrong(false);
+      say(`${left} — ${right}. ✓`);
+      if (nm.length >= sc.pairs.length) onSolved();
+    } else { setWrong(true); say("Not a match — try another."); }
+  };
+  const liveFrom = (left: string, x: number, y: number) => {
+    const a = anchor(leftEls.current[left], "r"), w = wrap.current; if (!a || !w) return;
+    const c = w.getBoundingClientRect(); setLive({ x1: a.x, y1: a.y, x2: x - c.left, y2: y - c.top, tint: "var(--color-ink)" });
+  };
+  const pointer = usePointerDrag({
+    onStart: (s, e) => { const left = (e.currentTarget as HTMLElement).dataset.left ?? null; dragLeft.current = left; if (left) { setSelLeft(left); setWrong(false); liveFrom(left, s.x, s.y); } },
+    onMove: (s) => { const left = dragLeft.current; if (!left) return; liveFrom(left, s.x, s.y); setHover(hitTestZone(s.x, s.y, rightZones(), 36)); },
+    onEnd: (s) => { const left = dragLeft.current; dragLeft.current = null; const right = hitTestZone(s.x, s.y, rightZones(), 36); setLive(null); setHover(null); if (left && right) connect(left, right); },
+    onTap: () => { dragLeft.current = null; setLive(null); setHover(null); }, // selLeft armed in onStart → tap a right cell
+  });
+  const rightDone = (r: string) => sc.pairs.some((p) => p.right === r && matched.includes(p.left));
+  const rightToken = (r: string) => { const left = sc.pairs.find((p) => p.right === r && matched.includes(p.left))?.left; return left ? tokenOf(left) : ""; };
+
   return (
     <div className="flex flex-col gap-2.5">
       {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Not a match — try another. 💛</p>}
-      <div className="grid grid-cols-2 gap-2.5">
-        <div className="flex flex-col gap-2">
-          {sc.pairs.map((p) => (
-            <button key={p.left} type="button" disabled={matched.has(p.left)} onClick={() => { setSelLeft(p.left); setWrong(false); }} className={`glass-card rounded-2xl px-3 py-3 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !reduceMotion ? "animate-pulse" : ""}`} style={matched.has(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>{matched.has(p.left) ? `${p.left} ✓` : p.left}</button>
-          ))}
+      <div ref={wrap} className="relative">
+        <div className="grid grid-cols-2 gap-2.5">
+          <div className="flex flex-col gap-2">
+            {sc.pairs.map((p) => (
+              <button key={p.left} type="button" data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={matched.includes(p.left)} onClick={() => { setSelLeft(p.left); setWrong(false); }} {...pointer.handlers}
+                className={`glass-card touch-none rounded-2xl px-3 py-3 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !reduceMotion ? "animate-pulse" : ""}`}
+                style={matched.includes(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
+                {matched.includes(p.left) ? `${tokenOf(p.left)} ${p.left}` : p.left}
+              </button>
+            ))}
+          </div>
+          <div className="flex flex-col gap-2">
+            {rights.map((r) => (
+              <button key={r} type="button" ref={(el) => { rightEls.current[r] = el; }} disabled={rightDone(r)} onClick={() => { if (selLeft) connect(selLeft, r); }}
+                className="glass-card rounded-2xl px-3 py-3 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100"
+                style={rightDone(r) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : hover === r ? { boxShadow: "inset 0 0 0 3.5px var(--color-ink)" } : undefined}>
+                {rightDone(r) ? `${rightToken(r)} ${r}` : r}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-col gap-2">
-          {rights.map((r) => (
-            <button key={r} type="button" disabled={rightDone(r)} onClick={() => pick(r)} className="glass-card rounded-2xl px-3 py-3 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-40" style={rightDone(r) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : undefined}>{r}</button>
-          ))}
-        </div>
+        <ConnectorOverlay cords={locked} live={live} />
       </div>
     </div>
   );
 }
 
-// build — assemble a trusted-adults team (order-free) or a telling plan (in sequence).
-function BuildPlay({ sc, onSolved, say, labels }: { sc: Extract<Scenario, { type: "build" }>; onSolved: () => void; say: (t: string) => void; labels?: { assemble?: string; sequence?: string } }) {
+// build — DRAG a piece onto the slate (or tap it) to add it. ASSEMBLE: order-free — a key piece seats, a
+// distractor bounces back + a warm nudge (the key is ACTUALLY checked — fixes the old always-wins bug).
+// SEQUENCE: add in the right order. The "done" confirm needs ALL key pieces (fixes the old min(3) truncation
+// that silently accepted 3 of a 4-piece answer). Tap is the keyboard / ages-3–6 fallback. No-fail throughout.
+function BuildPlay({ sc, onSolved, say, labels, reduceMotion }: { sc: Extract<Scenario, { type: "build" }>; onSolved: () => void; say: (t: string) => void; labels?: { assemble?: string; sequence?: string }; reduceMotion: boolean }) {
   const [chosen, setChosen] = useState<string[]>([]);
-  // For a sequence (ordering) puzzle, shuffle the buttons so the answer isn't "tap top-to-bottom".
   const [display] = useState(() => (sc.mode === "sequence" ? shuffle(sc.pieces) : sc.pieces));
-  const target = sc.mode === "sequence" ? sc.key.length : Math.min(3, sc.key.length);
+  const [drag, setDrag] = useState<{ piece: string; x: number; y: number } | null>(null);
+  const [over, setOver] = useState(false);
+  const slate = useRef<HTMLDivElement>(null);
+  const dragP = useRef<string | null>(null);
+  const target = sc.key.length; // ALL key pieces (both modes) — no truncation
   const add = (piece: string) => {
+    if (chosen.includes(piece)) return;
     if (sc.mode === "sequence") {
       if (sc.key[chosen.length] === piece) setChosen((c) => [...c, piece]);
       else say("Hmm, which comes first?");
-    } else if (!chosen.includes(piece)) setChosen((c) => [...c, piece]);
+    } else if (sc.key.includes(piece)) setChosen((c) => [...c, piece]); // assemble: only real answer pieces seat
+    else say("That one doesn't belong — try another.");
   };
+  const zones = () => [{ id: "slate", el: slate.current }];
+  const pointer = usePointerDrag({
+    onStart: (s, e) => { const p = (e.currentTarget as HTMLElement).dataset.piece ?? null; dragP.current = p; if (p && !chosen.includes(p)) setDrag({ piece: p, x: s.x, y: s.y }); },
+    onMove: (s) => { const p = dragP.current; if (!p) return; setDrag({ piece: p, x: s.x, y: s.y }); setOver(!!hitTestZone(s.x, s.y, zones(), 48)); },
+    onEnd: (s) => { const p = dragP.current; dragP.current = null; const on = hitTestZone(s.x, s.y, zones(), 48); setDrag(null); setOver(false); if (p && on) add(p); },
+    onTap: () => { dragP.current = null; setDrag(null); setOver(false); },
+  });
   const remaining = sc.pieces.filter((p) => !chosen.includes(p));
   const enough = chosen.length >= target;
   return (
     <div className="flex flex-col gap-3">
-      {chosen.length > 0 && (
-        <div className="glass-card flex flex-wrap justify-center gap-1.5 rounded-2xl p-3 backdrop-blur-[12px]">
-          {chosen.map((p, i) => (
-            <span key={p} className="rounded-full bg-[var(--color-sun)] px-3 py-1 text-sm font-bold text-slate-900">{sc.mode === "sequence" ? `${i + 1}. ` : ""}{p}</span>
-          ))}
-        </div>
+      {drag && !reduceMotion && (
+        <div className="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-sun)] px-3 py-1.5 text-sm font-bold text-slate-900 shadow-lg" style={{ left: drag.x, top: drag.y }}>{drag.piece}</div>
       )}
+      <div ref={slate} className="glass-card flex min-h-14 flex-wrap content-center justify-center gap-1.5 rounded-2xl p-3 backdrop-blur-[12px] transition-shadow" style={over ? { boxShadow: "inset 0 0 0 3px var(--color-ink)" } : undefined}>
+        {chosen.length === 0 ? <span className="text-xs font-semibold text-foreground/50">{over ? "Drop it here ⤵" : "Drag or tap pieces here…"}</span> :
+          chosen.map((p, i) => <span key={p} className="rounded-full bg-[var(--color-sun)] px-3 py-1 text-sm font-bold text-slate-900">{sc.mode === "sequence" ? `${i + 1}. ` : ""}{p}</span>)}
+      </div>
       <div className="flex flex-wrap justify-center gap-2">
         {(sc.mode === "sequence" ? display : remaining).map((p) => (
-          <button key={p} type="button" disabled={sc.mode === "sequence" && chosen.includes(p)} onClick={() => add(p)} className="glass-card rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-40">{p}</button>
+          <button key={p} type="button" data-piece={p} disabled={sc.mode === "sequence" && chosen.includes(p)} onClick={() => add(p)} {...pointer.handlers}
+            className={`glass-card touch-none rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-40 ${drag?.piece === p ? "opacity-30" : ""}`}>{p}</button>
         ))}
       </div>
       <button type="button" disabled={!enough} onClick={onSolved} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
@@ -545,18 +712,24 @@ function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type:
 function SpotPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "spot" }>; onSolved: () => void; say: (t: string) => void }) {
   const [items] = useState(() => shuffle(sc.scene)); // shuffle so the trick slot varies
   const [wrong, setWrong] = useState(false);
+  const [caught, setCaught] = useState<string | null>(null);
+  // Cards start NEUTRAL (🔎) — the flag is the reveal, planted only on the card you catch (the old build stamped
+  // 🚩 on every card, so there was nothing to spot). Wrong tap = warm nudge (no fail).
   const choose = (it: { id: string; text: string; trick: boolean }) => {
-    if (it.trick) { vibrate(12); onSolved(); }
+    if (it.trick) { setCaught(it.id); setWrong(false); vibrate(12); setTimeout(onSolved, 450); }
     else { setWrong(true); say("That one's okay. Which one is the tricky red flag?"); }
   };
   return (
     <div className="flex flex-col gap-2.5">
       <div className="grid grid-cols-1 gap-2.5">
-        {items.map((it) => (
-          <button key={it.id} type="button" onClick={() => choose(it)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
-            <span className="text-2xl" aria-hidden>🚩</span><span className="flex-1">{it.text}</span>
-          </button>
-        ))}
+        {items.map((it) => {
+          const got = caught === it.id;
+          return (
+            <button key={it.id} type="button" disabled={!!caught} onClick={() => choose(it)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] ${got ? "ring-2 ring-[#E05C52]" : ""}`}>
+              <span className="text-2xl" aria-hidden>{got ? "🚩" : "🔎"}</span><span className="flex-1">{it.text}</span>{got && <span className="text-xs font-extrabold text-[#E05C52]">Caught!</span>}
+            </button>
+          );
+        })}
       </div>
       {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Keep looking — which one is the tricky red flag? 💛</p>}
     </div>
