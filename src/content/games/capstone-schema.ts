@@ -16,7 +16,10 @@ export type CapBuildLap = { id: string; from: string; type: "build"; frame: stri
 export type CapSpotLap = { id: string; from: string; type: "spot"; frame: string; scene: { text: string; trick: boolean }[]; why: string; celebrate: string };
 // swipe — cheer it on: a `cue` to celebrate, one happy "swipe up" (`up`) action, then `celebrate`.
 export type CapSwipeLap = { id: string; from: string; type: "swipe"; frame: string; cue: string; up: string; celebrate: string };
-export type CapLap = CapGalleryLap | CapMatchLap | CapSortLap | CapBuildLap | CapSpotLap | CapSwipeLap;
+// branch — "you know your move now": pick the values-led `best` option to hear its consequence + `debrief`;
+// a non-best pick is a warm nudge (its own encouraging consequence), never a buzzer. The decision-game's lap.
+export type CapBranchLap = { id: string; from: string; type: "branch"; frame: string; options: { text: string; consequence: string; outcome?: string; best?: boolean }[]; debrief: string; celebrate: string };
+export type CapLap = CapGalleryLap | CapMatchLap | CapSortLap | CapBuildLap | CapSpotLap | CapSwipeLap | CapBranchLap;
 
 export type CapRecap = { node: string; game: string; thread: string; bigTruth: string; glyph: string };
 export type CapReflect = { id: string; prompt: string; options: string[]; affirm: string };
@@ -49,5 +52,9 @@ export const GLYPH_EMOJI: Record<string, string> = {
   // Chapter 2
   "body-lab": "🧪", "unique-me": "🪞", "safety-badge": "🦺", "true-friend": "🤝", "heart-tool": "💗",
   "fair-play-cup": "⚖️", "ally-shield": "🦸", "screen-smart": "📱", "explorer-compass": "🧭",
+  // Chapter 3
+  "growing-body": "🌱", "mind-care": "🧠", "journey-map": "🗺️", "boundary-bot": "🤖",
+  "crossroads-compass": "🧭", "flip-star": "🔄", "norm-compass": "🌪️", "upstander-badge": "🦸",
+  "defender-heart": "💛", "growing-up-star": "🌟",
 };
 export const glyphEmoji = (g: string): string => GLYPH_EMOJI[g] ?? "⭐";

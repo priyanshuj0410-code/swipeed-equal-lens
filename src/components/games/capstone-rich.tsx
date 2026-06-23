@@ -9,7 +9,7 @@ import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import {
   type CapstoneConfig, type CapLap, type CapRecap, type CapReflect,
-  type CapMatchLap, type CapSortLap, type CapBuildLap, type CapSpotLap, type CapSwipeLap, type CapGalleryLap,
+  type CapMatchLap, type CapSortLap, type CapBuildLap, type CapSpotLap, type CapSwipeLap, type CapGalleryLap, type CapBranchLap,
   glyphEmoji,
 } from "@/content/games/capstone-schema";
 
@@ -226,6 +226,31 @@ function SwipeLap({ lap, say, onNext }: { lap: CapSwipeLap; say: (t: string) => 
   );
 }
 
+// — Branch: "you know your move now" — pick the values-led best option (no buzzer) —
+function BranchLap({ lap, say, onNext }: { lap: CapBranchLap; say: (t: string) => void; onNext: () => void }) {
+  const [solved, setSolved] = useState(false);
+  const [chosen, setChosen] = useState<number | null>(null);
+  useEffect(() => { say(lap.frame); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const choose = (i: number) => {
+    const o = lap.options[i];
+    if (o.best) { setChosen(i); setSolved(true); celebrate("big"); say(`${o.consequence} ${lap.debrief} ${lap.celebrate}`); }
+    else { say(o.consequence); }
+  };
+  return (
+    <>
+      <div className="grid grid-cols-1 gap-2">
+        {lap.options.map((o, i) => (
+          <button key={i} type="button" disabled={solved} onClick={() => choose(i)} className={`${card} px-4 py-3 text-left text-sm font-semibold text-foreground transition-transform active:scale-[0.98] ${solved && chosen === i ? "ring-2 ring-[var(--accent-amber)]" : ""}`}>
+            {o.text}{solved && chosen === i && " ✓"}
+          </button>
+        ))}
+      </div>
+      {solved ? <NextBtn onClick={onNext} /> : <p className="text-center text-xs text-foreground/60">choose your move</p>}
+    </>
+  );
+}
+
 function LapView({ lap, recap, say, onNext }: { lap: CapLap; recap: CapRecap[]; say: (t: string) => void; onNext: () => void }) {
   switch (lap.type) {
     case "gallery": return <GalleryLap lap={lap} recap={recap} say={say} onNext={onNext} />;
@@ -234,6 +259,7 @@ function LapView({ lap, recap, say, onNext }: { lap: CapLap; recap: CapRecap[]; 
     case "build": return <BuildLap lap={lap} say={say} onNext={onNext} />;
     case "spot": return <SpotLap lap={lap} say={say} onNext={onNext} />;
     case "swipe": return <SwipeLap lap={lap} say={say} onNext={onNext} />;
+    case "branch": return <BranchLap lap={lap} say={say} onNext={onNext} />;
   }
 }
 
