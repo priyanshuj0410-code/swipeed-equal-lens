@@ -1,0 +1,35 @@
+{
+  "node": "g36",
+  "gameId": "decoded",
+  "label": "Decoded",
+  "chapter": 5,
+  "attested_at": "2026-06-23T18:57:18+05:30",
+  "notes": "Decoded: gameId decoded matches registry (export DecodedGame). 84 scenarios faithfully mapped from GDD 36 JSON: 6 cats (decode-the-algorithm/decode-the-influence/decode-pornography/decode-yourself/the-decoder/grow-the-journey), 7 types (branch 17/strike-rewrite 16/reflect 15/sort 13/spot 9/match 8/role-play 6), 0% binary. Media-literacy FINALE: decode the machine (algorithms/attention economy/filter bubbles), influence (misinfo/AI fakes/deepfakes/propaganda/scams/dark patterns), pornography (non-explicit, deeper than g28: staged performance not real, not sex-ed, unrealistic, no shame), yourself (digital wellbeing, balance not abstinence), decode anything, Grow (URG/digital-life charter). Critical not cynical; a game about manipulation that uses NO dark patterns. India: deepfakes/scams/DPDP Act/cybercrime 1930/cybercrime.gov.in. Non-explicit throughout; routes distress to cybercrime 1930/Childline 1098/trusted adult (reassureCats decode-pornography+decode-yourself). binStyle: safe-negation guard += 'not manipulation'->green (dc-016); NEG += leaves you open/distortion/erodes it->red; POS += protects it->green; collision-free (g36-only). Reframe/categorisation bins (their-power/your-power, engineered/more-neutral, what-is/isn't, intentional/being-used, in-the-decoder, wise-citizen/not-yet) left neutral by design. Spot ids injected (9).",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 36 — Decoded (reworked v2).pdf",
+      "sha256": "de55b0a375d20f66578bd6a98e092fe3745c8dd235e3976ba6a2cbc8762985b0",
+      "bytes": 66804
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 5 User Personas.pdf",
+      "sha256": "0aa28ddba75fd7ae198bc3ae24e7e01b1ef87b3e16c986e842dcd0c249fbfd45",
+      "bytes": 74728
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 36 Decoded — Scenario Library.json",
+      "sha256": "164ddd941705595da25c0e51c5fb26568bab84cc117c2d35daf60bc3831da700",
+      "bytes": 64417
+    }
+  }
+}
