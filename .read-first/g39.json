@@ -1,0 +1,35 @@
+{
+  "node": "g39",
+  "gameId": "bounce",
+  "label": "Bounce",
+  "chapter": 4,
+  "attested_at": "2026-06-23T11:54:57+05:30",
+  "notes": "Read GDD 39 library in full (84 scenarios: what-resilience/reframe-setback/bounce-toolkit/exam-pressure/support-friend/reach-out), incl. all reach-out crisis-routing scenarios verbatim (bn-068..084: dark thoughts -> Tele-MANAS 14416 / Childline 1098 NOW); gameId 'bounce' matches registry (no trap). Wellbeing-safe: no toxic positivity / pain-based coping; crisis-routing-first register. binStyle: reach-out-now/ordinary + control dichotomy + growth/fixed stay neutral; valenced resilience/toxic, helps/harms, real-coping/avoidant etc.; emulated all 13 sort bins + g20 anti-stigma regression (avoid-blood-risk still neutral) clean.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 39 — Bounce (reworked v2).pdf",
+      "sha256": "f726b5ce973c1406045b0398f844886b52e6528629cbfde38c5ebace919ca6df",
+      "bytes": 62424
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 4 User Personas.pdf",
+      "sha256": "d86c9016bf58be6ef0771e9fcd923c987043e4286038da4cdeffb424de927c4d",
+      "bytes": 76452
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 39 Bounce — Scenario Library.json",
+      "sha256": "0d03f02f3c3ed4cb400f4459ae22e8b5319d3c77c8437d830ccf25aaf0f39fd0",
+      "bytes": 43503
+    }
+  }
+}
