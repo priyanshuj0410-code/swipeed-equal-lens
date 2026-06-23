@@ -19,18 +19,6 @@ import { shuffle, byCat, type Scenario, type V2GameConfig, type V2Mechanic } fro
 // never a binary tap. No hard fail (a wrong move gets a warm nudge); audio-first; Calm Mode drives
 // prefersReducedMotion; a help route on every screen; optional grown-up co-play. Used by g01, g02, …
 
-const MECH: Record<V2Mechanic, { emoji: string; verb: string }> = {
-  reflect: { emoji: "💭", verb: "What do you think?" },
-  "role-play": { emoji: "🗣️", verb: "Say it out loud" },
-  "strike-rewrite": { emoji: "✏️", verb: "Let's rub out the myth" },
-  branch: { emoji: "🔀", verb: "What do you do?" },
-  sort: { emoji: "🗂️", verb: "Sort them" },
-  match: { emoji: "🔗", verb: "Match them up" },
-  build: { emoji: "🧩", verb: "Build it" },
-  "explore-label": { emoji: "🔬", verb: "Find the part" },
-  spot: { emoji: "🕵️", verb: "Spot the trick" },
-  swipe: { emoji: "🚦", verb: "Read the flag" },
-};
 const COPLAY: Record<V2Mechanic, string> = {
   reflect: "Wonder it over together — there's no wrong answer here.",
   "role-play": "Say the brave words together, loud and proud.",
@@ -106,8 +94,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     if (s.type === "role-play") return `${s.hook} ${s.setup}`;
     if (s.type === "build") return `${s.hook} ${s.prompt}`;
     if (s.type === "explore-label") return `${s.hook} Find ${s.find}.`;
-    if (s.type === "swipe") return `${s.hook} ${s.cue}`; // swipe's cue is the content (the card has no hook card) — speak it
-    return s.hook;
+    return s.hook; // swipe: bubble shows the instruction only; the cue lives on the card (no redundancy)
   };
   const resolveLine = (s: Scenario): string =>
     s.type === "reflect" ? s.affirm : s.type === "branch" ? s.debrief : s.type === "strike-rewrite" ? `${s.myth.re} ${s.myth.why}` : s.type === "explore-label" ? s.reveal : s.type === "spot" ? s.why : s.relearn;
@@ -191,15 +178,15 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
       <Sam size={52} />
       <div className="relative min-w-0 flex-1">
         <span className="absolute -left-1 bottom-2.5 size-3 rotate-45 rounded-[3px]" style={{ background: "var(--color-mist)" }} aria-hidden />
-        <span role="status" aria-live="polite" aria-atomic="true" className="relative inline-block max-w-full rounded-2xl rounded-bl-md px-3.5 py-2.5 text-left text-[15px] font-semibold leading-snug shadow-[0_2px_10px_rgba(34,20,54,0.10)]" style={{ background: "var(--color-mist)", color: "var(--color-ink)" }}>{bubble}</span>
+        <span role="status" aria-live="polite" aria-atomic="true" className="relative inline-block max-w-full rounded-2xl rounded-bl-md px-3.5 py-2.5 text-left text-[15px] font-semibold leading-snug" style={{ background: "var(--color-mist)", color: "var(--color-ink)" }}>{bubble}</span>
       </div>
     </div>
   );
   // Progress = a compact strip of category dots at the very top (small, not a card).
   const StickerBook = (
-    <div className="flex justify-center gap-1.5" aria-label={`${stickers.size} of ${categories.length} earned`}>
+    <div className="flex items-center justify-center gap-2" aria-label={`${stickers.size} of ${categories.length} earned`}>
       {categories.map((c) => (
-        <span key={c.id} className={`grid size-6 place-items-center rounded-full text-sm ${stickers.has(c.id) && !reduceMotion ? "animate-in zoom-in duration-300" : ""}`} style={{ background: stickers.has(c.id) ? "var(--color-sun)" : "transparent", boxShadow: `inset 0 0 0 1.5px ${stickers.has(c.id) ? "var(--color-ink)" : "var(--color-mist)"}`, opacity: stickers.has(c.id) ? 1 : 0.5 }} aria-hidden>{stickers.has(c.id) ? c.emoji : ""}</span>
+        <span key={c.id} className={`grid place-items-center rounded-full ${stickers.has(c.id) ? "size-6 text-sm" : "size-2.5"} ${stickers.has(c.id) && !reduceMotion ? "animate-in zoom-in duration-300" : ""}`} style={{ background: stickers.has(c.id) ? "var(--color-sun)" : "var(--color-mist)", opacity: stickers.has(c.id) ? 1 : 0.55 }} aria-hidden>{stickers.has(c.id) ? c.emoji : ""}</span>
       ))}
     </div>
   );
@@ -242,7 +229,8 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
             </button>
             <div className="grid grid-cols-2 gap-2.5">
               {categories.map((c) => (
-                <button key={c.id} type="button" onClick={() => startCat(c.id)} className="glass-card flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]" style={stickers.has(c.id) ? { boxShadow: "inset 0 0 0 2px var(--color-sun)" } : undefined}>
+                <button key={c.id} type="button" onClick={() => startCat(c.id)} className="glass-card relative flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
+                  {stickers.has(c.id) && <span className="absolute right-2 top-2 text-sm" aria-hidden>✅</span>}
                   <span className="text-4xl" aria-hidden>{c.emoji}</span>
                   <span className="text-center text-sm font-bold text-foreground">{c.label}</span>
                 </button>
@@ -258,22 +246,8 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
         {/* ---------- PLAY ---------- */}
         {view === "play" && sc && (
           <>
-            {/* Hook — skipped for swipe, where the hook is pure instruction (Sam + the bottom hint cover it) and
-                the cue card is the breathable hero. */}
-            {sc.type !== "swipe" && (
-              <div className="glass-card flex flex-col items-center gap-1.5 rounded-2xl px-5 py-5 text-center backdrop-blur-[12px] backdrop-saturate-150">
-                <span className="text-3xl" aria-hidden>{MECH[sc.type].emoji}</span>
-                <p className="font-display text-base font-bold text-foreground">{sc.hook}</p>
-                {sc.type === "reflect" && <p className="text-sm font-semibold text-foreground/70">{sc.prompt}</p>}
-                {sc.type === "role-play" && <p className="text-sm font-semibold text-foreground/70">{sc.setup}</p>}
-                {sc.type === "build" && <p className="text-sm font-semibold text-foreground/70">{sc.prompt}</p>}
-                {sc.type === "explore-label" && <p className="text-sm font-semibold text-foreground/70">🔬 Find: {sc.find}</p>}
-                {(sc.type === "branch" || sc.type === "sort" || sc.type === "match" || sc.type === "strike-rewrite") && (
-                  <p className="text-sm font-semibold text-foreground/70">{MECH[sc.type].verb}</p>
-                )}
-              </div>
-            )}
-
+            {/* No hook card — Lensy's chat bubble already carries the hook (+ prompt / setup / find via hookLine),
+                so a separate card just repeats it. The mechanic UI is the focus. */}
             {phase === "play" && <Play key={sc.id} sc={sc} onSolved={solve} say={say} reduceMotion={reduceMotion} buildLabels={buildLabels} />}
 
             {/* Resolve — the truth + reassurance + Next */}
@@ -373,7 +347,7 @@ function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
         onKeyDown={onKeyDown}
         {...drag.handlers}
         className="glass-card relative flex min-h-52 w-full cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[19px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
-        style={{ transform: `translateX(${tx}px) rotate(${tx * 0.035}deg)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.25s ease-out", touchAction: "pan-y", boxShadow: edge ? `inset 0 0 0 4px ${edge.tint}, 0 10px 38px color-mix(in srgb, ${edge.tint} 38%, transparent)` : undefined }}
+        style={{ transform: `translateX(${tx}px) rotate(${tx * 0.035}deg)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.25s ease-out", touchAction: "pan-y", boxShadow: edge ? `6px 6px 0 0 ${edge.tint}` : undefined }}
       >
         {/* while swiping, the chosen side fills the card with its colour + a big watermark flag + a clear badge */}
         {edge && (
@@ -505,7 +479,6 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
   const binEls = useRef<Record<string, HTMLElement | null>>({});
   const dragId = useRef<string | null>(null);
   const styles = binStyles(sc.bins);
-  const done = Object.keys(placed).length;
   const itemText = (id: string) => sc.items.find((it) => it.id === id)?.text ?? "";
   const zones = () => sc.bins.map((b) => ({ id: b.id, el: binEls.current[b.id] }));
 
@@ -547,10 +520,12 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
           const st = styles[bi];
           const inBin = sc.items.filter((it) => placed[it.id] === b.id);
           const armed = (!!sel && !drag) || hover === b.id;
+          // dropzone: a single dashed border + a translucent fill in the bin's tint (no card double-border);
+          // the fill deepens + border solidifies while a chip hovers over it.
           return (
             <button key={b.id} type="button" ref={(el) => { binEls.current[b.id] = el; }} onClick={() => { if (sel) place(sel, b.id); }}
-              className="glass-card flex min-h-[5.5rem] flex-col items-center gap-1 rounded-2xl px-2 py-3 text-center backdrop-blur-[12px] transition-transform active:scale-[0.97]"
-              style={{ boxShadow: `inset 0 0 0 ${hover === b.id ? "3.5px" : "2.5px"} ${st.tint}`, background: hover === b.id ? "color-mix(in srgb, " + st.tint + " 16%, transparent)" : undefined }}>
+              className={`flex min-h-[5.5rem] flex-col items-center gap-1 rounded-2xl border-2 px-2 py-3 text-center transition-colors ${hover === b.id ? "border-solid" : "border-dashed"}`}
+              style={{ borderColor: st.tint, background: `color-mix(in srgb, ${st.tint} ${hover === b.id ? "24%" : "9%"}, transparent)` }}>
               <span className="text-2xl" aria-hidden>{st.emoji}</span>
               <span className="text-xs font-extrabold text-foreground">{b.label}{armed ? " ⤵" : ""}</span>
               {inBin.map((it) => <span key={it.id} className="rounded-full bg-[var(--color-sun)] px-2 py-0.5 text-[11px] font-bold text-slate-900">{it.text} ✓</span>)}
@@ -558,7 +533,6 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
           );
         })}
       </div>
-      <p className="text-center text-xs text-foreground/55">{done} / {sc.items.length} sorted</p>
     </div>
   );
 }

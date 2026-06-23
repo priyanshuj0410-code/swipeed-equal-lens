@@ -53,8 +53,9 @@ export function GameShell({
       </div>
 
       {/* Scroll container + a min-h-full centering wrapper: short content centres, tall content
-          (e.g. Flag-pedia) scrolls from the top instead of being clipped. */}
-      <div className="fixed inset-0 z-40 overflow-y-auto">
+          (e.g. Flag-pedia) scrolls from the top instead of being clipped. An opaque app-bg layer hides the
+          path/scene behind it while a game is on, so the game is the calm focus (not floating over the curve). */}
+      <div className="fixed inset-0 z-40 overflow-y-auto" style={{ backgroundColor: "var(--color-paper)", backgroundImage: "var(--app-bg)" }}>
         <div className="flex min-h-full items-center justify-center px-4 pb-24 pt-20">
           {children}
         </div>
