@@ -221,6 +221,9 @@ const GAMES: Record<string, EngineGame> = {
   "looking-after-you": dynamic(() => import("@/components/games/looking-after-you").then((m) => m.LookingAfterYouGame), {
     ssr: false,
   }),
+  "the-talks": dynamic(() => import("@/components/games/the-talks").then((m) => m.TheTalksGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {
