@@ -684,23 +684,83 @@ function BuildPlay({ sc, onSolved, say, labels, reduceMotion }: { sc: Extract<Sc
   );
 }
 
-// explore-label — tap the body part that matches the clue; the right one lights up with the reveal fact
-// (shown on resolve). A wrong tap warmly re-asks (no fail). The body-lab's signature discovery verb.
+// explore-label — split by payload. ANATOMY beats (the parts are locatable body parts) render a friendly body
+// figure and you tap the part ON the body — the real "find the part" discovery verb; it lights up on the figure.
+// ABSTRACT beats (the answer is a concept, not a body part) drop the explore masquerade and become honest
+// "which is true?" option cards (each with a distinct neutral icon). A wrong tap warmly re-asks (no fail). The
+// anatomy/abstract split is detected from content (every part maps to a body region → anatomy), so no schema
+// change. The decorative SVG is aria-hidden; the tappable regions are real labelled <button>s (AT-operable).
+const BODY_POS: Record<string, { x: number; y: number }> = {
+  hair: { x: 50, y: 4 }, brain: { x: 50, y: 10 }, lungs: { x: 58, y: 32 }, heart: { x: 42, y: 35 },
+  muscles: { x: 24, y: 36 }, skin: { x: 74, y: 47 }, tummy: { x: 50, y: 50 }, bones: { x: 50, y: 74 }, foot: { x: 45, y: 96 },
+};
+function bodyRegion(part: string): string | null {
+  const o = part.toLowerCase();
+  if (o.includes("brain")) return "brain";
+  if (o.includes("hair")) return "hair";
+  if (o.includes("heart")) return "heart";
+  if (o.includes("lung")) return "lungs";
+  if (o.includes("tummy") || o.includes("gut")) return "tummy";
+  if (o.includes("bone") || o.includes("skeleton")) return "bones";
+  if (o.includes("muscle")) return "muscles";
+  if (o.includes("skin")) return "skin";
+  if (o.includes("foot") || o.includes("feet")) return "foot";
+  return null;
+}
+function BodyFigure() {
+  return (
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full" aria-hidden>
+      <g fill="var(--color-mist)" stroke="var(--color-ink)" strokeWidth={1.2} opacity={0.85}>
+        <circle cx={50} cy={11} r={9} />
+        <rect x={38} y={20} width={24} height={37} rx={11} />
+        <rect x={25} y={23} width={8} height={27} rx={4} />
+        <rect x={67} y={23} width={8} height={27} rx={4} />
+        <rect x={41} y={55} width={7.5} height={41} rx={3.5} />
+        <rect x={51.5} y={55} width={7.5} height={41} rx={3.5} />
+      </g>
+    </svg>
+  );
+}
 function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "explore-label" }>; onSolved: () => void; say: (t: string) => void }) {
-  const [parts] = useState(() => shuffle(sc.parts)); // shuffle so the answer slot varies
+  const isAnatomy = sc.parts.every((p) => bodyRegion(p));
+  const [cards] = useState(() => shuffle(sc.parts)); // abstract: shuffle so the answer slot varies
   const [wrong, setWrong] = useState(false);
+  const [found, setFound] = useState<string | null>(null);
   const choose = (p: string) => {
-    if (p === sc.answer) { vibrate(12); onSolved(); }
+    if (p === sc.answer) { setFound(p); setWrong(false); vibrate(12); setTimeout(onSolved, 450); }
     else { setWrong(true); say(`Not quite — find ${sc.find}.`); }
   };
+  if (isAnatomy) {
+    return (
+      <div className="flex flex-col gap-2.5">
+        <div className="relative mx-auto aspect-[3/4] w-44">
+          <BodyFigure />
+          {sc.parts.map((p) => {
+            const pos = BODY_POS[bodyRegion(p)!]; const got = found === p;
+            return (
+              <button key={p} type="button" disabled={!!found} onClick={() => choose(p)} aria-label={p}
+                className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full px-2.5 py-1 text-xs font-extrabold transition-transform active:scale-90"
+                style={{ left: `${pos.x}%`, top: `${pos.y}%`, background: got ? "var(--color-grow)" : "var(--color-sun)", color: got ? "#fff" : "#1a1a2e", boxShadow: got ? "0 0 0 7px color-mix(in srgb, var(--color-grow) 35%, transparent)" : "0 1px 4px rgba(0,0,0,0.25)" }}>
+                {got ? "✓ " : ""}{p}
+              </button>
+            );
+          })}
+        </div>
+        {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Keep exploring — find {sc.find}. 💛</p>}
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col gap-2.5">
       <div className="grid grid-cols-1 gap-2.5">
-        {parts.map((p) => (
-          <button key={p} type="button" onClick={() => choose(p)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
-            <span className="text-2xl" aria-hidden>🔍</span><span className="flex-1">{p}</span>
-          </button>
-        ))}
+        {cards.map((p, i) => {
+          const got = found === p;
+          return (
+            <button key={p} type="button" disabled={!!found} onClick={() => choose(p)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] ${got ? "ring-2 ring-[var(--color-grow)]" : ""}`}>
+              <span className="text-2xl" aria-hidden>{["💡", "🔆", "✨", "🌟"][i % 4]}</span><span className="flex-1">{p}</span>{got && <span aria-hidden>✓</span>}
+            </button>
+          );
+        })}
       </div>
       {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Keep exploring — find {sc.find}. 💛</p>}
     </div>
