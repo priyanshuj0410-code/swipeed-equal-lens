@@ -1,0 +1,35 @@
+{
+  "node": "g25",
+  "gameId": "mythbuster-lab",
+  "label": "MythBuster: Gender",
+  "chapter": 4,
+  "attested_at": "2026-06-23T16:24:06+05:30",
+  "notes": "Read GDD 25 library in full (90 scenarios: ability/role/emotion-leadership/its-just-science/equality/spot-and-flip), incl. all its-just-science (pseudo-science inoculation: naturalistic fallacy, averages-aren't-individuals, cherry-picking) + equality-myths (evenhanded, never anti-boy, validates boys' struggles, equality-helps-everyone) verbatim. gameId trap: library 'mythbuster-gender' vs registry 'mythbuster-lab' -> config uses 'mythbuster-lab'. binStyle: removed 'doesn' from NEG (was red-tinting g25's truth bin 'Doesn't' that gender doesn't shape ability; 8 other-game bins degrade gracefully — good side green, bad side neutral), added pseudo->red + honest->green; emulated all 15 g25 bins + regression clean. Spot ids injected (7). No builds.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 25 — MythBuster Gender (reworked v2).pdf",
+      "sha256": "1d01e16357d1d895a25b1b6cab292ad4325fd5f5952327ec265e46db0279295d",
+      "bytes": 62427
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 4 User Personas.pdf",
+      "sha256": "d86c9016bf58be6ef0771e9fcd923c987043e4286038da4cdeffb424de927c4d",
+      "bytes": 76452
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 25 MythBuster Gender — Scenario Library.json",
+      "sha256": "d6b2e3d3915e68cf7f3efb5e717561ebefdaad7bd70806e591827b92edbd32e2",
+      "bytes": 61086
+    }
+  }
+}
