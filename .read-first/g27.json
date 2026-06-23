@@ -1,0 +1,35 @@
+{
+  "node": "g27",
+  "gameId": "stand-up",
+  "label": "Stand Up",
+  "chapter": 4,
+  "attested_at": "2026-06-23T16:59:51+05:30",
+  "notes": "Read GDD 27 library in full (84 scenarios: gbv-and-rights/spot-harassment/safety-first/five-ds/after-support/be-the-upstander), incl. all safety-first + after-support scenarios verbatim — safety-over-heroics (never confront alone, can-I-help-safely, distract/delegate/de-escalate, don't chase), survivor-centred (it-wasn't-your-fault, I-believe-you, freezing-is-normal, their-call-to-report, protect dignity), real routes 181/112/1098. gameId 'stand-up' matches registry (no trap). Reuses g19 five-moves/5 Ds engine (branch). binStyle: added harassment->red + escalates->red (harassment/safe-vs-risky/safety-first bins now correct); emulated all 10 bins, no mis-color. Spot ids injected (10). No builds. reassureCats=[gbv-and-rights,spot-harassment,safety-first,after-support] + reassure + 181/112/1098 helpLine.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 27 — Stand Up (reworked v2).pdf",
+      "sha256": "53b5f12bb75d6ab0ff9eed914ada8f00a5494f2e28e5c9a6af776353d253c318",
+      "bytes": 62865
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 4 User Personas.pdf",
+      "sha256": "d86c9016bf58be6ef0771e9fcd923c987043e4286038da4cdeffb424de927c4d",
+      "bytes": 76452
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 27 Stand Up — Scenario Library.json",
+      "sha256": "cde8b6a1c957bc15098ceeab4f14455dc5b7162eef6e2026e54773a091088657",
+      "bytes": 58081
+    }
+  }
+}
