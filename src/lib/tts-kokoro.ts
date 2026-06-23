@@ -12,15 +12,37 @@
 const MODEL_ID = "onnx-community/Kokoro-82M-v1.0-ONNX";
 const DEFAULT_VOICE = "af_heart"; // warm grade-A American-English female; override via ?v=<voice>
 
+// The Kokoro voice catalogue (id → friendly label). a* = American, b* = British; f = female, m = male.
+// Exposed so the voice lab can offer a dropdown WITHOUT downloading the 80 MB model.
+export const KOKORO_VOICES: { id: string; label: string }[] = [
+  { id: "af_heart", label: "Heart — US ♀ (warm)" }, { id: "af_bella", label: "Bella — US ♀" },
+  { id: "af_nicole", label: "Nicole — US ♀ (soft)" }, { id: "af_aoede", label: "Aoede — US ♀" },
+  { id: "af_kore", label: "Kore — US ♀" }, { id: "af_sarah", label: "Sarah — US ♀" },
+  { id: "af_nova", label: "Nova — US ♀" }, { id: "af_sky", label: "Sky — US ♀" },
+  { id: "af_alloy", label: "Alloy — US ♀" }, { id: "af_jessica", label: "Jessica — US ♀" },
+  { id: "af_river", label: "River — US ♀" },
+  { id: "am_michael", label: "Michael — US ♂" }, { id: "am_adam", label: "Adam — US ♂" },
+  { id: "am_echo", label: "Echo — US ♂" }, { id: "am_eric", label: "Eric — US ♂" },
+  { id: "am_fenrir", label: "Fenrir — US ♂" }, { id: "am_liam", label: "Liam — US ♂" },
+  { id: "am_onyx", label: "Onyx — US ♂" }, { id: "am_puck", label: "Puck — US ♂" },
+  { id: "am_santa", label: "Santa — US ♂" },
+  { id: "bf_emma", label: "Emma — UK ♀ (storyteller)" }, { id: "bf_lily", label: "Lily — UK ♀" },
+  { id: "bf_alice", label: "Alice — UK ♀" }, { id: "bf_isabella", label: "Isabella — UK ♀" },
+  { id: "bm_george", label: "George — UK ♂" }, { id: "bm_lewis", label: "Lewis — UK ♂" },
+  { id: "bm_daniel", label: "Daniel — UK ♂" }, { id: "bm_fable", label: "Fable — UK ♂" },
+];
+
 type KokoroModel = { generate: (text: string, opts: { voice?: string; speed?: number }) => Promise<{ toBlob: () => Blob }> };
 
 let modelPromise: Promise<KokoroModel | null> | null = null;
 let model: KokoroModel | null = null;
 let loadFailed = false;
 let voice = DEFAULT_VOICE;
+let speed = 1;
 let onProgress: ((pct: number) => void) | null = null;
 
 export function setKokoroVoice(v: string) { if (v) voice = v; }
+export function setKokoroSpeed(s: number) { if (s > 0) speed = s; }
 export function onKokoroProgress(cb: (pct: number) => void) { onProgress = cb; }
 /** true once the model is loaded and generation can run without a wait for the download. */
 export function kokoroReady(): boolean { return !!model; }
@@ -79,17 +101,20 @@ export function kokoroStop() {
  * then fall back to the device voice). `isCurrent` lets a stale line (superseded before generation finished)
  * cancel itself. `onEnd` fires when playback finishes (or immediately if cancelled/failed).
  */
-export async function kokoroSpeak(text: string, opts: { onEnd?: () => void; isCurrent?: () => boolean } = {}): Promise<boolean> {
+export async function kokoroSpeak(text: string, opts: { onEnd?: () => void; isCurrent?: () => boolean; voice?: string; speed?: number } = {}): Promise<boolean> {
   const m = model ?? (await warmKokoro());
   if (!m) { opts.onEnd?.(); return false; }
   if (opts.isCurrent && !opts.isCurrent()) { opts.onEnd?.(); return true; } // superseded while the model warmed
 
-  let url = cache.get(text);
+  const useVoice = opts.voice ?? voice;
+  const useSpeed = opts.speed ?? speed;
+  const key = `${useVoice}|${useSpeed}|${text}`;
+  let url = cache.get(key);
   if (!url) {
     try {
-      const audio = await m.generate(text, { voice, speed: 1 });
+      const audio = await m.generate(text, { voice: useVoice, speed: useSpeed });
       url = URL.createObjectURL(audio.toBlob());
-      cache.set(text, url);
+      cache.set(key, url);
     } catch (e) {
       console.warn("[kokoro] generate failed", e);
       opts.onEnd?.();
