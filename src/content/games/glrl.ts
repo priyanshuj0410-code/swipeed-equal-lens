@@ -110,7 +110,7 @@ const SCENARIOS: Scenario[] = [
 export const GLRL: V2GameConfig = {
   gameId: "glrl",
   title: "Green Light / Red Light",
-  greet: "Hey, it's Lensy. 🚦 Time to read the flags. Swipe each one green or red, learn what real consent looks like (FRIES), and remember: keep the green, lose the red, and a crossed line is never your fault.",
+  greet: "Hey, it's Lensy. 🚦 Read the flags — swipe each one green or red, learn what real consent is (FRIES), and remember: a crossed line is never your fault.",
   scenarios: SCENARIOS,
   categories: [
     { id: "what-is-consent", emoji: "🤝", label: "Consent (FRIES)" },
@@ -123,10 +123,10 @@ export const GLRL: V2GameConfig = {
   ],
   badge: {
     title: "Flag Reader! 🚦",
-    blurb: "You can read green and red flags, you know real consent is Free, Reversible, Informed, Enthusiastic and Specific (FRIES), and you know a crossed line is never your fault, you reach for help and keep the green. 💚",
+    blurb: "You read green and red flags, you know consent is Free, Reversible, Informed, Enthusiastic and Specific (FRIES), and a crossed line is never your fault. 💚",
   },
-  helpLine: "If a relationship ever feels unsafe, or someone crosses a line, it is NOT your fault, tell a trusted adult. For serious harm or coercion you can call Childline, one-zero-nine-eight, or one-one-two. Leaving what harms you is strength, not failure.",
+  helpLine: "If a line is crossed, it is NOT your fault — tell a trusted adult, or call Childline, one-zero-nine-eight, or one-one-two. Leaving what harms you is strength.",
   helpLabel: "Get help · Childline 1098",
-  reassure: "A crossed line is never your fault, and you always deserve relationships that are safe, kind and respectful. If something feels unsafe, tell a trusted adult or call Childline 1098/112, leaving what harms you is strength. 💚",
+  reassure: "A crossed line is never your fault, and you deserve safe, kind relationships. If something feels unsafe, tell a trusted adult or call Childline 1098/112. 💚",
   reassureCats: ["when-wrong"],
 };

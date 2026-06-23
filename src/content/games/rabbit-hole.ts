@@ -112,7 +112,7 @@ const SCENARIOS: Scenario[] = [
 export const RABBIT_HOLE: V2GameConfig = {
   gameId: "rabbit-hole",
   title: "The Rabbit Hole",
-  greet: "Hey, it's Lensy. 🕳️ Ever notice how a few videos can pull you toward 'real men are X' and 'all girls are Y'? That's a FUNNEL built to hook you — and a GRIFT to sell to you. Let's see how it works, follow the money, and find what real strength actually looks like.",
+  greet: "Hey, it's Lensy. A few videos can pull you toward 'real men are X, all girls are Y'. That's a FUNNEL to hook you, a GRIFT to sell to you. Let's see how.",
   scenarios: SCENARIOS,
   categories: [
     { id: "the-funnel", emoji: "🕳️", label: "The funnel" },
@@ -124,10 +124,10 @@ export const RABBIT_HOLE: V2GameConfig = {
   ],
   badge: {
     title: "Out of the Rabbit Hole! 💪",
-    blurb: "You can see how the funnel and the grift work, bust their claims, and stand on real strength — the kind that lifts people instead of putting anyone down. The need underneath is real, and there's real help for it. 💛",
+    blurb: "You can see how the funnel and grift work, bust their claims, and stand on real strength that lifts people. The need underneath is real — and so is help. 💛",
   },
-  helpLine: "If you're feeling low, lonely or stuck, that's real and really common — talk to a trusted adult or call Tele-MANAS on 14416. If you're being harassed online, report at cybercrime.gov.in / 1930 or call Childline 1098. Asking for help is strength.",
+  helpLine: "Feeling low or lonely is real and common — talk to a trusted adult or Tele-MANAS 14416. Harassed online? Report at cybercrime.gov.in / 1930 or Childline 1098.",
   helpLabel: "Get help · Tele-MANAS 14416",
-  reassure: "The loneliness or insecurity the funnel preys on is real and common — it's not a defect, and it's not your fault. Asking for help is strength: talk to a trusted adult or call Tele-MANAS 14416 (online harassment: 1930 / Childline 1098). 💛",
+  reassure: "The loneliness the funnel preys on is real — not your fault. Asking for help is strength: Tele-MANAS 14416 (online harassment: 1930 / Childline 1098). 💛",
   reassureCats: ["the-need-underneath"],
 };

@@ -118,7 +118,7 @@ const SCENARIOS: Scenario[] = [
 export const MYTHBUSTER: V2GameConfig = {
   gameId: "mythbuster-lab",
   title: "MythBuster: Gender",
-  greet: "Hey, it's Lensy. 🧪 Heard a 'fact' about boys and girls that didn't sit right? Let's put the gender myths under the microscope, bust the fake science, and write the truth — equality lifts everyone, boys included.",
+  greet: "It's Lensy. 🧪 Heard a gender 'fact' that didn't sit right? Let's bust the fake science and write the truth — equality lifts everyone, boys included.",
   scenarios: SCENARIOS,
   categories: [
     { id: "ability-myths", emoji: "🧠", label: "Ability myths" },
@@ -130,8 +130,8 @@ export const MYTHBUSTER: V2GameConfig = {
   ],
   badge: {
     title: "MythBuster! 🧪",
-    blurb: "You can spot a gender myth, see through fake 'it's just science', and write the truth: ability and roles aren't gendered, and equality frees everyone — boys included. ⚖️",
+    blurb: "You can spot a gender myth, see through fake 'just science', and know the truth: ability and roles aren't gendered, and equality frees everyone — boys too. ⚖️",
   },
-  helpLine: "If you ever face unfair treatment or harassment because of your gender, you don't have to handle it alone — tell a trusted adult, or call Childline on one-zero-nine-eight. Fairness is for everyone.",
+  helpLine: "Facing unfair treatment or harassment over your gender? You don't have to handle it alone — tell a trusted adult or call Childline on one-zero-nine-eight.",
   helpLabel: "Get help · Childline 1098",
 };

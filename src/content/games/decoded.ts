@@ -105,7 +105,7 @@ const SCENARIOS: Scenario[] = [
 export const DECODED: V2GameConfig = {
   gameId: "decoded",
   title: "Decoded",
-  greet: "Hey, I’m Lensy. 🧩 Here’s the secret to the whole internet: the feed is engineered to use you — but you can learn to read it, and use it instead. Let’s decode the machine, the manipulation, and even yourself, until you can decode anything. Critical, not cynical. Ready?",
+  greet: "Hey, I’m Lensy. 🧩 The feed is built to use you — but you can learn to read it and use it instead. Let’s decode the machine, the spin, even yourself. Ready?",
   scenarios: SCENARIOS,
   categories: [
     { id: "decode-the-algorithm", emoji: "⚙️", label: "Decode the algorithm" },
@@ -117,10 +117,10 @@ export const DECODED: V2GameConfig = {
   ],
   badge: {
     title: "Decoded 🧩",
-    blurb: "You can read the algorithm, see through manipulation and AI fakes, decode unrealistic media for what it is, look after your digital wellbeing, and decode anything — critical, not cynical. 🌱",
+    blurb: "You can read the algorithm, see through manipulation and AI fakes, decode unrealistic media, mind your digital wellbeing — critical, not cynical. 🌱",
   },
-  helpLine: "You’re in charge of your feed, not the other way round. If you see a scam, a deepfake, or harmful content, report it — in India, cybercrime 1930 or cybercrime.gov.in. If anything online is distressing you or someone is pressuring you, tell a trusted adult or call Childline 1098.",
+  helpLine: "Report scams, deepfakes or harmful content: cybercrime 1930 / cybercrime.gov.in. If anything online distresses you, tell a trusted adult or call Childline 1098.",
   helpLabel: "Report / get help · cybercrime 1930 / 1098",
-  reassure: "The feed is built to hook you — so feeling pulled in is the design, never your weakness. You can step back and read it. If something online is distressing you, or someone is pressuring or exploiting you, it’s not your fault: tell a trusted adult, report to cybercrime 1930 / cybercrime.gov.in, or call Childline 1098. 🧩",
+  reassure: "The pull is by design, not a weakness. If something online distresses you, it’s not your fault: cybercrime 1930 / cybercrime.gov.in or Childline 1098. 🧩",
   reassureCats: ["decode-pornography", "decode-yourself"],
 };

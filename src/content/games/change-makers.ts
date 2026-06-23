@@ -103,7 +103,7 @@ const SCENARIOS: Scenario[] = [
 export const CHANGE_MAKERS: V2GameConfig = {
   gameId: "change-makers",
   title: "Change Makers",
-  greet: "Hey, I’m Lensy. ✊ Change is possible — and practical. Pick a cause you care about, make a plan, build a movement, and take a real, safe first step. You don’t do it alone, and you do it the right way: safe, lawful, ethical. Let’s build something that lasts.",
+  greet: "Hey, I’m Lensy. ✊ Change is possible — and practical. Pick a cause, make a plan, build a movement, take a real first step — not alone, safe and lawful.",
   scenarios: SCENARIOS,
   categories: [
     { id: "find-your-cause", emoji: "🎯", label: "Find your cause" },
@@ -117,8 +117,8 @@ export const CHANGE_MAKERS: V2GameConfig = {
     title: "Change Makers ✊",
     blurb: "You can find a cause, make a real plan, build a movement, use the law as a tool, and take a safe, lawful, ethical first step that lasts. 🌱",
   },
-  helpLine: "Campaigning is powerful — and it has to be safe. For sensitive causes, work with trusted adults or institutions. The law is on your side: India has the Domestic Violence Act 2005, POSH Act 2013 and BNS 2023, plus helplines your campaign can use and share — Women Helpline 181, Childline 1098, emergency 112.",
+  helpLine: "Keep it safe, with trusted adults. The law is on your side — Domestic Violence Act 2005, POSH Act 2013, BNS 2023 — plus helplines: 181, Childline 1098, 112.",
   helpLabel: "Get help · 181 / 1098 / 112",
-  reassure: "You don’t have to do this alone, and you don’t have to take any risk. Keep it safe, lawful and ethical, and for sensitive causes work with trusted adults or institutions. If anyone is in danger, the law and helplines are there: 181, 1098, 112. ✊",
+  reassure: "You don’t have to do this alone or take risks. Keep it safe and lawful; for sensitive causes work with trusted adults. If anyone’s in danger: 181, 1098, 112. ✊",
   reassureCats: ["the-law-as-a-tool", "make-it-stick"],
 };

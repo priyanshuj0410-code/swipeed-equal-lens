@@ -109,7 +109,7 @@ const SCENARIOS: Scenario[] = [
 export const BOUNCE: V2GameConfig = {
   gameId: "bounce",
   title: "Bounce",
-  greet: "Hey, it's Lensy. 🌱 Everyone hits setbacks, failed tests, rough days, hard knocks. Real resilience isn't 'just be positive' or tough it out alone. Let's learn the moves that actually help you bounce back, and when to lean on others.",
+  greet: "Hey, it's Lensy. 🌱 Everyone hits setbacks. Real resilience isn't 'just be positive' or tough it out alone. Let's learn the moves that help you bounce back.",
   scenarios: SCENARIOS,
   categories: [
     { id: "what-resilience", emoji: "🌱", label: "What resilience is" },
@@ -121,11 +121,11 @@ export const BOUNCE: V2GameConfig = {
   ],
   badge: {
     title: "Bounce-Back Pro! 🌱",
-    blurb: "You know real resilience (not toxic positivity), how to reframe a setback, a coping toolkit that actually works, how to be there for a friend — and that reaching out for help is strong, never weak. 💪",
+    blurb: "You know real resilience (not toxic positivity), reframing a setback, a coping toolkit that works, being there for a friend, and that reaching out is strong. 💪",
   },
-  helpLine: "If low feelings last for weeks, or you ever have thoughts that scare you, please tell a trusted adult right now, or call Tele-MANAS on one-four-four-one-six, or Childline on one-zero-nine-eight. Trained people are there for exactly this, and reaching out is strong.",
+  helpLine: "If low feelings last weeks, or thoughts scare you, tell a trusted adult now, or call Tele-MANAS on one-four-four-one-six or Childline on one-zero-nine-eight.",
   helpLabel: "Reach out · Tele-MANAS 14416",
-  reassure: "Resilience has limits, and that's human. Lasting low feelings, or any thought that you don't want to be here, mean reach out NOW, not later: a trusted adult, Tele-MANAS 14416, or Childline 1098/112. Asking for help is the strongest move there is. 💛",
+  reassure: "Resilience has limits. Lasting low feelings, or any thought you don't want to be here, mean reach out NOW: Tele-MANAS 14416 or Childline 1098/112. 💛",
   reassureCats: ["reach-out"],
   buildLabels: { assemble: "That's my bounce kit 🧰", sequence: "That's the bounce-back way ✨" },
 };

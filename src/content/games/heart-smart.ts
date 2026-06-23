@@ -121,9 +121,9 @@ export const HEART_SMART: V2GameConfig = {
   ],
   badge: {
     title: "Heart Smart! 💗",
-    blurb: "You can name the trickier feelings, calm the big ones, see others' side, sort out a fight, and grow kindness and gratitude — all feelings are okay, and asking for help is brave. 💗🧰",
+    blurb: "You can name the trickier feelings, calm the big ones, see others' side, and sort out a fight — all feelings are okay, and asking for help is brave. 💗🧰",
   },
-  helpLine: "If a feeling gets too big to handle alone, tell a trusted grown-up — you can also call Childline, one-zero-nine-eight. Asking for help with feelings is a strong, smart move.",
+  helpLine: "If a feeling gets too big to handle alone, tell a trusted grown-up, or call Childline, one-zero-nine-eight. Asking for help with feelings is smart and strong.",
   helpLabel: "Get help · Childline 1098",
   reassure: "Asking a trusted grown-up for help with a feeling is brave and smart — you never have to handle a big one alone. 💛",
   reassureCats: ["heart-toolkit"],

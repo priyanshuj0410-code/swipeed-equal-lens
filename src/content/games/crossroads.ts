@@ -111,7 +111,7 @@ const SCENARIOS: Scenario[] = [
 export const CROSSROADS: V2GameConfig = {
   gameId: "crossroads",
   title: "Crossroads",
-  greet: "Hey, it's Lensy. 🔀 Every day's full of crossroads. Let's practise the routine: stop and think, see your options, weigh what happens, then choose by what matters to you — and own it.",
+  greet: "Hey, it's Lensy. 🔀 Every day's full of crossroads. Let's practise: stop and think, see your options, weigh it up, choose by what matters — and own it.",
   scenarios: SCENARIOS,
   categories: [
     { id: "stop-think", emoji: "⏸️", label: "Stop & think" },
@@ -123,11 +123,11 @@ export const CROSSROADS: V2GameConfig = {
   ],
   badge: {
     title: "Crossroads navigator! 🧭",
-    blurb: "You've got the decision routine: stop and think, see more than two options, weigh the 'then what?', decide by your values, and own and learn from your choices — at any crossroads. 🧭",
+    blurb: "You've got the decision routine: stop and think, see more than two options, weigh the 'then what?', decide by your values, and own your choices. 🧭",
   },
-  helpLine: "When a choice feels too big or risky, or a friend's safety is at stake, ask a trusted grown-up to help you think it through — you can also call Childline, one-zero-nine-eight.",
+  helpLine: "When a choice feels too big or risky, or a friend's safety is at stake, ask a trusted grown-up to help — or call Childline, one-zero-nine-eight.",
   helpLabel: "Get help · Childline 1098",
-  reassure: "A choice that goes wrong doesn't make you bad or stupid — you can own it, change course, and learn. And for a choice that feels too big, ask a trusted grown-up. 💛",
+  reassure: "A choice that goes wrong doesn't make you bad or stupid — you can own it, change course, and learn. For a choice that feels too big, ask a trusted grown-up. 💛",
   reassureCats: ["own-your-choice"],
   buildLabels: { assemble: "That's your check! ✅", sequence: "That's the decision routine! 🧭" },
 };

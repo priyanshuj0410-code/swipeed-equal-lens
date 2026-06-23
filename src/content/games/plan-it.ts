@@ -112,7 +112,7 @@ const SCENARIOS: Scenario[] = [
 export const PLAN_IT: V2GameConfig = {
   gameId: "plan-it",
   title: "Plan It",
-  greet: "Hey, it's Lensy. 📅 This one's just calm, honest facts about fertility, pregnancy and how it's prevented, the health stuff rumours always get wrong. And the biggest fact of all: waiting is completely valid. Your body, your timeline, your choice.",
+  greet: "Hey, it's Lensy. 📅 Calm, honest facts about fertility, pregnancy and prevention, the stuff rumours get wrong. Waiting is valid. Your timeline, your choice.",
   scenarios: SCENARIOS,
   categories: [
     { id: "how-it-happens", emoji: "🧬", label: "How it happens" },
@@ -124,11 +124,11 @@ export const PLAN_IT: V2GameConfig = {
   ],
   badge: {
     title: "Future Planner! 📅",
-    blurb: "You know the real biology of how pregnancy happens, you can bust the dangerous myths, you know waiting is fully valid and yours to choose, and you get your facts from a doctor or trusted adult, not rumours. 🌟",
+    blurb: "You know how pregnancy really happens, can bust the dangerous myths, know waiting is fully valid and yours, and get facts from a doctor, not rumours. 🌟",
   },
-  helpLine: "For anything about your body, fertility or staying safe, get your facts from a doctor or a trusted adult, not from rumours. A doctor's information is private, accurate, and there to help you, whatever your choices.",
+  helpLine: "For your body, fertility or staying safe, get facts from a doctor or trusted adult, not rumours. A doctor's info is private, accurate and there to help.",
   helpLabel: "Get the facts · ask a doctor",
-  reassure: "Waiting is completely valid, common and respected, there's no deadline and no 'right age' but your own readiness, freely chosen. Your body, your timeline, your choice. 💛",
+  reassure: "Waiting is completely valid, common and respected. There's no deadline and no 'right age' but your own readiness. Your body, your timeline, your choice. 💛",
   reassureCats: ["delaying-valid"],
   buildLabels: { assemble: "That's the facts 📚", sequence: "That's how it works 🧬" },
 };

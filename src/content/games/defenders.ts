@@ -112,7 +112,7 @@ const SCENARIOS: Scenario[] = [
 export const DEFENDERS: V2GameConfig = {
   gameId: "defenders",
   title: "Defenders of the Body",
-  greet: "Hey, it's Lensy. 🛡️ Your body has a whole defence team inside it. Let's meet your defenders, learn how germs really spread, get the real facts about HIV — and the biggest lesson of all: kindness, not fear.",
+  greet: "Hey, it's Lensy. 🛡️ Your body has a defence team inside. Meet your defenders, see how germs spread, get the HIV facts — and the big lesson: kindness, not fear.",
   scenarios: SCENARIOS,
   categories: [
     { id: "body-defenders", emoji: "🛡️", label: "Your defenders" },
@@ -126,8 +126,8 @@ export const DEFENDERS: V2GameConfig = {
     title: "Body Defender! 🛡️",
     blurb: "You know your body's defence team, how germs really spread, the real facts about HIV — and that people living with HIV belong fully, with kindness, not fear. 💛",
   },
-  helpLine: "If you're worried about an illness — yours or someone else's — talk to a trusted grown-up, your school nurse or a doctor. For health questions you can call Childline, one-zero-nine-eight. The facts beat fear every time.",
+  helpLine: "Worried about an illness, yours or a friend's? Talk to a trusted grown-up, school nurse or doctor. For health questions, call Childline, one-zero-nine-eight.",
   helpLabel: "Get the facts · Childline 1098",
-  reassure: "HIV is a virus, never a punishment or a sign of a 'bad' person — and people living with HIV belong fully in school, play and friendship. Choose kindness, not fear. 💛",
+  reassure: "HIV is a virus, never a punishment or a 'bad' person — people living with HIV belong fully in school, play and friendship. Choose kindness, not fear. 💛",
   reassureCats: ["hiv-basics", "kindness-not-fear"],
 };

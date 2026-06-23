@@ -113,7 +113,7 @@ const SCENARIOS: Scenario[] = [
 export const MY_CHOICES: V2GameConfig = {
   gameId: "my-choices",
   title: "My Choices, My Future",
-  greet: "Hey, it's Lensy. 🧭 This one's all about YOUR choices — the full, honest picture on contraception and planning, with zero pressure in any direction. Waiting is fully valid (and the most certain option); whatever you choose, it's informed and it's yours.",
+  greet: "It's Lensy. 🧭 This is about YOUR choices — the honest picture on contraception, no pressure either way. Waiting is fully valid; whatever you choose is yours.",
   scenarios: SCENARIOS,
   categories: [
     { id: "the-full-picture", emoji: "🧩", label: "The full picture" },
@@ -125,10 +125,10 @@ export const MY_CHOICES: V2GameConfig = {
   ],
   badge: {
     title: "My Choices, My Future! 🌟",
-    blurb: "You know the full picture on contraception and planning, you can decide by your values with no pressure either way, and you know your rights and where to get confidential care. Your choices, your future. 🌟",
+    blurb: "You know contraception and planning, can decide by your values with no pressure, and know your rights and where to find confidential care. Your future. 🌟",
   },
-  helpLine: "For contraception or any reproductive-health questions, a doctor or an Adolescent-Friendly Health Clinic can help, confidentially. If anyone is pressuring or exploiting you, that's never okay — tell a trusted adult or call Childline 1098.",
+  helpLine: "A doctor or Adolescent-Friendly Health Clinic can help, confidentially. If anyone pressures or exploits you, tell a trusted adult or call Childline 1098.",
   helpLabel: "Get help · a clinic / Childline 1098",
-  reassure: "Your choices are yours — there's no pressure in any direction, and waiting is fully valid. If anyone pressures or exploits you, it's never your fault and it's a child-protection matter: tell a trusted adult or doctor, or call Childline 1098. Confidential care is your right. 🌟",
+  reassure: "Your choices are yours — no pressure, and waiting is valid. If anyone exploits or pressures you, it's never your fault: tell a trusted adult or Childline 1098.",
   reassureCats: ["access-and-rights", "if-when-whether", "my-future-no-pressure"],
 };

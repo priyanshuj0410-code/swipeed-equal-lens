@@ -54,6 +54,9 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const [queue, setQueue] = useState<Scenario[]>([]);
   const [qi, setQi] = useState(0);
   const [phase, setPhase] = useState<"play" | "resolve">("play");
+  // a branch resolve (the picked option's consequence) shown by the engine so its Next is bottom-pinned like every
+  // other mechanic — BranchPlay no longer renders its own inline Next.
+  const [branchResolve, setBranchResolve] = useState<{ text: string; best: boolean } | null>(null);
   const [stickers, setStickers] = useState<Set<string>>(new Set()); // category ids earned
   const [bubble, setBubble] = useState(greet);
   const [muted, setMuted] = useState(false);
@@ -93,7 +96,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const isSafetyBeat = (s: Scenario): boolean =>
     reassureCats.includes(s.cat) || (s.type === "branch" && s.options.some((o) => o.outcome === "safe"));
 
-  const present = useCallback((s: Scenario) => { setPhase("play"); say(hookLine(s)); }, [say]);
+  const present = useCallback((s: Scenario) => { setBranchResolve(null); setPhase("play"); say(hookLine(s)); }, [say]);
 
   // Rotation: one random scenario per category. We pick by SHUFFLE (natural frequency), not by forcing
   // mechanic variety — forcing variety in a mechanic-skewed category (e.g. a swipe-heavy one with only a few
@@ -113,12 +116,14 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 
   // A renderer calls this when the child completes its interaction. `picked` (reflect) lets us echo the chosen
   // option back by name first ("Happy. <affirm>") so affect-labelling is audible.
-  const solve = (picked?: string) => {
+  const solve = (picked?: string, branch?: { text: string; best: boolean }) => {
     if (!sc) return;
     earn(sc.cat);
     celebrate("small");
     vibrate(sc.type === "role-play" ? [16, 40, 16] : 12);
+    setBranchResolve(branch ?? null);
     setPhase("resolve");
+    if (branch) return; // the branch consequence was already spoken on pick
     const line = resolveLine(sc);
     say(picked && sc.type === "reflect" ? `${picked}. ${line}` : line);
   };
@@ -132,7 +137,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     else { setView("home"); say("What shall we play?"); }
   };
 
-  const reset = () => { setStickers(new Set()); setQueue([]); setQi(0); setPhase("play"); setView("home"); say(greet); };
+  const reset = () => { setStickers(new Set()); setQueue([]); setQi(0); setBranchResolve(null); setPhase("play"); setView("home"); say(greet); };
 
   // ---- chrome ----
   const muteBtn = (
@@ -219,7 +224,9 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
           {view === "play" && sc && phase === "resolve" && (
             <>
               {sc.type === "strike-rewrite" ? (
-                <UnReBeat un={sc.myth.un} re={`${sc.myth.re} ${sc.myth.why}`} fill />
+                <UnReBeat un={sc.myth.un} re={sc.myth.re} why={sc.myth.why} fill />
+              ) : branchResolve ? (
+                <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold leading-relaxed backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{branchResolve.best ? "💚 " : "💛 "}{branchResolve.text}</div>
               ) : (
                 <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold leading-relaxed backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {resolveLine(sc)}</div>
               )}
@@ -256,7 +263,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 }
 
 // ============================ the seven mechanic renderers ============================
-function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; onSolved: (picked?: string) => void; say: (t: string) => void; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string } }) {
+function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string) => void; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string } }) {
   switch (sc.type) {
     case "reflect": return <ReflectPlay sc={sc} onSolved={onSolved} />;
     case "role-play": return <RolePlayPlay sc={sc} onSolved={onSolved} say={say} />;
@@ -416,28 +423,31 @@ function StrikePlay({ sc, onSolved, reduceMotion }: { sc: Extract<Scenario, { ty
 
 // branch — pick a choice; HEAR + see its consequence; the safe (best) choice leads on, others gently
 // redirect. If a scenario has no `best` at all, any pick advances (never a soft-lock).
-function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "branch" }>; onSolved: () => void; say: (t: string) => void }) {
+function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "branch" }>; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string) => void }) {
   const [opts] = useState(() => shuffle(sc.options)); // best is authored at index 0 — shuffle so there's no "tap the top" tell
-  const [picked, setPicked] = useState<number | null>(null);
+  // a non-advancing pick on a "find the best" branch shows the consequence + a re-pick (stays in play); an
+  // advancing pick hands off to the engine so the consequence + Next render in the standard (bottom-pinned) resolve.
+  const [repick, setRepick] = useState<number | null>(null);
   const hasBest = opts.some((o) => o.best);
-  if (picked !== null) {
-    const opt = opts[picked];
-    const advance = opt.best || !hasBest; // safe choice, or there is no "best" to find → move on
+  const pick = (i: number) => {
+    const o = opts[i];
+    say(o.consequence);
+    if (o.best || !hasBest) { if (o.best) vibrate(12); onSolved(undefined, { text: o.consequence, best: !!o.best }); }
+    else setRepick(i);
+  };
+  if (repick !== null) {
+    const o = opts[repick];
     return (
       <div className="flex flex-col gap-2.5">
-        <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{opt.best ? "💚 " : "💛 "}{opt.consequence}</div>
-        {advance ? (
-          <button type="button" onClick={onSolved} className="flex h-12 w-full items-center justify-center rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">Next →</button>
-        ) : (
-          <button type="button" onClick={() => setPicked(null)} className="glass-pill flex h-12 w-full items-center justify-center rounded-2xl text-base font-bold text-foreground backdrop-blur-md transition-transform active:scale-95">Let&apos;s find the safe way →</button>
-        )}
+        <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {o.consequence}</div>
+        <button type="button" onClick={() => setRepick(null)} className="glass-pill flex h-12 w-full items-center justify-center rounded-2xl text-base font-bold text-foreground backdrop-blur-md transition-transform active:scale-95">Let&apos;s find the safe way →</button>
       </div>
     );
   }
   return (
     <div className="flex flex-col gap-2.5">
       {opts.map((o, i) => (
-        <button key={i} type="button" onClick={() => { setPicked(i); say(o.consequence); if (o.best) { vibrate(12); } }} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
+        <button key={i} type="button" onClick={() => pick(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
           <span className="text-2xl" aria-hidden>🔀</span><span className="flex-1">{o.text}</span>
         </button>
       ))}

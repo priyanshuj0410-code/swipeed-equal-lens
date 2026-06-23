@@ -124,9 +124,9 @@ export const FRIEND_FRENEMY: V2GameConfig = {
   ],
   badge: {
     title: "Friend Detector! 🤝",
-    blurb: "You can spot a real friend, name the frenemy flags, stand up and say the line, and make up after a fight — real friends are glad for you, and unkindness is never your worth. 🤝💛",
+    blurb: "You can spot a real friend, name the frenemy flags, say the line, and make up after a fight — real friends are glad for you; unkindness is never your worth. 🤝💛",
   },
-  helpLine: "If someone keeps being unkind, or you don't feel safe, tell a trusted grown-up — you can also call Childline, one-zero-nine-eight. Asking for help is brave, not tattling.",
+  helpLine: "If someone keeps being unkind, or you don't feel safe, tell a trusted grown-up, or call Childline, one-zero-nine-eight. Asking for help is brave, not tattling.",
   helpLabel: "Get help · Childline 1098",
   reassure: "If someone's unkind to you, it's not your fault — and telling a trusted grown-up is brave. 💛",
   reassureCats: ["frenemy-flags"],

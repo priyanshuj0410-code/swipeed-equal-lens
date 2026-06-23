@@ -113,7 +113,7 @@ const SCENARIOS: Scenario[] = [
 export const BOUNDARY_BOT: V2GameConfig = {
   gameId: "boundary-bot",
   title: "Boundary Bot",
-  greet: "Hey, it's Lensy. 🚧 Your boundaries are yours — and everyone's count. Let's practise saying no, asking first, reading a 'no', and what to do if a line gets crossed. Private, no judging.",
+  greet: "Hey, it's Lensy. 🚧 Your boundaries are yours — and everyone's count. Let's practise saying no, asking first, and what to do if a line gets crossed.",
   scenarios: SCENARIOS,
   categories: [
     { id: "my-boundaries", emoji: "🚧", label: "My boundaries" },
@@ -125,9 +125,9 @@ export const BOUNDARY_BOT: V2GameConfig = {
   ],
   badge: {
     title: "Boundary Bot! 🚧",
-    blurb: "You can set and hold your own boundaries, understand consent (a free, ongoing, can-change yes), read and respect others', resist peer pressure, stay safe online, and tell & get support if a line is crossed — and it's never your fault. 🚧",
+    blurb: "You can set and hold boundaries, understand consent, respect others', resist pressure, stay safe online, and tell if a line is crossed — never your fault. 🚧",
   },
-  helpLine: "If a boundary is crossed, someone pressures you for a private photo, or you don't feel safe, tell a trusted grown-up — you can also call Childline, one-zero-nine-eight. It's never your fault, and telling is the brave, right thing.",
+  helpLine: "If a boundary is crossed, you're pressured for a photo, or you don't feel safe, tell a grown-up or call Childline, one-zero-nine-eight. Never your fault.",
   helpLabel: "Get help · Childline 1098",
   reassure: "If someone crosses your boundary — even if you froze or gave in once — it's never your fault, and telling a trusted grown-up is the brave, right thing. 💛",
   reassureCats: ["crossed-support"],

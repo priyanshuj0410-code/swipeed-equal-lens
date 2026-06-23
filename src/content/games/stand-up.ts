@@ -111,7 +111,7 @@ const SCENARIOS: Scenario[] = [
 export const STAND_UP: V2GameConfig = {
   gameId: "stand-up",
   title: "Stand Up",
-  greet: "Hey, it's Lensy. 🦸 See harassment and freeze, unsure what to do? Let's learn the five safe moves — so you can go from bystander to upstander without ever putting yourself in danger. Your safety comes first.",
+  greet: "Hey, it's Lensy. 🦸 See harassment and freeze? Let's learn the five safe moves, so you can go from bystander to upstander without putting yourself in danger.",
   scenarios: SCENARIOS,
   categories: [
     { id: "gbv-and-rights", emoji: "⚖️", label: "GBV & your rights" },
@@ -123,10 +123,10 @@ export const STAND_UP: V2GameConfig = {
   ],
   badge: {
     title: "Upstander! 🦸",
-    blurb: "You can spot harassment, choose a safe move from the 5 Ds, support someone afterwards, and reach real help — all without putting yourself in danger. Harm is never the target's fault. 💛",
+    blurb: "You can spot harassment, choose a safe move from the 5 Ds, support someone afterwards, and reach real help — never the target's fault, never at your own risk. 💛",
   },
-  helpLine: "If you or someone you know is being harassed or hurt, you don't have to handle it alone — tell a trusted adult, or call the Women Helpline 181, emergency 112, or Childline one-zero-nine-eight. It's never your fault.",
+  helpLine: "If you or someone is being harassed or hurt, you don't have to handle it alone — tell a trusted adult, or call Women Helpline 181, emergency 112, or 1098.",
   helpLabel: "Get help · 181 / 112 / 1098",
-  reassure: "If you or someone you know is being harassed or hurt, it's never your fault — freezing is normal, and you deserve support. Tell a trusted adult or call Women Helpline 181, emergency 112, or Childline 1098. 💛",
+  reassure: "If you or someone is being harassed or hurt, it's never your fault — freezing is normal. Tell a trusted adult or call 181, emergency 112, or Childline 1098. 💛",
   reassureCats: ["gbv-and-rights", "spot-harassment", "safety-first", "after-support"],
 };

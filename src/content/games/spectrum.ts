@@ -104,7 +104,7 @@ const SCENARIOS: Scenario[] = [
 export const SPECTRUM: V2GameConfig = {
   gameId: "spectrum",
   title: "Spectrum",
-  greet: "Hey, I’m Lensy. 🌈 People differ in who they are and who they love — and every single person deserves dignity, respect and safety. That part isn’t a debate. Let’s understand the spectrum, bust the myths kindly, and stand up for everyone.",
+  greet: "Hey, I’m Lensy. 🌈 People differ in who they are and who they love — and every person deserves dignity, respect and safety. That isn’t a debate. Let’s explore.",
   scenarios: SCENARIOS,
   categories: [
     { id: "the-spectrum", emoji: "🌈", label: "The spectrum" },
@@ -116,10 +116,10 @@ export const SPECTRUM: V2GameConfig = {
   ],
   badge: {
     title: "Spectrum 🌈",
-    blurb: "You understand the spectrum, you can bust harmful myths kindly without disparaging anyone, and you stand for one non-negotiable: dignity, respect and safety for every person. 🫶",
+    blurb: "You understand the spectrum, you can bust harmful myths kindly without disparaging anyone, and you stand for dignity, respect and safety for every person. 🫶",
   },
-  helpLine: "Whoever you are and whoever you love, you deserve dignity, respect and safety. If you’re struggling, questioning, or facing conflict at home, you can talk to a trusted adult or counsellor, or call Tele-MANAS 14416, KIRAN 1800-599-0019, or Childline 1098. Sharing anything is always your own choice.",
+  helpLine: "Whoever you are and whoever you love, you deserve dignity, respect and safety. Need support? Call Tele-MANAS 14416, KIRAN 1800-599-0019 or Childline 1098.",
   helpLabel: "Get support · Tele-MANAS 14416 / 1098",
-  reassure: "Who you are and who you love is yours — there’s no pressure to label anything, and nothing you share here is shared anywhere else. Every person deserves dignity, respect and safety, full stop. If you’re struggling or facing conflict at home, it’s never your fault: talk to a trusted adult or counsellor, or call Tele-MANAS 14416, KIRAN 1800-599-0019, or Childline 1098. 🫶",
+  reassure: "Who you are and who you love is yours — no pressure to label. Struggling or facing conflict at home? Call Tele-MANAS 14416, KIRAN 1800-599-0019 or 1098. 🫶",
   reassureCats: ["being-you", "stand-against-bullying", "support-and-rights"],
 };

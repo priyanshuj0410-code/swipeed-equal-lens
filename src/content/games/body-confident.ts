@@ -110,7 +110,7 @@ const SCENARIOS: Scenario[] = [
 export const BODY_CONFIDENT: V2GameConfig = {
   gameId: "body-confident",
   title: "Body Confident",
-  greet: "Hey, it's Lensy. 🪞 Bodies are still changing at this age, and the internet is full of filters and 'rules' about how you should look. Let's spot what's fake, bust the beauty myths, and remember your worth was never about your looks.",
+  greet: "Hey, it's Lensy. 🪞 The internet is full of filters and 'rules' about how you should look. Let's spot what's fake and remember your worth was never your looks.",
   scenarios: SCENARIOS,
   categories: [
     { id: "changing-body", emoji: "🌱", label: "Changing body" },
@@ -122,11 +122,11 @@ export const BODY_CONFIDENT: V2GameConfig = {
   ],
   badge: {
     title: "Body Confident! 🪞",
-    blurb: "You can spot a filter, bust the beauty myths (including colourism), care for your body instead of 'fixing' it, and untie your worth from your looks — and if body worries get heavy, you know to reach out. 💎",
+    blurb: "You can spot a filter, bust the beauty myths (including colourism), care for your body instead of 'fixing' it, and untie your worth from your looks. 💎",
   },
-  helpLine: "If worries about your body or eating start filling your days, please talk to someone you trust, a parent, a teacher, a school counsellor or a doctor. You can also call Childline, one-zero-nine-eight. Reaching out is strong, and help really works.",
+  helpLine: "If worries about your body or eating fill your days, talk to someone you trust — a parent, teacher or doctor — or call Childline, one-zero-nine-eight.",
   helpLabel: "Get support · Childline 1098",
-  reassure: "A hard body day is a day, not a verdict, and it passes. If heavy body or eating worries stick around, that's not vanity or weakness, it's a sign to reach out to a trusted adult, counsellor or doctor. 💛",
+  reassure: "A hard body day is a day, not a verdict, and it passes. If heavy body or eating worries stick around, reach out to a trusted adult, counsellor or doctor. 💛",
   reassureCats: ["when-heavy"],
   buildLabels: { assemble: "That feels kind 💛", sequence: "That's the kinder way ✨" },
 };

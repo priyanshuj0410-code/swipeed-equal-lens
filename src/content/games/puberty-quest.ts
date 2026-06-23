@@ -126,9 +126,9 @@ export const PUBERTY_QUEST: V2GameConfig = {
   ],
   badge: {
     title: "Puberty Quest complete! 🌱",
-    blurb: "You know what's changing and why, that everyone's on their own clock, that periods are clean and normal (no one's ever 'impure'), that boys' changes and feelings are normal too — and where to get true answers. 🌱",
+    blurb: "You know what's changing and why, that everyone's on their own clock, periods are clean and normal (never 'impure'), and boys' changes are normal too. 🌱",
   },
-  helpLine: "Got a question you're too shy to ask? A trusted adult, a doctor, a school nurse or an Asha worker can help — and for any worry you can call Childline, one-zero-nine-eight. No question about your body is silly.",
+  helpLine: "Too shy to ask? A trusted adult, doctor, nurse or Asha worker can help, and for any worry call Childline, one-zero-nine-eight. No body question is silly.",
   helpLabel: "Get help · Childline 1098",
   reassure: "Everything about your changing body is normal and clean — no one is ever 'impure', and you deserve facts, products and dignity. 💛",
   reassureCats: ["periods-no-shame"],

@@ -112,7 +112,7 @@ const SCENARIOS: Scenario[] = [
 export const REALITY_CHECK: V2GameConfig = {
   gameId: "reality-check",
   title: "Reality Check",
-  greet: "Hey, it's Lensy. 🔍 Almost nothing online is as real as it looks — filters, highlight reels, ads, even fakes. Let's learn to see the curation, spot the trick, and ask the four questions, so you decide what's real, not the feed.",
+  greet: "Hey, it's Lensy. Almost nothing online is as real as it looks — filters, highlight reels, ads, even fakes. Let's see the curation and ask the four questions.",
   scenarios: SCENARIOS,
   categories: [
     { id: "real-vs-reel", emoji: "🪞", label: "Real vs reel" },
@@ -124,10 +124,10 @@ export const REALITY_CHECK: V2GameConfig = {
   ],
   badge: {
     title: "Reality Checker! 🔍",
-    blurb: "You can see the curation, spot the manipulation, tell real from reel, and know your rights against fakes — and where to report them. You decide what's real, not the feed. 🔍",
+    blurb: "You can see the curation, spot the manipulation, tell real from reel, and know your rights against fakes — and where to report them. You decide what's real. 🔍",
   },
-  helpLine: "If a fake or private image of you (or a friend) is going around, it's never your fault and you won't be in trouble — save the evidence, tell a trusted adult, and report at cybercrime.gov.in / 1930 or Childline 1098. The law is on your side.",
+  helpLine: "A fake or private image of you or a friend is never your fault — save evidence, tell a trusted adult, report at cybercrime.gov.in / 1930 or Childline 1098.",
   helpLabel: "Get help · 1930 / Childline 1098",
-  reassure: "Curiosity is normal and nothing's wrong with you. A faked or leaked image is NEVER your fault and you won't be in trouble — save evidence, tell a trusted adult, and report at cybercrime.gov.in / 1930 or Childline 1098. 💛",
+  reassure: "Curiosity is normal. A faked or leaked image is NEVER your fault — tell a trusted adult and report at cybercrime.gov.in / 1930 or Childline 1098. 💛",
   reassureCats: ["media-love-sex", "fakes-and-rights", "finding-help"],
 };

@@ -110,7 +110,7 @@ const SCENARIOS: Scenario[] = [
 export const EQUALIZE: V2GameConfig = {
   gameId: "equalize",
   title: "Equalize",
-  greet: "Hey, it's Lensy. ⚖️ Lots of people SAY they believe in equality — living it is the real game. Let's spot the gaps, rebalance the load at home and school, and see how fairness lifts everyone, boys included.",
+  greet: "Hey, it's Lensy. ⚖️ Many SAY they believe in equality — living it is the real game. Let's spot the gaps, share the load, and see how fairness lifts everyone.",
   scenarios: SCENARIOS,
   categories: [
     { id: "belief-vs-practice", emoji: "🧭", label: "Belief vs practice" },
@@ -122,11 +122,11 @@ export const EQUALIZE: V2GameConfig = {
   ],
   badge: {
     title: "Equalizer! ⚖️",
-    blurb: "You can spot the gap between believing and living equality, share the unpaid load, and stand up on rights like keeping every child in school — because fairness lifts everyone. ⚖️",
+    blurb: "You can spot the gap between believing and living equality, share the unpaid load, and stand up for rights like keeping every child in school. ⚖️",
   },
-  helpLine: "If you or a friend is being pushed toward marriage as a child, you don't have to face it alone — tell a trusted adult, or call Childline on one-zero-nine-eight. It's illegal, it can be stopped, and it's never your fault.",
+  helpLine: "If you or a friend is pushed toward marriage as a child, you're not alone — call Childline 1098. It's illegal, it can be stopped, and never your fault.",
   helpLabel: "Get help · Childline 1098",
-  reassure: "If you or someone you know is being pressured to marry as a child, it's never your fault — and it can be stopped. Tell a trusted adult or call Childline 1098. Every child deserves to grow up, learn and choose. 💛",
+  reassure: "If you or someone you know is pressured to marry as a child, it's never your fault — and it can be stopped. Tell a trusted adult or call Childline 1098. 💛",
   reassureCats: ["child-marriage"],
   buildLabels: { assemble: "That's the balance! ⚖️", sequence: "That's my plan!" },
 };

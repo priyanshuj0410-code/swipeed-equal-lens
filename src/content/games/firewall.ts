@@ -110,7 +110,7 @@ const SCENARIOS: Scenario[] = [
 export const FIREWALL: V2GameConfig = {
   gameId: "firewall",
   title: "Firewall",
-  greet: "Hey, it's Lensy. 🛡️ The internet's mostly great — let's make you the firewall. We'll spot the fakes and groomers, think before we share, and learn the calm plan if anyone ever tries to threaten you. Alert and in control, never scared.",
+  greet: "Hey, it's Lensy. 🛡️ The net's mostly great — be the firewall. Spot fakes and groomers, think before sharing, and know the calm plan if you're threatened.",
   scenarios: SCENARIOS,
   categories: [
     { id: "spot-grooming", emoji: "🕵️", label: "Spot grooming & fakes" },
@@ -122,10 +122,10 @@ export const FIREWALL: V2GameConfig = {
   ],
   badge: {
     title: "Firewall! 🛡️",
-    blurb: "You can spot grooming and fakes, think before you share, and run the calm plan if anyone threatens you — don't panic, don't pay, save evidence, tell a trusted adult. It's never your fault, and you're never in trouble. 💛",
+    blurb: "You can spot grooming and fakes, think before you share, and run the calm plan — don't panic, don't pay, save evidence, tell an adult. It's never your fault. 💛",
   },
-  helpLine: "If someone is threatening you online or pressuring you to share, you are the victim and you won't be in trouble — don't pay, save the messages, and tell a trusted adult. Report at cybercrime dot gov dot in or call 1930, or Childline one-zero-nine-eight.",
+  helpLine: "If someone threatens you online, you're the victim, not in trouble — don't pay, save the messages, tell an adult. cybercrime.gov.in or 1930, or Childline 1098.",
   helpLabel: "Get help · 1930 / Childline 1098",
-  reassure: "If something's gone wrong online or someone's threatening you, it's NEVER your fault — you're the victim, not in trouble. Don't pay, keep the evidence, and tell a trusted adult. Report at cybercrime.gov.in / 1930 or call Childline 1098. There's always a way through. 💛",
+  reassure: "If something online has gone wrong, it's NEVER your fault. Don't pay, save evidence, tell an adult. cybercrime.gov.in / 1930, Childline 1098. 💛",
   reassureCats: ["spot-grooming", "sextortion-plan", "find-help-no-blame"],
 };
