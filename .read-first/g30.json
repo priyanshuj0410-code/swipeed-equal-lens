@@ -1,0 +1,35 @@
+{
+  "node": "g30",
+  "gameId": "status-know-it",
+  "label": "Status: Know It",
+  "chapter": 5,
+  "attested_at": "2026-06-23T18:15:42+05:30",
+  "notes": "Read GDD 30 library in full (84: know-your-status/prevention-stack/talk-about-it/treat-and-thrive/dignity-no-stigma/own-it-decide), incl. dignity-no-stigma verbatim (U=U, solidarity-not-pity, status-is-private, never-a-moral-verdict, never-blame). gameId 'status-know-it' matches registry. binStyle: added dignity->green + ^stigma->red (anchored so 'reduces stigma' stays green); emulated all 13 bins + guard, no mis-color. Spot ids injected (4). No builds. reassureCats=[know-your-status,dignity-no-stigma,own-it-decide] + reassure + NACO ICTC/1098 helpLine.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 30 — Status Know It (reworked v2).pdf",
+      "sha256": "f31dc09e9eb72dddfba6f8d590c02469e41189657115636d04cedce86d79b3fa",
+      "bytes": 64424
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 5 User Personas.pdf",
+      "sha256": "0aa28ddba75fd7ae198bc3ae24e7e01b1ef87b3e16c986e842dcd0c249fbfd45",
+      "bytes": 74728
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 30 Status Know It — Scenario Library.json",
+      "sha256": "cee1c81214781ec12da511f693732b4b99ba5672b5569fe17b2f8c46f4ab19e6",
+      "bytes": 61413
+    }
+  }
+}
