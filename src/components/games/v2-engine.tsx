@@ -183,24 +183,30 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
       {muteBtn}
     </span>
   );
+  // Lensy's voice is a CHAT BUBBLE (soft fill + a little tail toward Sam), not a card — content-width, wraps.
+  // aria-live: the bubble mirrors every say() — hook, nudge, result — so screen-reader / deaf / TTS-muted users
+  // get parity (fixes the prior say()-is-speech-only gap) without per-renderer plumbing.
   const SamSays = (
-    <div className="flex items-center gap-3">
-      <Sam size={64} />
-      {/* aria-live: the bubble mirrors every say() — hook, nudge, result — so screen-reader / deaf / TTS-muted
-          users get parity (fixes the prior say()-is-speech-only gap) without per-renderer plumbing. */}
-      <span role="status" aria-live="polite" aria-atomic="true" className="glass-pill flex-1 rounded-2xl px-4 py-2.5 text-center text-base font-bold backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>{bubble}</span>
+    <div className="flex items-end gap-2">
+      <Sam size={52} />
+      <div className="relative min-w-0 flex-1">
+        <span className="absolute -left-1 bottom-2.5 size-3 rotate-45 rounded-[3px]" style={{ background: "var(--color-mist)" }} aria-hidden />
+        <span role="status" aria-live="polite" aria-atomic="true" className="relative inline-block max-w-full rounded-2xl rounded-bl-md px-3.5 py-2.5 text-left text-[15px] font-semibold leading-snug shadow-[0_2px_10px_rgba(34,20,54,0.10)]" style={{ background: "var(--color-mist)", color: "var(--color-ink)" }}>{bubble}</span>
+      </div>
     </div>
   );
+  // Progress = a compact strip of category dots at the very top (small, not a card).
   const StickerBook = (
-    <div className="glass-card flex justify-center gap-2 rounded-2xl p-2.5 backdrop-blur-[12px] backdrop-saturate-150" aria-label={`${stickers.size} of ${categories.length} stickers`}>
+    <div className="flex justify-center gap-1.5" aria-label={`${stickers.size} of ${categories.length} earned`}>
       {categories.map((c) => (
-        <span key={c.id} className={`grid size-9 place-items-center rounded-full text-xl ${stickers.has(c.id) && !reduceMotion ? "animate-in zoom-in duration-300" : ""}`} style={{ background: stickers.has(c.id) ? "var(--color-sun)" : "transparent", boxShadow: stickers.has(c.id) ? "inset 0 0 0 2px var(--color-ink)" : "inset 0 0 0 2px var(--color-mist)", opacity: stickers.has(c.id) ? 1 : 0.4 }} aria-hidden>{stickers.has(c.id) ? c.emoji : "·"}</span>
+        <span key={c.id} className={`grid size-6 place-items-center rounded-full text-sm ${stickers.has(c.id) && !reduceMotion ? "animate-in zoom-in duration-300" : ""}`} style={{ background: stickers.has(c.id) ? "var(--color-sun)" : "transparent", boxShadow: `inset 0 0 0 1.5px ${stickers.has(c.id) ? "var(--color-ink)" : "var(--color-mist)"}`, opacity: stickers.has(c.id) ? 1 : 0.5 }} aria-hidden>{stickers.has(c.id) ? c.emoji : ""}</span>
       ))}
     </div>
   );
+  // Home is a quiet, tertiary text button — not a card.
   const HomeBtn = (
-    <button type="button" onClick={() => { setView("home"); say("What shall we play?"); }} className="glass-pill mt-1 flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-base font-bold backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
-      <Home className="size-5" aria-hidden /> Home
+    <button type="button" onClick={() => { setView("home"); say("What shall we play?"); }} className="mx-auto mt-1 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-foreground/50 transition-colors hover:text-foreground active:scale-95">
+      <Home className="size-3.5" aria-hidden /> Home
     </button>
   );
   const HelpPill = helpLine ? (
@@ -220,8 +226,8 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   return (
     <GameShell title={title} tools={tools} onExit={onExit}>
       <div className="flex w-full max-w-sm flex-col items-stretch gap-4">
-        {SamSays}
         {StickerBook}
+        {SamSays}
         {coplay && view === "play" && sc && (
           <div className="glass-pill flex items-start gap-2 rounded-2xl px-3 py-2 text-sm font-medium backdrop-blur-md" style={{ color: "var(--color-ink)" }}>
             <Users className="mt-0.5 size-4 shrink-0" aria-hidden /> <span>{COPLAY[sc.type]}</span>
@@ -366,16 +372,20 @@ function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
         aria-label={`${sc.cue}. Press Left arrow for ${sc.left}, or Right arrow for ${sc.right}.`}
         onKeyDown={onKeyDown}
         {...drag.handlers}
-        className="glass-card relative flex min-h-52 w-full cursor-grab select-none items-center justify-center rounded-3xl px-7 py-12 text-center text-[19px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
-        style={{ transform: `translateX(${tx}px) rotate(${tx * 0.035}deg)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.25s ease-out", touchAction: "pan-y", boxShadow: edge ? `inset 0 0 0 3px ${edge.tint}, 0 8px 30px color-mix(in srgb, ${edge.tint} 30%, transparent)` : undefined }}
+        className="glass-card relative flex min-h-52 w-full cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[19px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
+        style={{ transform: `translateX(${tx}px) rotate(${tx * 0.035}deg)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.25s ease-out", touchAction: "pan-y", boxShadow: edge ? `inset 0 0 0 4px ${edge.tint}, 0 10px 38px color-mix(in srgb, ${edge.tint} 38%, transparent)` : undefined }}
       >
-        {/* the chosen-side badge appears only while swiping — the signal lives in the gesture */}
+        {/* while swiping, the chosen side fills the card with its colour + a big watermark flag + a clear badge */}
         {edge && (
-          <span className={`absolute top-3 ${dir === "left" ? "left-3" : "right-3"} flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-extrabold text-white`} style={{ background: edge.tint }} aria-hidden>
-            {dir === "left" ? <>{edge.emoji} {sc.left}</> : <>{sc.right} {edge.emoji}</>}
-          </span>
+          <>
+            <div className="pointer-events-none absolute inset-0" style={{ background: edge.tint, opacity: 0.16 }} aria-hidden />
+            <span className={`pointer-events-none absolute top-1/2 -translate-y-1/2 text-8xl ${dir === "left" ? "left-3" : "right-3"}`} style={{ opacity: 0.18 }} aria-hidden>{edge.emoji}</span>
+            <span className={`absolute top-3 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-extrabold text-white shadow-md ${dir === "left" ? "left-3" : "right-3"}`} style={{ background: edge.tint }} aria-hidden>
+              {dir === "left" ? <>{edge.emoji} {sc.left}</> : <>{sc.right} {edge.emoji}</>}
+            </span>
+          </>
         )}
-        {sc.cue}
+        <span className="relative z-10">{sc.cue}</span>
       </div>
       {wrong ? (
         <p className="text-center text-xs font-semibold text-foreground/60">Look again — is that healthy? 💛</p>
