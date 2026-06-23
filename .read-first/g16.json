@@ -1,0 +1,35 @@
+{
+  "node": "g16",
+  "gameId": "crossroads",
+  "label": "Crossroads",
+  "chapter": 3,
+  "attested_at": "2026-06-23T05:45:43+05:30",
+  "notes": "Read GDD 16 (11pp) + Ch.3 personas + bible + transition + full 84-scenario library. 7 mechanics (branch 29, reflect 26, strike-rewrite 10, role-play 7, sort 7, build 3, match 2). 0% binary, 10 myths. Registry id crossroads (matches). THE branching-dilemma flagship — its branch engine is the reference for g27/g31 + adult dilemma games. Decision routine: stop-think, see options (not black/white), weigh consequences (then what?), decide by values, own it. Decide-don't-dictate; real autonomy (>1 defensible move); safe-to-be-wrong (change course); route big/risky to trusted adult (links g15/g08). Builds on g09; prereq g15. Anchors Aarav/Diya/Asha/Rohit.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 16 — Crossroads (reworked v2).pdf",
+      "sha256": "14f3c1d4ab71d79416e98503650cac5a8e251db1b6dc79e9f3878d8f1545fa99",
+      "bytes": 59780
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 3 User Personas.pdf",
+      "sha256": "7b189f9027939445b44314cef124bba0fce20c3ec70ba115d772857b77b93eef",
+      "bytes": 76200
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 16 Crossroads — Scenario Library.json",
+      "sha256": "8f7ea4b095d94e3aa82d90ccac3853e37c9e0b515ac99d1a0d4cd665d006e20d",
+      "bytes": 42364
+    }
+  }
+}
