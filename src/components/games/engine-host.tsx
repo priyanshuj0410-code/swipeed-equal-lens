@@ -205,6 +205,9 @@ const GAMES: Record<string, EngineGame> = {
   "if-when-whether": dynamic(() => import("@/components/games/if-when-whether").then((m) => m.IfWhenWhetherGame), {
     ssr: false,
   }),
+  "many-ways-to-family": dynamic(() => import("@/components/games/many-ways-to-family").then((m) => m.ManyWaysToFamilyGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {
