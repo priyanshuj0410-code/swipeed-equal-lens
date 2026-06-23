@@ -236,6 +236,9 @@ const GAMES: Record<string, EngineGame> = {
   "navigating-addictions": dynamic(() => import("@/components/games/navigating-addictions").then((m) => m.NavigatingAddictionsGame), {
     ssr: false,
   }),
+  "be-the-safe-adult": dynamic(() => import("@/components/games/be-the-safe-adult").then((m) => m.BeTheSafeAdultGame), {
+    ssr: false,
+  }),
 };
 
 export function hasEngineGame(id: string): boolean {

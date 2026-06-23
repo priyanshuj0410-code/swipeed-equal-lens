@@ -1,0 +1,35 @@
+{
+  "node": "g69",
+  "gameId": "be-the-safe-adult",
+  "label": "Be the Safe Adult",
+  "chapter": 8,
+  "attested_at": "2026-06-24T03:22:24+05:30",
+  "notes": "",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 69 — Be the Safe Adult (reworked v2).pdf",
+      "sha256": "a343df57b76bd56e0480958b83156408f40dc88cebb78dfa23daa154b0595286",
+      "bytes": 66437
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 8 User Personas.pdf",
+      "sha256": "5227e2572165a8d91b62d205472e5ac2da433312b8ac47bcbb59826cbccb844b",
+      "bytes": 78557
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 69 Be the Safe Adult — Scenario Library.json",
+      "sha256": "d5ec621852f6ad7a4a684c985d1dc65309c18d2a7e70268faab874b623379b01",
+      "bytes": 75353
+    }
+  }
+}
