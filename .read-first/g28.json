@@ -1,0 +1,35 @@
+{
+  "node": "g28",
+  "gameId": "reality-check",
+  "label": "Reality Check",
+  "chapter": 4,
+  "attested_at": "2026-06-23T17:38:48+05:30",
+  "notes": "Read GDD 28 library in full (85 scenarios: real-vs-reel/manipulation-files/media-love-sex/fakes-and-rights/finding-help/think-for-yourself), incl. all media-love-sex (GATED, non-explicit: films!=real love, porn is staged not sex-ed, bodies vary, curiosity-is-normal no shame, learn from trusted sources) + fakes-and-rights (deepfake of a minor = illegal CSAM, never-blame, reportable, verify-the-source, POCSO/BNS/IT-Rules) verbatim. gameId 'reality-check' matches registry. 2nd swipe game (swipe x13: real-vs-reel pairs -> flagSide neutral side-tints, correct since real/staged isn't a moral green/red). binStyle: added manipulation->red + not trusted->red (rc-023/042 now correct); emulated all 10 bins, no mis-color. Spot ids injected (16). No builds. reassureCats=[media-love-sex,fakes-and-rights,finding-help] + reassure + 1930/1098 helpLine.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 28 — Reality Check (reworked v2).pdf",
+      "sha256": "4f41f712202e700a3c464d7753fc1ffabc743e68593cfcee81ebffdf92439b93",
+      "bytes": 66792
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 4 User Personas.pdf",
+      "sha256": "d86c9016bf58be6ef0771e9fcd923c987043e4286038da4cdeffb424de927c4d",
+      "bytes": 76452
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 28 Reality Check — Scenario Library.json",
+      "sha256": "6d0832a00e0ebc224129a4351672e64a543c38c4c424872888c033847b7e4c91",
+      "bytes": 60148
+    }
+  }
+}
