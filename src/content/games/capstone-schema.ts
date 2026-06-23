@@ -58,5 +58,9 @@ export const GLYPH_EMOJI: Record<string, string> = {
   "growing-body": "🌱", "mind-care": "🧠", "journey-map": "🗺️", "boundary-bot": "🤖",
   "crossroads-compass": "🧭", "flip-star": "🔄", "norm-compass": "🌪️", "upstander-badge": "🦸",
   "defender-heart": "💛", "growing-up-star": "🌟",
+  // Chapter 4 (c4 — Reading Relationships)
+  "body-confident": "🪞", "bounce-spark": "✨", "plan-it": "📅", "outbreak-shield": "🛡️",
+  "green-red-light": "🚦", "mythbuster": "🧪", "equalize": "⚖️", "stand-up": "🦸",
+  "firewall": "🔒", "rabbit-hole": "🕳️", "reality-check": "🔍", "reading-relationships-star": "🌠",
 };
 export const glyphEmoji = (g: string): string => GLYPH_EMOJI[g] ?? "⭐";
