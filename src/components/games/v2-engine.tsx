@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Volume2, VolumeX, Home, RotateCcw, Sparkles, ShieldCheck, Phone, Users } from "lucide-react";
+import { Volume2, VolumeX, Home, RotateCcw, ShieldCheck, Phone } from "lucide-react";
 import { greetWithName } from "@/lib/personalize";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
@@ -12,25 +12,12 @@ import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import { usePointerDrag, hitTestZone, ConnectorOverlay, type Cord } from "@/components/games/interactions";
 import { prefersReducedMotion } from "@/lib/juice";
-import { shuffle, byCat, type Scenario, type V2GameConfig, type V2Mechanic } from "@/content/games/v2-schema";
+import { shuffle, byCat, type Scenario, type V2GameConfig } from "@/content/games/v2-schema";
 
 // The shared v2 "mechanic-embodying" engine — renders any game's typed scenario library as the micro-loop
 // (Hook → Play → Reassure → Sticker), with one bespoke interaction per mechanic so the lesson IS the verb,
 // never a binary tap. No hard fail (a wrong move gets a warm nudge); audio-first; Calm Mode drives
 // prefersReducedMotion; a help route on every screen; optional grown-up co-play. Used by g01, g02, …
-
-const COPLAY: Record<V2Mechanic, string> = {
-  reflect: "Wonder it over together — there's no wrong answer here.",
-  "role-play": "Say the brave words together, loud and proud.",
-  "strike-rewrite": "Talk about why the old idea isn't true.",
-  branch: "Ask them: what would you do? Talk it through.",
-  sort: "Sort them together and chat about each one.",
-  match: "Match them up together.",
-  build: "Help them name the grown-ups they trust.",
-  "explore-label": "Explore the body lab together — wonder what each part does.",
-  spot: "Spot the tricky red flag together — talk about what makes it unsafe.",
-  swipe: "Read each flag together — green or red? Talk about why.",
-};
 
 // Tint a sort/bin label by meaning (colour is NEVER the only signal — every bin shows its word + an emoji).
 // Valence labels (safe/unsafe, kind/unkind, helps/makes-it-bigger) get green/red; neutral two-category
@@ -66,11 +53,9 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const [stickers, setStickers] = useState<Set<string>>(new Set()); // category ids earned
   const [bubble, setBubble] = useState(greet);
   const [muted, setMuted] = useState(false);
-  const [coplay, setCoplay] = useState(false);
-  // Calm Mode is the app-wide setting; the store syncs profile.calmMode → juice.setCalm(), so the toggle
-  // actually drives prefersReducedMotion() (suppressing confetti + motion).
-  const { profile, setCalmMode, ready } = useProfile();
-  const calmMode = profile.calmMode ?? false; // the in-app toggle state (drives the Sparkles button)
+  // Calm Mode (reduce motion/confetti) is controlled in app Settings + auto-honoured from OS prefers-reduced-
+  // motion via prefersReducedMotion() — no in-game toggle needed (it just cluttered the bar).
+  const { profile, ready } = useProfile();
   // warm, personalised opener — "Aanya! <greet>" once the name has hydrated (empty name → unchanged)
   const greeting = useMemo(() => greetWithName(greet, profile.name), [greet, profile.name]);
   const reduceMotion = prefersReducedMotion(); // calm OR the OS prefers-reduced-motion setting — gates all motion
@@ -159,9 +144,6 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   );
   const tools = (
     <span className="flex items-center gap-2">
-      <button type="button" aria-label={calmMode ? "Calm mode on" : "Calm mode off"} aria-pressed={calmMode} onClick={() => setCalmMode(!calmMode)} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95" style={calmMode ? { boxShadow: "inset 0 0 0 2px var(--color-insight)" } : undefined}>
-        <Sparkles className="size-4" aria-hidden />
-      </button>
       {!muted && (
         <button type="button" aria-label="Hear it again" onClick={() => replay()} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
           <RotateCcw className="size-4" aria-hidden />
@@ -214,15 +196,10 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     <GameShell title={title} tools={tools} onExit={onExit} align="fill">
       {/* Three pinned zones so content stops "dancing": top (progress + Lensy), a flexible middle (the
           mechanic, vertically centred in its band), and a bottom row (counter + Home) glued to the edge. */}
-      <div className="flex h-full w-full max-w-sm flex-col gap-3">
+      <div className="flex w-full max-w-sm flex-1 flex-col gap-3">
         {/* ---- TOP (pinned under the bar) ---- */}
         {StickerBook}
         {SamSays}
-        {coplay && view === "play" && sc && (
-          <div className="glass-pill flex items-start gap-2 rounded-2xl px-3 py-2 text-sm font-medium backdrop-blur-md" style={{ color: "var(--color-ink)" }}>
-            <Users className="mt-0.5 size-4 shrink-0" aria-hidden /> <span>{COPLAY[sc.type]}</span>
-          </div>
-        )}
 
         {/* ---- MIDDLE (grows; holds the view) ---- */}
         <div className="flex flex-1 flex-col justify-center gap-4 py-1">
@@ -241,9 +218,6 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
                   </button>
                 ))}
               </div>
-              <button type="button" onClick={() => setCoplay((v) => !v)} className="glass-pill flex h-10 items-center justify-center gap-2 rounded-2xl text-sm font-bold backdrop-blur-md transition-transform active:scale-95" style={coplay ? { boxShadow: "inset 0 0 0 2px var(--color-ink)" } : undefined}>
-                <Users className="size-4" aria-hidden /> Grown-up co-play {coplay ? "on" : "off"}
-              </button>
             </>
           )}
 
@@ -268,7 +242,8 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
         </div>
 
         {/* ---- BOTTOM (pinned to the edge) ---- */}
-        {view === "home" && HelpPill}
+        {/* Home's Get-Help pill removed (the global Get-Help icon in the top bar covers it). The pill still
+            surfaces on safety-beat resolves below. */}
         {view === "play" && (
           <div className="flex flex-col items-stretch gap-1">
             <p className="text-center text-xs text-foreground/55">{qi + 1} / {queue.length}</p>

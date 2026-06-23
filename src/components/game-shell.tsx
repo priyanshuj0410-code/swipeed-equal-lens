@@ -60,7 +60,7 @@ export function GameShell({
           (e.g. Flag-pedia) scrolls from the top instead of being clipped. An opaque app-bg layer hides the
           path/scene behind it while a game is on, so the game is the calm focus (not floating over the curve). */}
       <div className="fixed inset-0 z-40 overflow-y-auto" style={{ backgroundColor: "var(--color-paper)", backgroundImage: "var(--app-bg)" }}>
-        <div className={`flex min-h-full justify-center px-4 pt-20 ${align === "fill" ? "items-stretch pb-5" : "items-center pb-24"}`}>
+        <div className={`flex min-h-full px-4 pt-20 ${align === "fill" ? "flex-col items-center pb-5" : "items-center justify-center pb-24"}`}>
           {children}
         </div>
       </div>
