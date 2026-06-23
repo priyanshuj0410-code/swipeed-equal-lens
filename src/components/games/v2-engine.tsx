@@ -211,8 +211,11 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   }
 
   return (
-    <GameShell title={title} tools={tools} onExit={onExit}>
-      <div className="flex w-full max-w-sm flex-col items-stretch gap-4">
+    <GameShell title={title} tools={tools} onExit={onExit} align="fill">
+      {/* Three pinned zones so content stops "dancing": top (progress + Lensy), a flexible middle (the
+          mechanic, vertically centred in its band), and a bottom row (counter + Home) glued to the edge. */}
+      <div className="flex h-full w-full max-w-sm flex-col gap-3">
+        {/* ---- TOP (pinned under the bar) ---- */}
         {StickerBook}
         {SamSays}
         {coplay && view === "play" && sc && (
@@ -221,55 +224,56 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
           </div>
         )}
 
-        {/* ---------- HOME ---------- */}
-        {view === "home" && (
-          <>
-            <button type="button" onClick={startRotate} className="flex h-16 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-extrabold text-slate-900 transition-transform active:scale-[0.98]">
-              <ShieldCheck className="size-6" aria-hidden /> Play with Lensy
-            </button>
-            <div className="grid grid-cols-2 gap-2.5">
-              {categories.map((c) => (
-                <button key={c.id} type="button" onClick={() => startCat(c.id)} className="glass-card relative flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
-                  {stickers.has(c.id) && <span className="absolute right-2 top-2 text-sm" aria-hidden>✅</span>}
-                  <span className="text-4xl" aria-hidden>{c.emoji}</span>
-                  <span className="text-center text-sm font-bold text-foreground">{c.label}</span>
-                </button>
-              ))}
-            </div>
-            <button type="button" onClick={() => setCoplay((v) => !v)} className="glass-pill flex h-10 items-center justify-center gap-2 rounded-2xl text-sm font-bold backdrop-blur-md transition-transform active:scale-95" style={coplay ? { boxShadow: "inset 0 0 0 2px var(--color-ink)" } : undefined}>
-              <Users className="size-4" aria-hidden /> Grown-up co-play {coplay ? "on" : "off"}
-            </button>
-            {HelpPill}
-          </>
-        )}
+        {/* ---- MIDDLE (grows; holds the view) ---- */}
+        <div className="flex flex-1 flex-col justify-center gap-4 py-1">
+          {/* HOME */}
+          {view === "home" && (
+            <>
+              <button type="button" onClick={startRotate} className="flex h-16 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-extrabold text-slate-900 transition-transform active:scale-[0.98]">
+                <ShieldCheck className="size-6" aria-hidden /> Play with Lensy
+              </button>
+              <div className="grid grid-cols-2 gap-2.5">
+                {categories.map((c) => (
+                  <button key={c.id} type="button" onClick={() => startCat(c.id)} className="glass-card relative flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
+                    {stickers.has(c.id) && <span className="absolute right-2 top-2 text-sm" aria-hidden>✅</span>}
+                    <span className="text-4xl" aria-hidden>{c.emoji}</span>
+                    <span className="text-center text-sm font-bold text-foreground">{c.label}</span>
+                  </button>
+                ))}
+              </div>
+              <button type="button" onClick={() => setCoplay((v) => !v)} className="glass-pill flex h-10 items-center justify-center gap-2 rounded-2xl text-sm font-bold backdrop-blur-md transition-transform active:scale-95" style={coplay ? { boxShadow: "inset 0 0 0 2px var(--color-ink)" } : undefined}>
+                <Users className="size-4" aria-hidden /> Grown-up co-play {coplay ? "on" : "off"}
+              </button>
+            </>
+          )}
 
-        {/* ---------- PLAY ---------- */}
-        {view === "play" && sc && (
-          <>
-            {/* No hook card — Lensy's chat bubble already carries the hook (+ prompt / setup / find via hookLine),
-                so a separate card just repeats it. The mechanic UI is the focus. */}
-            {phase === "play" && <Play key={sc.id} sc={sc} onSolved={solve} say={say} reduceMotion={reduceMotion} buildLabels={buildLabels} />}
+          {/* PLAY — no hook card; Lensy's bubble carries the hook. */}
+          {view === "play" && sc && phase === "play" && <Play key={sc.id} sc={sc} onSolved={solve} say={say} reduceMotion={reduceMotion} buildLabels={buildLabels} />}
+          {view === "play" && sc && phase === "resolve" && (
+            <>
+              {sc.type === "strike-rewrite" ? (
+                <UnReBeat un={sc.myth.un} re={`${sc.myth.re} ${sc.myth.why}`} />
+              ) : (
+                <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold leading-relaxed backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {resolveLine(sc)}</div>
+              )}
+              {reassure && isSafetyBeat(sc) && (
+                <div className="glass-pill rounded-2xl px-4 py-2.5 text-center text-sm font-medium backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{reassure}</div>
+              )}
+              {reassure && isSafetyBeat(sc) && HelpPill}
+              <button type="button" onClick={next} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
+                {qi + 1 >= queue.length ? "Finish ⭐" : "Next →"}
+              </button>
+            </>
+          )}
+        </div>
 
-            {/* Resolve — the truth + reassurance + Next */}
-            {phase === "resolve" && (
-              <>
-                {sc.type === "strike-rewrite" ? (
-                  <UnReBeat un={sc.myth.un} re={`${sc.myth.re} ${sc.myth.why}`} />
-                ) : (
-                  <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold leading-relaxed backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {resolveLine(sc)}</div>
-                )}
-                {reassure && isSafetyBeat(sc) && (
-                  <div className="glass-pill rounded-2xl px-4 py-2.5 text-center text-sm font-medium backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{reassure}</div>
-                )}
-                {reassure && isSafetyBeat(sc) && HelpPill}
-                <button type="button" onClick={next} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
-                  {qi + 1 >= queue.length ? "Finish ⭐" : "Next →"}
-                </button>
-              </>
-            )}
+        {/* ---- BOTTOM (pinned to the edge) ---- */}
+        {view === "home" && HelpPill}
+        {view === "play" && (
+          <div className="flex flex-col items-stretch gap-1">
             <p className="text-center text-xs text-foreground/55">{qi + 1} / {queue.length}</p>
             {HomeBtn}
-          </>
+          </div>
         )}
       </div>
     </GameShell>
@@ -346,7 +350,7 @@ function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
         aria-label={`${sc.cue}. Press Left arrow for ${sc.left}, or Right arrow for ${sc.right}.`}
         onKeyDown={onKeyDown}
         {...drag.handlers}
-        className="glass-card relative flex min-h-52 w-full cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[19px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
+        className="glass-card relative flex min-h-72 w-full cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[20px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
         style={{ transform: `translateX(${tx}px) rotate(${tx * 0.035}deg)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.25s ease-out", touchAction: "pan-y", boxShadow: edge ? `6px 6px 0 0 ${edge.tint}` : undefined }}
       >
         {/* while swiping, the chosen side fills the card with its colour + a big watermark flag + a clear badge */}
@@ -524,7 +528,7 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
           // the fill deepens + border solidifies while a chip hovers over it.
           return (
             <button key={b.id} type="button" ref={(el) => { binEls.current[b.id] = el; }} onClick={() => { if (sel) place(sel, b.id); }}
-              className={`flex min-h-[5.5rem] flex-col items-center gap-1 rounded-2xl border-2 px-2 py-3 text-center transition-colors ${hover === b.id ? "border-solid" : "border-dashed"}`}
+              className={`flex min-h-32 flex-col items-center justify-center gap-1 rounded-2xl border-2 px-2 py-4 text-center transition-colors ${hover === b.id ? "border-solid" : "border-dashed"}`}
               style={{ borderColor: st.tint, background: `color-mix(in srgb, ${st.tint} ${hover === b.id ? "24%" : "9%"}, transparent)` }}>
               <span className="text-2xl" aria-hidden>{st.emoji}</span>
               <span className="text-xs font-extrabold text-foreground">{b.label}{armed ? " ⤵" : ""}</span>
