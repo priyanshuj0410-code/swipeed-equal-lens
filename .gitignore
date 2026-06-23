@@ -45,4 +45,3 @@ next-env.d.ts
 
 # Lazyweb design-research artifacts (tool output)
 .lazyweb/
-scripts/narration-manifest.json
