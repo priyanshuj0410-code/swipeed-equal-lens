@@ -1,0 +1,1912 @@
+{
+  "game": "Many Ways to Family",
+  "gameId": "many-ways-to-family",
+  "node": "g60",
+  "chapter": 7,
+  "ages": null,
+  "ageBand": "22+",
+  "thread": "F/D · SRH · Relationships",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Open (adult, comprehensive, ungated)",
+  "leadMechanics": [
+    "strike-rewrite",
+    "match",
+    "sort"
+  ],
+  "note": "Diverse routes to family: adoption/fostering, surrogacy & IVF/ART, single & LGBTQ+ parenthood, blended and childfree, and the gendered & legal barriers (UNESCO 8.1, 1.1, 2.2). New v2 build, the equity node closing Chapter 7 and the counterpart to If, When & Whether (g59), for everyone whose route to parenthood isn't the default biological one. Six modes: every route is real family (bust 'real family is only biological'; adoptive, single, queer, blended and childfree families are fully real), the routes (what adoption, fostering, IVF/ART, surrogacy, single and LGBTQ+ parenthood each involve, with the right official first step), the real path (honest steps, timelines, costs and emotions; no romanticising and no false hope; setbacks aren't a verdict), name the barriers (India's specific, gendered and legal barriers, told honestly so people aren't blindsided: under CARA 2022 a single man may adopt a boy but not a girl while a single woman may adopt any gender; the Surrogacy and ART Acts 2021 are altruistic-only and mainly for married couples; and since Supriyo v. Union of India (Oct 2023) same-sex marriage is not legally recognised, so same-sex couples cannot marry or jointly adopt, though a single LGBTQ+ person can adopt as a single applicant), your family your way (dignity, chosen family, support, family acceptance on your terms), tools & help (the routes/eligibility reference, CARA and licensed clinics, current dated legal info). Every family form treated with full dignity, none framed as lesser; LGBTQ+ content handled with the care of Spectrum (no outing); legal/eligibility content is general, dated and evolving, not legal advice, and is to be verified and localised. Builds on Spectrum (g32) and Your Path, Your Call (g54). India: real, specific barriers (CARA single-man girl-child rule, surrogacy/ART restrictions, no same-sex marriage or joint adoption, single-mother stigma), with official routes via CARA and licensed ART clinics.",
+  "categories": {
+    "every-route-real": "Every route is real family: no shape is lesser",
+    "the-routes": "The routes: adoption, fostering, ART, surrogacy, solo, queer",
+    "the-real-path": "The real path: honest steps, costs & emotions",
+    "name-the-barriers": "Name the barriers: India's gendered & legal hurdles",
+    "your-family-your-way": "Your family, your way: dignity & chosen family",
+    "tools-and-help": "Tools & help: CARA, licensed clinics, current law"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "strike-rewrite",
+    "sort",
+    "reflect",
+    "role-play",
+    "match",
+    "spot"
+  ],
+  "evidenceBase": [
+    "Family is built in many valid ways and a non-biological or non-default family is fully real: adoptive, single-parent, LGBTQ+, blended and childfree families are all real, and what children need most is stable, loving care rather than a particular family shape, so 'real family is only biological', 'adopted children are less your own' and 'a single parent isn't enough' are myths to retire. Every route, adoption, fostering, IVF/ART, surrogacy, solo and queer parenthood, deserves dignity and no route or family form is lesser (UNESCO ITGSE Key Concept 1 families & 2 values and inclusion; child-wellbeing research on stability and care over family structure)",
+    "Each route is a real journey with honest steps, costs, waits and emotions rather than an instant or guaranteed result, and the node is honest about India's specific, partly gendered and legal barriers so people go in informed rather than blindsided: under the CARA Adoption Regulations 2022 a single man may adopt a boy but not a girl while a single woman may adopt a child of any gender and a married couple in a stable two-year marriage may adopt any gender; the Surrogacy (Regulation) Act 2021 permits only altruistic surrogacy and mainly for married couples, and the ART (Regulation) Act 2021 is for infertile married couples and women. Naming a barrier is going in informed, not endorsing it as fair, and difficulty or a setback on a route is not a verdict that family 'wasn't meant to be' (CARA Adoption Regulations 2022; Surrogacy and ART Regulation Acts 2021)",
+    "Barriers are real and so are the open doors, and the law is specific and evolving: in Supriyo v. Union of India (17 October 2023) the Supreme Court declined to legally recognise same-sex marriage, leaving it to Parliament, so same-sex couples cannot currently marry or jointly adopt in India, yet a single LGBTQ+ person can still adopt as a single applicant and chosen family is real and often a great strength. Every family form is treated with full dignity and none as lesser, LGBTQ+ content is handled with care and without outing, and the legal and eligibility material is general, dated and to be verified with official, current sources (CARA, licensed clinics or a legal expert) rather than rumour, and is not legal advice (Supriyo v. Union of India 2023; CARA; India ART/surrogacy law, current as of 2024-25 and evolving)"
+  ],
+  "scenarios": [
+    {
+      "id": "mf-001",
+      "cat": "every-route-real",
+      "type": "strike-rewrite",
+      "hook": "\"Real family is only the one you make biologically.\"",
+      "relearn": "Family is built in many ways; adoptive, blended and chosen families are fully real.",
+      "persona": "Aditya",
+      "source": "many ways real",
+      "myth": {
+        "un": "Real family is only the one you make biologically.",
+        "re": "Family is built in many ways, and a family built by adoption, ART, blending or choice is fully real.",
+        "why": "Family is defined by love and commitment, not biology alone."
+      }
+    },
+    {
+      "id": "mf-002",
+      "cat": "every-route-real",
+      "type": "sort",
+      "hook": "Sort: a real, valid family, or 'not a real family' the way prejudice frames it?",
+      "relearn": "Adoptive and single-parent families are real; 'lesser' and 'doesn't count' are prejudice, not truth.",
+      "persona": "any",
+      "source": "real vs prejudice",
+      "items": [
+        {
+          "id": "a",
+          "text": "Parents and an adopted child"
+        },
+        {
+          "id": "b",
+          "text": "A 'lesser' label put on them"
+        },
+        {
+          "id": "c",
+          "text": "A single parent and child"
+        },
+        {
+          "id": "d",
+          "text": "'That doesn't count as family'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "Real family"
+        },
+        {
+          "id": "prejudice",
+          "label": "Prejudice's frame"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "prejudice",
+        "c": "real",
+        "d": "prejudice"
+      }
+    },
+    {
+      "id": "mf-003",
+      "cat": "every-route-real",
+      "type": "strike-rewrite",
+      "hook": "\"A child needs a 'normal' mother-and-father home or they'll be damaged.\"",
+      "relearn": "Children thrive on stable, loving care, which many family forms provide; one shape isn't required.",
+      "persona": "Aditya",
+      "source": "love over shape",
+      "myth": {
+        "un": "A child needs a 'normal' mother-and-father home or they'll be damaged.",
+        "re": "What children need most is stable, loving care, which many family forms provide well.",
+        "why": "Love and stability matter far more than family shape."
+      }
+    },
+    {
+      "id": "mf-004",
+      "cat": "every-route-real",
+      "type": "match",
+      "hook": "Match each family form to the truth about it.",
+      "relearn": "Adoptive, single-parent and LGBTQ+ families are each fully real, whatever stigma or law says.",
+      "persona": "Aditya",
+      "source": "forms are real",
+      "pairs": [
+        {
+          "left": "Adoptive family",
+          "right": "Bonded by love and law, fully real"
+        },
+        {
+          "left": "Single-parent family",
+          "right": "Complete and capable on its own"
+        },
+        {
+          "left": "LGBTQ+ family",
+          "right": "A real family, whatever the law lags"
+        }
+      ]
+    },
+    {
+      "id": "mf-005",
+      "cat": "every-route-real",
+      "type": "reflect",
+      "hook": "Sam: there isn't one right shape for a family, only loving, stable ones in many forms. Sit right?",
+      "relearn": "There's no one right family shape, only loving, stable ones in many forms.",
+      "persona": "any",
+      "source": "no one shape",
+      "prompt": "What do you think?",
+      "options": [
+        "Sits right",
+        "Many shapes",
+        "Love defines it"
+      ],
+      "affirm": "There is no single right family shape; what matters is love and stability, found in many forms."
+    },
+    {
+      "id": "mf-006",
+      "cat": "every-route-real",
+      "type": "strike-rewrite",
+      "hook": "\"Choosing not to have children means you'll never have a real family.\"",
+      "relearn": "A childfree life can be full of family; partners and chosen family are real family too.",
+      "persona": "Sneha",
+      "source": "childfree has family",
+      "myth": {
+        "un": "Choosing not to have children means you'll never have a real family.",
+        "re": "A childfree life can be rich with family, partners, chosen family and deep bonds are family too.",
+        "why": "Family isn't only parents and children."
+      }
+    },
+    {
+      "id": "mf-007",
+      "cat": "every-route-real",
+      "type": "spot",
+      "hook": "Spot what actually makes a family.",
+      "relearn": "Family is made by love, care and showing up, not by a particular biological link.",
+      "persona": "any",
+      "source": "what makes family",
+      "scene": [
+        {
+          "text": "Love, care and commitment",
+          "trick": false
+        },
+        {
+          "text": "A specific biological link",
+          "trick": true
+        },
+        {
+          "text": "Showing up for each other over time",
+          "trick": false
+        }
+      ],
+      "why": "Love, care, commitment and showing up make a family; a specific biological link isn't required."
+    },
+    {
+      "id": "mf-008",
+      "cat": "every-route-real",
+      "type": "branch",
+      "hook": "Someone implies your non-biological family isn't 'really' yours.",
+      "relearn": "Affirm your family's reality calmly; prejudice doesn't get to define your home.",
+      "persona": "Aditya",
+      "source": "stand in truth",
+      "options": [
+        {
+          "text": "Calmly affirm that your family is real and built on love",
+          "consequence": "You stand in your family's truth.",
+          "outcome": "affirmed",
+          "best": true
+        },
+        {
+          "text": "Doubt yourself and your family's validity",
+          "consequence": "Affirming your family's reality stands in the truth; absorbing the doubt lets prejudice define your home."
+        }
+      ],
+      "debrief": "Your family is real and built on love; you can affirm that calmly against doubt."
+    },
+    {
+      "id": "mf-009",
+      "cat": "every-route-real",
+      "type": "reflect",
+      "hook": "Sam: every route here, adoption, ART, solo, queer, blended, childfree, builds something real. Land okay?",
+      "relearn": "Every route, adoption, ART, solo, queer, blended, childfree, builds a real family.",
+      "persona": "any",
+      "source": "every route builds",
+      "prompt": "What's your take?",
+      "options": [
+        "Lands okay",
+        "All real",
+        "Good"
+      ],
+      "affirm": "Adoption, ART, solo, queer, blended and childfree paths all build something real and worthy."
+    },
+    {
+      "id": "mf-010",
+      "cat": "every-route-real",
+      "type": "sort",
+      "hook": "Sort: a dignity-affirming view of family, or a ranking that shouldn't exist?",
+      "relearn": "All forms equally valid and respected is dignity; ranking biological above others is a false hierarchy.",
+      "persona": "any",
+      "source": "dignity vs ranking",
+      "items": [
+        {
+          "id": "a",
+          "text": "All family forms are equally valid"
+        },
+        {
+          "id": "b",
+          "text": "Biological is 'best', others 'second'"
+        },
+        {
+          "id": "c",
+          "text": "Every route deserves respect"
+        },
+        {
+          "id": "d",
+          "text": "Adoptive kids are 'not really theirs'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "dignity",
+          "label": "Dignity-affirming"
+        },
+        {
+          "id": "ranking",
+          "label": "A false ranking"
+        }
+      ],
+      "key": {
+        "a": "dignity",
+        "b": "ranking",
+        "c": "dignity",
+        "d": "ranking"
+      }
+    },
+    {
+      "id": "mf-011",
+      "cat": "every-route-real",
+      "type": "strike-rewrite",
+      "hook": "\"Adopted children are somehow less 'your own' than biological ones.\"",
+      "relearn": "Adopted children are fully your own; parenthood is built through love and care, not genes alone.",
+      "persona": "Razia",
+      "source": "fully your own",
+      "myth": {
+        "un": "Adopted children are somehow less 'your own' than biological ones.",
+        "re": "Adopted children are fully and truly your own; parenthood is built through love and care, not just genes.",
+        "why": "Bonding makes a parent, not biology."
+      }
+    },
+    {
+      "id": "mf-012",
+      "cat": "every-route-real",
+      "type": "match",
+      "hook": "Match each myth about non-default families to the dignified truth.",
+      "relearn": "Each myth about non-default families has a dignified, evidence-aligned truth that replaces it.",
+      "persona": "Aditya",
+      "source": "myth to truth",
+      "pairs": [
+        {
+          "left": "'Only biological is real'",
+          "right": "All routes build real family"
+        },
+        {
+          "left": "'A single parent isn't enough'",
+          "right": "Single parents raise thriving kids"
+        },
+        {
+          "left": "'Queer parents harm kids'",
+          "right": "Loving, stable care is what helps kids"
+        }
+      ]
+    },
+    {
+      "id": "mf-013",
+      "cat": "the-routes",
+      "type": "match",
+      "hook": "Match each route to family to what it broadly involves.",
+      "relearn": "Adoption, fostering and IVF/ART are distinct routes, each with its own process and purpose.",
+      "persona": "any",
+      "source": "routes overview",
+      "pairs": [
+        {
+          "left": "Adoption",
+          "right": "Becoming the legal parent of a child who needs a family"
+        },
+        {
+          "left": "Fostering",
+          "right": "Caring for a child for a time, not always permanently"
+        },
+        {
+          "left": "IVF / ART",
+          "right": "Medical help to conceive"
+        }
+      ]
+    },
+    {
+      "id": "mf-014",
+      "cat": "the-routes",
+      "type": "match",
+      "hook": "Match each further route to what it broadly involves.",
+      "relearn": "Surrogacy, single parenthood and blended families are also real, distinct routes to family.",
+      "persona": "any",
+      "source": "more routes",
+      "pairs": [
+        {
+          "left": "Surrogacy",
+          "right": "Another person carries a pregnancy for intended parents"
+        },
+        {
+          "left": "Single parenthood",
+          "right": "Building a family on your own, by choice or path"
+        },
+        {
+          "left": "Blended family",
+          "right": "Two families joining, often with step-children"
+        }
+      ]
+    },
+    {
+      "id": "mf-015",
+      "cat": "the-routes",
+      "type": "strike-rewrite",
+      "hook": "\"Adoption is a quick, simple way to instantly get a child.\"",
+      "relearn": "Adoption is a meaningful legal process with assessment and waiting, not an instant or simple shortcut.",
+      "persona": "Razia",
+      "source": "adoption is a process",
+      "myth": {
+        "un": "Adoption is a quick, simple way to instantly get a child.",
+        "re": "Adoption is a meaningful legal process with assessment, waiting and preparation; it's worth it but not instant.",
+        "why": "Knowing the real process helps you prepare."
+      }
+    },
+    {
+      "id": "mf-016",
+      "cat": "the-routes",
+      "type": "sort",
+      "hook": "Sort: a route to becoming a parent, or something else entirely?",
+      "relearn": "Adoption and ART are routes to parenthood; a wedding and a house are not, in themselves.",
+      "persona": "any",
+      "source": "route or not",
+      "items": [
+        {
+          "id": "a",
+          "text": "Adopting a child who needs a family"
+        },
+        {
+          "id": "b",
+          "text": "A wedding ceremony"
+        },
+        {
+          "id": "c",
+          "text": "IVF or other ART"
+        },
+        {
+          "id": "d",
+          "text": "Buying a bigger house"
+        }
+      ],
+      "bins": [
+        {
+          "id": "route",
+          "label": "A route to parenthood"
+        },
+        {
+          "id": "other",
+          "label": "Not a route to it"
+        }
+      ],
+      "key": {
+        "a": "route",
+        "b": "other",
+        "c": "route",
+        "d": "other"
+      }
+    },
+    {
+      "id": "mf-017",
+      "cat": "the-routes",
+      "type": "branch",
+      "hook": "You're drawn to building a family but unsure which route fits your life.",
+      "relearn": "Learn each route honestly first; choose the fit from understanding, not a vague impression.",
+      "persona": "Aditya",
+      "source": "learn the routes",
+      "options": [
+        {
+          "text": "Learn what each route honestly involves before choosing",
+          "consequence": "You choose from understanding, not assumption.",
+          "outcome": "informed",
+          "best": true
+        },
+        {
+          "text": "Pick one on a vague impression and hope",
+          "consequence": "Learning each route's real shape lets you choose well; a vague impression can lead to a hard surprise."
+        }
+      ],
+      "debrief": "Understand what each route really involves before choosing the one that fits your life."
+    },
+    {
+      "id": "mf-018",
+      "cat": "the-routes",
+      "type": "reflect",
+      "hook": "Sam: knowing the map of routes, adoption, fostering, ART, surrogacy, solo, blended, is power. Useful?",
+      "relearn": "Knowing the map of routes, adoption, fostering, ART, surrogacy, solo, blended, is empowering.",
+      "persona": "any",
+      "source": "the map",
+      "prompt": "What do you think?",
+      "options": [
+        "Useful",
+        "Good map",
+        "Power"
+      ],
+      "affirm": "Knowing the full map of routes to family lets you choose the one that fits, with eyes open."
+    },
+    {
+      "id": "mf-019",
+      "cat": "the-routes",
+      "type": "match",
+      "hook": "Match a starting point to a sensible first step.",
+      "relearn": "Each route has a sensible, official first step: CARA for adoption, a licensed clinic for ART, an agency for fostering.",
+      "persona": "any",
+      "source": "first steps",
+      "pairs": [
+        {
+          "left": "Considering adoption",
+          "right": "Learn the CARA process and register"
+        },
+        {
+          "left": "Considering IVF/ART",
+          "right": "Consult a licensed fertility clinic"
+        },
+        {
+          "left": "Considering fostering",
+          "right": "Find an authorised agency to ask"
+        }
+      ]
+    },
+    {
+      "id": "mf-020",
+      "cat": "the-routes",
+      "type": "strike-rewrite",
+      "hook": "\"Fostering and adoption are the same thing.\"",
+      "relearn": "Fostering is temporary care; adoption makes you the legal parent, they're different routes.",
+      "persona": "any",
+      "source": "foster vs adopt",
+      "myth": {
+        "un": "Fostering and adoption are the same thing.",
+        "re": "Fostering is caring for a child for a time, often not permanent; adoption makes you the child's legal parent.",
+        "why": "They're different commitments with different aims."
+      }
+    },
+    {
+      "id": "mf-021",
+      "cat": "the-routes",
+      "type": "spot",
+      "hook": "Spot the realistic expectation of a route to family.",
+      "relearn": "Routes to family involve a process, a wait and support, not instant, step-free results.",
+      "persona": "any",
+      "source": "realistic route",
+      "scene": [
+        {
+          "text": "There's a process and a wait",
+          "trick": false
+        },
+        {
+          "text": "It happens instantly with no steps",
+          "trick": true
+        },
+        {
+          "text": "Support and guidance are available",
+          "trick": false
+        }
+      ],
+      "why": "A process, a wait and available support are realistic; instant and step-free is not how these routes work."
+    },
+    {
+      "id": "mf-022",
+      "cat": "the-routes",
+      "type": "reflect",
+      "hook": "Sam: there's a route for many different lives here, and a real first step for each. Reassuring?",
+      "relearn": "There's a route to family for many lives, each with a real, doable first step.",
+      "persona": "any",
+      "source": "a route for you",
+      "prompt": "What's your take?",
+      "options": [
+        "Reassuring",
+        "A route for me",
+        "Good to know"
+      ],
+      "affirm": "Whatever your life looks like, there is likely a route to family here, each with a real first step."
+    },
+    {
+      "id": "mf-023",
+      "cat": "the-real-path",
+      "type": "strike-rewrite",
+      "hook": "\"These routes are easy and emotion-free if you just want it enough.\"",
+      "relearn": "Routes like adoption and ART carry real steps, costs and emotions; honesty helps you prepare and cope.",
+      "persona": "Razia",
+      "source": "honest path",
+      "myth": {
+        "un": "These routes are easy and emotion-free if you just want it enough.",
+        "re": "Routes like adoption and ART have real steps, costs, waits and big emotions; honesty helps you prepare and cope.",
+        "why": "Knowing the real path beats a fantasy of it."
+      }
+    },
+    {
+      "id": "mf-024",
+      "cat": "the-real-path",
+      "type": "sort",
+      "hook": "Sort: a realistic part of these journeys, or a false promise to distrust?",
+      "relearn": "Waits, paperwork and big emotions are realistic; guaranteed success and zero cost are false promises.",
+      "persona": "any",
+      "source": "real vs false",
+      "items": [
+        {
+          "id": "a",
+          "text": "Waiting periods and paperwork"
+        },
+        {
+          "id": "b",
+          "text": "Guaranteed success every time"
+        },
+        {
+          "id": "c",
+          "text": "An emotional rollercoaster"
+        },
+        {
+          "id": "d",
+          "text": "No costs and no setbacks ever"
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "Realistic"
+        },
+        {
+          "id": "false",
+          "label": "False promise"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "false",
+        "c": "real",
+        "d": "false"
+      }
+    },
+    {
+      "id": "mf-025",
+      "cat": "the-real-path",
+      "type": "branch",
+      "hook": "You're starting a family-building journey and bracing for it to be smooth and fast.",
+      "relearn": "Expect a real journey with ups and downs and line up support, not a smooth, fast ride.",
+      "persona": "Aditya",
+      "source": "expect the journey",
+      "options": [
+        {
+          "text": "Set realistic expectations and line up support for the ups and downs",
+          "consequence": "You're resilient when it gets hard.",
+          "outcome": "prepared",
+          "best": true
+        },
+        {
+          "text": "Expect it to be easy and get blindsided",
+          "consequence": "Realistic expectations and support build resilience; expecting ease leaves you blindsided by normal difficulty."
+        }
+      ],
+      "debrief": "Set realistic expectations and support for a family-building journey; it has ups and downs."
+    },
+    {
+      "id": "mf-026",
+      "cat": "the-real-path",
+      "type": "match",
+      "hook": "Match each part of the real path to how to meet it.",
+      "relearn": "The waiting, costs and emotions of these routes are each met with planning and support.",
+      "persona": "any",
+      "source": "meeting the path",
+      "pairs": [
+        {
+          "left": "The waiting",
+          "right": "Patience and support to hold steady"
+        },
+        {
+          "left": "The costs",
+          "right": "Plan finances honestly in advance"
+        },
+        {
+          "left": "The emotions",
+          "right": "Lean on partner, friends or counselling"
+        }
+      ]
+    },
+    {
+      "id": "mf-027",
+      "cat": "the-real-path",
+      "type": "reflect",
+      "hook": "Sam: honest about the hard parts isn't discouraging, it's what lets you go in strong. Agree?",
+      "relearn": "Honesty about the hard parts prepares you to go in strong, it isn't discouragement.",
+      "persona": "any",
+      "source": "honest not scary",
+      "prompt": "What do you think?",
+      "options": [
+        "Agree",
+        "Go in strong",
+        "Honest helps"
+      ],
+      "affirm": "Honesty about the hard parts of a route isn't discouragement; it's preparation that builds strength."
+    },
+    {
+      "id": "mf-028",
+      "cat": "the-real-path",
+      "type": "strike-rewrite",
+      "hook": "\"If a route is hard or has setbacks, it means it wasn't 'meant to be'.\"",
+      "relearn": "Difficulty and setbacks are normal on these routes and aren't a verdict that it wasn't meant to be.",
+      "persona": "Reshma",
+      "source": "hard not a verdict",
+      "myth": {
+        "un": "If a route is hard or has setbacks, it means it wasn't 'meant to be'.",
+        "re": "Difficulty is normal on these paths and isn't a verdict; setbacks can be part of a journey that still works out.",
+        "why": "Hard doesn't mean wrong."
+      }
+    },
+    {
+      "id": "mf-029",
+      "cat": "the-real-path",
+      "type": "spot",
+      "hook": "Spot the healthy way to handle a setback on the path.",
+      "relearn": "Meet setbacks with grief, support and the next honest option, not self-blame.",
+      "persona": "Reshma",
+      "source": "handle setbacks",
+      "scene": [
+        {
+          "text": "Grieve it, get support, reassess calmly",
+          "trick": false
+        },
+        {
+          "text": "Take it as proof you don't deserve family",
+          "trick": true
+        },
+        {
+          "text": "Ask what the next honest option is",
+          "trick": false
+        }
+      ],
+      "why": "Grieving with support and asking the next option is healthy; reading a setback as 'undeserving' is not."
+    },
+    {
+      "id": "mf-030",
+      "cat": "the-real-path",
+      "type": "branch",
+      "hook": "The costs and waits of a route are heavier than you expected and you feel discouraged.",
+      "relearn": "Reassess routes with support if one is too heavy; don't decide family isn't for you.",
+      "persona": "Aditya",
+      "source": "adapt the route",
+      "options": [
+        {
+          "text": "Reassess your options honestly, including other routes, with support",
+          "consequence": "You adapt without giving up on family.",
+          "outcome": "adapt",
+          "best": true
+        },
+        {
+          "text": "Conclude family just isn't for people like you",
+          "consequence": "Reassessing options with support keeps family possible; concluding it's 'not for you' closes a door too early."
+        }
+      ],
+      "debrief": "If one route is too heavy, reassess your options with support; family may still be possible another way."
+    },
+    {
+      "id": "mf-031",
+      "cat": "the-real-path",
+      "type": "reflect",
+      "hook": "Sam: many families took a hard, winding road to exist, and they're no less joyful for it. Comforting?",
+      "relearn": "Many families took a hard road to exist and are no less joyful for it.",
+      "persona": "any",
+      "source": "worth the road",
+      "prompt": "What's your take?",
+      "options": [
+        "Comforting",
+        "Worth the road",
+        "Yes"
+      ],
+      "affirm": "Many families came through hard, winding paths and are no less real or joyful for the journey."
+    },
+    {
+      "id": "mf-032",
+      "cat": "name-the-barriers",
+      "type": "strike-rewrite",
+      "hook": "\"The rules for building a family are the same for everyone in India.\"",
+      "relearn": "Access to family-building in India is unequal and partly gendered by law; knowing the barriers helps you prepare.",
+      "persona": "Aditya",
+      "source": "rules aren't equal",
+      "myth": {
+        "un": "The rules for building a family are the same for everyone in India.",
+        "re": "Access is unequal: some routes are gendered and restricted by law, so it helps to know the barriers before you start.",
+        "why": "Knowing the barriers means you go in informed."
+      }
+    },
+    {
+      "id": "mf-033",
+      "cat": "name-the-barriers",
+      "type": "sort",
+      "hook": "Sort: who can adopt a girl child under India's CARA 2022 rules?",
+      "relearn": "Under CARA 2022 a married couple and a single woman can adopt a girl child; a single man cannot, a gendered rule.",
+      "persona": "Aditya",
+      "source": "CARA girl-child rule",
+      "items": [
+        {
+          "id": "a",
+          "text": "A married couple"
+        },
+        {
+          "id": "b",
+          "text": "A single woman"
+        },
+        {
+          "id": "c",
+          "text": "A single man"
+        },
+        {
+          "id": "d",
+          "text": "A single woman over 45 (within age bands)"
+        }
+      ],
+      "bins": [
+        {
+          "id": "can",
+          "label": "Eligible"
+        },
+        {
+          "id": "cannot",
+          "label": "Not eligible"
+        }
+      ],
+      "key": {
+        "a": "can",
+        "b": "can",
+        "c": "cannot",
+        "d": "can"
+      }
+    },
+    {
+      "id": "mf-034",
+      "cat": "name-the-barriers",
+      "type": "strike-rewrite",
+      "hook": "\"A single man being barred from adopting a girl is just sensible caution.\"",
+      "relearn": "CARA 2022 lets a single man adopt a boy but not a girl, a gendered barrier worth naming honestly.",
+      "persona": "Aditya",
+      "source": "the gendered bar",
+      "myth": {
+        "un": "A single man being barred from adopting a girl is just sensible caution.",
+        "re": "Under CARA 2022 a single man may adopt a boy but not a girl, a real gendered barrier worth naming, even where caution is the stated aim.",
+        "why": "Name the barrier honestly, whatever its rationale."
+      }
+    },
+    {
+      "id": "mf-035",
+      "cat": "name-the-barriers",
+      "type": "match",
+      "hook": "Match each India law to what it currently means for family-building (as of 2024-25, evolving).",
+      "relearn": "CARA, the Surrogacy Act and the 2023 marriage ruling each shape who can access which route; the law is specific and evolving.",
+      "persona": "Aditya",
+      "source": "the legal map",
+      "pairs": [
+        {
+          "left": "CARA Adoption Regs 2022",
+          "right": "Singles can adopt; single men only boys"
+        },
+        {
+          "left": "Surrogacy (Regulation) Act 2021",
+          "right": "Altruistic only; mainly married couples"
+        },
+        {
+          "left": "Same-sex marriage (Supriyo, 2023)",
+          "right": "Not legally recognised; left to Parliament"
+        }
+      ]
+    },
+    {
+      "id": "mf-036",
+      "cat": "name-the-barriers",
+      "type": "strike-rewrite",
+      "hook": "\"Because same-sex marriage isn't recognised, queer people can't build any family in India.\"",
+      "relearn": "Same-sex couples can't marry or jointly adopt in India, but a single LGBTQ+ person can adopt as a single, and chosen family is real.",
+      "persona": "Aditya",
+      "source": "barriers and doors",
+      "myth": {
+        "un": "Because same-sex marriage isn't recognised, queer people can't build any family in India.",
+        "re": "Same-sex couples can't currently marry or jointly adopt in India, but a single LGBTQ+ person can adopt as a single applicant, and chosen family is real.",
+        "why": "Barriers are real, and so are the open doors."
+      }
+    },
+    {
+      "id": "mf-037",
+      "cat": "name-the-barriers",
+      "type": "sort",
+      "hook": "Sort: an accurate statement of India's current rules, or a misconception?",
+      "relearn": "Single women adopting any gender and altruistic-only surrogacy are accurate; joint same-sex adoption and single men adopting girls are not.",
+      "persona": "Aditya",
+      "source": "accurate vs myth",
+      "items": [
+        {
+          "id": "a",
+          "text": "Single women can adopt a child of any gender"
+        },
+        {
+          "id": "b",
+          "text": "Same-sex couples can jointly adopt"
+        },
+        {
+          "id": "c",
+          "text": "Surrogacy is altruistic only, commercial is banned"
+        },
+        {
+          "id": "d",
+          "text": "Single men can adopt a girl child"
+        }
+      ],
+      "bins": [
+        {
+          "id": "accurate",
+          "label": "Accurate (2024-25)"
+        },
+        {
+          "id": "wrong",
+          "label": "Misconception"
+        }
+      ],
+      "key": {
+        "a": "accurate",
+        "b": "wrong",
+        "c": "accurate",
+        "d": "wrong"
+      }
+    },
+    {
+      "id": "mf-038",
+      "cat": "name-the-barriers",
+      "type": "reflect",
+      "hook": "Sam: naming a barrier isn't accepting it's fair, it's refusing to let it blindside you. Make sense?",
+      "relearn": "Naming a barrier is going in informed, not calling it fair.",
+      "persona": "any",
+      "source": "name not endorse",
+      "prompt": "What do you think?",
+      "options": [
+        "Makes sense",
+        "Eyes open",
+        "Not fair, but known"
+      ],
+      "affirm": "Naming a legal or gendered barrier is about going in informed, not endorsing it as fair."
+    },
+    {
+      "id": "mf-039",
+      "cat": "name-the-barriers",
+      "type": "branch",
+      "hook": "You're a single or LGBTQ+ person told 'people like you can't have a family here'.",
+      "relearn": "Find the real rules and open doors; don't accept a blanket 'people like you can't have family'.",
+      "persona": "Aditya",
+      "source": "facts over blanket no",
+      "options": [
+        {
+          "text": "Get the actual current rules and the doors that are open to you",
+          "consequence": "You act on facts, not a blanket 'no'.",
+          "outcome": "facts",
+          "best": true
+        },
+        {
+          "text": "Believe the blanket 'no' and give up",
+          "consequence": "Getting the actual rules finds the open doors; a blanket 'no' is often wrong and closes them prematurely."
+        }
+      ],
+      "debrief": "Get the actual current rules; a blanket 'people like you can't' usually hides doors that are open."
+    },
+    {
+      "id": "mf-040",
+      "cat": "name-the-barriers",
+      "type": "spot",
+      "hook": "Spot the barrier that is legal/structural, versus mere stigma to resist.",
+      "relearn": "Some barriers are legal/structural and some are stigma; telling them apart shapes how you respond.",
+      "persona": "Razia",
+      "source": "legal vs stigma",
+      "scene": [
+        {
+          "text": "Single men cannot adopt a girl child (law)",
+          "trick": true
+        },
+        {
+          "text": "Relatives disapproving of a single mother (stigma)",
+          "trick": false
+        },
+        {
+          "text": "Same-sex couples cannot jointly adopt (law)",
+          "trick": true
+        }
+      ],
+      "why": "The single-man girl-child rule and the joint-adoption bar are legal barriers; relatives' disapproval is stigma to resist."
+    },
+    {
+      "id": "mf-041",
+      "cat": "name-the-barriers",
+      "type": "strike-rewrite",
+      "hook": "\"This is settled law, so there's no point knowing or questioning it.\"",
+      "relearn": "Family-building law is specific and evolving; knowing the current rules, and that they can change, helps.",
+      "persona": "any",
+      "source": "law evolves",
+      "myth": {
+        "un": "This is settled law, so there's no point knowing or questioning it.",
+        "re": "This area of law is specific and evolving; knowing the current rules and that they can change is part of being prepared.",
+        "why": "Evolving law rewards staying informed."
+      }
+    },
+    {
+      "id": "mf-042",
+      "cat": "your-family-your-way",
+      "type": "strike-rewrite",
+      "hook": "\"You should hide or apologise for a non-traditional family.\"",
+      "relearn": "Your family deserves to be lived with pride; no one owes an apology for a non-traditional family.",
+      "persona": "Aditya",
+      "source": "no apology",
+      "myth": {
+        "un": "You should hide or apologise for a non-traditional family.",
+        "re": "Your family deserves to be lived openly and with pride; no one owes an apology for how they love.",
+        "why": "Dignity isn't conditional on family shape."
+      }
+    },
+    {
+      "id": "mf-043",
+      "cat": "your-family-your-way",
+      "type": "branch",
+      "hook": "You've chosen a route to family that your relatives don't understand.",
+      "relearn": "Share your family path with calm confidence; their doubt doesn't get to shrink your joy.",
+      "persona": "Aditya",
+      "source": "lead with dignity",
+      "options": [
+        {
+          "text": "Share it with calm confidence and invite them in on your terms",
+          "consequence": "You lead with dignity, leaving room for them to grow.",
+          "outcome": "dignified",
+          "best": true
+        },
+        {
+          "text": "Hide it or let their doubt shrink your joy",
+          "consequence": "Calm confidence leads with dignity and leaves room for relatives to grow; hiding it shrinks your own joy."
+        }
+      ],
+      "debrief": "Share your chosen route with calm confidence on your terms; don't let others' doubt shrink your joy."
+    },
+    {
+      "id": "mf-044",
+      "cat": "your-family-your-way",
+      "type": "match",
+      "hook": "Match each support to what it gives a non-default family.",
+      "relearn": "Chosen family, community and counselling are real supports that help a non-default family thrive.",
+      "persona": "Aditya",
+      "source": "build support",
+      "pairs": [
+        {
+          "left": "Chosen family and friends",
+          "right": "Everyday belonging and backup"
+        },
+        {
+          "left": "Community or support groups",
+          "right": "Others who've walked the path"
+        },
+        {
+          "left": "Counselling where useful",
+          "right": "Help through the hard stretches"
+        }
+      ]
+    },
+    {
+      "id": "mf-045",
+      "cat": "your-family-your-way",
+      "type": "reflect",
+      "hook": "Sam: chosen family, the people who show up, is real family, sometimes the strongest kind. Resonate?",
+      "relearn": "Chosen family, the people who show up, is real family, often the strongest kind.",
+      "persona": "Aditya",
+      "source": "chosen family",
+      "prompt": "What do you think?",
+      "options": [
+        "Resonates",
+        "Chosen is real",
+        "Strongest kind"
+      ],
+      "affirm": "Chosen family, the people who consistently show up for you, is real family and often a great strength."
+    },
+    {
+      "id": "mf-046",
+      "cat": "your-family-your-way",
+      "type": "strike-rewrite",
+      "hook": "\"A single parent can't give a child a complete, happy childhood.\"",
+      "relearn": "Single parents raise happy, thriving children; love, stability and support are what count.",
+      "persona": "Sneha",
+      "source": "single parents thrive",
+      "myth": {
+        "un": "A single parent can't give a child a complete, happy childhood.",
+        "re": "Single parents raise happy, thriving children every day; what counts is love, stability and support.",
+        "why": "One devoted parent can be more than enough."
+      }
+    },
+    {
+      "id": "mf-047",
+      "cat": "your-family-your-way",
+      "type": "spot",
+      "hook": "Spot the dignity-first way to build your family your way.",
+      "relearn": "Build your family your way with confidence and support, not as something to excuse.",
+      "persona": "any",
+      "source": "dignity-first",
+      "scene": [
+        {
+          "text": "Owning your choice with quiet confidence",
+          "trick": false
+        },
+        {
+          "text": "Treating your family as something to excuse",
+          "trick": true
+        },
+        {
+          "text": "Surrounding yourselves with real support",
+          "trick": false
+        }
+      ],
+      "why": "Owning your choice and building support is dignity-first; treating your family as something to excuse isn't."
+    },
+    {
+      "id": "mf-048",
+      "cat": "your-family-your-way",
+      "type": "branch",
+      "hook": "A loved one wants to support your path but doesn't know how.",
+      "relearn": "Name the support that helps so willing loved ones can actually show up for you.",
+      "persona": "Razia",
+      "source": "name the support",
+      "options": [
+        {
+          "text": "Tell them clearly what support actually helps you",
+          "consequence": "They become a real ally on your terms.",
+          "outcome": "ally",
+          "best": true
+        },
+        {
+          "text": "Stay vague and feel unsupported",
+          "consequence": "Telling them what helps turns goodwill into real support; staying vague leaves both of you stuck."
+        }
+      ],
+      "debrief": "Tell willing loved ones exactly what support helps; that turns goodwill into real allyship."
+    },
+    {
+      "id": "mf-049",
+      "cat": "your-family-your-way",
+      "type": "reflect",
+      "hook": "Sam: you get to define your family and how you live it, with dignity, whatever its shape. Feel true?",
+      "relearn": "You define your family and live it with dignity, whatever its shape.",
+      "persona": "any",
+      "source": "you define it",
+      "prompt": "What's your take?",
+      "options": [
+        "Feels true",
+        "My family, my way",
+        "Yes"
+      ],
+      "affirm": "You get to define your own family and live it with dignity, whatever its shape."
+    },
+    {
+      "id": "mf-050",
+      "cat": "your-family-your-way",
+      "type": "match",
+      "hook": "Match a moment of doubt to a dignity-restoring reframe.",
+      "relearn": "Each doubt about a non-default family has a dignity-restoring truth to meet it.",
+      "persona": "any",
+      "source": "reframe doubt",
+      "pairs": [
+        {
+          "left": "'Is my family real?'",
+          "right": "Love and commitment make it real"
+        },
+        {
+          "left": "'Should I hide it?'",
+          "right": "It deserves to be lived openly"
+        },
+        {
+          "left": "'Am I enough?'",
+          "right": "Devoted, supported care is enough"
+        }
+      ]
+    },
+    {
+      "id": "mf-051",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match each need to the right official starting point in India.",
+      "relearn": "CARA for adoption, licensed clinics for ART/surrogacy, and current legal sources are the right official starting points.",
+      "persona": "any",
+      "source": "official starts",
+      "pairs": [
+        {
+          "left": "Adoption",
+          "right": "CARA (the central adoption authority)"
+        },
+        {
+          "left": "IVF / ART or surrogacy",
+          "right": "A licensed, registered clinic"
+        },
+        {
+          "left": "Knowing the law",
+          "right": "Current, dated legal info or an expert"
+        }
+      ]
+    },
+    {
+      "id": "mf-052",
+      "cat": "tools-and-help",
+      "type": "strike-rewrite",
+      "hook": "\"You can just rely on an app or rumour for the legal and eligibility details.\"",
+      "relearn": "Use this as general orientation; verify legal and eligibility specifics with CARA, clinics or an expert.",
+      "persona": "any",
+      "source": "verify specifics",
+      "myth": {
+        "un": "You can just rely on an app or rumour for the legal and eligibility details.",
+        "re": "This game gives general, dated orientation; verify specifics with CARA, licensed clinics or a legal expert, as rules change.",
+        "why": "Verify the specifics from official, current sources."
+      }
+    },
+    {
+      "id": "mf-053",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: a trustworthy source for routes and rules, or one to be wary of?",
+      "relearn": "CARA, licensed clinics and current legal info are trustworthy; shortcut-promising agents and rumour aren't.",
+      "persona": "any",
+      "source": "trust vs wary",
+      "items": [
+        {
+          "id": "a",
+          "text": "CARA and licensed clinics"
+        },
+        {
+          "id": "b",
+          "text": "An unlicensed agent promising shortcuts"
+        },
+        {
+          "id": "c",
+          "text": "Current, dated legal information"
+        },
+        {
+          "id": "d",
+          "text": "Rumour and out-of-date forums"
+        }
+      ],
+      "bins": [
+        {
+          "id": "trust",
+          "label": "Trustworthy"
+        },
+        {
+          "id": "wary",
+          "label": "Be wary"
+        }
+      ],
+      "key": {
+        "a": "trust",
+        "b": "wary",
+        "c": "trust",
+        "d": "wary"
+      }
+    },
+    {
+      "id": "mf-054",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "You want to actually start exploring a route to family.",
+      "relearn": "Begin with the official body and current rules; don't build on a stranger's claims.",
+      "persona": "Aditya",
+      "source": "official start",
+      "options": [
+        {
+          "text": "Begin with the official body and current rules for that route",
+          "consequence": "You start on solid, accurate ground.",
+          "outcome": "solid",
+          "best": true
+        },
+        {
+          "text": "Start with whatever a stranger online claims",
+          "consequence": "Beginning with the official body starts you on solid ground; a stranger's claims can mislead expensively."
+        }
+      ],
+      "debrief": "Start a route through its official body and current rules, not a stranger's online claims."
+    },
+    {
+      "id": "mf-055",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: you've got the routes, the real path, the barriers named, and where to verify. Equipped?",
+      "relearn": "You hold the routes, the real path, the named barriers and where to verify.",
+      "persona": "any",
+      "source": "equipped",
+      "prompt": "What do you think?",
+      "options": [
+        "Equipped",
+        "I know where to look",
+        "Ready"
+      ],
+      "affirm": "With the routes, the realities, the barriers and where to verify, you're equipped to explore family-building."
+    },
+    {
+      "id": "mf-056",
+      "cat": "tools-and-help",
+      "type": "strike-rewrite",
+      "hook": "\"LGBTQ+ family content should be hidden or treated as shameful.\"",
+      "relearn": "LGBTQ+ families are handled with dignity, care and no outing, never as shameful or hidden.",
+      "persona": "Aditya",
+      "source": "dignity not shame",
+      "myth": {
+        "un": "LGBTQ+ family content should be hidden or treated as shameful.",
+        "re": "LGBTQ+ families are handled with the same dignity as any other, with care, no outing, and no shame.",
+        "why": "Inclusion is a baseline, not a favour."
+      }
+    },
+    {
+      "id": "mf-057",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match a question to the calm tool that answers it.",
+      "relearn": "Each question, route fit, the law, coping, has a calm, reliable tool to answer it.",
+      "persona": "any",
+      "source": "question to tool",
+      "pairs": [
+        {
+          "left": "Which route fits me?",
+          "right": "The routes reference and reflection"
+        },
+        {
+          "left": "What does the law allow?",
+          "right": "Current, dated rules or an expert"
+        },
+        {
+          "left": "How do I cope with the journey?",
+          "right": "Support, community, counselling"
+        }
+      ]
+    },
+    {
+      "id": "mf-058",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: every route to family deserves accurate information and full dignity, no exceptions. Feel respected?",
+      "relearn": "Every route to family deserves accurate information and full dignity, no exceptions.",
+      "persona": "any",
+      "source": "info and dignity",
+      "prompt": "What's your take?",
+      "options": [
+        "Respected",
+        "No exceptions",
+        "Yes"
+      ],
+      "affirm": "Every route to family deserves accurate information and full dignity, without exception."
+    },
+    {
+      "id": "mf-059",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "You want one principle to carry through the whole family-building journey.",
+      "relearn": "Lead with every-family-real, informed and dignified; don't let stigma and rumour steer.",
+      "persona": "any",
+      "source": "the one principle",
+      "options": [
+        {
+          "text": "Lead with: every family is real, go in informed, and live it with dignity",
+          "consequence": "You have a compass for the whole path.",
+          "outcome": "compass",
+          "best": true
+        },
+        {
+          "text": "Let stigma and rumour steer you",
+          "consequence": "The every-family-real, informed, dignified principle is a steady compass; stigma and rumour steer you wrong."
+        }
+      ],
+      "debrief": "One principle carries it: every family is real, go in informed, and live it with dignity."
+    },
+    {
+      "id": "mf-060",
+      "cat": "tools-and-help",
+      "type": "role-play",
+      "hook": "A friend on a non-default path to family asks how you see their family. Affirm them.",
+      "relearn": "A clear 'every bit as real and worthy' affirms their family and shows up as an ally.",
+      "persona": "Razia",
+      "source": "affirm a friend",
+      "setup": "Affirm them warmly:",
+      "yourLine": [
+        {
+          "text": "\"Your family is every bit as real and worthy as anyone's, and I'm here for it.\"",
+          "best": true
+        },
+        {
+          "text": "\"It's a bit unusual, isn't it?\""
+        }
+      ]
+    },
+    {
+      "id": "mf-061",
+      "cat": "tools-and-help",
+      "type": "role-play",
+      "hook": "Your partner asks how you two should approach building your family. Set the tone together.",
+      "relearn": "Setting a fits-us, well-informed, proud tone keeps your family-building yours rather than the crowd's.",
+      "persona": "Aditya",
+      "source": "set the tone",
+      "setup": "Say it as a team:",
+      "yourLine": [
+        {
+          "text": "\"Let's choose the route that fits us, learn it properly, and live our family with pride.\"",
+          "best": true
+        },
+        {
+          "text": "\"Let's just do whatever people expect.\""
+        }
+      ]
+    },
+    {
+      "id": "mf-062",
+      "cat": "every-route-real",
+      "type": "role-play",
+      "hook": "A relative calls your adopted child 'not your real blood'. You want to answer with warm steel.",
+      "relearn": "A warm, firm 'fully my child by love and law' affirms your family and closes the doubt.",
+      "persona": "Razia",
+      "source": "real blood reply",
+      "setup": "Answer warmly but firmly:",
+      "yourLine": [
+        {
+          "text": "\"She is fully my child, ours by love and by law, and that's not up for debate.\"",
+          "best": true
+        },
+        {
+          "text": "\"Well, you know what you mean, I suppose.\""
+        }
+      ]
+    },
+    {
+      "id": "mf-063",
+      "cat": "every-route-real",
+      "type": "branch",
+      "hook": "You catch yourself feeling your blended family is 'less legitimate' than a first-marriage one.",
+      "relearn": "Treat your blended family as fully legitimate, not a second-best version of a 'first' family.",
+      "persona": "Pooja",
+      "source": "blended is legit",
+      "options": [
+        {
+          "text": "Reframe it: a blended family bonded by care is fully legitimate",
+          "consequence": "You hold your family in its full worth.",
+          "outcome": "reframed",
+          "best": true
+        },
+        {
+          "text": "Quietly rank your own family as second-best",
+          "consequence": "Reframing your blended family as fully legitimate restores its worth; ranking it second-best erodes your own home."
+        }
+      ],
+      "debrief": "A blended family bonded by care is fully legitimate; it isn't second-best to any other shape."
+    },
+    {
+      "id": "mf-064",
+      "cat": "the-routes",
+      "type": "role-play",
+      "hook": "A friend says she's considering adoption but is embarrassed to admit it. You want to normalise it.",
+      "relearn": "Warmly normalising adoption, with no 'your own' framing, frees her to explore it without shame.",
+      "persona": "Sneha",
+      "source": "normalise adoption",
+      "setup": "Normalise it warmly:",
+      "yourLine": [
+        {
+          "text": "\"Adoption is a wonderful way to build a family, there's nothing to be embarrassed about.\"",
+          "best": true
+        },
+        {
+          "text": "\"Oh, couldn't you have your own?\""
+        }
+      ]
+    },
+    {
+      "id": "mf-065",
+      "cat": "the-routes",
+      "type": "branch",
+      "hook": "You assume one route is 'the only respectable' way and dismiss the rest.",
+      "relearn": "Stay open to the fitting route; route-snobbery isn't a reason to dismiss the rest.",
+      "persona": "Karthik",
+      "source": "fit not snobbery",
+      "options": [
+        {
+          "text": "Stay open to the route that actually fits your life",
+          "consequence": "You choose on fit, not snobbery.",
+          "outcome": "open",
+          "best": true
+        },
+        {
+          "text": "Cling to one 'respectable' route out of prejudice",
+          "consequence": "Staying open finds the route that fits; route-snobbery narrows your options for no good reason."
+        }
+      ],
+      "debrief": "Choose the route that fits your life, not the one prejudice calls the only respectable one."
+    },
+    {
+      "id": "mf-066",
+      "cat": "the-routes",
+      "type": "sort",
+      "hook": "Sort: a permanent route to parenthood, or a temporary or supportive arrangement?",
+      "relearn": "Adoption and surrogacy lead to permanent parenthood; short-term fostering and respite care are temporary.",
+      "persona": "any",
+      "source": "permanent or temporary",
+      "items": [
+        {
+          "id": "a",
+          "text": "Adoption"
+        },
+        {
+          "id": "b",
+          "text": "Short-term fostering"
+        },
+        {
+          "id": "c",
+          "text": "Surrogacy with intended parents"
+        },
+        {
+          "id": "d",
+          "text": "Respite care for a few weeks"
+        }
+      ],
+      "bins": [
+        {
+          "id": "permanent",
+          "label": "Permanent parenthood"
+        },
+        {
+          "id": "temporary",
+          "label": "Temporary / supportive"
+        }
+      ],
+      "key": {
+        "a": "permanent",
+        "b": "temporary",
+        "c": "permanent",
+        "d": "temporary"
+      }
+    },
+    {
+      "id": "mf-067",
+      "cat": "the-routes",
+      "type": "spot",
+      "hook": "Spot the accurate way to think about choosing a route.",
+      "relearn": "Choose a route by fit and real understanding, not by price or assumption.",
+      "persona": "any",
+      "source": "choosing accurately",
+      "scene": [
+        {
+          "text": "Match the route to your life and circumstances",
+          "trick": false
+        },
+        {
+          "text": "Assume the priciest route is the best",
+          "trick": true
+        },
+        {
+          "text": "Learn each route's real process first",
+          "trick": false
+        }
+      ],
+      "why": "Matching to your life and learning the process is accurate; assuming priciest-is-best isn't."
+    },
+    {
+      "id": "mf-068",
+      "cat": "the-real-path",
+      "type": "role-play",
+      "hook": "Your partner is discouraged after a setback in the process. You want to steady them.",
+      "relearn": "Naming a setback as a step, not the end, and reaching for support keeps you both moving as a team.",
+      "persona": "Karthik",
+      "source": "steady the path",
+      "setup": "Steady them gently:",
+      "yourLine": [
+        {
+          "text": "\"This is a hard step, not the end, let's breathe, get support, and decide the next move together.\"",
+          "best": true
+        },
+        {
+          "text": "\"Maybe it's a sign we should just stop.\""
+        }
+      ]
+    },
+    {
+      "id": "mf-069",
+      "cat": "the-real-path",
+      "type": "role-play",
+      "hook": "Someone tells you to 'just relax and it'll happen' as you navigate a hard route. You want to set them straight kindly.",
+      "relearn": "Kindly correcting 'just relax' and naming what helps protects you from a dismissive myth.",
+      "persona": "Reshma",
+      "source": "just relax myth",
+      "setup": "Set it straight kindly:",
+      "yourLine": [
+        {
+          "text": "\"It's more complex than relaxing, but thank you, what helps is steady support.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, maybe I'm overthinking it.\""
+        }
+      ]
+    },
+    {
+      "id": "mf-070",
+      "cat": "the-real-path",
+      "type": "branch",
+      "hook": "The emotional weight of the journey is building and you're carrying it alone.",
+      "relearn": "Get support, partner, community or counselling, before the journey overwhelms you.",
+      "persona": "Reshma",
+      "source": "dont carry alone",
+      "options": [
+        {
+          "text": "Reach for support, partner, community or counselling, before you're overwhelmed",
+          "consequence": "You carry the journey with help, not alone.",
+          "outcome": "supported",
+          "best": true
+        },
+        {
+          "text": "Bottle it up and push through solo",
+          "consequence": "Reaching for support carries the weight together; bottling it up risks burnout on an already hard path."
+        }
+      ],
+      "debrief": "Reach for support on a hard family-building journey before overwhelm; you needn't carry it alone."
+    },
+    {
+      "id": "mf-071",
+      "cat": "the-real-path",
+      "type": "sort",
+      "hook": "Sort: a healthy expectation of the journey, or a setup for disappointment?",
+      "relearn": "Expecting waits, setbacks and needing support is healthy; 'first try or never' and 'zero doubt' set you up to hurt.",
+      "persona": "any",
+      "source": "healthy expectations",
+      "items": [
+        {
+          "id": "a",
+          "text": "There may be waits and setbacks"
+        },
+        {
+          "id": "b",
+          "text": "It must work first try or never"
+        },
+        {
+          "id": "c",
+          "text": "Support makes it more bearable"
+        },
+        {
+          "id": "d",
+          "text": "Real parents feel zero doubt ever"
+        }
+      ],
+      "bins": [
+        {
+          "id": "healthy",
+          "label": "Healthy expectation"
+        },
+        {
+          "id": "setup",
+          "label": "Setup for hurt"
+        }
+      ],
+      "key": {
+        "a": "healthy",
+        "b": "setup",
+        "c": "healthy",
+        "d": "setup"
+      }
+    },
+    {
+      "id": "mf-072",
+      "cat": "the-real-path",
+      "type": "match",
+      "hook": "Match each feeling on the journey to a kind, true response.",
+      "relearn": "Discouragement, overwhelm and doubt each have a kind, true response that keeps you going.",
+      "persona": "any",
+      "source": "feelings on the path",
+      "pairs": [
+        {
+          "left": "Discouragement after a setback",
+          "right": "It's a step, not a verdict"
+        },
+        {
+          "left": "Overwhelm at the cost or wait",
+          "right": "Get support and reassess calmly"
+        },
+        {
+          "left": "Doubt about being 'enough'",
+          "right": "Devoted, supported care is enough"
+        }
+      ]
+    },
+    {
+      "id": "mf-073",
+      "cat": "name-the-barriers",
+      "type": "role-play",
+      "hook": "A young queer relative says they've been told they can 'never' have a family in India. You want honesty plus hope.",
+      "relearn": "Honest-with-hope names the real bar and the open door, instead of a crushing, untrue blanket 'never'.",
+      "persona": "Aditya",
+      "source": "honesty plus hope",
+      "setup": "Give honesty with hope:",
+      "yourLine": [
+        {
+          "text": "\"Couples can't marry or adopt jointly yet, but you can adopt as a single, and chosen family is real, let's get the facts.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, sadly that's just true, no family for you.\""
+        }
+      ]
+    },
+    {
+      "id": "mf-074",
+      "cat": "name-the-barriers",
+      "type": "branch",
+      "hook": "You're tempted to use an unlicensed shortcut someone offered to dodge the legal barriers.",
+      "relearn": "Choose lawful official routes over a risky shortcut, even when the barriers are frustrating.",
+      "persona": "any",
+      "source": "lawful not shortcut",
+      "options": [
+        {
+          "text": "Stay with lawful, official routes even though they're harder",
+          "consequence": "You protect yourself and any child involved.",
+          "outcome": "lawful",
+          "best": true
+        },
+        {
+          "text": "Take the risky shortcut to skip the hurdles",
+          "consequence": "Lawful routes protect you and the child; an unlicensed shortcut risks fraud, harm and a child's safety."
+        }
+      ],
+      "debrief": "Stick to lawful, official routes despite the barriers; unlicensed shortcuts risk you and the child."
+    },
+    {
+      "id": "mf-075",
+      "cat": "name-the-barriers",
+      "type": "sort",
+      "hook": "Sort: accurate about who can use surrogacy in India now, or a misconception?",
+      "relearn": "Altruistic-only and mainly-married-couples are accurate for surrogacy now; free commercial and easy single-man access are not.",
+      "persona": "Aditya",
+      "source": "surrogacy facts",
+      "items": [
+        {
+          "id": "a",
+          "text": "Only altruistic surrogacy is allowed"
+        },
+        {
+          "id": "b",
+          "text": "Commercial surrogacy is freely allowed"
+        },
+        {
+          "id": "c",
+          "text": "It's mainly for married couples"
+        },
+        {
+          "id": "d",
+          "text": "Any single man can easily access it"
+        }
+      ],
+      "bins": [
+        {
+          "id": "accurate",
+          "label": "Accurate (2024-25)"
+        },
+        {
+          "id": "wrong",
+          "label": "Misconception"
+        }
+      ],
+      "key": {
+        "a": "accurate",
+        "b": "wrong",
+        "c": "accurate",
+        "d": "wrong"
+      }
+    },
+    {
+      "id": "mf-076",
+      "cat": "name-the-barriers",
+      "type": "reflect",
+      "hook": "Sam: knowing the barriers and the open doors lets you fight smart and protect your hope. Useful?",
+      "relearn": "Knowing the barriers and the open doors lets you act smart and keep hope.",
+      "persona": "any",
+      "source": "smart and hopeful",
+      "prompt": "What do you think?",
+      "options": [
+        "Useful",
+        "Fight smart",
+        "Keep hope"
+      ],
+      "affirm": "Knowing both the barriers and the open doors lets you act strategically and protect your hope."
+    },
+    {
+      "id": "mf-077",
+      "cat": "your-family-your-way",
+      "type": "role-play",
+      "hook": "At a gathering, someone interrogates your single-parent choice. You want a calm, closing line.",
+      "relearn": "A calm 'chosen with care, loved and thriving, at peace' affirms your family and ends the interrogation.",
+      "persona": "Sneha",
+      "source": "single-parent line",
+      "setup": "Close it calmly:",
+      "yourLine": [
+        {
+          "text": "\"I chose this with care, my child is loved and thriving, and I'm at peace with it.\"",
+          "best": true
+        },
+        {
+          "text": "\"I know, I know, it's not ideal...\""
+        }
+      ]
+    },
+    {
+      "id": "mf-078",
+      "cat": "your-family-your-way",
+      "type": "role-play",
+      "hook": "Your child asks why your family looks different from their friends'. You want to answer with warmth.",
+      "relearn": "Telling a child families come in many shapes, bound by love, gives them pride and a true frame.",
+      "persona": "Pooja",
+      "source": "child asks why",
+      "setup": "Answer warmly:",
+      "yourLine": [
+        {
+          "text": "\"Families come in many shapes, and ours is built on love, that's what makes it a family.\"",
+          "best": true
+        },
+        {
+          "text": "\"Don't worry about what others think.\""
+        }
+      ]
+    },
+    {
+      "id": "mf-079",
+      "cat": "your-family-your-way",
+      "type": "branch",
+      "hook": "You're letting relatives' disapproval keep you from celebrating your family openly.",
+      "relearn": "Live your family openly and with pride; their disapproval doesn't get to keep it hidden.",
+      "persona": "Aditya",
+      "source": "celebrate openly",
+      "options": [
+        {
+          "text": "Choose to live and celebrate your family with quiet pride",
+          "consequence": "Your joy stops shrinking to fit their doubt.",
+          "outcome": "proud",
+          "best": true
+        },
+        {
+          "text": "Keep your family low-key to avoid their reactions",
+          "consequence": "Living with quiet pride reclaims your joy; staying low-key to avoid reactions lets their doubt rule your home."
+        }
+      ],
+      "debrief": "Live and celebrate your family with quiet pride; don't shrink it to fit relatives' disapproval."
+    },
+    {
+      "id": "mf-080",
+      "cat": "your-family-your-way",
+      "type": "sort",
+      "hook": "Sort: builds a thriving non-default family, or undermines it?",
+      "relearn": "Support and confidence build a thriving family; constant apology and hiding undermine it.",
+      "persona": "any",
+      "source": "build or undermine",
+      "items": [
+        {
+          "id": "a",
+          "text": "A strong support network"
+        },
+        {
+          "id": "b",
+          "text": "Constant apology for your family"
+        },
+        {
+          "id": "c",
+          "text": "Confidence in your choice"
+        },
+        {
+          "id": "d",
+          "text": "Hiding your family from the world"
+        }
+      ],
+      "bins": [
+        {
+          "id": "builds",
+          "label": "Builds it up"
+        },
+        {
+          "id": "undermines",
+          "label": "Undermines it"
+        }
+      ],
+      "key": {
+        "a": "builds",
+        "b": "undermines",
+        "c": "builds",
+        "d": "undermines"
+      }
+    },
+    {
+      "id": "mf-081",
+      "cat": "your-family-your-way",
+      "type": "spot",
+      "hook": "Spot what helps a child in a non-default family thrive.",
+      "relearn": "Children in non-default families thrive on loving care and pride, not taught shame.",
+      "persona": "Aditya",
+      "source": "help kids thrive",
+      "scene": [
+        {
+          "text": "Loving, stable, present care",
+          "trick": false
+        },
+        {
+          "text": "Being taught to feel ashamed of their family",
+          "trick": true
+        },
+        {
+          "text": "Pride and honesty about who they are",
+          "trick": false
+        }
+      ],
+      "why": "Loving stable care and pride help a child thrive; teaching shame about their family harms them."
+    },
+    {
+      "id": "mf-082",
+      "cat": "tools-and-help",
+      "type": "role-play",
+      "hook": "A colleague spreads a confident but wrong 'fact' about adoption eligibility. You want to correct gently.",
+      "relearn": "Gently pointing to the official CARA source corrects misinformation without a confrontation.",
+      "persona": "Razia",
+      "source": "correct gently",
+      "setup": "Correct gently:",
+      "yourLine": [
+        {
+          "text": "\"Actually the current CARA rules differ, it's worth checking the official source before deciding.\"",
+          "best": true
+        },
+        {
+          "text": "\"Hmm, you're probably right.\""
+        }
+      ]
+    },
+    {
+      "id": "mf-083",
+      "cat": "tools-and-help",
+      "type": "strike-rewrite",
+      "hook": "\"Once you know the rules today, you never need to check again.\"",
+      "relearn": "Family-building rules can change; verify the current law when you act, don't rely on old knowledge.",
+      "persona": "any",
+      "source": "check current",
+      "myth": {
+        "un": "Once you know the rules today, you never need to check again.",
+        "re": "Family-building law and eligibility can change, so verifying the current rules when you act is part of doing it right.",
+        "why": "Current beats remembered when law evolves."
+      }
+    },
+    {
+      "id": "mf-084",
+      "cat": "tools-and-help",
+      "type": "spot",
+      "hook": "Spot the trustworthy move when starting a route to family.",
+      "relearn": "Start with official bodies and current law; an offer to skip the law is a red flag.",
+      "persona": "any",
+      "source": "trustworthy move",
+      "scene": [
+        {
+          "text": "Going to CARA or a licensed clinic",
+          "trick": false
+        },
+        {
+          "text": "Trusting an agent who promises to skip the law",
+          "trick": true
+        },
+        {
+          "text": "Checking current, dated legal information",
+          "trick": false
+        }
+      ],
+      "why": "CARA, licensed clinics and current legal info are trustworthy; an agent promising to skip the law is a red flag."
+    }
+  ]
+}

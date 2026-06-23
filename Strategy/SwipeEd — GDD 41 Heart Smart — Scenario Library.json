@@ -1,0 +1,1765 @@
+{
+  "game": "Heart Smart",
+  "gameId": "heart-smart",
+  "node": "g41",
+  "chapter": 2,
+  "ages": "6-9",
+  "thread": "C · Feelings & Life Skills",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "leadMechanics": [
+    "branch",
+    "reflect",
+    "role-play"
+  ],
+  "note": "Empathy, handling feelings & getting along (UNESCO 5.6, 5.3, 5.2, 1.3). New v2 build. Builds on g01 (Feelings Friends); prereq g09. The deeper 6-9 emotional-intelligence node.",
+  "categories": {
+    "complex-feelings": "Naming the trickier feelings",
+    "handling-big": "Handling big feelings (a bigger toolkit)",
+    "empathy": "Empathy & seeing others' side",
+    "getting-along": "Getting along & sorting out conflict",
+    "kindness-gratitude": "Kindness & gratitude",
+    "heart-toolkit": "My heart toolkit"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "reflect",
+    "role-play",
+    "strike-rewrite",
+    "match",
+    "sort",
+    "build"
+  ],
+  "evidenceBase": [
+    "By 6-9, children recognise complex emotions (jealousy, worry, disappointment, gratitude) and build a toolkit: self-talk, perspective-taking, breathing, walking away, problem-solving when calm",
+    "Empathy deepens from affective to cognitive (understanding others' viewpoints); perspective-taking supports better peer relationships",
+    "Name the feeling, choose a coping action, and problem-solve when calm; kids copy strategies they see modelled"
+  ],
+  "scenarios": [
+    {
+      "id": "hs-001",
+      "cat": "complex-feelings",
+      "type": "match",
+      "hook": "Heart Smart starts: name the trickier feelings. Match the moment to the feeling.",
+      "pairs": [
+        {
+          "left": "Your friend got the toy you wanted",
+          "right": "Jealous"
+        },
+        {
+          "left": "A test is coming up",
+          "right": "Worried"
+        },
+        {
+          "left": "The trip got cancelled",
+          "right": "Disappointed"
+        }
+      ],
+      "relearn": "Jealous, worried, disappointed, these trickier feelings have names too.",
+      "persona": "any",
+      "source": "complex emotions"
+    },
+    {
+      "id": "hs-002",
+      "cat": "complex-feelings",
+      "type": "reflect",
+      "hook": "Lensy: feelings can be big and mixed at 6-9. Can you feel two at once?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Like nervous AND excited",
+        "Sometimes lots"
+      ],
+      "affirm": "Yes, you can feel a few things at once, that's normal and human.",
+      "relearn": "You can feel more than one feeling at the same time.",
+      "persona": "any",
+      "source": "emotional complexity"
+    },
+    {
+      "id": "hs-003",
+      "cat": "complex-feelings",
+      "type": "strike-rewrite",
+      "hook": "\"Feeling jealous makes me a bad person.\"",
+      "myth": {
+        "un": "Feeling jealous makes you a bad person.",
+        "re": "Jealousy is a normal feeling; it's what you do with it that counts.",
+        "why": "Everyone feels it sometimes."
+      },
+      "relearn": "Jealousy is normal; you choose kind actions with it.",
+      "persona": "any",
+      "source": "emotion validation"
+    },
+    {
+      "id": "hs-004",
+      "cat": "complex-feelings",
+      "type": "match",
+      "hook": "Match the body clue to the trickier feeling.",
+      "pairs": [
+        {
+          "left": "Tummy in knots before school",
+          "right": "Worried"
+        },
+        {
+          "left": "Hot face when you got it wrong",
+          "right": "Embarrassed"
+        },
+        {
+          "left": "Warm and glad when thanked",
+          "right": "Proud / grateful"
+        }
+      ],
+      "relearn": "Your body gives clues for the trickier feelings too.",
+      "persona": "Reyansh",
+      "source": "body-feeling link"
+    },
+    {
+      "id": "hs-005",
+      "cat": "complex-feelings",
+      "type": "reflect",
+      "hook": "Lensy: which tricky feeling shows up most for you?",
+      "prompt": "Point to one.",
+      "options": [
+        "Worry",
+        "Frustration",
+        "Jealousy",
+        "Disappointment"
+      ],
+      "affirm": "Naming the one you feel most is the first step to handling it.",
+      "relearn": "Knowing your common feelings helps you handle them.",
+      "persona": "any",
+      "source": "self-awareness"
+    },
+    {
+      "id": "hs-006",
+      "cat": "complex-feelings",
+      "type": "sort",
+      "hook": "Sort: a feeling, or a thing you do about it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Disappointed"
+        },
+        {
+          "id": "b",
+          "text": "Sulking all day"
+        },
+        {
+          "id": "c",
+          "text": "Worried"
+        },
+        {
+          "id": "d",
+          "text": "Snapping at someone"
+        }
+      ],
+      "bins": [
+        {
+          "id": "feel",
+          "label": "A feeling"
+        },
+        {
+          "id": "do",
+          "label": "A thing you do"
+        }
+      ],
+      "key": {
+        "a": "feel",
+        "b": "do",
+        "c": "feel",
+        "d": "do"
+      },
+      "relearn": "Feelings (worried, disappointed) differ from actions (sulking, snapping).",
+      "persona": "any",
+      "source": "feeling vs action"
+    },
+    {
+      "id": "hs-007",
+      "cat": "complex-feelings",
+      "type": "strike-rewrite",
+      "hook": "\"Worrying means something is really wrong.\"",
+      "myth": {
+        "un": "If I feel worried, something must be really wrong.",
+        "re": "Worry is your mind trying to prepare; it's not proof of danger.",
+        "why": "Lots of worries never come true."
+      },
+      "relearn": "Worry is a feeling, not proof that something bad will happen.",
+      "persona": "Ananya",
+      "source": "anxiety / cognitive"
+    },
+    {
+      "id": "hs-008",
+      "cat": "complex-feelings",
+      "type": "role-play",
+      "hook": "You feel a tricky feeling and want to understand it.",
+      "setup": "Name it out loud:",
+      "yourLine": [
+        {
+          "text": "\"I think I feel ___ right now.\"",
+          "best": true
+        },
+        {
+          "text": "Push it down and ignore it"
+        }
+      ],
+      "relearn": "Naming a tricky feeling helps you handle it.",
+      "persona": "any",
+      "source": "affect labelling"
+    },
+    {
+      "id": "hs-009",
+      "cat": "complex-feelings",
+      "type": "reflect",
+      "hook": "Lensy: even nice feelings count, like pride and gratitude. Notice those?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I feel proud sometimes",
+        "Grateful too"
+      ],
+      "affirm": "Noticing good feelings, like pride and gratitude, helps them grow.",
+      "relearn": "Naming good feelings (pride, gratitude) helps you enjoy them more.",
+      "persona": "any",
+      "source": "positive emotions"
+    },
+    {
+      "id": "hs-010",
+      "cat": "handling-big",
+      "type": "branch",
+      "hook": "You lose a game and feel like throwing the board.",
+      "options": [
+        {
+          "text": "Breathe, say 'I'm frustrated', then try again",
+          "consequence": "The big feeling shrinks; you keep playing or move on.",
+          "outcome": "regulated",
+          "best": true
+        },
+        {
+          "text": "Throw the board and storm off",
+          "consequence": "The feeling stays big and friends get upset."
+        }
+      ],
+      "debrief": "Name it and breathe first; then the feeling is small enough to handle.",
+      "relearn": "For big frustration: name it, breathe, then choose what to do.",
+      "persona": "Reyansh",
+      "source": "emotion regulation"
+    },
+    {
+      "id": "hs-011",
+      "cat": "handling-big",
+      "type": "match",
+      "hook": "Match the big feeling to a coping move that helps.",
+      "pairs": [
+        {
+          "left": "Angry",
+          "right": "Breathe / walk away a moment"
+        },
+        {
+          "left": "Worried",
+          "right": "Talk to someone you trust"
+        },
+        {
+          "left": "Sad",
+          "right": "A hug or a draw"
+        }
+      ],
+      "relearn": "Different big feelings have coping moves that help.",
+      "persona": "any",
+      "source": "coping strategies"
+    },
+    {
+      "id": "hs-012",
+      "cat": "handling-big",
+      "type": "branch",
+      "hook": "You're so worried about a test you can't think.",
+      "options": [
+        {
+          "text": "Slow breaths, then make a small plan",
+          "consequence": "The worry eases enough to start.",
+          "outcome": "regulated",
+          "best": true
+        },
+        {
+          "text": "Avoid it and worry more",
+          "consequence": "A breath and a small step beat spiralling worry."
+        }
+      ],
+      "debrief": "Calm the body first, then take one small step.",
+      "relearn": "Breathe, then take one small step, to handle worry.",
+      "persona": "Ananya",
+      "source": "anxiety coping"
+    },
+    {
+      "id": "hs-013",
+      "cat": "handling-big",
+      "type": "strike-rewrite",
+      "hook": "\"Big feelings should be squashed down.\"",
+      "myth": {
+        "un": "You should squash big feelings down.",
+        "re": "Let feelings out safely; squashing them makes them bigger.",
+        "why": "Named and shared, feelings settle."
+      },
+      "relearn": "Handle big feelings safely; don't bottle them up.",
+      "persona": "any",
+      "source": "emotion regulation"
+    },
+    {
+      "id": "hs-014",
+      "cat": "handling-big",
+      "type": "role-play",
+      "hook": "A big feeling is rising and you need a moment.",
+      "setup": "Ask for what you need:",
+      "yourLine": [
+        {
+          "text": "\"I need a minute to calm down.\"",
+          "best": true
+        },
+        {
+          "text": "Lash out instead"
+        }
+      ],
+      "relearn": "Asking for a calm-down minute is a strong, smart move.",
+      "persona": "Faizan-type",
+      "source": "self-regulation / voice"
+    },
+    {
+      "id": "hs-015",
+      "cat": "handling-big",
+      "type": "sort",
+      "hook": "Sort: calms a big feeling, or fuels it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Deep breaths"
+        },
+        {
+          "id": "b",
+          "text": "Yelling at someone"
+        },
+        {
+          "id": "c",
+          "text": "A short walk or stretch"
+        },
+        {
+          "id": "d",
+          "text": "Bottling it up for days"
+        }
+      ],
+      "bins": [
+        {
+          "id": "calm",
+          "label": "Calms it"
+        },
+        {
+          "id": "fuel",
+          "label": "Fuels it"
+        }
+      ],
+      "key": {
+        "a": "calm",
+        "b": "fuel",
+        "c": "calm",
+        "d": "fuel"
+      },
+      "relearn": "Breaths and movement calm; yelling and bottling don't.",
+      "persona": "any",
+      "source": "coping strategies"
+    },
+    {
+      "id": "hs-016",
+      "cat": "handling-big",
+      "type": "branch",
+      "hook": "You feel jealous your cousin got praised and you didn't.",
+      "options": [
+        {
+          "text": "Notice it, breathe, and find your own win to be proud of",
+          "consequence": "The sting fades; you feel steadier.",
+          "outcome": "regulated",
+          "best": true
+        },
+        {
+          "text": "Be cold to your cousin",
+          "consequence": "Acting on jealousy hurts you both; name it instead."
+        }
+      ],
+      "debrief": "Name jealousy, breathe, and focus on your own good things.",
+      "relearn": "Handle jealousy by naming it and turning to your own strengths.",
+      "persona": "any",
+      "source": "emotion regulation"
+    },
+    {
+      "id": "hs-017",
+      "cat": "handling-big",
+      "type": "reflect",
+      "hook": "Lensy: a big feeling is like a wave, it rises then passes. Remember that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "It passes",
+        "Ride the wave"
+      ],
+      "affirm": "Big feelings peak and pass; riding the wave gets easier with practice.",
+      "relearn": "Big feelings rise and pass; you can ride them out.",
+      "persona": "any",
+      "source": "emotion regulation"
+    },
+    {
+      "id": "hs-018",
+      "cat": "handling-big",
+      "type": "branch",
+      "hook": "You're disappointed a plan fell through.",
+      "options": [
+        {
+          "text": "Let yourself feel it, then find a plan B",
+          "consequence": "You move through it and find something good.",
+          "outcome": "regulated",
+          "best": true
+        },
+        {
+          "text": "Decide the whole day is ruined",
+          "consequence": "Feeling it, then a plan B, beats writing off the day."
+        }
+      ],
+      "debrief": "Feel the disappointment, then look for a plan B.",
+      "relearn": "After disappointment, feel it, then find a plan B.",
+      "persona": "Reyansh",
+      "source": "resilience"
+    },
+    {
+      "id": "hs-019",
+      "cat": "handling-big",
+      "type": "reflect",
+      "hook": "Lensy: which calm-down move works best for YOU?",
+      "prompt": "Pick your go-to.",
+      "options": [
+        "Breaths",
+        "A walk/move",
+        "Talk to someone",
+        "Draw or music"
+      ],
+      "affirm": "Knowing your go-to move means you're ready for big-feeling moments.",
+      "relearn": "Everyone has a go-to calmer; know yours.",
+      "persona": "any",
+      "source": "self-regulation"
+    },
+    {
+      "id": "hs-020",
+      "cat": "empathy",
+      "type": "branch",
+      "hook": "A classmate is quiet and looks upset today.",
+      "options": [
+        {
+          "text": "Gently ask \"are you okay?\"",
+          "consequence": "They feel noticed and cared for.",
+          "outcome": "empathic",
+          "best": true
+        },
+        {
+          "text": "Ignore it, not your problem",
+          "consequence": "A small 'are you okay?' can mean a lot."
+        }
+      ],
+      "debrief": "Noticing and asking is empathy in action.",
+      "relearn": "Noticing how others feel, and asking, is real empathy.",
+      "persona": "Ananya",
+      "source": "empathy"
+    },
+    {
+      "id": "hs-021",
+      "cat": "empathy",
+      "type": "role-play",
+      "hook": "Your friend lost their pet and is very sad.",
+      "setup": "Say something caring:",
+      "yourLine": [
+        {
+          "text": "\"That's so sad, I'm here for you.\"",
+          "best": true
+        },
+        {
+          "text": "\"It's just a pet, get over it.\""
+        }
+      ],
+      "relearn": "Caring words help a grieving friend feel less alone.",
+      "persona": "any",
+      "source": "empathy / voice"
+    },
+    {
+      "id": "hs-022",
+      "cat": "empathy",
+      "type": "strike-rewrite",
+      "hook": "\"Everyone feels exactly what I feel.\"",
+      "myth": {
+        "un": "Other people feel exactly what I feel.",
+        "re": "Others can feel differently; it helps to imagine their side.",
+        "why": "Perspective-taking is a Heart Smart superpower."
+      },
+      "relearn": "Others may feel differently; imagine their side.",
+      "persona": "Reyansh",
+      "source": "perspective-taking"
+    },
+    {
+      "id": "hs-023",
+      "cat": "empathy",
+      "type": "branch",
+      "hook": "A friend snapped at you; you don't know why.",
+      "options": [
+        {
+          "text": "Wonder \"maybe they're having a hard day\"",
+          "consequence": "You don't take it personally; you can ask kindly.",
+          "outcome": "empathic",
+          "best": true
+        },
+        {
+          "text": "Snap back",
+          "consequence": "Imagining their side beats firing back."
+        }
+      ],
+      "debrief": "Wondering what's behind someone's mood is perspective-taking.",
+      "relearn": "People's moods often have hidden reasons; imagine their side.",
+      "persona": "any",
+      "source": "perspective-taking"
+    },
+    {
+      "id": "hs-024",
+      "cat": "empathy",
+      "type": "match",
+      "hook": "Match the situation to how the other person might feel.",
+      "pairs": [
+        {
+          "left": "A kid picked last",
+          "right": "Left out"
+        },
+        {
+          "left": "A friend who won a prize",
+          "right": "Proud / happy"
+        },
+        {
+          "left": "A new kid alone",
+          "right": "Nervous"
+        }
+      ],
+      "relearn": "Reading how others might feel helps you be a good friend.",
+      "persona": "any",
+      "source": "empathy / emotion reading"
+    },
+    {
+      "id": "hs-025",
+      "cat": "empathy",
+      "type": "reflect",
+      "hook": "Lensy: imagining how someone else feels, useful skill?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "It helps me be kind",
+        "Superpower"
+      ],
+      "affirm": "Perspective-taking helps you be kinder and get along better.",
+      "relearn": "Imagining others' feelings is a key Heart Smart skill.",
+      "persona": "any",
+      "source": "perspective-taking"
+    },
+    {
+      "id": "hs-026",
+      "cat": "empathy",
+      "type": "branch",
+      "hook": "You and a friend both want different things and you're stuck.",
+      "options": [
+        {
+          "text": "Ask \"how do you feel about it?\" and listen",
+          "consequence": "Understanding each other helps you find a fix.",
+          "outcome": "empathic",
+          "best": true
+        },
+        {
+          "text": "Insist only your way matters",
+          "consequence": "Hearing their feelings helps you both more."
+        }
+      ],
+      "debrief": "Listening to how the other feels opens up a fair fix.",
+      "relearn": "Ask and listen to how others feel; it helps you solve things.",
+      "persona": "Ananya",
+      "source": "perspective-taking / conflict"
+    },
+    {
+      "id": "hs-027",
+      "cat": "empathy",
+      "type": "role-play",
+      "hook": "A friend is happy about something small to them but big to you it seems silly.",
+      "setup": "Be glad with them anyway. Say:",
+      "yourLine": [
+        {
+          "text": "\"That's great, I'm happy for you!\"",
+          "best": true
+        },
+        {
+          "text": "\"That's nothing special.\""
+        }
+      ],
+      "relearn": "Sharing others' joy, even small joys, is kind empathy.",
+      "persona": "any",
+      "source": "empathy / shared joy"
+    },
+    {
+      "id": "hs-028",
+      "cat": "empathy",
+      "type": "reflect",
+      "hook": "Lensy: everyone has feelings as real as yours. True?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Just as real",
+        "We all feel deeply"
+      ],
+      "affirm": "Everyone's feelings are as real and important as yours.",
+      "relearn": "Other people's feelings are as real as your own.",
+      "persona": "any",
+      "source": "empathy"
+    },
+    {
+      "id": "hs-029",
+      "cat": "getting-along",
+      "type": "branch",
+      "hook": "You and a friend disagree and it's getting heated.",
+      "options": [
+        {
+          "text": "Take a breath, then talk it out calmly",
+          "consequence": "You sort it without a blow-up.",
+          "outcome": "resolved",
+          "best": true
+        },
+        {
+          "text": "Shout to win",
+          "consequence": "Calming down first makes solving it possible."
+        }
+      ],
+      "debrief": "Calm first, then solve, you can't fix things while boiling.",
+      "relearn": "Calm down before you try to sort out a disagreement.",
+      "persona": "Reyansh",
+      "source": "conflict resolution"
+    },
+    {
+      "id": "hs-030",
+      "cat": "getting-along",
+      "type": "role-play",
+      "hook": "You want to make up after an argument.",
+      "setup": "Use an 'I' line:",
+      "yourLine": [
+        {
+          "text": "\"I felt upset when that happened.\"",
+          "best": true
+        },
+        {
+          "text": "\"You always ruin everything.\""
+        }
+      ],
+      "relearn": "Starting with 'I felt...' opens repair; 'you always...' shuts it.",
+      "persona": "Ananya",
+      "source": "I-statements"
+    },
+    {
+      "id": "hs-031",
+      "cat": "getting-along",
+      "type": "build",
+      "hook": "Build the steps to sort out a fight.",
+      "prompt": "Put them in a good order.",
+      "pieces": [
+        "cool down",
+        "each say how you felt",
+        "listen to the other",
+        "find a fair fix together"
+      ],
+      "mode": "sequence",
+      "key": [
+        "cool down",
+        "each say how you felt",
+        "listen to the other",
+        "find a fair fix together"
+      ],
+      "relearn": "Cool down, share, listen, fix together, that's how to sort a fight.",
+      "persona": "any",
+      "source": "conflict resolution"
+    },
+    {
+      "id": "hs-032",
+      "cat": "getting-along",
+      "type": "strike-rewrite",
+      "hook": "\"Getting along means never disagreeing.\"",
+      "myth": {
+        "un": "People who get along never disagree.",
+        "re": "Everyone disagrees sometimes; getting along is about how you handle it.",
+        "why": "Repair matters more than never clashing."
+      },
+      "relearn": "Getting along isn't never disagreeing; it's handling it well.",
+      "persona": "any",
+      "source": "conflict / repair"
+    },
+    {
+      "id": "hs-033",
+      "cat": "getting-along",
+      "type": "branch",
+      "hook": "You realise you were in the wrong in an argument.",
+      "options": [
+        {
+          "text": "Own it and say sorry",
+          "consequence": "Trust grows; the friendship heals.",
+          "outcome": "repair",
+          "best": true
+        },
+        {
+          "text": "Pretend you were right",
+          "consequence": "Owning it is braver and mends things faster."
+        }
+      ],
+      "debrief": "Owning your part is a Heart Smart strength.",
+      "relearn": "If you were wrong, owning it and apologising helps.",
+      "persona": "Reyansh",
+      "source": "accountability"
+    },
+    {
+      "id": "hs-034",
+      "cat": "getting-along",
+      "type": "sort",
+      "hook": "Sort: helps you get along, or makes it worse?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Listening to their side"
+        },
+        {
+          "id": "b",
+          "text": "Name-calling"
+        },
+        {
+          "id": "c",
+          "text": "Finding a compromise"
+        },
+        {
+          "id": "d",
+          "text": "Holding a grudge"
+        }
+      ],
+      "bins": [
+        {
+          "id": "helps",
+          "label": "Helps"
+        },
+        {
+          "id": "worse",
+          "label": "Makes it worse"
+        }
+      ],
+      "key": {
+        "a": "helps",
+        "b": "worse",
+        "c": "helps",
+        "d": "worse"
+      },
+      "relearn": "Listening and compromise help; name-calling and grudges don't.",
+      "persona": "any",
+      "source": "conflict resolution"
+    },
+    {
+      "id": "hs-035",
+      "cat": "getting-along",
+      "type": "branch",
+      "hook": "A friend is annoying you and you feel like snapping.",
+      "options": [
+        {
+          "text": "Calmly say what's bothering you",
+          "consequence": "They get it; you stay friends.",
+          "outcome": "resolved",
+          "best": true
+        },
+        {
+          "text": "Snap and start a fight",
+          "consequence": "Calmly naming it works better than snapping."
+        }
+      ],
+      "debrief": "Calmly naming the bother beats snapping.",
+      "relearn": "Say what's bothering you calmly, instead of snapping.",
+      "persona": "any",
+      "source": "assertiveness"
+    },
+    {
+      "id": "hs-036",
+      "cat": "getting-along",
+      "type": "reflect",
+      "hook": "Lensy: after a fight, can a friendship be even stronger?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "If you repair it",
+        "Stronger after"
+      ],
+      "affirm": "Repaired well, a friendship can come out stronger.",
+      "relearn": "Sorting out a fight kindly can make a friendship stronger.",
+      "persona": "any",
+      "source": "repair"
+    },
+    {
+      "id": "hs-037",
+      "cat": "getting-along",
+      "type": "role-play",
+      "hook": "You don't understand why a friend is upset with you.",
+      "setup": "Ask to understand:",
+      "yourLine": [
+        {
+          "text": "\"Can you help me understand what upset you?\"",
+          "best": true
+        },
+        {
+          "text": "\"You're overreacting.\""
+        }
+      ],
+      "relearn": "Asking to understand beats dismissing how they feel.",
+      "persona": "Ananya",
+      "source": "perspective-taking"
+    },
+    {
+      "id": "hs-038",
+      "cat": "kindness-gratitude",
+      "type": "branch",
+      "hook": "You see a chance to do a small kind thing for someone.",
+      "options": [
+        {
+          "text": "Do it, even a tiny kindness",
+          "consequence": "They feel good, and so do you.",
+          "outcome": "kind",
+          "best": true
+        },
+        {
+          "text": "Skip it, too much effort",
+          "consequence": "Tiny kindnesses are worth it, for both of you."
+        }
+      ],
+      "debrief": "Small kind acts lift others, and you.",
+      "relearn": "Small kindnesses make a big difference, including to you.",
+      "persona": "any",
+      "source": "prosocial / wellbeing"
+    },
+    {
+      "id": "hs-039",
+      "cat": "kindness-gratitude",
+      "type": "reflect",
+      "hook": "Lensy: name one thing you're grateful for today.",
+      "prompt": "Think of one.",
+      "options": [
+        "A person",
+        "Something fun",
+        "Something I have",
+        "A small good moment"
+      ],
+      "affirm": "Noticing what you're grateful for is a happiness booster.",
+      "relearn": "Noticing things you're grateful for lifts your mood.",
+      "persona": "any",
+      "source": "gratitude"
+    },
+    {
+      "id": "hs-040",
+      "cat": "kindness-gratitude",
+      "type": "strike-rewrite",
+      "hook": "\"Being kind is a waste of time.\"",
+      "myth": {
+        "un": "Being kind doesn't really do much.",
+        "re": "Kindness helps others AND makes you feel good too.",
+        "why": "Kind acts boost the giver's mood as well."
+      },
+      "relearn": "Kindness helps others and lifts you too.",
+      "persona": "Reyansh",
+      "source": "prosocial / wellbeing"
+    },
+    {
+      "id": "hs-041",
+      "cat": "kindness-gratitude",
+      "type": "role-play",
+      "hook": "Someone helped you today.",
+      "setup": "Show gratitude. Say:",
+      "yourLine": [
+        {
+          "text": "\"Thank you, that really helped me.\"",
+          "best": true
+        },
+        {
+          "text": "Say nothing"
+        }
+      ],
+      "relearn": "Saying a real thank-you grows good feeling all round.",
+      "persona": "any",
+      "source": "gratitude / voice"
+    },
+    {
+      "id": "hs-042",
+      "cat": "kindness-gratitude",
+      "type": "match",
+      "hook": "Match the kind act to who it helps. (Trick: it helps both!)",
+      "pairs": [
+        {
+          "left": "Helping a friend study",
+          "right": "Them AND you feel good"
+        },
+        {
+          "left": "Thanking your amma",
+          "right": "Her AND you feel warm"
+        },
+        {
+          "left": "Including a lonely kid",
+          "right": "Them AND your whole group"
+        }
+      ],
+      "relearn": "Kindness is a two-way gift, it lifts the giver too.",
+      "persona": "any",
+      "source": "prosocial"
+    },
+    {
+      "id": "hs-043",
+      "cat": "kindness-gratitude",
+      "type": "reflect",
+      "hook": "Lensy: how does it feel inside when you're kind to someone?",
+      "prompt": "Pick one.",
+      "options": [
+        "Warm",
+        "Happy",
+        "Good"
+      ],
+      "affirm": "That warm feeling is your heart saying 'well done'.",
+      "relearn": "Kindness gives you a warm, good feeling inside.",
+      "persona": "any",
+      "source": "wellbeing"
+    },
+    {
+      "id": "hs-044",
+      "cat": "kindness-gratitude",
+      "type": "sort",
+      "hook": "Sort: a kind act, or an unkind one?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Sharing your snack"
+        },
+        {
+          "id": "b",
+          "text": "Mocking a mistake"
+        },
+        {
+          "id": "c",
+          "text": "Cheering someone on"
+        },
+        {
+          "id": "d",
+          "text": "Leaving someone out"
+        }
+      ],
+      "bins": [
+        {
+          "id": "kind",
+          "label": "Kind"
+        },
+        {
+          "id": "unkind",
+          "label": "Unkind"
+        }
+      ],
+      "key": {
+        "a": "kind",
+        "b": "unkind",
+        "c": "kind",
+        "d": "unkind"
+      },
+      "relearn": "Sharing and cheering are kind; mocking and excluding aren't.",
+      "persona": "any",
+      "source": "prosocial"
+    },
+    {
+      "id": "hs-045",
+      "cat": "kindness-gratitude",
+      "type": "build",
+      "hook": "Build a 'kindness plan' for this week.",
+      "prompt": "Pick kind acts to try.",
+      "pieces": [
+        "help at home",
+        "cheer a friend",
+        "thank someone",
+        "include a lonely kid",
+        "share something"
+      ],
+      "mode": "assemble",
+      "key": [
+        "help at home",
+        "cheer a friend",
+        "thank someone",
+        "include a lonely kid",
+        "share something"
+      ],
+      "relearn": "A little kindness plan makes kindness a happy habit.",
+      "persona": "any",
+      "source": "prosocial / habit"
+    },
+    {
+      "id": "hs-046",
+      "cat": "kindness-gratitude",
+      "type": "reflect",
+      "hook": "Lensy: gratitude is noticing the good you already have. Want to practise it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Daily",
+        "I'll notice more"
+      ],
+      "affirm": "A daily 'what am I grateful for?' grows a happier heart.",
+      "relearn": "Practising gratitude daily grows a happier heart.",
+      "persona": "any",
+      "source": "gratitude"
+    },
+    {
+      "id": "hs-047",
+      "cat": "heart-toolkit",
+      "type": "build",
+      "hook": "Build your Heart Smart toolkit.",
+      "prompt": "Pick your tools for big feelings.",
+      "pieces": [
+        "name the feeling",
+        "take breaths",
+        "talk to someone",
+        "move or draw",
+        "problem-solve when calm"
+      ],
+      "mode": "assemble",
+      "key": [
+        "name the feeling",
+        "take breaths",
+        "talk to someone",
+        "move or draw",
+        "problem-solve when calm"
+      ],
+      "relearn": "Your toolkit: name it, breathe, talk, move, then solve.",
+      "persona": "any",
+      "source": "coping toolkit"
+    },
+    {
+      "id": "hs-048",
+      "cat": "heart-toolkit",
+      "type": "reflect",
+      "hook": "Lensy: it's okay to ask a grown-up for help with a feeling. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Asking is smart",
+        "I can ask"
+      ],
+      "affirm": "Asking a trusted grown-up for help is a smart toolkit move.",
+      "relearn": "Asking for help is part of a strong heart toolkit.",
+      "persona": "Faizan-type",
+      "source": "help-seeking"
+    },
+    {
+      "id": "hs-049",
+      "cat": "heart-toolkit",
+      "type": "branch",
+      "hook": "A feeling is too big to handle on your own.",
+      "options": [
+        {
+          "text": "Tell a trusted grown-up and ask for help",
+          "consequence": "You're not alone; together it feels manageable.",
+          "outcome": "supported",
+          "best": true
+        },
+        {
+          "text": "Try to bottle it up",
+          "consequence": "Some feelings are easier with a grown-up's help."
+        }
+      ],
+      "debrief": "Really big feelings are easier shared with a trusted grown-up.",
+      "relearn": "For very big feelings, ask a trusted grown-up for help.",
+      "persona": "any",
+      "source": "co-regulation"
+    },
+    {
+      "id": "hs-050",
+      "cat": "heart-toolkit",
+      "type": "strike-rewrite",
+      "hook": "\"Strong people don't need help with feelings.\"",
+      "myth": {
+        "un": "Strong people never need help with feelings.",
+        "re": "Asking for help with feelings is a sign of strength.",
+        "why": "Everyone needs support sometimes."
+      },
+      "relearn": "Asking for help with feelings is strong, not weak.",
+      "persona": "any",
+      "source": "help-seeking"
+    },
+    {
+      "id": "hs-051",
+      "cat": "heart-toolkit",
+      "type": "reflect",
+      "hook": "Lensy: you handled a big feeling well, can you be proud?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I did it",
+        "Proud of me"
+      ],
+      "affirm": "Be proud, handling a big feeling well is a real achievement.",
+      "relearn": "You can feel proud when you handle a big feeling well.",
+      "persona": "any",
+      "source": "self-esteem"
+    },
+    {
+      "id": "hs-052",
+      "cat": "heart-toolkit",
+      "type": "role-play",
+      "hook": "You're coaching yourself through a hard moment.",
+      "setup": "Say kind self-talk:",
+      "yourLine": [
+        {
+          "text": "\"This is hard, but I can handle it.\"",
+          "best": true
+        },
+        {
+          "text": "\"I always mess up.\""
+        }
+      ],
+      "relearn": "Kind self-talk helps you through hard moments.",
+      "persona": "Ananya",
+      "source": "self-talk"
+    },
+    {
+      "id": "hs-053",
+      "cat": "heart-toolkit",
+      "type": "match",
+      "hook": "Match the tool to when you'd use it.",
+      "pairs": [
+        {
+          "left": "Breaths",
+          "right": "When anger rises"
+        },
+        {
+          "left": "Talk to someone",
+          "right": "When a worry won't shift"
+        },
+        {
+          "left": "Problem-solve",
+          "right": "Once you're calm"
+        }
+      ],
+      "relearn": "Different tools fit different moments; pick the right one.",
+      "persona": "any",
+      "source": "coping toolkit"
+    },
+    {
+      "id": "hs-054",
+      "cat": "heart-toolkit",
+      "type": "reflect",
+      "hook": "Lensy: your heart toolkit grows the more you practise. Ready?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Practice makes it easier",
+        "Let's grow it"
+      ],
+      "affirm": "Every time you use a tool, it gets easier. Keep practising.",
+      "relearn": "Emotional skills grow stronger with practice.",
+      "persona": "any",
+      "source": "growth"
+    },
+    {
+      "id": "hs-055",
+      "cat": "complex-feelings",
+      "type": "branch",
+      "hook": "You feel embarrassed after a mistake in front of the class.",
+      "options": [
+        {
+          "text": "Tell yourself 'everyone makes mistakes'",
+          "consequence": "The embarrassment fades faster.",
+          "outcome": "regulated",
+          "best": true
+        },
+        {
+          "text": "Decide everyone's laughing at you forever",
+          "consequence": "Mistakes are normal; be kind to yourself."
+        }
+      ],
+      "debrief": "Embarrassment passes; mistakes are part of learning.",
+      "relearn": "Embarrassment is normal and passes; be kind to yourself.",
+      "persona": "Reyansh",
+      "source": "self-compassion"
+    },
+    {
+      "id": "hs-056",
+      "cat": "handling-big",
+      "type": "branch",
+      "hook": "You're worried about something at home you can't control.",
+      "options": [
+        {
+          "text": "Share it with a trusted grown-up",
+          "consequence": "You feel lighter and less alone.",
+          "outcome": "supported",
+          "best": true
+        },
+        {
+          "text": "Carry it alone in secret",
+          "consequence": "Worries shared with a grown-up get lighter."
+        }
+      ],
+      "debrief": "Sharing a heavy worry with a grown-up helps carry it.",
+      "relearn": "Share big worries with a trusted grown-up.",
+      "persona": "Sana (sibling)",
+      "source": "help-seeking"
+    },
+    {
+      "id": "hs-057",
+      "cat": "empathy",
+      "type": "branch",
+      "hook": "Your younger sibling is crying over something 'small'.",
+      "options": [
+        {
+          "text": "Comfort them; it's big to them",
+          "consequence": "They calm down and feel loved.",
+          "outcome": "empathic",
+          "best": true
+        },
+        {
+          "text": "Tell them it's nothing",
+          "consequence": "What's small to you can be big to them."
+        }
+      ],
+      "debrief": "Something small to you can feel huge to someone else.",
+      "relearn": "Respect that others' feelings are big to them.",
+      "persona": "Sana (sibling)",
+      "source": "empathy"
+    },
+    {
+      "id": "hs-058",
+      "cat": "getting-along",
+      "type": "branch",
+      "hook": "In a joint family, cousins disagree over the one tablet.",
+      "options": [
+        {
+          "text": "Suggest fair turns so everyone's happy",
+          "consequence": "The fight ends; everyone gets a turn.",
+          "outcome": "resolved",
+          "best": true
+        },
+        {
+          "text": "Grab it and run",
+          "consequence": "Fair turns keep the peace better than grabbing."
+        }
+      ],
+      "debrief": "Fair turns solve a lot of family squabbles.",
+      "relearn": "Fair turns and calm talk settle family disagreements.",
+      "persona": "Aditi (parent)",
+      "source": "India joint family / conflict"
+    },
+    {
+      "id": "hs-059",
+      "cat": "kindness-gratitude",
+      "type": "role-play",
+      "hook": "You want to brighten a family member's day.",
+      "setup": "Do or say something kind:",
+      "yourLine": [
+        {
+          "text": "\"I made this for you\" / \"Let me help\"",
+          "best": true
+        },
+        {
+          "text": "Ignore them"
+        }
+      ],
+      "relearn": "Small kind acts at home grow family warmth.",
+      "persona": "Aditi (parent)",
+      "source": "prosocial / family"
+    },
+    {
+      "id": "hs-060",
+      "cat": "empathy",
+      "type": "strike-rewrite",
+      "hook": "\"Boys don't need to care about feelings.\"",
+      "myth": {
+        "un": "Caring about feelings is only for girls.",
+        "re": "Empathy and emotional skills are for everyone.",
+        "why": "All people have feelings and can be caring."
+      },
+      "relearn": "Emotional skills and empathy are for everyone.",
+      "persona": "Faizan-type",
+      "source": "gender / SEL (links g01)"
+    },
+    {
+      "id": "hs-061",
+      "cat": "complex-feelings",
+      "type": "reflect",
+      "hook": "Lensy: it's okay to feel disappointed AND grateful at once. Mixed feelings normal?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Feelings can mix",
+        "Normal"
+      ],
+      "affirm": "Mixed feelings are completely normal and human.",
+      "relearn": "It's normal to feel two different things at once.",
+      "persona": "any",
+      "source": "emotional complexity"
+    },
+    {
+      "id": "hs-062",
+      "cat": "handling-big",
+      "type": "role-play",
+      "hook": "You feel anger boiling up at a sibling.",
+      "setup": "Use a calming line and move:",
+      "yourLine": [
+        {
+          "text": "\"I'm angry, I'll take a breather first.\"",
+          "best": true
+        },
+        {
+          "text": "Hit or yell"
+        }
+      ],
+      "relearn": "A breather before reacting keeps anger from running you.",
+      "persona": "Sana (sibling)",
+      "source": "emotion regulation / voice"
+    },
+    {
+      "id": "hs-063",
+      "cat": "empathy",
+      "type": "branch",
+      "hook": "A friend is bragging a lot; it's annoying.",
+      "options": [
+        {
+          "text": "Wonder if they're feeling unsure underneath",
+          "consequence": "You respond with patience, not irritation.",
+          "outcome": "empathic",
+          "best": true
+        },
+        {
+          "text": "Snap that they're showing off",
+          "consequence": "Bragging sometimes hides insecurity; patience helps."
+        }
+      ],
+      "debrief": "Sometimes annoying behaviour hides a wobbly feeling.",
+      "relearn": "Looking under behaviour helps you understand people.",
+      "persona": "Reyansh",
+      "source": "perspective-taking"
+    },
+    {
+      "id": "hs-064",
+      "cat": "getting-along",
+      "type": "reflect",
+      "hook": "Lensy: you can disagree with someone and still respect them. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Disagree kindly",
+        "Respect stays"
+      ],
+      "affirm": "You can disagree and still be respectful, that's mature.",
+      "relearn": "You can disagree with someone and still respect them.",
+      "persona": "Ananya",
+      "source": "conflict / respect"
+    },
+    {
+      "id": "hs-065",
+      "cat": "kindness-gratitude",
+      "type": "branch",
+      "hook": "A classmate did well and you feel a flash of jealousy.",
+      "options": [
+        {
+          "text": "Congratulate them anyway",
+          "consequence": "You feel bigger-hearted; they feel supported.",
+          "outcome": "kind",
+          "best": true
+        },
+        {
+          "text": "Give them the cold shoulder",
+          "consequence": "Congratulating beats sulking, for both of you."
+        }
+      ],
+      "debrief": "Cheering others, even past a jealous flash, grows your heart.",
+      "relearn": "You can feel jealous and still choose to be glad for someone.",
+      "persona": "any",
+      "source": "prosocial / regulation"
+    },
+    {
+      "id": "hs-066",
+      "cat": "heart-toolkit",
+      "type": "reflect",
+      "hook": "Lensy: which Heart Smart skill will you use this week?",
+      "prompt": "Pick one.",
+      "options": [
+        "Name my feelings",
+        "Calm a big one",
+        "See others' side",
+        "Do a kindness"
+      ],
+      "affirm": "Great choice. Picking one skill to practise makes it stick.",
+      "relearn": "Choosing one skill to practise helps it grow.",
+      "persona": "any",
+      "source": "habit"
+    },
+    {
+      "id": "hs-067",
+      "cat": "complex-feelings",
+      "type": "match",
+      "hook": "Match the tricky feeling to a kind thing to do with it.",
+      "pairs": [
+        {
+          "left": "Worry",
+          "right": "Talk it out / make a plan"
+        },
+        {
+          "left": "Jealousy",
+          "right": "Name it / focus on your own good"
+        },
+        {
+          "left": "Disappointment",
+          "right": "Feel it / find a plan B"
+        }
+      ],
+      "relearn": "Every tricky feeling has a kind, helpful response.",
+      "persona": "any",
+      "source": "coping strategies"
+    },
+    {
+      "id": "hs-068",
+      "cat": "getting-along",
+      "type": "branch",
+      "hook": "Two friends want you to take sides in their argument.",
+      "options": [
+        {
+          "text": "Stay kind to both and help them talk",
+          "consequence": "You keep both friends and help them mend.",
+          "outcome": "peacemaker",
+          "best": true
+        },
+        {
+          "text": "Pick a side",
+          "consequence": "Helping both talk beats picking sides."
+        }
+      ],
+      "debrief": "You can care for both friends without picking a side.",
+      "relearn": "You don't have to take sides; help friends talk it out.",
+      "persona": "Ananya",
+      "source": "conflict / loyalty"
+    },
+    {
+      "id": "hs-069",
+      "cat": "empathy",
+      "type": "role-play",
+      "hook": "A friend is nervous before performing.",
+      "setup": "Encourage them. Say:",
+      "yourLine": [
+        {
+          "text": "\"It's okay to be nervous, you've got this.\"",
+          "best": true
+        },
+        {
+          "text": "\"Don't mess up.\""
+        }
+      ],
+      "relearn": "Naming a friend's nerves and cheering them helps a lot.",
+      "persona": "any",
+      "source": "empathy / support"
+    },
+    {
+      "id": "hs-070",
+      "cat": "handling-big",
+      "type": "reflect",
+      "hook": "Lensy: after a calm-down, the feeling is smaller and you can think. Notice that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I think clearer",
+        "It shrinks"
+      ],
+      "affirm": "Calming first makes the feeling small enough to think and solve.",
+      "relearn": "Calming first lets you think clearly and solve the problem.",
+      "persona": "any",
+      "source": "emotion regulation"
+    },
+    {
+      "id": "hs-071",
+      "cat": "kindness-gratitude",
+      "type": "strike-rewrite",
+      "hook": "\"You should only be kind to people who are kind to you.\"",
+      "myth": {
+        "un": "Only be kind to people who are kind to you.",
+        "re": "Kindness can be given freely; it often comes back around.",
+        "why": "Kindness isn't a trade."
+      },
+      "relearn": "You can be kind even when others aren't; it's your choice.",
+      "persona": "any",
+      "source": "values"
+    },
+    {
+      "id": "hs-072",
+      "cat": "complex-feelings",
+      "type": "branch",
+      "hook": "You feel a feeling you can't quite name; it's just 'bad'.",
+      "options": [
+        {
+          "text": "Try a few names till one fits",
+          "consequence": "Naming it makes it clearer and smaller.",
+          "outcome": "regulated",
+          "best": true
+        },
+        {
+          "text": "Stay stuck in the fog",
+          "consequence": "Trying feeling-words helps lift the fog."
+        }
+      ],
+      "debrief": "Trying out names helps a fuzzy feeling become clear.",
+      "relearn": "If a feeling is fuzzy, try names till one fits.",
+      "persona": "Reyansh",
+      "source": "affect labelling"
+    },
+    {
+      "id": "hs-073",
+      "cat": "getting-along",
+      "type": "role-play",
+      "hook": "You accidentally hurt a friend's feelings.",
+      "setup": "Repair it. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'm sorry, I didn't mean to hurt you.\"",
+          "best": true
+        },
+        {
+          "text": "\"You're too sensitive.\""
+        }
+      ],
+      "relearn": "A real apology helps repair a hurt.",
+      "persona": "any",
+      "source": "repair / voice"
+    },
+    {
+      "id": "hs-074",
+      "cat": "empathy",
+      "type": "reflect",
+      "hook": "Lensy: being Heart Smart means caring about others' feelings AND your own. Both?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes, both",
+        "Self and others",
+        "Balance"
+      ],
+      "affirm": "Heart Smart is caring for your own heart and others' too.",
+      "relearn": "Heart Smart means caring for your feelings and others'.",
+      "persona": "any",
+      "source": "SEL"
+    },
+    {
+      "id": "hs-075",
+      "cat": "handling-big",
+      "type": "branch",
+      "hook": "You're overwhelmed by lots of feelings at once.",
+      "options": [
+        {
+          "text": "Pause, breathe, and name them one at a time",
+          "consequence": "The pile untangles; you feel steadier.",
+          "outcome": "regulated",
+          "best": true
+        },
+        {
+          "text": "Explode or shut down",
+          "consequence": "Naming feelings one by one untangles the pile."
+        }
+      ],
+      "debrief": "When feelings pile up, take them one at a time.",
+      "relearn": "Untangle a pile of feelings by naming them one by one.",
+      "persona": "Ananya",
+      "source": "emotion regulation"
+    },
+    {
+      "id": "hs-076",
+      "cat": "kindness-gratitude",
+      "type": "reflect",
+      "hook": "Lensy: who could you thank or help today?",
+      "prompt": "Think of someone.",
+      "options": [
+        "A parent",
+        "A friend",
+        "A teacher",
+        "Anyone!"
+      ],
+      "affirm": "That's a lovely plan, your kindness will brighten their day.",
+      "relearn": "You can choose to thank or help someone every day.",
+      "persona": "any",
+      "source": "gratitude / prosocial"
+    },
+    {
+      "id": "hs-077",
+      "cat": "heart-toolkit",
+      "type": "branch",
+      "hook": "You tried a coping tool and it didn't work this time.",
+      "options": [
+        {
+          "text": "Try a different tool from your kit",
+          "consequence": "Another tool fits; you find what works.",
+          "outcome": "flexible",
+          "best": true
+        },
+        {
+          "text": "Give up on calming down",
+          "consequence": "If one tool misses, another from your kit can help."
+        }
+      ],
+      "debrief": "If one tool doesn't fit, try another, that's being flexible.",
+      "relearn": "If a coping tool doesn't work, try a different one.",
+      "persona": "any",
+      "source": "coping flexibility"
+    },
+    {
+      "id": "hs-078",
+      "cat": "empathy",
+      "type": "sort",
+      "hook": "Sort: an empathic response, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"That sounds really hard\""
+        },
+        {
+          "id": "b",
+          "text": "\"Stop crying, it's nothing\""
+        },
+        {
+          "id": "c",
+          "text": "Listening without judging"
+        },
+        {
+          "id": "d",
+          "text": "Laughing at their worry"
+        }
+      ],
+      "bins": [
+        {
+          "id": "empathic",
+          "label": "Empathic"
+        },
+        {
+          "id": "no",
+          "label": "Not empathic"
+        }
+      ],
+      "key": {
+        "a": "empathic",
+        "b": "no",
+        "c": "empathic",
+        "d": "no"
+      },
+      "relearn": "Empathy listens and validates; it doesn't dismiss or mock.",
+      "persona": "any",
+      "source": "empathy"
+    },
+    {
+      "id": "hs-079",
+      "cat": "complex-feelings",
+      "type": "reflect",
+      "hook": "Lensy: all your feelings, even the tricky ones, are okay to have. Remember?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "All okay",
+        "Even the hard ones"
+      ],
+      "affirm": "Every feeling is okay; what we do with it is the choice.",
+      "relearn": "All feelings are okay; the action is what we choose.",
+      "persona": "any",
+      "source": "emotion validation (links g01)"
+    },
+    {
+      "id": "hs-080",
+      "cat": "getting-along",
+      "type": "branch",
+      "hook": "Capstone: a friend hurt you, and you're really upset.",
+      "options": [
+        {
+          "text": "Calm down, tell them how you felt, and hear them out",
+          "consequence": "You handle it Heart Smart, and likely mend it.",
+          "outcome": "resolved",
+          "best": true
+        },
+        {
+          "text": "Cut them off without a word",
+          "consequence": "Calm honesty gives a friendship a chance to mend."
+        }
+      ],
+      "debrief": "Calm, honest talk gives a hurt friendship a real chance.",
+      "relearn": "Handle a hurt by calming, sharing how you felt, and listening.",
+      "persona": "Ananya",
+      "source": "consolidation / repair"
+    },
+    {
+      "id": "hs-081",
+      "cat": "heart-toolkit",
+      "type": "build",
+      "hook": "Capstone: build your finished Heart Smart toolkit.",
+      "prompt": "Pick the skills to carry.",
+      "pieces": [
+        "name my feelings",
+        "calm the big ones",
+        "see others' side",
+        "sort out fights kindly",
+        "be kind & grateful",
+        "ask for help"
+      ],
+      "mode": "assemble",
+      "key": [
+        "name my feelings",
+        "calm the big ones",
+        "see others' side",
+        "sort out fights kindly",
+        "be kind & grateful",
+        "ask for help"
+      ],
+      "relearn": "Your Heart Smart kit: name, calm, empathise, repair, be kind, ask for help.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "hs-082",
+      "cat": "complex-feelings",
+      "type": "reflect",
+      "hook": "Lensy: what will you carry from Heart Smart?",
+      "prompt": "Pick your motto.",
+      "options": [
+        "Name it to tame it",
+        "See others' side",
+        "Calm first, then solve",
+        "Kindness lifts us all"
+      ],
+      "affirm": "Carry that. You're Heart Smart now, for yourself and others.",
+      "relearn": "Name feelings, calm them, see others' side, and be kind.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "hs-083",
+      "cat": "kindness-gratitude",
+      "type": "reflect",
+      "hook": "Lensy: a Heart Smart kid makes the whole room kinder. Will you?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "One kindness at a time",
+        "Count me in"
+      ],
+      "affirm": "Your empathy and kindness ripple out to everyone around you.",
+      "relearn": "Your Heart Smart skills make things kinder for everyone.",
+      "persona": "any",
+      "source": "vision"
+    },
+    {
+      "id": "hs-084",
+      "cat": "handling-big",
+      "type": "strike-rewrite",
+      "hook": "\"Once a feeling is big, you can't do anything about it.\"",
+      "myth": {
+        "un": "Once a feeling is big, you're stuck with it.",
+        "re": "You always have a tool: name it, breathe, move, talk, or ask for help.",
+        "why": "You're never powerless over a feeling."
+      },
+      "relearn": "You always have a tool for a big feeling; you're not stuck.",
+      "persona": "any",
+      "source": "agency / regulation"
+    }
+  ]
+}

@@ -1,0 +1,1981 @@
+{
+  "game": "Firewall",
+  "gameId": "firewall",
+  "node": "g40",
+  "chapter": 4,
+  "ages": "12-15",
+  "thread": "B · Safety, Consent & Boundaries",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Gated (school-comfort toggle sets how directly sexting/sextortion are named)",
+  "leadMechanics": [
+    "branch",
+    "spot",
+    "role-play"
+  ],
+  "note": "Teen online safety: grooming, sexting, sextortion & footprint (UNESCO 4.3, 4.1, 5.5). New v2 build, Chapter 4 (real, calm, never fear-mongering). High-stakes safeguarding: spot grooming red flags, think before you share, and the signature sextortion plan, don't panic, don't pay, don't send more, it's NOT your fault, save evidence, block, tell a trusted adult, report. Builds on g15 (Boundary Bot); prereq g27. Non-explicit, never victim-blaming, never how-to-harm. Routes to a trusted adult, cybercrime.gov.in / 1930, Childline 1098. POCSO/IT-Act aware: a minor is a protected victim, never in trouble.",
+  "categories": {
+    "spot-grooming": "Who's really there: spot grooming & fakes",
+    "think-before-share": "Think before you share",
+    "sextortion-plan": "Sextortion: don't panic (the plan)",
+    "myths-busted": "Online myths busted",
+    "lock-it-down": "Lock it down: privacy, block & report",
+    "find-help-no-blame": "Find help, no blame"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "strike-rewrite",
+    "spot",
+    "sort",
+    "role-play",
+    "reflect",
+    "match"
+  ],
+  "evidenceBase": [
+    "Online grooming follows a tell-tale pattern, flattery and gifts, fast 'special' closeness, secrecy, moving you to private or disappearing apps, the 'I'm your age too' lie, odd-hours intensity, testing boundaries and asking for photos, and can come from strangers or people you seem to know; teaching the pattern builds vigilance, not fear of everyone (UNESCO 4.3; child-protection guidance)",
+    "Sextortion (threatening to share intimate images unless you pay or send more) is rising fast, around 1 in 5 teens affected and roughly 90% of financial-sextortion targets are boys 14-17; the evidence-based response is don't panic, don't pay and don't send more (paying does not stop it), block but do NOT delete the messages or profile (they are evidence), save evidence, tell a trusted adult and report. It is never the victim's fault; the person threatening is committing a crime (NCMEC; FBI)",
+    "In India, help is one step away: a trusted adult, the National Cyber Crime Reporting Portal (cybercrime.gov.in / 1930, with an anonymous option), and Childline 1098 (24x7, 700+ centres). Any intimate image of someone under 18 is child sexual abuse material under the POCSO Act, which treats the minor as a protected victim, never as someone in trouble"
+  ],
+  "scenarios": [
+    {
+      "id": "fw-001",
+      "cat": "spot-grooming",
+      "type": "spot",
+      "hook": "Spot the grooming red flags in this chat.",
+      "scene": [
+        {
+          "text": "A new 'friend' showers you with flattery and gifts",
+          "trick": true
+        },
+        {
+          "text": "They ask about your favourite game",
+          "trick": false
+        },
+        {
+          "text": "They want to move to a private, disappearing-message app",
+          "trick": true
+        }
+      ],
+      "why": "Flattery-plus-gifts and pushing to a private app are classic grooming flags.",
+      "relearn": "Flattery, gifts and 'let's move somewhere private' are grooming red flags.",
+      "persona": "any",
+      "source": "grooming pattern (verified)"
+    },
+    {
+      "id": "fw-002",
+      "cat": "spot-grooming",
+      "type": "spot",
+      "hook": "Spot the red flags.",
+      "scene": [
+        {
+          "text": "They insist you keep the chat a secret",
+          "trick": true
+        },
+        {
+          "text": "They like the same music as you",
+          "trick": false
+        },
+        {
+          "text": "They say you have a 'special connection' after a day",
+          "trick": true
+        }
+      ],
+      "why": "Secrecy and fast 'special closeness' are how groomers build a trap.",
+      "relearn": "Secrecy and instant 'special bond' are warning signs.",
+      "persona": "Riya",
+      "source": "grooming pattern"
+    },
+    {
+      "id": "fw-003",
+      "cat": "spot-grooming",
+      "type": "spot",
+      "hook": "Spot the red flags.",
+      "scene": [
+        {
+          "text": "\"I'm your age too, promise\" with no proof",
+          "trick": true
+        },
+        {
+          "text": "They have one new account, no real friends on it",
+          "trick": true
+        },
+        {
+          "text": "Their profile photo is just a meme",
+          "trick": false
+        }
+      ],
+      "why": "The 'I'm your age too' line and a brand-new, friendless account are red flags.",
+      "relearn": "'I'm your age too' with a brand-new, empty account is a grooming lie.",
+      "persona": "any",
+      "source": "catfishing / grooming"
+    },
+    {
+      "id": "fw-004",
+      "cat": "spot-grooming",
+      "type": "spot",
+      "hook": "Spot the red flags.",
+      "scene": [
+        {
+          "text": "Messaging you intensely at 1-3 a.m.",
+          "trick": true
+        },
+        {
+          "text": "They ask which school you go to and where you live",
+          "trick": true
+        },
+        {
+          "text": "They send a funny video",
+          "trick": false
+        }
+      ],
+      "why": "Odd-hours intensity and fishing for your school/location are red flags.",
+      "relearn": "Late-night intensity and 'where do you live?' are warning signs.",
+      "persona": "any",
+      "source": "grooming pattern"
+    },
+    {
+      "id": "fw-005",
+      "cat": "spot-grooming",
+      "type": "spot",
+      "hook": "Spot the red flag that matters most here.",
+      "scene": [
+        {
+          "text": "After flattery, they ask for a private photo",
+          "trick": true
+        },
+        {
+          "text": "They chat about homework",
+          "trick": false
+        },
+        {
+          "text": "They say 'don't tell anyone about us'",
+          "trick": true
+        }
+      ],
+      "why": "Asking for photos plus 'don't tell anyone' is grooming, full stop.",
+      "relearn": "A photo request plus 'keep it secret' is a serious red flag.",
+      "persona": "any",
+      "source": "grooming pattern"
+    },
+    {
+      "id": "fw-006",
+      "cat": "spot-grooming",
+      "type": "spot",
+      "hook": "Spot what is NOT a red flag here.",
+      "scene": [
+        {
+          "text": "A classmate you know messaging about a project",
+          "trick": false
+        },
+        {
+          "text": "A stranger 'casting' you for fake modelling",
+          "trick": true
+        },
+        {
+          "text": "A 'send a pic' dare from a new contact",
+          "trick": true
+        }
+      ],
+      "why": "A known classmate about real work is fine; fake casting and 'send a pic' dares aren't.",
+      "relearn": "Not every message is a threat; fake casting and pic-dares are.",
+      "persona": "any",
+      "source": "proportionate vigilance"
+    },
+    {
+      "id": "fw-007",
+      "cat": "spot-grooming",
+      "type": "spot",
+      "hook": "Spot the grooming, even from someone you 'know' online.",
+      "scene": [
+        {
+          "text": "An older 'gamer friend' slowly isolates you from others",
+          "trick": true
+        },
+        {
+          "text": "You've chatted for weeks",
+          "trick": false
+        },
+        {
+          "text": "They test you with 'would you ever send a pic?'",
+          "trick": true
+        }
+      ],
+      "why": "Isolation and boundary-testing are grooming, even from a familiar contact.",
+      "relearn": "Grooming can come from a familiar online 'friend', watch for isolation and testing.",
+      "persona": "Veer",
+      "source": "grooming by known contacts"
+    },
+    {
+      "id": "fw-008",
+      "cat": "spot-grooming",
+      "type": "spot",
+      "hook": "Spot the catfish.",
+      "scene": [
+        {
+          "text": "Photos that look like a stock model",
+          "trick": true
+        },
+        {
+          "text": "They refuse any live video call, ever",
+          "trick": true
+        },
+        {
+          "text": "They type in full sentences",
+          "trick": false
+        }
+      ],
+      "why": "Stock-style photos and never doing a live call are classic catfish tells.",
+      "relearn": "Model-perfect photos plus 'never video call' often mean a fake profile.",
+      "persona": "any",
+      "source": "catfishing"
+    },
+    {
+      "id": "fw-009",
+      "cat": "spot-grooming",
+      "type": "sort",
+      "hook": "Sort: a grooming red flag, or something normal?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Pushing you to a secret, private chat"
+        },
+        {
+          "id": "b",
+          "text": "A friend tagging you in a meme"
+        },
+        {
+          "id": "c",
+          "text": "Gifts and flattery from a stranger"
+        },
+        {
+          "id": "d",
+          "text": "A group chat for your class"
+        }
+      ],
+      "bins": [
+        {
+          "id": "flag",
+          "label": "Red flag"
+        },
+        {
+          "id": "normal",
+          "label": "Normal"
+        }
+      ],
+      "key": {
+        "a": "flag",
+        "b": "normal",
+        "c": "flag",
+        "d": "normal"
+      },
+      "relearn": "Secret chats and stranger gifts are flags; ordinary friend stuff isn't.",
+      "persona": "any",
+      "source": "grooming pattern"
+    },
+    {
+      "id": "fw-010",
+      "cat": "spot-grooming",
+      "type": "sort",
+      "hook": "Sort: a grooming red flag, or normal?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Don't tell your parents about me\""
+        },
+        {
+          "id": "b",
+          "text": "\"Want to play this weekend?\" from a real friend"
+        },
+        {
+          "id": "c",
+          "text": "Asking for your home address early"
+        },
+        {
+          "id": "d",
+          "text": "A study reminder from a classmate"
+        }
+      ],
+      "bins": [
+        {
+          "id": "flag",
+          "label": "Red flag"
+        },
+        {
+          "id": "normal",
+          "label": "Normal"
+        }
+      ],
+      "key": {
+        "a": "flag",
+        "b": "normal",
+        "c": "flag",
+        "d": "normal"
+      },
+      "relearn": "Secrecy and early 'where do you live?' are flags; real friends asking to play aren't.",
+      "persona": "any",
+      "source": "grooming pattern"
+    },
+    {
+      "id": "fw-011",
+      "cat": "spot-grooming",
+      "type": "sort",
+      "hook": "Sort: builds a trap, or builds real friendship?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Rushing you to feel 'special' fast"
+        },
+        {
+          "id": "b",
+          "text": "Getting to know you slowly, in the open"
+        },
+        {
+          "id": "c",
+          "text": "Isolating you from other friends"
+        },
+        {
+          "id": "d",
+          "text": "Respecting when you log off"
+        }
+      ],
+      "bins": [
+        {
+          "id": "trap",
+          "label": "A trap"
+        },
+        {
+          "id": "real",
+          "label": "Real friendship"
+        }
+      ],
+      "key": {
+        "a": "trap",
+        "b": "real",
+        "c": "trap",
+        "d": "real"
+      },
+      "relearn": "Rushing and isolating is a trap; slow, open, respectful is real.",
+      "persona": "any",
+      "source": "grooming vs friendship"
+    },
+    {
+      "id": "fw-012",
+      "cat": "spot-grooming",
+      "type": "sort",
+      "hook": "Sort: a safe move with a new online contact, or risky?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Keeping your school and address private"
+        },
+        {
+          "id": "b",
+          "text": "Sending a photo to 'prove' you trust them"
+        },
+        {
+          "id": "c",
+          "text": "Telling a trusted adult about an odd request"
+        },
+        {
+          "id": "d",
+          "text": "Moving to a secret app at their push"
+        }
+      ],
+      "bins": [
+        {
+          "id": "safe",
+          "label": "Safe"
+        },
+        {
+          "id": "risky",
+          "label": "Risky"
+        }
+      ],
+      "key": {
+        "a": "safe",
+        "b": "risky",
+        "c": "safe",
+        "d": "risky"
+      },
+      "relearn": "Guard your info and tell an adult; don't 'prove trust' with photos or secret apps.",
+      "persona": "any",
+      "source": "online safety"
+    },
+    {
+      "id": "fw-013",
+      "cat": "spot-grooming",
+      "type": "strike-rewrite",
+      "hook": "\"People online are always who they say they are.\"",
+      "myth": {
+        "un": "People online are always who they say they are.",
+        "re": "Some are; some aren't, profiles and ages can be faked, so verify and stay private.",
+        "why": "Catfishing and fake ages are common grooming tools."
+      },
+      "relearn": "Online, people aren't always who they claim; verify and guard your info.",
+      "persona": "any",
+      "source": "catfishing"
+    },
+    {
+      "id": "fw-014",
+      "cat": "spot-grooming",
+      "type": "strike-rewrite",
+      "hook": "\"If they're nice to me, they must be safe.\"",
+      "myth": {
+        "un": "If someone's really nice to me online, they must be safe.",
+        "re": "Groomers often start with flattery and gifts; kindness isn't proof of safety.",
+        "why": "'Love-bombing' is a deliberate grooming tactic."
+      },
+      "relearn": "Flattery isn't proof of safety; groomers often start kind.",
+      "persona": "Riya",
+      "source": "grooming tactic"
+    },
+    {
+      "id": "fw-015",
+      "cat": "spot-grooming",
+      "type": "strike-rewrite",
+      "hook": "\"Grooming only happens to little kids, not teens.\"",
+      "myth": {
+        "un": "Grooming only happens to younger kids.",
+        "re": "Teens are very much targeted; knowing the pattern keeps you safe.",
+        "why": "The teen years are among the highest-risk for online exploitation."
+      },
+      "relearn": "Teens are targeted too; knowing the grooming pattern protects you.",
+      "persona": "any",
+      "source": "risk awareness"
+    },
+    {
+      "id": "fw-016",
+      "cat": "think-before-share",
+      "type": "branch",
+      "hook": "Your crush asks you to send a private photo to 'prove you like them'.",
+      "options": [
+        {
+          "text": "Say no; a real crush won't pressure you like that",
+          "consequence": "You hold your boundary, and learn what their reaction reveals.",
+          "outcome": "boundary",
+          "best": true
+        },
+        {
+          "text": "Send it so they don't lose interest",
+          "consequence": "'No' is always valid; pressure to send is itself a red flag."
+        }
+      ],
+      "debrief": "Anyone who pressures you for photos is showing you a red flag, not love.",
+      "relearn": "'No' to a photo request is always valid; pressure is a red flag.",
+      "persona": "Riya",
+      "source": "resisting pressure"
+    },
+    {
+      "id": "fw-017",
+      "cat": "think-before-share",
+      "type": "branch",
+      "hook": "A photo you send 'just to one person' could go anywhere. Before sending, you think...",
+      "options": [
+        {
+          "text": "Anything sent can be copied, saved and spread, I'll keep it private",
+          "consequence": "You protect yourself before there's anything to regret.",
+          "outcome": "footprint",
+          "best": true
+        },
+        {
+          "text": "It's fine, they'd never share it",
+          "consequence": "Anything sent can be screenshotted and spread; you can't fully take it back."
+        }
+      ],
+      "debrief": "Once it's sent, you lose control of it, that's why 'think before you share' matters.",
+      "relearn": "Anything you send can be copied and spread; you can't take it back.",
+      "persona": "any",
+      "source": "permanence / footprint"
+    },
+    {
+      "id": "fw-018",
+      "cat": "think-before-share",
+      "type": "branch",
+      "hook": "A partner keeps pushing after you said you don't want to send pictures.",
+      "options": [
+        {
+          "text": "Hold your no; reconsider a partner who won't respect it",
+          "consequence": "You keep your boundary and see them clearly.",
+          "outcome": "respect",
+          "best": true
+        },
+        {
+          "text": "Give in to keep the peace",
+          "consequence": "A partner who won't take 'no' on this is the problem, not you."
+        }
+      ],
+      "debrief": "Respecting 'no' is the bar; someone who won't isn't treating you right.",
+      "relearn": "A partner who won't respect your 'no' on photos is a red flag.",
+      "persona": "any",
+      "source": "consent / pressure"
+    },
+    {
+      "id": "fw-019",
+      "cat": "think-before-share",
+      "type": "branch",
+      "hook": "You're about to post something revealing your school, routine and location.",
+      "options": [
+        {
+          "text": "Keep location and routine off public posts",
+          "consequence": "You shrink your exposure to strangers.",
+          "outcome": "private",
+          "best": true
+        },
+        {
+          "text": "Post it, everyone does",
+          "consequence": "Public location and routine can reach the wrong people; keep them off."
+        }
+      ],
+      "debrief": "Your footprint includes where you are, guard it.",
+      "relearn": "Keep your school, routine and location out of public posts.",
+      "persona": "any",
+      "source": "footprint / privacy"
+    },
+    {
+      "id": "fw-020",
+      "cat": "think-before-share",
+      "type": "branch",
+      "hook": "Friends are daring each other to send risky pics in a group.",
+      "options": [
+        {
+          "text": "Opt out, and don't screenshot or pass any on",
+          "consequence": "You stay safe and don't spread anyone's images.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Join in so you're not 'boring'",
+          "consequence": "Opt out; passing images on can harm others and is not worth a dare."
+        }
+      ],
+      "debrief": "You can sit out a dare, and never forwarding protects everyone.",
+      "relearn": "You can opt out of risky dares and never forward others' images.",
+      "persona": "Veer",
+      "source": "peer pressure"
+    },
+    {
+      "id": "fw-021",
+      "cat": "think-before-share",
+      "type": "branch",
+      "hook": "An old post of yours could resurface years later. What's the smart habit?",
+      "options": [
+        {
+          "text": "Post as if a future you, and others, might see it",
+          "consequence": "Your footprint stays something you're glad of.",
+          "outcome": "wise",
+          "best": true
+        },
+        {
+          "text": "Post anything; the internet forgets",
+          "consequence": "Posts can resurface; post with future-you in mind."
+        }
+      ],
+      "debrief": "A digital footprint lasts; a moment's post can outlive the moment.",
+      "relearn": "Post with future-you in mind; your footprint can last and resurface.",
+      "persona": "any",
+      "source": "footprint"
+    },
+    {
+      "id": "fw-022",
+      "cat": "think-before-share",
+      "type": "strike-rewrite",
+      "hook": "\"Everyone sexts, it's no big deal.\"",
+      "myth": {
+        "un": "Everyone sexts; it's no big deal.",
+        "re": "Not everyone does, and the risks are real; 'no' is always okay.",
+        "why": "'Everyone's doing it' is pressure, not a fact."
+      },
+      "relearn": "Not everyone sexts; the risks are real and 'no' is always okay.",
+      "persona": "any",
+      "source": "myth / pressure"
+    },
+    {
+      "id": "fw-023",
+      "cat": "think-before-share",
+      "type": "strike-rewrite",
+      "hook": "\"If I send it, it'll stay private.\"",
+      "myth": {
+        "un": "If I send it to just one person, it'll stay private.",
+        "re": "Nothing sent is ever guaranteed private; it can be saved and shared.",
+        "why": "A screenshot is all it takes."
+      },
+      "relearn": "Nothing you send is guaranteed private; it can be saved and shared.",
+      "persona": "any",
+      "source": "permanence"
+    },
+    {
+      "id": "fw-024",
+      "cat": "think-before-share",
+      "type": "strike-rewrite",
+      "hook": "\"Deleting it makes it gone for good.\"",
+      "myth": {
+        "un": "Deleting a photo or post makes it gone for good.",
+        "re": "Copies and screenshots can survive after you delete; assume it can persist.",
+        "why": "You can't delete what others have already saved."
+      },
+      "relearn": "Deleting doesn't guarantee it's gone; copies can persist.",
+      "persona": "any",
+      "source": "footprint"
+    },
+    {
+      "id": "fw-025",
+      "cat": "think-before-share",
+      "type": "sort",
+      "hook": "Sort: keeps your footprint safe, or grows your risk?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Private account, friends you know"
+        },
+        {
+          "id": "b",
+          "text": "Public posts of your daily route"
+        },
+        {
+          "id": "c",
+          "text": "Thinking before you share"
+        },
+        {
+          "id": "d",
+          "text": "Sending images to prove trust"
+        }
+      ],
+      "bins": [
+        {
+          "id": "safe",
+          "label": "Keeps you safe"
+        },
+        {
+          "id": "risk",
+          "label": "Grows your risk"
+        }
+      ],
+      "key": {
+        "a": "safe",
+        "b": "risk",
+        "c": "safe",
+        "d": "risk"
+      },
+      "relearn": "Private accounts and thinking first keep you safe; over-sharing grows risk.",
+      "persona": "any",
+      "source": "footprint"
+    },
+    {
+      "id": "fw-026",
+      "cat": "think-before-share",
+      "type": "sort",
+      "hook": "Sort: a valid reason to send, or pressure to resist?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"If you loved me you'd send it\""
+        },
+        {
+          "id": "b",
+          "text": "You simply don't want to (reason enough)"
+        },
+        {
+          "id": "c",
+          "text": "\"Everyone's sent one\""
+        },
+        {
+          "id": "d",
+          "text": "\"Send it or we're over\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "resist",
+          "label": "Pressure to resist"
+        },
+        {
+          "id": "valid",
+          "label": "Your valid choice"
+        }
+      ],
+      "key": {
+        "a": "resist",
+        "b": "valid",
+        "c": "resist",
+        "d": "resist"
+      },
+      "relearn": "'Not wanting to' is reason enough; guilt-trips and threats are pressure.",
+      "persona": "Riya",
+      "source": "consent / pressure"
+    },
+    {
+      "id": "fw-027",
+      "cat": "think-before-share",
+      "type": "sort",
+      "hook": "Sort: respects your boundary, or crosses it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "A partner who hears your 'no' and stops"
+        },
+        {
+          "id": "b",
+          "text": "A partner who keeps asking after 'no'"
+        },
+        {
+          "id": "c",
+          "text": "Someone who never pressures you"
+        },
+        {
+          "id": "d",
+          "text": "Someone who guilt-trips you to send"
+        }
+      ],
+      "bins": [
+        {
+          "id": "respect",
+          "label": "Respects you"
+        },
+        {
+          "id": "cross",
+          "label": "Crosses the line"
+        }
+      ],
+      "key": {
+        "a": "respect",
+        "b": "cross",
+        "c": "respect",
+        "d": "cross"
+      },
+      "relearn": "Respect means hearing 'no'; repeated asking and guilt are red flags.",
+      "persona": "any",
+      "source": "respect"
+    },
+    {
+      "id": "fw-028",
+      "cat": "think-before-share",
+      "type": "role-play",
+      "hook": "A partner is pressuring you to send a photo.",
+      "setup": "Hold your boundary. Say:",
+      "yourLine": [
+        {
+          "text": "\"No. I'm not comfortable with that, and that's final.\"",
+          "best": true
+        },
+        {
+          "text": "\"...okay, fine.\""
+        }
+      ],
+      "relearn": "A clear, final 'no' is a complete answer to photo pressure.",
+      "persona": "Riya",
+      "source": "boundary voice"
+    },
+    {
+      "id": "fw-029",
+      "cat": "think-before-share",
+      "type": "role-play",
+      "hook": "A friend asks you to forward a private pic of someone else.",
+      "setup": "Refuse and protect them. Say:",
+      "yourLine": [
+        {
+          "text": "\"No, I'm not passing that on, it's not ours to share.\"",
+          "best": true
+        },
+        {
+          "text": "Forward it"
+        }
+      ],
+      "relearn": "Refusing to forward a private image protects the person in it.",
+      "persona": "any",
+      "source": "never forward"
+    },
+    {
+      "id": "fw-030",
+      "cat": "sextortion-plan",
+      "type": "branch",
+      "hook": "Someone threatens to share a private image of you unless you pay them.",
+      "options": [
+        {
+          "text": "Don't pay, don't send more, save the evidence and tell a trusted adult",
+          "consequence": "You take away their power and get real help.",
+          "outcome": "plan",
+          "best": true
+        },
+        {
+          "text": "Pay them so it goes away",
+          "consequence": "Paying doesn't stop it, it often makes it worse; don't pay, get help."
+        }
+      ],
+      "debrief": "Paying rarely stops sextortion; the plan is don't pay, save, tell, report.",
+      "relearn": "If threatened: don't pay, don't send more, save evidence, tell a trusted adult.",
+      "persona": "Veer",
+      "source": "sextortion response (NCMEC/FBI, verified)"
+    },
+    {
+      "id": "fw-031",
+      "cat": "sextortion-plan",
+      "type": "branch",
+      "hook": "You're being blackmailed and your first instinct is to panic and delete everything.",
+      "options": [
+        {
+          "text": "Block them, but keep the messages, they're evidence",
+          "consequence": "You stay blocked and keep what helps stop them.",
+          "outcome": "evidence",
+          "best": true
+        },
+        {
+          "text": "Delete the whole chat and your account",
+          "consequence": "Block, but don't delete; the messages are evidence that helps."
+        }
+      ],
+      "debrief": "Block to stop contact, but save the evidence; deleting it loses proof.",
+      "relearn": "Block the blackmailer but don't delete the messages, they're evidence.",
+      "persona": "any",
+      "source": "sextortion response (verified)"
+    },
+    {
+      "id": "fw-032",
+      "cat": "sextortion-plan",
+      "type": "branch",
+      "hook": "A sextortion threat says 'send one more and I'll leave you alone'.",
+      "options": [
+        {
+          "text": "Don't send more; it never ends it, get help instead",
+          "consequence": "You refuse the trap and reach for help.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Send one more to make it stop",
+          "consequence": "Sending more never ends it; stop, save, tell and report."
+        }
+      ],
+      "debrief": "More images only fuel the blackmail; the way out is help, not compliance.",
+      "relearn": "Sending more never ends sextortion; stop and get help.",
+      "persona": "any",
+      "source": "sextortion response"
+    },
+    {
+      "id": "fw-033",
+      "cat": "sextortion-plan",
+      "type": "branch",
+      "hook": "You're terrified your family will be ashamed, so you think about staying silent.",
+      "options": [
+        {
+          "text": "Tell a trusted adult anyway, you're the victim and they can help",
+          "consequence": "You're no longer alone, and it starts to end.",
+          "outcome": "tell",
+          "best": true
+        },
+        {
+          "text": "Keep it secret and handle it alone",
+          "consequence": "Silence is what the blackmailer counts on; telling someone is the way out."
+        }
+      ],
+      "debrief": "Shame and secrecy trap you; telling a trusted adult is how it ends.",
+      "relearn": "Don't stay silent; telling a trusted adult is how sextortion ends.",
+      "persona": "any",
+      "source": "sextortion / India shame factor"
+    },
+    {
+      "id": "fw-034",
+      "cat": "sextortion-plan",
+      "type": "branch",
+      "hook": "You don't know who counts as a 'trusted adult' to tell.",
+      "options": [
+        {
+          "text": "A parent, teacher, counsellor, or call Childline 1098",
+          "consequence": "You find a real person to help carry it.",
+          "outcome": "help",
+          "best": true
+        },
+        {
+          "text": "No one, just deal with it yourself",
+          "consequence": "A parent, teacher, counsellor or 1098 can all help, you don't carry it alone."
+        }
+      ],
+      "debrief": "There's always someone, a trusted adult or a helpline, who can help.",
+      "relearn": "A parent, teacher, counsellor or Childline 1098 are all there to help.",
+      "persona": "Counsellor",
+      "source": "finding help (verified)"
+    },
+    {
+      "id": "fw-035",
+      "cat": "sextortion-plan",
+      "type": "branch",
+      "hook": "A friend confides they're being sextorted and begs you to keep it secret.",
+      "options": [
+        {
+          "text": "Support them and gently help them tell a trusted adult",
+          "consequence": "They get protection instead of carrying it alone.",
+          "outcome": "caring",
+          "best": true
+        },
+        {
+          "text": "Keep the secret as asked",
+          "consequence": "This is too serious for secrecy; help them reach a trusted adult."
+        }
+      ],
+      "debrief": "A friend in this danger needs an adult's help; support them to tell.",
+      "relearn": "Help a sextorted friend tell a trusted adult; don't keep this secret.",
+      "persona": "any",
+      "source": "safeguarding"
+    },
+    {
+      "id": "fw-036",
+      "cat": "sextortion-plan",
+      "type": "branch",
+      "hook": "After the threat, you feel it must somehow be your fault.",
+      "options": [
+        {
+          "text": "Remind yourself: the person threatening you committed the crime",
+          "consequence": "You drop the blame that isn't yours and get help.",
+          "outcome": "no-blame",
+          "best": true
+        },
+        {
+          "text": "Blame yourself and hide",
+          "consequence": "It is not your fault; the blackmailer is the criminal, get support."
+        }
+      ],
+      "debrief": "Being tricked or threatened is never your fault, the fault is the abuser's.",
+      "relearn": "Sextortion is never your fault; the blackmailer is the one committing a crime.",
+      "persona": "any",
+      "source": "no blame"
+    },
+    {
+      "id": "fw-037",
+      "cat": "sextortion-plan",
+      "type": "branch",
+      "hook": "You want to report it but worry you'll be 'in trouble' because you're under 18.",
+      "options": [
+        {
+          "text": "Report anyway, the law treats you as a protected victim",
+          "consequence": "You get help safely; you're not the one in trouble.",
+          "outcome": "protected",
+          "best": true
+        },
+        {
+          "text": "Don't report, in case you get blamed",
+          "consequence": "Under POCSO you're a protected victim, not in trouble, reporting is safe."
+        }
+      ],
+      "debrief": "A minor in a sextortion case is a victim to protect, never the wrongdoer.",
+      "relearn": "As a minor you're a protected victim; reporting won't get you in trouble.",
+      "persona": "Counsellor",
+      "source": "POCSO (verified)"
+    },
+    {
+      "id": "fw-038",
+      "cat": "sextortion-plan",
+      "type": "role-play",
+      "hook": "You need to tell a parent you're being sextorted, and you're scared.",
+      "setup": "Open with the truth. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'm in trouble online and I need your help. I'm scared, but I trust you.\"",
+          "best": true
+        },
+        {
+          "text": "Say nothing and keep paying"
+        }
+      ],
+      "relearn": "Telling a parent 'I need your help' is the bravest, safest first step.",
+      "persona": "any",
+      "source": "finding help voice"
+    },
+    {
+      "id": "fw-039",
+      "cat": "sextortion-plan",
+      "type": "role-play",
+      "hook": "Reassure a friend who's being sextorted and blaming themselves.",
+      "setup": "Take the blame off them. Say:",
+      "yourLine": [
+        {
+          "text": "\"This is not your fault. They're the criminal. Let's get help together.\"",
+          "best": true
+        },
+        {
+          "text": "\"Why did you send it though?\""
+        }
+      ],
+      "relearn": "Tell a victim: not your fault, they're the criminal, let's get help.",
+      "persona": "any",
+      "source": "no blame / support"
+    },
+    {
+      "id": "fw-040",
+      "cat": "sextortion-plan",
+      "type": "role-play",
+      "hook": "Coach a friend through the first move under a threat.",
+      "setup": "Give the calm plan. Say:",
+      "yourLine": [
+        {
+          "text": "\"Don't pay and don't send more. Block them, keep the messages, and tell an adult.\"",
+          "best": true
+        },
+        {
+          "text": "\"Just pay and hope it stops.\""
+        }
+      ],
+      "relearn": "The calm plan: don't pay, don't send more, block, save, tell.",
+      "persona": "Veer",
+      "source": "sextortion plan"
+    },
+    {
+      "id": "fw-041",
+      "cat": "sextortion-plan",
+      "type": "role-play",
+      "hook": "You're helping a friend actually make the report.",
+      "setup": "Make it doable. Say:",
+      "yourLine": [
+        {
+          "text": "\"We can report at cybercrime.gov.in or call 1098, I'll sit with you while we do it.\"",
+          "best": true
+        },
+        {
+          "text": "\"You should probably do something about it sometime.\""
+        }
+      ],
+      "relearn": "Offer to report together via cybercrime.gov.in or 1098, right now.",
+      "persona": "Counsellor",
+      "source": "reporting (verified)"
+    },
+    {
+      "id": "fw-042",
+      "cat": "sextortion-plan",
+      "type": "strike-rewrite",
+      "hook": "\"If you pay them once, they'll stop.\"",
+      "myth": {
+        "un": "If you just pay the blackmailer once, they'll stop.",
+        "re": "Paying rarely stops it and often invites more; don't pay, get help.",
+        "why": "They have what they want; payment proves you'll comply."
+      },
+      "relearn": "Paying a sextortionist rarely stops it; don't pay, get help.",
+      "persona": "any",
+      "source": "sextortion (verified)"
+    },
+    {
+      "id": "fw-043",
+      "cat": "sextortion-plan",
+      "type": "strike-rewrite",
+      "hook": "\"If you got tricked into sending something, it's your fault.\"",
+      "myth": {
+        "un": "If you were tricked into sending something, it's your fault.",
+        "re": "Being deceived or threatened is never your fault; the abuser is responsible.",
+        "why": "Manipulation is the criminal's doing, not yours."
+      },
+      "relearn": "Being tricked is never your fault; the blame is the abuser's.",
+      "persona": "any",
+      "source": "no blame"
+    },
+    {
+      "id": "fw-044",
+      "cat": "sextortion-plan",
+      "type": "match",
+      "hook": "Match each step of the plan to why it works.",
+      "pairs": [
+        {
+          "left": "Don't pay",
+          "right": "Paying rarely stops it"
+        },
+        {
+          "left": "Block but don't delete",
+          "right": "Messages are evidence"
+        },
+        {
+          "left": "Tell a trusted adult",
+          "right": "You're no longer alone"
+        }
+      ],
+      "relearn": "Each step, don't pay, save evidence, tell, has a clear protective reason.",
+      "persona": "any",
+      "source": "sextortion plan"
+    },
+    {
+      "id": "fw-045",
+      "cat": "sextortion-plan",
+      "type": "reflect",
+      "hook": "Lensy: if the worst happened, you'd now know the plan, and that it's never your fault. Reassuring?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I'd know what to do",
+        "Less scared"
+      ],
+      "affirm": "Having a calm plan, and knowing you're not to blame, is real protection.",
+      "relearn": "Knowing the plan and that it's not your fault makes you safer.",
+      "persona": "any",
+      "source": "reassurance"
+    },
+    {
+      "id": "fw-046",
+      "cat": "sextortion-plan",
+      "type": "reflect",
+      "hook": "Lensy: the most important thing to remember if you're ever targeted?",
+      "prompt": "Pick one.",
+      "options": [
+        "It's not my fault",
+        "Tell a trusted adult",
+        "Don't pay, get help"
+      ],
+      "affirm": "All three are true at once, and any one of them is the start of the way out.",
+      "relearn": "Not your fault, tell someone, don't pay, the heart of the plan.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "fw-047",
+      "cat": "myths-busted",
+      "type": "strike-rewrite",
+      "hook": "\"They said they're my age, so it's safe.\"",
+      "myth": {
+        "un": "They told me they're my age, so it's safe.",
+        "re": "People lie about their age online; 'they said so' isn't proof.",
+        "why": "Claiming to be a peer is a common grooming lie."
+      },
+      "relearn": "People lie about their age online; a claim isn't proof.",
+      "persona": "any",
+      "source": "grooming lie"
+    },
+    {
+      "id": "fw-048",
+      "cat": "myths-busted",
+      "type": "strike-rewrite",
+      "hook": "\"Reporting does nothing, so why bother.\"",
+      "myth": {
+        "un": "Reporting online abuse does nothing.",
+        "re": "Reporting genuinely helps; portals must act and it's how these crimes are stopped.",
+        "why": "India's portal forwards complaints to police within a day."
+      },
+      "relearn": "Reporting works and is how these crimes get stopped.",
+      "persona": "Counsellor",
+      "source": "reporting (verified)"
+    },
+    {
+      "id": "fw-049",
+      "cat": "myths-busted",
+      "type": "strike-rewrite",
+      "hook": "\"Only careless people get groomed or extorted.\"",
+      "myth": {
+        "un": "Only careless or 'stupid' people get groomed or extorted.",
+        "re": "Manipulators are skilled; this happens to careful people too, it's never a failing.",
+        "why": "Blaming the victim only helps the abuser."
+      },
+      "relearn": "Smart, careful people are targeted too; it's never a personal failing.",
+      "persona": "any",
+      "source": "no blame"
+    },
+    {
+      "id": "fw-050",
+      "cat": "myths-busted",
+      "type": "strike-rewrite",
+      "hook": "\"Boys don't get sextorted.\"",
+      "myth": {
+        "un": "Sextortion only happens to girls; boys are safe.",
+        "re": "Most financial-sextortion targets are teen boys; everyone should know the plan.",
+        "why": "Assuming you're safe is exactly what's exploited."
+      },
+      "relearn": "Boys are heavily targeted by sextortion; everyone needs the plan.",
+      "persona": "Veer",
+      "source": "sextortion data (verified)"
+    },
+    {
+      "id": "fw-051",
+      "cat": "myths-busted",
+      "type": "strike-rewrite",
+      "hook": "\"Telling an adult will just make it worse.\"",
+      "myth": {
+        "un": "Telling an adult will only make it worse.",
+        "re": "A trusted adult is your way out; you won't be in trouble, you'll be helped.",
+        "why": "Secrecy is the trap; support is the exit."
+      },
+      "relearn": "Telling a trusted adult helps; you'll be supported, not in trouble.",
+      "persona": "any",
+      "source": "finding help"
+    },
+    {
+      "id": "fw-052",
+      "cat": "myths-busted",
+      "type": "sort",
+      "hook": "Sort: an online myth, or a safe truth?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Everything sent stays private\""
+        },
+        {
+          "id": "b",
+          "text": "\"Pressure to send is a red flag\""
+        },
+        {
+          "id": "c",
+          "text": "\"Paying makes sextortion stop\""
+        },
+        {
+          "id": "d",
+          "text": "\"Being tricked isn't your fault\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "myth",
+          "label": "Myth"
+        },
+        {
+          "id": "truth",
+          "label": "Safe truth"
+        }
+      ],
+      "key": {
+        "a": "myth",
+        "b": "truth",
+        "c": "myth",
+        "d": "truth"
+      },
+      "relearn": "Spot the myths (private, paying works) from the truths (pressure is a flag, no blame).",
+      "persona": "any",
+      "source": "myths"
+    },
+    {
+      "id": "fw-053",
+      "cat": "myths-busted",
+      "type": "sort",
+      "hook": "Sort: keeps you unsafe (myth), or keeps you safe (truth)?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Groomers always seem creepy\""
+        },
+        {
+          "id": "b",
+          "text": "\"Groomers often seem kind and normal\""
+        },
+        {
+          "id": "c",
+          "text": "\"Deleting makes it gone\""
+        },
+        {
+          "id": "d",
+          "text": "\"Copies can survive deletion\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "myth",
+          "label": "Unsafe myth"
+        },
+        {
+          "id": "truth",
+          "label": "Safe truth"
+        }
+      ],
+      "key": {
+        "a": "myth",
+        "b": "truth",
+        "c": "myth",
+        "d": "truth"
+      },
+      "relearn": "Groomers can seem kind, and deletion isn't a guarantee, know the real truths.",
+      "persona": "any",
+      "source": "myths"
+    },
+    {
+      "id": "fw-054",
+      "cat": "myths-busted",
+      "type": "sort",
+      "hook": "Sort: a comforting lie a blackmailer wants you to believe, or the truth?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"No one can help you\""
+        },
+        {
+          "id": "b",
+          "text": "\"Help exists and it works\""
+        },
+        {
+          "id": "c",
+          "text": "\"It's your fault\""
+        },
+        {
+          "id": "d",
+          "text": "\"You're the victim, not the criminal\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "lie",
+          "label": "The abuser's lie"
+        },
+        {
+          "id": "truth",
+          "label": "The truth"
+        }
+      ],
+      "key": {
+        "a": "lie",
+        "b": "truth",
+        "c": "lie",
+        "d": "truth"
+      },
+      "relearn": "'No help / your fault' are the abuser's lies; help exists and you're the victim.",
+      "persona": "any",
+      "source": "no blame"
+    },
+    {
+      "id": "fw-055",
+      "cat": "myths-busted",
+      "type": "sort",
+      "hook": "Sort: a red flag, or a green flag, in an online contact?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Wants everything kept secret"
+        },
+        {
+          "id": "b",
+          "text": "Happy for you to tell your parents"
+        },
+        {
+          "id": "c",
+          "text": "Pushes you to send photos"
+        },
+        {
+          "id": "d",
+          "text": "Respects your boundaries"
+        }
+      ],
+      "bins": [
+        {
+          "id": "red",
+          "label": "Red flag"
+        },
+        {
+          "id": "green",
+          "label": "Green flag"
+        }
+      ],
+      "key": {
+        "a": "red",
+        "b": "green",
+        "c": "red",
+        "d": "green"
+      },
+      "relearn": "Secrecy and photo-pushing are red; openness and respect are green.",
+      "persona": "any",
+      "source": "red vs green"
+    },
+    {
+      "id": "fw-056",
+      "cat": "myths-busted",
+      "type": "reflect",
+      "hook": "Lensy: which busted myth do you most want other teens to know?",
+      "prompt": "Pick one.",
+      "options": [
+        "Being tricked isn't your fault",
+        "Paying doesn't make it stop",
+        "Pressure to send is a red flag"
+      ],
+      "affirm": "Passing on a truth like that could genuinely protect a friend.",
+      "relearn": "Sharing these truths helps protect the people around you.",
+      "persona": "any",
+      "source": "agency"
+    },
+    {
+      "id": "fw-057",
+      "cat": "myths-busted",
+      "type": "reflect",
+      "hook": "Lensy: the self-blame myth is the one that keeps people silent. Ready to drop it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "It's never the victim's fault",
+        "Dropped"
+      ],
+      "affirm": "Letting go of self-blame is what gives someone the courage to get help.",
+      "relearn": "Dropping self-blame is what frees a victim to reach for help.",
+      "persona": "any",
+      "source": "no blame"
+    },
+    {
+      "id": "fw-058",
+      "cat": "myths-busted",
+      "type": "reflect",
+      "hook": "Lensy: knowing the myths now, do you feel harder to trick or trap?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Much harder",
+        "I see the tricks"
+      ],
+      "affirm": "Knowing the playbook is exactly what makes you hard to trap.",
+      "relearn": "Knowing the myths and tactics makes you much harder to trick.",
+      "persona": "any",
+      "source": "empowerment"
+    },
+    {
+      "id": "fw-059",
+      "cat": "lock-it-down",
+      "type": "spot",
+      "hook": "Spot the privacy setting worth turning on.",
+      "scene": [
+        {
+          "text": "Account set to private",
+          "trick": false
+        },
+        {
+          "text": "Location sharing on for everyone",
+          "trick": true
+        },
+        {
+          "text": "Anyone can DM you",
+          "trick": true
+        }
+      ],
+      "why": "Private account is good; public location and open DMs are the risky ones to fix.",
+      "relearn": "Go private; turn off public location and open DMs.",
+      "persona": "any",
+      "source": "privacy settings"
+    },
+    {
+      "id": "fw-060",
+      "cat": "lock-it-down",
+      "type": "spot",
+      "hook": "Spot what to do the moment a contact turns creepy.",
+      "scene": [
+        {
+          "text": "Use the block button",
+          "trick": false
+        },
+        {
+          "text": "Use the report button",
+          "trick": false
+        },
+        {
+          "text": "Keep replying to 'sort it out'",
+          "trick": true
+        }
+      ],
+      "why": "Block and report are the tools; arguing or 'sorting it out' keeps you exposed.",
+      "relearn": "Block and report a creepy contact; don't keep engaging.",
+      "persona": "any",
+      "source": "block & report"
+    },
+    {
+      "id": "fw-061",
+      "cat": "lock-it-down",
+      "type": "spot",
+      "hook": "Spot the strong-account habits.",
+      "scene": [
+        {
+          "text": "A strong, unique passcode",
+          "trick": false
+        },
+        {
+          "text": "Sharing your password with a 'bae'",
+          "trick": true
+        },
+        {
+          "text": "Two-factor login turned on",
+          "trick": false
+        }
+      ],
+      "why": "Strong passcodes and two-factor protect you; sharing passwords doesn't.",
+      "relearn": "Strong passwords and two-factor help; never share your password.",
+      "persona": "any",
+      "source": "account security"
+    },
+    {
+      "id": "fw-062",
+      "cat": "lock-it-down",
+      "type": "spot",
+      "hook": "Spot the footprint-smart move.",
+      "scene": [
+        {
+          "text": "Reviewing what's public on your profile",
+          "trick": false
+        },
+        {
+          "text": "Posting your live location in real time",
+          "trick": true
+        },
+        {
+          "text": "Keeping old risky posts up forever",
+          "trick": true
+        }
+      ],
+      "why": "Reviewing your public footprint helps; live-location and old risky posts are the leaks.",
+      "relearn": "Review your public footprint; drop live-location and risky old posts.",
+      "persona": "any",
+      "source": "footprint"
+    },
+    {
+      "id": "fw-063",
+      "cat": "lock-it-down",
+      "type": "branch",
+      "hook": "You realise you've never set your accounts to private.",
+      "options": [
+        {
+          "text": "Set them private and review who can contact you",
+          "consequence": "Strangers can't freely reach or track you.",
+          "outcome": "locked",
+          "best": true
+        },
+        {
+          "text": "Leave them open, it's easier",
+          "consequence": "Open accounts let strangers reach and track you; lock them down."
+        }
+      ],
+      "debrief": "A private account is the simplest, strongest first layer of safety.",
+      "relearn": "Set accounts private and control who can contact you.",
+      "persona": "any",
+      "source": "privacy"
+    },
+    {
+      "id": "fw-064",
+      "cat": "lock-it-down",
+      "type": "branch",
+      "hook": "A stranger's account keeps messaging after you ignore it.",
+      "options": [
+        {
+          "text": "Block and report it",
+          "consequence": "They lose access and the platform is alerted.",
+          "outcome": "blocked",
+          "best": true
+        },
+        {
+          "text": "Just keep ignoring it",
+          "consequence": "Ignoring leaves the door open; block and report instead."
+        }
+      ],
+      "debrief": "Blocking shuts the door; reporting helps protect others too.",
+      "relearn": "Block and report a persistent stranger, don't just ignore.",
+      "persona": "any",
+      "source": "block & report"
+    },
+    {
+      "id": "fw-065",
+      "cat": "lock-it-down",
+      "type": "branch",
+      "hook": "You want to be ready before anything ever goes wrong.",
+      "options": [
+        {
+          "text": "Decide now who your trusted adults are",
+          "consequence": "If something happens, you already know who to turn to.",
+          "outcome": "ready",
+          "best": true
+        },
+        {
+          "text": "Worry about it only if it happens",
+          "consequence": "Knowing your trusted adults in advance makes help faster when it counts."
+        }
+      ],
+      "debrief": "Naming your trusted adults before a crisis is real preparation.",
+      "relearn": "Decide who your trusted adults are before you ever need them.",
+      "persona": "any",
+      "source": "preparation"
+    },
+    {
+      "id": "fw-066",
+      "cat": "lock-it-down",
+      "type": "branch",
+      "hook": "An app you use has disappearing messages and lots of strangers.",
+      "options": [
+        {
+          "text": "Be extra cautious; disappearing chats hide grooming",
+          "consequence": "You stay alert where risk is higher.",
+          "outcome": "cautious",
+          "best": true
+        },
+        {
+          "text": "Assume it's safer because messages vanish",
+          "consequence": "Disappearing messages can hide grooming; be more careful, not less."
+        }
+      ],
+      "debrief": "'Vanishing' chats can lower your guard, exactly what some abusers want.",
+      "relearn": "Disappearing-message apps need more caution, not less.",
+      "persona": "any",
+      "source": "app risk"
+    },
+    {
+      "id": "fw-067",
+      "cat": "lock-it-down",
+      "type": "sort",
+      "hook": "Sort: locks it down, or leaves you exposed?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Private account"
+        },
+        {
+          "id": "b",
+          "text": "Public location 24/7"
+        },
+        {
+          "id": "c",
+          "text": "Two-factor login"
+        },
+        {
+          "id": "d",
+          "text": "Open DMs from anyone"
+        }
+      ],
+      "bins": [
+        {
+          "id": "lock",
+          "label": "Locks it down"
+        },
+        {
+          "id": "expose",
+          "label": "Leaves you exposed"
+        }
+      ],
+      "key": {
+        "a": "lock",
+        "b": "expose",
+        "c": "lock",
+        "d": "expose"
+      },
+      "relearn": "Private accounts and two-factor lock down; public location and open DMs expose you.",
+      "persona": "any",
+      "source": "privacy"
+    },
+    {
+      "id": "fw-068",
+      "cat": "lock-it-down",
+      "type": "match",
+      "hook": "Match the tool to what it does.",
+      "pairs": [
+        {
+          "left": "Block",
+          "right": "Cuts off the contact"
+        },
+        {
+          "left": "Report",
+          "right": "Alerts the platform/authorities"
+        },
+        {
+          "left": "Private account",
+          "right": "Keeps strangers out"
+        }
+      ],
+      "relearn": "Block, report and private accounts are your everyday safety tools.",
+      "persona": "any",
+      "source": "tools"
+    },
+    {
+      "id": "fw-069",
+      "cat": "lock-it-down",
+      "type": "match",
+      "hook": "Match the habit to the risk it reduces.",
+      "pairs": [
+        {
+          "left": "Two-factor login",
+          "right": "Account takeover"
+        },
+        {
+          "left": "Not sharing location",
+          "right": "Being tracked"
+        },
+        {
+          "left": "Reviewing your footprint",
+          "right": "Old posts resurfacing"
+        }
+      ],
+      "relearn": "Good habits each shut down a specific risk.",
+      "persona": "any",
+      "source": "security"
+    },
+    {
+      "id": "fw-070",
+      "cat": "lock-it-down",
+      "type": "match",
+      "hook": "Match the contact to the right helpline (India).",
+      "pairs": [
+        {
+          "left": "Image-based abuse / sextortion",
+          "right": "cybercrime.gov.in / 1930"
+        },
+        {
+          "left": "Anyone under 18 at risk",
+          "right": "Childline 1098"
+        },
+        {
+          "left": "Right now, in person",
+          "right": "A trusted adult"
+        }
+      ],
+      "relearn": "India routes: cybercrime.gov.in / 1930, Childline 1098, a trusted adult.",
+      "persona": "Counsellor",
+      "source": "helplines (verified)"
+    },
+    {
+      "id": "fw-071",
+      "cat": "lock-it-down",
+      "type": "role-play",
+      "hook": "A younger sibling is getting weird DMs. Coach them.",
+      "setup": "Keep it simple and calm. Say:",
+      "yourLine": [
+        {
+          "text": "\"Don't reply, screenshot it, block them, and come tell me or mum.\"",
+          "best": true
+        },
+        {
+          "text": "\"Just ignore it and don't tell anyone.\""
+        }
+      ],
+      "relearn": "Teach: don't reply, screenshot, block, and tell a trusted adult.",
+      "persona": "any",
+      "source": "mentoring"
+    },
+    {
+      "id": "fw-072",
+      "cat": "find-help-no-blame",
+      "type": "branch",
+      "hook": "Something online has gone wrong and you feel frozen with shame.",
+      "options": [
+        {
+          "text": "Tell one trusted adult, shame shrinks the moment you share it",
+          "consequence": "You're no longer alone, and help begins.",
+          "outcome": "told",
+          "best": true
+        },
+        {
+          "text": "Keep it inside and hope it passes",
+          "consequence": "Shame grows in secret; telling one trusted person is the relief and the way out."
+        }
+      ],
+      "debrief": "Sharing it with someone safe is the first step out of the fear.",
+      "relearn": "Telling one trusted adult shrinks the shame and starts the help.",
+      "persona": "any",
+      "source": "finding help / wellbeing"
+    },
+    {
+      "id": "fw-073",
+      "cat": "find-help-no-blame",
+      "type": "branch",
+      "hook": "You're worried a friend is being groomed but they don't see it.",
+      "options": [
+        {
+          "text": "Gently name the red flags and tell a trusted adult together",
+          "consequence": "Your friend gets a chance to be safe.",
+          "outcome": "ally",
+          "best": true
+        },
+        {
+          "text": "Stay out of it, it's their business",
+          "consequence": "Quietly naming the flags and telling an adult could protect your friend."
+        }
+      ],
+      "debrief": "A caring friend who speaks up can interrupt grooming early.",
+      "relearn": "If a friend's being groomed, name the flags and bring in a trusted adult.",
+      "persona": "any",
+      "source": "allyship"
+    },
+    {
+      "id": "fw-074",
+      "cat": "find-help-no-blame",
+      "type": "branch",
+      "hook": "You're unsure if what happened is 'serious enough' to tell anyone.",
+      "options": [
+        {
+          "text": "Tell a trusted adult anyway and let them help judge",
+          "consequence": "You're guided, not left guessing.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Stay quiet unless it gets worse",
+          "consequence": "When unsure, tell a trusted adult; you don't have to judge it alone."
+        }
+      ],
+      "debrief": "You never have to decide alone whether something counts.",
+      "relearn": "If unsure it's 'serious enough', tell a trusted adult anyway.",
+      "persona": "any",
+      "source": "finding help"
+    },
+    {
+      "id": "fw-075",
+      "cat": "find-help-no-blame",
+      "type": "branch",
+      "hook": "A friend who was tricked online keeps saying 'I'm so stupid'.",
+      "options": [
+        {
+          "text": "Tell them it's not their fault, and help them get support",
+          "consequence": "They feel less alone and more able to act.",
+          "outcome": "kind",
+          "best": true
+        },
+        {
+          "text": "Agree they should've known better",
+          "consequence": "Blame keeps them stuck; remind them it's not their fault and help."
+        }
+      ],
+      "debrief": "Lifting the self-blame is what helps a friend move toward help.",
+      "relearn": "Tell a tricked friend it's not their fault, and help them get support.",
+      "persona": "any",
+      "source": "no blame / wellbeing"
+    },
+    {
+      "id": "fw-076",
+      "cat": "find-help-no-blame",
+      "type": "role-play",
+      "hook": "You're checking in on a friend who's gone quiet after something online.",
+      "setup": "Open the door gently. Say:",
+      "yourLine": [
+        {
+          "text": "\"Hey, I'm here, no judgement. If something's wrong online, we can sort it together.\"",
+          "best": true
+        },
+        {
+          "text": "\"You're being weird, what's your problem?\""
+        }
+      ],
+      "relearn": "A gentle, no-judgement check-in helps a struggling friend open up.",
+      "persona": "any",
+      "source": "support voice"
+    },
+    {
+      "id": "fw-077",
+      "cat": "find-help-no-blame",
+      "type": "role-play",
+      "hook": "Encourage a friend who's scared to report.",
+      "setup": "Make it feel safe. Say:",
+      "yourLine": [
+        {
+          "text": "\"You won't be in trouble, you're the one being hurt. I'll help you report it.\"",
+          "best": true
+        },
+        {
+          "text": "\"You'll probably get in trouble, so maybe don't.\""
+        }
+      ],
+      "relearn": "Reassure: you won't be in trouble, you're the victim, I'll help you report.",
+      "persona": "Counsellor",
+      "source": "no blame / reporting"
+    },
+    {
+      "id": "fw-078",
+      "cat": "find-help-no-blame",
+      "type": "reflect",
+      "hook": "Lensy: who are the trusted adults you could go to if something went wrong?",
+      "prompt": "Think of yours.",
+      "options": [
+        "A parent or guardian",
+        "A teacher or counsellor",
+        "An older relative",
+        "More than one"
+      ],
+      "affirm": "Knowing your people in advance means you're never truly stuck.",
+      "relearn": "Knowing your trusted adults in advance means you always have somewhere to turn.",
+      "persona": "any",
+      "source": "preparation"
+    },
+    {
+      "id": "fw-079",
+      "cat": "find-help-no-blame",
+      "type": "reflect",
+      "hook": "Lensy: if a friend came to you scared about something online, what would you give them first?",
+      "prompt": "Pick one.",
+      "options": [
+        "Belief, no judgement",
+        "'It's not your fault'",
+        "Help to tell an adult"
+      ],
+      "affirm": "Any of those could be exactly what they needed to hear.",
+      "relearn": "Belief, no blame, and help to tell an adult are what a scared friend needs.",
+      "persona": "any",
+      "source": "support"
+    },
+    {
+      "id": "fw-080",
+      "cat": "find-help-no-blame",
+      "type": "reflect",
+      "hook": "Lensy: the big takeaway from Firewall?",
+      "prompt": "Pick your motto.",
+      "options": [
+        "It's never my fault",
+        "Don't panic, there's a plan",
+        "Tell a trusted adult",
+        "Think before I share"
+      ],
+      "affirm": "Hold onto that, it's exactly what keeps you safe and unstuck.",
+      "relearn": "Not your fault, there's a plan, tell someone, think first, the core of staying safe.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "fw-081",
+      "cat": "find-help-no-blame",
+      "type": "reflect",
+      "hook": "Lensy: knowing the red flags, the plan and the helplines, do you feel safer online?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "More in control",
+        "Ready, not scared"
+      ],
+      "affirm": "That's the goal, alert and in control, not frightened.",
+      "relearn": "Knowing the flags, the plan and the helplines puts you in control.",
+      "persona": "any",
+      "source": "empowerment"
+    },
+    {
+      "id": "fw-082",
+      "cat": "find-help-no-blame",
+      "type": "match",
+      "hook": "Match the worry to where help is (India).",
+      "pairs": [
+        {
+          "left": "Being blackmailed with images",
+          "right": "cybercrime.gov.in / 1930"
+        },
+        {
+          "left": "A child being groomed",
+          "right": "Childline 1098"
+        },
+        {
+          "left": "Need someone now",
+          "right": "A trusted adult"
+        }
+      ],
+      "relearn": "India: cybercrime.gov.in / 1930, Childline 1098, a trusted adult, help is there.",
+      "persona": "Counsellor",
+      "source": "helplines (verified)"
+    },
+    {
+      "id": "fw-083",
+      "cat": "find-help-no-blame",
+      "type": "match",
+      "hook": "Match the feeling to the truth that answers it.",
+      "pairs": [
+        {
+          "left": "\"It's my fault\"",
+          "right": "The abuser is to blame"
+        },
+        {
+          "left": "\"I'm all alone\"",
+          "right": "A trusted adult can help"
+        },
+        {
+          "left": "\"Nothing can be done\"",
+          "right": "It can be reported and stopped"
+        }
+      ],
+      "relearn": "Each fear has a true answer: not your fault, not alone, it can be stopped.",
+      "persona": "any",
+      "source": "no blame"
+    },
+    {
+      "id": "fw-084",
+      "cat": "find-help-no-blame",
+      "type": "strike-rewrite",
+      "hook": "\"If something goes wrong online, my life is over.\"",
+      "myth": {
+        "un": "If something goes wrong online, my life is over.",
+        "re": "It feels huge, but there's a clear way through, and people whose job is to help.",
+        "why": "These situations are survivable and fixable with the right help."
+      },
+      "relearn": "It feels huge, but there's always a way through with the right help.",
+      "persona": "any",
+      "source": "hope / wellbeing"
+    }
+  ]
+}

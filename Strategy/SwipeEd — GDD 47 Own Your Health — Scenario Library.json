@@ -1,0 +1,1950 @@
+{
+  "game": "Own Your Health",
+  "gameId": "own-your-health",
+  "node": "g47",
+  "chapter": 6,
+  "ages": "18-22",
+  "thread": "F · Sexual & Reproductive Health",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Open (adult, comprehensive, ungated, incl. positive sexuality)",
+  "leadMechanics": [
+    "branch",
+    "strike-rewrite",
+    "sort"
+  ],
+  "note": "Adult SRH ownership (UNESCO 8.1, 8.2, 8.3, 7.2). New v2 build, the College node where sexual and reproductive health becomes fully the young adult's own. Comprehensive and frank, never explicit-as-instruction, medically accurate and shame-free. Five modes: protection sorted (contraception & dual protection), know your status (routine testing as self-care, U=U, confidential), pleasure & wellbeing (sexual wellbeing as a normal part of health, within consent & respect), the health talk (partner communication about testing/protection/needs), tools & confidential access. Confidentiality is foregrounded because fear of judgement keeps young adults from care. Even-handed across genders and orientations. Builds on g30 (Status), g29 (My Choices), g22 (Plan It); pairs with g44; feeds Chapter 7 reproductive planning. India: NACO free confidential ICTC testing, RKSK clinics, doctors and pharmacies; sensitive for unmarried youth, handled frankly but respectfully. Routes distress to help.",
+  "categories": {
+    "protection-sorted": "Protection, sorted: contraception & dual protection",
+    "know-your-status": "Know your status: routine testing as self-care",
+    "pleasure-and-wellbeing": "Pleasure & wellbeing: a normal part of health",
+    "the-health-talk": "The health talk: partner communication",
+    "access-and-confidential": "Access & confidential: services on your terms",
+    "tools-and-help": "Tools & help: finders, comparisons and routes"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "strike-rewrite",
+    "sort",
+    "reflect",
+    "role-play",
+    "match",
+    "spot"
+  ],
+  "evidenceBase": [
+    "Contraception comes in many methods that vary in effectiveness: condoms have a typical-use unintended-pregnancy rate around 15% a year, while IUDs, implants, injections, the pill and sterilisation are much more effective at preventing pregnancy but do not protect against STIs or HIV. Condoms are the only method that also protects against STIs/HIV, so dual protection, a condom together with a highly effective pregnancy-prevention method, guards against both, and emergency contraception is a normal backup after unprotected sex; protection and planning are a shared responsibility across genders (UNESCO ITGSE KC8; dual-protection research)",
+    "Routine STI/HIV testing is empowering self-care, not shameful: many STIs have no symptoms, so testing, not how you feel, is what tells you your status; anyone sexually active benefits, especially with new partners. Treatment works, and U=U means a person with HIV who maintains an undetectable viral load on daily treatment cannot sexually transmit it; U=U messaging itself increases testing uptake. In India, NACO's Integrated Counselling and Testing Centres (ICTC) provide free, confidential HIV counselling and testing in a supportive environment, a key entry point to prevention and care (UNESCO KC8; U=U evidence; NACO/ICTC)",
+    "Sexual wellbeing is a normal, healthy part of life, kept non-explicit and always within consent and respect: desire varies between people and over time and that is normal, communication about needs and protection is mature rather than awkward, and pleasure and health belong in the same conversation without shame. Confidentiality is the unlocker, because fear of being judged keeps young adults from care, so framing SRH services as confidential and a right, and being even-handed across genders and orientations, is what turns knowledge into access (UNESCO KC7/KC8; confidential-services practice)"
+  ],
+  "scenarios": [
+    {
+      "id": "oh-001",
+      "cat": "protection-sorted",
+      "type": "strike-rewrite",
+      "hook": "\"The pill protects you from STIs.\"",
+      "myth": {
+        "un": "The pill protects you from STIs.",
+        "re": "The pill prevents pregnancy only; condoms are the method that also protects against STIs and HIV.",
+        "why": "Different methods do different jobs."
+      },
+      "relearn": "The pill prevents pregnancy only; condoms also protect against STIs and HIV.",
+      "persona": "any",
+      "source": "method jobs"
+    },
+    {
+      "id": "oh-002",
+      "cat": "protection-sorted",
+      "type": "spot",
+      "hook": "Spot the statement that protects against both pregnancy and STIs.",
+      "relearn": "Dual protection, a condom plus a highly effective method, covers both pregnancy and STIs.",
+      "persona": "any",
+      "source": "dual protection",
+      "scene": [
+        {
+          "text": "A condom plus a highly effective method covers both",
+          "trick": false
+        },
+        {
+          "text": "The pill alone also covers STIs",
+          "trick": true
+        },
+        {
+          "text": "Condoms also reduce STI risk",
+          "trick": false
+        }
+      ],
+      "why": "Dual protection and condoms-cut-STI are accurate; the pill covering STIs is false."
+    },
+    {
+      "id": "oh-003",
+      "cat": "protection-sorted",
+      "type": "sort",
+      "hook": "Sort: protects against STIs, or only against pregnancy?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Condoms"
+        },
+        {
+          "id": "b",
+          "text": "The pill"
+        },
+        {
+          "id": "c",
+          "text": "An IUD"
+        },
+        {
+          "id": "d",
+          "text": "An implant"
+        }
+      ],
+      "bins": [
+        {
+          "id": "stis",
+          "label": "Also STIs"
+        },
+        {
+          "id": "preg",
+          "label": "Pregnancy only"
+        }
+      ],
+      "key": {
+        "a": "stis",
+        "b": "preg",
+        "c": "preg",
+        "d": "preg"
+      },
+      "relearn": "Only condoms also protect against STIs; the pill, IUD and implant prevent pregnancy only.",
+      "persona": "any",
+      "source": "protection types"
+    },
+    {
+      "id": "oh-004",
+      "cat": "protection-sorted",
+      "type": "branch",
+      "hook": "You want reliable pregnancy prevention and STI protection both.",
+      "options": [
+        {
+          "text": "Use dual protection: a condom plus a highly effective method",
+          "consequence": "You cover both bases.",
+          "outcome": "dual",
+          "best": true
+        },
+        {
+          "text": "Pick just one and hope it's enough",
+          "consequence": "For both pregnancy and STIs, dual protection (condom plus a highly effective method) is the way."
+        }
+      ],
+      "debrief": "Dual protection is how you cover both pregnancy and STI risk at once.",
+      "relearn": "For both pregnancy and STIs, use dual protection.",
+      "persona": "Ananya",
+      "source": "dual protection"
+    },
+    {
+      "id": "oh-005",
+      "cat": "protection-sorted",
+      "type": "strike-rewrite",
+      "hook": "\"Contraception is the woman's job to sort out.\"",
+      "myth": {
+        "un": "Contraception is the woman's job.",
+        "re": "Protection and planning are a shared responsibility across partners and genders.",
+        "why": "It takes two; the responsibility is shared."
+      },
+      "relearn": "Protection and planning are a shared responsibility, not one person's job.",
+      "persona": "Rohan",
+      "source": "shared responsibility"
+    },
+    {
+      "id": "oh-006",
+      "cat": "protection-sorted",
+      "type": "match",
+      "hook": "Match the method to what it's best at.",
+      "pairs": [
+        {
+          "left": "Condom",
+          "right": "Pregnancy + STI protection"
+        },
+        {
+          "left": "IUD / implant",
+          "right": "Very effective, long-term pregnancy prevention"
+        },
+        {
+          "left": "Emergency contraception",
+          "right": "A backup after unprotected sex"
+        }
+      ],
+      "relearn": "Condoms cover both, IUD/implant are long-term pregnancy prevention, EC is a backup.",
+      "persona": "any",
+      "source": "method guide"
+    },
+    {
+      "id": "oh-007",
+      "cat": "protection-sorted",
+      "type": "strike-rewrite",
+      "hook": "\"Needing emergency contraception means you were irresponsible.\"",
+      "myth": {
+        "un": "Needing emergency contraception means you were irresponsible.",
+        "re": "Emergency contraception is a normal, responsible backup when something went wrong or wasn't used.",
+        "why": "Using a backup is taking responsibility."
+      },
+      "relearn": "Emergency contraception is a normal, responsible backup, not a failure.",
+      "persona": "any",
+      "source": "emergency contraception"
+    },
+    {
+      "id": "oh-008",
+      "cat": "protection-sorted",
+      "type": "branch",
+      "hook": "A condom broke and you don't want a pregnancy right now.",
+      "options": [
+        {
+          "text": "Consider emergency contraception soon, and plan testing",
+          "consequence": "You act promptly and sensibly.",
+          "outcome": "acted",
+          "best": true
+        },
+        {
+          "text": "Just hope it's fine",
+          "consequence": "Emergency contraception works best taken soon; and it's a good moment to plan a check."
+        }
+      ],
+      "debrief": "Emergency contraception is time-sensitive; acting soon is the responsible move.",
+      "relearn": "If protection fails, consider emergency contraception soon and plan a check.",
+      "persona": "any",
+      "source": "when it fails"
+    },
+    {
+      "id": "oh-009",
+      "cat": "protection-sorted",
+      "type": "sort",
+      "hook": "Sort: a fact about contraception, or a myth?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Methods vary in how effective they are"
+        },
+        {
+          "id": "b",
+          "text": "You can't get pregnant the first time"
+        },
+        {
+          "id": "c",
+          "text": "Condoms also cut STI risk"
+        },
+        {
+          "id": "d",
+          "text": "Pulling out is as reliable as a condom"
+        }
+      ],
+      "bins": [
+        {
+          "id": "fact",
+          "label": "Fact"
+        },
+        {
+          "id": "myth",
+          "label": "Myth"
+        }
+      ],
+      "key": {
+        "a": "fact",
+        "b": "myth",
+        "c": "fact",
+        "d": "myth"
+      },
+      "relearn": "Methods vary and condoms cut STI risk (fact); 'not the first time' and 'pulling out is as good' are myths.",
+      "persona": "any",
+      "source": "contraception facts"
+    },
+    {
+      "id": "oh-010",
+      "cat": "protection-sorted",
+      "type": "branch",
+      "hook": "You're not sure which contraceptive method fits your life.",
+      "options": [
+        {
+          "text": "Talk to a doctor or clinic about your options",
+          "consequence": "You get tailored, accurate advice.",
+          "outcome": "informed",
+          "best": true
+        },
+        {
+          "text": "Guess from a forum post",
+          "consequence": "A doctor or clinic can match a method to your life far better than a random forum."
+        }
+      ],
+      "debrief": "Methods suit different lives; a clinician helps you choose the right fit.",
+      "relearn": "Talk to a doctor or clinic to find the contraceptive method that fits you.",
+      "persona": "any",
+      "source": "choosing a method"
+    },
+    {
+      "id": "oh-011",
+      "cat": "protection-sorted",
+      "type": "strike-rewrite",
+      "hook": "\"Carrying condoms means you're expecting something or being promiscuous.\"",
+      "myth": {
+        "un": "Carrying condoms means you're promiscuous.",
+        "re": "Carrying protection is simply being prepared and responsible, for anyone of any gender.",
+        "why": "Preparedness is maturity, not a label."
+      },
+      "relearn": "Carrying protection is being prepared and responsible, not a label.",
+      "persona": "any",
+      "source": "preparedness"
+    },
+    {
+      "id": "oh-012",
+      "cat": "protection-sorted",
+      "type": "sort",
+      "hook": "Sort: makes a condom reliable, or undermines it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Checking it's in date"
+        },
+        {
+          "id": "b",
+          "text": "Keeping it in a hot wallet for months"
+        },
+        {
+          "id": "c",
+          "text": "Using a fresh one each time"
+        },
+        {
+          "id": "d",
+          "text": "Reusing one"
+        }
+      ],
+      "bins": [
+        {
+          "id": "reliable",
+          "label": "Reliable"
+        },
+        {
+          "id": "undermines",
+          "label": "Undermines"
+        }
+      ],
+      "key": {
+        "a": "reliable",
+        "b": "undermines",
+        "c": "reliable",
+        "d": "undermines"
+      },
+      "relearn": "In-date and fresh each time keeps a condom reliable; heat-damaged or reused undermines it.",
+      "persona": "any",
+      "source": "using it right"
+    },
+    {
+      "id": "oh-013",
+      "cat": "protection-sorted",
+      "type": "branch",
+      "hook": "Your partner says they 'don't like' using condoms.",
+      "options": [
+        {
+          "text": "Hold the line; your protection isn't up for pressure",
+          "consequence": "You keep yourself protected.",
+          "outcome": "firm",
+          "best": true
+        },
+        {
+          "text": "Drop it to keep them happy",
+          "consequence": "Your protection and health aren't negotiable under pressure; a caring partner respects that."
+        }
+      ],
+      "debrief": "Protecting your own health is non-negotiable; a good partner works with you on it.",
+      "relearn": "Your protection isn't up for pressure; hold the line.",
+      "persona": "any",
+      "source": "protection boundary"
+    },
+    {
+      "id": "oh-014",
+      "cat": "protection-sorted",
+      "type": "reflect",
+      "hook": "Sam: knowing your options means you can choose protection that actually fits your life. Empowering?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "My choice",
+        "Fits my life"
+      ],
+      "affirm": "Knowing the full menu of options is what lets you own this choice confidently.",
+      "relearn": "Knowing your options lets you choose protection that fits your life.",
+      "persona": "any",
+      "source": "empowerment"
+    },
+    {
+      "id": "oh-015",
+      "cat": "protection-sorted",
+      "type": "branch",
+      "hook": "You and a new partner are getting close and protection hasn't come up.",
+      "options": [
+        {
+          "text": "Bring it up before things go further",
+          "consequence": "You sort protection in advance, calmly.",
+          "outcome": "prepared",
+          "best": true
+        },
+        {
+          "text": "Wait and see what happens in the moment",
+          "consequence": "Sorting protection before, not in the heat of the moment, keeps you both safer."
+        }
+      ],
+      "debrief": "Deciding on protection ahead of time, not mid-moment, is how it actually gets used.",
+      "relearn": "Sort protection before things go further, not in the moment.",
+      "persona": "any",
+      "source": "planning ahead"
+    },
+    {
+      "id": "oh-016",
+      "cat": "protection-sorted",
+      "type": "match",
+      "hook": "Match the protection goal to the move.",
+      "pairs": [
+        {
+          "left": "Avoid both pregnancy and STIs",
+          "right": "Dual protection"
+        },
+        {
+          "left": "Long-term pregnancy prevention",
+          "right": "IUD or implant"
+        },
+        {
+          "left": "Backup after a slip",
+          "right": "Emergency contraception"
+        }
+      ],
+      "relearn": "Dual protection for both, IUD/implant for the long term, EC for a backup.",
+      "persona": "any",
+      "source": "goals to methods"
+    },
+    {
+      "id": "oh-017",
+      "cat": "know-your-status",
+      "type": "strike-rewrite",
+      "hook": "\"You only need an STI test if you have symptoms.\"",
+      "myth": {
+        "un": "You only need testing if you have symptoms.",
+        "re": "Many STIs have no symptoms, so testing, not how you feel, is what tells you your status.",
+        "why": "You can't feel what has no symptoms."
+      },
+      "relearn": "Many STIs have no symptoms; testing, not symptoms, tells you your status.",
+      "persona": "any",
+      "source": "asymptomatic STIs"
+    },
+    {
+      "id": "oh-018",
+      "cat": "know-your-status",
+      "type": "spot",
+      "hook": "Spot the healthy frame for testing.",
+      "relearn": "Routine testing is ordinary self-care, not something shameful.",
+      "persona": "any",
+      "source": "reframe",
+      "scene": [
+        {
+          "text": "\"Testing is routine self-care\"",
+          "trick": false
+        },
+        {
+          "text": "\"Testing means something's wrong with you\"",
+          "trick": true
+        },
+        {
+          "text": "\"Anyone sexually active benefits from it\"",
+          "trick": false
+        }
+      ],
+      "why": "Self-care and 'anyone active benefits' are healthy frames; 'something's wrong with you' isn't."
+    },
+    {
+      "id": "oh-019",
+      "cat": "know-your-status",
+      "type": "branch",
+      "hook": "You've started seeing someone new and you're sexually active.",
+      "options": [
+        {
+          "text": "Make testing part of the routine for you both",
+          "consequence": "You both know your status and stay safer.",
+          "outcome": "routine",
+          "best": true
+        },
+        {
+          "text": "Assume you're both fine",
+          "consequence": "With a new partner, testing for you both is the routine, caring move, not assuming."
+        }
+      ],
+      "debrief": "Testing with new partners is a normal, caring part of an adult sex life.",
+      "relearn": "Make testing a routine part of being sexually active, especially with new partners.",
+      "persona": "any",
+      "source": "routine testing"
+    },
+    {
+      "id": "oh-020",
+      "cat": "know-your-status",
+      "type": "strike-rewrite",
+      "hook": "\"Only certain kinds of people get STIs.\"",
+      "myth": {
+        "un": "Only certain kinds of people get STIs.",
+        "re": "STIs can affect anyone who's sexually active, regardless of who they are; testing is for everyone.",
+        "why": "Infections don't check your reputation."
+      },
+      "relearn": "STIs can affect anyone sexually active; testing is for everyone.",
+      "persona": "any",
+      "source": "anyone"
+    },
+    {
+      "id": "oh-021",
+      "cat": "know-your-status",
+      "type": "strike-rewrite",
+      "hook": "\"If you have HIV, you'll always pass it to a partner.\"",
+      "myth": {
+        "un": "Someone with HIV always passes it on.",
+        "re": "U=U: a person on treatment with an undetectable viral load cannot sexually transmit HIV.",
+        "why": "Effective treatment stops transmission."
+      },
+      "relearn": "U=U: undetectable viral load on treatment means HIV can't be sexually transmitted.",
+      "persona": "any",
+      "source": "U=U"
+    },
+    {
+      "id": "oh-022",
+      "cat": "know-your-status",
+      "type": "sort",
+      "hook": "Sort: true about testing, or false?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Many STIs are silent"
+        },
+        {
+          "id": "b",
+          "text": "A test will out you to everyone"
+        },
+        {
+          "id": "c",
+          "text": "Treatment works for most STIs"
+        },
+        {
+          "id": "d",
+          "text": "Only 'risky' people need it"
+        }
+      ],
+      "bins": [
+        {
+          "id": "true",
+          "label": "True"
+        },
+        {
+          "id": "false",
+          "label": "False"
+        }
+      ],
+      "key": {
+        "a": "true",
+        "b": "false",
+        "c": "true",
+        "d": "false"
+      },
+      "relearn": "Silent STIs and effective treatment are true; 'outs you' and 'only risky people' are false.",
+      "persona": "any",
+      "source": "testing facts"
+    },
+    {
+      "id": "oh-023",
+      "cat": "know-your-status",
+      "type": "branch",
+      "hook": "You feel nervous about going for a test.",
+      "options": [
+        {
+          "text": "Go anyway; knowing is power and care is confidential",
+          "consequence": "You take charge of your health.",
+          "outcome": "empowered",
+          "best": true
+        },
+        {
+          "text": "Put it off indefinitely",
+          "consequence": "Nerves are normal; testing is confidential and knowing your status is power, so go anyway."
+        }
+      ],
+      "debrief": "The nerves pass; the knowledge and confidential care are worth it.",
+      "relearn": "Go for the test anyway; knowing is power and care is confidential.",
+      "persona": "Deepak",
+      "source": "overcoming nerves"
+    },
+    {
+      "id": "oh-024",
+      "cat": "know-your-status",
+      "type": "role-play",
+      "hook": "A friend is terrified waiting for a test result.",
+      "relearn": "Reassure a nervous friend: a result is information you can act on, and they're not alone.",
+      "persona": "any",
+      "source": "reassuring a friend",
+      "setup": "Reassure them. Say:",
+      "yourLine": [
+        {
+          "text": "\"Whatever it says, it's just information we can act on, and I'm right here with you.\"",
+          "best": true
+        },
+        {
+          "text": "\"You should be really worried.\""
+        }
+      ]
+    },
+    {
+      "id": "oh-025",
+      "cat": "know-your-status",
+      "type": "branch",
+      "hook": "A test comes back positive for a treatable STI.",
+      "options": [
+        {
+          "text": "Start treatment and tell recent partners so they can test",
+          "consequence": "You look after yourself and others.",
+          "outcome": "responsible",
+          "best": true
+        },
+        {
+          "text": "Panic and tell no one",
+          "consequence": "Most STIs are treatable; start treatment and let recent partners know so they can test too."
+        }
+      ],
+      "debrief": "Treatment plus telling partners is the caring, responsible response, no shame.",
+      "relearn": "If positive, start treatment and let recent partners know to test.",
+      "persona": "any",
+      "source": "a positive result"
+    },
+    {
+      "id": "oh-026",
+      "cat": "know-your-status",
+      "type": "sort",
+      "hook": "Sort: where to get a confidential test, or not a testing route?",
+      "items": [
+        {
+          "id": "a",
+          "text": "A NACO ICTC centre (free, confidential)"
+        },
+        {
+          "id": "b",
+          "text": "Guessing from an online quiz"
+        },
+        {
+          "id": "c",
+          "text": "A doctor or clinic"
+        },
+        {
+          "id": "d",
+          "text": "Asking a friend to 'check' you"
+        }
+      ],
+      "bins": [
+        {
+          "id": "route",
+          "label": "Real route"
+        },
+        {
+          "id": "not",
+          "label": "Not a route"
+        }
+      ],
+      "key": {
+        "a": "route",
+        "b": "not",
+        "c": "route",
+        "d": "not"
+      },
+      "relearn": "A NACO ICTC or a clinic is a real testing route; online quizzes and friends aren't.",
+      "persona": "any",
+      "source": "where to test"
+    },
+    {
+      "id": "oh-027",
+      "cat": "know-your-status",
+      "type": "strike-rewrite",
+      "hook": "\"Real men don't bother getting tested.\"",
+      "myth": {
+        "un": "Real men don't get tested.",
+        "re": "Testing is mature self-care for everyone, of every gender; it's strength, not weakness.",
+        "why": "This myth puts men and their partners at risk."
+      },
+      "relearn": "Testing is mature self-care for everyone, of every gender.",
+      "persona": "Rohan",
+      "source": "even-handed"
+    },
+    {
+      "id": "oh-028",
+      "cat": "know-your-status",
+      "type": "role-play",
+      "hook": "You want to suggest getting tested together with a partner.",
+      "relearn": "Suggest testing together; it protects you both and builds trust.",
+      "persona": "any",
+      "source": "testing together",
+      "setup": "Make it mutual and easy. Say:",
+      "yourLine": [
+        {
+          "text": "\"Why don't we both get tested? Then we can relax and trust each other fully.\"",
+          "best": true
+        },
+        {
+          "text": "Assume you're both fine without checking"
+        }
+      ]
+    },
+    {
+      "id": "oh-029",
+      "cat": "know-your-status",
+      "type": "branch",
+      "hook": "You're not sure how often to test.",
+      "options": [
+        {
+          "text": "Test with new partners and regularly if active",
+          "consequence": "You keep your status current.",
+          "outcome": "current",
+          "best": true
+        },
+        {
+          "text": "Test once and call it done forever",
+          "consequence": "Status can change, so testing with new partners and regularly keeps it current."
+        }
+      ],
+      "debrief": "Testing isn't a one-time thing; new partners and regular checks keep it meaningful.",
+      "relearn": "Test with new partners and regularly while sexually active.",
+      "persona": "any",
+      "source": "how often"
+    },
+    {
+      "id": "oh-030",
+      "cat": "know-your-status",
+      "type": "spot",
+      "hook": "Spot the accurate statement about testing.",
+      "scene": [
+        {
+          "text": "\"No symptoms doesn't mean no STI\"",
+          "trick": false
+        },
+        {
+          "text": "\"Only get tested if it hurts\"",
+          "trick": true
+        },
+        {
+          "text": "\"Care at an ICTC is free and confidential\"",
+          "trick": false
+        }
+      ],
+      "why": "Silent STIs and free confidential ICTC care are accurate; 'only if it hurts' is wrong.",
+      "relearn": "No symptoms doesn't mean no STI; ICTC care is free and confidential.",
+      "persona": "any",
+      "source": "accuracy"
+    },
+    {
+      "id": "oh-031",
+      "cat": "know-your-status",
+      "type": "reflect",
+      "hook": "Sam: which status truth will you carry?",
+      "prompt": "Pick one.",
+      "options": [
+        "Testing is self-care",
+        "Silent STIs are common",
+        "U=U is real",
+        "Care is confidential"
+      ],
+      "affirm": "Carry that, and testing becomes a normal, powerful part of looking after yourself.",
+      "relearn": "Testing is self-care, many STIs are silent, U=U is real, and care is confidential.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "oh-032",
+      "cat": "pleasure-and-wellbeing",
+      "type": "strike-rewrite",
+      "hook": "\"Wanting or talking about pleasure is shameful.\"",
+      "myth": {
+        "un": "Wanting or talking about pleasure is shameful.",
+        "re": "Sexual wellbeing is a normal, healthy part of life, within consent and respect.",
+        "why": "Health includes this, without shame."
+      },
+      "relearn": "Sexual wellbeing is a normal, healthy part of life, within consent and respect.",
+      "persona": "any",
+      "source": "no shame"
+    },
+    {
+      "id": "oh-033",
+      "cat": "pleasure-and-wellbeing",
+      "type": "reflect",
+      "hook": "Sam: desire varies between people and over time, and that's completely normal. Reassuring?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "All normal",
+        "Good to know"
+      ],
+      "affirm": "There's a wide normal range for desire; differences aren't a problem to fix.",
+      "relearn": "Desire varies between people and over time, and that's normal.",
+      "persona": "any",
+      "source": "desire varies"
+    },
+    {
+      "id": "oh-034",
+      "cat": "pleasure-and-wellbeing",
+      "type": "sort",
+      "hook": "Sort: part of healthy sexual wellbeing, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Communicating what you want"
+        },
+        {
+          "id": "b",
+          "text": "Ignoring your own comfort"
+        },
+        {
+          "id": "c",
+          "text": "Mutual consent and respect"
+        },
+        {
+          "id": "d",
+          "text": "Pressure to perform"
+        }
+      ],
+      "bins": [
+        {
+          "id": "healthy",
+          "label": "Healthy"
+        },
+        {
+          "id": "not",
+          "label": "Not"
+        }
+      ],
+      "key": {
+        "a": "healthy",
+        "b": "not",
+        "c": "healthy",
+        "d": "not"
+      },
+      "relearn": "Communication, consent and respect are healthy wellbeing; ignoring comfort or pressure aren't.",
+      "persona": "any",
+      "source": "healthy wellbeing"
+    },
+    {
+      "id": "oh-035",
+      "cat": "pleasure-and-wellbeing",
+      "type": "strike-rewrite",
+      "hook": "\"There's one 'normal' way everyone should want or feel.\"",
+      "myth": {
+        "un": "There's one 'normal' way everyone should want or feel.",
+        "re": "People vary widely in what they want and feel; there's a broad healthy range.",
+        "why": "Comparison to a single 'normal' just creates anxiety."
+      },
+      "relearn": "People vary widely; there's a broad healthy range, not one 'normal'.",
+      "persona": "any",
+      "source": "variation is normal"
+    },
+    {
+      "id": "oh-036",
+      "cat": "pleasure-and-wellbeing",
+      "type": "reflect",
+      "hook": "Sam: your comfort and consent always come first, pleasure never overrides them. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Consent first",
+        "Always"
+      ],
+      "affirm": "Wellbeing always sits inside consent and respect; that's the non-negotiable frame.",
+      "relearn": "Comfort and consent always come first; pleasure never overrides them.",
+      "persona": "any",
+      "source": "within consent"
+    },
+    {
+      "id": "oh-037",
+      "cat": "pleasure-and-wellbeing",
+      "type": "branch",
+      "hook": "Something doesn't feel right or comfortable for you with a partner.",
+      "options": [
+        {
+          "text": "Say so; your comfort guides what happens",
+          "consequence": "You keep wellbeing and consent central.",
+          "outcome": "comfort-led",
+          "best": true
+        },
+        {
+          "text": "Push through to not disappoint them",
+          "consequence": "Your comfort guides things; you never push through discomfort to please someone."
+        }
+      ],
+      "debrief": "Your comfort is the guide; a caring partner wants to know and adjust.",
+      "relearn": "Your comfort guides what happens; speak up rather than pushing through.",
+      "persona": "any",
+      "source": "comfort-led"
+    },
+    {
+      "id": "oh-038",
+      "cat": "pleasure-and-wellbeing",
+      "type": "sort",
+      "hook": "Sort: supports sexual wellbeing, or harms it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Honest communication"
+        },
+        {
+          "id": "b",
+          "text": "Shame and secrecy"
+        },
+        {
+          "id": "c",
+          "text": "Going at a shared pace"
+        },
+        {
+          "id": "d",
+          "text": "Comparing yourself to performances"
+        }
+      ],
+      "bins": [
+        {
+          "id": "supports",
+          "label": "Supports"
+        },
+        {
+          "id": "harms",
+          "label": "Harms"
+        }
+      ],
+      "key": {
+        "a": "supports",
+        "b": "harms",
+        "c": "supports",
+        "d": "harms"
+      },
+      "relearn": "Communication and a shared pace support wellbeing; shame and comparison harm it.",
+      "persona": "any",
+      "source": "wellbeing"
+    },
+    {
+      "id": "oh-039",
+      "cat": "pleasure-and-wellbeing",
+      "type": "strike-rewrite",
+      "hook": "\"What I saw in porn is how real intimacy should be.\"",
+      "myth": {
+        "un": "Porn is how real intimacy should be.",
+        "re": "Porn is a performance, not a model; real intimacy is about communication, consent and what actually feels good for you both.",
+        "why": "Performances set unrealistic standards."
+      },
+      "relearn": "Porn is a performance, not a model; real intimacy is communication, consent and mutual comfort.",
+      "persona": "any",
+      "source": "porn vs reality (links g36)"
+    },
+    {
+      "id": "oh-040",
+      "cat": "pleasure-and-wellbeing",
+      "type": "spot",
+      "hook": "Spot the accurate view of a good intimate life.",
+      "relearn": "A good intimate life is built on communication and respect, not performance.",
+      "persona": "any",
+      "source": "communication",
+      "scene": [
+        {
+          "text": "\"Built on communication and respect\"",
+          "trick": false
+        },
+        {
+          "text": "\"It should match a performance\"",
+          "trick": true
+        },
+        {
+          "text": "\"Mutual comfort is what matters\"",
+          "trick": false
+        }
+      ],
+      "why": "Communication, respect and mutual comfort are accurate; matching a performance isn't."
+    },
+    {
+      "id": "oh-041",
+      "cat": "pleasure-and-wellbeing",
+      "type": "branch",
+      "hook": "You have a question about your body or sexual wellbeing you feel embarrassed to ask.",
+      "options": [
+        {
+          "text": "Ask a doctor or a trusted, accurate source",
+          "consequence": "You get real answers without shame.",
+          "outcome": "informed",
+          "best": true
+        },
+        {
+          "text": "Stay silent and worry",
+          "consequence": "A doctor or trusted source can answer without judgement; embarrassment shouldn't keep you guessing."
+        }
+      ],
+      "debrief": "No question about your wellbeing is too embarrassing for a professional; that's what they're for.",
+      "relearn": "Ask a doctor or trusted source about wellbeing questions; no shame.",
+      "persona": "any",
+      "source": "asking"
+    },
+    {
+      "id": "oh-042",
+      "cat": "pleasure-and-wellbeing",
+      "type": "sort",
+      "hook": "Sort: a healthy belief about sexual wellbeing, or a harmful one?",
+      "items": [
+        {
+          "id": "a",
+          "text": "It's a normal part of health"
+        },
+        {
+          "id": "b",
+          "text": "It's dirty or shameful"
+        },
+        {
+          "id": "c",
+          "text": "Mutual enjoyment matters"
+        },
+        {
+          "id": "d",
+          "text": "One partner's wants always win"
+        }
+      ],
+      "bins": [
+        {
+          "id": "healthy",
+          "label": "Healthy"
+        },
+        {
+          "id": "harmful",
+          "label": "Harmful"
+        }
+      ],
+      "key": {
+        "a": "healthy",
+        "b": "harmful",
+        "c": "healthy",
+        "d": "harmful"
+      },
+      "relearn": "It being normal and mutual is healthy; shame or one-sidedness is harmful.",
+      "persona": "any",
+      "source": "beliefs"
+    },
+    {
+      "id": "oh-043",
+      "cat": "pleasure-and-wellbeing",
+      "type": "reflect",
+      "hook": "Sam: wellbeing includes feeling at ease in your own body and choices. Worth tending?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "At ease",
+        "Worth it"
+      ],
+      "affirm": "Feeling at ease in your body and choices is a real part of overall wellbeing.",
+      "relearn": "Sexual wellbeing includes feeling at ease in your body and choices.",
+      "persona": "Zoya",
+      "source": "ease"
+    },
+    {
+      "id": "oh-044",
+      "cat": "pleasure-and-wellbeing",
+      "type": "strike-rewrite",
+      "hook": "\"If desire changes in a relationship, something's wrong with me.\"",
+      "myth": {
+        "un": "If desire changes, something's wrong with me.",
+        "re": "Desire naturally ebbs and flows with stress, health and life; it's rarely a fault.",
+        "why": "Many things affect desire."
+      },
+      "relearn": "Desire naturally ebbs and flows; a change rarely means something's wrong.",
+      "persona": "any",
+      "source": "desire changes"
+    },
+    {
+      "id": "oh-045",
+      "cat": "pleasure-and-wellbeing",
+      "type": "branch",
+      "hook": "You realise a lot of your ideas about sex came from unrealistic media.",
+      "options": [
+        {
+          "text": "Replace them with accurate info and your own communication",
+          "consequence": "You build a realistic, healthy picture.",
+          "outcome": "realistic",
+          "best": true
+        },
+        {
+          "text": "Keep measuring yourself against the media version",
+          "consequence": "Swapping media myths for accurate info and real communication beats measuring up to a performance."
+        }
+      ],
+      "debrief": "Trading media myths for accurate information and honest communication is how wellbeing gets real.",
+      "relearn": "Replace media myths with accurate info and real communication.",
+      "persona": "any",
+      "source": "realistic picture"
+    },
+    {
+      "id": "oh-046",
+      "cat": "the-health-talk",
+      "type": "role-play",
+      "hook": "You want to ask a new partner about testing before things go further.",
+      "setup": "Keep it easy and mutual. Say:",
+      "yourLine": [
+        {
+          "text": "\"I get tested and I think it's good to both know our status, when were you last tested?\"",
+          "best": true
+        },
+        {
+          "text": "Say nothing and hope for the best"
+        }
+      ],
+      "relearn": "Ask about testing openly and mutually; it's caring, not awkward.",
+      "persona": "Ananya",
+      "source": "the testing talk"
+    },
+    {
+      "id": "oh-047",
+      "cat": "the-health-talk",
+      "type": "strike-rewrite",
+      "hook": "\"Asking a partner to test or use protection means you don't trust them.\"",
+      "myth": {
+        "un": "Asking to test or use protection means you don't trust them.",
+        "re": "It's mature, caring and standard self-care; a good partner welcomes it.",
+        "why": "Health talk is about care, not suspicion."
+      },
+      "relearn": "Asking to test or use protection is caring self-care, not distrust.",
+      "persona": "any",
+      "source": "not distrust"
+    },
+    {
+      "id": "oh-048",
+      "cat": "the-health-talk",
+      "type": "role-play",
+      "hook": "You want to bring up using protection with a partner.",
+      "setup": "Make it normal and shared. Say:",
+      "yourLine": [
+        {
+          "text": "\"Let's use protection, I want us both to feel safe and relaxed.\"",
+          "best": true
+        },
+        {
+          "text": "Avoid it and just see what happens"
+        }
+      ],
+      "relearn": "Raise protection as a shared, relaxed thing; a good partner is on board.",
+      "persona": "any",
+      "source": "the protection talk"
+    },
+    {
+      "id": "oh-049",
+      "cat": "the-health-talk",
+      "type": "branch",
+      "hook": "A partner brushes off your wish to use protection.",
+      "options": [
+        {
+          "text": "Hold firm; your health isn't up for negotiation",
+          "consequence": "You protect yourself and see their respect, or lack of it.",
+          "outcome": "firm",
+          "best": true
+        },
+        {
+          "text": "Give in to avoid friction",
+          "consequence": "Your health isn't negotiable; how they respond to a fair ask tells you a lot."
+        }
+      ],
+      "debrief": "How a partner responds to a reasonable health request reveals their respect for you.",
+      "relearn": "Hold firm on protection; a partner's response shows their respect.",
+      "persona": "any",
+      "source": "a telling response"
+    },
+    {
+      "id": "oh-050",
+      "cat": "the-health-talk",
+      "type": "role-play",
+      "hook": "You want to tell a partner what you do and don't like.",
+      "setup": "Be open and kind. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'd love to tell you what I like, and hear what you like too.\"",
+          "best": true
+        },
+        {
+          "text": "Assume they should just know"
+        }
+      ],
+      "relearn": "Share what you like openly and invite theirs; communication beats mind-reading.",
+      "persona": "any",
+      "source": "the needs talk"
+    },
+    {
+      "id": "oh-051",
+      "cat": "the-health-talk",
+      "type": "reflect",
+      "hook": "Sam: the health talk gets easier every time, and it's a sign of a grown-up relationship. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Gets easier",
+        "A grown-up thing"
+      ],
+      "affirm": "Couples who can talk health and needs openly are the healthiest; it gets easier with practice.",
+      "relearn": "The health talk gets easier with practice and signals a grown-up relationship.",
+      "persona": "any",
+      "source": "it gets easier"
+    },
+    {
+      "id": "oh-052",
+      "cat": "the-health-talk",
+      "type": "branch",
+      "hook": "You feel awkward raising sexual health with a partner.",
+      "options": [
+        {
+          "text": "Name the awkwardness and say it anyway",
+          "consequence": "You get past it and have the talk.",
+          "outcome": "open",
+          "best": true
+        },
+        {
+          "text": "Let the awkwardness silence you",
+          "consequence": "Naming the awkward and talking anyway is how the important stuff gets said."
+        }
+      ],
+      "debrief": "A little 'this is a bit awkward, but...' is often all it takes to open the talk.",
+      "relearn": "Name the awkwardness and have the health talk anyway.",
+      "persona": "Deepak",
+      "source": "past the awkward"
+    },
+    {
+      "id": "oh-053",
+      "cat": "the-health-talk",
+      "type": "sort",
+      "hook": "Sort: helps the health talk, or shuts it down?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Bringing it up calmly, early"
+        },
+        {
+          "id": "b",
+          "text": "Accusing or blaming"
+        },
+        {
+          "id": "c",
+          "text": "Framing it as caring for both"
+        },
+        {
+          "id": "d",
+          "text": "Waiting until the heat of the moment"
+        }
+      ],
+      "bins": [
+        {
+          "id": "helps",
+          "label": "Helps"
+        },
+        {
+          "id": "shuts",
+          "label": "Shuts down"
+        }
+      ],
+      "key": {
+        "a": "helps",
+        "b": "shuts",
+        "c": "helps",
+        "d": "shuts"
+      },
+      "relearn": "Calm, early, caring framing helps; blame or last-minute timing shuts it down.",
+      "persona": "any",
+      "source": "how to talk"
+    },
+    {
+      "id": "oh-054",
+      "cat": "the-health-talk",
+      "type": "role-play",
+      "hook": "You need to tell a recent partner you tested positive for a treatable STI so they can check.",
+      "setup": "Be honest and caring. Say:",
+      "yourLine": [
+        {
+          "text": "\"I want to be straight with you, I tested positive for something treatable, worth you getting checked too.\"",
+          "best": true
+        },
+        {
+          "text": "Say nothing and hope they don't find out"
+        }
+      ],
+      "relearn": "Tell recent partners honestly so they can test; it's the caring, responsible thing.",
+      "persona": "any",
+      "source": "telling partners"
+    },
+    {
+      "id": "oh-055",
+      "cat": "the-health-talk",
+      "type": "reflect",
+      "hook": "Sam: a partner who can't handle a calm health talk is telling you something important. Notice it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "That's a sign",
+        "Worth noticing"
+      ],
+      "affirm": "How someone handles a reasonable health conversation is real information about them.",
+      "relearn": "A partner who can't handle a calm health talk is showing you something.",
+      "persona": "any",
+      "source": "a signal"
+    },
+    {
+      "id": "oh-056",
+      "cat": "the-health-talk",
+      "type": "branch",
+      "hook": "You want the health talk to be a normal part of getting close, not a one-off hurdle.",
+      "options": [
+        {
+          "text": "Treat it as ongoing, easy check-ins",
+          "consequence": "Health stays an open, shared topic.",
+          "outcome": "ongoing",
+          "best": true
+        },
+        {
+          "text": "Get it over with once and never again",
+          "consequence": "Ongoing, easy check-ins keep health an open topic, better than one awkward hurdle."
+        }
+      ],
+      "debrief": "Health and needs are an ongoing conversation, not a single box to tick.",
+      "relearn": "Keep the health talk an ongoing, easy conversation, not a one-off.",
+      "persona": "any",
+      "source": "ongoing"
+    },
+    {
+      "id": "oh-057",
+      "cat": "the-health-talk",
+      "type": "strike-rewrite",
+      "hook": "\"Bringing up protection ruins the romance.\"",
+      "myth": {
+        "un": "Bringing up protection ruins the romance.",
+        "re": "Caring about each other's health is part of real intimacy, not a mood-killer.",
+        "why": "Feeling safe is what lets you relax."
+      },
+      "relearn": "Caring about each other's health is part of intimacy, not a mood-killer.",
+      "persona": "any",
+      "source": "romance myth"
+    },
+    {
+      "id": "oh-058",
+      "cat": "the-health-talk",
+      "type": "reflect",
+      "hook": "Sam: being able to talk openly about health and needs is a genuine relationship skill. Build it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "A real skill",
+        "I'll build it"
+      ],
+      "affirm": "Open health-and-needs talk is a skill that makes every relationship safer and closer.",
+      "relearn": "Talking openly about health and needs is a real relationship skill.",
+      "persona": "any",
+      "source": "a skill"
+    },
+    {
+      "id": "oh-059",
+      "cat": "access-and-confidential",
+      "type": "strike-rewrite",
+      "hook": "\"Going to a clinic means everyone will find out.\"",
+      "myth": {
+        "un": "Going to a clinic means everyone will find out.",
+        "re": "SRH care is confidential; your privacy is protected, and at a NACO ICTC it's free and confidential.",
+        "why": "Confidentiality is a core part of the care."
+      },
+      "relearn": "SRH care is confidential; ICTC testing is free and confidential.",
+      "persona": "any",
+      "source": "confidentiality"
+    },
+    {
+      "id": "oh-060",
+      "cat": "access-and-confidential",
+      "type": "branch",
+      "hook": "Fear of being judged is stopping you from getting care you need.",
+      "options": [
+        {
+          "text": "Go to a confidential, non-judgmental service like an ICTC",
+          "consequence": "You get care without the judgement you feared.",
+          "outcome": "cared-for",
+          "best": true
+        },
+        {
+          "text": "Avoid care to dodge judgement",
+          "consequence": "Confidential, non-judgmental services exist (like NACO ICTCs); fear of judgement shouldn't cost you care."
+        }
+      ],
+      "debrief": "Confidential, non-judgmental SRH care exists precisely so fear doesn't keep you away.",
+      "relearn": "Use confidential, non-judgmental services; don't let fear of judgement stop care.",
+      "persona": "Aarti",
+      "source": "overcoming fear"
+    },
+    {
+      "id": "oh-061",
+      "cat": "access-and-confidential",
+      "type": "match",
+      "hook": "Match the need to the Indian service.",
+      "pairs": [
+        {
+          "left": "Free, confidential HIV testing",
+          "right": "NACO ICTC"
+        },
+        {
+          "left": "Contraception and SRH advice",
+          "right": "A doctor or clinic"
+        },
+        {
+          "left": "Youth-friendly health services",
+          "right": "RKSK clinics"
+        }
+      ],
+      "relearn": "ICTC for free confidential testing, a clinic for contraception, RKSK for youth-friendly care.",
+      "persona": "any",
+      "source": "India services"
+    },
+    {
+      "id": "oh-062",
+      "cat": "access-and-confidential",
+      "type": "reflect",
+      "hook": "Sam: accessing SRH care is your right as an adult, on your own terms. Own that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "My right",
+        "On my terms"
+      ],
+      "affirm": "Confidential SRH care is your right as an adult; you don't need anyone's permission.",
+      "relearn": "Accessing SRH care is your right as an adult, on your own terms.",
+      "persona": "any",
+      "source": "your right"
+    },
+    {
+      "id": "oh-063",
+      "cat": "access-and-confidential",
+      "type": "sort",
+      "hook": "Sort: a confidential, reliable source of care, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "A NACO ICTC centre"
+        },
+        {
+          "id": "b",
+          "text": "A sketchy online seller"
+        },
+        {
+          "id": "c",
+          "text": "A registered doctor or clinic"
+        },
+        {
+          "id": "d",
+          "text": "Rumours from a group chat"
+        }
+      ],
+      "bins": [
+        {
+          "id": "reliable",
+          "label": "Reliable"
+        },
+        {
+          "id": "not",
+          "label": "Not"
+        }
+      ],
+      "key": {
+        "a": "reliable",
+        "b": "not",
+        "c": "reliable",
+        "d": "not"
+      },
+      "relearn": "ICTCs and registered clinics are reliable; sketchy sellers and rumours aren't.",
+      "persona": "any",
+      "source": "reliable care"
+    },
+    {
+      "id": "oh-064",
+      "cat": "access-and-confidential",
+      "type": "branch",
+      "hook": "You need contraception but feel awkward at the pharmacy.",
+      "options": [
+        {
+          "text": "Go anyway; it's a normal, routine purchase",
+          "consequence": "You get what you need, awkwardness passes.",
+          "outcome": "sorted",
+          "best": true
+        },
+        {
+          "text": "Skip it because of the awkward feeling",
+          "consequence": "Contraception is a normal, routine purchase; the brief awkwardness is worth your health."
+        }
+      ],
+      "debrief": "Buying contraception is routine and your right; the awkward feeling fades fast.",
+      "relearn": "Getting contraception is a normal, routine step; don't let awkwardness stop you.",
+      "persona": "any",
+      "source": "normalising access"
+    },
+    {
+      "id": "oh-065",
+      "cat": "access-and-confidential",
+      "type": "strike-rewrite",
+      "hook": "\"Unmarried young people can't access contraception or testing.\"",
+      "myth": {
+        "un": "Unmarried young people can't access contraception or testing.",
+        "re": "As an adult you can access contraception and confidential testing regardless of marital status.",
+        "why": "Care is based on your needs, not your marital status."
+      },
+      "relearn": "As an adult you can access contraception and testing regardless of marital status.",
+      "persona": "any",
+      "source": "access rights"
+    },
+    {
+      "id": "oh-066",
+      "cat": "access-and-confidential",
+      "type": "branch",
+      "hook": "You're not sure where to find youth-friendly, confidential services near you.",
+      "options": [
+        {
+          "text": "Look up ICTC / RKSK or ask a clinic discreetly",
+          "consequence": "You find a real, confidential option.",
+          "outcome": "found",
+          "best": true
+        },
+        {
+          "text": "Give up because it feels hard",
+          "consequence": "ICTC and RKSK services exist for exactly this; a clinic can point you discreetly."
+        }
+      ],
+      "debrief": "Confidential, youth-friendly services exist; a little looking finds them.",
+      "relearn": "Find confidential care via ICTC, RKSK or a discreet clinic ask.",
+      "persona": "Meena",
+      "source": "finding services"
+    },
+    {
+      "id": "oh-067",
+      "cat": "access-and-confidential",
+      "type": "role-play",
+      "hook": "A friend won't get care because they're scared it won't be private.",
+      "relearn": "Reassure a friend that SRH care is confidential, and offer to go along.",
+      "persona": "any",
+      "source": "reassuring on privacy",
+      "setup": "Reassure them. Say:",
+      "yourLine": [
+        {
+          "text": "\"It's completely confidential, no one has to know, and I'll come with you if you like.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, people might find out.\""
+        }
+      ]
+    },
+    {
+      "id": "oh-068",
+      "cat": "access-and-confidential",
+      "type": "sort",
+      "hook": "Sort: your right with SRH services, or not guaranteed?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Confidential, private care"
+        },
+        {
+          "id": "b",
+          "text": "Being lectured or shamed"
+        },
+        {
+          "id": "c",
+          "text": "Accurate information"
+        },
+        {
+          "id": "d",
+          "text": "Having your details gossiped"
+        }
+      ],
+      "bins": [
+        {
+          "id": "right",
+          "label": "Your right"
+        },
+        {
+          "id": "not",
+          "label": "Not okay"
+        }
+      ],
+      "key": {
+        "a": "right",
+        "b": "not",
+        "c": "right",
+        "d": "not"
+      },
+      "relearn": "Confidential care and accurate info are your right; being shamed or gossiped about isn't okay.",
+      "persona": "any",
+      "source": "your rights"
+    },
+    {
+      "id": "oh-069",
+      "cat": "access-and-confidential",
+      "type": "branch",
+      "hook": "A friend is too scared to get tested because of stigma.",
+      "options": [
+        {
+          "text": "Reassure them care is confidential and offer to go along",
+          "consequence": "You help them past the fear.",
+          "outcome": "supported",
+          "best": true
+        },
+        {
+          "text": "Tell them to just deal with it alone",
+          "consequence": "Reassuring them care is confidential, and offering to go along, helps more than leaving them to the fear."
+        }
+      ],
+      "debrief": "A reassuring friend who'll go along can be the thing that gets someone the care they need.",
+      "relearn": "Reassure a friend that care is confidential, and offer to go with them.",
+      "persona": "any",
+      "source": "supporting access"
+    },
+    {
+      "id": "oh-070",
+      "cat": "access-and-confidential",
+      "type": "spot",
+      "hook": "Spot the sign of good, confidential SRH care.",
+      "scene": [
+        {
+          "text": "Private, non-judgmental and free at an ICTC",
+          "trick": false
+        },
+        {
+          "text": "Demands to know your 'reasons' to shame you",
+          "trick": true
+        },
+        {
+          "text": "Accurate information, your choice respected",
+          "trick": false
+        }
+      ],
+      "why": "Private, non-judgmental, accurate, choice-respecting care is good; shaming interrogation isn't.",
+      "relearn": "Good SRH care is private, non-judgmental, accurate and choice-respecting.",
+      "persona": "any",
+      "source": "good care"
+    },
+    {
+      "id": "oh-071",
+      "cat": "access-and-confidential",
+      "type": "reflect",
+      "hook": "Sam: owning your health means using the services that are there for you. Ready to?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I'll use them",
+        "They're for me"
+      ],
+      "affirm": "Those services exist for you; using them is what owning your health looks like.",
+      "relearn": "Owning your health means using the services that are there for you.",
+      "persona": "any",
+      "source": "ownership"
+    },
+    {
+      "id": "oh-072",
+      "cat": "access-and-confidential",
+      "type": "branch",
+      "hook": "You realise you've been avoiding all SRH care out of embarrassment.",
+      "options": [
+        {
+          "text": "Take one small step: book one confidential check",
+          "consequence": "You start owning your health.",
+          "outcome": "started",
+          "best": true
+        },
+        {
+          "text": "Keep avoiding it",
+          "consequence": "One small, confidential step, a single check, starts you owning your health."
+        }
+      ],
+      "debrief": "One small confidential step breaks the avoidance and puts you in charge.",
+      "relearn": "Take one small confidential step to start owning your health.",
+      "persona": "any",
+      "source": "first step"
+    },
+    {
+      "id": "oh-073",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match the tool to the question it answers.",
+      "pairs": [
+        {
+          "left": "Method comparison",
+          "right": "Which contraception fits me?"
+        },
+        {
+          "left": "Service finder",
+          "right": "Where's confidential care near me?"
+        },
+        {
+          "left": "Anonymous Q&A",
+          "right": "My embarrassing question, answered"
+        }
+      ],
+      "relearn": "A method comparison, a service finder and anonymous Q&A each answer a key SRH question.",
+      "persona": "any",
+      "source": "the tools"
+    },
+    {
+      "id": "oh-074",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: a reliable SRH info source, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "A doctor or NACO"
+        },
+        {
+          "id": "b",
+          "text": "A viral WhatsApp forward"
+        },
+        {
+          "id": "c",
+          "text": "A registered clinic"
+        },
+        {
+          "id": "d",
+          "text": "An anonymous brag in a chat"
+        }
+      ],
+      "bins": [
+        {
+          "id": "reliable",
+          "label": "Reliable"
+        },
+        {
+          "id": "not",
+          "label": "Not"
+        }
+      ],
+      "key": {
+        "a": "reliable",
+        "b": "not",
+        "c": "reliable",
+        "d": "not"
+      },
+      "relearn": "Doctors, NACO and clinics are reliable; forwards and chat brags aren't.",
+      "persona": "any",
+      "source": "reliable info"
+    },
+    {
+      "id": "oh-075",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match the goal to the move.",
+      "pairs": [
+        {
+          "left": "Both pregnancy & STI safety",
+          "right": "Dual protection"
+        },
+        {
+          "left": "Know your status",
+          "right": "Routine confidential testing"
+        },
+        {
+          "left": "A wellbeing question",
+          "right": "Ask a doctor, no shame"
+        }
+      ],
+      "relearn": "Dual protection, routine testing and asking a doctor each own a piece of your SRH.",
+      "persona": "any",
+      "source": "goals to moves"
+    },
+    {
+      "id": "oh-076",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: protection, testing, wellbeing, the talk, access, you can own all of it now. Feel it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I own it",
+        "All of it"
+      ],
+      "affirm": "Protection, testing, wellbeing, the talk and access, that's the full picture, and it's yours.",
+      "relearn": "Protection, testing, wellbeing, the talk and access, you can own all of it.",
+      "persona": "any",
+      "source": "the full picture"
+    },
+    {
+      "id": "oh-077",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: a healthy SRH habit, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Routine testing"
+        },
+        {
+          "id": "b",
+          "text": "Avoiding care out of shame"
+        },
+        {
+          "id": "c",
+          "text": "Using dual protection"
+        },
+        {
+          "id": "d",
+          "text": "Trusting myths over doctors"
+        }
+      ],
+      "bins": [
+        {
+          "id": "healthy",
+          "label": "Healthy habit"
+        },
+        {
+          "id": "not",
+          "label": "Not"
+        }
+      ],
+      "key": {
+        "a": "healthy",
+        "b": "not",
+        "c": "healthy",
+        "d": "not"
+      },
+      "relearn": "Routine testing and dual protection are healthy habits; shame-avoidance and myths aren't.",
+      "persona": "any",
+      "source": "habits"
+    },
+    {
+      "id": "oh-078",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "A friend asks you something about contraception you're not sure about.",
+      "options": [
+        {
+          "text": "Point them to a doctor or NACO rather than guess",
+          "consequence": "You give them a reliable route.",
+          "outcome": "reliable",
+          "best": true
+        },
+        {
+          "text": "Make up an answer to seem helpful",
+          "consequence": "Pointing them to a doctor or NACO beats a confident guess on health."
+        }
+      ],
+      "debrief": "On health, pointing to a reliable source beats a well-meaning guess.",
+      "relearn": "Point friends to a doctor or NACO rather than guessing on health.",
+      "persona": "any",
+      "source": "reliable referral"
+    },
+    {
+      "id": "oh-079",
+      "cat": "tools-and-help",
+      "type": "strike-rewrite",
+      "hook": "\"There's no way to get good SRH info without being judged.\"",
+      "myth": {
+        "un": "There's no way to get SRH info without being judged.",
+        "re": "Confidential, non-judgmental sources exist, doctors, NACO, ICTCs and trusted health services.",
+        "why": "Judgement-free care is the standard, not a luxury."
+      },
+      "relearn": "Confidential, non-judgmental SRH sources exist; you can get good info without judgement.",
+      "persona": "Meena",
+      "source": "info exists"
+    },
+    {
+      "id": "oh-080",
+      "cat": "tools-and-help",
+      "type": "spot",
+      "hook": "Spot what puts you in charge of your health.",
+      "relearn": "Knowing the facts and where to go puts you in charge of your health.",
+      "persona": "any",
+      "source": "in charge",
+      "scene": [
+        {
+          "text": "\"Knowing the facts and where to go\"",
+          "trick": false
+        },
+        {
+          "text": "\"Just hoping for the best\"",
+          "trick": true
+        },
+        {
+          "text": "\"Using confidential services\"",
+          "trick": false
+        }
+      ],
+      "why": "Knowing the facts and using confidential services puts you in charge; just hoping doesn't."
+    },
+    {
+      "id": "oh-081",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match the myth to the truth that replaces it.",
+      "pairs": [
+        {
+          "left": "\"Only condoms-or-nothing\"",
+          "right": "Dual protection covers both"
+        },
+        {
+          "left": "\"No symptoms, no STI\"",
+          "right": "Many STIs are silent"
+        },
+        {
+          "left": "\"Care isn't private\"",
+          "right": "SRH care is confidential"
+        }
+      ],
+      "relearn": "Dual protection, silent STIs and confidential care replace the common myths.",
+      "persona": "any",
+      "source": "myth to truth"
+    },
+    {
+      "id": "oh-082",
+      "cat": "tools-and-help",
+      "type": "spot",
+      "hook": "Spot the accurate, shame-free SRH statement.",
+      "scene": [
+        {
+          "text": "\"Testing is normal self-care\"",
+          "trick": false
+        },
+        {
+          "text": "\"Only bad people need this\"",
+          "trick": true
+        },
+        {
+          "text": "\"You have a right to confidential care\"",
+          "trick": false
+        }
+      ],
+      "why": "Testing-as-self-care and a right to confidential care are accurate; 'only bad people' is shaming and false.",
+      "relearn": "Testing is self-care and confidential care is your right; shame-talk is false.",
+      "persona": "any",
+      "source": "accuracy"
+    },
+    {
+      "id": "oh-083",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: owning your health is one of the most adult, caring things you can do, for you and others. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Adult and caring",
+        "For all of us"
+      ],
+      "affirm": "Owning your SRH protects you and everyone you're close to; it's grown-up care in action.",
+      "relearn": "Owning your health is an adult, caring act, for you and others.",
+      "persona": "any",
+      "source": "why it matters"
+    },
+    {
+      "id": "oh-084",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: which 'own your health' habit will you carry?",
+      "prompt": "Pick one.",
+      "options": [
+        "Dual protection",
+        "Routine testing",
+        "Have the health talk",
+        "Use confidential care"
+      ],
+      "affirm": "Carry that one, and your sexual and reproductive health is genuinely in your own hands.",
+      "relearn": "Dual protection, routine testing, the health talk and confidential care, own them.",
+      "persona": "any",
+      "source": "carry forward"
+    }
+  ]
+}

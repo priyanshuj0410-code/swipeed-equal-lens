@@ -1,0 +1,1956 @@
+{
+  "game": "Decoded",
+  "gameId": "decoded",
+  "node": "g36",
+  "chapter": 5,
+  "ages": "15-18",
+  "thread": "G · Values, Rights & Media",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Gated (school-comfort toggle gates the pornography-literacy module)",
+  "leadMechanics": [
+    "strike-rewrite",
+    "branch",
+    "spot"
+  ],
+  "note": "Pornography & critical thinking online (UNESCO 7, 5.4, 4.3, 5.1, 5.6, 2.1, 2.3, 1.1). New v2 build, Chapter 5, the media-literacy FINALE and summit of the journey. The feed is engineered to use you, but you can learn to read it and use it instead. Decode the machine (algorithms, the attention economy, filter bubbles), decode the influence (misinformation, AI fakes/deepfakes, propaganda, scams, dark patterns), decode pornography (gated, non-explicit, deeper than g28: it's staged performance, not real, not sex-ed, unrealistic, no shame, critical thinking, contrast with healthy info), decode yourself (digital wellbeing, balance not abstinence), then synthesise into one 'decode anything' habit, and Grow (Unlearn-Relearn-Grow, a digital-life charter, carried for life). Critical, not cynical; agency over paranoia. A game about manipulation that uses no dark patterns. Builds on g28 (Reality Check) and g12/g17; closes the 3-18 journey before the c5 capstone. India: viral forwards, deepfakes, scams, DPDP Act, cybercrime 1930 / cybercrime.gov.in. Non-explicit throughout; routes distress to help.",
+  "categories": {
+    "decode-the-algorithm": "Decode the algorithm: read the machine",
+    "decode-the-influence": "Decode the influence: manipulation & AI fakes",
+    "decode-pornography": "Decode pornography (gated, non-explicit)",
+    "decode-yourself": "Decode yourself: digital wellbeing",
+    "the-decoder": "The Decoder: decode anything",
+    "grow-the-journey": "Grow: the journey reflection"
+  },
+  "mechanicsUsed": [
+    "strike-rewrite",
+    "branch",
+    "spot",
+    "sort",
+    "reflect",
+    "match",
+    "role-play"
+  ],
+  "evidenceBase": [
+    "The deepest media-literacy idea is that the feed itself is designed: recommendation algorithms and the attention economy are built to maximise engagement, so what you see is selected to keep you scrolling, creating filter bubbles and echo chambers that quietly shape your view of the world. Understanding the system, not just individual fakes within it, is the leap from media-literate to digitally wise; and everyone is targeted by manipulation (misinformation, AI fakes, propaganda, scams, dark patterns), which only works while it stays invisible, so a decoder who knows the techniques can see them coming (UNESCO media & information literacy; KC7)",
+    "Pornography literacy for older teens (gated and strictly non-explicit) builds critical thinking and reduces shame: pornography is staged performance by actors, not real sex, not a relationship model and not sex education; it shows unrealistic bodies, acts and standards, often little or no real consent, communication or care, and can normalise gender-based violence, and teens' still-maturing minds are more vulnerable to its portrayals of sexual norms. The approach is to think critically and contrast it with healthy, accurate information about sex, relationships and bodies, never to shame anyone for curiosity or for having seen it (porn-literacy curricula 2025; UNESCO KC7)",
+    "Decoding yourself matters as much as decoding the world: living online on purpose means protecting attention from infinite scroll, resisting comparison, managing time and notifications, guarding privacy and your lasting digital footprint, and tending mental health, framed as balance, not abstinence, because the digital world holds real connection, learning and joy. The master habit is to decode anything (who made it and why, how the algorithm served it, what manipulation is in play, what's actually true, how I'll act), and the journey's lesson is that learning never stops, Unlearn, Relearn, Grow (UNESCO; India DPDP Act; cybercrime.gov.in / 1930)"
+  ],
+  "scenarios": [
+    {
+      "id": "dc-001",
+      "cat": "decode-the-algorithm",
+      "type": "strike-rewrite",
+      "hook": "\"My feed just shows me what's popular and true.\"",
+      "myth": {
+        "un": "My feed shows me what's popular and true.",
+        "re": "It's engineered to maximise your engagement, not to inform you.",
+        "why": "What keeps you scrolling is selected for you, not what's most true."
+      },
+      "relearn": "Your feed is engineered to keep you scrolling, not to inform you.",
+      "persona": "any",
+      "source": "attention economy"
+    },
+    {
+      "id": "dc-002",
+      "cat": "decode-the-algorithm",
+      "type": "spot",
+      "hook": "Spot why you're seeing this post.",
+      "scene": [
+        {
+          "text": "It provoked a strong reaction in others",
+          "trick": true
+        },
+        {
+          "text": "It's objectively the most important news",
+          "trick": false
+        },
+        {
+          "text": "The algorithm predicts it'll keep you scrolling",
+          "trick": true
+        }
+      ],
+      "why": "You see it because it drives engagement, not because it's the most important.",
+      "relearn": "You see posts that drive engagement, not the most important ones.",
+      "persona": "any",
+      "source": "recommendation systems"
+    },
+    {
+      "id": "dc-003",
+      "cat": "decode-the-algorithm",
+      "hook": "Spot the digitally-wise move.",
+      "relearn": "Understanding the system is the leap from media-literate to digitally wise.",
+      "persona": "any",
+      "source": "the system",
+      "type": "spot",
+      "scene": [
+        {
+          "text": "Understanding how the whole system works",
+          "trick": false
+        },
+        {
+          "text": "Only ever spotting individual fakes",
+          "trick": true
+        },
+        {
+          "text": "Reading why you see what you see",
+          "trick": false
+        }
+      ],
+      "why": "Reading the whole system, not just individual fakes, is the leap to digital wisdom."
+    },
+    {
+      "id": "dc-004",
+      "cat": "decode-the-algorithm",
+      "type": "sort",
+      "hook": "Sort: how the feed actually works, or a comforting myth?",
+      "items": [
+        {
+          "id": "a",
+          "text": "It maximises your engagement"
+        },
+        {
+          "id": "b",
+          "text": "\"It's a neutral window on the world\""
+        },
+        {
+          "id": "c",
+          "text": "It creates filter bubbles"
+        },
+        {
+          "id": "d",
+          "text": "\"Everyone sees the same feed\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "How it works"
+        },
+        {
+          "id": "myth",
+          "label": "Myth"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "myth",
+        "c": "real",
+        "d": "myth"
+      },
+      "relearn": "Feeds maximise engagement and create filter bubbles; they aren't neutral or universal.",
+      "persona": "any",
+      "source": "how feeds work"
+    },
+    {
+      "id": "dc-005",
+      "cat": "decode-the-algorithm",
+      "type": "strike-rewrite",
+      "hook": "\"A filter bubble doesn't really affect what I think.\"",
+      "myth": {
+        "un": "A filter bubble doesn't affect what I think.",
+        "re": "Seeing mostly one kind of view quietly narrows and hardens your sense of the world.",
+        "why": "You can't weigh views you're never shown."
+      },
+      "relearn": "Filter bubbles quietly narrow your view of the world.",
+      "persona": "any",
+      "source": "filter bubbles"
+    },
+    {
+      "id": "dc-006",
+      "cat": "decode-the-algorithm",
+      "type": "branch",
+      "hook": "You notice your feed only shows one side of everything.",
+      "options": [
+        {
+          "text": "Deliberately seek other views and sources",
+          "consequence": "You pop the bubble and see more clearly.",
+          "outcome": "open",
+          "best": true
+        },
+        {
+          "text": "Assume your feed is the whole picture",
+          "consequence": "Deliberately seek other views; your feed isn't the whole picture."
+        }
+      ],
+      "debrief": "Stepping outside the bubble on purpose is how you keep a clear view.",
+      "relearn": "Deliberately seek other views to escape the filter bubble.",
+      "persona": "any",
+      "source": "popping the bubble"
+    },
+    {
+      "id": "dc-007",
+      "cat": "decode-the-algorithm",
+      "type": "spot",
+      "hook": "Spot the attention-economy design at work.",
+      "scene": [
+        {
+          "text": "Infinite scroll with no natural stop",
+          "trick": true
+        },
+        {
+          "text": "A clear, finite article",
+          "trick": false
+        },
+        {
+          "text": "Auto-play pulling you to the next thing",
+          "trick": true
+        }
+      ],
+      "why": "Infinite scroll and auto-play are designed to hold your attention, not serve you.",
+      "relearn": "Infinite scroll and auto-play are attention-capture design.",
+      "persona": "any",
+      "source": "attention design"
+    },
+    {
+      "id": "dc-008",
+      "cat": "decode-the-algorithm",
+      "hook": "Spot who's really in control of the feed.",
+      "relearn": "Knowing the feed is designed lets you use it, not be used by it.",
+      "persona": "any",
+      "source": "agency",
+      "type": "spot",
+      "scene": [
+        {
+          "text": "You, choosing what to open on purpose",
+          "trick": false
+        },
+        {
+          "text": "Auto-play deciding your next hour",
+          "trick": true
+        },
+        {
+          "text": "You, knowing why you see what you see",
+          "trick": false
+        }
+      ],
+      "why": "Knowing the feed is designed flips you from used to user."
+    },
+    {
+      "id": "dc-009",
+      "cat": "decode-the-algorithm",
+      "type": "sort",
+      "hook": "Sort: gives the platform power over you, or gives you power?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Letting auto-play decide your time"
+        },
+        {
+          "id": "b",
+          "text": "Choosing what to open on purpose"
+        },
+        {
+          "id": "c",
+          "text": "Following the endless scroll"
+        },
+        {
+          "id": "d",
+          "text": "Knowing why you see what you see"
+        }
+      ],
+      "bins": [
+        {
+          "id": "them",
+          "label": "Their power"
+        },
+        {
+          "id": "you",
+          "label": "Your power"
+        }
+      ],
+      "key": {
+        "a": "them",
+        "b": "you",
+        "c": "them",
+        "d": "you"
+      },
+      "relearn": "Choosing on purpose and knowing the why is your power; auto-play and endless scroll is theirs.",
+      "persona": "any",
+      "source": "power"
+    },
+    {
+      "id": "dc-010",
+      "cat": "decode-the-algorithm",
+      "type": "strike-rewrite",
+      "hook": "\"If something's trending, it must be important and true.\"",
+      "myth": {
+        "un": "If it's trending, it's important and true.",
+        "re": "Trending means it's spreading, often because it's emotional or engineered, not because it's true.",
+        "why": "Virality measures spread, not accuracy."
+      },
+      "relearn": "Trending measures spread, not truth or importance.",
+      "persona": "any",
+      "source": "virality"
+    },
+    {
+      "id": "dc-011",
+      "cat": "decode-the-algorithm",
+      "hook": "Match the attention-economy fact to what it means for you.",
+      "relearn": "Your attention is the platform's currency; scroll with eyes open.",
+      "persona": "any",
+      "source": "attention economy",
+      "type": "match",
+      "pairs": [
+        {
+          "left": "You're the product",
+          "right": "Your attention is what's sold"
+        },
+        {
+          "left": "Engagement is the goal",
+          "right": "Not your wellbeing or the truth"
+        },
+        {
+          "left": "Scroll with eyes open",
+          "right": "Self-respect, not paranoia"
+        }
+      ]
+    },
+    {
+      "id": "dc-012",
+      "cat": "decode-the-algorithm",
+      "type": "sort",
+      "hook": "Sort: a sign of an engineered feed, or neutral?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Outrage rises to the top"
+        },
+        {
+          "id": "b",
+          "text": "A simple chronological list"
+        },
+        {
+          "id": "c",
+          "text": "Content tuned to your weak spots"
+        },
+        {
+          "id": "d",
+          "text": "A plain search result you asked for"
+        }
+      ],
+      "bins": [
+        {
+          "id": "engineered",
+          "label": "Engineered"
+        },
+        {
+          "id": "neutral",
+          "label": "More neutral"
+        }
+      ],
+      "key": {
+        "a": "engineered",
+        "b": "neutral",
+        "c": "engineered",
+        "d": "neutral"
+      },
+      "relearn": "Outrage-on-top and content tuned to your weak spots are engineered; chronological and your own search are more neutral.",
+      "persona": "any",
+      "source": "engineered feeds"
+    },
+    {
+      "id": "dc-013",
+      "cat": "decode-the-algorithm",
+      "type": "branch",
+      "hook": "You catch yourself scrolling far longer than you meant to.",
+      "options": [
+        {
+          "text": "Recognise the design, and reclaim the choice to stop",
+          "consequence": "You take your attention back.",
+          "outcome": "reclaim",
+          "best": true
+        },
+        {
+          "text": "Blame yourself for 'no willpower'",
+          "consequence": "It's engineered to hold you; recognise the design and reclaim the stop, no self-blame."
+        }
+      ],
+      "debrief": "Long scrolls are by design; reclaiming the stop is reading the machine.",
+      "relearn": "Recognise the design and reclaim the choice to stop; it's not just 'willpower'.",
+      "persona": "any",
+      "source": "design vs willpower"
+    },
+    {
+      "id": "dc-014",
+      "cat": "decode-the-algorithm",
+      "type": "reflect",
+      "hook": "Lensy: which 'read the machine' insight will change how you use your feed?",
+      "prompt": "Pick one.",
+      "options": [
+        "It's engineered for engagement",
+        "Filter bubbles are real",
+        "Trending isn't true",
+        "I can use it on purpose"
+      ],
+      "affirm": "Carry that insight, and the feed works for you instead of on you.",
+      "relearn": "Engineered feeds, filter bubbles, trending-isn't-true: read the machine.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "dc-015",
+      "cat": "decode-the-influence",
+      "type": "strike-rewrite",
+      "hook": "\"I'm too smart to be manipulated online.\"",
+      "myth": {
+        "un": "I'm too smart to be manipulated.",
+        "re": "Everyone is targeted; manipulations work precisely while they stay invisible.",
+        "why": "Overconfidence is exactly what manipulators count on."
+      },
+      "relearn": "Everyone's targeted; manipulation works while it's invisible, not on the 'dumb'.",
+      "persona": "Veer",
+      "source": "manipulation / humility"
+    },
+    {
+      "id": "dc-016",
+      "cat": "decode-the-influence",
+      "type": "sort",
+      "hook": "Sort the influence technique to its family.",
+      "items": [
+        {
+          "id": "a",
+          "text": "A false story spread on purpose"
+        },
+        {
+          "id": "b",
+          "text": "An honest mistake shared widely"
+        },
+        {
+          "id": "c",
+          "text": "Fake 'grassroots' accounts pushing a line"
+        },
+        {
+          "id": "d",
+          "text": "A genuine personal opinion"
+        }
+      ],
+      "bins": [
+        {
+          "id": "manip",
+          "label": "Deliberate manipulation"
+        },
+        {
+          "id": "not",
+          "label": "Not manipulation"
+        }
+      ],
+      "key": {
+        "a": "manip",
+        "b": "not",
+        "c": "manip",
+        "d": "not"
+      },
+      "relearn": "Deliberate false stories and fake 'grassroots' pushes are manipulation; honest mistakes and real opinions aren't.",
+      "persona": "any",
+      "source": "disinformation / astroturfing"
+    },
+    {
+      "id": "dc-017",
+      "cat": "decode-the-influence",
+      "type": "strike-rewrite",
+      "hook": "\"If a video looks real, it's real.\"",
+      "myth": {
+        "un": "If a video looks real, it's real.",
+        "re": "AI can make convincing fakes; verify the source, don't trust the look.",
+        "why": "'Looks real' stopped being proof."
+      },
+      "relearn": "'Looks real' isn't proof; verify the source against fakes.",
+      "persona": "any",
+      "source": "deepfakes (verify source)"
+    },
+    {
+      "id": "dc-018",
+      "cat": "decode-the-influence",
+      "type": "branch",
+      "hook": "A shocking clip is racing across your group chats.",
+      "options": [
+        {
+          "text": "Verify the source before believing or forwarding",
+          "consequence": "You catch a likely fake and don't spread it.",
+          "outcome": "verify",
+          "best": true
+        },
+        {
+          "text": "Forward it because it's shocking",
+          "consequence": "Verify the source first; shock value is exactly what fakes exploit."
+        }
+      ],
+      "debrief": "Source-checking, not eyeballing, is the defense against modern fakes.",
+      "relearn": "Verify the source before believing or forwarding a shocking clip.",
+      "persona": "Arjun",
+      "source": "verify / India forwards"
+    },
+    {
+      "id": "dc-019",
+      "cat": "decode-the-influence",
+      "type": "spot",
+      "hook": "Spot the dark pattern.",
+      "scene": [
+        {
+          "text": "A pre-ticked box signing you up for extras",
+          "trick": true
+        },
+        {
+          "text": "A clear 'no thanks' button",
+          "trick": false
+        },
+        {
+          "text": "A fake countdown to rush your choice",
+          "trick": true
+        }
+      ],
+      "why": "Pre-ticked boxes and fake countdowns are dark patterns nudging you into choices you didn't mean.",
+      "relearn": "Pre-ticked boxes and fake countdowns are dark patterns.",
+      "persona": "any",
+      "source": "dark patterns"
+    },
+    {
+      "id": "dc-020",
+      "cat": "decode-the-influence",
+      "type": "strike-rewrite",
+      "hook": "\"Dark patterns and scams only fool careless people.\"",
+      "myth": {
+        "un": "Dark patterns and scams only fool careless people.",
+        "re": "They're engineered to fool everyone; knowing the technique is the defense.",
+        "why": "They exploit normal human reflexes, not stupidity."
+      },
+      "relearn": "Dark patterns and scams fool everyone; knowing the technique defends you.",
+      "persona": "any",
+      "source": "dark patterns / scams"
+    },
+    {
+      "id": "dc-021",
+      "cat": "decode-the-influence",
+      "type": "sort",
+      "hook": "Sort: a manipulation tell, or a reliable signal?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Manufactured urgency"
+        },
+        {
+          "id": "b",
+          "text": "A named, checkable source"
+        },
+        {
+          "id": "c",
+          "text": "Engineered outrage"
+        },
+        {
+          "id": "d",
+          "text": "Several reliable outlets agreeing"
+        }
+      ],
+      "bins": [
+        {
+          "id": "tell",
+          "label": "Manipulation tell"
+        },
+        {
+          "id": "reliable",
+          "label": "Reliable signal"
+        }
+      ],
+      "key": {
+        "a": "tell",
+        "b": "reliable",
+        "c": "tell",
+        "d": "reliable"
+      },
+      "relearn": "Urgency and engineered outrage are manipulation tells; named sources and corroboration are reliable.",
+      "persona": "any",
+      "source": "tells"
+    },
+    {
+      "id": "dc-022",
+      "cat": "decode-the-influence",
+      "type": "spot",
+      "hook": "Spot the propaganda technique.",
+      "scene": [
+        {
+          "text": "Repeating a simple slogan endlessly",
+          "trick": true
+        },
+        {
+          "text": "Presenting evidence you can check",
+          "trick": false
+        },
+        {
+          "text": "Painting one group as the enemy",
+          "trick": true
+        }
+      ],
+      "why": "Endless slogans and an 'enemy' group are propaganda; checkable evidence isn't.",
+      "relearn": "Endless slogans and 'enemy' framing are propaganda techniques.",
+      "persona": "any",
+      "source": "propaganda"
+    },
+    {
+      "id": "dc-023",
+      "cat": "decode-the-influence",
+      "type": "branch",
+      "hook": "A 'too good to be true' offer wants your details urgently.",
+      "options": [
+        {
+          "text": "Treat it as a scam; don't click, verify independently",
+          "consequence": "You dodge the trap.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Act fast before it 'expires'",
+          "consequence": "Urgent 'too good to be true' offers are scams; don't click, verify."
+        }
+      ],
+      "debrief": "Urgency plus 'too good to be true' is the scam signature.",
+      "relearn": "'Too good to be true' plus urgency is a scam; don't click, verify.",
+      "persona": "any",
+      "source": "scams"
+    },
+    {
+      "id": "dc-024",
+      "cat": "decode-the-influence",
+      "type": "role-play",
+      "hook": "A friend is about to forward something you can tell is fake.",
+      "setup": "Stop it kindly. Say:",
+      "yourLine": [
+        {
+          "text": "\"Hang on, I think that's fake, let's check the source before sharing.\"",
+          "best": true
+        },
+        {
+          "text": "Let them forward it"
+        }
+      ],
+      "relearn": "Kindly suggest checking the source before a friend forwards a fake.",
+      "persona": "any",
+      "source": "intervene"
+    },
+    {
+      "id": "dc-025",
+      "cat": "decode-the-influence",
+      "type": "strike-rewrite",
+      "hook": "\"Once you've seen a few fakes, you can always tell.\"",
+      "myth": {
+        "un": "Once experienced, you can always spot a fake.",
+        "re": "Fakes keep improving, so the durable skill is verifying the source, not trusting your eye.",
+        "why": "It's an arms race your eye can't win alone."
+      },
+      "relearn": "You can't always 'tell'; verify the source as fakes keep improving.",
+      "persona": "any",
+      "source": "deepfakes arms race"
+    },
+    {
+      "id": "dc-026",
+      "cat": "decode-the-influence",
+      "type": "sort",
+      "hook": "Sort: helps you resist manipulation, or leaves you open?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Knowing the techniques"
+        },
+        {
+          "id": "b",
+          "text": "Assuming you're immune"
+        },
+        {
+          "id": "c",
+          "text": "Slowing down before reacting"
+        },
+        {
+          "id": "d",
+          "text": "Sharing on impulse"
+        }
+      ],
+      "bins": [
+        {
+          "id": "resist",
+          "label": "Helps resist"
+        },
+        {
+          "id": "open",
+          "label": "Leaves you open"
+        }
+      ],
+      "key": {
+        "a": "resist",
+        "b": "open",
+        "c": "resist",
+        "d": "open"
+      },
+      "relearn": "Knowing the techniques and slowing down resist manipulation; assuming immunity and impulse-sharing don't.",
+      "persona": "any",
+      "source": "resistance"
+    },
+    {
+      "id": "dc-027",
+      "cat": "decode-the-influence",
+      "hook": "Match the manipulation truth to why it matters.",
+      "relearn": "Manipulation works while invisible; seeing it defuses it.",
+      "persona": "any",
+      "source": "empowerment",
+      "type": "match",
+      "pairs": [
+        {
+          "left": "It works while invisible",
+          "right": "Seeing it defuses it"
+        },
+        {
+          "left": "Everyone is targeted",
+          "right": "It's not about being smart"
+        },
+        {
+          "left": "Know the technique",
+          "right": "You see it coming"
+        }
+      ]
+    },
+    {
+      "id": "dc-028",
+      "cat": "decode-the-influence",
+      "type": "branch",
+      "hook": "You realise something you believed and shared was disinformation.",
+      "options": [
+        {
+          "text": "Correct it openly and learn the tell for next time",
+          "consequence": "You limit the harm and get sharper.",
+          "outcome": "growth",
+          "best": true
+        },
+        {
+          "text": "Quietly ignore that you spread it",
+          "consequence": "Correcting it openly limits harm; everyone gets caught sometimes, learn the tell."
+        }
+      ],
+      "debrief": "Being fooled once is human; correcting and learning is the decoder's move.",
+      "relearn": "If you spread disinformation, correct it openly and learn the tell.",
+      "persona": "any",
+      "source": "accountability"
+    },
+    {
+      "id": "dc-029",
+      "cat": "decode-the-influence",
+      "type": "match",
+      "hook": "Match the influence type to its tell.",
+      "pairs": [
+        {
+          "left": "Disinformation",
+          "right": "Deliberately false, no real source"
+        },
+        {
+          "left": "Deepfake",
+          "right": "Looks real, source can't be verified"
+        },
+        {
+          "left": "Dark pattern",
+          "right": "Nudges a choice you didn't mean"
+        }
+      ],
+      "relearn": "Each influence type, disinformation, deepfake, dark pattern, has a tell you can learn.",
+      "persona": "any",
+      "source": "tells"
+    },
+    {
+      "id": "dc-030",
+      "cat": "decode-the-influence",
+      "type": "reflect",
+      "hook": "Lensy: knowing the whole arsenal, do you feel like a decoder now, not a target?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "A decoder",
+        "Not a target"
+      ],
+      "affirm": "Knowing the techniques turns you from a target into a decoder, exactly the goal.",
+      "relearn": "Knowing the manipulation arsenal makes you a decoder, not a target.",
+      "persona": "any",
+      "source": "identity"
+    },
+    {
+      "id": "dc-031",
+      "cat": "decode-pornography",
+      "type": "strike-rewrite",
+      "hook": "\"Pornography shows what real sex and real bodies are like.\"",
+      "myth": {
+        "un": "Pornography shows what real sex and bodies are like.",
+        "re": "It's staged performance by actors with edited, unrealistic bodies and acts, not real life.",
+        "why": "It's scripted, filmed and edited for views, like any other media."
+      },
+      "relearn": "Pornography is staged, edited performance, not real sex or real bodies.",
+      "persona": "any",
+      "source": "porn literacy (non-explicit)"
+    },
+    {
+      "id": "dc-032",
+      "cat": "decode-pornography",
+      "type": "strike-rewrite",
+      "hook": "\"Porn is a fine way to learn about sex and relationships.\"",
+      "myth": {
+        "un": "Porn is a fine way to learn about sex and relationships.",
+        "re": "It isn't sex education; it often shows no real consent, communication or care.",
+        "why": "Accurate, trusted sources are how you actually learn."
+      },
+      "relearn": "Pornography is not sex education; it usually shows no real consent or care.",
+      "persona": "Vijay",
+      "source": "porn literacy"
+    },
+    {
+      "id": "dc-033",
+      "cat": "decode-pornography",
+      "type": "strike-rewrite",
+      "hook": "\"The bodies and standards in porn are what you should expect or look like.\"",
+      "myth": {
+        "un": "Porn's bodies and standards are what to expect or look like.",
+        "re": "They're selected, filtered and edited; real bodies vary hugely, and that's normal.",
+        "why": "It sets unrealistic standards, not a measure of you."
+      },
+      "relearn": "Porn's bodies and standards are unrealistic; real bodies vary and that's normal.",
+      "persona": "Sneha",
+      "source": "porn literacy / body image (links g21)"
+    },
+    {
+      "id": "dc-034",
+      "cat": "decode-pornography",
+      "type": "strike-rewrite",
+      "hook": "\"What porn shows about how to treat a partner is just how it is.\"",
+      "myth": {
+        "un": "How porn shows people treating each other is just how it is.",
+        "re": "It often lacks real consent and care and can normalise disrespect or aggression; real intimacy is mutual and respectful.",
+        "why": "Treating a performance as a model harms real relationships."
+      },
+      "relearn": "Porn can normalise disrespect; real intimacy is mutual, consensual and caring.",
+      "persona": "any",
+      "source": "porn literacy / consent (links g31)"
+    },
+    {
+      "id": "dc-035",
+      "cat": "decode-pornography",
+      "type": "sort",
+      "hook": "Sort: what pornography is, vs what it isn't.",
+      "items": [
+        {
+          "id": "a",
+          "text": "Edited performance for views"
+        },
+        {
+          "id": "b",
+          "text": "A model for real relationships"
+        },
+        {
+          "id": "c",
+          "text": "Unrealistic bodies and acts"
+        },
+        {
+          "id": "d",
+          "text": "Reliable sex education"
+        }
+      ],
+      "bins": [
+        {
+          "id": "is",
+          "label": "What it is"
+        },
+        {
+          "id": "isnt",
+          "label": "What it isn't"
+        }
+      ],
+      "key": {
+        "a": "is",
+        "b": "isnt",
+        "c": "is",
+        "d": "isnt"
+      },
+      "relearn": "Porn is edited, unrealistic performance, not a relationship model or sex-ed.",
+      "persona": "any",
+      "source": "porn literacy"
+    },
+    {
+      "id": "dc-036",
+      "cat": "decode-pornography",
+      "type": "strike-rewrite",
+      "hook": "\"If you've watched it, something's wrong with you.\"",
+      "myth": {
+        "un": "If you've come across it, something's wrong with you.",
+        "re": "Curiosity is normal and many teens encounter it; what matters is thinking critically about it.",
+        "why": "Shame helps no one; understanding does."
+      },
+      "relearn": "Curiosity is normal; no shame, what matters is decoding it critically.",
+      "persona": "Counsellor",
+      "source": "porn literacy / no shame"
+    },
+    {
+      "id": "dc-037",
+      "cat": "decode-pornography",
+      "hook": "A friend treats porn as a guide to what real sex should be.",
+      "relearn": "Remind a friend porn is a performance, not a how-to for real intimacy.",
+      "persona": "Vijay",
+      "source": "porn literacy / critical thinking",
+      "type": "role-play",
+      "setup": "Decode it for them, no shame. Say:",
+      "yourLine": [
+        {
+          "text": "\"That's a performance, not a how-to, real intimacy is about consent and talking.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, that's how it's meant to go.\""
+        }
+      ]
+    },
+    {
+      "id": "dc-038",
+      "cat": "decode-pornography",
+      "type": "sort",
+      "hook": "Sort: a realistic idea of intimacy, or a porn-shaped distortion?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Partners talk about what they want"
+        },
+        {
+          "id": "b",
+          "text": "It's always instant and flawless"
+        },
+        {
+          "id": "c",
+          "text": "Respect and consent come first"
+        },
+        {
+          "id": "d",
+          "text": "Everyone matches an edited 'ideal'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "Realistic"
+        },
+        {
+          "id": "distortion",
+          "label": "Distortion"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "distortion",
+        "c": "real",
+        "d": "distortion"
+      },
+      "relearn": "Real intimacy is talk, respect and consent; instant, flawless, 'ideal' is a porn-shaped distortion.",
+      "persona": "any",
+      "source": "porn literacy"
+    },
+    {
+      "id": "dc-039",
+      "cat": "decode-pornography",
+      "type": "strike-rewrite",
+      "hook": "\"Everyone watches it, so it must be harmless and accurate.\"",
+      "myth": {
+        "un": "Everyone watches it, so it's harmless and accurate.",
+        "re": "Common doesn't mean accurate; relying on it can distort what you expect of yourself and others.",
+        "why": "Popularity isn't a reality check."
+      },
+      "relearn": "Common doesn't mean accurate; popularity isn't a reality check.",
+      "persona": "any",
+      "source": "porn literacy"
+    },
+    {
+      "id": "dc-040",
+      "cat": "decode-pornography",
+      "type": "reflect",
+      "hook": "Lensy: it's fine to feel curious, and fine to close something that makes you uncomfortable. Okay?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Good to know",
+        "That helps"
+      ],
+      "affirm": "Curiosity is human, and you're always allowed to look away, no shame either way.",
+      "relearn": "Curiosity is normal and you can always close what feels uncomfortable.",
+      "persona": "any",
+      "source": "agency / no shame"
+    },
+    {
+      "id": "dc-041",
+      "cat": "decode-pornography",
+      "type": "branch",
+      "hook": "You want to actually understand sex and relationships, not from porn.",
+      "options": [
+        {
+          "text": "Go to trusted, accurate sources and people",
+          "consequence": "You learn the real, healthy picture.",
+          "outcome": "informed",
+          "best": true
+        },
+        {
+          "text": "Treat porn as your teacher",
+          "consequence": "Porn isn't sex-ed; learn from trusted, accurate sources instead."
+        }
+      ],
+      "debrief": "For the real picture, trusted sources beat a performance every time.",
+      "relearn": "Learn about sex and relationships from trusted, accurate sources, not porn.",
+      "persona": "any",
+      "source": "finding accurate info"
+    },
+    {
+      "id": "dc-042",
+      "cat": "decode-pornography",
+      "type": "role-play",
+      "hook": "A friend is confused or anxious from comparing themselves to porn.",
+      "setup": "Reassure them, no shame. Say:",
+      "yourLine": [
+        {
+          "text": "\"That's a performance, not real, and it's not a measure of you. No shame.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, you should look like that.\""
+        }
+      ],
+      "relearn": "Remind a friend porn is performance, not a measure of them, no shame.",
+      "persona": "Sneha",
+      "source": "support / body image"
+    },
+    {
+      "id": "dc-043",
+      "cat": "decode-pornography",
+      "type": "sort",
+      "hook": "Sort: a healthy, critical response, or an unhealthy one?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Knowing it's not real and not sex-ed"
+        },
+        {
+          "id": "b",
+          "text": "Treating it as a relationship guide"
+        },
+        {
+          "id": "c",
+          "text": "No shame, just critical thinking"
+        },
+        {
+          "id": "d",
+          "text": "Comparing your body to it"
+        }
+      ],
+      "bins": [
+        {
+          "id": "healthy",
+          "label": "Healthy"
+        },
+        {
+          "id": "unhealthy",
+          "label": "Unhealthy"
+        }
+      ],
+      "key": {
+        "a": "healthy",
+        "b": "unhealthy",
+        "c": "healthy",
+        "d": "unhealthy"
+      },
+      "relearn": "Knowing it's not real, with no shame and critical thinking, is healthy; using it as a guide or comparison isn't.",
+      "persona": "any",
+      "source": "porn literacy"
+    },
+    {
+      "id": "dc-044",
+      "cat": "decode-pornography",
+      "hook": "Match the porn-literacy truth to the relief it brings.",
+      "relearn": "Knowing it's a performance frees real intimacy from an impossible standard.",
+      "persona": "any",
+      "source": "wellbeing",
+      "type": "match",
+      "pairs": [
+        {
+          "left": "It's a performance",
+          "right": "Not a standard for you"
+        },
+        {
+          "left": "It's not real",
+          "right": "Real intimacy is unpressured"
+        },
+        {
+          "left": "It's not sex-ed",
+          "right": "Learn from trusted sources"
+        }
+      ]
+    },
+    {
+      "id": "dc-045",
+      "cat": "decode-yourself",
+      "type": "branch",
+      "hook": "Notifications keep pulling you out of everything you do.",
+      "options": [
+        {
+          "text": "Turn off non-essential notifications and use tech on purpose",
+          "consequence": "You get your attention and focus back.",
+          "outcome": "intentional",
+          "best": true
+        },
+        {
+          "text": "Stay reachable by every ping always",
+          "consequence": "Turning off non-essential pings and using tech on purpose protects your focus."
+        }
+      ],
+      "debrief": "Designing your notifications is part of using tech intentionally.",
+      "relearn": "Turn off non-essential notifications; use tech on purpose.",
+      "persona": "any",
+      "source": "digital wellbeing"
+    },
+    {
+      "id": "dc-046",
+      "cat": "decode-yourself",
+      "type": "strike-rewrite",
+      "hook": "\"Comparing myself to people's feeds is just me being realistic.\"",
+      "myth": {
+        "un": "Comparing myself to feeds is being realistic.",
+        "re": "You're comparing your real life to others' curated highlight reels, that's not realistic.",
+        "why": "Feeds hide the ordinary and hard parts you judge yourself against."
+      },
+      "relearn": "Comparing your life to curated feeds isn't realistic; it's unfair to you.",
+      "persona": "Sneha",
+      "source": "comparison (links g21/g28)"
+    },
+    {
+      "id": "dc-047",
+      "cat": "decode-yourself",
+      "type": "sort",
+      "hook": "Sort: intentional digital habit, or being used by tech?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Choosing when and why you go online"
+        },
+        {
+          "id": "b",
+          "text": "Endless doomscrolling"
+        },
+        {
+          "id": "c",
+          "text": "Protecting your privacy settings"
+        },
+        {
+          "id": "d",
+          "text": "Oversharing without thinking"
+        }
+      ],
+      "bins": [
+        {
+          "id": "intentional",
+          "label": "Intentional"
+        },
+        {
+          "id": "used",
+          "label": "Being used"
+        }
+      ],
+      "key": {
+        "a": "intentional",
+        "b": "used",
+        "c": "intentional",
+        "d": "used"
+      },
+      "relearn": "Choosing your use and guarding privacy is intentional; doomscrolling and oversharing is being used.",
+      "persona": "any",
+      "source": "intentional use"
+    },
+    {
+      "id": "dc-048",
+      "cat": "decode-yourself",
+      "type": "reflect",
+      "hook": "Lensy: balance, not quitting, the digital world has real connection and joy too. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Balance",
+        "Use it well"
+      ],
+      "affirm": "The goal isn't to quit, it's to use the good and guard against the rest.",
+      "relearn": "The aim is balance, not abstinence; use the good, guard against the rest.",
+      "persona": "any",
+      "source": "balance"
+    },
+    {
+      "id": "dc-049",
+      "cat": "decode-yourself",
+      "type": "branch",
+      "hook": "You're posting something that'll be part of your lasting digital footprint.",
+      "options": [
+        {
+          "text": "Post as if future-you and others might see it",
+          "consequence": "Your footprint stays something you're glad of.",
+          "outcome": "footprint",
+          "best": true
+        },
+        {
+          "text": "Post anything; the internet forgets",
+          "consequence": "Posts can resurface; post with future-you in mind."
+        }
+      ],
+      "debrief": "Your footprint lasts; a moment's post can outlive the moment.",
+      "relearn": "Post with future-you in mind; your digital footprint lasts.",
+      "persona": "any",
+      "source": "footprint"
+    },
+    {
+      "id": "dc-050",
+      "cat": "decode-yourself",
+      "type": "branch",
+      "hook": "Scrolling is leaving you low and anxious lately.",
+      "options": [
+        {
+          "text": "Adjust your use and, if it persists, reach for support",
+          "consequence": "You protect your mental health.",
+          "outcome": "wellbeing",
+          "best": true
+        },
+        {
+          "text": "Keep scrolling through the low feeling",
+          "consequence": "Adjust your use; if low feelings persist, reach for support (a trusted adult, Tele-MANAS 14416)."
+        }
+      ],
+      "debrief": "Tending your mental health is part of a healthy digital life.",
+      "relearn": "If scrolling lowers your mood, adjust use and reach for support if it persists.",
+      "persona": "Counsellor",
+      "source": "digital wellbeing / help"
+    },
+    {
+      "id": "dc-051",
+      "cat": "decode-yourself",
+      "hook": "Spot using tech on purpose.",
+      "relearn": "Use technology on purpose, rather than being used by it.",
+      "persona": "any",
+      "source": "intentional use",
+      "type": "spot",
+      "scene": [
+        {
+          "text": "Opening an app for a reason, then closing it",
+          "trick": false
+        },
+        {
+          "text": "Picking up the phone on reflex, again",
+          "trick": true
+        },
+        {
+          "text": "Deciding your screen time, not the app",
+          "trick": false
+        }
+      ],
+      "why": "Using tech on purpose, on your terms, is decoding yourself."
+    },
+    {
+      "id": "dc-052",
+      "cat": "decode-yourself",
+      "type": "sort",
+      "hook": "Sort: protects your wellbeing online, or erodes it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Scroll breaks and sleep"
+        },
+        {
+          "id": "b",
+          "text": "Comparing yourself constantly"
+        },
+        {
+          "id": "c",
+          "text": "Curating who you follow"
+        },
+        {
+          "id": "d",
+          "text": "Chasing every notification"
+        }
+      ],
+      "bins": [
+        {
+          "id": "protects",
+          "label": "Protects it"
+        },
+        {
+          "id": "erodes",
+          "label": "Erodes it"
+        }
+      ],
+      "key": {
+        "a": "protects",
+        "b": "erodes",
+        "c": "protects",
+        "d": "erodes"
+      },
+      "relearn": "Breaks, sleep and curating your feed protect wellbeing; comparison and chasing pings erode it.",
+      "persona": "any",
+      "source": "wellbeing"
+    },
+    {
+      "id": "dc-053",
+      "cat": "decode-yourself",
+      "type": "branch",
+      "hook": "An app keeps asking for data and permissions it doesn't need.",
+      "options": [
+        {
+          "text": "Guard your privacy; only share what's necessary",
+          "consequence": "You protect your data and footprint.",
+          "outcome": "private",
+          "best": true
+        },
+        {
+          "text": "Just tap 'allow all'",
+          "consequence": "Guard your privacy; share only what an app actually needs."
+        }
+      ],
+      "debrief": "Privacy is a habit; share the minimum, especially under the DPDP Act.",
+      "relearn": "Guard your privacy; only grant the data and permissions truly needed.",
+      "persona": "any",
+      "source": "privacy / DPDP"
+    },
+    {
+      "id": "dc-054",
+      "cat": "decode-yourself",
+      "type": "reflect",
+      "hook": "Lensy: which digital-wellbeing habit do you most want to build?",
+      "prompt": "Pick one.",
+      "options": [
+        "Protect my attention",
+        "Resist comparison",
+        "Guard my privacy",
+        "Use it on purpose"
+      ],
+      "affirm": "Building that habit makes your whole digital life healthier and more yours.",
+      "relearn": "Protecting attention, resisting comparison, privacy and intent are wellbeing habits.",
+      "persona": "any",
+      "source": "habits"
+    },
+    {
+      "id": "dc-055",
+      "cat": "decode-yourself",
+      "type": "role-play",
+      "hook": "A friend is stuck in a comparison spiral over social media.",
+      "setup": "Reframe it for them. Say:",
+      "yourLine": [
+        {
+          "text": "\"That's their highlight reel, not their life, don't measure yourself against an edit.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, their life is just better.\""
+        }
+      ],
+      "relearn": "Help a friend see feeds as highlight reels, not a measuring stick.",
+      "persona": "Sneha",
+      "source": "comparison / support"
+    },
+    {
+      "id": "dc-056",
+      "cat": "decode-yourself",
+      "type": "strike-rewrite",
+      "hook": "\"Logging off or setting limits means you're missing out.\"",
+      "myth": {
+        "un": "Setting limits means you're missing out.",
+        "re": "Intentional limits give you back time, focus and calm, that's gaining, not missing out.",
+        "why": "FOMO is itself an engineered feeling."
+      },
+      "relearn": "Setting limits is gaining time and calm, not missing out.",
+      "persona": "any",
+      "source": "FOMO"
+    },
+    {
+      "id": "dc-057",
+      "cat": "decode-yourself",
+      "hook": "Spot decoding yourself, not just the world.",
+      "relearn": "Decoding yourself matters as much as decoding the world.",
+      "persona": "any",
+      "source": "decode yourself",
+      "type": "spot",
+      "scene": [
+        {
+          "text": "Noticing your own scrolling habits",
+          "trick": false
+        },
+        {
+          "text": "Only ever fact-checking other people",
+          "trick": true
+        },
+        {
+          "text": "Checking how tech affects your mood",
+          "trick": false
+        }
+      ],
+      "why": "Turning the critical lens inward, on your own habits, is half of digital wisdom."
+    },
+    {
+      "id": "dc-058",
+      "cat": "decode-yourself",
+      "type": "branch",
+      "hook": "You want a healthier relationship with your phone overall.",
+      "options": [
+        {
+          "text": "Set a few intentional habits and stick to them",
+          "consequence": "Your digital life steadies and serves you.",
+          "outcome": "healthy",
+          "best": true
+        },
+        {
+          "text": "Wait for willpower to fix it someday",
+          "consequence": "A few intentional habits beat waiting on willpower; design your use."
+        }
+      ],
+      "debrief": "A healthy digital life is built from a few deliberate habits.",
+      "relearn": "Build a healthier digital life from a few intentional habits.",
+      "persona": "any",
+      "source": "habits"
+    },
+    {
+      "id": "dc-059",
+      "cat": "the-decoder",
+      "type": "branch",
+      "hook": "The Decoder. You're handed any post from the information world. First move?",
+      "options": [
+        {
+          "text": "Ask: who made this and why?",
+          "consequence": "You start with the source and intent.",
+          "outcome": "decode",
+          "best": true
+        },
+        {
+          "text": "Just react to how it makes you feel",
+          "consequence": "Start the Decoder with 'who made this and why?', not just your reaction."
+        }
+      ],
+      "debrief": "The Decoder starts with source and intent, before anything else.",
+      "relearn": "Decode anything by asking first: who made this and why?",
+      "persona": "any",
+      "source": "the decoder"
+    },
+    {
+      "id": "dc-060",
+      "cat": "the-decoder",
+      "type": "match",
+      "hook": "Match the Decoder question to what it uncovers.",
+      "pairs": [
+        {
+          "left": "Who made it & why?",
+          "right": "Source and intent"
+        },
+        {
+          "left": "How did the algorithm serve it?",
+          "right": "The machine"
+        },
+        {
+          "left": "What's the manipulation?",
+          "right": "The technique"
+        }
+      ],
+      "relearn": "The Decoder uncovers source, the machine, and the manipulation in anything.",
+      "persona": "any",
+      "source": "decoder questions"
+    },
+    {
+      "id": "dc-061",
+      "cat": "the-decoder",
+      "type": "match",
+      "hook": "Match the last Decoder steps.",
+      "pairs": [
+        {
+          "left": "What's actually true?",
+          "right": "Verify against reliable sources"
+        },
+        {
+          "left": "How will I act?",
+          "right": "Decide, don't just react"
+        },
+        {
+          "left": "Decode anything",
+          "right": "Use it on everything, for life"
+        }
+      ],
+      "relearn": "Verify the truth, decide how to act, and apply the Decoder to anything.",
+      "persona": "any",
+      "source": "decoder questions"
+    },
+    {
+      "id": "dc-062",
+      "cat": "the-decoder",
+      "type": "branch",
+      "hook": "The Decoder. A viral health claim lands in your feed.",
+      "options": [
+        {
+          "text": "Run the Decoder: source, intent, algorithm, manipulation, truth",
+          "consequence": "You see straight through it.",
+          "outcome": "decoded",
+          "best": true
+        },
+        {
+          "text": "Share it because it 'feels right'",
+          "consequence": "Run the full Decoder before sharing; 'feels right' isn't decoded."
+        }
+      ],
+      "debrief": "The Decoder applied fully turns a viral claim into something you can judge.",
+      "relearn": "Run the full Decoder on viral claims before believing or sharing.",
+      "persona": "any",
+      "source": "applying the decoder"
+    },
+    {
+      "id": "dc-063",
+      "cat": "the-decoder",
+      "type": "spot",
+      "hook": "Spot the fully-decoded response.",
+      "scene": [
+        {
+          "text": "Checked the source and intent",
+          "trick": false
+        },
+        {
+          "text": "Shared on a gut feeling",
+          "trick": true
+        },
+        {
+          "text": "Verified against reliable outlets",
+          "trick": false
+        }
+      ],
+      "why": "Checking source and verifying is decoding; sharing on gut feeling isn't.",
+      "relearn": "A decoded response checks source and verifies, not just reacts.",
+      "persona": "any",
+      "source": "decoder"
+    },
+    {
+      "id": "dc-064",
+      "cat": "the-decoder",
+      "type": "branch",
+      "hook": "The Decoder. Someone you trust shares something you suspect is off.",
+      "options": [
+        {
+          "text": "Decode it kindly and check, regardless of who shared it",
+          "consequence": "You judge the content, not the messenger.",
+          "outcome": "clear",
+          "best": true
+        },
+        {
+          "text": "Believe it because they shared it",
+          "consequence": "Decode the content itself; even trusted people share things unchecked."
+        }
+      ],
+      "debrief": "The Decoder judges the content, not who happened to send it.",
+      "relearn": "Decode the content, regardless of who shared it.",
+      "persona": "any",
+      "source": "source vs messenger"
+    },
+    {
+      "id": "dc-065",
+      "cat": "the-decoder",
+      "type": "reflect",
+      "hook": "Lensy: one habit, decode anything, that you carry forever. Powerful, isn't it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "For life",
+        "My superpower"
+      ],
+      "affirm": "One master habit, applied to anything, is a superpower you keep for life.",
+      "relearn": "'Decode anything' is one master habit you carry for life.",
+      "persona": "any",
+      "source": "master habit"
+    },
+    {
+      "id": "dc-066",
+      "cat": "the-decoder",
+      "type": "role-play",
+      "hook": "You want to teach a younger sibling the Decoder.",
+      "setup": "Make it simple. Say:",
+      "yourLine": [
+        {
+          "text": "\"Before you believe anything online: who made it, why, and is it actually true?\"",
+          "best": true
+        },
+        {
+          "text": "\"Just believe whatever's popular.\""
+        }
+      ],
+      "relearn": "Teach the Decoder simply: who made it, why, and is it true?",
+      "persona": "any",
+      "source": "passing it on"
+    },
+    {
+      "id": "dc-067",
+      "cat": "the-decoder",
+      "type": "sort",
+      "hook": "Sort: part of the Decoder, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Asking who benefits"
+        },
+        {
+          "id": "b",
+          "text": "Reacting on impulse"
+        },
+        {
+          "id": "c",
+          "text": "Verifying what's true"
+        },
+        {
+          "id": "d",
+          "text": "Sharing before checking"
+        }
+      ],
+      "bins": [
+        {
+          "id": "in",
+          "label": "In the Decoder"
+        },
+        {
+          "id": "out",
+          "label": "Not in it"
+        }
+      ],
+      "key": {
+        "a": "in",
+        "b": "out",
+        "c": "in",
+        "d": "out"
+      },
+      "relearn": "Asking who benefits and verifying are the Decoder; impulse and unchecked sharing aren't.",
+      "persona": "any",
+      "source": "decoder"
+    },
+    {
+      "id": "dc-068",
+      "cat": "the-decoder",
+      "type": "branch",
+      "hook": "The Decoder works, but it takes a moment of slowing down.",
+      "options": [
+        {
+          "text": "Build the pause in; a few seconds beats being fooled",
+          "consequence": "The habit becomes automatic.",
+          "outcome": "habit",
+          "best": true
+        },
+        {
+          "text": "Skip it because you're in a hurry",
+          "consequence": "Build in the pause; a few seconds of decoding beats being fooled."
+        }
+      ],
+      "debrief": "A small, deliberate pause is what makes the Decoder work.",
+      "relearn": "Build in a short pause; decoding beats reacting in a hurry.",
+      "persona": "any",
+      "source": "the pause"
+    },
+    {
+      "id": "dc-069",
+      "cat": "the-decoder",
+      "type": "reflect",
+      "hook": "Lensy: with the Decoder, almost nothing online can use you without you knowing. Feel that power?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Hard to fool",
+        "In control"
+      ],
+      "affirm": "The Decoder is what keeps the information world working for you, not on you.",
+      "relearn": "The Decoder keeps the information world working for you, not on you.",
+      "persona": "any",
+      "source": "agency"
+    },
+    {
+      "id": "dc-070",
+      "cat": "the-decoder",
+      "type": "reflect",
+      "hook": "Lensy: which Decoder question will you reach for most?",
+      "prompt": "Pick one.",
+      "options": [
+        "Who made it & why?",
+        "What's the manipulation?",
+        "What's actually true?",
+        "How will I act?"
+      ],
+      "affirm": "Reaching for any of them makes you an active decoder, not a passive target.",
+      "relearn": "Any Decoder question makes you an active decoder, not a passive target.",
+      "persona": "any",
+      "source": "decoder"
+    },
+    {
+      "id": "dc-071",
+      "cat": "grow-the-journey",
+      "type": "reflect",
+      "hook": "Lensy: for years we erased myths together, and rewrote the truth each time. Feel how far that's come?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "A long way",
+        "So many myths"
+      ],
+      "affirm": "Hundreds of myths unlearned and truths relearned, that's the journey you've made.",
+      "relearn": "You've spent years unlearning myths and relearning the truth.",
+      "persona": "any",
+      "source": "journey reflection"
+    },
+    {
+      "id": "dc-072",
+      "cat": "grow-the-journey",
+      "type": "reflect",
+      "hook": "Lensy: the real lesson of the whole journey, learning never stops, and that's a good thing. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Keep learning",
+        "For life"
+      ],
+      "affirm": "Learning never stopping is the whole point, you get to keep growing your whole life.",
+      "relearn": "Learning never stops, and that's a good thing.",
+      "persona": "any",
+      "source": "lifelong learning"
+    },
+    {
+      "id": "dc-073",
+      "cat": "grow-the-journey",
+      "type": "strike-rewrite",
+      "hook": "\"Once you grow up, you stop needing to question the media.\"",
+      "myth": {
+        "un": "Once you grow up, you stop needing to question media.",
+        "re": "Decoding is a lifelong habit; the techniques keep evolving, so you keep reading.",
+        "why": "The information world never stops changing."
+      },
+      "relearn": "Decoding is lifelong; the techniques evolve, so you keep questioning.",
+      "persona": "any",
+      "source": "lifelong skill"
+    },
+    {
+      "id": "dc-074",
+      "cat": "grow-the-journey",
+      "type": "match",
+      "hook": "Match the principle to what it means.",
+      "pairs": [
+        {
+          "left": "Unlearn",
+          "right": "Let go of a myth"
+        },
+        {
+          "left": "Relearn",
+          "right": "Take in the truth"
+        },
+        {
+          "left": "Grow",
+          "right": "Keep doing it, for life"
+        }
+      ],
+      "relearn": "Unlearn, Relearn, Grow: drop the myth, take the truth, keep going.",
+      "persona": "any",
+      "source": "core principle"
+    },
+    {
+      "id": "dc-075",
+      "cat": "grow-the-journey",
+      "type": "branch",
+      "hook": "You're writing your own digital-life charter to carry forward.",
+      "options": [
+        {
+          "text": "Commit to a few real principles: use it on purpose, check before sharing, be kind",
+          "consequence": "You leave with a charter you'll actually live by.",
+          "outcome": "charter",
+          "best": true
+        },
+        {
+          "text": "Leave it blank, you'll wing it",
+          "consequence": "A few real principles you commit to beat winging it; write your charter."
+        }
+      ],
+      "debrief": "A personal charter turns everything learned into how you'll live online.",
+      "relearn": "Write a digital-life charter: use it on purpose, check before sharing, be kind.",
+      "persona": "any",
+      "source": "charter"
+    },
+    {
+      "id": "dc-076",
+      "cat": "grow-the-journey",
+      "hook": "A friend is harshly piling onto someone in the comments.",
+      "relearn": "Be both critical and kind online; both matter.",
+      "persona": "any",
+      "source": "kindness",
+      "type": "role-play",
+      "setup": "Be the critical-and-kind voice. Say:",
+      "yourLine": [
+        {
+          "text": "\"Let's not pile on, we can disagree without tearing someone down.\"",
+          "best": true
+        },
+        {
+          "text": "Join in the pile-on"
+        }
+      ]
+    },
+    {
+      "id": "dc-077",
+      "cat": "grow-the-journey",
+      "type": "reflect",
+      "hook": "Lensy: you now carry the power to unlearn and relearn yourself, for the rest of your life. Believe it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I carry it",
+        "On my own now"
+      ],
+      "affirm": "You can do it yourself now, unlearn, relearn, grow, for the rest of your life.",
+      "relearn": "You carry the power to unlearn and relearn yourself, for life.",
+      "persona": "any",
+      "source": "handover"
+    },
+    {
+      "id": "dc-078",
+      "cat": "grow-the-journey",
+      "type": "sort",
+      "hook": "Sort: a wise digital citizen, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Reads the machine and the message"
+        },
+        {
+          "id": "b",
+          "text": "Believes whatever's trending"
+        },
+        {
+          "id": "c",
+          "text": "Uses tech on purpose and is kind"
+        },
+        {
+          "id": "d",
+          "text": "Spreads things unchecked"
+        }
+      ],
+      "bins": [
+        {
+          "id": "wise",
+          "label": "Wise citizen"
+        },
+        {
+          "id": "not",
+          "label": "Not yet"
+        }
+      ],
+      "key": {
+        "a": "wise",
+        "b": "not",
+        "c": "wise",
+        "d": "not"
+      },
+      "relearn": "A wise digital citizen decodes, uses tech on purpose, and is kind; not believes-and-spreads.",
+      "persona": "any",
+      "source": "digital citizenship"
+    },
+    {
+      "id": "dc-079",
+      "cat": "grow-the-journey",
+      "type": "reflect",
+      "hook": "Lensy: from naming feelings as a small kid to decoding the world as a near-adult, proud of that growth?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Proud",
+        "Grown up"
+      ],
+      "affirm": "From a small friend naming feelings to a wise decoder, that's a whole growing-up.",
+      "relearn": "You've grown from naming feelings to decoding the world; that's real growth.",
+      "persona": "any",
+      "source": "journey"
+    },
+    {
+      "id": "dc-080",
+      "cat": "grow-the-journey",
+      "hook": "Match each Decoded motto to what it protects.",
+      "relearn": "Read the machine, decode anything, use it on purpose, and keep growing.",
+      "persona": "any",
+      "source": "consolidation",
+      "type": "match",
+      "pairs": [
+        {
+          "left": "Read the machine",
+          "right": "Your clear view of the world"
+        },
+        {
+          "left": "Decode anything",
+          "right": "You, from being fooled"
+        },
+        {
+          "left": "Use it on purpose",
+          "right": "Your attention and time"
+        }
+      ]
+    },
+    {
+      "id": "dc-081",
+      "cat": "grow-the-journey",
+      "type": "branch",
+      "hook": "You step into adulthood and the information world is yours to navigate.",
+      "options": [
+        {
+          "text": "Carry the Decoder and your charter, and keep learning",
+          "consequence": "You meet the world clear-eyed and growing.",
+          "outcome": "ready",
+          "best": true
+        },
+        {
+          "text": "Leave the skills behind at school",
+          "consequence": "Carry the Decoder and charter forward; keep learning, for life."
+        }
+      ],
+      "debrief": "What you carry forward, the Decoder, the charter, the habit, is the whole point.",
+      "relearn": "Carry the Decoder and your charter into adult life, and keep learning.",
+      "persona": "Arjun",
+      "source": "forward"
+    },
+    {
+      "id": "dc-082",
+      "cat": "grow-the-journey",
+      "type": "reflect",
+      "hook": "Lensy: whatever the information world throws at you, you can read it. Feel ready?",
+      "prompt": "What do you think?",
+      "options": [
+        "Ready",
+        "I can read it",
+        "Bring it on"
+      ],
+      "affirm": "You can read the machine, the message and yourself, you're genuinely ready.",
+      "relearn": "You're ready to read whatever the information world throws at you.",
+      "persona": "any",
+      "source": "readiness"
+    },
+    {
+      "id": "dc-083",
+      "cat": "grow-the-journey",
+      "type": "reflect",
+      "hook": "Lensy: a generation that can decode the world clearly and stay kind, worth being part of?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Count me in",
+        "Let's go"
+      ],
+      "affirm": "A clear-eyed, kind, critical generation, that's exactly what this whole journey was for.",
+      "relearn": "Decoding clearly and staying kind is what this whole journey was for.",
+      "persona": "any",
+      "source": "vision"
+    },
+    {
+      "id": "dc-084",
+      "cat": "grow-the-journey",
+      "type": "reflect",
+      "hook": "Lensy: one last time, together. Unlearn. Relearn. And...?",
+      "prompt": "Finish it.",
+      "options": [
+        "Grow",
+        "Grow, for life",
+        "Keep growing"
+      ],
+      "affirm": "Unlearn. Relearn. Grow. Now it's yours, for the rest of your life.",
+      "relearn": "Unlearn. Relearn. Grow, for the rest of your life.",
+      "persona": "any",
+      "source": "finale"
+    }
+  ]
+}

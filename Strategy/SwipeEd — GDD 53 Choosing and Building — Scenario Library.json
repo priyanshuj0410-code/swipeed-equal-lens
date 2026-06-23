@@ -1,0 +1,1986 @@
+{
+  "game": "Choosing & Building",
+  "gameId": "choosing-building",
+  "node": "g53",
+  "chapter": 7,
+  "ages": null,
+  "thread": "D · Relationships",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Open (adult, comprehensive, ungated)",
+  "leadMechanics": [
+    "branch",
+    "strike-rewrite",
+    "sort"
+  ],
+  "note": "Choosing a partner & what makes a healthy long-term partnership/marriage, love & arranged; commitment & communication (UNESCO 1.2, 1.4, 5.3, 2.1). New v2 build, opening Chapter 7 (Building a Life), where the story turns from 'me' to 'us'. A wedding is a day; a partnership is the work. Five modes: choosing well (values & compatibility over sparks and timeline), what it takes (communication, trust, repair, interdependence, build us without erasing me), commitment clearly (thoughtful, eyes-open; bust 'marriage will fix/complete me'; UN&RE), love & arranged (both paths, the same skills; consent essential in any path; family involvement respected but the couple's judgement leads; forced marriage routed to help), starting strong (expectations, communication, equality from day one), tools/help. Every path respected, including not marrying (the counterpoint g54); no pressure toward or against marriage. Consent and respect carried from g31/g44. Builds on g46 (Real Relationships) and g31 (Mutual); sets up Equal Partners (g55) and The Family Map (g57). India: marriage is the central life event, both arranged and love, with relational pressures (timeline, in-laws, 'log kya kahenge'); coercion or forced marriage routed to help (181, 1091, 112, Childline 1098).",
+  "categories": {
+    "choosing-well": "Choosing well: values & compatibility over sparks",
+    "what-it-takes": "What it takes: the daily work of partnership",
+    "commitment-clearly": "Commitment, clearly: eyes-open, not pressure",
+    "love-and-arranged": "Love & arranged: same skills, consent always",
+    "starting-strong": "Starting strong: expectations & equality day one",
+    "tools-and-help": "Tools & help: compatibility & communication"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "strike-rewrite",
+    "sort",
+    "reflect",
+    "role-play",
+    "match",
+    "spot"
+  ],
+  "evidenceBase": [
+    "Choosing a partner well means weighing values, respect, shared goals and compatibility, not just chemistry: research consistently finds that value alignment and practical compatibility predict relationship satisfaction far better than initial spark, and as the saying goes, chemistry draws you together while compatibility keeps you together. The deep green flags are respect, kindness, how someone treats others and handles conflict and shared core values; the red flags are control, contempt, dishonesty and incompatible values, and how a person behaves under stress and disagreement reveals them (compatibility-vs-chemistry research; Gottman shared-values agreement)",
+    "A lasting partnership is built, not just felt: communication, trust, repair after conflict and interdependence (a team of two whole people, building 'us' without erasing 'me') are the daily work, and Gottman finds couples who agree on important values and how to resolve conflict stay happy long-term. Commitment is best approached with eyes open and thoughtfully, from genuine choice rather than pressure, timeline or drift, and the myth that 'marriage will fix our problems or complete me' is false, a partnership is built by two whole people, not a cure for problems or loneliness (Gottman; long-term-relationship research)",
+    "Every path is respected and consent is central: love marriage, an arranged match and long-term partnership are all valid and need the same foundations of values, compatibility and communication, the arranged process can carry the same values-and-compatibility lens with real questions and time, and consent is essential in any path, with the right to say yes or no and to take time. Family involvement can be respected while the couple's own judgement and consent lead, and coercion or forced marriage is never acceptable and is routed to help; not marrying is an equally valid path. Equality is built in from day one through honest early conversations about money, work, roles and expectations (UNESCO ITGSE KC1; consent and forced-marriage safeguarding)"
+  ],
+  "scenarios": [
+    {
+      "id": "cb-001",
+      "cat": "choosing-well",
+      "type": "strike-rewrite",
+      "hook": "\"Choose a partner on chemistry and sparks alone.\"",
+      "myth": {
+        "un": "Choose a partner on chemistry and sparks alone.",
+        "re": "Compatibility and shared values are what keep love going; chemistry draws you together, compatibility keeps you together.",
+        "why": "Spark fades; shared values and respect last."
+      },
+      "relearn": "Compatibility and shared values keep love going; chemistry alone doesn't.",
+      "persona": "Sneha",
+      "source": "compatibility over chemistry"
+    },
+    {
+      "id": "cb-002",
+      "cat": "choosing-well",
+      "type": "sort",
+      "hook": "Sort: a deep green flag for a long-term partner, or just surface appeal?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Treats waiters and elders with respect"
+        },
+        {
+          "id": "b",
+          "text": "Looks great in photos"
+        },
+        {
+          "id": "c",
+          "text": "Handles disagreement calmly"
+        },
+        {
+          "id": "d",
+          "text": "Has an impressive job title"
+        }
+      ],
+      "bins": [
+        {
+          "id": "green",
+          "label": "Deep green flag"
+        },
+        {
+          "id": "surface",
+          "label": "Surface appeal"
+        }
+      ],
+      "key": {
+        "a": "green",
+        "b": "surface",
+        "c": "green",
+        "d": "surface"
+      },
+      "relearn": "How they treat others and handle conflict is a deep green flag; looks and status are surface.",
+      "persona": "any",
+      "source": "green flags"
+    },
+    {
+      "id": "cb-003",
+      "cat": "choosing-well",
+      "type": "branch",
+      "hook": "You're drawn to someone exciting, but your core values clearly clash.",
+      "options": [
+        {
+          "text": "Weigh the values mismatch seriously, not just the spark",
+          "consequence": "You choose with your eyes open.",
+          "outcome": "clear",
+          "best": true
+        },
+        {
+          "text": "Ignore it; the chemistry is amazing",
+          "consequence": "Spark fades and value clashes grow; weighing compatibility seriously is how lasting choices are made."
+        }
+      ],
+      "debrief": "Exciting chemistry can't carry a partnership through clashing core values; weigh both.",
+      "relearn": "Take a values mismatch seriously, even when the chemistry is strong.",
+      "persona": "any",
+      "source": "values vs spark"
+    },
+    {
+      "id": "cb-004",
+      "cat": "choosing-well",
+      "type": "strike-rewrite",
+      "hook": "\"How someone treats you when calm is the real them.\"",
+      "myth": {
+        "un": "How someone treats you when calm is the real them.",
+        "re": "How a person behaves under stress, disagreement and when they don't get their way reveals them most.",
+        "why": "Anyone is pleasant when things are easy."
+      },
+      "relearn": "How someone behaves under stress and disagreement reveals them most.",
+      "persona": "any",
+      "source": "under stress"
+    },
+    {
+      "id": "cb-005",
+      "cat": "choosing-well",
+      "type": "match",
+      "hook": "Match what to weigh in a long-term partner to why.",
+      "relearn": "Shared values, conflict-handling and respect are what to weigh in a long-term partner.",
+      "persona": "any",
+      "source": "what to weigh",
+      "pairs": [
+        {
+          "left": "Shared values",
+          "right": "Aligns your life"
+        },
+        {
+          "left": "How they handle conflict",
+          "right": "Predicts the daily peace"
+        },
+        {
+          "left": "Mutual respect",
+          "right": "The foundation"
+        }
+      ]
+    },
+    {
+      "id": "cb-006",
+      "cat": "choosing-well",
+      "type": "branch",
+      "hook": "Family is pushing a match mainly on caste, status and looks.",
+      "options": [
+        {
+          "text": "Apply your own values-and-compatibility lens too",
+          "consequence": "You bring real judgement to the choice.",
+          "outcome": "considered",
+          "best": true
+        },
+        {
+          "text": "Decide on status and looks alone",
+          "consequence": "A values-and-compatibility lens, alongside any family input, leads to better long-term choices than status alone."
+        }
+      ],
+      "debrief": "Whatever the route, weighing values and compatibility yourself leads to a sounder choice.",
+      "relearn": "Apply your own values-and-compatibility lens, not just status and looks.",
+      "persona": "any",
+      "source": "your own lens"
+    },
+    {
+      "id": "cb-007",
+      "cat": "choosing-well",
+      "type": "spot",
+      "hook": "Spot the long-term green flag.",
+      "scene": [
+        {
+          "text": "They listen and own their mistakes",
+          "trick": false
+        },
+        {
+          "text": "They love-bomb then go cold",
+          "trick": true
+        },
+        {
+          "text": "They respect your boundaries",
+          "trick": false
+        }
+      ],
+      "why": "Listening, owning mistakes and respecting boundaries are green flags; love-bombing then cold isn't.",
+      "relearn": "Listening, owning mistakes and respecting boundaries are long-term green flags.",
+      "persona": "any",
+      "source": "green vs not"
+    },
+    {
+      "id": "cb-008",
+      "cat": "choosing-well",
+      "type": "strike-rewrite",
+      "hook": "\"Red flags will sort themselves out once you're committed.\"",
+      "myth": {
+        "un": "Red flags will sort themselves out once you're committed.",
+        "re": "Commitment rarely fixes red flags like control or contempt; they tend to grow.",
+        "why": "A ring doesn't change character."
+      },
+      "relearn": "Commitment rarely fixes red flags; control and contempt tend to grow, not vanish.",
+      "persona": "any",
+      "source": "red flags persist"
+    },
+    {
+      "id": "cb-009",
+      "cat": "choosing-well",
+      "type": "spot",
+      "hook": "Spot the shift away from a costly partner-choosing pattern.",
+      "relearn": "Shift from choosing on thrill to valuing steadiness, respect and fit.",
+      "persona": "any",
+      "source": "changing the pattern",
+      "scene": [
+        {
+          "text": "Valuing steadiness and respect",
+          "trick": false
+        },
+        {
+          "text": "Chasing only the thrill",
+          "trick": true
+        },
+        {
+          "text": "Valuing real compatibility",
+          "trick": false
+        }
+      ],
+      "why": "Valuing steadiness, respect and compatibility is the healthy shift; chasing only thrill repeats the pattern."
+    },
+    {
+      "id": "cb-010",
+      "cat": "choosing-well",
+      "type": "reflect",
+      "hook": "Sam: the question isn't just 'do I like them?' but 'can we build a good life together?'. Useful shift?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Build together",
+        "Bigger question"
+      ],
+      "affirm": "'Can we build a life together?' is the question that finds a real partner, not just a spark.",
+      "relearn": "Ask not just 'do I like them?' but 'can we build a good life together?'.",
+      "persona": "any",
+      "source": "the real question"
+    },
+    {
+      "id": "cb-011",
+      "cat": "choosing-well",
+      "type": "sort",
+      "hook": "Sort: a sign of real compatibility, or just infatuation?",
+      "items": [
+        {
+          "id": "a",
+          "text": "You want similar things from life"
+        },
+        {
+          "id": "b",
+          "text": "You can't stop thinking about them"
+        },
+        {
+          "id": "c",
+          "text": "You resolve conflict well together"
+        },
+        {
+          "id": "d",
+          "text": "The early romance is intense"
+        }
+      ],
+      "bins": [
+        {
+          "id": "compat",
+          "label": "Compatibility"
+        },
+        {
+          "id": "infat",
+          "label": "Infatuation"
+        }
+      ],
+      "key": {
+        "a": "compat",
+        "b": "infat",
+        "c": "compat",
+        "d": "infat"
+      },
+      "relearn": "Wanting similar things and resolving conflict well is compatibility; intensity alone is infatuation.",
+      "persona": "any",
+      "source": "compatibility signs"
+    },
+    {
+      "id": "cb-012",
+      "cat": "choosing-well",
+      "type": "reflect",
+      "hook": "Sam: take your time choosing; this is one of the biggest decisions you'll make. Permission to go slow?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Take my time",
+        "No rush"
+      ],
+      "affirm": "Taking real time to choose a life partner is wisdom, not indecision; there's no prize for rushing.",
+      "relearn": "Take your time choosing a partner; it's one of life's biggest decisions.",
+      "persona": "Sneha",
+      "source": "take your time"
+    },
+    {
+      "id": "cb-013",
+      "cat": "what-it-takes",
+      "type": "strike-rewrite",
+      "hook": "\"If you really love each other, you won't need to work at it.\"",
+      "myth": {
+        "un": "If you really love each other, you won't need to work at it.",
+        "re": "Every lasting partnership takes communication, trust and repair; love is built, not just felt.",
+        "why": "Even great couples do the daily work."
+      },
+      "relearn": "Every lasting partnership takes work; love is built, not just felt.",
+      "persona": "any",
+      "source": "love is built"
+    },
+    {
+      "id": "cb-014",
+      "cat": "what-it-takes",
+      "type": "sort",
+      "hook": "Sort: builds a lasting partnership, or erodes it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Repairing after a fight"
+        },
+        {
+          "id": "b",
+          "text": "Letting resentment pile up"
+        },
+        {
+          "id": "c",
+          "text": "Appreciating each other often"
+        },
+        {
+          "id": "d",
+          "text": "Keeping score of wrongs"
+        }
+      ],
+      "bins": [
+        {
+          "id": "builds",
+          "label": "Builds it"
+        },
+        {
+          "id": "erodes",
+          "label": "Erodes it"
+        }
+      ],
+      "key": {
+        "a": "builds",
+        "b": "erodes",
+        "c": "builds",
+        "d": "erodes"
+      },
+      "relearn": "Repair and appreciation build a partnership; piled-up resentment and scorekeeping erode it.",
+      "persona": "any",
+      "source": "the daily work"
+    },
+    {
+      "id": "cb-015",
+      "cat": "what-it-takes",
+      "type": "role-play",
+      "hook": "You want to raise something that's been bothering you, kindly.",
+      "setup": "Lead with how you feel. Say:",
+      "yourLine": [
+        {
+          "text": "\"I've felt a bit unheard lately, can we talk about it?\"",
+          "best": true
+        },
+        {
+          "text": "\"You never listen to me.\""
+        }
+      ],
+      "relearn": "Raise an issue with an 'I felt...' opener, not a 'you never' attack.",
+      "persona": "any",
+      "source": "raising issues"
+    },
+    {
+      "id": "cb-016",
+      "cat": "what-it-takes",
+      "type": "strike-rewrite",
+      "hook": "\"A good partnership means becoming one person and losing yourself.\"",
+      "myth": {
+        "un": "A partnership means losing yourself in the other.",
+        "re": "Healthy partnership is interdependence, a team of two whole people; build 'us' without erasing 'me'.",
+        "why": "Two whole people make the strongest team."
+      },
+      "relearn": "Healthy partnership is two whole people as a team; build 'us' without erasing 'me'.",
+      "persona": "Pooja",
+      "source": "us without erasing me"
+    },
+    {
+      "id": "cb-017",
+      "cat": "what-it-takes",
+      "type": "branch",
+      "hook": "You and your partner keep having the same argument unresolved.",
+      "options": [
+        {
+          "text": "Get underneath it: what each of you really needs",
+          "consequence": "You move from fighting to understanding.",
+          "outcome": "deeper",
+          "best": true
+        },
+        {
+          "text": "Keep rehashing the surface fight",
+          "consequence": "Getting underneath to each person's real need resolves a recurring fight better than rehashing the surface."
+        }
+      ],
+      "debrief": "Recurring fights usually hide unmet needs; addressing those, not the surface, is the work.",
+      "relearn": "For a recurring argument, get underneath to what each of you really needs.",
+      "persona": "any",
+      "source": "recurring fights"
+    },
+    {
+      "id": "cb-018",
+      "cat": "what-it-takes",
+      "type": "sort",
+      "hook": "Sort: builds trust in a partnership, or breaks it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Keeping your promises"
+        },
+        {
+          "id": "b",
+          "text": "Hiding things from each other"
+        },
+        {
+          "id": "c",
+          "text": "Being reliable day to day"
+        },
+        {
+          "id": "d",
+          "text": "Breaking confidences"
+        }
+      ],
+      "bins": [
+        {
+          "id": "builds",
+          "label": "Builds trust"
+        },
+        {
+          "id": "breaks",
+          "label": "Breaks it"
+        }
+      ],
+      "key": {
+        "a": "builds",
+        "b": "breaks",
+        "c": "builds",
+        "d": "breaks"
+      },
+      "relearn": "Promises kept and reliability build trust; hiding things and breaking confidences break it.",
+      "persona": "any",
+      "source": "trust"
+    },
+    {
+      "id": "cb-019",
+      "cat": "what-it-takes",
+      "type": "role-play",
+      "hook": "Your partner did something kind and you want to nurture the bond.",
+      "setup": "Express appreciation out loud. Say:",
+      "yourLine": [
+        {
+          "text": "\"I really appreciated that, thank you, it meant a lot.\"",
+          "best": true
+        },
+        {
+          "text": "Assume they know without saying it"
+        }
+      ],
+      "relearn": "Express appreciation out loud; it's small to do and big for the bond.",
+      "persona": "any",
+      "source": "appreciation"
+    },
+    {
+      "id": "cb-020",
+      "cat": "what-it-takes",
+      "type": "reflect",
+      "hook": "Sam: a strong partnership is two people turning toward each other, again and again. Recognise that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Turn toward",
+        "Again and again"
+      ],
+      "affirm": "Turning toward each other in the small moments is what quietly builds a lasting bond.",
+      "relearn": "A strong partnership is two people turning toward each other, again and again.",
+      "persona": "any",
+      "source": "turning toward"
+    },
+    {
+      "id": "cb-021",
+      "cat": "what-it-takes",
+      "type": "branch",
+      "hook": "Life gets busy and you've stopped really talking with your partner.",
+      "options": [
+        {
+          "text": "Protect regular time to connect and check in",
+          "consequence": "You keep the partnership alive under pressure.",
+          "outcome": "connected",
+          "best": true
+        },
+        {
+          "text": "Let the connection drift indefinitely",
+          "consequence": "Protecting regular time to connect keeps a partnership alive; drift quietly erodes it."
+        }
+      ],
+      "debrief": "Partnerships need protected time to connect; busyness is when it matters most.",
+      "relearn": "Protect regular time to connect; don't let busyness erode the bond.",
+      "persona": "any",
+      "source": "staying connected"
+    },
+    {
+      "id": "cb-022",
+      "cat": "what-it-takes",
+      "type": "sort",
+      "hook": "Sort: interdependence, or losing yourself?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Keeping your own friends and interests"
+        },
+        {
+          "id": "b",
+          "text": "Giving up everything that's yours"
+        },
+        {
+          "id": "c",
+          "text": "Supporting each other's growth"
+        },
+        {
+          "id": "d",
+          "text": "Merging into one identity"
+        }
+      ],
+      "bins": [
+        {
+          "id": "inter",
+          "label": "Interdependence"
+        },
+        {
+          "id": "lost",
+          "label": "Losing yourself"
+        }
+      ],
+      "key": {
+        "a": "inter",
+        "b": "lost",
+        "c": "inter",
+        "d": "lost"
+      },
+      "relearn": "Keeping your own life and supporting each other's growth is interdependence; giving up everything is losing yourself.",
+      "persona": "any",
+      "source": "interdependence"
+    },
+    {
+      "id": "cb-023",
+      "cat": "commitment-clearly",
+      "type": "strike-rewrite",
+      "hook": "\"Marriage will fix our problems and complete me.\"",
+      "myth": {
+        "un": "Marriage will fix our problems and complete me.",
+        "re": "A partnership is built by two whole people; it isn't a cure for problems or loneliness.",
+        "why": "Commitment amplifies what's already there, good and bad."
+      },
+      "relearn": "Marriage isn't a cure for problems or loneliness; a partnership is built by two whole people.",
+      "persona": "any",
+      "source": "marriage won't complete you"
+    },
+    {
+      "id": "cb-024",
+      "cat": "commitment-clearly",
+      "type": "strike-rewrite",
+      "hook": "\"A wedding is the goal; after that it's all sorted.\"",
+      "myth": {
+        "un": "A wedding is the goal; after that it's sorted.",
+        "re": "A wedding is a day; the partnership is the ongoing work that follows.",
+        "why": "The real life begins after the celebration."
+      },
+      "relearn": "A wedding is a day; the partnership is the ongoing work.",
+      "persona": "any",
+      "source": "wedding vs partnership"
+    },
+    {
+      "id": "cb-025",
+      "cat": "commitment-clearly",
+      "type": "branch",
+      "hook": "You feel pressured to commit because of your age and what people will say.",
+      "options": [
+        {
+          "text": "Commit only when you genuinely choose it, not from pressure",
+          "consequence": "You make a sounder, freer choice.",
+          "outcome": "chosen",
+          "best": true
+        },
+        {
+          "text": "Marry to silence the questions",
+          "consequence": "Committing from genuine choice, not age-and-pressure, makes for a far sounder marriage."
+        }
+      ],
+      "debrief": "Marrying to escape pressure or timelines rarely ends well; commitment should be a real choice.",
+      "relearn": "Commit when you genuinely choose it, not from pressure or timeline.",
+      "persona": "Sneha",
+      "source": "not from pressure"
+    },
+    {
+      "id": "cb-026",
+      "cat": "commitment-clearly",
+      "type": "strike-rewrite",
+      "hook": "\"You should commit because everyone your age is settling down.\"",
+      "myth": {
+        "un": "You should commit because everyone your age is settling down.",
+        "re": "Your timeline is your own; drifting into commitment to match others rarely lasts.",
+        "why": "Other people's timelines aren't yours."
+      },
+      "relearn": "Your timeline is your own; don't drift into commitment to match others.",
+      "persona": "any",
+      "source": "your timeline"
+    },
+    {
+      "id": "cb-027",
+      "cat": "commitment-clearly",
+      "type": "sort",
+      "hook": "Sort: a sound reason to commit, or a shaky one?",
+      "items": [
+        {
+          "id": "a",
+          "text": "You choose this person and the work"
+        },
+        {
+          "id": "b",
+          "text": "Everyone's asking when"
+        },
+        {
+          "id": "c",
+          "text": "You've talked through the real stuff"
+        },
+        {
+          "id": "d",
+          "text": "You're afraid of being alone"
+        }
+      ],
+      "bins": [
+        {
+          "id": "sound",
+          "label": "Sound"
+        },
+        {
+          "id": "shaky",
+          "label": "Shaky"
+        }
+      ],
+      "key": {
+        "a": "sound",
+        "b": "shaky",
+        "c": "sound",
+        "d": "shaky"
+      },
+      "relearn": "Choosing the person and having talked things through is sound; social pressure and fear of being alone are shaky.",
+      "persona": "any",
+      "source": "reasons to commit"
+    },
+    {
+      "id": "cb-028",
+      "cat": "commitment-clearly",
+      "type": "branch",
+      "hook": "Before committing, there are big topics you've both avoided.",
+      "options": [
+        {
+          "text": "Talk them through honestly before you commit",
+          "consequence": "You commit with eyes open.",
+          "outcome": "eyes-open",
+          "best": true
+        },
+        {
+          "text": "Assume it'll work itself out after",
+          "consequence": "Talking through the big topics before committing beats hoping they sort themselves out after."
+        }
+      ],
+      "debrief": "Eyes-open commitment means discussing the big things, money, children, roles, before, not after.",
+      "relearn": "Talk through the big topics honestly before you commit.",
+      "persona": "any",
+      "source": "eyes open"
+    },
+    {
+      "id": "cb-029",
+      "cat": "commitment-clearly",
+      "type": "reflect",
+      "hook": "Sam: commitment works best as a clear, free choice, not pressure or drift. Sit right with you?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "A free choice",
+        "Eyes open"
+      ],
+      "affirm": "A clear, freely-chosen commitment is the strongest foundation; pressure and drift are weak ones.",
+      "relearn": "Commitment works best as a clear, free choice, not pressure or drift.",
+      "persona": "any",
+      "source": "clear choice"
+    },
+    {
+      "id": "cb-030",
+      "cat": "commitment-clearly",
+      "type": "reflect",
+      "hook": "Sam: choosing not to commit, or to wait, is an equally valid, respectable path. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Equally valid",
+        "My call"
+      ],
+      "affirm": "Not committing, or waiting, is a wholly valid path; this is your life to shape.",
+      "relearn": "Choosing not to commit, or to wait, is an equally valid path.",
+      "persona": "Sneha",
+      "source": "valid not to"
+    },
+    {
+      "id": "cb-031",
+      "cat": "love-and-arranged",
+      "type": "strike-rewrite",
+      "hook": "\"An arranged match means you have no choice or consent.\"",
+      "myth": {
+        "un": "An arranged match means no choice or consent.",
+        "re": "Consent is essential in any path; you have the right to say yes or no and to take your time.",
+        "why": "A match is a proposal, not a command."
+      },
+      "relearn": "Consent is essential in any path; you have the right to say yes or no and to take time.",
+      "persona": "any",
+      "source": "consent in arranged"
+    },
+    {
+      "id": "cb-032",
+      "cat": "love-and-arranged",
+      "type": "strike-rewrite",
+      "hook": "\"Love marriages and arranged marriages need completely different things.\"",
+      "myth": {
+        "un": "Love and arranged marriages need completely different things.",
+        "re": "Both need the same foundations: values, compatibility, communication and consent.",
+        "why": "The path differs; the skills don't."
+      },
+      "relearn": "Love and arranged marriages need the same foundations: values, compatibility, communication, consent.",
+      "persona": "any",
+      "source": "same skills"
+    },
+    {
+      "id": "cb-033",
+      "cat": "love-and-arranged",
+      "type": "branch",
+      "hook": "In an arranged-match process, you're rushed to decide quickly.",
+      "options": [
+        {
+          "text": "Ask for time and real conversations first",
+          "consequence": "You bring judgement and consent to it.",
+          "outcome": "considered",
+          "best": true
+        },
+        {
+          "text": "Just say yes to avoid making waves",
+          "consequence": "Asking for time and real conversations brings your judgement and consent in, rather than being rushed."
+        }
+      ],
+      "debrief": "You can apply a values-and-compatibility lens, ask real questions, and take time in any process.",
+      "relearn": "In an arranged process, ask for time and real conversations before deciding.",
+      "persona": "any",
+      "source": "take time"
+    },
+    {
+      "id": "cb-034",
+      "cat": "love-and-arranged",
+      "type": "match",
+      "hook": "Match the question to what it reveals about a match.",
+      "relearn": "Asking about goals, conflict style and values reveals real fit.",
+      "persona": "any",
+      "source": "real questions",
+      "pairs": [
+        {
+          "left": "\"What do you want from a partnership?\"",
+          "right": "Their goals"
+        },
+        {
+          "left": "\"How do you handle disagreements?\"",
+          "right": "Conflict style"
+        },
+        {
+          "left": "\"What matters most to you?\"",
+          "right": "Their values"
+        }
+      ]
+    },
+    {
+      "id": "cb-035",
+      "cat": "love-and-arranged",
+      "type": "strike-rewrite",
+      "hook": "\"Family knows best; the couple's own judgement doesn't really matter.\"",
+      "myth": {
+        "un": "Family knows best; the couple's judgement doesn't matter.",
+        "re": "Family involvement can be respected, but the couple's own judgement and consent should lead.",
+        "why": "They're the ones who'll live the marriage."
+      },
+      "relearn": "Family involvement can be respected, but the couple's own judgement and consent should lead.",
+      "persona": "any",
+      "source": "couple's judgement"
+    },
+    {
+      "id": "cb-036",
+      "cat": "love-and-arranged",
+      "type": "branch",
+      "hook": "You're being pressured into a marriage you don't consent to.",
+      "options": [
+        {
+          "text": "Hold your no; forced marriage is never okay, and there's help",
+          "consequence": "You protect your right to choose.",
+          "outcome": "protected",
+          "best": true
+        },
+        {
+          "text": "Give in because the family insists",
+          "consequence": "Forced marriage is never acceptable; your consent is required, and help exists (181, 1098, 112)."
+        }
+      ],
+      "debrief": "A marriage without your consent is forced marriage, which is never acceptable; help exists.",
+      "relearn": "Forced marriage is never okay; your consent is required, and help exists (181, 1098, 112).",
+      "persona": "any",
+      "source": "forced marriage"
+    },
+    {
+      "id": "cb-037",
+      "cat": "love-and-arranged",
+      "type": "role-play",
+      "hook": "You need to tell family you want more time before deciding on a match.",
+      "setup": "Be respectful but clear. Say:",
+      "yourLine": [
+        {
+          "text": "\"I value your input, and I need a little more time and a few real conversations first.\"",
+          "best": true
+        },
+        {
+          "text": "Cave to the timeline to keep the peace"
+        }
+      ],
+      "relearn": "You can respectfully ask family for more time and real conversations before deciding.",
+      "persona": "any",
+      "source": "asking for time"
+    },
+    {
+      "id": "cb-038",
+      "cat": "love-and-arranged",
+      "type": "reflect",
+      "hook": "Sam: love marriage, arranged, or partnership, every path is valid, and consent makes it yours. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Every path valid",
+        "Consent makes it mine"
+      ],
+      "affirm": "Whatever the path, your consent and judgement are what make the choice truly yours.",
+      "relearn": "Every path is valid; your consent and judgement make the choice yours.",
+      "persona": "any",
+      "source": "every path, consent"
+    },
+    {
+      "id": "cb-039",
+      "cat": "love-and-arranged",
+      "type": "sort",
+      "hook": "Sort: respects the couple, or overrides them?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Family suggesting, couple deciding"
+        },
+        {
+          "id": "b",
+          "text": "Forcing a match against a no"
+        },
+        {
+          "id": "c",
+          "text": "Giving the couple time to know each other"
+        },
+        {
+          "id": "d",
+          "text": "Ignoring the couple's consent"
+        }
+      ],
+      "bins": [
+        {
+          "id": "respects",
+          "label": "Respects them"
+        },
+        {
+          "id": "overrides",
+          "label": "Overrides them"
+        }
+      ],
+      "key": {
+        "a": "respects",
+        "b": "overrides",
+        "c": "respects",
+        "d": "overrides"
+      },
+      "relearn": "Suggesting-but-couple-deciding and giving time respects them; forcing against a no overrides them.",
+      "persona": "any",
+      "source": "respect vs override"
+    },
+    {
+      "id": "cb-040",
+      "cat": "love-and-arranged",
+      "type": "branch",
+      "hook": "Your relationship doesn't fit the traditional married-man-and-woman mould.",
+      "options": [
+        {
+          "text": "Build the partnership that's right for you two",
+          "consequence": "You honour your own path.",
+          "outcome": "authentic",
+          "best": true
+        },
+        {
+          "text": "Force it into a mould that doesn't fit",
+          "consequence": "Building the partnership that's right for you two beats forcing it into a mould that doesn't fit."
+        }
+      ],
+      "debrief": "Partnerships come in many valid forms; the skills of values, communication and respect apply to all.",
+      "relearn": "Build the partnership that's right for you two; many forms are valid.",
+      "persona": "Aditya",
+      "source": "many forms"
+    },
+    {
+      "id": "cb-041",
+      "cat": "starting-strong",
+      "type": "strike-rewrite",
+      "hook": "\"Talking about money, roles and expectations before marriage is unromantic.\"",
+      "myth": {
+        "un": "Talking about money, roles and expectations is unromantic.",
+        "re": "Those early conversations are how you start strong and avoid painful surprises later.",
+        "why": "Clarity now prevents conflict later."
+      },
+      "relearn": "Early talks about money, roles and expectations start a partnership strong, not unromantic.",
+      "persona": "any",
+      "source": "the early talks"
+    },
+    {
+      "id": "cb-042",
+      "cat": "starting-strong",
+      "type": "branch",
+      "hook": "You're about to start a life together and haven't discussed how you'll share the load.",
+      "options": [
+        {
+          "text": "Agree on a fair share of work and money from the start",
+          "consequence": "You build equality in from day one.",
+          "outcome": "equal",
+          "best": true
+        },
+        {
+          "text": "Let traditional roles just happen by default",
+          "consequence": "Agreeing a fair share from the start builds equality in; default roles quietly create imbalance."
+        }
+      ],
+      "debrief": "Building equality in from day one is far easier than renegotiating an unfair default later.",
+      "relearn": "Agree a fair share of work and money from the start; don't default to roles.",
+      "persona": "Karthik",
+      "source": "equality from day one"
+    },
+    {
+      "id": "cb-043",
+      "cat": "starting-strong",
+      "type": "role-play",
+      "hook": "You want to set a tone of equal partnership early with your partner.",
+      "setup": "Name it warmly. Say:",
+      "yourLine": [
+        {
+          "text": "\"Let's build this as equals, sharing the load and the decisions, from the start.\"",
+          "best": true
+        },
+        {
+          "text": "Assume the roles will just sort themselves out"
+        }
+      ],
+      "relearn": "Name the intention to build as equals early; don't leave roles to default.",
+      "persona": "any",
+      "source": "setting the tone"
+    },
+    {
+      "id": "cb-044",
+      "cat": "starting-strong",
+      "type": "spot",
+      "hook": "Spot the strong start to a partnership.",
+      "relearn": "Honest talks and agreeing how to handle conflict start a partnership strong.",
+      "persona": "any",
+      "source": "strong start",
+      "scene": [
+        {
+          "text": "Honest talks about expectations",
+          "trick": false
+        },
+        {
+          "text": "Avoiding all hard topics",
+          "trick": true
+        },
+        {
+          "text": "Agreeing how to handle conflict",
+          "trick": false
+        }
+      ],
+      "why": "Honest talks and agreeing how to handle conflict start strong; avoiding topics doesn't."
+    },
+    {
+      "id": "cb-045",
+      "cat": "starting-strong",
+      "type": "branch",
+      "hook": "Your families have very different expectations of your new marriage.",
+      "options": [
+        {
+          "text": "Decide together as a couple-unit how to navigate it",
+          "consequence": "You set healthy boundaries early.",
+          "outcome": "united",
+          "best": true
+        },
+        {
+          "text": "Let each family pull you separately",
+          "consequence": "Deciding together as a couple-unit, and setting boundaries, navigates family expectations better than being pulled apart."
+        }
+      ],
+      "debrief": "Facing family expectations as a united couple-unit, with kind boundaries, sets up the years ahead.",
+      "relearn": "Navigate family expectations together as a couple-unit, with kind boundaries.",
+      "persona": "any",
+      "source": "couple-unit (sets up g57)"
+    },
+    {
+      "id": "cb-046",
+      "cat": "starting-strong",
+      "type": "spot",
+      "hook": "Spot the early habit that sets a partnership up well.",
+      "relearn": "The habits you build early set the pattern; start with communication and repair.",
+      "persona": "any",
+      "source": "early habits",
+      "scene": [
+        {
+          "text": "Communicating openly from the start",
+          "trick": false
+        },
+        {
+          "text": "Avoiding all hard topics early",
+          "trick": true
+        },
+        {
+          "text": "Repairing after small fights",
+          "trick": false
+        }
+      ],
+      "why": "Open communication and early repair set a partnership up well; avoiding hard topics doesn't."
+    },
+    {
+      "id": "cb-047",
+      "cat": "starting-strong",
+      "type": "sort",
+      "hook": "Sort: a conversation worth having early, or one to skip?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Whether and when to have children"
+        },
+        {
+          "id": "b",
+          "text": "Nothing, just see what happens"
+        },
+        {
+          "id": "c",
+          "text": "How money will work between you"
+        },
+        {
+          "id": "d",
+          "text": "Avoiding anything that might cause friction"
+        }
+      ],
+      "bins": [
+        {
+          "id": "have",
+          "label": "Have it early"
+        },
+        {
+          "id": "skip",
+          "label": "Skip / avoid"
+        }
+      ],
+      "key": {
+        "a": "have",
+        "b": "skip",
+        "c": "have",
+        "d": "skip"
+      },
+      "relearn": "Children and money conversations are worth having early; avoiding friction by avoiding topics isn't.",
+      "persona": "Nisha",
+      "source": "early conversations"
+    },
+    {
+      "id": "cb-048",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match the partnership tool to what it's for.",
+      "pairs": [
+        {
+          "left": "A compatibility reflection",
+          "right": "Choosing well"
+        },
+        {
+          "left": "'I felt...' statements",
+          "right": "Raising issues kindly"
+        },
+        {
+          "left": "A repair attempt",
+          "right": "After a fight"
+        }
+      ],
+      "relearn": "A compatibility reflection helps choosing, 'I' statements help raising issues, repair attempts heal fights.",
+      "persona": "any",
+      "source": "the toolkit"
+    },
+    {
+      "id": "cb-049",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match the sign to what it tells you about a partnership.",
+      "relearn": "Disagree-and-repair and feeling like a team signal building well; eggshells is a warning.",
+      "persona": "any",
+      "source": "green vs warning",
+      "pairs": [
+        {
+          "left": "You disagree and repair",
+          "right": "Building well"
+        },
+        {
+          "left": "You feel like a team",
+          "right": "Healthy"
+        },
+        {
+          "left": "You walk on eggshells",
+          "right": "A warning"
+        }
+      ]
+    },
+    {
+      "id": "cb-050",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match the partnership step to what it does.",
+      "relearn": "Choose on values, build with care, and commit with eyes open.",
+      "persona": "any",
+      "source": "the recipe",
+      "pairs": [
+        {
+          "left": "Choose on values",
+          "right": "Finds a real fit"
+        },
+        {
+          "left": "Build with care",
+          "right": "Makes it last"
+        },
+        {
+          "left": "Commit with eyes open",
+          "right": "A sound foundation"
+        }
+      ]
+    },
+    {
+      "id": "cb-051",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match the need to where help lives (India).",
+      "pairs": [
+        {
+          "left": "Pressure or forced marriage",
+          "right": "181 / 1091 / 112"
+        },
+        {
+          "left": "A child being married off",
+          "right": "Childline 1098"
+        },
+        {
+          "left": "A struggling partnership",
+          "right": "A couples counsellor"
+        }
+      ],
+      "relearn": "181/1091/112 for forced marriage, 1098 for child marriage, a counsellor for a struggling partnership.",
+      "persona": "Saxena",
+      "source": "help routes"
+    },
+    {
+      "id": "cb-052",
+      "cat": "tools-and-help",
+      "type": "role-play",
+      "hook": "A friend is consumed by wedding planning and forgetting the marriage itself.",
+      "relearn": "A wedding is a day; the partnership you build is the real thing.",
+      "persona": "any",
+      "source": "the real thing",
+      "setup": "Reframe it kindly. Say:",
+      "yourLine": [
+        {
+          "text": "\"The wedding's one day, what'll really matter is the partnership you build after.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, the wedding is everything.\""
+        }
+      ]
+    },
+    {
+      "id": "cb-053",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "A friend is choosing a partner mostly to satisfy family and timeline.",
+      "options": [
+        {
+          "text": "Gently encourage them to weigh values and their own choice",
+          "consequence": "You help them choose more wisely.",
+          "outcome": "helped",
+          "best": true
+        },
+        {
+          "text": "Tell them to just get it over with",
+          "consequence": "Encouraging a friend to weigh values and their own choice helps more than 'just get it done'."
+        }
+      ],
+      "debrief": "A gentle nudge toward values-based, freely-chosen partnering can change a friend's whole life.",
+      "relearn": "Encourage friends to choose a partner on values and their own choice, not just family and timeline.",
+      "persona": "any",
+      "source": "helping friends"
+    },
+    {
+      "id": "cb-054",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: a reliable basis for a partnership, or a fragile one?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Shared values and respect"
+        },
+        {
+          "id": "b",
+          "text": "Intense early chemistry only"
+        },
+        {
+          "id": "c",
+          "text": "Good communication"
+        },
+        {
+          "id": "d",
+          "text": "Hoping they'll change"
+        }
+      ],
+      "bins": [
+        {
+          "id": "reliable",
+          "label": "Reliable"
+        },
+        {
+          "id": "fragile",
+          "label": "Fragile"
+        }
+      ],
+      "key": {
+        "a": "reliable",
+        "b": "fragile",
+        "c": "reliable",
+        "d": "fragile"
+      },
+      "relearn": "Shared values, respect and communication are reliable; chemistry-only and hoping-they'll-change are fragile.",
+      "persona": "any",
+      "source": "the basis"
+    },
+    {
+      "id": "cb-055",
+      "cat": "choosing-well",
+      "type": "spot",
+      "hook": "Spot the wise response to a persistent 'something's off' feeling.",
+      "relearn": "Take a persistent 'something's off' feeling seriously, even with a perfect-on-paper match.",
+      "persona": "any",
+      "source": "trust your gut",
+      "scene": [
+        {
+          "text": "Taking the gut feeling seriously",
+          "trick": false
+        },
+        {
+          "text": "Overriding it because they look right on paper",
+          "trick": true
+        },
+        {
+          "text": "Exploring why it feels off",
+          "trick": false
+        }
+      ],
+      "why": "Taking a persistent unease seriously and exploring it is wise; overriding it for a good-on-paper match isn't."
+    },
+    {
+      "id": "cb-056",
+      "cat": "what-it-takes",
+      "type": "branch",
+      "hook": "You hurt your partner and you can feel the distance.",
+      "options": [
+        {
+          "text": "Own it, apologise sincerely, and make a repair",
+          "consequence": "You close the rupture.",
+          "outcome": "repaired",
+          "best": true
+        },
+        {
+          "text": "Defend yourself and wait it out",
+          "consequence": "Owning it and making a sincere repair closes a rupture that defensiveness and waiting only widen."
+        }
+      ],
+      "debrief": "Sincere repair after you've caused hurt is one of the most important partnership skills.",
+      "relearn": "Own your part, apologise sincerely, and make a repair after causing hurt.",
+      "persona": "any",
+      "source": "repair"
+    },
+    {
+      "id": "cb-057",
+      "cat": "commitment-clearly",
+      "type": "branch",
+      "hook": "You love each other but want very different things from life.",
+      "options": [
+        {
+          "text": "Talk honestly about whether the core differences can work",
+          "consequence": "You face it with clear eyes.",
+          "outcome": "honest",
+          "best": true
+        },
+        {
+          "text": "Assume love will paper over it",
+          "consequence": "Honestly facing whether core life-differences can work beats assuming love alone will paper over them."
+        }
+      ],
+      "debrief": "Love is necessary but not always sufficient; core compatibility on big things matters for the long haul.",
+      "relearn": "Talk honestly about whether core life-differences can work; love alone may not paper over them.",
+      "persona": "any",
+      "source": "love isn't always enough"
+    },
+    {
+      "id": "cb-058",
+      "cat": "love-and-arranged",
+      "type": "reflect",
+      "hook": "Sam: meeting a few times in an arranged process is choosing, too, you're allowed to weigh it. Reassuring?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "It's still choosing",
+        "I can weigh it"
+      ],
+      "affirm": "An arranged introduction is a starting point you get to weigh and consent to; it's still your choice.",
+      "relearn": "An arranged introduction is still choosing; you're allowed to weigh and consent to it.",
+      "persona": "any",
+      "source": "still choosing"
+    },
+    {
+      "id": "cb-059",
+      "cat": "starting-strong",
+      "type": "role-play",
+      "hook": "You want to agree with your partner on how you'll handle money together.",
+      "setup": "Open the conversation simply. Say:",
+      "yourLine": [
+        {
+          "text": "\"Can we talk about how we'll handle money, fairly and openly, so we're on the same page?\"",
+          "best": true
+        },
+        {
+          "text": "Avoid it and hope it works out"
+        }
+      ],
+      "relearn": "Open an honest conversation about handling money fairly and openly, early.",
+      "persona": "any",
+      "source": "money talk"
+    },
+    {
+      "id": "cb-060",
+      "cat": "tools-and-help",
+      "type": "spot",
+      "hook": "Spot the foundation of a lasting partnership.",
+      "scene": [
+        {
+          "text": "Shared values and good communication",
+          "trick": false
+        },
+        {
+          "text": "Only intense early passion",
+          "trick": true
+        },
+        {
+          "text": "Mutual respect and repair",
+          "trick": false
+        }
+      ],
+      "why": "Shared values, communication, respect and repair last; intense early passion alone doesn't.",
+      "relearn": "Shared values, communication, respect and repair are the foundation; passion alone isn't.",
+      "persona": "any",
+      "source": "foundations"
+    },
+    {
+      "id": "cb-061",
+      "cat": "choosing-well",
+      "type": "reflect",
+      "hook": "Sam: the right partner adds to your life and respects who you are; they don't shrink you. Recognise it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Adds, not shrinks",
+        "Respects me"
+      ],
+      "affirm": "A good partner expands your life and respects who you are; that's a green light worth holding out for.",
+      "relearn": "The right partner adds to your life and respects who you are.",
+      "persona": "Sneha",
+      "source": "adds not shrinks"
+    },
+    {
+      "id": "cb-062",
+      "cat": "what-it-takes",
+      "type": "role-play",
+      "hook": "You want your partner to know you don't take them for granted.",
+      "relearn": "Small, spoken kindnesses are the real glue of a partnership.",
+      "persona": "any",
+      "source": "small kindnesses",
+      "setup": "Say it out loud. Say:",
+      "yourLine": [
+        {
+          "text": "\"I don't say it enough, but I really value you and everything you do.\"",
+          "best": true
+        },
+        {
+          "text": "Assume they already know"
+        }
+      ]
+    },
+    {
+      "id": "cb-063",
+      "cat": "commitment-clearly",
+      "type": "sort",
+      "hook": "Sort: eyes-open commitment, or eyes-shut?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Discussing the hard topics first"
+        },
+        {
+          "id": "b",
+          "text": "Avoiding all difficult questions"
+        },
+        {
+          "id": "c",
+          "text": "Choosing freely and clearly"
+        },
+        {
+          "id": "d",
+          "text": "Drifting in to avoid a decision"
+        }
+      ],
+      "bins": [
+        {
+          "id": "open",
+          "label": "Eyes open"
+        },
+        {
+          "id": "shut",
+          "label": "Eyes shut"
+        }
+      ],
+      "key": {
+        "a": "open",
+        "b": "shut",
+        "c": "open",
+        "d": "shut"
+      },
+      "relearn": "Discussing hard topics and choosing freely is eyes-open; avoiding and drifting is eyes-shut.",
+      "persona": "any",
+      "source": "eyes open vs shut"
+    },
+    {
+      "id": "cb-064",
+      "cat": "love-and-arranged",
+      "type": "branch",
+      "hook": "In an arranged match, you discover real red flags during the early meetings.",
+      "options": [
+        {
+          "text": "Take them seriously; you can say no",
+          "consequence": "You use your right to decline.",
+          "outcome": "empowered",
+          "best": true
+        },
+        {
+          "text": "Proceed anyway because it's 'arranged'",
+          "consequence": "Red flags matter in any path; an arranged match doesn't remove your right to say no."
+        }
+      ],
+      "debrief": "Red flags are red flags in any process; you always have the right to decline a match.",
+      "relearn": "Take red flags seriously in an arranged match; you can always say no.",
+      "persona": "any",
+      "source": "right to decline"
+    },
+    {
+      "id": "cb-065",
+      "cat": "starting-strong",
+      "type": "branch",
+      "hook": "You assume your partner shares your view on having children, but you've never asked.",
+      "options": [
+        {
+          "text": "Have the honest conversation before committing",
+          "consequence": "You avoid a major future rupture.",
+          "outcome": "aligned",
+          "best": true
+        },
+        {
+          "text": "Assume you're aligned without checking",
+          "consequence": "Honestly discussing children before committing avoids one of the biggest future ruptures; don't assume."
+        }
+      ],
+      "debrief": "Whether and when to have children is too big to assume; talk it through early and honestly.",
+      "relearn": "Discuss whether and when to have children honestly before committing; don't assume alignment.",
+      "persona": "Nisha",
+      "source": "children conversation"
+    },
+    {
+      "id": "cb-066",
+      "cat": "what-it-takes",
+      "type": "role-play",
+      "hook": "Your partner is stressed and pulling away; you want to reconnect.",
+      "setup": "Turn toward them gently. Say:",
+      "yourLine": [
+        {
+          "text": "\"You seem weighed down, I'm here, want to talk or just sit together?\"",
+          "best": true
+        },
+        {
+          "text": "Leave them to it and feel distant"
+        }
+      ],
+      "relearn": "Turn toward a stressed partner gently; presence reconnects.",
+      "persona": "any",
+      "source": "turning toward"
+    },
+    {
+      "id": "cb-067",
+      "cat": "choosing-well",
+      "type": "strike-rewrite",
+      "hook": "\"You can change a partner into who you want after committing.\"",
+      "myth": {
+        "un": "You can change a partner into who you want after committing.",
+        "re": "Choose someone you respect as they are; committing to 'fix' someone rarely works.",
+        "why": "People change for themselves, not on demand."
+      },
+      "relearn": "Choose someone you respect as they are; you can't reliably change a partner to fit.",
+      "persona": "any",
+      "source": "can't change them"
+    },
+    {
+      "id": "cb-068",
+      "cat": "commitment-clearly",
+      "type": "reflect",
+      "hook": "Sam: a marriage or partnership is a choice you keep making, not a one-time event. Land right?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Keep choosing",
+        "Not one-time"
+      ],
+      "affirm": "Commitment is renewed daily through how you treat each other; it's a choice you keep making.",
+      "relearn": "A partnership is a choice you keep making, not a one-time event.",
+      "persona": "any",
+      "source": "keep choosing"
+    },
+    {
+      "id": "cb-069",
+      "cat": "love-and-arranged",
+      "type": "match",
+      "hook": "Match the move to whether it brings judgement to a match.",
+      "relearn": "Meeting, talking and checking values brings judgement; deciding on a photo skips it.",
+      "persona": "any",
+      "source": "judgement in any path",
+      "pairs": [
+        {
+          "left": "Meeting and talking honestly",
+          "right": "Real judgement"
+        },
+        {
+          "left": "Checking shared values",
+          "right": "Real judgement"
+        },
+        {
+          "left": "Deciding on one photo",
+          "right": "Skips it"
+        }
+      ]
+    },
+    {
+      "id": "cb-070",
+      "cat": "starting-strong",
+      "type": "spot",
+      "hook": "Spot the sign of a partnership with room for both 'us' and 'me'.",
+      "relearn": "Building 'us' shouldn't erase 'me'; the best partnerships have room for both.",
+      "persona": "Pooja",
+      "source": "us and me",
+      "scene": [
+        {
+          "text": "You each keep your own friends and interests",
+          "trick": false
+        },
+        {
+          "text": "One of you gives up everything",
+          "trick": true
+        },
+        {
+          "text": "You support each other's growth",
+          "trick": false
+        }
+      ],
+      "why": "Keeping your own life and supporting each other's growth holds both us and me; giving up everything doesn't."
+    },
+    {
+      "id": "cb-071",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match the myth to the truth that replaces it.",
+      "pairs": [
+        {
+          "left": "\"Marriage completes me\"",
+          "right": "Built by two whole people"
+        },
+        {
+          "left": "\"Arranged means no consent\"",
+          "right": "Consent is essential always"
+        },
+        {
+          "left": "\"Love needs no work\"",
+          "right": "Partnership is built daily"
+        }
+      ],
+      "relearn": "Two whole people, consent always, and built daily replace the common partnership myths.",
+      "persona": "any",
+      "source": "myth to truth"
+    },
+    {
+      "id": "cb-072",
+      "cat": "choosing-well",
+      "type": "sort",
+      "hook": "Sort: a question that reveals long-term fit, or a distraction?",
+      "items": [
+        {
+          "id": "a",
+          "text": "How do they treat people with less power?"
+        },
+        {
+          "id": "b",
+          "text": "How fancy is their car?"
+        },
+        {
+          "id": "c",
+          "text": "Do our life goals align?"
+        },
+        {
+          "id": "d",
+          "text": "How many followers do they have?"
+        }
+      ],
+      "bins": [
+        {
+          "id": "reveals",
+          "label": "Reveals fit"
+        },
+        {
+          "id": "distraction",
+          "label": "Distraction"
+        }
+      ],
+      "key": {
+        "a": "reveals",
+        "b": "distraction",
+        "c": "reveals",
+        "d": "distraction"
+      },
+      "relearn": "How they treat the less powerful and whether goals align reveals fit; cars and followers are distractions.",
+      "persona": "any",
+      "source": "revealing questions"
+    },
+    {
+      "id": "cb-073",
+      "cat": "what-it-takes",
+      "type": "strike-rewrite",
+      "hook": "\"Conflict means the partnership is failing.\"",
+      "myth": {
+        "un": "Conflict means the partnership is failing.",
+        "re": "Conflict is normal; how you repair and treat each other through it is what matters.",
+        "why": "All close partners disagree sometimes."
+      },
+      "relearn": "Conflict is normal; how you repair through it is what matters, not whether you fight.",
+      "persona": "any",
+      "source": "conflict is normal"
+    },
+    {
+      "id": "cb-074",
+      "cat": "commitment-clearly",
+      "type": "branch",
+      "hook": "Everyone keeps asking 'when's the wedding?' and it's getting to you.",
+      "options": [
+        {
+          "text": "Hold your own pace and tune out the pressure",
+          "consequence": "You keep the decision yours.",
+          "outcome": "steady",
+          "best": true
+        },
+        {
+          "text": "Rush a decision to stop the questions",
+          "consequence": "Holding your own pace keeps the choice yours; rushing to silence questions rarely ends well."
+        }
+      ],
+      "debrief": "Social pressure about timelines is relentless in India; keeping the decision yours is wisdom.",
+      "relearn": "Hold your own pace; don't rush commitment to silence the 'when' questions.",
+      "persona": "Sneha",
+      "source": "the 'when' question"
+    },
+    {
+      "id": "cb-075",
+      "cat": "love-and-arranged",
+      "type": "role-play",
+      "hook": "A relative dismisses your same-gender partnership as 'not a real family'.",
+      "setup": "Hold your ground with calm dignity. Say:",
+      "yourLine": [
+        {
+          "text": "\"What we're building is real, and it's based on the same love and respect any family needs.\"",
+          "best": true
+        },
+        {
+          "text": "Accept that your partnership isn't 'real'"
+        }
+      ],
+      "relearn": "Your partnership is real and built on the same foundations as any; hold that with dignity.",
+      "persona": "Aditya",
+      "source": "every family is real"
+    },
+    {
+      "id": "cb-076",
+      "cat": "starting-strong",
+      "type": "sort",
+      "hook": "Sort: builds equality from the start, or builds in imbalance?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Sharing chores and decisions"
+        },
+        {
+          "id": "b",
+          "text": "One person defaults to all the housework"
+        },
+        {
+          "id": "c",
+          "text": "Both careers taken seriously"
+        },
+        {
+          "id": "d",
+          "text": "One person's plans always come first"
+        }
+      ],
+      "bins": [
+        {
+          "id": "equal",
+          "label": "Equality"
+        },
+        {
+          "id": "imbalance",
+          "label": "Imbalance"
+        }
+      ],
+      "key": {
+        "a": "equal",
+        "b": "imbalance",
+        "c": "equal",
+        "d": "imbalance"
+      },
+      "relearn": "Sharing chores, decisions and both careers builds equality; defaulting housework or one-sided plans builds imbalance.",
+      "persona": "Karthik",
+      "source": "equality from start"
+    },
+    {
+      "id": "cb-077",
+      "cat": "choosing-well",
+      "type": "role-play",
+      "hook": "A friend is about to settle for someone who isn't really good for them, just available.",
+      "relearn": "You deserve a partner who's genuinely good for you, not just available.",
+      "persona": "Sneha",
+      "source": "you deserve good",
+      "setup": "Encourage them gently. Say:",
+      "yourLine": [
+        {
+          "text": "\"You deserve someone genuinely good for you, not just available, don't settle.\"",
+          "best": true
+        },
+        {
+          "text": "\"Just take what you can get.\""
+        }
+      ]
+    },
+    {
+      "id": "cb-078",
+      "cat": "what-it-takes",
+      "type": "sort",
+      "hook": "Sort: a habit that keeps love alive, or lets it fade?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Regular check-ins about how you both are"
+        },
+        {
+          "id": "b",
+          "text": "Assuming everything's fine, always"
+        },
+        {
+          "id": "c",
+          "text": "Expressing appreciation"
+        },
+        {
+          "id": "d",
+          "text": "Taking each other for granted"
+        }
+      ],
+      "bins": [
+        {
+          "id": "alive",
+          "label": "Keeps it alive"
+        },
+        {
+          "id": "fade",
+          "label": "Lets it fade"
+        }
+      ],
+      "key": {
+        "a": "alive",
+        "b": "fade",
+        "c": "alive",
+        "d": "fade"
+      },
+      "relearn": "Check-ins and appreciation keep love alive; assuming and taking for granted let it fade.",
+      "persona": "any",
+      "source": "keeping love alive"
+    },
+    {
+      "id": "cb-079",
+      "cat": "commitment-clearly",
+      "type": "strike-rewrite",
+      "hook": "\"Doubts before commitment mean it's definitely wrong.\"",
+      "myth": {
+        "un": "Any doubts before commitment mean it's definitely wrong.",
+        "re": "Some nerves are normal; persistent doubts about core respect or values, though, are worth heeding.",
+        "why": "Distinguish ordinary nerves from real red flags."
+      },
+      "relearn": "Some nerves are normal; but persistent doubts about core respect or values are worth heeding.",
+      "persona": "any",
+      "source": "nerves vs real doubt"
+    },
+    {
+      "id": "cb-080",
+      "cat": "love-and-arranged",
+      "type": "reflect",
+      "hook": "Sam: whatever path you choose, the goal is a partnership of equals built on consent and respect. Carry that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Equals, consent, respect",
+        "Any path"
+      ],
+      "affirm": "A partnership of equals, built on consent and respect, is the goal on every path.",
+      "relearn": "On any path, the goal is a partnership of equals built on consent and respect.",
+      "persona": "any",
+      "source": "the goal"
+    },
+    {
+      "id": "cb-081",
+      "cat": "starting-strong",
+      "type": "branch",
+      "hook": "You and your partner come from families with different traditions and expectations.",
+      "options": [
+        {
+          "text": "Talk through which traditions you'll keep, blend or set aside, together",
+          "consequence": "You build your own shared culture.",
+          "outcome": "shared-culture",
+          "best": true
+        },
+        {
+          "text": "Let one family's way simply win",
+          "consequence": "Deciding together which traditions to keep, blend or set aside builds a shared culture better than one side winning."
+        }
+      ],
+      "debrief": "Building a partnership often means consciously creating your own shared culture from two backgrounds.",
+      "relearn": "Decide together which traditions to keep, blend or set aside; build your own shared culture.",
+      "persona": "any",
+      "source": "shared culture"
+    },
+    {
+      "id": "cb-082",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: a couples counsellor isn't only for crises, plenty of strong couples use one to build better. Reframe?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Not just for crises",
+        "Build better"
+      ],
+      "affirm": "Counselling is a tool for building a stronger partnership, not only for fixing a broken one.",
+      "relearn": "A couples counsellor is for building better, not only for crises.",
+      "persona": "Saxena",
+      "source": "counselling reframe"
+    },
+    {
+      "id": "cb-083",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: something this game stands for, or against?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Choosing on values and consent"
+        },
+        {
+          "id": "b",
+          "text": "Pressuring anyone to marry"
+        },
+        {
+          "id": "c",
+          "text": "Respecting every path, including not marrying"
+        },
+        {
+          "id": "d",
+          "text": "Treating a wedding as the whole goal"
+        }
+      ],
+      "bins": [
+        {
+          "id": "for",
+          "label": "Stands for"
+        },
+        {
+          "id": "against",
+          "label": "Stands against"
+        }
+      ],
+      "key": {
+        "a": "for",
+        "b": "against",
+        "c": "for",
+        "d": "against"
+      },
+      "relearn": "Choosing on values and respecting every path is the stance; pressuring to marry or wedding-as-goal isn't.",
+      "persona": "any",
+      "source": "the stance"
+    },
+    {
+      "id": "cb-084",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: choose well, build with care, commit freely, which will you carry into your own partnership?",
+      "prompt": "Pick one.",
+      "options": [
+        "Values over sparks",
+        "Partnership is built",
+        "Commit with eyes open",
+        "Every path, with consent"
+      ],
+      "affirm": "Carry that one, and you're set to build a partnership that genuinely lasts, on your own terms.",
+      "relearn": "Values over sparks, partnership is built, commit with eyes open, every path with consent.",
+      "persona": "any",
+      "source": "carry forward"
+    }
+  ],
+  "ageBand": "22+"
+}

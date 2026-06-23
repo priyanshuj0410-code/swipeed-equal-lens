@@ -1,0 +1,1819 @@
+{
+  "game": "Spectrum",
+  "gameId": "spectrum",
+  "node": "g32",
+  "chapter": 5,
+  "ages": "15-18",
+  "thread": "D · Relationships",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Sensitive ⚑ (high-stakes safeguarding; never outs anyone; careful triage)",
+  "leadMechanics": [
+    "strike-rewrite",
+    "branch",
+    "reflect"
+  ],
+  "note": "Identity, orientation & respect (UNESCO 3.1, 1.3, 7.1). New v2 build, Chapter 5. People differ in who they are and who they love, and every person deserves dignity, respect and safety, that part isn't a debate. Built on one non-negotiable: respect is a value, not a debate. Teaches understanding and busts harmful myths WITHOUT disparaging anyone's family or beliefs; separates honest belief-differences (respected) from the dignity floor (upheld). Supports anyone questioning, with no pressure to label and complete confidentiality; never outs or infers anyone. Non-explicit. Builds on g7/g25; links g27/g31. India: consensual same-sex relations decriminalised (2018), NALSA recognised transgender persons, dignity & equality are constitutional values, and India has its own long-acknowledged diversity traditions; framed around settled values, not contested policy. Routes distress/family-conflict to a trusted adult/counsellor, Tele-MANAS 14416, KIRAN 1800-599-0019, Childline 1098. Sharing anything is always the person's own choice.",
+  "categories": {
+    "the-spectrum": "The spectrum: understanding diversity",
+    "myths-and-respect": "Myths & respect: bust them kindly",
+    "dignity-for-all": "Dignity for all: respect in action",
+    "being-you": "Being you: for anyone questioning",
+    "stand-against-bullying": "Stand against bullying",
+    "support-and-rights": "Support, rights & where to turn"
+  },
+  "mechanicsUsed": [
+    "strike-rewrite",
+    "branch",
+    "reflect",
+    "role-play",
+    "sort",
+    "spot",
+    "match"
+  ],
+  "evidenceBase": [
+    "People vary naturally in their sexual orientation (who they are attracted to) and their gender identity (their own internal sense of their gender); this diversity is a natural, longstanding part of humanity across cultures and history, including India's own long-acknowledged traditions. Neither sexual orientation nor gender identity is a mental illness, a choice, a phase, contagious or a foreign import, the scientific consensus (WHO ICD-11 and the APA removed them from illness classifications) is settled (WHO; UNESCO KC3.1)",
+    "Respect is a value, not a debate: everyone deserves dignity, respect and safety regardless of orientation or identity. In India this rests on settled constitutional values, consensual same-sex relations between adults were decriminalised in 2018 (Navtej Johar), the NALSA judgment recognised transgender persons, and dignity, equality and privacy are guaranteed rights. The game frames everything around those settled values, not contested policy, so it neither campaigns nor disparages anyone's beliefs; you do not have to agree with everyone to treat everyone with dignity and keep them safe",
+    "Safety is paramount for potentially vulnerable youth: the game never outs, records or infers anyone's orientation or identity and never urges disclosure, whether, when and to whom anyone shares anything is entirely their own choice, best made with trusted support. Anyone questioning is told it is okay to be unsure, there is no pressure to label, they are not broken and not alone; questioning youth can face higher distress, so it routes care to a trusted adult/counsellor, Tele-MANAS 14416, KIRAN 1800-599-0019 and Childline 1098, and addresses identity-based bullying (UNESCO safe-learning; MoHFW)"
+  ],
+  "scenarios": [
+    {
+      "id": "sp-001",
+      "cat": "the-spectrum",
+      "type": "reflect",
+      "hook": "Lensy: people differ in who they are and who they love, and that's just part of being human. Sit with that.",
+      "prompt": "What do you think?",
+      "options": [
+        "Makes sense",
+        "People vary",
+        "Always have"
+      ],
+      "affirm": "Human diversity in identity and love is natural and as old as humanity itself.",
+      "relearn": "People vary in who they are and who they love; that's natural human diversity.",
+      "persona": "any",
+      "source": "natural diversity"
+    },
+    {
+      "id": "sp-002",
+      "cat": "the-spectrum",
+      "type": "match",
+      "hook": "Match the term to its plain meaning.",
+      "pairs": [
+        {
+          "left": "Sexual orientation",
+          "right": "Who you're attracted to"
+        },
+        {
+          "left": "Gender identity",
+          "right": "Your own sense of your gender"
+        },
+        {
+          "left": "Ally",
+          "right": "Someone who supports others' dignity"
+        }
+      ],
+      "relearn": "Orientation is who you're drawn to; gender identity is your own sense of self; an ally supports dignity.",
+      "persona": "any",
+      "source": "accurate terms"
+    },
+    {
+      "id": "sp-003",
+      "cat": "the-spectrum",
+      "type": "sort",
+      "hook": "Sort: accurate, respectful language, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Using the words people use for themselves"
+        },
+        {
+          "id": "b",
+          "text": "Slurs or mocking terms"
+        },
+        {
+          "id": "c",
+          "text": "Asking respectfully if unsure"
+        },
+        {
+          "id": "d",
+          "text": "Outdated, insulting labels"
+        }
+      ],
+      "bins": [
+        {
+          "id": "ok",
+          "label": "Respectful"
+        },
+        {
+          "id": "no",
+          "label": "Not respectful"
+        }
+      ],
+      "key": {
+        "a": "ok",
+        "b": "no",
+        "c": "ok",
+        "d": "no"
+      },
+      "relearn": "Use the words people use for themselves; ask respectfully if unsure.",
+      "persona": "any",
+      "source": "respectful language"
+    },
+    {
+      "id": "sp-004",
+      "cat": "the-spectrum",
+      "type": "reflect",
+      "hook": "Lensy: this diversity isn't new or foreign, it spans cultures and history, including India's own. Did you know that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Good to know",
+        "Part of our history"
+      ],
+      "affirm": "India has its own long-acknowledged traditions of diversity; this is part of human history everywhere.",
+      "relearn": "Diversity in identity spans cultures and history, including India's own traditions.",
+      "persona": "any",
+      "source": "history / India"
+    },
+    {
+      "id": "sp-005",
+      "cat": "the-spectrum",
+      "type": "sort",
+      "hook": "Sort: a fact about the spectrum, or a misunderstanding?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Orientation and identity vary naturally"
+        },
+        {
+          "id": "b",
+          "text": "\"Everyone's the same really\""
+        },
+        {
+          "id": "c",
+          "text": "It's existed across all of history"
+        },
+        {
+          "id": "d",
+          "text": "\"It's a brand-new fad\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "fact",
+          "label": "Fact"
+        },
+        {
+          "id": "myth",
+          "label": "Misunderstanding"
+        }
+      ],
+      "key": {
+        "a": "fact",
+        "b": "myth",
+        "c": "fact",
+        "d": "myth"
+      },
+      "relearn": "Natural variation across history is fact; 'all the same' or 'new fad' are misunderstandings.",
+      "persona": "any",
+      "source": "understanding"
+    },
+    {
+      "id": "sp-006",
+      "cat": "the-spectrum",
+      "type": "reflect",
+      "hook": "Lensy: understanding isn't about labelling anyone, it's just replacing rumour with calm facts. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Facts over rumour",
+        "No labels needed"
+      ],
+      "affirm": "Calm, accurate understanding, with no pressure to label anyone, is the whole aim here.",
+      "relearn": "Understanding replaces rumour with facts; it never means labelling anyone.",
+      "persona": "any",
+      "source": "understanding over labels"
+    },
+    {
+      "id": "sp-007",
+      "cat": "the-spectrum",
+      "type": "strike-rewrite",
+      "hook": "\"There are only two ways to be, and everyone fits neatly.\"",
+      "myth": {
+        "un": "Everyone fits neatly into two fixed boxes.",
+        "re": "Human identity and attraction vary more than two neat boxes allow.",
+        "why": "Real people are more varied than the stereotype."
+      },
+      "relearn": "Human identity varies more than two neat boxes; that's normal.",
+      "persona": "any",
+      "source": "diversity"
+    },
+    {
+      "id": "sp-008",
+      "cat": "the-spectrum",
+      "type": "match",
+      "hook": "Match the idea to the plain truth.",
+      "pairs": [
+        {
+          "left": "Attraction varies",
+          "right": "Orientation differs between people"
+        },
+        {
+          "left": "Sense of self varies",
+          "right": "Gender identity differs between people"
+        },
+        {
+          "left": "All deserve respect",
+          "right": "Dignity is for everyone"
+        }
+      ],
+      "relearn": "Orientation and identity vary, and dignity is for everyone.",
+      "persona": "any",
+      "source": "understanding"
+    },
+    {
+      "id": "sp-009",
+      "cat": "the-spectrum",
+      "type": "sort",
+      "hook": "Sort: respectful curiosity, or crossing a line?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Learning accurate terms"
+        },
+        {
+          "id": "b",
+          "text": "Demanding someone explain themselves"
+        },
+        {
+          "id": "c",
+          "text": "Listening when someone shares"
+        },
+        {
+          "id": "d",
+          "text": "Prying into someone's private life"
+        }
+      ],
+      "bins": [
+        {
+          "id": "ok",
+          "label": "Respectful"
+        },
+        {
+          "id": "no",
+          "label": "Crosses a line"
+        }
+      ],
+      "key": {
+        "a": "ok",
+        "b": "no",
+        "c": "ok",
+        "d": "no"
+      },
+      "relearn": "Learning and listening are respectful; demanding or prying crosses a line.",
+      "persona": "any",
+      "source": "respect / privacy"
+    },
+    {
+      "id": "sp-010",
+      "cat": "the-spectrum",
+      "type": "reflect",
+      "hook": "Lensy: you can understand and respect people without needing to know or decide anything about anyone. See that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Respect is enough",
+        "No need to know"
+      ],
+      "affirm": "Respect doesn't require knowing anyone's private identity, it's simply how you treat people.",
+      "relearn": "You can respect everyone without needing to know anything private about them.",
+      "persona": "any",
+      "source": "respect / privacy"
+    },
+    {
+      "id": "sp-011",
+      "cat": "the-spectrum",
+      "type": "strike-rewrite",
+      "hook": "\"Talking about this 'creates' more of it.\"",
+      "myth": {
+        "un": "Talking about diversity 'creates' or spreads it.",
+        "re": "Understanding doesn't create anything; it just replaces fear with facts.",
+        "why": "People are who they are; information doesn't change that."
+      },
+      "relearn": "Understanding diversity doesn't create it; it replaces fear with facts.",
+      "persona": "any",
+      "source": "myth"
+    },
+    {
+      "id": "sp-012",
+      "cat": "the-spectrum",
+      "type": "sort",
+      "hook": "Sort: part of natural human diversity, or a harmful label?",
+      "items": [
+        {
+          "id": "a",
+          "text": "People vary in identity"
+        },
+        {
+          "id": "b",
+          "text": "\"It's an illness\""
+        },
+        {
+          "id": "c",
+          "text": "People vary in attraction"
+        },
+        {
+          "id": "d",
+          "text": "\"It's something to fix\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "natural",
+          "label": "Natural diversity"
+        },
+        {
+          "id": "harmful",
+          "label": "Harmful label"
+        }
+      ],
+      "key": {
+        "a": "natural",
+        "b": "harmful",
+        "c": "natural",
+        "d": "harmful"
+      },
+      "relearn": "Variation is natural; 'illness' or 'to fix' are harmful, false labels.",
+      "persona": "any",
+      "source": "not an illness"
+    },
+    {
+      "id": "sp-013",
+      "cat": "the-spectrum",
+      "type": "reflect",
+      "hook": "Lensy: which feels truest, people are varied and that's normal, or everyone must be the same?",
+      "prompt": "Pick one.",
+      "options": [
+        "Varied and normal",
+        "Diversity is human",
+        "Same-for-all is the myth"
+      ],
+      "affirm": "Variety is the human norm; expecting everyone to be identical is the myth.",
+      "relearn": "Human variety is normal; expecting everyone to be the same is the myth.",
+      "persona": "any",
+      "source": "diversity"
+    },
+    {
+      "id": "sp-014",
+      "cat": "the-spectrum",
+      "type": "match",
+      "hook": "Match the respectful move to the moment.",
+      "pairs": [
+        {
+          "left": "Someone shares about themselves",
+          "right": "Listen and respect it"
+        },
+        {
+          "left": "You don't know a term",
+          "right": "Ask kindly or look it up"
+        },
+        {
+          "left": "Someone's private",
+          "right": "Don't pry"
+        }
+      ],
+      "relearn": "Listen, ask kindly, and don't pry, that's respect in practice.",
+      "persona": "Sneha",
+      "source": "respect"
+    },
+    {
+      "id": "sp-015",
+      "cat": "the-spectrum",
+      "type": "reflect",
+      "hook": "Lensy: calm, accurate understanding is the foundation for everything else here. Ready to build on it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Foundation set",
+        "Let's go"
+      ],
+      "affirm": "With calm understanding in place, respect and dignity follow naturally.",
+      "relearn": "Calm, accurate understanding is the foundation for respect and dignity.",
+      "persona": "any",
+      "source": "foundation"
+    },
+    {
+      "id": "sp-016",
+      "cat": "myths-and-respect",
+      "type": "strike-rewrite",
+      "hook": "\"It's just a choice people make.\"",
+      "myth": {
+        "un": "Orientation or identity is just a choice.",
+        "re": "It isn't a choice; it's part of who someone naturally is.",
+        "why": "People don't choose who they're drawn to or their sense of self."
+      },
+      "relearn": "Orientation and identity aren't a choice; they're part of who someone is.",
+      "persona": "any",
+      "source": "not a choice"
+    },
+    {
+      "id": "sp-017",
+      "cat": "myths-and-respect",
+      "type": "strike-rewrite",
+      "hook": "\"It's just a phase they'll grow out of.\"",
+      "myth": {
+        "un": "It's just a phase they'll grow out of.",
+        "re": "For many it's a lasting part of who they are; it's not yours to time or dismiss.",
+        "why": "Dismissing it as 'a phase' can be hurtful and isn't for others to decide."
+      },
+      "relearn": "It's not 'just a phase' for others to dismiss; it's part of who they are.",
+      "persona": "any",
+      "source": "not a phase"
+    },
+    {
+      "id": "sp-018",
+      "cat": "myths-and-respect",
+      "type": "strike-rewrite",
+      "hook": "\"It's a mental illness that needs curing.\"",
+      "myth": {
+        "un": "It's a mental illness that needs curing.",
+        "re": "It is not a mental illness; health bodies removed it from illness classifications long ago.",
+        "why": "Calling it an illness is false and causes real harm."
+      },
+      "relearn": "It is not a mental illness; that idea is false and harmful.",
+      "persona": "Counsellor",
+      "source": "not an illness (WHO/APA)"
+    },
+    {
+      "id": "sp-019",
+      "cat": "myths-and-respect",
+      "type": "strike-rewrite",
+      "hook": "\"It's contagious, being around it spreads it.\"",
+      "myth": {
+        "un": "It's contagious, being around it spreads it.",
+        "re": "It isn't contagious; people are who they are, and understanding changes nothing about that.",
+        "why": "Identity isn't caught from others."
+      },
+      "relearn": "Identity isn't contagious; you can't 'catch' who someone is.",
+      "persona": "any",
+      "source": "not contagious"
+    },
+    {
+      "id": "sp-020",
+      "cat": "myths-and-respect",
+      "type": "strike-rewrite",
+      "hook": "\"It's a foreign, Western import.\"",
+      "myth": {
+        "un": "It's a foreign, Western import.",
+        "re": "It exists across cultures and history, including India's own long traditions.",
+        "why": "This diversity is part of human history everywhere, not imported."
+      },
+      "relearn": "It's not a foreign import; it spans cultures and India's own history.",
+      "persona": "any",
+      "source": "not foreign / India"
+    },
+    {
+      "id": "sp-021",
+      "cat": "myths-and-respect",
+      "type": "reflect",
+      "hook": "Lensy: people can hold different personal beliefs AND still agree everyone deserves safety. Both at once?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Both can be true",
+        "Respect is the floor"
+      ],
+      "affirm": "Honest differences of belief and a shared floor of dignity for all can coexist, that's the whole approach.",
+      "relearn": "People can differ in belief and still uphold dignity and safety for all.",
+      "persona": "any",
+      "source": "belief vs dignity floor"
+    },
+    {
+      "id": "sp-022",
+      "cat": "myths-and-respect",
+      "type": "strike-rewrite",
+      "hook": "\"If you disagree with someone's life, you don't have to be kind to them.\"",
+      "myth": {
+        "un": "Disagreeing means you don't owe someone kindness or safety.",
+        "re": "You don't have to agree with everyone to treat everyone with dignity and keep them safe.",
+        "why": "Dignity and safety aren't conditional on agreement."
+      },
+      "relearn": "You can disagree and still owe everyone dignity and safety.",
+      "persona": "any",
+      "source": "dignity floor"
+    },
+    {
+      "id": "sp-023",
+      "cat": "myths-and-respect",
+      "type": "sort",
+      "hook": "Sort: a harmful myth, or an understanding that replaces it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"It's a choice\""
+        },
+        {
+          "id": "b",
+          "text": "\"It's part of who someone is\""
+        },
+        {
+          "id": "c",
+          "text": "\"It's an illness\""
+        },
+        {
+          "id": "d",
+          "text": "\"It's natural human variation\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "myth",
+          "label": "Harmful myth"
+        },
+        {
+          "id": "truth",
+          "label": "Understanding"
+        }
+      ],
+      "key": {
+        "a": "myth",
+        "b": "truth",
+        "c": "myth",
+        "d": "truth"
+      },
+      "relearn": "'Choice' and 'illness' are myths; 'part of who someone is' and 'natural variation' are the truth.",
+      "persona": "any",
+      "source": "myths vs truth"
+    },
+    {
+      "id": "sp-024",
+      "cat": "myths-and-respect",
+      "type": "sort",
+      "hook": "Sort: respects a person, or disparages?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Correcting a myth kindly"
+        },
+        {
+          "id": "b",
+          "text": "Mocking someone's family or faith"
+        },
+        {
+          "id": "c",
+          "text": "Upholding everyone's safety"
+        },
+        {
+          "id": "d",
+          "text": "Shaming a person for who they are"
+        }
+      ],
+      "bins": [
+        {
+          "id": "respect",
+          "label": "Respects"
+        },
+        {
+          "id": "dispar",
+          "label": "Disparages"
+        }
+      ],
+      "key": {
+        "a": "respect",
+        "b": "dispar",
+        "c": "respect",
+        "d": "dispar"
+      },
+      "relearn": "Correcting myths kindly and upholding safety respects people; mocking or shaming disparages.",
+      "persona": "any",
+      "source": "respect / no shaming"
+    },
+    {
+      "id": "sp-025",
+      "cat": "myths-and-respect",
+      "type": "strike-rewrite",
+      "hook": "\"Caring about this means attacking people's traditions.\"",
+      "myth": {
+        "un": "Standing for dignity means attacking people's traditions.",
+        "re": "It means upholding a floor of respect and safety for everyone, without disparaging anyone.",
+        "why": "Dignity for all and respect for people's backgrounds can both be held."
+      },
+      "relearn": "Standing for dignity upholds safety for all without attacking anyone's traditions.",
+      "persona": "any",
+      "source": "non-disparaging"
+    },
+    {
+      "id": "sp-026",
+      "cat": "myths-and-respect",
+      "type": "reflect",
+      "hook": "Lensy: the one thing that isn't up for debate is that everyone deserves to be safe. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Safety isn't debatable",
+        "That's the floor"
+      ],
+      "affirm": "Whatever anyone believes, everyone's safety and dignity is the non-negotiable floor.",
+      "relearn": "Everyone's dignity and safety is the one thing not up for debate.",
+      "persona": "any",
+      "source": "non-negotiable"
+    },
+    {
+      "id": "sp-027",
+      "cat": "myths-and-respect",
+      "type": "strike-rewrite",
+      "hook": "\"People like that don't really deserve respect.\"",
+      "myth": {
+        "un": "'People like that' don't deserve respect.",
+        "re": "Every single person deserves dignity, respect and safety, no exceptions.",
+        "why": "There is no group outside the floor of human dignity."
+      },
+      "relearn": "Every person deserves dignity, respect and safety, no exceptions.",
+      "persona": "any",
+      "source": "dignity for all"
+    },
+    {
+      "id": "sp-028",
+      "cat": "myths-and-respect",
+      "type": "sort",
+      "hook": "Sort: a settled fact, or a discredited claim?",
+      "items": [
+        {
+          "id": "a",
+          "text": "It isn't a mental illness"
+        },
+        {
+          "id": "b",
+          "text": "\"It can be cured\""
+        },
+        {
+          "id": "c",
+          "text": "It occurs across history"
+        },
+        {
+          "id": "d",
+          "text": "\"It's a modern invention\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "fact",
+          "label": "Settled fact"
+        },
+        {
+          "id": "discredited",
+          "label": "Discredited"
+        }
+      ],
+      "key": {
+        "a": "fact",
+        "b": "discredited",
+        "c": "fact",
+        "d": "discredited"
+      },
+      "relearn": "'Not an illness' and 'occurs across history' are settled; 'curable' and 'modern invention' are discredited.",
+      "persona": "any",
+      "source": "science"
+    },
+    {
+      "id": "sp-029",
+      "cat": "myths-and-respect",
+      "type": "reflect",
+      "hook": "Lensy: busting a myth kindly, without putting anyone down, is a real skill. Want to practise it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Kind and clear",
+        "I'll practise"
+      ],
+      "affirm": "Correcting a falsehood while respecting the person is exactly the skill this game builds.",
+      "relearn": "You can correct a myth kindly, without putting anyone down.",
+      "persona": "any",
+      "source": "kind correction"
+    },
+    {
+      "id": "sp-030",
+      "cat": "myths-and-respect",
+      "type": "strike-rewrite",
+      "hook": "\"Understanding this is dangerous for young people.\"",
+      "myth": {
+        "un": "Understanding diversity is dangerous for young people.",
+        "re": "Accurate understanding reduces fear, bullying and harm; misinformation is what's dangerous.",
+        "why": "Knowledge and respect keep young people safer, not less safe."
+      },
+      "relearn": "Accurate understanding reduces harm; misinformation is the real danger.",
+      "persona": "Counsellor",
+      "source": "safety / evidence"
+    },
+    {
+      "id": "sp-031",
+      "cat": "dignity-for-all",
+      "type": "branch",
+      "hook": "Friends start mocking someone with slurs about their identity.",
+      "options": [
+        {
+          "text": "Don't join; calmly say it's not okay, or step away and support the person",
+          "consequence": "You uphold their dignity safely.",
+          "outcome": "ally",
+          "best": true
+        },
+        {
+          "text": "Laugh along to fit in",
+          "consequence": "Laughing fuels it; calmly declining or supporting the person is the dignified move."
+        }
+      ],
+      "debrief": "You don't have to make a scene; not joining and quietly supporting counts.",
+      "relearn": "Don't join slurs; calmly decline or support the person.",
+      "persona": "Vijay",
+      "source": "dignity in action"
+    },
+    {
+      "id": "sp-032",
+      "cat": "dignity-for-all",
+      "type": "branch",
+      "hook": "Someone is being left out because of who they are.",
+      "options": [
+        {
+          "text": "Include them, simply and warmly",
+          "consequence": "They feel they belong.",
+          "outcome": "inclusion",
+          "best": true
+        },
+        {
+          "text": "Go along with the exclusion",
+          "consequence": "A simple, warm inclusion is dignity in action."
+        }
+      ],
+      "debrief": "Quiet inclusion is one of the most powerful forms of respect.",
+      "relearn": "Including someone warmly is everyday dignity in action.",
+      "persona": "Sneha",
+      "source": "inclusion"
+    },
+    {
+      "id": "sp-033",
+      "cat": "dignity-for-all",
+      "type": "branch",
+      "hook": "You personally feel unsure about these topics, but someone near you is being bullied for their identity.",
+      "options": [
+        {
+          "text": "You don't have to agree on everything to keep them safe, so help",
+          "consequence": "You uphold the dignity floor regardless of your own views.",
+          "outcome": "floor",
+          "best": true
+        },
+        {
+          "text": "Stay out of it because you're unsure",
+          "consequence": "Safety isn't conditional on agreeing; you can still keep someone safe."
+        }
+      ],
+      "debrief": "Dignity and safety for all don't depend on personally agreeing about everything.",
+      "relearn": "You can keep someone safe even while still working out your own views.",
+      "persona": "any",
+      "source": "dignity floor"
+    },
+    {
+      "id": "sp-034",
+      "cat": "dignity-for-all",
+      "type": "role-play",
+      "hook": "You want to gently shut down a slur without a big confrontation.",
+      "setup": "Keep it calm. Say:",
+      "yourLine": [
+        {
+          "text": "\"Let's not use that word, it's not okay.\"",
+          "best": true
+        },
+        {
+          "text": "Say nothing and let it stand"
+        }
+      ],
+      "relearn": "A calm 'let's not use that word' upholds dignity without drama.",
+      "persona": "any",
+      "source": "ally voice"
+    },
+    {
+      "id": "sp-035",
+      "cat": "dignity-for-all",
+      "type": "role-play",
+      "hook": "A friend is hurt by something said about them. Support them.",
+      "setup": "Be warm. Say:",
+      "yourLine": [
+        {
+          "text": "\"That was wrong of them. You deserve to be treated with respect.\"",
+          "best": true
+        },
+        {
+          "text": "\"Just ignore it.\""
+        }
+      ],
+      "relearn": "Affirming someone's right to respect helps after they're hurt.",
+      "persona": "Sneha",
+      "source": "support"
+    },
+    {
+      "id": "sp-036",
+      "cat": "dignity-for-all",
+      "type": "spot",
+      "hook": "Spot the quiet, safe ally move.",
+      "scene": [
+        {
+          "text": "Sitting with someone who's been excluded",
+          "trick": false
+        },
+        {
+          "text": "Making a dramatic public scene that risks them",
+          "trick": true
+        },
+        {
+          "text": "Calmly declining to join mockery",
+          "trick": false
+        }
+      ],
+      "why": "Sitting with someone and calmly declining are safe ally moves; a risky scene isn't.",
+      "relearn": "Quiet, steady allyship, sitting with someone, declining mockery, is the safe kind.",
+      "persona": "any",
+      "source": "safe allyship"
+    },
+    {
+      "id": "sp-037",
+      "cat": "dignity-for-all",
+      "type": "branch",
+      "hook": "You're tempted to 'out' someone you think might be different, as gossip.",
+      "options": [
+        {
+          "text": "Never, someone's private identity is theirs alone to share",
+          "consequence": "You protect their safety and privacy.",
+          "outcome": "protective",
+          "best": true
+        },
+        {
+          "text": "Mention it to others",
+          "consequence": "Outing someone can endanger them; it's never yours to share."
+        }
+      ],
+      "debrief": "Whether, when and to whom anyone shares anything is only ever their own choice.",
+      "relearn": "Never out anyone; a person's identity is theirs alone to share.",
+      "persona": "any",
+      "source": "never out anyone"
+    },
+    {
+      "id": "sp-038",
+      "cat": "dignity-for-all",
+      "type": "branch",
+      "hook": "A classmate uses the right respectful words and others laugh at them for it.",
+      "options": [
+        {
+          "text": "Back them up; respectful language is the normal, decent default",
+          "consequence": "You make respect the norm.",
+          "outcome": "norm",
+          "best": true
+        },
+        {
+          "text": "Laugh with the others",
+          "consequence": "Respectful language is just decency; back the person using it."
+        }
+      ],
+      "debrief": "Treating respect as normal, not mockable, shifts the whole group.",
+      "relearn": "Back people who use respectful language; it's just decency.",
+      "persona": "Arjun",
+      "source": "norm-setting"
+    },
+    {
+      "id": "sp-039",
+      "cat": "dignity-for-all",
+      "type": "reflect",
+      "hook": "Lensy: the 'win' here is always a person treated with dignity. Feel good about that goal?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Dignity wins",
+        "That's the goal"
+      ],
+      "affirm": "A person treated with dignity is the only scoreboard that matters here.",
+      "relearn": "The goal is always a person treated with dignity.",
+      "persona": "any",
+      "source": "dignity"
+    },
+    {
+      "id": "sp-040",
+      "cat": "dignity-for-all",
+      "type": "sort",
+      "hook": "Sort: upholds dignity, or undermines it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Including everyone"
+        },
+        {
+          "id": "b",
+          "text": "Using slurs"
+        },
+        {
+          "id": "c",
+          "text": "Respecting privacy"
+        },
+        {
+          "id": "d",
+          "text": "Spreading gossip about someone"
+        }
+      ],
+      "bins": [
+        {
+          "id": "up",
+          "label": "Upholds dignity"
+        },
+        {
+          "id": "under",
+          "label": "Undermines it"
+        }
+      ],
+      "key": {
+        "a": "up",
+        "b": "under",
+        "c": "up",
+        "d": "under"
+      },
+      "relearn": "Inclusion and privacy uphold dignity; slurs and gossip undermine it.",
+      "persona": "any",
+      "source": "dignity"
+    },
+    {
+      "id": "sp-041",
+      "cat": "dignity-for-all",
+      "type": "branch",
+      "hook": "Online, people are piling abuse on someone for their identity.",
+      "options": [
+        {
+          "text": "Don't add to it; report it and check the person is okay",
+          "consequence": "You reduce harm and offer support.",
+          "outcome": "upstander",
+          "best": true
+        },
+        {
+          "text": "Join in or share it on",
+          "consequence": "Don't pile on; report it and support the person instead."
+        }
+      ],
+      "debrief": "Online, not piling on and reporting is the safe, decent move.",
+      "relearn": "For online identity abuse: don't pile on, report it, support the person.",
+      "persona": "any",
+      "source": "online / links g27"
+    },
+    {
+      "id": "sp-042",
+      "cat": "dignity-for-all",
+      "type": "reflect",
+      "hook": "Lensy: India's own constitution holds dignity and equality for all. Does that feel like solid ground to stand on?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Solid ground",
+        "Our values"
+      ],
+      "affirm": "Dignity and equality for all are settled constitutional values, firm ground for respect.",
+      "relearn": "Dignity and equality for all are constitutional values in India.",
+      "persona": "any",
+      "source": "constitutional values"
+    },
+    {
+      "id": "sp-043",
+      "cat": "dignity-for-all",
+      "type": "role-play",
+      "hook": "You want to set a respectful tone in your friend group.",
+      "setup": "Say it simply. Say:",
+      "yourLine": [
+        {
+          "text": "\"Whoever someone is, we treat them with respect here.\"",
+          "best": true
+        },
+        {
+          "text": "Leave it unspoken"
+        }
+      ],
+      "relearn": "Naming 'we treat everyone with respect' sets the group's tone.",
+      "persona": "Vijay",
+      "source": "norm-setting"
+    },
+    {
+      "id": "sp-044",
+      "cat": "dignity-for-all",
+      "type": "spot",
+      "hook": "Spot the respectful response to someone sharing about themselves.",
+      "scene": [
+        {
+          "text": "\"Thanks for telling me, I'm glad you trust me\"",
+          "trick": false
+        },
+        {
+          "text": "Acting shocked or making it weird",
+          "trick": true
+        },
+        {
+          "text": "Treating them exactly the same as before",
+          "trick": false
+        }
+      ],
+      "why": "Warmth and treating them the same is respect; making it weird isn't.",
+      "relearn": "Meet someone sharing with warmth and unchanged respect.",
+      "persona": "any",
+      "source": "respect"
+    },
+    {
+      "id": "sp-045",
+      "cat": "dignity-for-all",
+      "type": "reflect",
+      "hook": "Lensy: you can be a steady, quiet ally without drama or risk to anyone. Reassuring?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Quiet works",
+        "I can do that"
+      ],
+      "affirm": "Steady, low-key allyship is both safe and genuinely powerful.",
+      "relearn": "You can be a steady, quiet ally without drama or risk.",
+      "persona": "any",
+      "source": "safe allyship"
+    },
+    {
+      "id": "sp-046",
+      "cat": "dignity-for-all",
+      "type": "branch",
+      "hook": "Someone asks you to take a 'side' in mocking a group.",
+      "options": [
+        {
+          "text": "Decline; you can respect people without taking sides against any of them",
+          "consequence": "You keep the dignity floor for everyone.",
+          "outcome": "floor",
+          "best": true
+        },
+        {
+          "text": "Pick the mocking side to fit in",
+          "consequence": "You can opt out of mockery entirely and respect everyone."
+        }
+      ],
+      "debrief": "Respecting everyone isn't 'a side'; it's the floor under all of us.",
+      "relearn": "You can refuse to mock anyone and respect everyone.",
+      "persona": "any",
+      "source": "dignity floor"
+    },
+    {
+      "id": "sp-047",
+      "cat": "being-you",
+      "type": "reflect",
+      "hook": "Lensy: if you're ever unsure about your own feelings or identity, that's completely okay. Hear that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Okay to be unsure",
+        "No rush"
+      ],
+      "affirm": "Being unsure is normal and fine; there's no timeline and no pressure here.",
+      "relearn": "It's completely okay to be unsure about yourself; there's no rush.",
+      "persona": "any",
+      "source": "being you / no pressure"
+    },
+    {
+      "id": "sp-048",
+      "cat": "being-you",
+      "type": "reflect",
+      "hook": "Lensy: there's no need to label yourself or decide anything to be okay. Does that take off some pressure?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "No label needed",
+        "Less pressure"
+      ],
+      "affirm": "You don't owe anyone a label or a decision; you're okay exactly as you are.",
+      "relearn": "You don't need to label yourself or decide anything to be okay.",
+      "persona": "any",
+      "source": "no pressure to label"
+    },
+    {
+      "id": "sp-049",
+      "cat": "being-you",
+      "type": "reflect",
+      "hook": "Lensy: whoever you are, you are not broken, and you are not alone. Let that land.",
+      "prompt": "What do you think?",
+      "options": [
+        "Thank you",
+        "Not alone",
+        "Good to hear"
+      ],
+      "affirm": "You're not broken and you're never alone; many people understand and care.",
+      "relearn": "Whoever you are, you're not broken and not alone.",
+      "persona": "any",
+      "source": "affirmation"
+    },
+    {
+      "id": "sp-050",
+      "cat": "being-you",
+      "type": "branch",
+      "hook": "You're questioning things about yourself and wondering if you must tell people.",
+      "options": [
+        {
+          "text": "Remember: whether, when and who you tell is entirely your choice",
+          "consequence": "You keep control of your own story.",
+          "outcome": "autonomy",
+          "best": true
+        },
+        {
+          "text": "Feel you must announce it to everyone now",
+          "consequence": "There's no must; sharing is your choice, in your time, with people you trust."
+        }
+      ],
+      "debrief": "Your story is yours; you never have to share before you're ready, or at all.",
+      "relearn": "Whether, when and who you tell is entirely your own choice.",
+      "persona": "any",
+      "source": "no forced disclosure"
+    },
+    {
+      "id": "sp-051",
+      "cat": "being-you",
+      "type": "branch",
+      "hook": "You're feeling low or confused and don't know who's safe to talk to.",
+      "options": [
+        {
+          "text": "Reach a trusted adult/counsellor or a confidential line (Tele-MANAS 14416)",
+          "consequence": "You find real, caring support.",
+          "outcome": "support",
+          "best": true
+        },
+        {
+          "text": "Keep it all inside",
+          "consequence": "You don't have to carry it alone; trusted support and confidential lines exist."
+        }
+      ],
+      "debrief": "Confidential, caring support is there whenever you need it.",
+      "relearn": "If you're struggling, a trusted adult or Tele-MANAS 14416 can help.",
+      "persona": "Counsellor",
+      "source": "Tele-MANAS (verified)"
+    },
+    {
+      "id": "sp-052",
+      "cat": "being-you",
+      "type": "reflect",
+      "hook": "Lensy: figuring yourself out is a journey, not a test with a deadline. Comforting?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "No deadline",
+        "A journey"
+      ],
+      "affirm": "Self-understanding unfolds at its own pace; there's no deadline and no wrong way.",
+      "relearn": "Understanding yourself is a journey, not a deadline or a test.",
+      "persona": "any",
+      "source": "self-understanding"
+    },
+    {
+      "id": "sp-053",
+      "cat": "being-you",
+      "type": "role-play",
+      "hook": "A friend quietly confides they're questioning things about themselves.",
+      "setup": "Receive it with care. Say:",
+      "yourLine": [
+        {
+          "text": "\"Thank you for trusting me. There's no rush, and I'm here for you.\"",
+          "best": true
+        },
+        {
+          "text": "\"So what are you then?\""
+        }
+      ],
+      "relearn": "Meet a confiding friend with 'no rush, I'm here', never with pressure to define it.",
+      "persona": "Sneha",
+      "source": "supporting a friend"
+    },
+    {
+      "id": "sp-054",
+      "cat": "being-you",
+      "type": "role-play",
+      "hook": "A friend who confided is scared about who else might find out.",
+      "setup": "Reassure their privacy. Say:",
+      "yourLine": [
+        {
+          "text": "\"This stays with me. It's yours to share, only if and when you want.\"",
+          "best": true
+        },
+        {
+          "text": "\"People will probably guess anyway.\""
+        }
+      ],
+      "relearn": "Promise and keep confidentiality; their story is theirs to share.",
+      "persona": "any",
+      "source": "confidentiality"
+    },
+    {
+      "id": "sp-055",
+      "cat": "being-you",
+      "type": "reflect",
+      "hook": "Lensy: you deserve support and safety no matter what you're working out about yourself. Believe it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I deserve support",
+        "Safe and supported"
+      ],
+      "affirm": "Support and safety are yours unconditionally, whatever you're figuring out.",
+      "relearn": "You deserve support and safety, whatever you're working out.",
+      "persona": "any",
+      "source": "affirmation"
+    },
+    {
+      "id": "sp-056",
+      "cat": "being-you",
+      "type": "branch",
+      "hook": "Someone pressures you to 'pick a label' or 'prove' something about yourself.",
+      "options": [
+        {
+          "text": "You owe no one a label or proof; take your own time",
+          "consequence": "You keep your autonomy and peace.",
+          "outcome": "autonomy",
+          "best": true
+        },
+        {
+          "text": "Force an answer to satisfy them",
+          "consequence": "You owe no one a label or proof; your pace is yours."
+        }
+      ],
+      "debrief": "No one is entitled to define you or rush you.",
+      "relearn": "You owe no one a label or proof; take your own time.",
+      "persona": "any",
+      "source": "no pressure"
+    },
+    {
+      "id": "sp-057",
+      "cat": "being-you",
+      "type": "reflect",
+      "hook": "Lensy: many people have walked this path and are living happy, full lives. Hopeful?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Hopeful",
+        "Good to know"
+      ],
+      "affirm": "So many people understand this and go on to live happy, full lives; you can too.",
+      "relearn": "Many have walked this path to happy, full lives; you're not alone.",
+      "persona": "any",
+      "source": "hope"
+    },
+    {
+      "id": "sp-058",
+      "cat": "being-you",
+      "type": "branch",
+      "hook": "Family tension is rising around these topics and it's weighing on you.",
+      "options": [
+        {
+          "text": "Reach careful, confidential support to help you through it",
+          "consequence": "You get help carrying a hard situation.",
+          "outcome": "support",
+          "best": true
+        },
+        {
+          "text": "Bottle it up alone",
+          "consequence": "Family tension is heavy; confidential support (Tele-MANAS 14416, KIRAN 1800-599-0019) can help."
+        }
+      ],
+      "debrief": "You don't have to navigate family tension alone; careful support exists.",
+      "relearn": "For family tension, reach confidential support like Tele-MANAS 14416 or KIRAN.",
+      "persona": "Counsellor",
+      "source": "family / support (verified)"
+    },
+    {
+      "id": "sp-059",
+      "cat": "being-you",
+      "type": "reflect",
+      "hook": "Lensy: your safety comes first, always, including deciding what's safe to share and when. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Safety first",
+        "My call"
+      ],
+      "affirm": "Your safety leads every decision about sharing; that judgement is yours.",
+      "relearn": "Your safety comes first, including what and when you share.",
+      "persona": "any",
+      "source": "safety first"
+    },
+    {
+      "id": "sp-060",
+      "cat": "being-you",
+      "type": "reflect",
+      "hook": "Lensy: whatever you discover about yourself, you are worthy of love and respect. Hold onto that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I'll hold it",
+        "Worthy"
+      ],
+      "affirm": "Your worth, your right to love and respect, never depends on any of this.",
+      "relearn": "Whoever you are, you are worthy of love and respect.",
+      "persona": "any",
+      "source": "worth"
+    },
+    {
+      "id": "sp-061",
+      "cat": "stand-against-bullying",
+      "type": "branch",
+      "hook": "You witness identity-based bullying that could turn unsafe.",
+      "options": [
+        {
+          "text": "Don't confront danger alone; support the person and get an adult",
+          "consequence": "You help safely and bring real backup.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Jump into a risky confrontation",
+          "consequence": "For unsafe situations, support the person and get an adult, don't confront danger alone."
+        }
+      ],
+      "debrief": "Safe upstanding, support plus an adult, applies to identity-based bullying too.",
+      "relearn": "For identity bullying that could turn unsafe: support the person and get an adult.",
+      "persona": "any",
+      "source": "links g27 / safety-first"
+    },
+    {
+      "id": "sp-062",
+      "cat": "stand-against-bullying",
+      "type": "branch",
+      "hook": "A slur is being thrown around as a 'joke' in your group.",
+      "options": [
+        {
+          "text": "Name that it's not a joke, calmly",
+          "consequence": "You stop normalising the slur.",
+          "outcome": "upstander",
+          "best": true
+        },
+        {
+          "text": "Let it slide as banter",
+          "consequence": "Slurs-as-jokes still harm; calmly naming it helps."
+        }
+      ],
+      "debrief": "'Just a joke' slurs still cause harm; calmly naming it matters.",
+      "relearn": "Identity slurs aren't 'just jokes'; calmly name that they're not okay.",
+      "persona": "Vijay",
+      "source": "anti-bullying"
+    },
+    {
+      "id": "sp-063",
+      "cat": "stand-against-bullying",
+      "type": "role-play",
+      "hook": "You want to support someone right after they were bullied for who they are.",
+      "setup": "Be warm and clear. Say:",
+      "yourLine": [
+        {
+          "text": "\"That wasn't okay, and it's not your fault. I'm with you.\"",
+          "best": true
+        },
+        {
+          "text": "\"Maybe don't stand out so much.\""
+        }
+      ],
+      "relearn": "Tell a bullied person: that wasn't okay, not your fault, I'm with you.",
+      "persona": "Sneha",
+      "source": "support / no blame"
+    },
+    {
+      "id": "sp-064",
+      "cat": "stand-against-bullying",
+      "type": "spot",
+      "hook": "Spot the safe way to help here.",
+      "scene": [
+        {
+          "text": "Quietly alerting a teacher",
+          "trick": false
+        },
+        {
+          "text": "Filming it for laughs",
+          "trick": true
+        },
+        {
+          "text": "Checking the person is okay after",
+          "trick": false
+        }
+      ],
+      "why": "Alerting a teacher and checking on the person help; filming for laughs harms.",
+      "relearn": "Alert an adult and check on the person; never film it for laughs.",
+      "persona": "any",
+      "source": "safe help"
+    },
+    {
+      "id": "sp-065",
+      "cat": "stand-against-bullying",
+      "type": "branch",
+      "hook": "You realise you once joined in mocking someone's identity.",
+      "options": [
+        {
+          "text": "Own it, stop, and treat them with respect from now on",
+          "consequence": "You change course and can even make amends.",
+          "outcome": "growth",
+          "best": true
+        },
+        {
+          "text": "Justify it to avoid feeling bad",
+          "consequence": "Owning it and changing how you treat them is the better path."
+        }
+      ],
+      "debrief": "It's never too late to stop and choose respect.",
+      "relearn": "If you've mocked someone, own it, stop, and choose respect now.",
+      "persona": "Arjun",
+      "source": "accountability / growth"
+    },
+    {
+      "id": "sp-066",
+      "cat": "stand-against-bullying",
+      "type": "sort",
+      "hook": "Sort: helps a bullied person, or makes it worse?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Standing with them"
+        },
+        {
+          "id": "b",
+          "text": "Telling them to hide who they are"
+        },
+        {
+          "id": "c",
+          "text": "Reporting the bullying"
+        },
+        {
+          "id": "d",
+          "text": "Spreading the gossip further"
+        }
+      ],
+      "bins": [
+        {
+          "id": "helps",
+          "label": "Helps"
+        },
+        {
+          "id": "worse",
+          "label": "Makes it worse"
+        }
+      ],
+      "key": {
+        "a": "helps",
+        "b": "worse",
+        "c": "helps",
+        "d": "worse"
+      },
+      "relearn": "Standing with someone and reporting helps; 'hide yourself' and gossip make it worse.",
+      "persona": "any",
+      "source": "support"
+    },
+    {
+      "id": "sp-067",
+      "cat": "stand-against-bullying",
+      "type": "role-play",
+      "hook": "A younger student is being teased about their identity and asks your help.",
+      "setup": "Guide them kindly. Say:",
+      "yourLine": [
+        {
+          "text": "\"It's not your fault, and you deserve respect. Let's tell a teacher together.\"",
+          "best": true
+        },
+        {
+          "text": "\"Just toughen up.\""
+        }
+      ],
+      "relearn": "Guide a teased junior: not your fault, you deserve respect, let's tell an adult.",
+      "persona": "any",
+      "source": "mentoring"
+    },
+    {
+      "id": "sp-068",
+      "cat": "stand-against-bullying",
+      "type": "reflect",
+      "hook": "Lensy: standing up for someone's dignity is a quiet kind of courage. Feel that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Quiet courage",
+        "Worth it"
+      ],
+      "affirm": "Choosing dignity for someone, even quietly, is real courage.",
+      "relearn": "Standing up for someone's dignity is a quiet, real courage.",
+      "persona": "any",
+      "source": "courage"
+    },
+    {
+      "id": "sp-069",
+      "cat": "stand-against-bullying",
+      "type": "branch",
+      "hook": "You're scared that helping will make you a target too.",
+      "options": [
+        {
+          "text": "Use a safe move, tell an adult, support privately, you don't have to go it alone",
+          "consequence": "You help without putting yourself at risk.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Do nothing out of fear",
+          "consequence": "There are safe ways, telling an adult, quiet support, that don't expose you."
+        }
+      ],
+      "debrief": "You can help safely; safe upstanding doesn't require making yourself a target.",
+      "relearn": "Help safely, via an adult or quiet support; you needn't expose yourself.",
+      "persona": "any",
+      "source": "safe allyship"
+    },
+    {
+      "id": "sp-070",
+      "cat": "stand-against-bullying",
+      "type": "spot",
+      "hook": "Spot what makes a group safe for everyone.",
+      "scene": [
+        {
+          "text": "Slurs are not tolerated",
+          "trick": false
+        },
+        {
+          "text": "Everyone's treated with respect",
+          "trick": false
+        },
+        {
+          "text": "'Banter' that targets who people are",
+          "trick": true
+        }
+      ],
+      "why": "No slurs and universal respect make a group safe; targeting 'banter' doesn't.",
+      "relearn": "Safe groups don't tolerate slurs or identity-targeting 'banter'.",
+      "persona": "any",
+      "source": "safe culture"
+    },
+    {
+      "id": "sp-071",
+      "cat": "stand-against-bullying",
+      "type": "reflect",
+      "hook": "Lensy: a group where everyone's safe is better for everyone in it, not just some. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Better for all",
+        "Safer together"
+      ],
+      "affirm": "A culture of respect protects and benefits everyone in the group.",
+      "relearn": "A group that's safe for everyone is better for all of its members.",
+      "persona": "any",
+      "source": "culture"
+    },
+    {
+      "id": "sp-072",
+      "cat": "stand-against-bullying",
+      "type": "strike-rewrite",
+      "hook": "\"Bullying someone toughens them up.\"",
+      "myth": {
+        "un": "Bullying someone toughens them up.",
+        "re": "Bullying causes real harm and distress; it never 'helps' anyone.",
+        "why": "Identity-based bullying is linked to serious harm."
+      },
+      "relearn": "Bullying harms; it never 'toughens' or helps anyone.",
+      "persona": "Counsellor",
+      "source": "anti-bullying"
+    },
+    {
+      "id": "sp-073",
+      "cat": "support-and-rights",
+      "type": "match",
+      "hook": "Match the need to where to turn (India).",
+      "pairs": [
+        {
+          "left": "Feeling low or distressed",
+          "right": "Tele-MANAS 14416"
+        },
+        {
+          "left": "Mental-health support",
+          "right": "KIRAN 1800-599-0019"
+        },
+        {
+          "left": "Anyone under 18 at risk",
+          "right": "Childline 1098"
+        }
+      ],
+      "relearn": "India support: Tele-MANAS 14416, KIRAN 1800-599-0019, Childline 1098.",
+      "persona": "Counsellor",
+      "source": "helplines (verified)"
+    },
+    {
+      "id": "sp-074",
+      "cat": "support-and-rights",
+      "type": "reflect",
+      "hook": "Lensy: in India, dignity and equality for all are guaranteed by the Constitution. Solid to know?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Constitutional",
+        "Good ground"
+      ],
+      "affirm": "Dignity and equality for all are constitutional guarantees, firm ground to stand on.",
+      "relearn": "India's Constitution guarantees dignity and equality for all.",
+      "persona": "any",
+      "source": "constitutional values"
+    },
+    {
+      "id": "sp-075",
+      "cat": "support-and-rights",
+      "type": "strike-rewrite",
+      "hook": "\"Everyone different is breaking the law.\"",
+      "myth": {
+        "un": "Being who you are is against the law in India.",
+        "re": "Consensual same-sex relations between adults were decriminalised in 2018, and dignity is a constitutional right.",
+        "why": "The law protects dignity and privacy, not the opposite."
+      },
+      "relearn": "Consensual same-sex relations between adults are decriminalised; dignity is a right.",
+      "persona": "Counsellor",
+      "source": "decriminalised 2018 (verified)"
+    },
+    {
+      "id": "sp-076",
+      "cat": "support-and-rights",
+      "type": "strike-rewrite",
+      "hook": "\"Transgender people have no recognition or rights.\"",
+      "myth": {
+        "un": "Transgender people have no recognition or rights in India.",
+        "re": "India's courts recognised transgender persons and their dignity and rights.",
+        "why": "Recognition and rights are settled, not absent."
+      },
+      "relearn": "India recognises transgender persons and their dignity and rights.",
+      "persona": "any",
+      "source": "NALSA (verified)"
+    },
+    {
+      "id": "sp-077",
+      "cat": "support-and-rights",
+      "type": "branch",
+      "hook": "A friend doesn't know any safe place to get support.",
+      "options": [
+        {
+          "text": "Point them to a trusted adult, counsellor or a confidential line",
+          "consequence": "They find real, safe help.",
+          "outcome": "support",
+          "best": true
+        },
+        {
+          "text": "Tell them there's nowhere to go",
+          "consequence": "Trusted adults, counsellors and confidential lines (14416, 1098) are real options."
+        }
+      ],
+      "debrief": "Knowing the safe routes turns 'nowhere' into real support.",
+      "relearn": "Point a friend to a trusted adult, counsellor or confidential line.",
+      "persona": "any",
+      "source": "access"
+    },
+    {
+      "id": "sp-078",
+      "cat": "support-and-rights",
+      "type": "reflect",
+      "hook": "Lensy: sharing anything about yourself is always your own choice, support never requires it. Reassuring?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "My choice",
+        "No need to disclose"
+      ],
+      "affirm": "You can get support without disclosing anything; what you share is always your call.",
+      "relearn": "Getting support never requires disclosing anything; sharing is your choice.",
+      "persona": "any",
+      "source": "no forced disclosure"
+    },
+    {
+      "id": "sp-079",
+      "cat": "support-and-rights",
+      "type": "match",
+      "hook": "Match the settled value to what it means.",
+      "pairs": [
+        {
+          "left": "Dignity for all",
+          "right": "Everyone treated with respect"
+        },
+        {
+          "left": "Equality",
+          "right": "The same rights for everyone"
+        },
+        {
+          "left": "Privacy",
+          "right": "Your story is yours"
+        }
+      ],
+      "relearn": "Dignity, equality and privacy mean respect, equal rights, and your story stays yours.",
+      "persona": "any",
+      "source": "settled values"
+    },
+    {
+      "id": "sp-080",
+      "cat": "support-and-rights",
+      "type": "branch",
+      "hook": "You want to help make your school or group more respectful.",
+      "options": [
+        {
+          "text": "Model respect and back the dignity-for-all norm",
+          "consequence": "You help build a safer culture for everyone.",
+          "outcome": "culture",
+          "best": true
+        },
+        {
+          "text": "Decide it's not your problem",
+          "consequence": "Modelling respect and backing dignity-for-all helps everyone."
+        }
+      ],
+      "debrief": "Everyday modelling of respect is how a culture shifts.",
+      "relearn": "Model respect and back dignity-for-all to build a safer culture.",
+      "persona": "Vijay",
+      "source": "culture"
+    },
+    {
+      "id": "sp-081",
+      "cat": "support-and-rights",
+      "type": "reflect",
+      "hook": "Lensy: the big take-away, you don't have to agree with everyone to treat everyone with dignity. Carry it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I'll carry it",
+        "Dignity for all"
+      ],
+      "affirm": "That single idea, dignity for all without needing to agree on everything, is the heart of Spectrum.",
+      "relearn": "You don't have to agree with everyone to treat everyone with dignity.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "sp-082",
+      "cat": "support-and-rights",
+      "type": "reflect",
+      "hook": "Lensy: biggest take-away from Spectrum?",
+      "prompt": "Pick your motto.",
+      "options": [
+        "Respect isn't a debate",
+        "Dignity for all",
+        "People simply vary",
+        "Never out anyone"
+      ],
+      "affirm": "Any of those, held firmly, makes you someone who keeps people safe and respected.",
+      "relearn": "Respect isn't a debate; dignity for all; people vary; never out anyone.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "sp-083",
+      "cat": "support-and-rights",
+      "type": "sort",
+      "hook": "Sort: a settled value/fact, or a contested or false claim?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Everyone deserves dignity and safety"
+        },
+        {
+          "id": "b",
+          "text": "\"It's an illness to cure\""
+        },
+        {
+          "id": "c",
+          "text": "It isn't a choice"
+        },
+        {
+          "id": "d",
+          "text": "\"It's a recent foreign import\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "settled",
+          "label": "Settled"
+        },
+        {
+          "id": "false",
+          "label": "False"
+        }
+      ],
+      "key": {
+        "a": "settled",
+        "b": "false",
+        "c": "settled",
+        "d": "false"
+      },
+      "relearn": "Dignity-for-all and 'not a choice' are settled; 'illness' and 'foreign import' are false.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "sp-084",
+      "cat": "support-and-rights",
+      "type": "reflect",
+      "hook": "Lensy: a world where everyone is treated with dignity and kept safe, worth helping build?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Worth it",
+        "Let's build it"
+      ],
+      "affirm": "Every act of respect helps build a world that's safer and kinder for everyone.",
+      "relearn": "Treating everyone with dignity builds a safer, kinder world for all.",
+      "persona": "any",
+      "source": "vision"
+    }
+  ]
+}

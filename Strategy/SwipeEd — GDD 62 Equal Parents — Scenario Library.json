@@ -1,0 +1,1910 @@
+{
+  "game": "Equal Parents",
+  "gameId": "equal-parents",
+  "node": "g62",
+  "chapter": 8,
+  "ages": null,
+  "ageBand": "Parenthood (first child on)",
+  "thread": "E · Gender & Respect",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Open (adult, comprehensive, ungated)",
+  "leadMechanics": [
+    "strike-rewrite",
+    "branch",
+    "sort"
+  ],
+  "note": "Co-parenting as equals: sharing the care and the parental mental load, involved fatherhood, breaking gendered parenting (UNESCO 3.2, 1.4, 1.1). New v2 build, taking the equal-home work of Equal Partners (g55) into raising children, the stage where gendered defaults snap back hardest. Parenting isn't mum's job with dad 'helping'. Six modes: share the care (split feeds, nights, appointments and school-runs fairly through owned shares, both parents competent; only breastfeeding is mother-specific), the parental mental load (surface and share the invisible tracking, planning and worrying; sharing means owning the noticing, not doing tasks on request), involved dads (bust 'fathers help / providing is enough / nurturing isn't a man's role'; hands-on, emotionally present fatherhood is good fathering and a fuller manhood, and addressing maternal gatekeeping), kids are watching (children learn gender roles and equality largely by watching their parents, so modelling shared care breaks the intergenerational divide and chores have no gender), everyone gains (shared parenting is better for children, mothers and fathers, not a sacrifice or a trade; equality matters most exactly when kids arrive), tools and help (a fair-parenting and mental-load map, a shared calendar and a weekly check-in, rebalanced over time; parental burnout routes to Looking After You g63). Even-handed and warm: engages fathers as equal owners and never anti-men, frames involved fatherhood as pro-men, and never shames any current arrangement. Builds on Equal Partners (g55) and Equalize (g26); beside Us, After Kids (g61). India: childcare defaults heavily to mothers and grandmothers and fathers are often cast as providers (reinforced by joint families and by minimal paternity leave), children who never see fathers as caregivers carry the divide forward, and greater paternal involvement lifts child development, marital satisfaction and fathers' own confidence and wellbeing.",
+  "categories": {
+    "share-the-care": "Share the care: feeds, nights & appointments, fairly",
+    "parental-mental-load": "The parental mental load: share the remembering",
+    "involved-dads": "Involved dads: hands-on, present fatherhood",
+    "kids-are-watching": "Kids are watching: model the equality they'll learn",
+    "everyone-gains": "Everyone gains: better for kids, mothers & fathers",
+    "tools-and-help": "Tools & help: the fair-parenting & mental-load map"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "strike-rewrite",
+    "sort",
+    "reflect",
+    "role-play",
+    "match",
+    "spot"
+  ],
+  "evidenceBase": [
+    "Genuinely shared parenting means splitting both the visible care, feeds, nights, nappies, appointments and school-runs, and the invisible parental mental load of tracking, planning and worrying, with each parent owning whole domains rather than doing tasks on request: only breastfeeding is mother-specific, and 'doing it when asked' still leaves one parent as the manager who notices and remembers. Mothers are not naturally better at the mental load; whoever practises it gets good at it, so fair sharing is shared ownership and flexibility, not a strict scorecard (UN Women / UNICEF equal-parenting; mental-load and division-of-labour research)",
+    "Involved, hands-on fatherhood is good fathering and good for everyone, and a father caring for his child is parenting, not 'babysitting' or 'helping mum': infants attach to both parents from birth, and paternal involvement is linked to better cognitive, emotional, social and behavioural development, self-esteem and resilience, with quality of engagement mattering more than mere contact. Fathers face real barriers, cultural norms, the provider role, maternal gatekeeping and unequal leave, but equality here is pro-men, lifting fathers' bonds, confidence and wellbeing, and nurturing is fully a man's role (paternal-involvement and child-development research; UN Women MenCare)",
+    "Children learn gender roles and equality largely by watching their parents, so modelling shared care is the most powerful lesson and a way to break an intergenerational cycle: where children never see fathers as caregivers the divide is carried forward, and teaching all children, sons included, to cook, clean and care raises capable, respectful adults because chores have no gender. Shared parenting is a whole-family gain rather than a sacrifice, children thrive with two bonded parents, mothers are less overloaded and at lower risk of burnout, and fathers gain a real bond, so parenthood is exactly when equality matters most; the framing stays even-handed and never anti-men, parental burnout routes to Looking After You (g63), and in India, where care defaults to mothers and grandmothers and paternity leave is minimal, this shift turns caregiving from 'help' into responsibility (intergenerational-modelling and social-learning research; India father-caregiving and time-use studies; UNESCO gender equality)"
+  ],
+  "scenarios": [
+    {
+      "id": "ep2-001",
+      "cat": "share-the-care",
+      "type": "strike-rewrite",
+      "hook": "\"Hands-on childcare is naturally the mother's job.\"",
+      "relearn": "Hands-on care isn't naturally the mother's job; both parents can and should do it.",
+      "persona": "Vikram",
+      "source": "care isn't gendered",
+      "myth": {
+        "un": "Hands-on childcare is naturally the mother's job.",
+        "re": "Both parents can do feeds, nappies, nights and appointments; there's nothing about care that only a mother can do.",
+        "why": "Caregiving is learned by doing, not assigned by gender."
+      }
+    },
+    {
+      "id": "ep2-002",
+      "cat": "share-the-care",
+      "type": "sort",
+      "hook": "Sort: a task only a mother can do, or one either parent can?",
+      "relearn": "Only breastfeeding is mother-specific; nappies, soothing and appointments are jobs either parent can own.",
+      "persona": "any",
+      "source": "either or mum",
+      "items": [
+        {
+          "id": "a",
+          "text": "Changing nappies"
+        },
+        {
+          "id": "b",
+          "text": "Breastfeeding specifically"
+        },
+        {
+          "id": "c",
+          "text": "Night soothing and rocking"
+        },
+        {
+          "id": "d",
+          "text": "Booking and attending check-ups"
+        }
+      ],
+      "bins": [
+        {
+          "id": "either",
+          "label": "Either parent"
+        },
+        {
+          "id": "mum",
+          "label": "Mother-specific"
+        }
+      ],
+      "key": {
+        "a": "either",
+        "b": "mum",
+        "c": "either",
+        "d": "either"
+      }
+    },
+    {
+      "id": "ep2-003",
+      "cat": "share-the-care",
+      "type": "branch",
+      "hook": "The night feeds, school-runs and appointments have all quietly defaulted to one parent.",
+      "relearn": "Map and fairly split the recurring care; 'it's easier this way' just entrenches the default.",
+      "persona": "Divya",
+      "source": "split the tasks",
+      "options": [
+        {
+          "text": "Map every recurring task and split it into fair, owned shares",
+          "consequence": "The load becomes visibly, genuinely shared.",
+          "outcome": "split",
+          "best": true
+        },
+        {
+          "text": "Let the default stand because 'it's just easier'",
+          "consequence": "Mapping and splitting tasks shares the load fairly; 'it's just easier' quietly loads it all onto one parent."
+        }
+      ],
+      "debrief": "Map the recurring care tasks and split them into fair, owned shares, not a one-parent default."
+    },
+    {
+      "id": "ep2-004",
+      "cat": "share-the-care",
+      "type": "sort",
+      "hook": "Sort: a fairly shared care arrangement, or a lopsided one dressed up as sharing?",
+      "relearn": "Owning whole tasks and alternating nights is fair; one doing it all while the other 'helps' is lopsided.",
+      "persona": "Vikram",
+      "source": "fair vs lopsided",
+      "items": [
+        {
+          "id": "a",
+          "text": "Each parent owns whole tasks"
+        },
+        {
+          "id": "b",
+          "text": "One does it all, one 'helps' sometimes"
+        },
+        {
+          "id": "c",
+          "text": "Nights and mornings alternated"
+        },
+        {
+          "id": "d",
+          "text": "One parent is always the backup"
+        }
+      ],
+      "bins": [
+        {
+          "id": "fair",
+          "label": "Fairly shared"
+        },
+        {
+          "id": "lopsided",
+          "label": "Lopsided"
+        }
+      ],
+      "key": {
+        "a": "fair",
+        "b": "lopsided",
+        "c": "fair",
+        "d": "lopsided"
+      }
+    },
+    {
+      "id": "ep2-005",
+      "cat": "share-the-care",
+      "type": "match",
+      "hook": "Match each shared-care move to what it achieves.",
+      "relearn": "Owning tasks, alternating nights and both knowing the routines make care genuinely shareable.",
+      "persona": "any",
+      "source": "shared-care moves",
+      "pairs": [
+        {
+          "left": "Each owns specific tasks",
+          "right": "No constant negotiating"
+        },
+        {
+          "left": "Alternating nights",
+          "right": "Both rest and both bond"
+        },
+        {
+          "left": "Both know the routines",
+          "right": "Either can step in fully"
+        }
+      ]
+    },
+    {
+      "id": "ep2-006",
+      "cat": "share-the-care",
+      "type": "branch",
+      "hook": "You're the parent who's drifted into doing almost none of the hands-on care.",
+      "relearn": "Step up to own regular care; occasional 'helping when needed' isn't co-parenting.",
+      "persona": "Vikram",
+      "source": "step up",
+      "options": [
+        {
+          "text": "Step up and own real, regular care tasks, not occasional help",
+          "consequence": "You become a true co-parent.",
+          "outcome": "co-parent",
+          "best": true
+        },
+        {
+          "text": "Keep offering only to 'help when needed'",
+          "consequence": "Owning regular care makes you a co-parent; 'helping when needed' keeps the load on the other parent."
+        }
+      ],
+      "debrief": "Own regular hands-on care to be a true co-parent, rather than offering occasional help."
+    },
+    {
+      "id": "ep2-007",
+      "cat": "share-the-care",
+      "type": "strike-rewrite",
+      "hook": "\"As long as I provide financially, I've done my part as a parent.\"",
+      "relearn": "Providing isn't the whole of parenting; hands-on care and presence are a parent's responsibility too.",
+      "persona": "Vikram",
+      "source": "more than providing",
+      "myth": {
+        "un": "As long as I provide financially, I've done my part as a parent.",
+        "re": "Providing matters, but children need hands-on care and presence too; caregiving is a parent's responsibility, not an extra.",
+        "why": "Presence is part of the job, not a bonus."
+      }
+    },
+    {
+      "id": "ep2-008",
+      "cat": "share-the-care",
+      "type": "role-play",
+      "hook": "Your partner assumes you can't handle the baby alone for a day. You want to claim your competence.",
+      "relearn": "Confidently owning solo care builds your competence and frees your partner from being the only capable one.",
+      "persona": "Vikram",
+      "source": "claim competence",
+      "setup": "Claim it warmly:",
+      "yourLine": [
+        {
+          "text": "\"I've got this, go enjoy your day, I know our routines and I'll be fine on my own.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, maybe leave a long list, I'll probably mess it up.\""
+        }
+      ]
+    },
+    {
+      "id": "ep2-009",
+      "cat": "share-the-care",
+      "type": "sort",
+      "hook": "Sort: builds both parents' competence, or keeps care one-sided?",
+      "relearn": "Both doing solo time and learning routines builds competence; constant supervision and a single 'expert' keep care one-sided.",
+      "persona": "any",
+      "source": "both vs one-sided",
+      "items": [
+        {
+          "id": "a",
+          "text": "Both doing solo stretches with the child"
+        },
+        {
+          "id": "b",
+          "text": "One always supervising the other"
+        },
+        {
+          "id": "c",
+          "text": "Both learning the routines fully"
+        },
+        {
+          "id": "d",
+          "text": "Treating one parent as the only 'expert'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "both",
+          "label": "Builds both"
+        },
+        {
+          "id": "oneside",
+          "label": "Keeps it one-sided"
+        }
+      ],
+      "key": {
+        "a": "both",
+        "b": "oneside",
+        "c": "both",
+        "d": "oneside"
+      }
+    },
+    {
+      "id": "ep2-010",
+      "cat": "share-the-care",
+      "type": "spot",
+      "hook": "Spot genuine shared care.",
+      "relearn": "Shared care means both handle the real tasks and either can run solo, with no default 'main parent'.",
+      "persona": "any",
+      "source": "genuine shared care",
+      "scene": [
+        {
+          "text": "Both handle nights and appointments",
+          "trick": false
+        },
+        {
+          "text": "One parent named the 'main' one by default",
+          "trick": true
+        },
+        {
+          "text": "Either can run the day solo",
+          "trick": false
+        }
+      ],
+      "why": "Both handling nights and either running the day is shared care; a default 'main parent' isn't."
+    },
+    {
+      "id": "ep2-011",
+      "cat": "share-the-care",
+      "type": "reflect",
+      "hook": "Sam: shared care isn't a favour one parent does the other; it's just both doing their job. Sit right?",
+      "relearn": "Shared care isn't a favour; it's both parents doing their own job.",
+      "persona": "any",
+      "source": "not a favour",
+      "prompt": "What do you think?",
+      "options": [
+        "Sits right",
+        "Both our job",
+        "Not a favour"
+      ],
+      "affirm": "Shared care is simply both parents doing their own job, not one doing the other a favour."
+    },
+    {
+      "id": "ep2-012",
+      "cat": "share-the-care",
+      "type": "branch",
+      "hook": "Grandparents step in to help, and the load quietly shifts to them and the mother, not you.",
+      "relearn": "Welcome family help but stay hands-on; don't let your parenting share quietly pass to others.",
+      "persona": "Vikram",
+      "source": "stay hands-on",
+      "options": [
+        {
+          "text": "Stay a hands-on parent alongside any family help",
+          "consequence": "Your child gets you, not just a stand-in.",
+          "outcome": "hands-on",
+          "best": true
+        },
+        {
+          "text": "Let grandparents and mum cover your share",
+          "consequence": "Staying hands-on keeps you central to your child; letting others cover your share sidelines you from your own kid."
+        }
+      ],
+      "debrief": "Stay a hands-on parent even with grandparents helping; don't let your share quietly shift to others."
+    },
+    {
+      "id": "ep2-013",
+      "cat": "share-the-care",
+      "type": "strike-rewrite",
+      "hook": "\"Splitting care 'fairly' means keeping a strict scorecard.\"",
+      "relearn": "Fair care is shared ownership and flexing for each other, not a strict nappy-by-nappy scorecard.",
+      "persona": "any",
+      "source": "ownership not score",
+      "myth": {
+        "un": "Splitting care fairly means keeping a strict scorecard.",
+        "re": "Fair sharing is about both owning real responsibility and flexing for each other, not tallying every nappy.",
+        "why": "Ownership and flexibility beat score-keeping."
+      }
+    },
+    {
+      "id": "ep2-014",
+      "cat": "share-the-care",
+      "type": "match",
+      "hook": "Match each recurring duty to a fair way to share it.",
+      "relearn": "Night wake-ups, appointments and daily care each have a fair split when both parents are capable and willing.",
+      "persona": "any",
+      "source": "fair splits",
+      "pairs": [
+        {
+          "left": "Night wake-ups",
+          "right": "Take turns or split the week"
+        },
+        {
+          "left": "Doctor and school runs",
+          "right": "Each owns some, not all on one"
+        },
+        {
+          "left": "Daily feeding and bathing",
+          "right": "Whoever's free, both capable"
+        }
+      ]
+    },
+    {
+      "id": "ep2-015",
+      "cat": "parental-mental-load",
+      "type": "strike-rewrite",
+      "hook": "\"Remembering jabs, sizes, supplies and appointments isn't real work.\"",
+      "relearn": "The parental mental load, tracking, planning and worrying, is real, tiring work that has to be shared.",
+      "persona": "Divya",
+      "source": "load is real work",
+      "myth": {
+        "un": "Remembering jabs, sizes, supplies and appointments isn't real work.",
+        "re": "The parental mental load, the constant tracking, planning and worrying, is real, tiring cognitive work that must be shared.",
+        "why": "Invisible work still wears you out."
+      }
+    },
+    {
+      "id": "ep2-016",
+      "cat": "parental-mental-load",
+      "type": "sort",
+      "hook": "Sort: visible care task, or invisible parental mental load?",
+      "relearn": "Feeding and bathing are visible; remembering the vaccine schedule and noticing supplies run low is the mental load.",
+      "persona": "any",
+      "source": "visible vs mental",
+      "items": [
+        {
+          "id": "a",
+          "text": "Feeding the baby"
+        },
+        {
+          "id": "b",
+          "text": "Remembering the vaccine schedule"
+        },
+        {
+          "id": "c",
+          "text": "Bathing the child"
+        },
+        {
+          "id": "d",
+          "text": "Noticing the nappies are running out"
+        }
+      ],
+      "bins": [
+        {
+          "id": "visible",
+          "label": "Visible task"
+        },
+        {
+          "id": "mental",
+          "label": "Mental load"
+        }
+      ],
+      "key": {
+        "a": "visible",
+        "b": "mental",
+        "c": "visible",
+        "d": "mental"
+      }
+    },
+    {
+      "id": "ep2-017",
+      "cat": "parental-mental-load",
+      "type": "strike-rewrite",
+      "hook": "\"If I do tasks when asked, I'm sharing the parenting equally.\"",
+      "relearn": "Doing tasks when asked isn't equal; true sharing means owning the noticing and planning, not just the doing.",
+      "persona": "Vikram",
+      "source": "share the thinking",
+      "myth": {
+        "un": "If I do tasks when asked, I'm sharing the parenting equally.",
+        "re": "Being asked still leaves one parent as the manager who notices and remembers; sharing means owning the noticing too.",
+        "why": "Sharing the load means sharing the thinking."
+      }
+    },
+    {
+      "id": "ep2-018",
+      "cat": "parental-mental-load",
+      "type": "sort",
+      "hook": "Sort: carrying the mental load, or genuinely sharing it?",
+      "relearn": "One planning everything and remembering all dates is carrying it; both tracking and owning domains is sharing it.",
+      "persona": "Divya",
+      "source": "carry or share",
+      "items": [
+        {
+          "id": "a",
+          "text": "One parent plans every meal and appointment"
+        },
+        {
+          "id": "b",
+          "text": "Both track what the child needs"
+        },
+        {
+          "id": "c",
+          "text": "One remembers all the dates"
+        },
+        {
+          "id": "d",
+          "text": "Both own whole domains end-to-end"
+        }
+      ],
+      "bins": [
+        {
+          "id": "carry",
+          "label": "One carries it"
+        },
+        {
+          "id": "share",
+          "label": "Genuinely shared"
+        }
+      ],
+      "key": {
+        "a": "carry",
+        "b": "share",
+        "c": "carry",
+        "d": "share"
+      }
+    },
+    {
+      "id": "ep2-019",
+      "cat": "parental-mental-load",
+      "type": "branch",
+      "hook": "One of you remembers everything for the child while the other waits to be told.",
+      "relearn": "Split the mental load by owning whole domains each; don't leave one parent as the family's memory.",
+      "persona": "Divya",
+      "source": "own domains",
+      "options": [
+        {
+          "text": "Hand whole domains, like health or school, to each parent to own fully",
+          "consequence": "The remembering is shared, not delegated.",
+          "outcome": "owned",
+          "best": true
+        },
+        {
+          "text": "Keep one parent as the family's memory and manager",
+          "consequence": "Owning whole domains shares the thinking; keeping one parent as the manager just adds delegating to their load."
+        }
+      ],
+      "debrief": "Share the mental load by each parent owning whole domains, not by one staying the family manager."
+    },
+    {
+      "id": "ep2-020",
+      "cat": "parental-mental-load",
+      "type": "match",
+      "hook": "Match each invisible duty to the parent-load it really is.",
+      "relearn": "Health, logistics and emotional tracking are all real parts of the parental mental load to be shared.",
+      "persona": "any",
+      "source": "kinds of load",
+      "pairs": [
+        {
+          "left": "Tracking growth, jabs, milestones",
+          "right": "Health mental load"
+        },
+        {
+          "left": "Planning meals, supplies, sizes",
+          "right": "Logistics mental load"
+        },
+        {
+          "left": "Sensing moods and needs",
+          "right": "Emotional mental load"
+        }
+      ]
+    },
+    {
+      "id": "ep2-021",
+      "cat": "parental-mental-load",
+      "type": "strike-rewrite",
+      "hook": "\"Mothers are just naturally better at remembering all the kid stuff.\"",
+      "relearn": "Mothers aren't naturally better at the mental load; whoever practises it gets good at it, and both can share it.",
+      "persona": "any",
+      "source": "not natural",
+      "myth": {
+        "un": "Mothers are just naturally better at remembering all the kid stuff.",
+        "re": "It's not nature; whoever does the tracking gets practised at it, and either parent can carry their share of the planning.",
+        "why": "Practice, not biology, builds the skill."
+      }
+    },
+    {
+      "id": "ep2-022",
+      "cat": "parental-mental-load",
+      "type": "reflect",
+      "hook": "Sam: you can't share what you can't see; naming the mental load is the first step to splitting it. Make sense?",
+      "relearn": "Naming the invisible parental mental load is the first step to sharing it fairly.",
+      "persona": "any",
+      "source": "name to share",
+      "prompt": "What do you think?",
+      "options": [
+        "Makes sense",
+        "Name it first",
+        "I see it now"
+      ],
+      "affirm": "You can't split a load you can't see; naming the parental mental load is the first step to sharing it."
+    },
+    {
+      "id": "ep2-023",
+      "cat": "parental-mental-load",
+      "type": "spot",
+      "hook": "Spot the move that truly shares the mental load.",
+      "relearn": "Truly sharing the mental load means owning the planning and noticing, not just tasks-on-request.",
+      "persona": "Vikram",
+      "source": "truly share",
+      "scene": [
+        {
+          "text": "Owning a domain and its planning",
+          "trick": false
+        },
+        {
+          "text": "Doing single tasks only when told",
+          "trick": true
+        },
+        {
+          "text": "Tracking needs without being reminded",
+          "trick": false
+        }
+      ],
+      "why": "Owning a domain and tracking needs unprompted share the load; doing single tasks only when told doesn't."
+    },
+    {
+      "id": "ep2-024",
+      "cat": "parental-mental-load",
+      "type": "branch",
+      "hook": "You realise your partner's brain is full of invisible child-admin and yours isn't.",
+      "relearn": "Take whole areas, planning and all, to truly lighten your partner's mental load.",
+      "persona": "Vikram",
+      "source": "lift the weight",
+      "options": [
+        {
+          "text": "Ask them to hand you whole areas to carry, planning included",
+          "consequence": "You lift real weight, not just tasks.",
+          "outcome": "lift",
+          "best": true
+        },
+        {
+          "text": "Offer to 'help more' with the doing only",
+          "consequence": "Taking whole areas including the planning lifts real weight; offering to help with doing leaves the thinking on them."
+        }
+      ],
+      "debrief": "Take over whole areas including the planning to lift the mental load, not just offer to do more tasks."
+    },
+    {
+      "id": "ep2-025",
+      "cat": "parental-mental-load",
+      "type": "reflect",
+      "hook": "Sam: the parent who never has to remember is the one who isn't carrying the load. Worth noticing?",
+      "relearn": "The parent who never has to remember isn't carrying the mental load; noticing that starts the fix.",
+      "persona": "any",
+      "source": "who remembers",
+      "prompt": "What's your take?",
+      "options": [
+        "Worth it",
+        "I'll notice",
+        "True"
+      ],
+      "affirm": "If you never have to remember the child-admin, you're not carrying the mental load; noticing that is the start of change."
+    },
+    {
+      "id": "ep2-026",
+      "cat": "parental-mental-load",
+      "type": "match",
+      "hook": "Match a sign of an unequal mental load to the fair fix.",
+      "relearn": "An unequal mental load shows in who reminds, who knows and who worries; fair fixes share each of those.",
+      "persona": "Divya",
+      "source": "fair fixes",
+      "pairs": [
+        {
+          "left": "One parent is everyone's reminder service",
+          "right": "Each owns their own domains"
+        },
+        {
+          "left": "One always 'just knows' the schedule",
+          "right": "Both keep the shared calendar"
+        },
+        {
+          "left": "One worries alone at night",
+          "right": "Share the worrying out loud"
+        }
+      ]
+    },
+    {
+      "id": "ep2-027",
+      "cat": "parental-mental-load",
+      "type": "branch",
+      "hook": "Your partner says they're exhausted by the invisible load, and you're tempted to say 'just tell me what to do'.",
+      "relearn": "Take ownership instead of asking for a list; the managing is the load you want to lift.",
+      "persona": "Vikram",
+      "source": "remove the managing",
+      "options": [
+        {
+          "text": "Instead offer to take ownership so they stop having to manage you",
+          "consequence": "You remove the management, not add to it.",
+          "outcome": "ownership",
+          "best": true
+        },
+        {
+          "text": "Say 'just make me a list' and wait",
+          "consequence": "Offering to own removes the managing; 'make me a list' keeps them as your manager, which is the load itself."
+        }
+      ],
+      "debrief": "Offer to own areas so your partner stops managing you; 'just make me a list' keeps the load on them."
+    },
+    {
+      "id": "ep2-028",
+      "cat": "involved-dads",
+      "type": "strike-rewrite",
+      "hook": "\"A father looking after his own child is 'babysitting' or 'helping mum'.\"",
+      "relearn": "A father caring for his child is parenting, his own responsibility, not babysitting or helping mum.",
+      "persona": "Vikram",
+      "source": "not babysitting",
+      "myth": {
+        "un": "A father looking after his own child is 'babysitting' or 'helping mum'.",
+        "re": "It's just parenting; caregiving is a father's own responsibility, not help he gives the mother.",
+        "why": "You don't help with, or babysit, your own kid."
+      }
+    },
+    {
+      "id": "ep2-029",
+      "cat": "involved-dads",
+      "type": "strike-rewrite",
+      "hook": "\"Fathers are providers; nurturing just isn't a man's role.\"",
+      "relearn": "Nurturing is fully a father's role; involved, emotionally present fathers are good for kids and for themselves.",
+      "persona": "Vikram",
+      "source": "men nurture",
+      "myth": {
+        "un": "Fathers are providers; nurturing just isn't a man's role.",
+        "re": "Men can nurture fully; involved, hands-on, emotionally present fathers are good for children and for fathers themselves.",
+        "why": "Tenderness isn't unmanly; it's good fathering."
+      }
+    },
+    {
+      "id": "ep2-030",
+      "cat": "involved-dads",
+      "type": "strike-rewrite",
+      "hook": "\"Kids only really need their mother in the early years.\"",
+      "relearn": "Children need both parents from the start; involved fathers boost development, confidence and behaviour.",
+      "persona": "Vikram",
+      "source": "both from birth",
+      "myth": {
+        "un": "Kids only really need their mother in the early years.",
+        "re": "Infants attach to both parents from birth, and involved fathers boost children's development, confidence and behaviour.",
+        "why": "Both parents matter from day one."
+      }
+    },
+    {
+      "id": "ep2-031",
+      "cat": "involved-dads",
+      "type": "branch",
+      "hook": "You want to be close to your child, but worry hands-on fathering isn't 'manly'.",
+      "relearn": "Lean into hands-on, tender fathering; the old 'manly distance' costs both you and your child.",
+      "persona": "Vikram",
+      "source": "lean in",
+      "options": [
+        {
+          "text": "Lean fully into hands-on, tender fathering anyway",
+          "consequence": "You build a real bond and model new manhood.",
+          "outcome": "tender",
+          "best": true
+        },
+        {
+          "text": "Hold back to fit an old idea of being a man",
+          "consequence": "Leaning into tender fathering builds the bond and models a fuller manhood; holding back costs you and your child."
+        }
+      ],
+      "debrief": "Be a hands-on, tender father; that's good fathering and a fuller, healthier manhood, not a weakness."
+    },
+    {
+      "id": "ep2-032",
+      "cat": "involved-dads",
+      "type": "role-play",
+      "hook": "Relatives tease you for doing nappies and night feeds 'like a woman'. You want to own it proudly.",
+      "relearn": "Owning hands-on fathering proudly shrugs off the teasing and models that caregiving is simply a dad's job.",
+      "persona": "Vikram",
+      "source": "own it proudly",
+      "setup": "Own it proudly:",
+      "yourLine": [
+        {
+          "text": "\"This is just being a dad, and I wouldn't miss it for anything.\"",
+          "best": true
+        },
+        {
+          "text": "\"Haha, yeah, my wife usually handles that stuff.\""
+        }
+      ]
+    },
+    {
+      "id": "ep2-033",
+      "cat": "involved-dads",
+      "type": "branch",
+      "hook": "You realise you instinctively pass the crying baby straight to your partner.",
+      "relearn": "Soothe your child yourself rather than handing off; that's how you become a parent they turn to.",
+      "persona": "Vikram",
+      "source": "dont hand off",
+      "options": [
+        {
+          "text": "Practise soothing your child yourself until you're confident",
+          "consequence": "You become a parent your child turns to.",
+          "outcome": "confident",
+          "best": true
+        },
+        {
+          "text": "Always hand off, staying the 'backup' parent",
+          "consequence": "Practising soothing makes you a go-to parent; always handing off keeps you a backup your child learns not to rely on."
+        }
+      ],
+      "debrief": "Practise hands-on soothing yourself; always handing the baby off keeps you a backup parent."
+    },
+    {
+      "id": "ep2-034",
+      "cat": "involved-dads",
+      "type": "role-play",
+      "hook": "Your partner hovers and corrects how you parent, so you've stopped trying. You want to talk it through.",
+      "relearn": "Asking to be trusted to learn your own way addresses gatekeeping so you can become a true equal parent.",
+      "persona": "Vikram",
+      "source": "ask to be trusted",
+      "setup": "Raise it kindly:",
+      "yourLine": [
+        {
+          "text": "\"I want to do my full share, can you trust me to do it my way and learn?\"",
+          "best": true
+        },
+        {
+          "text": "\"Fine, you do it, you clearly think I can't.\""
+        }
+      ]
+    },
+    {
+      "id": "ep2-035",
+      "cat": "involved-dads",
+      "type": "reflect",
+      "hook": "Sam: 'to be a good father, and to be seen as one' is a worthy goal, and it starts with showing up. Resonate?",
+      "relearn": "Being a good father, and seen as one, starts with showing up in the everyday care.",
+      "persona": "Vikram",
+      "source": "show up",
+      "prompt": "What do you think?",
+      "options": [
+        "Resonates",
+        "Showing up",
+        "That's the goal"
+      ],
+      "affirm": "Being a good, hands-on father, and being recognised as one, starts with consistently showing up in the care."
+    },
+    {
+      "id": "ep2-036",
+      "cat": "involved-dads",
+      "type": "strike-rewrite",
+      "hook": "\"Asking a dad to be fully involved is somehow anti-men.\"",
+      "relearn": "Involved fatherhood isn't anti-men; it lifts fathers' bonds, confidence and wellbeing, and is theirs to claim.",
+      "persona": "any",
+      "source": "pro-men",
+      "myth": {
+        "un": "Asking a dad to be fully involved is somehow anti-men.",
+        "re": "Involved fatherhood is pro-men: it boosts fathers' bonds, confidence and wellbeing, and it's something to claim, not a burden.",
+        "why": "Equality here lifts fathers too."
+      }
+    },
+    {
+      "id": "ep2-037",
+      "cat": "involved-dads",
+      "type": "sort",
+      "hook": "Sort: involved, hands-on fatherhood, or distant 'provider-only' fathering?",
+      "relearn": "Doing nights and knowing your child's world is involved fathering; weekend-only and leaving care to others is distant.",
+      "persona": "Vikram",
+      "source": "involved vs distant",
+      "items": [
+        {
+          "id": "a",
+          "text": "Doing nights, feeds and play"
+        },
+        {
+          "id": "b",
+          "text": "Seeing kids only at weekends by choice"
+        },
+        {
+          "id": "c",
+          "text": "Knowing your child's daily world"
+        },
+        {
+          "id": "d",
+          "text": "Leaving all care to mum and elders"
+        }
+      ],
+      "bins": [
+        {
+          "id": "involved",
+          "label": "Involved"
+        },
+        {
+          "id": "distant",
+          "label": "Distant"
+        }
+      ],
+      "key": {
+        "a": "involved",
+        "b": "distant",
+        "c": "involved",
+        "d": "distant"
+      }
+    },
+    {
+      "id": "ep2-038",
+      "cat": "involved-dads",
+      "type": "match",
+      "hook": "Match each fathering act to what it gives the child.",
+      "relearn": "Daily care, emotional presence and consistency are what an involved father gives his child.",
+      "persona": "Vikram",
+      "source": "what it gives",
+      "pairs": [
+        {
+          "left": "Hands-on daily care",
+          "right": "Security and a real bond"
+        },
+        {
+          "left": "Emotional presence",
+          "right": "Confidence and resilience"
+        },
+        {
+          "left": "Showing up consistently",
+          "right": "Trust they can rely on you"
+        }
+      ]
+    },
+    {
+      "id": "ep2-039",
+      "cat": "involved-dads",
+      "type": "reflect",
+      "hook": "Sam: the most precious thing a father can give isn't money, it's himself, present and hands-on. Land okay?",
+      "relearn": "The most precious thing a father gives isn't money, it's himself, present and hands-on.",
+      "persona": "Vikram",
+      "source": "give himself",
+      "prompt": "What's your take?",
+      "options": [
+        "Lands okay",
+        "Himself",
+        "Present matters"
+      ],
+      "affirm": "A father's presence and hands-on care matter to a child even more than his financial provision."
+    },
+    {
+      "id": "ep2-040",
+      "cat": "involved-dads",
+      "type": "spot",
+      "hook": "Spot what makes a father an equal parent, not a helper.",
+      "relearn": "An equal-parent father owns care unprompted and knows the routines, rather than waiting to be told.",
+      "persona": "Vikram",
+      "source": "equal not helper",
+      "scene": [
+        {
+          "text": "Owning care without being asked",
+          "trick": false
+        },
+        {
+          "text": "Waiting to be told what to do",
+          "trick": true
+        },
+        {
+          "text": "Knowing the child's routines himself",
+          "trick": false
+        }
+      ],
+      "why": "Owning care unprompted and knowing the routines make an equal parent; waiting to be told makes a helper."
+    },
+    {
+      "id": "ep2-041",
+      "cat": "involved-dads",
+      "type": "branch",
+      "hook": "Work culture treats your fatherhood as irrelevant, nudging you to stay the distant provider.",
+      "relearn": "Guard time to parent against work norms that sideline fathers; don't cede your fatherhood by default.",
+      "persona": "Vikram",
+      "source": "protect the time",
+      "options": [
+        {
+          "text": "Protect time to actually parent, within what you can control",
+          "consequence": "Your child gets a present father.",
+          "outcome": "present",
+          "best": true
+        },
+        {
+          "text": "Accept that work means you can't really parent",
+          "consequence": "Protecting parenting time keeps you present; accepting that work rules it out cedes your fatherhood by default."
+        }
+      ],
+      "debrief": "Protect what parenting time you can against a work culture that erases fatherhood; presence is worth defending."
+    },
+    {
+      "id": "ep2-042",
+      "cat": "kids-are-watching",
+      "type": "strike-rewrite",
+      "hook": "\"Kids don't really notice who does what at home.\"",
+      "relearn": "Children notice and absorb who does what at home; it teaches them what's normal for their own future.",
+      "persona": "Meena",
+      "source": "kids notice",
+      "myth": {
+        "un": "Kids don't really notice who does what at home.",
+        "re": "Children learn gender roles largely by watching their parents; what they see at home becomes their normal.",
+        "why": "Home is a child's first model of how the world works."
+      }
+    },
+    {
+      "id": "ep2-043",
+      "cat": "kids-are-watching",
+      "type": "strike-rewrite",
+      "hook": "\"Telling kids about equality matters more than what they see us do.\"",
+      "relearn": "Kids learn equality from what they see us do, not what we say; modelling it at home teaches the most.",
+      "persona": "Meena",
+      "source": "show not tell",
+      "myth": {
+        "un": "Telling kids about equality matters more than what they see us do.",
+        "re": "Children copy what they see far more than what they're told; modelling equality at home is the most powerful lesson.",
+        "why": "Actions teach louder than lectures."
+      }
+    },
+    {
+      "id": "ep2-044",
+      "cat": "kids-are-watching",
+      "type": "sort",
+      "hook": "Sort: what a child learns from a home where parenting is shared, or from one where it isn't?",
+      "relearn": "A shared home teaches that care is everyone's job and dads nurture; an unequal one teaches the old divide.",
+      "persona": "Meena",
+      "source": "what kids learn",
+      "items": [
+        {
+          "id": "a",
+          "text": "Care is everyone's job"
+        },
+        {
+          "id": "b",
+          "text": "Caring is only for women"
+        },
+        {
+          "id": "c",
+          "text": "Dads are nurturing too"
+        },
+        {
+          "id": "d",
+          "text": "Men don't do 'kid stuff'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "shared",
+          "label": "From a shared home"
+        },
+        {
+          "id": "unequal",
+          "label": "From an unequal one"
+        }
+      ],
+      "key": {
+        "a": "shared",
+        "b": "unequal",
+        "c": "shared",
+        "d": "unequal"
+      }
+    },
+    {
+      "id": "ep2-045",
+      "cat": "kids-are-watching",
+      "type": "branch",
+      "hook": "You catch your child mimicking a gendered split, 'that's mummy's job', from watching home.",
+      "relearn": "Reteach equality by changing what kids see you do, not by correcting words while the unequal split stays.",
+      "persona": "Priya",
+      "source": "remodel it",
+      "options": [
+        {
+          "text": "Adjust what you model so they see care shared by both",
+          "consequence": "Your child relearns equality from real life.",
+          "outcome": "remodel",
+          "best": true
+        },
+        {
+          "text": "Correct them verbally but keep the unequal split",
+          "consequence": "Changing what you model reteaches equality; words alone against an unequal split confuse more than they correct."
+        }
+      ],
+      "debrief": "When kids echo a gendered split, change what you model, not just what you say."
+    },
+    {
+      "id": "ep2-046",
+      "cat": "kids-are-watching",
+      "type": "reflect",
+      "hook": "Sam: your child's idea of a 'normal' family is being built right now, by watching you two. Powerful?",
+      "relearn": "Your child's idea of a normal family is built by watching you; shared parenting shapes their future.",
+      "persona": "any",
+      "source": "building normal",
+      "prompt": "What do you think?",
+      "options": [
+        "Powerful",
+        "Right now",
+        "I feel it"
+      ],
+      "affirm": "Children build their template of a normal family by watching their parents, so shared parenting shapes their future."
+    },
+    {
+      "id": "ep2-047",
+      "cat": "kids-are-watching",
+      "type": "reflect",
+      "hook": "Sam: break the cycle, and your kids may raise their kids more equally too. Worth it?",
+      "relearn": "Modelling shared parenting can break the cycle, shaping how your kids parent their own kids one day.",
+      "persona": "Meena",
+      "source": "break the cycle",
+      "prompt": "What's your take?",
+      "options": [
+        "Worth it",
+        "Break the cycle",
+        "For their kids too"
+      ],
+      "affirm": "Modelling equality can break an intergenerational cycle, shaping how your children parent their own children."
+    },
+    {
+      "id": "ep2-048",
+      "cat": "kids-are-watching",
+      "type": "match",
+      "hook": "Match what kids see at home to what they grow up expecting.",
+      "relearn": "What children see, shared care, a present dad, joint decisions, becomes what they expect and give as adults.",
+      "persona": "any",
+      "source": "see then expect",
+      "pairs": [
+        {
+          "left": "Both parents caring and cooking",
+          "right": "That care is for everyone"
+        },
+        {
+          "left": "Dad emotionally present",
+          "right": "That men can be tender"
+        },
+        {
+          "left": "Decisions made together",
+          "right": "That partners are equals"
+        }
+      ]
+    },
+    {
+      "id": "ep2-049",
+      "cat": "kids-are-watching",
+      "type": "sort",
+      "hook": "Sort: models equality for kids, or models the old divide?",
+      "relearn": "A caring dad and both parents sharing model equality; gendered scripts and mum-only care model the old divide.",
+      "persona": "Priya",
+      "source": "models which",
+      "items": [
+        {
+          "id": "a",
+          "text": "A son seeing dad cook and care"
+        },
+        {
+          "id": "b",
+          "text": "A daughter told kitchen is her future"
+        },
+        {
+          "id": "c",
+          "text": "Both parents at the doctor visit"
+        },
+        {
+          "id": "d",
+          "text": "Only mum ever handling the children"
+        }
+      ],
+      "bins": [
+        {
+          "id": "equality",
+          "label": "Models equality"
+        },
+        {
+          "id": "divide",
+          "label": "Models the divide"
+        }
+      ],
+      "key": {
+        "a": "equality",
+        "b": "divide",
+        "c": "equality",
+        "d": "divide"
+      }
+    },
+    {
+      "id": "ep2-050",
+      "cat": "kids-are-watching",
+      "type": "strike-rewrite",
+      "hook": "\"Raising a son to do 'girl' chores will confuse or weaken him.\"",
+      "relearn": "Teaching sons to cook, clean and care raises capable, respectful adults; chores have no gender.",
+      "persona": "Priya",
+      "source": "chores no gender",
+      "myth": {
+        "un": "Raising a son to do 'girl' chores will confuse or weaken him.",
+        "re": "Teaching all children to cook, clean and care raises capable, respectful adults; chores have no gender.",
+        "why": "Life skills aren't gendered, and they strengthen kids."
+      }
+    },
+    {
+      "id": "ep2-051",
+      "cat": "kids-are-watching",
+      "type": "spot",
+      "hook": "Spot what teaches a child equality at home.",
+      "relearn": "Kids learn equality from shared care and same-for-all chores, not from praising a father's rare help.",
+      "persona": "Meena",
+      "source": "teaches equality",
+      "scene": [
+        {
+          "text": "Both parents sharing care visibly",
+          "trick": false
+        },
+        {
+          "text": "Praising dad for rare 'help'",
+          "trick": true
+        },
+        {
+          "text": "Sons and daughters given the same chores",
+          "trick": false
+        }
+      ],
+      "why": "Shared care and same chores for all kids teach equality; praising dad for rare help teaches the opposite."
+    },
+    {
+      "id": "ep2-052",
+      "cat": "kids-are-watching",
+      "type": "branch",
+      "hook": "Relatives push your kids toward gendered roles, girls cook, boys don't.",
+      "relearn": "Gently counter relatives' gendered scripting; your modelled equality at home is the lesson that lasts.",
+      "persona": "Priya",
+      "source": "counter scripting",
+      "options": [
+        {
+          "text": "Gently counter it and keep modelling shared roles at home",
+          "consequence": "Your home stays your child's strongest lesson.",
+          "outcome": "counter",
+          "best": true
+        },
+        {
+          "text": "Let the gendered scripting go unchallenged",
+          "consequence": "Countering gently and modelling shared roles keeps your example strongest; unchallenged scripting shapes your kids instead."
+        }
+      ],
+      "debrief": "Counter gendered scripting from relatives and keep modelling shared roles; home is the strongest lesson."
+    },
+    {
+      "id": "ep2-053",
+      "cat": "kids-are-watching",
+      "type": "reflect",
+      "hook": "Sam: the equality you live at home is the curriculum your kids actually absorb. Feel the weight?",
+      "relearn": "The equality you live at home is the real curriculum your kids absorb.",
+      "persona": "any",
+      "source": "lived curriculum",
+      "prompt": "What's your take?",
+      "options": [
+        "Feel it",
+        "Lived curriculum",
+        "It matters"
+      ],
+      "affirm": "The equality children absorb is the one their parents actually live at home, not the one they're told about."
+    },
+    {
+      "id": "ep2-054",
+      "cat": "kids-are-watching",
+      "type": "match",
+      "hook": "Match a home pattern to the belief it plants in a child.",
+      "relearn": "Each home pattern plants a belief: equal teammates, unisex care, and women as full people.",
+      "persona": "any",
+      "source": "patterns plant beliefs",
+      "pairs": [
+        {
+          "left": "Shared, respectful parenting",
+          "right": "Partners are equal teammates"
+        },
+        {
+          "left": "Dad doing his fair share",
+          "right": "Care is unisex and normal"
+        },
+        {
+          "left": "Mum with her own life too",
+          "right": "Women are full people, not just mums"
+        }
+      ]
+    },
+    {
+      "id": "ep2-055",
+      "cat": "everyone-gains",
+      "type": "strike-rewrite",
+      "hook": "\"Equal parenting is a sacrifice fathers make for mothers.\"",
+      "relearn": "Equal parenting isn't a sacrifice; it's better for children, mothers and fathers alike.",
+      "persona": "Vikram",
+      "source": "win for all",
+      "myth": {
+        "un": "Equal parenting is a sacrifice fathers make for mothers.",
+        "re": "Shared parenting is better for everyone: children thrive, mothers are less overloaded, and fathers gain bond, confidence and wellbeing.",
+        "why": "It's a win for all three, not a trade."
+      }
+    },
+    {
+      "id": "ep2-056",
+      "cat": "everyone-gains",
+      "type": "match",
+      "hook": "Match each member of the family to what shared parenting gives them.",
+      "relearn": "Shared parenting gives the child two bonded parents, the mother relief, and the father a real bond, everyone gains.",
+      "persona": "any",
+      "source": "everyone gains",
+      "pairs": [
+        {
+          "left": "The child",
+          "right": "Two bonded parents and better development"
+        },
+        {
+          "left": "The mother",
+          "right": "Less overload and burnout"
+        },
+        {
+          "left": "The father",
+          "right": "A real bond, confidence and wellbeing"
+        }
+      ]
+    },
+    {
+      "id": "ep2-057",
+      "cat": "everyone-gains",
+      "type": "reflect",
+      "hook": "Sam: this isn't about fairness alone; an equal home is happier and healthier for the whole family. Agree?",
+      "relearn": "Equal parenting isn't just fair; it makes the whole family happier and healthier.",
+      "persona": "any",
+      "source": "happier home",
+      "prompt": "What do you think?",
+      "options": [
+        "Agree",
+        "Happier home",
+        "Healthier"
+      ],
+      "affirm": "Shared parenting isn't only fair; it makes the whole family happier and healthier, which is why it's worth building."
+    },
+    {
+      "id": "ep2-058",
+      "cat": "everyone-gains",
+      "type": "sort",
+      "hook": "Sort: a real benefit of shared parenting, or a myth about it?",
+      "relearn": "Bonding with both parents and relief for mothers are real benefits; 'less manly' and 'harms kids' are myths.",
+      "persona": "any",
+      "source": "benefit vs myth",
+      "items": [
+        {
+          "id": "a",
+          "text": "Kids bond with both parents"
+        },
+        {
+          "id": "b",
+          "text": "It makes fathers 'less manly'"
+        },
+        {
+          "id": "c",
+          "text": "Mothers get relief and a life"
+        },
+        {
+          "id": "d",
+          "text": "It harms the children"
+        }
+      ],
+      "bins": [
+        {
+          "id": "benefit",
+          "label": "Real benefit"
+        },
+        {
+          "id": "myth",
+          "label": "Myth"
+        }
+      ],
+      "key": {
+        "a": "benefit",
+        "b": "myth",
+        "c": "benefit",
+        "d": "myth"
+      }
+    },
+    {
+      "id": "ep2-059",
+      "cat": "everyone-gains",
+      "type": "strike-rewrite",
+      "hook": "\"A mother who shares the load is a lazy or lesser mother.\"",
+      "relearn": "A mother who shares the load isn't lazy or lesser; she's a more rested, present and whole parent.",
+      "persona": "Divya",
+      "source": "not a lesser mum",
+      "myth": {
+        "un": "A mother who shares the load is a lazy or lesser mother.",
+        "re": "Sharing the load isn't laziness; it lets a mother be a whole person and a less depleted, more present parent.",
+        "why": "Support makes a better, not lesser, parent."
+      }
+    },
+    {
+      "id": "ep2-060",
+      "cat": "everyone-gains",
+      "type": "branch",
+      "hook": "You frame equal parenting in your head as 'giving up' something as a father.",
+      "relearn": "Reframe equal parenting as a gain, a bond and a richer life, not a sacrifice to resent.",
+      "persona": "Vikram",
+      "source": "reframe as gain",
+      "options": [
+        {
+          "text": "Reframe it as gaining a bond and a fuller life",
+          "consequence": "You lean in for what you get, not lose.",
+          "outcome": "gain",
+          "best": true
+        },
+        {
+          "text": "Resent it as pure sacrifice",
+          "consequence": "Reframing as gain makes you lean in; framing it as pure sacrifice breeds resentment that the whole family feels."
+        }
+      ],
+      "debrief": "See equal parenting as gaining a bond and a fuller life, not giving something up."
+    },
+    {
+      "id": "ep2-061",
+      "cat": "everyone-gains",
+      "type": "match",
+      "hook": "Match a worry about equal parenting to the reassuring reality.",
+      "relearn": "Each worry about equal parenting has a reassuring reality: a deeper role, a child who needs you, and gains for all.",
+      "persona": "Vikram",
+      "source": "worry to reality",
+      "pairs": [
+        {
+          "left": "'I'll lose my role as provider'",
+          "right": "You gain the role of a real parent"
+        },
+        {
+          "left": "'She won't need me'",
+          "right": "Your child will know and need you"
+        },
+        {
+          "left": "'It's all giving things up'",
+          "right": "Everyone in the family gains"
+        }
+      ]
+    },
+    {
+      "id": "ep2-062",
+      "cat": "everyone-gains",
+      "type": "reflect",
+      "hook": "Sam: the home where parenting is shared is the home most kids would choose to grow up in. Sit right?",
+      "relearn": "A home where parenting is shared is the one most kids would thrive growing up in.",
+      "persona": "any",
+      "source": "kids would choose",
+      "prompt": "What's your take?",
+      "options": [
+        "Sits right",
+        "Kids would choose it",
+        "Yes"
+      ],
+      "affirm": "A home with shared, equal parenting is the kind of home that's best for children to grow up in."
+    },
+    {
+      "id": "ep2-063",
+      "cat": "everyone-gains",
+      "type": "sort",
+      "hook": "Sort: a sign equal parenting is working for the whole family, or a sign of strain to address?",
+      "relearn": "Both rested and bonded means it's working; one always depleted or simmering resentment is strain to address.",
+      "persona": "any",
+      "source": "working vs strain",
+      "items": [
+        {
+          "id": "a",
+          "text": "Both parents rested enough to enjoy the child"
+        },
+        {
+          "id": "b",
+          "text": "One parent always depleted"
+        },
+        {
+          "id": "c",
+          "text": "Both bonded with the kids"
+        },
+        {
+          "id": "d",
+          "text": "Resentment simmering under the surface"
+        }
+      ],
+      "bins": [
+        {
+          "id": "working",
+          "label": "Working for all"
+        },
+        {
+          "id": "strain",
+          "label": "Strain to address"
+        }
+      ],
+      "key": {
+        "a": "working",
+        "b": "strain",
+        "c": "working",
+        "d": "strain"
+      }
+    },
+    {
+      "id": "ep2-064",
+      "cat": "everyone-gains",
+      "type": "strike-rewrite",
+      "hook": "\"Once kids arrive, gender equality has to take a back seat.\"",
+      "relearn": "Parenthood is when equality matters most, not least; this is the time to hold the line, not surrender it.",
+      "persona": "Divya",
+      "source": "hold the line",
+      "myth": {
+        "un": "Once kids arrive, gender equality has to take a back seat.",
+        "re": "Parenthood is exactly when equality matters most; the defaults snap back hardest, so this is the time to hold the line.",
+        "why": "Don't surrender equality at the moment it counts most."
+      }
+    },
+    {
+      "id": "ep2-065",
+      "cat": "everyone-gains",
+      "type": "role-play",
+      "hook": "Your partner doubts equal parenting can really work for your family. You want to make the case warmly.",
+      "relearn": "Framing equal parenting as a win for all three invites your partner to try it rather than dismiss it.",
+      "persona": "Vikram",
+      "source": "make the case",
+      "setup": "Make the case:",
+      "yourLine": [
+        {
+          "text": "\"Let's try it properly, it's better for the kids, for you and for me, we all win.\"",
+          "best": true
+        },
+        {
+          "text": "\"Maybe it's just not realistic for us.\""
+        }
+      ]
+    },
+    {
+      "id": "ep2-066",
+      "cat": "everyone-gains",
+      "type": "role-play",
+      "hook": "A new-father friend thinks being hands-on means losing status. You want to reframe it for him.",
+      "relearn": "Sharing that involved fatherhood is rewarding, not a loss, helps a friend lean in rather than hold back.",
+      "persona": "Vikram",
+      "source": "reframe for friend",
+      "setup": "Reframe it for him:",
+      "yourLine": [
+        {
+          "text": "\"Being a present dad is the most rewarding thing I do, you gain way more than you give.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, enjoy your freedom while it lasts, I guess.\""
+        }
+      ]
+    },
+    {
+      "id": "ep2-067",
+      "cat": "everyone-gains",
+      "type": "spot",
+      "hook": "Spot the truth about who benefits from shared parenting.",
+      "relearn": "Shared parenting is a whole-family gain, not a benefit to mothers at fathers' expense.",
+      "persona": "any",
+      "source": "who benefits",
+      "scene": [
+        {
+          "text": "Children, mothers and fathers all gain",
+          "trick": false
+        },
+        {
+          "text": "Only mothers benefit, at fathers' cost",
+          "trick": true
+        },
+        {
+          "text": "Whole families are happier and healthier",
+          "trick": false
+        }
+      ],
+      "why": "Shared parenting benefits children, mothers and fathers; the 'only mum benefits, at dad's cost' framing is false."
+    },
+    {
+      "id": "ep2-068",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "You want a practical way to make parenting genuinely equal, not just intend it.",
+      "relearn": "Turn fair-parenting intentions into a real map of owned tasks and load; vague promises don't shift the default.",
+      "persona": "Vikram",
+      "source": "make a plan",
+      "options": [
+        {
+          "text": "Map every task and the mental load, then each own a fair, named set",
+          "consequence": "Equality becomes a plan, not a wish.",
+          "outcome": "mapped",
+          "best": true
+        },
+        {
+          "text": "Just promise to 'try to be fairer' vaguely",
+          "consequence": "Mapping tasks and load into owned sets makes equality real; a vague promise to try fairer rarely changes the default."
+        }
+      ],
+      "debrief": "Make parenting equal with a real plan: map the tasks and mental load and each own a fair, named share."
+    },
+    {
+      "id": "ep2-069",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match each tool to the job it does.",
+      "relearn": "The task-and-load map, a shared calendar and a weekly check-in are the core tools of equal parenting.",
+      "persona": "any",
+      "source": "the toolkit",
+      "pairs": [
+        {
+          "left": "The task-and-load map",
+          "right": "See and split everything fairly"
+        },
+        {
+          "left": "A shared family calendar",
+          "right": "Both hold the schedule"
+        },
+        {
+          "left": "A weekly parenting check-in",
+          "right": "Rebalance as life changes"
+        }
+      ]
+    },
+    {
+      "id": "ep2-070",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "Your fair split worked at first, but it's quietly drifted back to one parent.",
+      "relearn": "Rebalance regularly; an equal split set once quietly drifts back to one parent over time.",
+      "persona": "Divya",
+      "source": "rebalance over time",
+      "options": [
+        {
+          "text": "Re-run the check-in and rebalance, defaults creep back",
+          "consequence": "You keep equality alive over time.",
+          "outcome": "rebalanced",
+          "best": true
+        },
+        {
+          "text": "Assume it's fine because you split it once",
+          "consequence": "Re-running the check-in catches the creep; assuming a one-time split holds lets the default quietly return."
+        }
+      ],
+      "debrief": "Equal parenting needs regular rebalancing; defaults creep back, so revisit the split as life changes."
+    },
+    {
+      "id": "ep2-071",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: equality at home is maintained, not declared once; small regular check-ins keep it true. Make sense?",
+      "relearn": "Equality at home is maintained with regular check-ins, not declared once and forgotten.",
+      "persona": "any",
+      "source": "maintained",
+      "prompt": "What do you think?",
+      "options": [
+        "Makes sense",
+        "Maintained",
+        "Regular check-ins"
+      ],
+      "affirm": "Equal parenting is maintained through small regular check-ins, not settled by a single declaration."
+    },
+    {
+      "id": "ep2-072",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "One of you is burning out under the parenting load despite your best efforts.",
+      "relearn": "Treat parental burnout as real; rebalance and get support rather than pushing through to breaking point.",
+      "persona": "Divya",
+      "source": "burnout is real",
+      "options": [
+        {
+          "text": "Treat burnout seriously, rebalance and reach for support",
+          "consequence": "You protect the parent and the family.",
+          "outcome": "supported",
+          "best": true
+        },
+        {
+          "text": "Push through until something breaks",
+          "consequence": "Taking burnout seriously and rebalancing protects everyone; pushing through risks the parent's health and the home."
+        }
+      ],
+      "debrief": "Take parental burnout seriously: rebalance the load and reach for support (see Looking After You)."
+    },
+    {
+      "id": "ep2-073",
+      "cat": "tools-and-help",
+      "type": "strike-rewrite",
+      "hook": "\"If equal parenting is hard to keep up, it's just not for our family.\"",
+      "relearn": "Equal parenting being hard to keep up is normal and workable with tools and check-ins, not a reason to give up.",
+      "persona": "any",
+      "source": "workable not quit",
+      "myth": {
+        "un": "If equal parenting is hard to keep up, it's just not for our family.",
+        "re": "It takes ongoing effort for everyone; the difficulty is normal and workable with tools and check-ins, not a reason to quit.",
+        "why": "Hard to maintain isn't impossible."
+      }
+    },
+    {
+      "id": "ep2-074",
+      "cat": "tools-and-help",
+      "type": "role-play",
+      "hook": "You want to set the tone with your partner for how you'll parent as a team. You open it warmly.",
+      "relearn": "Setting an explicit equal-team tone with regular check-ins keeps parenting fair instead of drifting to default.",
+      "persona": "Vikram",
+      "source": "set the tone",
+      "setup": "Set the tone together:",
+      "yourLine": [
+        {
+          "text": "\"Let's parent as true equals, share the load and the worry, and check in often so it stays fair.\"",
+          "best": true
+        },
+        {
+          "text": "\"Let's just see how it goes and sort it later.\""
+        }
+      ]
+    },
+    {
+      "id": "ep2-075",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: a healthy support for equal parenting, or a habit that undermines it?",
+      "relearn": "Check-ins and shared mental load support equal parenting; gatekeeping and praising the bare minimum undermine it.",
+      "persona": "any",
+      "source": "support vs undermine",
+      "items": [
+        {
+          "id": "a",
+          "text": "Regular check-ins and rebalancing"
+        },
+        {
+          "id": "b",
+          "text": "Maternal gatekeeping of the dad"
+        },
+        {
+          "id": "c",
+          "text": "Both owning the mental load"
+        },
+        {
+          "id": "d",
+          "text": "Praising dad for the bare minimum"
+        }
+      ],
+      "bins": [
+        {
+          "id": "support",
+          "label": "Supports equality"
+        },
+        {
+          "id": "undermine",
+          "label": "Undermines it"
+        }
+      ],
+      "key": {
+        "a": "support",
+        "b": "undermine",
+        "c": "support",
+        "d": "undermine"
+      }
+    },
+    {
+      "id": "ep2-076",
+      "cat": "tools-and-help",
+      "type": "spot",
+      "hook": "Spot the sustainable path to equal parenting.",
+      "relearn": "Equal parenting lasts through regular rebalancing and shared ownership, not a single grand promise.",
+      "persona": "any",
+      "source": "sustainable path",
+      "scene": [
+        {
+          "text": "Small regular rebalancing",
+          "trick": false
+        },
+        {
+          "text": "One grand promise, never revisited",
+          "trick": true
+        },
+        {
+          "text": "Both owning load and care over time",
+          "trick": false
+        }
+      ],
+      "why": "Small regular rebalancing and shared ownership are sustainable; a one-off promise never revisited isn't."
+    },
+    {
+      "id": "ep2-077",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: share the care, share the load, model it for the kids, and rebalance as you go. Equipped?",
+      "relearn": "You hold the kit: share the care, share the load, model it, and rebalance as you go.",
+      "persona": "any",
+      "source": "equipped",
+      "prompt": "What's your take?",
+      "options": [
+        "Equipped",
+        "I've got this",
+        "Ready"
+      ],
+      "affirm": "Sharing care and load, modelling it for the kids and rebalancing over time equip a couple to parent as equals."
+    },
+    {
+      "id": "ep2-078",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "You want one principle to carry through all the years of raising your kids together.",
+      "relearn": "Lead with both fully parenting and sharing the load; letting the default carry it rebuilds the gap.",
+      "persona": "Vikram",
+      "source": "the one principle",
+      "options": [
+        {
+          "text": "Lead with: both fully parent, share the load and the worry, and model it for the kids",
+          "consequence": "You have a compass for the whole journey.",
+          "outcome": "compass",
+          "best": true
+        },
+        {
+          "text": "Let whoever's default it became keep carrying it",
+          "consequence": "Both-fully-parent is a compass for years of raising kids; letting the default carry it rebuilds the very gap you want to close."
+        }
+      ],
+      "debrief": "One principle carries it: both fully parent, share the load and worry, and model equality for the kids."
+    },
+    {
+      "id": "ep2-079",
+      "cat": "tools-and-help",
+      "type": "spot",
+      "hook": "Spot the move that keeps parenting fair as the years go on.",
+      "relearn": "Keep parenting fair over the years by revisiting the split and both staying hands-on, not set-and-forget.",
+      "persona": "any",
+      "source": "fair over years",
+      "scene": [
+        {
+          "text": "Revisiting the split as kids grow",
+          "trick": false
+        },
+        {
+          "text": "Assuming the first arrangement is forever",
+          "trick": true
+        },
+        {
+          "text": "Both staying hands-on and informed",
+          "trick": false
+        }
+      ],
+      "why": "Revisiting the split and both staying hands-on keep parenting fair; assuming the first setup is forever doesn't."
+    },
+    {
+      "id": "ep2-080",
+      "cat": "parental-mental-load",
+      "type": "role-play",
+      "hook": "Your partner sighs that they're holding all the invisible child-admin in their head. You want to genuinely take some.",
+      "relearn": "Offering to fully run whole domains lifts the managing, not just the tasks, off your partner's mind.",
+      "persona": "Vikram",
+      "source": "take a domain",
+      "setup": "Take real ownership:",
+      "yourLine": [
+        {
+          "text": "\"Give me health and school to fully run, appointments, forms, the lot, so it's off your mind.\"",
+          "best": true
+        },
+        {
+          "text": "\"Just remind me whenever something's due.\""
+        }
+      ]
+    },
+    {
+      "id": "ep2-081",
+      "cat": "kids-are-watching",
+      "type": "role-play",
+      "hook": "Your young child says caring for babies is 'only for mummies'. You want to gently reframe it.",
+      "relearn": "Showing a child that caring is for everyone, with dad doing it, reteaches them in the moment they're learning.",
+      "persona": "Priya",
+      "source": "reframe for child",
+      "setup": "Reframe it warmly:",
+      "yourLine": [
+        {
+          "text": "\"Caring is for everyone, see how Papa feeds and cuddles you too? That's what dads do.\"",
+          "best": true
+        },
+        {
+          "text": "\"You'll understand when you're older.\""
+        }
+      ]
+    },
+    {
+      "id": "ep2-082",
+      "cat": "everyone-gains",
+      "type": "role-play",
+      "hook": "A relative pities your partner for 'having to do so much' while praising you for little. You want to set it straight.",
+      "relearn": "Naming that you share as equals, and that involvement is a gift to you, corrects the lopsided praise.",
+      "persona": "Vikram",
+      "source": "set praise straight",
+      "setup": "Set it straight kindly:",
+      "yourLine": [
+        {
+          "text": "\"We share it as equals, and honestly I'm the lucky one getting this time with my kids.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yes, she's a saint, I don't know how she does it all.\""
+        }
+      ]
+    },
+    {
+      "id": "ep2-083",
+      "cat": "tools-and-help",
+      "type": "role-play",
+      "hook": "You and your partner are starting out as parents and want to agree how to keep it fair from day one.",
+      "relearn": "Agreeing owned shares and a weekly check-in from day one makes fairness the default instead of a constant fight.",
+      "persona": "Vikram",
+      "source": "fair from day one",
+      "setup": "Agree it upfront:",
+      "yourLine": [
+        {
+          "text": "\"Let's both own real shares from the start and check in weekly, so fair is the default, not the exception.\"",
+          "best": true
+        },
+        {
+          "text": "\"We'll just figure it out as we go.\""
+        }
+      ]
+    },
+    {
+      "id": "ep2-084",
+      "cat": "tools-and-help",
+      "type": "spot",
+      "hook": "Spot the practice that keeps the mental load genuinely shared.",
+      "relearn": "Keep the mental load shared by both owning whole domains and checking in, not by one assigning tasks.",
+      "persona": "any",
+      "source": "keep load shared",
+      "scene": [
+        {
+          "text": "Both owning whole domains end-to-end",
+          "trick": false
+        },
+        {
+          "text": "One parent assigning tasks to the other",
+          "trick": true
+        },
+        {
+          "text": "A weekly check-in to rebalance",
+          "trick": false
+        }
+      ],
+      "why": "Both owning domains and a rebalancing check-in keep the load shared; one parent assigning tasks keeps them the manager."
+    }
+  ]
+}
