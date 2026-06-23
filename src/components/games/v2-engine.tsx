@@ -91,23 +91,17 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 
   const present = useCallback((s: Scenario) => { setPhase("play"); say(hookLine(s)); }, [say]);
 
-  // Rotation: one scenario per category, never the same mechanic twice in a row (the palette rule).
+  // Rotation: one random scenario per category. We pick by SHUFFLE (natural frequency), not by forcing
+  // mechanic variety — forcing variety in a mechanic-skewed category (e.g. a swipe-heavy one with only a few
+  // sorts) kept surfacing those rare beats every session, so the same sort repeated. Shuffle keeps it fresh.
   const startRotate = () => {
-    const q: Scenario[] = [];
-    for (const cat of categories) {
-      const pool = shuffle(byCat(scenarios, cat.id));
-      const prev = q[q.length - 1]?.type;
-      q.push(pool.find((s) => s.type !== prev) ?? pool[0]);
-    }
-    const fresh = q.filter(Boolean);
-    setQueue(fresh); setQi(0); setView("play"); present(fresh[0]);
+    const q = categories.map((cat) => shuffle(byCat(scenarios, cat.id))[0]).filter(Boolean);
+    setQueue(q); setQi(0); setView("play"); present(q[0]);
   };
-  // One category, three beats, varied mechanics.
+  // One category, three beats — three distinct scenarios drawn at random from the category (no forced
+  // mechanic variety, so beats reflect the category's real mix and don't over-surface rare mechanics).
   const startCat = (catId: string) => {
-    const pool = shuffle(byCat(scenarios, catId));
-    const q: Scenario[] = [];
-    for (const s of pool) { if (q.length >= 3) break; if (s.type !== q[q.length - 1]?.type) q.push(s); }
-    for (const s of pool) { if (q.length >= 3) break; if (!q.includes(s)) q.push(s); }
+    const q = shuffle(byCat(scenarios, catId)).slice(0, 3);
     setQueue(q); setQi(0); setView("play"); present(q[0]);
   };
 
@@ -203,22 +197,17 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 
         {/* ---- MIDDLE (grows; holds the view, top-aligned right under Lensy) ---- */}
         <div className="flex flex-1 flex-col justify-start gap-4 py-1">
-          {/* HOME */}
+          {/* HOME — pick a topic (the "Play with Lensy" CTA is pinned at the bottom) */}
           {view === "home" && (
-            <>
-              <button type="button" onClick={startRotate} className="flex h-16 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-extrabold text-slate-900 transition-transform active:scale-[0.98]">
-                <ShieldCheck className="size-6" aria-hidden /> Play with Lensy
-              </button>
-              <div className="grid grid-cols-2 gap-2.5">
-                {categories.map((c) => (
-                  <button key={c.id} type="button" onClick={() => startCat(c.id)} className="glass-card relative flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
-                    {stickers.has(c.id) && <span className="absolute right-2 top-2 text-sm" aria-hidden>✅</span>}
-                    <span className="text-4xl" aria-hidden>{c.emoji}</span>
-                    <span className="text-center text-sm font-bold text-foreground">{c.label}</span>
-                  </button>
-                ))}
-              </div>
-            </>
+            <div className="grid grid-cols-2 gap-2.5">
+              {categories.map((c) => (
+                <button key={c.id} type="button" onClick={() => startCat(c.id)} className="glass-card relative flex flex-col items-center gap-1.5 rounded-2xl py-5 backdrop-blur-[12px] backdrop-saturate-150 transition-transform active:scale-[0.97]">
+                  {stickers.has(c.id) && <span className="absolute right-2 top-2 text-sm" aria-hidden>✅</span>}
+                  <span className="text-4xl" aria-hidden>{c.emoji}</span>
+                  <span className="text-center text-sm font-bold text-foreground">{c.label}</span>
+                </button>
+              ))}
+            </div>
           )}
 
           {/* PLAY — no hook card; Lensy's bubble carries the hook. */}
@@ -242,8 +231,13 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
         </div>
 
         {/* ---- BOTTOM (pinned to the edge) ---- */}
-        {/* Home's Get-Help pill removed (the global Get-Help icon in the top bar covers it). The pill still
-            surfaces on safety-beat resolves below. */}
+        {/* Home's "Play with Lensy" CTA sits at the bottom (the topic grid is the browsing area above). The
+            Get-Help pill was removed here (the top-bar icon covers it); it still surfaces on safety resolves. */}
+        {view === "home" && (
+          <button type="button" onClick={startRotate} className="flex h-16 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-extrabold text-slate-900 transition-transform active:scale-[0.98]">
+            <ShieldCheck className="size-6" aria-hidden /> Play with Lensy
+          </button>
+        )}
         {view === "play" && (
           <div className="flex flex-col items-stretch gap-1">
             <p className="text-center text-xs text-foreground/55">{qi + 1} / {queue.length}</p>
@@ -403,11 +397,11 @@ function StrikePlay({ sc, onSolved, reduceMotion }: { sc: Extract<Scenario, { ty
   });
   const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setProgress(1); finish(); } };
   return (
-    <div className="flex flex-col gap-2.5">
+    <div className="flex flex-1 flex-col gap-2.5">
       <div tabIndex={0} role="button" aria-label={`Rub out the myth: ${sc.myth.un}`} onKeyDown={onKeyDown} {...drag.handlers}
-        className="glass-card relative flex min-h-24 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-2xl px-5 py-6 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
-        <p className="text-[15px] font-bold text-foreground" style={{ opacity: reduceMotion ? (progress >= 1 ? 0.12 : 1) : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{sc.myth.un}</p>
-        <span className="pointer-events-none absolute bottom-1.5 right-2.5 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>
+        className="glass-card relative flex min-h-48 flex-1 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
+        <p className="text-[19px] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? (progress >= 1 ? 0.12 : 1) : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{sc.myth.un}</p>
+        <span className="pointer-events-none absolute bottom-2 right-3 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>
       </div>
       <p className="text-center text-xs font-semibold text-foreground/60">Scrub the myth away — or press Enter</p>
     </div>
@@ -477,14 +471,25 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
     onTap: () => { dragId.current = null; setDrag(null); setHover(null); }, // arming already happened in onStart
   });
 
-  return (
-    <div className="flex flex-col gap-3">
-      {/* the chip following the finger (pointer-events:none so it never blocks the hit-test) */}
-      {drag && !reduceMotion && (
-        <div className="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-[var(--color-sun)] px-3 py-2.5 text-sm font-bold text-slate-900 shadow-lg" style={{ left: drag.x, top: drag.y }}>{itemText(drag.id)}</div>
-      )}
-      {sel && !drag && <p className="text-center text-xs font-semibold text-foreground/70" aria-hidden>Carrying “{itemText(sel)}” — now pick a bin 👇</p>}
-      {/* unplaced item chips — draggable AND tap-to-arm */}
+  // one dropzone: a single dashed border + translucent tint fill (no card double-border); flex-1 so two bins
+  // stacked top/bottom each grow big. Tap to drop the armed chip, or release a dragged chip over it.
+  const renderBin = (b: { id: string; label: string }, bi: number) => {
+    const st = styles[bi];
+    const inBin = sc.items.filter((it) => placed[it.id] === b.id);
+    const armed = (!!sel && !drag) || hover === b.id;
+    return (
+      <button key={b.id} type="button" ref={(el) => { binEls.current[b.id] = el; }} onClick={() => { if (sel) place(sel, b.id); }}
+        className={`flex flex-1 flex-col items-center justify-center gap-1.5 rounded-2xl border-2 px-3 py-4 text-center transition-colors ${hover === b.id ? "border-solid" : "border-dashed"}`}
+        style={{ borderColor: st.tint, background: `color-mix(in srgb, ${st.tint} ${hover === b.id ? "24%" : "9%"}, transparent)` }}>
+        <span className="text-3xl" aria-hidden>{st.emoji}</span>
+        <span className="text-sm font-extrabold text-foreground">{b.label}{armed ? " ⤵" : ""}</span>
+        {inBin.length > 0 && <div className="flex flex-wrap justify-center gap-1">{inBin.map((it) => <span key={it.id} className="rounded-full bg-[var(--color-sun)] px-2 py-0.5 text-[11px] font-bold text-slate-900">{it.text} ✓</span>)}</div>}
+      </button>
+    );
+  };
+  const chips = (
+    <div className="flex flex-col gap-1.5">
+      {sel && !drag && <p className="text-center text-xs font-semibold text-foreground/70" aria-hidden>Carrying “{itemText(sel)}” — drop it in a zone</p>}
       <div className="flex flex-wrap justify-center gap-2">
         {sc.items.filter((it) => !placed[it.id]).map((it) => (
           <button key={it.id} type="button" data-id={it.id} onClick={() => arm(it.id)} {...pointer.handlers}
@@ -492,26 +497,25 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
             style={sel === it.id && !drag ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>{it.text}</button>
         ))}
       </div>
-      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Not there — try another bin. 💛</p>}
-      {/* bins — tap to drop the armed chip, or release a dragged chip over one */}
-      <div className="grid grid-cols-2 gap-2.5">
-        {sc.bins.map((b, bi) => {
-          const st = styles[bi];
-          const inBin = sc.items.filter((it) => placed[it.id] === b.id);
-          const armed = (!!sel && !drag) || hover === b.id;
-          // dropzone: a single dashed border + a translucent fill in the bin's tint (no card double-border);
-          // the fill deepens + border solidifies while a chip hovers over it.
-          return (
-            <button key={b.id} type="button" ref={(el) => { binEls.current[b.id] = el; }} onClick={() => { if (sel) place(sel, b.id); }}
-              className={`flex min-h-32 flex-col items-center justify-center gap-1 rounded-2xl border-2 px-2 py-4 text-center transition-colors ${hover === b.id ? "border-solid" : "border-dashed"}`}
-              style={{ borderColor: st.tint, background: `color-mix(in srgb, ${st.tint} ${hover === b.id ? "24%" : "9%"}, transparent)` }}>
-              <span className="text-2xl" aria-hidden>{st.emoji}</span>
-              <span className="text-xs font-extrabold text-foreground">{b.label}{armed ? " ⤵" : ""}</span>
-              {inBin.map((it) => <span key={it.id} className="rounded-full bg-[var(--color-sun)] px-2 py-0.5 text-[11px] font-bold text-slate-900">{it.text} ✓</span>)}
-            </button>
-          );
-        })}
-      </div>
+      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Not there — try another zone. 💛</p>}
+    </div>
+  );
+  const ghost = drag && !reduceMotion && (
+    <div className="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-[var(--color-sun)] px-3 py-2.5 text-sm font-bold text-slate-900 shadow-lg" style={{ left: drag.x, top: drag.y }}>{itemText(drag.id)}</div>
+  );
+  // Two bins → big dropzones at top & bottom with the chips between them (Reigns-style); else a grid below.
+  return sc.bins.length === 2 ? (
+    <div className="flex flex-1 flex-col gap-3">
+      {ghost}
+      {renderBin(sc.bins[0], 0)}
+      {chips}
+      {renderBin(sc.bins[1], 1)}
+    </div>
+  ) : (
+    <div className="flex flex-1 flex-col gap-3">
+      {ghost}
+      {chips}
+      <div className="grid flex-1 grid-cols-2 gap-2.5">{sc.bins.map(renderBin)}</div>
     </div>
   );
 }
