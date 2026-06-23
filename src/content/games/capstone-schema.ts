@@ -19,7 +19,9 @@ export type CapSwipeLap = { id: string; from: string; type: "swipe"; frame: stri
 // branch — "you know your move now": pick the values-led `best` option to hear its consequence + `debrief`;
 // a non-best pick is a warm nudge (its own encouraging consequence), never a buzzer. The decision-game's lap.
 export type CapBranchLap = { id: string; from: string; type: "branch"; frame: string; options: { text: string; consequence: string; outcome?: string; best?: boolean }[]; debrief: string; celebrate: string };
-export type CapLap = CapGalleryLap | CapMatchLap | CapSortLap | CapBuildLap | CapSpotLap | CapSwipeLap | CapBranchLap;
+// strike-rewrite victory lap — rub out a myth the chapter taught you to bust, then see the truth.
+export type CapStrikeLap = { id: string; from: string; type: "strike-rewrite"; frame: string; myth: { un: string; re: string; why: string }; celebrate: string };
+export type CapLap = CapGalleryLap | CapMatchLap | CapSortLap | CapBuildLap | CapSpotLap | CapSwipeLap | CapBranchLap | CapStrikeLap;
 
 export type CapRecap = { node: string; game: string; thread: string; bigTruth: string; glyph: string };
 export type CapReflect = { id: string; prompt: string; options: string[]; affirm: string };
