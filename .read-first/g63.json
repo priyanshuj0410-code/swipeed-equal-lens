@@ -1,0 +1,35 @@
+{
+  "node": "g63",
+  "gameId": "looking-after-you",
+  "label": "Looking After You",
+  "chapter": 8,
+  "attested_at": "2026-06-24T02:48:49+05:30",
+  "notes": "",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 63 — Looking After You (reworked v2).pdf",
+      "sha256": "709bb0bb16684898af612b3801f8ec6de7bdb2713efe6764b8d02e952a563b82",
+      "bytes": 66116
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 8 User Personas.pdf",
+      "sha256": "5227e2572165a8d91b62d205472e5ac2da433312b8ac47bcbb59826cbccb844b",
+      "bytes": 78557
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 63 Looking After You — Scenario Library.json",
+      "sha256": "33abeb0eb043523edc1f9e636d1b803a4d76d96ce1d9a1416a86407976f0d9ac",
+      "bytes": 71678
+    }
+  }
+}
