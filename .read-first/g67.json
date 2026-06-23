@@ -1,0 +1,35 @@
+{
+  "node": "g67",
+  "gameId": "raising-neurodiverse-kids",
+  "label": "Raising Neurodiverse Kids",
+  "chapter": 8,
+  "attested_at": "2026-06-24T03:11:22+05:30",
+  "notes": "",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 67 — Raising Neurodiverse Kids (reworked v2).pdf",
+      "sha256": "eec5accc31495727a502cb0f7208902acf50666571193a015674b5211ebe0056",
+      "bytes": 65490
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 8 User Personas.pdf",
+      "sha256": "5227e2572165a8d91b62d205472e5ac2da433312b8ac47bcbb59826cbccb844b",
+      "bytes": 78557
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 67 Raising Neurodiverse Kids — Scenario Library.json",
+      "sha256": "1baa34a97c0b54b35d4f85d2836044c9395f7046fe3176d6e94bfb22823b1817",
+      "bytes": 73552
+    }
+  }
+}
