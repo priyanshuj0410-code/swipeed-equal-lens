@@ -53,10 +53,21 @@ if (typeof window !== "undefined" && window.speechSynthesis) {
   refreshVoices();
   try { window.speechSynthesis.addEventListener("voiceschanged", refreshVoices); } catch { /* ignore */ }
 }
-function voiceByURI(uri?: string): SpeechSynthesisVoice | null {
-  if (!uri) return null;
+// Resolve a device voice for this config: a specific saved voice if it exists here, else the first available
+// voice matching the PORTABLE preference list (so a shipped default lands on a good voice on every device),
+// else null (browser default).
+function pickWebVoice(cfg: VoiceCfg): SpeechSynthesisVoice | null {
   if (!cachedVoices.length) refreshVoices();
-  return cachedVoices.find((v) => v.voiceURI === uri) ?? null;
+  if (cfg.webVoiceURI) {
+    const exact = cachedVoices.find((v) => v.voiceURI === cfg.webVoiceURI);
+    if (exact) return exact;
+  }
+  for (const pref of cfg.webVoicePrefer ?? []) {
+    const p = pref.toLowerCase();
+    const v = cachedVoices.find((x) => x.name.toLowerCase().includes(p) || x.lang.toLowerCase().includes(p));
+    if (v) return v;
+  }
+  return null;
 }
 
 let gen = 0; // bumps on each new line so a stale utterance's callback can't fire
@@ -97,7 +108,7 @@ function run(text: string, opts: Opts) {
     synth.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = locale;
-    const v = voiceByURI(cfg?.webVoiceURI);
+    const v = cfg ? pickWebVoice(cfg) : null;
     if (v) { u.voice = v; u.lang = v.lang; }
     u.rate = cfg?.rate ?? 0.95;
     u.pitch = cfg?.pitch ?? 1.08;

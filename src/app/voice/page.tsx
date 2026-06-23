@@ -54,6 +54,7 @@ export default function VoiceLabPage() {
   const [kBusy, setKBusy] = useState(false);
   const [kReady, setKReady] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [exported, setExported] = useState(false);
   const loaded = useRef(false);
 
   const stopAll = useCallback(() => { try { window.speechSynthesis?.cancel(); } catch { /* ignore */ } kokoroStop(); }, []);
@@ -99,6 +100,7 @@ export default function VoiceLabPage() {
 
   const copyToAll = () => setCfgs((prev) => { const c = prev[selCh]; const n: Record<string, VoiceCfg> = {}; for (const k of KEYS) n[k] = { ...c }; return n; });
   const save = () => { try { localStorage.setItem(VOICES_KEY, JSON.stringify(cfgs)); } catch { /* ignore */ } stopSpeaking(); applyVoicePrefs(); setSaved(true); window.setTimeout(() => setSaved(false), 2500); };
+  const exportCfg = async () => { try { await navigator.clipboard.writeText(JSON.stringify(cfgs, null, 2)); setExported(true); window.setTimeout(() => setExported(false), 2000); } catch { /* ignore */ } };
   const resetAll = () => { try { localStorage.removeItem(VOICES_KEY); } catch { /* ignore */ } setCfgs(Object.fromEntries(KEYS.map((k) => [k, { ...BASE }]))); applyVoicePrefs(); };
 
   return (
@@ -108,6 +110,7 @@ export default function VoiceLabPage() {
         <h1 className="font-display text-xl font-bold">Voice lab</h1>
       </header>
       <p className="text-sm text-foreground/70">Each of the 8 chapters targets a different persona — give each its own voice. Pick a chapter, tune it, preview, then <b>Save</b>.</p>
+      <p className="rounded-xl bg-[var(--color-mist)] px-3 py-2 text-xs text-foreground/70"><b>Note:</b> Save applies to <b>this device only</b>. To make a voice the default for <i>everyone</i>, tap <b>“Copy config”</b> below and send it to your developer to bake into the app — and remember device voices vary per phone, so a Kokoro voice is the only way to get the <i>same</i> voice on every device.</p>
 
       {/* chapter selector */}
       <section className={card} style={{ borderColor: "var(--color-mist)" }}>
@@ -180,7 +183,10 @@ export default function VoiceLabPage() {
         </button>
         <button type="button" onClick={resetAll} className="h-12 rounded-2xl px-4 text-sm font-semibold text-foreground/60">Reset</button>
       </div>
-      <p className="text-center text-xs text-foreground/50">Saved to this device only. Each chapter’s games read its voice the next time Lensy speaks.</p>
+      <button type="button" onClick={exportCfg} className="flex h-11 w-full items-center justify-center gap-2 rounded-2xl border-2 text-sm font-semibold text-foreground/70" style={{ borderColor: "var(--color-mist)" }}>
+        {exported ? <><Check className="size-4" aria-hidden /> Copied!</> : <><Copy className="size-4" aria-hidden /> Copy config (to make it the app default)</>}
+      </button>
+      <p className="text-center text-xs text-foreground/50">“Save” = this device only. “Copy config” gives JSON to bake in as the shipped default for all users.</p>
     </div>
   );
 }
