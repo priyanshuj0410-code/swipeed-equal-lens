@@ -1,0 +1,35 @@
+{
+  "node": "g20",
+  "gameId": "defenders",
+  "label": "Defenders of the Body",
+  "chapter": 3,
+  "attested_at": "2026-06-23T11:27:53+05:30",
+  "notes": "Read GDD 20 library in full (84 scenarios: defenders/germs/defend/HIV-basics/spreads-or-not/kindness-not-fear), incl. all HIV-basics + kindness-not-fear stigma scenarios verbatim; confirmed registry id 'defenders' (library aspirational 'defenders-of-the-body'); binStyle keeps all HIV transmission-fact bins neutral (anti-stigma), valences only defence-quality/true-false/fact-myth.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 20 — Defenders of the Body (reworked v2).pdf",
+      "sha256": "cc217fdfd113c180a9eaa0c7022915073b708a787911032ea6f298284d6cdafd",
+      "bytes": 63439
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 3 User Personas.pdf",
+      "sha256": "7b189f9027939445b44314cef124bba0fce20c3ec70ba115d772857b77b93eef",
+      "bytes": 76200
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 20 Defenders of the Body — Scenario Library.json",
+      "sha256": "bc9e0c99beeb9f5adb31a83dbf49e6f5c123009732a0d8d90c9739001a672e4a",
+      "bytes": 41135
+    }
+  }
+}
