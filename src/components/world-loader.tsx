@@ -13,6 +13,15 @@ import { BrandSplash } from "@/components/brand-splash";
 export function WorldLoader() {
   const { active, progress } = useProgress();
   const [phase, setPhase] = useState<"show" | "fading" | "gone">("show");
+  // drei reports 0% until assets resolve (cached loads emit no events), so the bar looked frozen. Creep a
+  // synthetic progress 8→92% while waiting; real progress overrides it, and we snap to 100 once ready/fading.
+  const [creep, setCreep] = useState(8);
+  useEffect(() => {
+    if (phase !== "show") return;
+    const id = setInterval(() => setCreep((c) => Math.min(92, c + Math.max(0.6, (92 - c) * 0.06))), 180);
+    return () => clearInterval(id);
+  }, [phase]);
+  const shown = phase !== "show" || (!active && progress >= 100) ? 100 : Math.max(progress, creep);
 
   // assets finished loading -> begin fade (after a beat so the first frame can render)
   useEffect(() => {
@@ -36,5 +45,5 @@ export function WorldLoader() {
   }, []);
 
   if (phase === "gone") return null;
-  return <BrandSplash progress={progress} label="Building your world…" fading={phase === "fading"} />;
+  return <BrandSplash progress={shown} label="Building your world…" fading={phase === "fading"} />;
 }
