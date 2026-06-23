@@ -1,0 +1,35 @@
+{
+  "node": "g29",
+  "gameId": "my-choices",
+  "label": "My Choices, My Future",
+  "chapter": 5,
+  "attested_at": "2026-06-23T18:00:22+05:30",
+  "notes": "Read GDD 29 library in full (84 scenarios: the-full-picture/if-when-whether/decide-it/access-and-rights/talk-it-through/my-future-no-pressure), incl. all access-and-rights + my-future-no-pressure verbatim — autonomy-first, no-pressure-in-any-direction (waiting valid + most certain; active isn't irresponsible), confidential AFHC/Ujala/doctor routing, age-of-consent 18 / POCSO / coercion=child-protection (mc-053 routes to trusted adult/Childline 1098), comprehensive-but-never-explicit. gameId trap: library 'my-choices-future' vs registry 'my-choices' -> config uses 'my-choices'. binStyle: added pressures/violation/undermines->red + respected->green (autonomy bins); DID NOT add 'forced' (would red the pro-autonomy 'Never to be forced' bin mc-024); emulated all 13 bins, no mis-color. Spot ids injected (7). No builds. reassureCats=[access-and-rights,if-when-whether,my-future-no-pressure] + reassure + clinic/1098 helpLine.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 29 — My Choices, My Future (reworked v2).pdf",
+      "sha256": "711757dd3fc9ea884534576acf855104c5919c9375a1d772c6a6b491eec6d2d3",
+      "bytes": 64852
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 5 User Personas.pdf",
+      "sha256": "0aa28ddba75fd7ae198bc3ae24e7e01b1ef87b3e16c986e842dcd0c249fbfd45",
+      "bytes": 74728
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 29 My Choices My Future — Scenario Library.json",
+      "sha256": "708e3d0e7be296a33c5c2a98ce929ee4b4b297a872ec7592a84eae6fa8c94304",
+      "bytes": 63257
+    }
+  }
+}
