@@ -102,7 +102,7 @@ const SCENARIOS: Scenario[] = [
 export const MUTUAL: V2GameConfig = {
   gameId: "mutual",
   title: "Mutual",
-  greet: "Hey, I’m Lensy. 💞 Here’s the whole deal with intimacy: it’s mutual, or it’s nothing. A clear, willing, enthusiastic ‘yes’ from both — every time, and either of you can change your mind. Let’s get it right together.",
+  greet: "I’m Lensy. 💞 Intimacy is mutual, or it’s nothing — a clear, willing, enthusiastic ‘yes’ from both, every time, and either of you can change your mind.",
   scenarios: SCENARIOS,
   categories: [
     { id: "what-consent-is", emoji: "✅", label: "What consent is" },
@@ -114,10 +114,10 @@ export const MUTUAL: V2GameConfig = {
   ],
   badge: {
     title: "Mutual Respect 💞",
-    blurb: "You know consent inside out: FRIES — freely given, reversible, informed, enthusiastic, specific. A real ‘yes’ from both, the presence of a yes not the absence of a no, withdrawable anytime. You respect a no, every time. 🤝",
+    blurb: "You know consent: FRIES — freely given, reversible, informed, enthusiastic, specific. A real ‘yes’ from both, withdrawable anytime. You respect a no. 🤝",
   },
-  helpLine: "Intimacy is only ever mutual — a free, willing yes from both. If anyone pressures you, won’t take no, or crosses a line, it is never your fault. Call the Women Helpline 181, women-in-distress 1091, emergency 112, or Childline 1098 — and tell a trusted adult or counsellor.",
+  helpLine: "If anyone pressures you or crosses a line, it is never your fault. Reach Women Helpline 181, women-in-distress 1091, emergency 112, or Childline 1098.",
   helpLabel: "Get help · 181 / Childline 1098",
-  reassure: "Consent is a free, enthusiastic yes from both — and it can be taken back anytime. If someone pressures, manipulates, or won’t take no for an answer, that’s on them, never on you. You can always stop, and you can always get help (181 / 1098 / a trusted adult). 💞",
+  reassure: "Consent is a free yes from both, takeable back anytime. If someone won’t take no, that’s on them, never you. You can always stop and get help (181 / 1098). 💞",
   reassureCats: ["pressure-coercion", "rights-and-law"],
 };

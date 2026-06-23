@@ -112,7 +112,7 @@ const SCENARIOS: Scenario[] = [
 export const SPEAK_UP: V2GameConfig = {
   gameId: "speak-up",
   title: "Speak Up",
-  greet: "Hey, it's Lensy. 🦸 See something wrong and freeze? Let's learn the five safe upstander moves, find the words, and know where to get help — so you can step up without putting yourself in danger.",
+  greet: "Hey, it's Lensy. 🦸 See something wrong and freeze? Let's learn the five safe upstander moves, find the words, and know where to get help.",
   scenarios: SCENARIOS,
   categories: [
     { id: "name-the-harm", emoji: "🔎", label: "Name the harm" },
@@ -124,10 +124,10 @@ export const SPEAK_UP: V2GameConfig = {
   ],
   badge: {
     title: "Upstander! 🦸",
-    blurb: "You can name gender-based harm, pick from five safe upstander moves (say something, distract, get help, check in, report), find the words, and reach real help — and harm is never the target's fault. 🦸",
+    blurb: "You can name gender-based harm, pick from five safe upstander moves (say, distract, get help, check in, report), find the words, and reach real help. 🦸",
   },
-  helpLine: "If you or someone you know is being harmed, tell a trusted grown-up — a teacher, a parent, a school counsellor — and for real danger you can call Childline, one-zero-nine-eight (or one-one-two). Telling to keep someone safe is brave, not tattling.",
+  helpLine: "If you or someone is being harmed, tell a trusted grown-up — a teacher, parent or counsellor. For real danger call Childline 1098 (or 112). Telling is brave.",
   helpLabel: "Get help · Childline 1098",
-  reassure: "If you or someone you know is being harmed, it's never your fault — and telling a trusted grown-up is brave, not tattling. For real danger, call Childline 1098 (or 112). 💛",
+  reassure: "If you or someone is being harmed, it's never your fault — telling a trusted grown-up is brave, not tattling. For real danger, call Childline 1098 (or 112). 💛",
   reassureCats: ["get-help"],
 };

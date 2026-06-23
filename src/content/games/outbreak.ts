@@ -113,7 +113,7 @@ const SCENARIOS: Scenario[] = [
 export const OUTBREAK: V2GameConfig = {
   gameId: "outbreak",
   title: "Outbreak: Stop the Spread",
-  greet: "Hey, it's Lensy. 🧫 Time to stop an outbreak, not with panic, but with the real public-health toolkit: facts, prevention, testing and treatment. And the biggest lesson: the enemy is the infection and the stigma, never the people.",
+  greet: "Hey, it's Lensy. 🧫 Let's stop an outbreak with the real toolkit: facts, prevention, testing, treatment. The enemy is the infection and stigma, not people.",
   scenarios: SCENARIOS,
   categories: [
     { id: "how-stis-spread", emoji: "🧫", label: "How STIs spread" },
@@ -125,11 +125,11 @@ export const OUTBREAK: V2GameConfig = {
   ],
   badge: {
     title: "Outbreak Stopper! 🧫",
-    blurb: "You know how STIs really spread (and don't), why testing matters (many are silent), the real toolkit (waiting, condoms, vaccines, testing, treatment), that all STIs are treatable, and that the real enemy is stigma, never people. 💛",
+    blurb: "You know how STIs spread (and don't), why testing matters, the toolkit (waiting, condoms, vaccines, testing, treatment), and that stigma is the real enemy.",
   },
-  helpLine: "For STI facts or testing, go to a clinic, a youth health service, or a doctor, it's routine, responsible, and often confidential. You can ask what to expect and bring a trusted person. Get your facts from clinics, not scary forwards.",
+  helpLine: "For STI facts or testing, see a clinic, youth health service, or doctor, it's routine and often confidential. Get facts from clinics, not scary forwards.",
   helpLabel: "Get tested · ask a clinic",
-  reassure: "STIs are common, treatable health conditions, never a sign of being 'dirty' or 'bad'. The real enemy is the infection and the stigma, never the person, and everyone deserves care, not shame. 💛",
+  reassure: "STIs are common, treatable health conditions, never a sign of being 'dirty' or 'bad'. The enemy is the infection and the stigma, never the person. 💛",
   reassureCats: ["end-stigma"],
   buildLabels: { assemble: "That's the toolkit 🛡️", sequence: "That's the smart order ✅" },
 };

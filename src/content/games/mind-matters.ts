@@ -111,7 +111,7 @@ const SCENARIOS: Scenario[] = [
 export const MIND_MATTERS: V2GameConfig = {
   gameId: "mind-matters",
   title: "Mind Matters",
-  greet: "Hey, it's Lensy. 🧠 Your mind matters as much as your body. Let's talk stress, bouncing back, and the tools that help — and that asking for help is the bravest move of all. Private, no judging.",
+  greet: "Hey, it's Lensy. 🧠 Your mind matters as much as your body. Let's talk stress, bouncing back, and the tools that help — plus how asking for help is brave.",
   scenarios: SCENARIOS,
   categories: [
     { id: "mind-matters-too", emoji: "🧠", label: "Mind matters too" },
@@ -123,11 +123,11 @@ export const MIND_MATTERS: V2GameConfig = {
   ],
   badge: {
     title: "Mind Matters! 🧠",
-    blurb: "You know your mind has health too, that hard feelings rise and pass, how to handle stress and rejection, a toolkit of healthy coping moves — and that asking for help is strength, never weakness. 🧠💛",
+    blurb: "You know your mind has health too, that hard feelings rise and pass, how to handle stress and rejection — and that asking for help is strength. 🧠",
   },
-  helpLine: "If a feeling gets too big, lasts a long time, or you ever have dark or scary thoughts, tell a trusted grown-up — and you can always call Childline, one-zero-nine-eight (or one-one-two). Asking for help is a strong, smart move.",
+  helpLine: "If a feeling gets too big, lasts long, or you have dark thoughts, tell a trusted grown-up — or call Childline, one-zero-nine-eight (or one-one-two).",
   helpLabel: "Get help · Childline 1098",
-  reassure: "It's okay to not be okay — asking for help with your feelings is brave and strong, never weak. If a feeling gets too big or won't lift, tell a trusted grown-up or call Childline 1098. 💛",
+  reassure: "It's okay to not be okay — asking for help is brave and strong, never weak. If a feeling won't lift, tell a trusted grown-up or call Childline 1098. 💛",
   reassureCats: ["ask-for-help"],
   buildLabels: { assemble: "That's your mind-care kit! 🧰", sequence: "Nice — that's the order! ✅" },
 };

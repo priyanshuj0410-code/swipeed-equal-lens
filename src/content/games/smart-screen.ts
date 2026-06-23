@@ -123,10 +123,10 @@ export const SMART_SCREEN: V2GameConfig = {
   ],
   badge: {
     title: "Smart Screen Hero! 📱",
-    blurb: "You can tell real from pretend, spot the ad and the trick, check what's true, balance your screen time, look after your eyes and sleep, and be kind online — you're in charge of the screen, not the other way round. 📱✨",
+    blurb: "You can tell real from pretend, spot the ad and the trick, check what's true, balance your screen time, look after your eyes and sleep, and be kind online. 📱✨",
   },
-  helpLine: "If something online worries or upsets you, or someone's unkind, close it and tell a trusted grown-up — you can also call Childline, one-zero-nine-eight. (Safety Squad has more on staying safe online.)",
+  helpLine: "If something online worries or upsets you, or someone's unkind, close it and tell a trusted grown-up — you can also call Childline, one-zero-nine-eight.",
   helpLabel: "Get help · Childline 1098",
-  reassure: "If something online upsets you or someone's unkind, it's not your fault — close it and tell a trusted grown-up. You're always allowed to step away from a screen. 💛",
+  reassure: "If something online upsets you or someone's unkind, it's not your fault — close it and tell a trusted grown-up. You can always step away from a screen. 💛",
   buildLabels: { assemble: "That's a Smart Screen plan! 📱" },
 };

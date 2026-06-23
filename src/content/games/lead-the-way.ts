@@ -103,7 +103,7 @@ const SCENARIOS: Scenario[] = [
 export const LEAD_THE_WAY: V2GameConfig = {
   gameId: "lead-the-way",
   title: "Lead the Way",
-  greet: "Hey, I’m Lensy. 🧭 Here’s a secret about leadership: you don’t need a title or a megaphone. Be the ally, set the example, lift others, and change the room you’re in — whatever your gender. Allyship is everyone’s job, and leading on equality is strength. Let’s go.",
+  greet: "Hey, I’m Lensy. 🧭 You don’t need a title to lead. Be the ally, set the example, lift others, change the room. Leading on equality is strength. Let’s go.",
   scenarios: SCENARIOS,
   categories: [
     { id: "the-gaps", emoji: "📊", label: "The real gaps" },
@@ -115,10 +115,10 @@ export const LEAD_THE_WAY: V2GameConfig = {
   ],
   badge: {
     title: "Lead the Way 🧭",
-    blurb: "You know the real gaps, you know allyship is everyone’s job, and you can lead quietly and powerfully: lead by example, lift as you climb, and call in, not out. 🤝",
+    blurb: "You know the real gaps and that allyship is everyone’s job, and you can lead quietly and powerfully: lead by example, lift as you climb, call in not out. 🤝",
   },
-  helpLine: "Leading for equality includes keeping everyone safe. If you witness harassment, or someone is in danger, your safety comes first — get a trusted adult or teacher, or call the Women Helpline 181, emergency 112, or Childline 1098.",
+  helpLine: "If you witness harm or danger, safety comes first — get a trusted adult or teacher, or call Women Helpline 181, emergency 112, or Childline 1098.",
   helpLabel: "Get help · 181 / 112 / 1098",
-  reassure: "You don’t have to fix everything alone, and your safety always comes first. If calling something out ever feels unsafe, step back and bring others in — a trusted adult, a teacher, 181, 112, or Childline 1098. Leading from your values includes knowing when to get help. 🤝",
+  reassure: "You don’t have to fix everything alone, and safety comes first. If calling out feels unsafe, bring others in — a trusted adult, 181, 112, or Childline 1098. 🤝",
   reassureCats: ["call-in-not-out"],
 };

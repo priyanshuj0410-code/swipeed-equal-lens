@@ -106,7 +106,7 @@ const SCENARIOS: Scenario[] = [
 export const JUSTICE_LEAGUE: V2GameConfig = {
   gameId: "justice-league",
   title: "Justice League: Rights",
-  greet: "Hey, I’m Lensy. ⚖️ Here’s your superpower: you have rights, there are laws that protect you, and there are real ways to get help and justice. I’ll translate the law into plain language and show you the practical path — knowing it makes you far harder to exploit. (This is learning, not legal advice.)",
+  greet: "Hey, I’m Lensy. ⚖️ You have rights, laws protect you, and there are real ways to get justice. Knowing them makes you harder to exploit. (Learning, not advice.)",
   scenarios: SCENARIOS,
   categories: [
     { id: "know-your-rights", emoji: "🛡️", label: "Know your rights" },
@@ -118,10 +118,10 @@ export const JUSTICE_LEAGUE: V2GameConfig = {
   ],
   badge: {
     title: "Justice League: Rights ⚖️",
-    blurb: "You know your rights, you can read the law in plain language, and you know the real, practical paths to help and justice — your superpower against exploitation. 💪",
+    blurb: "You know your rights, can read the law in plain language, and know the real paths to help and justice — your superpower against exploitation. 💪",
   },
-  helpLine: "You have rights and real routes to justice. For help: a trusted adult, the police (a Zero FIR can be filed at any station), a school/college Internal Committee, the Child Welfare Committee, or free legal aid via NALSA (15100). Helplines: Childline 1098, Women 181, women-in-distress 1091, emergency 112, cybercrime 1930. (This is learning, not legal advice — for your situation, talk to a real authority or lawyer.)",
+  helpLine: "Tell a trusted adult; free legal aid NALSA 15100; Childline 1098, Women 181, women-in-distress 1091, emergency 112, cybercrime 1930.",
   helpLabel: "Get help · NALSA 15100 / 181 / 1098",
-  reassure: "Knowing your rights is power, and you’re never on your own with them. If something is wrong, there are real routes: a trusted adult, the police (Zero FIR anywhere), an Internal Committee, the Child Welfare Committee, or free legal aid via NALSA 15100 — plus helplines 1098, 181, 1091, 112, 1930. This game is learning, not legal advice; for your situation, reach a real authority. ⚖️",
+  reassure: "Knowing your rights is power, and you’re never alone. Real routes: a trusted adult, free legal aid NALSA 15100, helplines 1098, 181, 1091, 112, 1930. ⚖️",
   reassureCats: ["get-justice", "your-rights-toolkit", "educational-not-advice"],
 };

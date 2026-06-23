@@ -122,9 +122,9 @@ export const FAIR_PLAY: V2GameConfig = {
   ],
   badge: {
     title: "Fair Play Champion! 🏆",
-    blurb: "You can tell fair from unfair, share chores and chances by turns not gender, see when fair means meeting different needs, and stand up to an unfair rule — fairness is everyone's, and you can help make it. 🏆⚖️",
+    blurb: "You can tell fair from unfair, share chores and chances by turns not gender, see when fair means meeting different needs, and stand up to an unfair rule. 🏆⚖️",
   },
-  helpLine: "If something's unfair and speaking up isn't enough on your own, tell a fair-minded grown-up — a teacher or a parent can help change it. Standing up for fairness is making things right.",
+  helpLine: "If something's unfair and speaking up alone isn't enough, tell a fair-minded grown-up — a teacher or parent can help change it. That's making things right.",
   helpLabel: "Get help",
   reassure: "Standing up for fairness can feel scary — doing it, even in a small way, is brave, and it makes things right. ✊",
   reassureCats: ["stand-up"],

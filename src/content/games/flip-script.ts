@@ -113,7 +113,7 @@ const SCENARIOS: Scenario[] = [
 export const FLIP_SCRIPT: V2GameConfig = {
   gameId: "flip-script",
   title: "Flip the Script",
-  greet: "Hey, it's Lensy. 🔄 'Boys don't cry', 'that's for girls' — made-up scripts, repeated everywhere. Let's spot them, flip them to something fair, and learn to call them out, kindly.",
+  greet: "Hey, it's Lensy. 🔄 'Boys don't cry', 'that's for girls' — made-up scripts. Let's spot them, flip them to something fair, and call them out, kindly.",
   scenarios: SCENARIOS,
   categories: [
     { id: "spot-it", emoji: "🔍", label: "Spot it" },
@@ -125,9 +125,9 @@ export const FLIP_SCRIPT: V2GameConfig = {
   ],
   badge: {
     title: "Script Flipper! 🔄",
-    blurb: "You can spot a gender stereotype hidden in media, flip it to a fair message, and call it out kindly — no role, trait, colour or feeling belongs to one gender, and you can be anything. 🔄",
+    blurb: "You can spot a gender stereotype, flip it to a fair message, and call it out kindly — no role, colour or feeling belongs to one gender. You can be anything. 🔄",
   },
-  helpLine: "If stereotypes or teasing about how you look, feel or play ever get hurtful, talk to a trusted grown-up — you can also call Childline, one-zero-nine-eight. Being yourself is never the problem.",
+  helpLine: "If teasing about how you look, feel or play turns hurtful, tell a trusted grown-up, or call Childline, one-zero-nine-eight. Being yourself is never the problem.",
   helpLabel: "Get help · Childline 1098",
   reassure: "No feeling, job, colour or dream belongs to one gender — boys can cry, girls can lead, and you can be anything. 💛",
   reassureCats: ["feelings-strength"],

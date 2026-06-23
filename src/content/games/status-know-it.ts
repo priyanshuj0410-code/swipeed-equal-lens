@@ -109,7 +109,7 @@ const SCENARIOS: Scenario[] = [
 export const STATUS_KNOW_IT: V2GameConfig = {
   gameId: "status-know-it",
   title: "Status: Know It",
-  greet: "Hey, it’s Lensy. 🩺 Owning your health is a power move — testing is self-care, not shame. Let’s build your prevention stack, get the facts on treatment (it works), and stand for dignity: zero stigma, for everyone.",
+  greet: "Hey, it’s Lensy. 🩺 Testing is self-care, not shame. Build your prevention stack, know treatment works, and stand for dignity — zero stigma.",
   scenarios: SCENARIOS,
   categories: [
     { id: "know-your-status", emoji: "🩺", label: "Know your status" },
@@ -121,10 +121,10 @@ export const STATUS_KNOW_IT: V2GameConfig = {
   ],
   badge: {
     title: "Status: Know It! 🩺",
-    blurb: "You know that testing is power not shame, you can build a prevention stack and talk to a partner, you know treatment works (U=U), and you stand for dignity with zero stigma. 💛",
+    blurb: "You know testing is power not shame, can build a prevention stack and talk to a partner, know treatment works (U=U), and stand for dignity with zero stigma. 💛",
   },
-  helpLine: "For free, confidential HIV/STI testing in India, look up a NACO ICTC centre or ask a doctor — no shame, just self-care. If anyone is pressuring or exploiting you, tell a trusted adult or call Childline 1098.",
+  helpLine: "Free, confidential HIV/STI testing: find a NACO ICTC centre or ask a doctor. If anyone pressures or exploits you, call Childline 1098.",
   helpLabel: "Get help · testing / Childline 1098",
-  reassure: "Testing is power, not shame — and having an STI or HIV is a health matter, never a moral verdict (with treatment, people live full lives; U=U). Free confidential testing exists (NACO ICTC). If anyone pressures or exploits you, it’s never your fault: tell a trusted adult or call Childline 1098. 💛",
+  reassure: "Testing is power, not shame — an STI or HIV is a health matter, never a verdict; with treatment people live full lives (U=U). If pressured, call Childline 1098.",
   reassureCats: ["know-your-status", "dignity-no-stigma", "own-it-decide"],
 };

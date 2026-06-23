@@ -123,9 +123,9 @@ export const NOT_FUNNY: V2GameConfig = {
   ],
   badge: {
     title: "Upstander! 🦸",
-    blurb: "You can tell fun teasing from mean, see through 'just a joke', refuse gender put-downs, and step in as an ally — a joke that hurts isn't funny, and standing up is your business. 🦸💛",
+    blurb: "You can tell fun teasing from mean, see through 'just a joke', refuse gender put-downs, and step in as an ally. Standing up is your business. 🦸💛",
   },
-  helpLine: "If teasing or put-downs keep going, or you don't feel safe, tell a trusted grown-up — you can also call Childline, one-zero-nine-eight. Telling to keep someone safe is reporting, and it's brave, not tattling.",
+  helpLine: "If teasing keeps going, tell a trusted grown-up or call Childline, one-zero-nine-eight. Telling to keep someone safe is reporting, not tattling.",
   helpLabel: "Get help · Childline 1098",
   reassure: "If someone teases or puts you down, it's not your fault — and telling a trusted grown-up is brave, not tattling. 💛",
   reassureCats: ["how-it-feels"],

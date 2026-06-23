@@ -111,7 +111,7 @@ const SCENARIOS: Scenario[] = [
 export const NORM_STORM: V2GameConfig = {
   gameId: "norm-storm",
   title: "Norm Storm",
-  greet: "Hey, it's Lensy. 🌪️ 'That's just how it's always been' — but who decided? Let's sort the storm of unwritten rules: which help, which harm, and how to question and change the unfair ones, kindly.",
+  greet: "It's Lensy. 🌪️ 'That's just how it's always been' — but who decided? Let's sort which unwritten rules help, which harm, and how to change unfair ones, kindly.",
   scenarios: SCENARIOS,
   categories: [
     { id: "what-is-a-norm", emoji: "❓", label: "What's a norm?" },
@@ -123,10 +123,10 @@ export const NORM_STORM: V2GameConfig = {
   ],
   badge: {
     title: "Norm Detective! 🌪️",
-    blurb: "You can spot an unwritten norm, sort the helpful ones from the harmful, run any norm through the good-norm test (respects everyone? hurts no one? fair both ways?), and question and change the unfair ones — kindly. 🌪️",
+    blurb: "You can spot a norm, sort helpful from harmful, run the good-norm test (respects everyone? hurts no one? fair both ways?), and change unfair ones, kindly. 🌪️",
   },
-  helpLine: "If a norm or 'tradition' is harming you or someone you know, talk to a trusted grown-up — you can also call Childline, one-zero-nine-eight. You can love your family and still ask for what's fair.",
+  helpLine: "If a norm or 'tradition' harms someone, talk to a trusted grown-up or call Childline, one-zero-nine-eight. You can love your family and still ask for fairness.",
   helpLabel: "Get help · Childline 1098",
-  reassure: "'That's just how it's always been' isn't a reason — you can love your family and culture and still ask 'is this fair?'. Questioning a harmful norm, kindly, is brave. 💛",
+  reassure: "'That's just how it's always been' isn't a reason — you can love your family and culture and still ask 'is this fair?'. Questioning a harmful norm is brave. 💛",
   reassureCats: ["question-change"],
 };

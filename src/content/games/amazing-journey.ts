@@ -125,9 +125,9 @@ export const AMAZING_JOURNEY: V2GameConfig = {
   ],
   badge: {
     title: "Amazing Journey complete! ✨",
-    blurb: "You know how life really begins (egg + sperm), how a baby grows and is born, the many loving ways families have children, and the truth behind the baby-myths — including that a baby's sex comes from the sperm, not the mother. ✨",
+    blurb: "You know how life begins (egg + sperm), how a baby grows and is born, the many loving ways families have children, and that a baby's sex comes from the sperm. ✨",
   },
-  helpLine: "Curious to learn more? A trusted adult, teacher, doctor or a reliable source can answer your questions — and you can always call Childline, one-zero-nine-eight. No question about how life works is silly.",
+  helpLine: "Curious to learn more? A trusted adult, teacher or doctor can answer your questions — or call Childline, one-zero-nine-eight. No question is silly.",
   helpLabel: "Get help · Childline 1098",
   reassure: "However a baby joins a family — birth, adoption, a doctor's help — that family is real and full of love, and every child is wanted. 💛",
   reassureCats: ["many-ways"],

@@ -105,7 +105,7 @@ const SCENARIOS: Scenario[] = [
 export const LIFE_READY: V2GameConfig = {
   gameId: "life-ready",
   title: "Life Ready",
-  greet: "Hey, I’m Lensy. 🧭 You’re about to run your own life — and you’re more ready than you think. Let’s get to know your values, decide like an adult, handle the big stuff, work well with people, and build a support network you can lean on. There’s no single ‘right’ path — just your good next step.",
+  greet: "Hey, I’m Lensy. 🧭 You’re about to run your own life. Know your values, decide like an adult, handle the big stuff. There’s no single ‘right’ path.",
   scenarios: SCENARIOS,
   categories: [
     { id: "know-yourself", emoji: "🪞", label: "Know yourself" },
@@ -117,10 +117,10 @@ export const LIFE_READY: V2GameConfig = {
   ],
   badge: {
     title: "Life Ready 🧭",
-    blurb: "You know your values, you can decide like an adult, handle the big stuff, work with people, and build a support network — and you know asking for help is a lifelong strength. 🫂",
+    blurb: "You know your values, can decide like an adult, handle the big stuff, work with people, and build a support network — and asking for help is strength. 🫂",
   },
-  helpLine: "Running your own life is big — and you’re never meant to do it alone. Asking for help is a strength, not a failure. If you’re struggling with exam pressure, the future, or your mood, talk to a trusted adult or mentor, or call Tele-MANAS 14416, KIRAN 1800-599-0019, or reach Manodarpan. (This is life-skills practice, not therapy.)",
+  helpLine: "Asking for help is a strength. Talk to a trusted adult or mentor, or call Tele-MANAS 14416, KIRAN 1800-599-0019, or Manodarpan. (Life-skills, not therapy.)",
   helpLabel: "Get support · Tele-MANAS 14416",
-  reassure: "There’s no single ‘right’ life path, and asking for help is a strength you keep for life — not a failure. If the big stuff (exams, the future, leaving home) feels heavy, lean on your network: a trusted adult or mentor, Tele-MANAS 14416, KIRAN 1800-599-0019, or Manodarpan. This is life-skills practice, not therapy. 🫂",
+  reassure: "No single ‘right’ path; asking for help is strength. If the big stuff feels heavy, lean on people: Tele-MANAS 14416, KIRAN 1800-599-0019, or Manodarpan. 🫂",
   reassureCats: ["handle-the-big-stuff", "support-network"],
 };

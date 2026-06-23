@@ -408,7 +408,7 @@ function StrikeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapStrikeLap>)
   if (solved) {
     return (
       <div className="flex flex-1 flex-col">
-        <UnReBeat un={lap.myth.un} re={`${lap.myth.re} ${lap.myth.why}`} fill />
+        <UnReBeat un={lap.myth.un} re={lap.myth.re} why={lap.myth.why} fill />
       </div>
     );
   }
