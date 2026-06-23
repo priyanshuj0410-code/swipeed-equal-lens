@@ -1,0 +1,35 @@
+{
+  "node": "g34",
+  "gameId": "change-makers",
+  "label": "Change Makers",
+  "chapter": 5,
+  "attested_at": "2026-06-23T18:43:38+05:30",
+  "notes": "Change Makers: gameId change-makers matches registry (export ChangeMakersGame). 84 scenarios faithfully mapped from GDD 34 JSON: 6 cats (find-your-cause/make-the-plan/build-the-movement/the-law-as-a-tool/make-it-stick/launch-it), 7 types (branch 28/reflect 17/sort 14/strike-rewrite 10/match 6/role-play 5/spot 4), 0% binary. Scales Lead the Way into organised collective change: cause->plan->movement->law-as-tool->impact->safe first step. Change is possible AND practical; nothing meaningful alone; activism safe/lawful/non-violent/ethical/sustainable; sensitive causes backed by trusted adults/institutions. India laws (DV Act 2005, POSH 2013, Dowry Prohibition, BNS 2023) + helplines 181/1098/112 (reassureCats the-law-as-a-tool+make-it-stick). binStyle: added too vague/over-reach/stalls it/just noise/risks it->red + real impact/actionable/good partner/lawful & ethical/real protection->green; collision-free (none in existing content); only genuinely good/bad bins colored, nuanced 'not-yet' bins (Still planning/Not the priority/Beyond a first project) + categorisation bin cm-019 (advocacy vs awareness) left neutral by design. Spot ids injected (4).",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 34 — Change Makers (reworked v2).pdf",
+      "sha256": "20f9c0e49c9f14f101426b7ac3ffdfeeb171ba708bac0d0e2a16327f766448a1",
+      "bytes": 64356
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 5 User Personas.pdf",
+      "sha256": "0aa28ddba75fd7ae198bc3ae24e7e01b1ef87b3e16c986e842dcd0c249fbfd45",
+      "bytes": 74728
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 34 Change Makers — Scenario Library.json",
+      "sha256": "173ae6db0d1d7820fa0f15ef00727606093ac648b33bd93e96fced86bcafcaec",
+      "bytes": 64468
+    }
+  }
+}
