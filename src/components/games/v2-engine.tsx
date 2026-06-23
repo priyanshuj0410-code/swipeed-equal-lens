@@ -41,7 +41,8 @@ function binStyle(label: string, idx = 0): { emoji: string; tint: string } {
 const NEUTRAL_BINS = [{ emoji: "🔵", tint: "#5B9BD5" }, { emoji: "🟣", tint: "#7C5CFC" }, { emoji: "🟢", tint: "#62B84B" }, { emoji: "🟠", tint: "#F0A93B" }];
 // Guarantee the bins of one sort are visually distinct: if two would share a tint, fall back to a
 // position-based neutral palette so a non-reader always has a per-bin colour + emoji cue.
-function binStyles(bins: { label: string }[]): { emoji: string; tint: string }[] {
+// exported so the shared rich-capstone engine renders its sort dropzones with the SAME valence tinting.
+export function binStyles(bins: { label: string }[]): { emoji: string; tint: string }[] {
   const s = bins.map((b, i) => binStyle(b.label, i));
   return new Set(s.map((x) => x.tint)).size < bins.length ? bins.map((_, i) => NEUTRAL_BINS[i % NEUTRAL_BINS.length]) : s;
 }
