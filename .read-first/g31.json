@@ -1,0 +1,35 @@
+{
+  "node": "g31",
+  "gameId": "mutual",
+  "label": "Mutual",
+  "chapter": 5,
+  "attested_at": "2026-06-23T18:24:39+05:30",
+  "notes": "Mutual: gameId mutual matches registry (export MutualGame). 84 scenarios faithfully mapped from GDD 31 JSON: 6 cats (what-consent-is/reading-respecting/pressure-coercion/the-mutual-zone/rights-and-law/mutual-respect-equal), 7 types (reflect 20/strike-rewrite 17/branch 16/role-play 11/sort 10/spot 6/match 4), 0% binary. FRIES consent, presence-of-yes, withdrawable, pressure/incapacitation cancels; even-handed, never victim-blaming, never explicit; POCSO age-18; routes assault/coercion to 181/1091/112/1098/trusted adult (reassureCats pressure-coercion+rights-and-law). binStyle: added coercion->red (mt-046 Coercion); regression clean (no other game has a good 'coercion' bin); mt-013/mt-056 both-neutral -> binStyles neutral palette fallback. Spot ids injected (6).",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 31 — Mutual (reworked v2).pdf",
+      "sha256": "05b7880f5d17326528ee4c361b382385d4cb86c6c0a537d06990289c16277665",
+      "bytes": 64606
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 5 User Personas.pdf",
+      "sha256": "0aa28ddba75fd7ae198bc3ae24e7e01b1ef87b3e16c986e842dcd0c249fbfd45",
+      "bytes": 74728
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 31 Mutual — Scenario Library.json",
+      "sha256": "fd873cf48db0e706e17525b86d7a68f17424fc1dabf342e110597e301905521e",
+      "bytes": 59008
+    }
+  }
+}

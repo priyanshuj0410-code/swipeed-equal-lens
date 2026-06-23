@@ -1,0 +1,2029 @@
+{
+  "game": "Money & Independence",
+  "gameId": "money-independence",
+  "node": "g48",
+  "chapter": 6,
+  "ages": "18-22",
+  "thread": "C · Feelings & Life Skills",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Open (adult, comprehensive, ungated)",
+  "leadMechanics": [
+    "branch",
+    "strike-rewrite",
+    "sort"
+  ],
+  "note": "Work & money: financial literacy & independence (Work & Money domain, UNESCO 5.2, 2.2). New v2 build, the College node for standing on your own feet. Money isn't just money; it's independence, safety and choices. Five modes: budget it (a light sim), save & avoid traps (debt, EMIs, BNPL, scams), earn & ask (payslips, the pay gap, negotiating), money & love (fair money in relationships, financial control as abuse; UN&RE), tools & help. Money = freedom, and economic autonomy is foundational to equality, especially for the young women this work exists for. Financial control in a relationship is named as a recognised form of abuse under India's Domestic Violence Act, routed to help (181/1091). Educational, NOT financial advice; no products promoted; no real financial data collected. India realities: UPI, EMIs, first-job payslips, family financial expectations, low women's workforce participation and a real pay gap. Builds on g42 (Life Ready); pairs with g49 and g52; continues into g58 (Money, Together).",
+  "categories": {
+    "budget-it": "Budget it: balance income across needs, wants, savings",
+    "save-and-traps": "Save & avoid traps: the habit, and the debt traps",
+    "earn-and-ask": "Earn & ask: payslips, the pay gap, negotiating",
+    "money-and-love": "Money & love: fair money, and financial control",
+    "money-is-freedom": "Money is freedom: independence as safety & equality",
+    "tools-and-help": "Tools & help: budget tools, checklists and routes"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "strike-rewrite",
+    "sort",
+    "reflect",
+    "role-play",
+    "match",
+    "spot"
+  ],
+  "evidenceBase": [
+    "Practical money skills build independence: a budget that splits take-home pay across needs, wants and savings (a common starting frame is roughly 50/30/20), paying yourself first by saving before spending, and an emergency fund of around three months of essentials to cushion shocks, since a single unexpected cost can otherwise snowball. Debt traps are real: high-interest debt grows fast, paying only the minimum keeps you stuck, and Buy-Now-Pay-Later and easy EMIs on wants often lead to overspending and missed payments; this is educational, not financial advice (UNESCO Work & Money; consumer-finance research)",
+    "Earning power and the pay gap matter: understanding your payslip (gross versus net, deductions, basic tax), knowing your worth and being willing to negotiate pay are normal and smart, not greedy. India has one of the world's lower rates of women's workforce participation and a real gender pay gap, and money decisions are often gendered ('men handle the money'), so building earning knowledge and financial autonomy, especially for young women, is an equity issue, not just a personal one (UN Women economic empowerment; India pay-gap data)",
+    "Money is freedom, and financial control is abuse: financial independence buys choices, safety and the power to walk away, so owning a bank account, earning, and never being financially dependent in a way that traps you are foundational, especially for women. Coerced debt, withholding money, and controlling all of a partner's earnings are recognised forms of economic abuse, and in India financial control is covered under the Domestic Violence Act; survivors often stay longer because of it, so naming it and routing to help (181/1091) is protective (UN Women; economic-abuse research; India DV Act)"
+  ],
+  "scenarios": [
+    {
+      "id": "mi-001",
+      "cat": "budget-it",
+      "type": "strike-rewrite",
+      "hook": "\"Budgeting just means depriving yourself.\"",
+      "myth": {
+        "un": "Budgeting means depriving yourself.",
+        "re": "A budget gives you control and choices over your money, it's a plan, not a punishment.",
+        "why": "Knowing where your money goes is freedom, not restriction."
+      },
+      "relearn": "A budget gives you control and choices, not deprivation.",
+      "persona": "any",
+      "source": "budget mindset"
+    },
+    {
+      "id": "mi-002",
+      "cat": "budget-it",
+      "type": "sort",
+      "hook": "Sort: a need, or a want?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Rent and basic food"
+        },
+        {
+          "id": "b",
+          "text": "The latest phone upgrade"
+        },
+        {
+          "id": "c",
+          "text": "Transport to work"
+        },
+        {
+          "id": "d",
+          "text": "Daily food delivery for convenience"
+        }
+      ],
+      "bins": [
+        {
+          "id": "need",
+          "label": "Need"
+        },
+        {
+          "id": "want",
+          "label": "Want"
+        }
+      ],
+      "key": {
+        "a": "need",
+        "b": "want",
+        "c": "need",
+        "d": "want"
+      },
+      "relearn": "Rent, basic food and getting to work are needs; upgrades and convenience are wants.",
+      "persona": "any",
+      "source": "needs vs wants"
+    },
+    {
+      "id": "mi-003",
+      "cat": "budget-it",
+      "type": "match",
+      "hook": "Match the budget slice to the category (a rough starting guide).",
+      "relearn": "A rough needs/wants/savings split (around 50/30/20) is a useful starting guide.",
+      "persona": "any",
+      "source": "50/30/20 (a guide)",
+      "pairs": [
+        {
+          "left": "About 50%",
+          "right": "Needs"
+        },
+        {
+          "left": "About 30%",
+          "right": "Wants"
+        },
+        {
+          "left": "About 20%",
+          "right": "Savings & debt"
+        }
+      ]
+    },
+    {
+      "id": "mi-004",
+      "cat": "budget-it",
+      "type": "branch",
+      "hook": "Your first stipend lands and it feels like a lot.",
+      "options": [
+        {
+          "text": "Plan it across needs, savings and some fun first",
+          "consequence": "You make the money last and grow.",
+          "outcome": "planned",
+          "best": true
+        },
+        {
+          "text": "Spend freely now and figure it out later",
+          "consequence": "Planning needs, savings and some fun first makes it last; spend-first usually runs out."
+        }
+      ],
+      "debrief": "Deciding where money goes before spending it is the heart of budgeting.",
+      "relearn": "Plan your income across needs, savings and fun before spending it.",
+      "persona": "Deepak",
+      "source": "plan first"
+    },
+    {
+      "id": "mi-005",
+      "cat": "budget-it",
+      "type": "strike-rewrite",
+      "hook": "\"You can only budget once you earn a lot.\"",
+      "myth": {
+        "un": "You can only budget once you earn a lot.",
+        "re": "Budgeting matters most when money is tight; it's a skill for any income.",
+        "why": "A plan stretches a small income further."
+      },
+      "relearn": "Budgeting matters at any income, most of all when money is tight.",
+      "persona": "Rohan",
+      "source": "any income"
+    },
+    {
+      "id": "mi-006",
+      "cat": "budget-it",
+      "type": "sort",
+      "hook": "Sort: helps your budget, or quietly breaks it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Tracking what you actually spend"
+        },
+        {
+          "id": "b",
+          "text": "Lots of small 'invisible' buys"
+        },
+        {
+          "id": "c",
+          "text": "Setting aside savings first"
+        },
+        {
+          "id": "d",
+          "text": "Lifestyle creep as income rises"
+        }
+      ],
+      "bins": [
+        {
+          "id": "helps",
+          "label": "Helps"
+        },
+        {
+          "id": "breaks",
+          "label": "Breaks it"
+        }
+      ],
+      "key": {
+        "a": "helps",
+        "b": "breaks",
+        "c": "helps",
+        "d": "breaks"
+      },
+      "relearn": "Tracking spend and saving first helps; invisible buys and lifestyle creep break a budget.",
+      "persona": "any",
+      "source": "budget habits"
+    },
+    {
+      "id": "mi-007",
+      "cat": "budget-it",
+      "type": "branch",
+      "hook": "You keep wondering where your money disappears each month.",
+      "options": [
+        {
+          "text": "Track every expense for a month to see the pattern",
+          "consequence": "You find the leaks and fix them.",
+          "outcome": "aware",
+          "best": true
+        },
+        {
+          "text": "Assume you just don't earn enough",
+          "consequence": "Tracking a month of spending usually reveals leaks you can fix, before blaming income."
+        }
+      ],
+      "debrief": "You can't manage what you don't measure; tracking reveals where money really goes.",
+      "relearn": "Track your spending for a month to see where money really goes.",
+      "persona": "any",
+      "source": "tracking"
+    },
+    {
+      "id": "mi-008",
+      "cat": "budget-it",
+      "type": "reflect",
+      "hook": "Sam: paying yourself first, saving before you spend, quietly builds a cushion. Like that idea?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Pay myself first",
+        "Save first"
+      ],
+      "affirm": "Saving a slice before anything else is how the cushion actually gets built.",
+      "relearn": "Pay yourself first: save a slice before you spend the rest.",
+      "persona": "any",
+      "source": "pay yourself first"
+    },
+    {
+      "id": "mi-009",
+      "cat": "budget-it",
+      "type": "match",
+      "hook": "Match the budget category to an example.",
+      "pairs": [
+        {
+          "left": "Needs",
+          "right": "Rent, food, transport"
+        },
+        {
+          "left": "Wants",
+          "right": "Eating out, upgrades"
+        },
+        {
+          "left": "Savings",
+          "right": "Emergency fund, goals"
+        }
+      ],
+      "relearn": "Needs, wants and savings each have clear, everyday examples.",
+      "persona": "any",
+      "source": "categories"
+    },
+    {
+      "id": "mi-010",
+      "cat": "budget-it",
+      "type": "branch",
+      "hook": "A big one-off cost is coming up in a few months.",
+      "options": [
+        {
+          "text": "Set aside a bit each month toward it now",
+          "consequence": "You arrive ready, no panic borrowing.",
+          "outcome": "ready",
+          "best": true
+        },
+        {
+          "text": "Deal with it when it hits",
+          "consequence": "Saving toward a known cost in advance beats panic-borrowing when it lands."
+        }
+      ],
+      "debrief": "Sinking a little aside for known future costs avoids debt later.",
+      "relearn": "Save a little each month toward known future costs.",
+      "persona": "any",
+      "source": "planning ahead"
+    },
+    {
+      "id": "mi-011",
+      "cat": "budget-it",
+      "type": "sort",
+      "hook": "Sort: a fixed cost, or a flexible one you can trim?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Monthly rent"
+        },
+        {
+          "id": "b",
+          "text": "Streaming subscriptions"
+        },
+        {
+          "id": "c",
+          "text": "Eating out often"
+        },
+        {
+          "id": "d",
+          "text": "A loan EMI"
+        }
+      ],
+      "bins": [
+        {
+          "id": "fixed",
+          "label": "Fixed"
+        },
+        {
+          "id": "flexible",
+          "label": "Flexible"
+        }
+      ],
+      "key": {
+        "a": "fixed",
+        "b": "flexible",
+        "c": "flexible",
+        "d": "fixed"
+      },
+      "relearn": "Rent and EMIs are fixed; subscriptions and eating out are flexible costs you can trim.",
+      "persona": "any",
+      "source": "fixed vs flexible"
+    },
+    {
+      "id": "mi-012",
+      "cat": "budget-it",
+      "type": "reflect",
+      "hook": "Sam: a budget is just you telling your money where to go, instead of wondering where it went. Click?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I'm in charge",
+        "Tell it where to go"
+      ],
+      "affirm": "Directing your money on purpose is exactly what taking charge of it feels like.",
+      "relearn": "A budget is you directing your money, instead of wondering where it went.",
+      "persona": "any",
+      "source": "in charge"
+    },
+    {
+      "id": "mi-013",
+      "cat": "budget-it",
+      "type": "branch",
+      "hook": "Friends are spending freely and you feel pressure to match them.",
+      "options": [
+        {
+          "text": "Stick to your plan; you don't have to match anyone",
+          "consequence": "You protect your goals from social pressure.",
+          "outcome": "firm",
+          "best": true
+        },
+        {
+          "text": "Spend to keep up",
+          "consequence": "Matching others' spending wrecks your plan; your budget is yours, not a competition."
+        }
+      ],
+      "debrief": "Spending to keep up with others is a fast route to money stress; your plan is yours.",
+      "relearn": "Stick to your budget; you don't have to match others' spending.",
+      "persona": "Deepak",
+      "source": "social pressure"
+    },
+    {
+      "id": "mi-014",
+      "cat": "budget-it",
+      "type": "sort",
+      "hook": "Sort: a healthy money habit, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Reviewing your budget monthly"
+        },
+        {
+          "id": "b",
+          "text": "Avoiding looking at your balance"
+        },
+        {
+          "id": "c",
+          "text": "Keeping some fun money in the plan"
+        },
+        {
+          "id": "d",
+          "text": "Spending first, counting never"
+        }
+      ],
+      "bins": [
+        {
+          "id": "healthy",
+          "label": "Healthy"
+        },
+        {
+          "id": "not",
+          "label": "Not"
+        }
+      ],
+      "key": {
+        "a": "healthy",
+        "b": "not",
+        "c": "healthy",
+        "d": "not"
+      },
+      "relearn": "Reviewing monthly and budgeting some fun is healthy; avoidance and never counting isn't.",
+      "persona": "any",
+      "source": "habits"
+    },
+    {
+      "id": "mi-015",
+      "cat": "budget-it",
+      "type": "reflect",
+      "hook": "Sam: a budget with a little room for joy is one you'll actually keep. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Room for joy",
+        "Sustainable"
+      ],
+      "affirm": "A realistic budget that includes some fun is the kind that actually lasts.",
+      "relearn": "A budget with room for some joy is one you'll actually keep.",
+      "persona": "any",
+      "source": "sustainable"
+    },
+    {
+      "id": "mi-016",
+      "cat": "save-and-traps",
+      "type": "strike-rewrite",
+      "hook": "\"I'll start saving once I earn more.\"",
+      "myth": {
+        "un": "I'll start saving once I earn more.",
+        "re": "Building the saving habit now, even with small amounts, matters more than the size.",
+        "why": "The habit, not the amount, is what compounds."
+      },
+      "relearn": "Build the saving habit now, even small; the habit matters more than the amount.",
+      "persona": "any",
+      "source": "start now"
+    },
+    {
+      "id": "mi-017",
+      "cat": "save-and-traps",
+      "type": "branch",
+      "hook": "You've got a little spare and aren't sure what to do with it.",
+      "options": [
+        {
+          "text": "Start building an emergency fund",
+          "consequence": "You create a cushion for shocks.",
+          "outcome": "cushioned",
+          "best": true
+        },
+        {
+          "text": "Spend it before it 'disappears'",
+          "consequence": "Starting an emergency fund turns spare money into a real cushion against shocks."
+        }
+      ],
+      "debrief": "An emergency fund, aiming for around three months of essentials, is the first thing to build.",
+      "relearn": "Build an emergency fund (aim for around three months of essentials) first.",
+      "persona": "Ananya",
+      "source": "emergency fund"
+    },
+    {
+      "id": "mi-018",
+      "cat": "save-and-traps",
+      "type": "strike-rewrite",
+      "hook": "\"Buy now, pay later is basically free money.\"",
+      "myth": {
+        "un": "Buy now, pay later is free money.",
+        "re": "BNPL and easy EMIs are debt; they often lead to overspending and missed payments.",
+        "why": "Delaying payment isn't the same as affording it."
+      },
+      "relearn": "Buy-now-pay-later and EMIs are debt, not free money.",
+      "persona": "any",
+      "source": "BNPL"
+    },
+    {
+      "id": "mi-019",
+      "cat": "save-and-traps",
+      "type": "sort",
+      "hook": "Sort: a debt trap, or a sensible money move?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Paying only the minimum on a card"
+        },
+        {
+          "id": "b",
+          "text": "Clearing high-interest debt first"
+        },
+        {
+          "id": "c",
+          "text": "EMIs on lots of wants"
+        },
+        {
+          "id": "d",
+          "text": "Borrowing only what you can repay"
+        }
+      ],
+      "bins": [
+        {
+          "id": "trap",
+          "label": "Debt trap"
+        },
+        {
+          "id": "sensible",
+          "label": "Sensible"
+        }
+      ],
+      "key": {
+        "a": "trap",
+        "b": "sensible",
+        "c": "trap",
+        "d": "sensible"
+      },
+      "relearn": "Minimum-only payments and EMIs on wants are traps; clearing high-interest debt and borrowing within means is sensible.",
+      "persona": "any",
+      "source": "debt traps"
+    },
+    {
+      "id": "mi-020",
+      "cat": "save-and-traps",
+      "type": "strike-rewrite",
+      "hook": "\"Paying just the minimum on a loan or card is fine.\"",
+      "myth": {
+        "un": "Paying just the minimum is fine.",
+        "re": "High-interest debt grows fast; paying only the minimum keeps you stuck for years.",
+        "why": "Interest piles up on what you don't clear."
+      },
+      "relearn": "Paying only the minimum keeps you stuck; high-interest debt grows fast.",
+      "persona": "any",
+      "source": "minimum-payment trap"
+    },
+    {
+      "id": "mi-021",
+      "cat": "save-and-traps",
+      "type": "spot",
+      "hook": "Spot the scam.",
+      "scene": [
+        {
+          "text": "\"Double your money in a week, guaranteed\"",
+          "trick": true
+        },
+        {
+          "text": "A normal salary credited to your account",
+          "trick": false
+        },
+        {
+          "text": "\"Share your OTP to claim your prize\"",
+          "trick": true
+        }
+      ],
+      "why": "Guaranteed-doubling and OTP-asks are scams; a normal salary credit isn't.",
+      "relearn": "Guaranteed returns and OTP requests are scams.",
+      "persona": "any",
+      "source": "scams"
+    },
+    {
+      "id": "mi-022",
+      "cat": "save-and-traps",
+      "type": "branch",
+      "hook": "A message says you've won money, just share an OTP or pay a small 'fee'.",
+      "options": [
+        {
+          "text": "Ignore and report it; never share OTPs or pay fees",
+          "consequence": "You dodge the fraud.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Pay the small fee to claim the prize",
+          "consequence": "Prize-fees and OTP-asks are fraud; never share an OTP or pay to 'claim' winnings."
+        }
+      ],
+      "debrief": "Legitimate winnings never require a fee or your OTP; that's always fraud.",
+      "relearn": "Never share OTPs or pay fees to 'claim' a prize; it's fraud.",
+      "persona": "Meena",
+      "source": "UPI/OTP fraud"
+    },
+    {
+      "id": "mi-023",
+      "cat": "save-and-traps",
+      "type": "strike-rewrite",
+      "hook": "\"A get-rich-quick offer is a real opportunity.\"",
+      "myth": {
+        "un": "A get-rich-quick offer is a real opportunity.",
+        "re": "If it sounds too good to be true, it's a scam, real wealth is built slowly.",
+        "why": "Guaranteed quick riches don't exist."
+      },
+      "relearn": "Too good to be true means a scam; real wealth builds slowly.",
+      "persona": "any",
+      "source": "too good to be true"
+    },
+    {
+      "id": "mi-024",
+      "cat": "save-and-traps",
+      "type": "branch",
+      "hook": "You're tempted to put a want you can't afford on a 12-month EMI.",
+      "options": [
+        {
+          "text": "Wait and save for it instead",
+          "consequence": "You avoid locking future income into a want.",
+          "outcome": "patient",
+          "best": true
+        },
+        {
+          "text": "Take the EMI; it's only a bit each month",
+          "consequence": "EMIs on wants lock up future income; saving for it first is cheaper and safer."
+        }
+      ],
+      "debrief": "Putting wants on EMIs mortgages your future income; saving first is the cheaper path.",
+      "relearn": "Save for wants rather than putting them on EMIs.",
+      "persona": "any",
+      "source": "EMI discipline"
+    },
+    {
+      "id": "mi-025",
+      "cat": "save-and-traps",
+      "type": "sort",
+      "hook": "Sort: builds financial safety, or risk?",
+      "items": [
+        {
+          "id": "a",
+          "text": "An emergency fund"
+        },
+        {
+          "id": "b",
+          "text": "Maxed-out credit"
+        },
+        {
+          "id": "c",
+          "text": "Spending less than you earn"
+        },
+        {
+          "id": "d",
+          "text": "Borrowing for everyday wants"
+        }
+      ],
+      "bins": [
+        {
+          "id": "safety",
+          "label": "Safety"
+        },
+        {
+          "id": "risk",
+          "label": "Risk"
+        }
+      ],
+      "key": {
+        "a": "safety",
+        "b": "risk",
+        "c": "safety",
+        "d": "risk"
+      },
+      "relearn": "An emergency fund and living below your means build safety; maxed credit and borrowing for wants is risk.",
+      "persona": "any",
+      "source": "safety vs risk"
+    },
+    {
+      "id": "mi-026",
+      "cat": "save-and-traps",
+      "type": "match",
+      "hook": "Match the small habit to what it builds.",
+      "relearn": "Small, regular money habits compound into real results.",
+      "persona": "any",
+      "source": "start small",
+      "pairs": [
+        {
+          "left": "Small regular saving",
+          "right": "Adds up over time"
+        },
+        {
+          "left": "Paying yourself first",
+          "right": "A cushion builds"
+        },
+        {
+          "left": "Tracking spend",
+          "right": "Leaks found"
+        }
+      ]
+    },
+    {
+      "id": "mi-027",
+      "cat": "save-and-traps",
+      "type": "branch",
+      "hook": "A friend pressures you to join a scheme that pays you to recruit others.",
+      "options": [
+        {
+          "text": "Decline; pay-to-recruit schemes are usually scams",
+          "consequence": "You avoid losing money and friends.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Join since your friend's in",
+          "consequence": "Schemes that mainly pay for recruiting are usually scams; a friend being in doesn't change that."
+        }
+      ],
+      "debrief": "Recruit-to-earn schemes typically collapse and cost the latecomers; steer clear.",
+      "relearn": "Decline pay-to-recruit schemes; they're usually scams.",
+      "persona": "any",
+      "source": "pyramid schemes"
+    },
+    {
+      "id": "mi-028",
+      "cat": "save-and-traps",
+      "type": "sort",
+      "hook": "Sort: a smart borrowing reason, or a warning sign?",
+      "items": [
+        {
+          "id": "a",
+          "text": "An asset or education that pays off"
+        },
+        {
+          "id": "b",
+          "text": "Borrowing to fund a lifestyle"
+        },
+        {
+          "id": "c",
+          "text": "A genuine emergency, briefly"
+        },
+        {
+          "id": "d",
+          "text": "Borrowing to repay other debt repeatedly"
+        }
+      ],
+      "bins": [
+        {
+          "id": "smart",
+          "label": "Smart-ish"
+        },
+        {
+          "id": "warning",
+          "label": "Warning sign"
+        }
+      ],
+      "key": {
+        "a": "smart",
+        "b": "warning",
+        "c": "smart",
+        "d": "warning"
+      },
+      "relearn": "Borrowing for an asset or a brief emergency can make sense; funding lifestyle or debt-on-debt is a warning.",
+      "persona": "any",
+      "source": "borrowing"
+    },
+    {
+      "id": "mi-029",
+      "cat": "save-and-traps",
+      "type": "spot",
+      "hook": "Spot the early sign of a debt spiral.",
+      "scene": [
+        {
+          "text": "Using new debt to pay old debt",
+          "trick": true
+        },
+        {
+          "text": "Clearing a card in full each month",
+          "trick": false
+        },
+        {
+          "text": "Only ever making minimum payments",
+          "trick": true
+        }
+      ],
+      "why": "Debt-to-pay-debt and minimum-only payments signal a spiral; clearing in full doesn't.",
+      "relearn": "Borrowing to repay debt and minimum-only payments are debt-spiral signs.",
+      "persona": "any",
+      "source": "debt spiral"
+    },
+    {
+      "id": "mi-030",
+      "cat": "save-and-traps",
+      "type": "reflect",
+      "hook": "Sam: a cushion of savings is what turns an emergency into an inconvenience. Worth building?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Cushion it",
+        "Worth building"
+      ],
+      "affirm": "A savings cushion is exactly what keeps a bad week from becoming a crisis.",
+      "relearn": "A savings cushion turns an emergency into a mere inconvenience.",
+      "persona": "any",
+      "source": "the cushion"
+    },
+    {
+      "id": "mi-031",
+      "cat": "save-and-traps",
+      "type": "branch",
+      "hook": "You realise subscriptions are quietly draining your account.",
+      "options": [
+        {
+          "text": "Audit and cancel the ones you don't use",
+          "consequence": "You plug a silent leak.",
+          "outcome": "plugged",
+          "best": true
+        },
+        {
+          "text": "Leave them; they're only small",
+          "consequence": "Small unused subscriptions add up; auditing and cancelling plugs a silent leak."
+        }
+      ],
+      "debrief": "Forgotten subscriptions are a classic silent drain; an audit reclaims real money.",
+      "relearn": "Audit and cancel unused subscriptions; small leaks add up.",
+      "persona": "any",
+      "source": "silent leaks"
+    },
+    {
+      "id": "mi-032",
+      "cat": "earn-and-ask",
+      "type": "strike-rewrite",
+      "hook": "\"The number on your payslip is what you take home.\"",
+      "myth": {
+        "un": "Your gross pay is what you take home.",
+        "re": "Take-home (net) pay is after deductions like tax and provident fund; gross is before.",
+        "why": "Knowing the difference avoids nasty surprises."
+      },
+      "relearn": "Take-home (net) pay is after deductions; gross is the bigger 'before' number.",
+      "persona": "Deepak",
+      "source": "gross vs net"
+    },
+    {
+      "id": "mi-033",
+      "cat": "earn-and-ask",
+      "type": "match",
+      "hook": "Match the payslip term to what it means.",
+      "pairs": [
+        {
+          "left": "Gross pay",
+          "right": "Before deductions"
+        },
+        {
+          "left": "Net pay",
+          "right": "What reaches your account"
+        },
+        {
+          "left": "Deductions",
+          "right": "Tax, provident fund, etc."
+        }
+      ],
+      "relearn": "Gross is before deductions, net is what lands, deductions are tax and the like.",
+      "persona": "any",
+      "source": "payslip basics"
+    },
+    {
+      "id": "mi-034",
+      "cat": "earn-and-ask",
+      "type": "strike-rewrite",
+      "hook": "\"Negotiating your pay is greedy or rude.\"",
+      "myth": {
+        "un": "Negotiating your pay is greedy.",
+        "re": "Knowing your worth and asking is normal, professional and smart.",
+        "why": "Employers expect it; not asking costs you."
+      },
+      "relearn": "Negotiating pay is normal and smart, not greedy.",
+      "persona": "any",
+      "source": "negotiation"
+    },
+    {
+      "id": "mi-035",
+      "cat": "earn-and-ask",
+      "type": "role-play",
+      "hook": "You're offered a role and the pay is a bit low for the work.",
+      "setup": "Ask, politely and prepared. Say:",
+      "yourLine": [
+        {
+          "text": "\"Thanks, I'm excited. Based on the role and market rate, could we look at the figure?\"",
+          "best": true
+        },
+        {
+          "text": "Accept silently to avoid awkwardness"
+        }
+      ],
+      "relearn": "Politely ask to revisit pay based on the role and market rate.",
+      "persona": "any",
+      "source": "the ask"
+    },
+    {
+      "id": "mi-036",
+      "cat": "earn-and-ask",
+      "type": "strike-rewrite",
+      "hook": "\"The gender pay gap isn't really a thing anymore.\"",
+      "myth": {
+        "un": "The gender pay gap isn't really a thing.",
+        "re": "In India and elsewhere a real gap persists, and women's workforce participation is low; it's worth knowing and closing.",
+        "why": "Awareness is the first step to fair pay."
+      },
+      "relearn": "A real gender pay gap persists; knowing it is the first step to closing it.",
+      "persona": "any",
+      "source": "the pay gap"
+    },
+    {
+      "id": "mi-037",
+      "cat": "earn-and-ask",
+      "type": "branch",
+      "hook": "You suspect you're being paid less than peers for the same work.",
+      "options": [
+        {
+          "text": "Research the market rate and raise it professionally",
+          "consequence": "You advocate for fair pay with evidence.",
+          "outcome": "fair",
+          "best": true
+        },
+        {
+          "text": "Assume nothing can be done",
+          "consequence": "Researching the market rate and raising it professionally is how fair pay gets addressed."
+        }
+      ],
+      "debrief": "Knowing the market rate turns a vague feeling into a fair, evidence-based ask.",
+      "relearn": "Research the market rate and raise unfair pay professionally.",
+      "persona": "any",
+      "source": "fair pay"
+    },
+    {
+      "id": "mi-038",
+      "cat": "earn-and-ask",
+      "type": "sort",
+      "hook": "Sort: raises your earning power, or doesn't?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Building in-demand skills"
+        },
+        {
+          "id": "b",
+          "text": "Never asking for more"
+        },
+        {
+          "id": "c",
+          "text": "Knowing your market value"
+        },
+        {
+          "id": "d",
+          "text": "Undervaluing yourself by default"
+        }
+      ],
+      "bins": [
+        {
+          "id": "raises",
+          "label": "Raises it"
+        },
+        {
+          "id": "not",
+          "label": "Doesn't"
+        }
+      ],
+      "key": {
+        "a": "raises",
+        "b": "not",
+        "c": "raises",
+        "d": "not"
+      },
+      "relearn": "Skills and knowing your value raise earning power; never asking and self-undervaluing don't.",
+      "persona": "any",
+      "source": "earning power"
+    },
+    {
+      "id": "mi-039",
+      "cat": "earn-and-ask",
+      "type": "role-play",
+      "hook": "In a review, you want to make the case for a raise.",
+      "relearn": "Make an evidence-based case for a raise; don't wait to be noticed.",
+      "persona": "any",
+      "source": "making the case",
+      "setup": "Make it evidence-based. Say:",
+      "yourLine": [
+        {
+          "text": "\"Here's the value I've added this year, I'd like to discuss a raise.\"",
+          "best": true
+        },
+        {
+          "text": "Say nothing and hope they notice"
+        }
+      ]
+    },
+    {
+      "id": "mi-040",
+      "cat": "earn-and-ask",
+      "type": "branch",
+      "hook": "You get a first payslip and don't understand the deductions.",
+      "options": [
+        {
+          "text": "Learn what each line means; it's your money",
+          "consequence": "You understand and can check your pay.",
+          "outcome": "informed",
+          "best": true
+        },
+        {
+          "text": "Ignore it; the number is the number",
+          "consequence": "Understanding deductions lets you check you're paid right; it's your money."
+        }
+      ],
+      "debrief": "Reading your own payslip is basic financial self-defence.",
+      "relearn": "Learn what each payslip deduction means; it's your money.",
+      "persona": "any",
+      "source": "read your payslip"
+    },
+    {
+      "id": "mi-041",
+      "cat": "earn-and-ask",
+      "type": "reflect",
+      "hook": "Sam: more than one income stream, or a growing skill, is a cushion in itself. Worth aiming for?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Build skills",
+        "More streams"
+      ],
+      "affirm": "Growing skills and income options is its own kind of financial security.",
+      "relearn": "Growing skills and income streams is its own financial security.",
+      "persona": "any",
+      "source": "income streams"
+    },
+    {
+      "id": "mi-042",
+      "cat": "earn-and-ask",
+      "type": "sort",
+      "hook": "Sort: smart at a new job, or a red flag to question?",
+      "items": [
+        {
+          "id": "a",
+          "text": "A clear payslip and contract"
+        },
+        {
+          "id": "b",
+          "text": "Being paid 'off the books', vaguely"
+        },
+        {
+          "id": "c",
+          "text": "Knowing your role and rate"
+        },
+        {
+          "id": "d",
+          "text": "Pay that keeps 'getting delayed'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "smart",
+          "label": "Good sign"
+        },
+        {
+          "id": "flag",
+          "label": "Red flag"
+        }
+      ],
+      "key": {
+        "a": "smart",
+        "b": "flag",
+        "c": "smart",
+        "d": "flag"
+      },
+      "relearn": "A clear payslip, contract and rate are good signs; vague off-books pay and delays are red flags.",
+      "persona": "Meena",
+      "source": "job red flags"
+    },
+    {
+      "id": "mi-043",
+      "cat": "earn-and-ask",
+      "type": "role-play",
+      "hook": "A friend is too nervous to negotiate a fair salary.",
+      "setup": "Encourage them. Say:",
+      "yourLine": [
+        {
+          "text": "\"Asking isn't rude, it's normal. Know your worth and just ask, calmly.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, better not rock the boat.\""
+        }
+      ],
+      "relearn": "Encourage a friend that negotiating is normal and worth doing.",
+      "persona": "any",
+      "source": "encouraging"
+    },
+    {
+      "id": "mi-044",
+      "cat": "earn-and-ask",
+      "type": "branch",
+      "hook": "A 'job' asks you to pay an upfront fee for training or a deposit.",
+      "options": [
+        {
+          "text": "Walk away; real jobs don't charge you to work",
+          "consequence": "You avoid a job scam.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Pay it to secure the role",
+          "consequence": "Legitimate jobs don't charge you upfront fees; that's a scam, walk away."
+        }
+      ],
+      "debrief": "Upfront 'fees' to get a job are a classic scam; real employers pay you, not the reverse.",
+      "relearn": "Real jobs don't charge you fees to work; upfront-fee 'jobs' are scams.",
+      "persona": "any",
+      "source": "job scams"
+    },
+    {
+      "id": "mi-045",
+      "cat": "earn-and-ask",
+      "type": "reflect",
+      "hook": "Sam: your earning power grows with your skills and your willingness to ask. Feel in control of it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "In my hands",
+        "Skills + asking"
+      ],
+      "affirm": "Skills plus the confidence to ask put your earning power genuinely in your hands.",
+      "relearn": "Your earning power grows with your skills and willingness to ask.",
+      "persona": "any",
+      "source": "control"
+    },
+    {
+      "id": "mi-046",
+      "cat": "earn-and-ask",
+      "type": "spot",
+      "hook": "Spot the fair, professional pay ask.",
+      "scene": [
+        {
+          "text": "\"Based on market rate, can we revisit the figure?\"",
+          "trick": false
+        },
+        {
+          "text": "\"Pay me more or I'll quit today\"",
+          "trick": true
+        },
+        {
+          "text": "\"Here's the value I'd add, could we discuss pay?\"",
+          "trick": false
+        }
+      ],
+      "why": "Evidence-based, calm asks are professional; ultimatums aren't.",
+      "relearn": "A fair pay ask is calm and evidence-based, not an ultimatum.",
+      "persona": "any",
+      "source": "how to ask"
+    },
+    {
+      "id": "mi-047",
+      "cat": "money-and-love",
+      "type": "strike-rewrite",
+      "hook": "\"Men handle the money; women don't need to worry about it.\"",
+      "myth": {
+        "un": "Men handle the money; women don't need to worry about it.",
+        "re": "Everyone, especially women, needs financial knowledge and independence.",
+        "why": "Not knowing your own finances is a vulnerability."
+      },
+      "relearn": "Everyone, especially women, needs financial knowledge and independence.",
+      "persona": "Aarti",
+      "source": "gendered money myth"
+    },
+    {
+      "id": "mi-048",
+      "cat": "money-and-love",
+      "type": "strike-rewrite",
+      "hook": "\"A partner controlling all the money is just being practical.\"",
+      "myth": {
+        "un": "A partner controlling all the money is just practical.",
+        "re": "Controlling all the money, withholding it, or blocking your access is financial control, a recognised form of abuse.",
+        "why": "Control over money is control over your freedom."
+      },
+      "relearn": "Controlling or withholding all the money is financial control, a form of abuse.",
+      "persona": "any",
+      "source": "financial control"
+    },
+    {
+      "id": "mi-049",
+      "cat": "money-and-love",
+      "type": "spot",
+      "hook": "Spot the financial control.",
+      "scene": [
+        {
+          "text": "Taking your earnings and giving an 'allowance'",
+          "trick": true
+        },
+        {
+          "text": "Sharing money decisions openly",
+          "trick": false
+        },
+        {
+          "text": "Blocking your access to your own account",
+          "trick": true
+        }
+      ],
+      "why": "Taking your earnings and blocking your account are financial control; open shared decisions aren't.",
+      "relearn": "Taking your earnings or blocking your account is financial control.",
+      "persona": "any",
+      "source": "spotting control"
+    },
+    {
+      "id": "mi-050",
+      "cat": "money-and-love",
+      "type": "sort",
+      "hook": "Sort: fair money in a relationship, or a red flag?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Open talk about shared costs"
+        },
+        {
+          "id": "b",
+          "text": "One partner hiding all finances"
+        },
+        {
+          "id": "c",
+          "text": "Both keeping their own accounts"
+        },
+        {
+          "id": "d",
+          "text": "Being made to justify every rupee"
+        }
+      ],
+      "bins": [
+        {
+          "id": "fair",
+          "label": "Fair"
+        },
+        {
+          "id": "flag",
+          "label": "Red flag"
+        }
+      ],
+      "key": {
+        "a": "fair",
+        "b": "flag",
+        "c": "fair",
+        "d": "flag"
+      },
+      "relearn": "Open talk and your own account are fair; hiding finances or policing your spending is a red flag.",
+      "persona": "any",
+      "source": "fair vs control"
+    },
+    {
+      "id": "mi-051",
+      "cat": "money-and-love",
+      "type": "strike-rewrite",
+      "hook": "\"Coerced debt, taking a loan because a partner pressured you, is your problem alone.\"",
+      "myth": {
+        "un": "Debt a partner pressured you into is just your problem.",
+        "re": "Coerced debt is a recognised tactic of economic abuse; it's not a personal failing.",
+        "why": "The pressure, not you, created it."
+      },
+      "relearn": "Coerced debt is a tactic of economic abuse, not a personal failing.",
+      "persona": "any",
+      "source": "coerced debt"
+    },
+    {
+      "id": "mi-052",
+      "cat": "money-and-love",
+      "type": "branch",
+      "hook": "Your partner insists on controlling your salary 'for safekeeping'.",
+      "options": [
+        {
+          "text": "Keep control of your own earnings and account",
+          "consequence": "You protect your independence.",
+          "outcome": "independent",
+          "best": true
+        },
+        {
+          "text": "Hand it over to keep the peace",
+          "consequence": "Your earnings and account stay yours; handing over all control is financial control, not safekeeping."
+        }
+      ],
+      "debrief": "Keeping your own earnings and account is a basic safeguard of your independence.",
+      "relearn": "Keep control of your own earnings and account.",
+      "persona": "any",
+      "source": "your own money"
+    },
+    {
+      "id": "mi-053",
+      "cat": "money-and-love",
+      "type": "role-play",
+      "hook": "A partner wants to merge all finances under their control.",
+      "relearn": "Share decisions and split fairly, but keep your own account.",
+      "persona": "any",
+      "source": "fair money talk",
+      "setup": "Hold a fair line. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'm happy to share decisions and split fairly, and I'm keeping my own account too.\"",
+          "best": true
+        },
+        {
+          "text": "Hand over all control to keep the peace"
+        }
+      ]
+    },
+    {
+      "id": "mi-054",
+      "cat": "money-and-love",
+      "type": "branch",
+      "hook": "A friend hints their partner controls all their money and they feel trapped.",
+      "options": [
+        {
+          "text": "Name it as financial control and share help routes",
+          "consequence": "You help them see it and find support.",
+          "outcome": "supported",
+          "best": true
+        },
+        {
+          "text": "Tell them that's just how marriage works",
+          "consequence": "Financial control is abuse, not 'how it works'; naming it and sharing help routes supports them."
+        }
+      ],
+      "debrief": "Naming financial control and pointing to help (181/1091) can be a real lifeline.",
+      "relearn": "Name financial control for what it is and share help routes (181/1091).",
+      "persona": "any",
+      "source": "supporting a friend"
+    },
+    {
+      "id": "mi-055",
+      "cat": "money-and-love",
+      "type": "role-play",
+      "hook": "You and a partner need to sort out shared expenses fairly.",
+      "setup": "Open the talk plainly. Say:",
+      "yourLine": [
+        {
+          "text": "\"Let's set up how we split things fairly, and both keep our own accounts too.\"",
+          "best": true
+        },
+        {
+          "text": "Just let one of you control it all"
+        }
+      ],
+      "relearn": "Agree a fair split openly, and both keep your own accounts.",
+      "persona": "any",
+      "source": "the money talk"
+    },
+    {
+      "id": "mi-056",
+      "cat": "money-and-love",
+      "type": "sort",
+      "hook": "Sort: a sign of financial control, or normal shared finances?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Deciding big spends together"
+        },
+        {
+          "id": "b",
+          "text": "Hiding accounts and debts"
+        },
+        {
+          "id": "c",
+          "text": "Both having spending freedom"
+        },
+        {
+          "id": "d",
+          "text": "Forbidding you from working"
+        }
+      ],
+      "bins": [
+        {
+          "id": "normal",
+          "label": "Normal"
+        },
+        {
+          "id": "control",
+          "label": "Control"
+        }
+      ],
+      "key": {
+        "a": "normal",
+        "b": "control",
+        "c": "normal",
+        "d": "control"
+      },
+      "relearn": "Joint big decisions and mutual freedom are normal; hiding finances or forbidding work is control.",
+      "persona": "any",
+      "source": "control signs"
+    },
+    {
+      "id": "mi-057",
+      "cat": "money-and-love",
+      "type": "strike-rewrite",
+      "hook": "\"Being financially dependent on a partner is fine if you trust them.\"",
+      "myth": {
+        "un": "Financial dependence is fine if you trust them.",
+        "re": "Financial independence is your safety net and freedom, regardless of how much you trust someone.",
+        "why": "Trust can't replace your own safety net."
+      },
+      "relearn": "Keep your financial independence as a safety net, regardless of trust.",
+      "persona": "any",
+      "source": "independence as safety"
+    },
+    {
+      "id": "mi-058",
+      "cat": "money-and-love",
+      "type": "branch",
+      "hook": "You're considering giving up your job because a partner 'prefers' it.",
+      "options": [
+        {
+          "text": "Think hard about keeping your own income and autonomy",
+          "consequence": "You protect your long-term freedom.",
+          "outcome": "autonomous",
+          "best": true
+        },
+        {
+          "text": "Quit to please them",
+          "consequence": "Keeping your own income protects your autonomy; a partner 'preferring' you depend on them is a warning."
+        }
+      ],
+      "debrief": "A partner who wants you financially dependent is a warning sign, not a romantic one.",
+      "relearn": "Protect your own income and autonomy; pressure to depend is a warning.",
+      "persona": "Aarti",
+      "source": "keeping autonomy"
+    },
+    {
+      "id": "mi-059",
+      "cat": "money-and-love",
+      "type": "reflect",
+      "hook": "Sam: your own bank account and income are quietly some of the most powerful things you can have. Feel it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "My own account",
+        "Powerful"
+      ],
+      "affirm": "Your own account and income are real power, and a real safety net.",
+      "relearn": "Your own bank account and income are real power and safety.",
+      "persona": "any",
+      "source": "your own account"
+    },
+    {
+      "id": "mi-060",
+      "cat": "money-and-love",
+      "type": "sort",
+      "hook": "Sort: protects your financial independence, or erodes it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Keeping your own account"
+        },
+        {
+          "id": "b",
+          "text": "Signing blank documents for a partner"
+        },
+        {
+          "id": "c",
+          "text": "Knowing your shared finances"
+        },
+        {
+          "id": "d",
+          "text": "Letting someone hide debts in your name"
+        }
+      ],
+      "bins": [
+        {
+          "id": "protects",
+          "label": "Protects"
+        },
+        {
+          "id": "erodes",
+          "label": "Erodes"
+        }
+      ],
+      "key": {
+        "a": "protects",
+        "b": "erodes",
+        "c": "protects",
+        "d": "erodes"
+      },
+      "relearn": "Your own account and knowing the finances protects independence; blank signatures and hidden debts erode it.",
+      "persona": "any",
+      "source": "protecting independence"
+    },
+    {
+      "id": "mi-061",
+      "cat": "money-and-love",
+      "type": "branch",
+      "hook": "A partner asks you to take a loan in your name for them.",
+      "options": [
+        {
+          "text": "Decline unless it's truly fair and transparent to you",
+          "consequence": "You avoid coerced debt.",
+          "outcome": "protected",
+          "best": true
+        },
+        {
+          "text": "Do it to prove your love",
+          "consequence": "Taking debt in your name under pressure is coerced debt; only agree if it's genuinely fair and transparent."
+        }
+      ],
+      "debrief": "Debt in your name should never be about proving love; that's how coerced debt traps people.",
+      "relearn": "Don't take debt in your name under pressure; that's coerced debt.",
+      "persona": "any",
+      "source": "coerced debt"
+    },
+    {
+      "id": "mi-062",
+      "cat": "money-and-love",
+      "type": "role-play",
+      "hook": "You want to set a money-as-fairness tone with a new partner early.",
+      "relearn": "Money should add fairness to love, never become a means of control.",
+      "persona": "any",
+      "source": "the frame",
+      "setup": "Name it warmly. Say:",
+      "yourLine": [
+        {
+          "text": "\"Let's always keep money open and fair between us, never a way to control each other.\"",
+          "best": true
+        },
+        {
+          "text": "Avoid the topic entirely"
+        }
+      ]
+    },
+    {
+      "id": "mi-063",
+      "cat": "money-is-freedom",
+      "type": "reflect",
+      "hook": "Sam: money isn't just money, it's choices, safety, and the power to walk away. Feel the weight of that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Choices & safety",
+        "Power to leave"
+      ],
+      "affirm": "Money as choices, safety and the power to walk away is exactly why this matters.",
+      "relearn": "Money is choices, safety and the power to walk away.",
+      "persona": "any",
+      "source": "money = freedom"
+    },
+    {
+      "id": "mi-064",
+      "cat": "money-is-freedom",
+      "type": "strike-rewrite",
+      "hook": "\"Money and finance are too complicated for someone like me.\"",
+      "myth": {
+        "un": "Finance is too complicated for someone like me.",
+        "re": "The basics, budgeting, saving, avoiding debt, are learnable by anyone; you don't need to be an expert.",
+        "why": "You only need the basics to take control."
+      },
+      "relearn": "The money basics are learnable by anyone; you don't need to be an expert.",
+      "persona": "Zoya",
+      "source": "it's learnable"
+    },
+    {
+      "id": "mi-065",
+      "cat": "money-is-freedom",
+      "type": "branch",
+      "hook": "You don't have your own bank account yet.",
+      "options": [
+        {
+          "text": "Open one; it's the foundation of your independence",
+          "consequence": "You take the first step to financial autonomy.",
+          "outcome": "foundation",
+          "best": true
+        },
+        {
+          "text": "Keep using someone else's",
+          "consequence": "Your own account is the foundation of independence; opening one is step one."
+        }
+      ],
+      "debrief": "Your own bank account is the literal foundation of financial independence.",
+      "relearn": "Open your own bank account; it's the foundation of independence.",
+      "persona": "any",
+      "source": "your own account"
+    },
+    {
+      "id": "mi-066",
+      "cat": "money-is-freedom",
+      "type": "role-play",
+      "hook": "Your sister thinks money just isn't her concern.",
+      "relearn": "Economic independence is a foundation of equality, especially for women.",
+      "persona": "Aarti",
+      "source": "equality",
+      "setup": "Open the door for her. Say:",
+      "yourLine": [
+        {
+          "text": "\"Your own money is your freedom, let's get you an account and a saving habit.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, leave it to the men.\""
+        }
+      ]
+    },
+    {
+      "id": "mi-067",
+      "cat": "money-is-freedom",
+      "type": "sort",
+      "hook": "Sort: builds your independence, or chips at it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Earning your own income"
+        },
+        {
+          "id": "b",
+          "text": "Having no money of your own"
+        },
+        {
+          "id": "c",
+          "text": "Savings you control"
+        },
+        {
+          "id": "d",
+          "text": "Total dependence on someone"
+        }
+      ],
+      "bins": [
+        {
+          "id": "builds",
+          "label": "Builds it"
+        },
+        {
+          "id": "chips",
+          "label": "Chips at it"
+        }
+      ],
+      "key": {
+        "a": "builds",
+        "b": "chips",
+        "c": "builds",
+        "d": "chips"
+      },
+      "relearn": "Your own income and savings build independence; having no money of your own chips at it.",
+      "persona": "any",
+      "source": "independence"
+    },
+    {
+      "id": "mi-068",
+      "cat": "money-is-freedom",
+      "type": "branch",
+      "hook": "You could rely on family money or build your own; it feels easier to rely.",
+      "options": [
+        {
+          "text": "Start building your own, even slowly",
+          "consequence": "You grow real, lasting independence.",
+          "outcome": "independent",
+          "best": true
+        },
+        {
+          "text": "Just rely indefinitely",
+          "consequence": "Building your own income, even slowly, grows independence that reliance can't."
+        }
+      ],
+      "debrief": "Even slow progress toward your own income is worth more than indefinite reliance.",
+      "relearn": "Build your own income, even slowly; it's real independence.",
+      "persona": "Deepak",
+      "source": "build your own"
+    },
+    {
+      "id": "mi-069",
+      "cat": "money-is-freedom",
+      "type": "role-play",
+      "hook": "A friend is about to give up their income for a partner.",
+      "relearn": "Encourage a friend to keep their own income as a safety net.",
+      "persona": "any",
+      "source": "encouraging independence",
+      "setup": "Encourage them. Say:",
+      "yourLine": [
+        {
+          "text": "\"Keep your own income, it's your safety net, no matter how much you trust them.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, if you trust them it's fine.\""
+        }
+      ]
+    },
+    {
+      "id": "mi-070",
+      "cat": "money-is-freedom",
+      "type": "sort",
+      "hook": "Sort: a step toward financial freedom, or away from it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Learning the basics now"
+        },
+        {
+          "id": "b",
+          "text": "Avoiding all money matters"
+        },
+        {
+          "id": "c",
+          "text": "Keeping some savings of your own"
+        },
+        {
+          "id": "d",
+          "text": "Letting someone else hold all of it"
+        }
+      ],
+      "bins": [
+        {
+          "id": "toward",
+          "label": "Toward freedom"
+        },
+        {
+          "id": "away",
+          "label": "Away"
+        }
+      ],
+      "key": {
+        "a": "toward",
+        "b": "away",
+        "c": "toward",
+        "d": "away"
+      },
+      "relearn": "Learning the basics and keeping your own savings moves toward freedom; avoidance and total dependence move away.",
+      "persona": "any",
+      "source": "toward freedom"
+    },
+    {
+      "id": "mi-071",
+      "cat": "money-is-freedom",
+      "type": "reflect",
+      "hook": "Sam: every small step, an account, a saving habit, a skill, adds to your freedom. Worth the steps?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Step by step",
+        "Worth it"
+      ],
+      "affirm": "Each small step compounds into real, lasting freedom; they all count.",
+      "relearn": "Every small money step, an account, savings, a skill, adds to your freedom.",
+      "persona": "any",
+      "source": "small steps"
+    },
+    {
+      "id": "mi-072",
+      "cat": "money-is-freedom",
+      "type": "branch",
+      "hook": "You want to help a younger sibling value financial independence early.",
+      "options": [
+        {
+          "text": "Teach them to earn, save and own their own money",
+          "consequence": "You pass on real independence.",
+          "outcome": "passed-on",
+          "best": true
+        },
+        {
+          "text": "Tell them money's not their concern yet",
+          "consequence": "Teaching them to earn, save and own their money early sets up real independence."
+        }
+      ],
+      "debrief": "Passing on the value of financial independence early is a gift, especially across generations.",
+      "relearn": "Teach the next generation to earn, save and own their own money.",
+      "persona": "any",
+      "source": "passing it on"
+    },
+    {
+      "id": "mi-073",
+      "cat": "money-is-freedom",
+      "type": "match",
+      "hook": "Match the foundation to what it gives you.",
+      "relearn": "An account, a saving habit and your own income are foundations of freedom.",
+      "persona": "any",
+      "source": "foundations",
+      "pairs": [
+        {
+          "left": "Your own account",
+          "right": "A base for everything"
+        },
+        {
+          "left": "A saving habit",
+          "right": "A growing cushion"
+        },
+        {
+          "left": "Your own income",
+          "right": "Real independence"
+        }
+      ]
+    },
+    {
+      "id": "mi-074",
+      "cat": "money-is-freedom",
+      "type": "strike-rewrite",
+      "hook": "\"Independence is selfish; a good partner shares everything.\"",
+      "myth": {
+        "un": "Keeping financial independence is selfish.",
+        "re": "Independence and a healthy partnership go together; your safety net protects you both.",
+        "why": "Independence isn't the opposite of sharing."
+      },
+      "relearn": "Financial independence and a healthy partnership go together; it's not selfish.",
+      "persona": "any",
+      "source": "not selfish"
+    },
+    {
+      "id": "mi-075",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match the tool to the job.",
+      "pairs": [
+        {
+          "left": "A simple budget",
+          "right": "See where money goes"
+        },
+        {
+          "left": "An emergency fund",
+          "right": "Cushion the shocks"
+        },
+        {
+          "left": "A market-rate check",
+          "right": "Negotiate fair pay"
+        }
+      ],
+      "relearn": "A budget, an emergency fund and a rate check each do a clear money job.",
+      "persona": "any",
+      "source": "the tools"
+    },
+    {
+      "id": "mi-076",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: a reliable money step, or a trap?",
+      "items": [
+        {
+          "id": "a",
+          "text": "A written monthly budget"
+        },
+        {
+          "id": "b",
+          "text": "A 'guaranteed double your money' tip"
+        },
+        {
+          "id": "c",
+          "text": "An emergency fund"
+        },
+        {
+          "id": "d",
+          "text": "Borrowing for everyday wants"
+        }
+      ],
+      "bins": [
+        {
+          "id": "reliable",
+          "label": "Reliable"
+        },
+        {
+          "id": "trap",
+          "label": "Trap"
+        }
+      ],
+      "key": {
+        "a": "reliable",
+        "b": "trap",
+        "c": "reliable",
+        "d": "trap"
+      },
+      "relearn": "A budget and emergency fund are reliable; 'guaranteed doubling' and borrowing for wants are traps.",
+      "persona": "any",
+      "source": "reliable steps"
+    },
+    {
+      "id": "mi-077",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match the issue to where help lives.",
+      "pairs": [
+        {
+          "left": "Financial control or abuse",
+          "right": "181 / 1091"
+        },
+        {
+          "left": "A scam or fraud",
+          "right": "cybercrime.gov.in / 1930"
+        },
+        {
+          "left": "Money basics",
+          "right": "A trusted, qualified source"
+        }
+      ],
+      "relearn": "181/1091 for financial abuse, 1930 for fraud, a qualified source for the basics.",
+      "persona": "any",
+      "source": "help routes"
+    },
+    {
+      "id": "mi-078",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: this is education, not personal financial advice, so check big decisions with a qualified person. Fair?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Check the big ones",
+        "Makes sense"
+      ],
+      "affirm": "Treating this as solid education, and getting qualified help for big decisions, is exactly right.",
+      "relearn": "This is education, not advice; check big money decisions with a qualified person.",
+      "persona": "any",
+      "source": "not advice"
+    },
+    {
+      "id": "mi-079",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "A friend is drowning in debt and feels too ashamed to ask for help.",
+      "options": [
+        {
+          "text": "Reassure them and point to real help, no shame",
+          "consequence": "You help them take the first step out.",
+          "outcome": "supported",
+          "best": true
+        },
+        {
+          "text": "Judge them for getting into it",
+          "consequence": "Reassurance and real help routes, without shame, get a friend out of a debt spiral faster than judgement."
+        }
+      ],
+      "debrief": "Debt shame keeps people stuck; a non-judgmental nudge toward help is what frees them.",
+      "relearn": "Reassure a friend in debt and point to real help, without shame.",
+      "persona": "any",
+      "source": "supporting a friend"
+    },
+    {
+      "id": "mi-080",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: a reliable source of money info, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "A bank or qualified advisor"
+        },
+        {
+          "id": "b",
+          "text": "A stranger's 'hot tip'"
+        },
+        {
+          "id": "c",
+          "text": "Official government finance info"
+        },
+        {
+          "id": "d",
+          "text": "A viral 'get rich' reel"
+        }
+      ],
+      "bins": [
+        {
+          "id": "reliable",
+          "label": "Reliable"
+        },
+        {
+          "id": "not",
+          "label": "Not"
+        }
+      ],
+      "key": {
+        "a": "reliable",
+        "b": "not",
+        "c": "reliable",
+        "d": "not"
+      },
+      "relearn": "Banks, advisors and official info are reliable; hot tips and 'get rich' reels aren't.",
+      "persona": "any",
+      "source": "reliable info"
+    },
+    {
+      "id": "mi-081",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match the money skill to its payoff.",
+      "relearn": "Budgeting, saving and earning each have a clear payoff.",
+      "persona": "any",
+      "source": "the toolkit",
+      "pairs": [
+        {
+          "left": "Budgeting",
+          "right": "Control of your money"
+        },
+        {
+          "left": "Saving",
+          "right": "A cushion for shocks"
+        },
+        {
+          "left": "Earning & asking",
+          "right": "More income"
+        }
+      ]
+    },
+    {
+      "id": "mi-082",
+      "cat": "tools-and-help",
+      "type": "spot",
+      "hook": "Spot the financially-savvy move.",
+      "scene": [
+        {
+          "text": "Building an emergency fund",
+          "trick": false
+        },
+        {
+          "text": "Chasing a guaranteed-returns scheme",
+          "trick": true
+        },
+        {
+          "text": "Living a little below your means",
+          "trick": false
+        }
+      ],
+      "why": "Emergency funds and living below your means are savvy; guaranteed-returns chasing isn't.",
+      "relearn": "An emergency fund and living below your means are savvy; chasing guaranteed returns isn't.",
+      "persona": "any",
+      "source": "savvy moves"
+    },
+    {
+      "id": "mi-083",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: financial independence isn't about being rich, it's about being free and safe. Land right?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Free and safe",
+        "Not about rich"
+      ],
+      "affirm": "Free and safe, not rich, is exactly what financial independence is really about.",
+      "relearn": "Financial independence is about being free and safe, not about being rich.",
+      "persona": "any",
+      "source": "what it's about"
+    },
+    {
+      "id": "mi-084",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: which money habit will you carry forward?",
+      "prompt": "Pick one.",
+      "options": [
+        "Budget every month",
+        "Save first",
+        "Avoid debt traps",
+        "Stay independent"
+      ],
+      "affirm": "Carry that habit, and you're genuinely standing on your own feet, with money as your freedom.",
+      "relearn": "Budget, save first, avoid debt traps and stay independent, carry one forward.",
+      "persona": "any",
+      "source": "carry forward"
+    }
+  ]
+}

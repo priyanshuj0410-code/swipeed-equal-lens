@@ -1,0 +1,1936 @@
+{
+  "game": "The Rabbit Hole",
+  "gameId": "the-rabbit-hole",
+  "node": "g43",
+  "chapter": 4,
+  "ages": "12-15",
+  "thread": "E/G · Gender & Media",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Gated (school-comfort toggle sets depth)",
+  "leadMechanics": [
+    "strike-rewrite",
+    "spot",
+    "branch"
+  ],
+  "note": "Online misogyny & the manosphere: the funnel, the grift & positive masculinity (UNESCO 3.2, 3.1, 5.4, 5.1, 1.3). New v2 build, Chapter 4. THE ONE RULE: never shame the boy, the funnel and the grift are the target, never the kid; boys pulled in are usually lonely, anxious and looking for identity, and grifters and algorithms exploit that. Non-shaming, evenhanded (the manosphere harms boys too), media-literacy-led, and centred on a better answer: positive masculinity, real strength lifts people, it never needs anyone else to be small. For everyone. Builds on g25/g26, uses g28/g33, links g38/g39. Never platforms real influencers/content. Routes the loneliness underneath to help: a trusted adult, Tele-MANAS 14416; online harassment to cybercrime 1930 / Childline 1098.",
+  "categories": {
+    "the-funnel": "The funnel: how the algorithm works",
+    "follow-the-money": "Follow the money: the grift",
+    "spot-the-hook": "Spot the hook: bust the claims",
+    "real-strong": "Real Strong: positive masculinity",
+    "have-each-others-backs": "Have each other's backs",
+    "the-need-underneath": "The need underneath: get help"
+  },
+  "mechanicsUsed": [
+    "strike-rewrite",
+    "spot",
+    "branch",
+    "sort",
+    "reflect",
+    "role-play",
+    "match"
+  ],
+  "evidenceBase": [
+    "Boys are funnelled toward misogyny by recommendation algorithms, not by choice: relatable starting points (fitness, dating, money, belonging, 'be a man') are escalated step by step because outrage and extremity drive engagement, and the funnel targets boys who feel lonely, rejected or unsure by offering identity, brotherhood and someone to blame. Understanding it is a designed funnel, not a personal failing, is what lets a teen step out without shame (UN Women 2025; UK statutory RSHE guidance 2025)",
+    "Behind the funnel is a business: 'alpha mentors' monetise boys' insecurity through courses, subscriptions and rage-bait; you're not a disciple, you're the product, and the person telling you you're not enough is selling you the cure. Seeing the incentive behind the message is what loosens its grip (media-literacy evidence)",
+    "What works is non-shaming and positive: address the vulnerability and need for belonging rather than blaming boys, offer real strength (ambition, discipline and respect that lifts others rather than belittling), bust the claims with media literacy, support a friend with a call-in (stay connected) not a call-out, and route the loneliness or insecurity underneath to real help, a trusted adult, Tele-MANAS 14416; online harassment to cybercrime.gov.in / 1930 and Childline 1098 (UN Women; adolescent mental-health evidence)"
+  ],
+  "scenarios": [
+    {
+      "id": "rh-001",
+      "cat": "the-funnel",
+      "type": "spot",
+      "hook": "Spot how this feed escalates, step by step.",
+      "scene": [
+        {
+          "text": "It starts with harmless gym and study tips",
+          "trick": false
+        },
+        {
+          "text": "Then 'why girls don't respect you' clips creep in",
+          "trick": true
+        },
+        {
+          "text": "Soon it's full contempt and us-vs-them",
+          "trick": true
+        }
+      ],
+      "why": "The funnel starts relatable, then escalates to contempt, that's the design.",
+      "relearn": "The funnel begins with relatable tips and escalates to contempt by design.",
+      "persona": "Veer",
+      "source": "the funnel (UN Women 2025)"
+    },
+    {
+      "id": "rh-002",
+      "cat": "the-funnel",
+      "type": "spot",
+      "hook": "Spot why the algorithm pushes the extreme stuff.",
+      "scene": [
+        {
+          "text": "Calm, fair videos get a quiet response",
+          "trick": false
+        },
+        {
+          "text": "Outrage and 'enemy' content get huge engagement",
+          "trick": true
+        },
+        {
+          "text": "So the feed serves you more of the outrage",
+          "trick": true
+        }
+      ],
+      "why": "Outrage drives engagement, so the algorithm escalates toward it.",
+      "relearn": "Algorithms escalate toward outrage because outrage keeps you watching.",
+      "persona": "any",
+      "source": "algorithm / engagement"
+    },
+    {
+      "id": "rh-003",
+      "cat": "the-funnel",
+      "type": "spot",
+      "hook": "Spot who the funnel targets, and why.",
+      "scene": [
+        {
+          "text": "Ads for 'fix your life, become high-value'",
+          "trick": true
+        },
+        {
+          "text": "A normal fitness reel",
+          "trick": false
+        },
+        {
+          "text": "It promises belonging and someone to blame",
+          "trick": true
+        }
+      ],
+      "why": "The funnel targets boys who feel lonely or unsure, offering belonging and a scapegoat.",
+      "relearn": "The funnel hooks loneliness by offering belonging and someone to blame.",
+      "persona": "Veer",
+      "source": "who it targets"
+    },
+    {
+      "id": "rh-004",
+      "cat": "the-funnel",
+      "type": "spot",
+      "hook": "Spot the relatable bait at the top of the funnel.",
+      "scene": [
+        {
+          "text": "\"Want to get fit and confident?\"",
+          "trick": true
+        },
+        {
+          "text": "A genuinely useful study tip",
+          "trick": false
+        },
+        {
+          "text": "\"Want girls to finally notice you?\"",
+          "trick": true
+        }
+      ],
+      "why": "The bait is relatable and even healthy-sounding, that's what makes it work.",
+      "relearn": "The funnel's bait sounds healthy and relatable; that's the hook.",
+      "persona": "any",
+      "source": "the funnel"
+    },
+    {
+      "id": "rh-005",
+      "cat": "the-funnel",
+      "type": "spot",
+      "hook": "Spot what's really happening, not the viewer's fault.",
+      "scene": [
+        {
+          "text": "A lonely night, watching 'self-improvement' clips",
+          "trick": false
+        },
+        {
+          "text": "The feed quietly steers toward grievance",
+          "trick": true
+        },
+        {
+          "text": "Hours later, it feels like 'the truth'",
+          "trick": true
+        }
+      ],
+      "why": "A designed feed did the steering; it isn't a failing in the person watching.",
+      "relearn": "Being funnelled isn't your failing; the feed is designed to steer you.",
+      "persona": "Veer",
+      "source": "no shame / design"
+    },
+    {
+      "id": "rh-006",
+      "cat": "the-funnel",
+      "type": "spot",
+      "hook": "Spot the exit from the funnel.",
+      "scene": [
+        {
+          "text": "Noticing the escalation as it happens",
+          "trick": false
+        },
+        {
+          "text": "Following more of the same",
+          "trick": true
+        },
+        {
+          "text": "Naming it: 'this is a funnel' and stepping back",
+          "trick": false
+        }
+      ],
+      "why": "Seeing the escalation and naming it as a funnel is how you step out.",
+      "relearn": "Naming the funnel as you notice it escalate is how you step out.",
+      "persona": "any",
+      "source": "stepping out"
+    },
+    {
+      "id": "rh-007",
+      "cat": "the-funnel",
+      "type": "branch",
+      "hook": "Your feed has slid from gym tips into 'girls are the problem' content.",
+      "options": [
+        {
+          "text": "Recognise the funnel and reset what you follow",
+          "consequence": "You take back the wheel from the algorithm.",
+          "outcome": "out",
+          "best": true
+        },
+        {
+          "text": "Keep watching; it's just telling it like it is",
+          "consequence": "That slide is the funnel; recognise it and reset your feed."
+        }
+      ],
+      "debrief": "Resetting who you follow breaks the algorithm's escalation.",
+      "relearn": "You can recognise the funnel and reset your feed to break it.",
+      "persona": "Veer",
+      "source": "agency"
+    },
+    {
+      "id": "rh-008",
+      "cat": "the-funnel",
+      "type": "branch",
+      "hook": "A clip makes you feel, for a second, like everything wrong is someone else's fault.",
+      "options": [
+        {
+          "text": "Notice the pull, that's the hook, and pause",
+          "consequence": "You catch the manipulation in real time.",
+          "outcome": "aware",
+          "best": true
+        },
+        {
+          "text": "Lean in; it feels good to blame someone",
+          "consequence": "That relief is the hook; noticing it is how you resist."
+        }
+      ],
+      "debrief": "The funnel sells the relief of blaming someone; noticing the pull defuses it.",
+      "relearn": "The 'it's all their fault' relief is the hook; notice it and pause.",
+      "persona": "any",
+      "source": "emotional manipulation"
+    },
+    {
+      "id": "rh-009",
+      "cat": "the-funnel",
+      "type": "branch",
+      "hook": "You realise you've been deep in this content for weeks.",
+      "options": [
+        {
+          "text": "No shame, just step back and rebalance your feed",
+          "consequence": "You move on without beating yourself up.",
+          "outcome": "kind",
+          "best": true
+        },
+        {
+          "text": "Feel stupid and give up trying",
+          "consequence": "It's designed to pull you in; no shame, just step back."
+        }
+      ],
+      "debrief": "Stepping out is the win; self-blame isn't needed and isn't fair.",
+      "relearn": "Stepping out needs no shame, the funnel is built to be convincing.",
+      "persona": "Veer",
+      "source": "no shame"
+    },
+    {
+      "id": "rh-010",
+      "cat": "the-funnel",
+      "type": "branch",
+      "hook": "A friend says the extreme stuff is just 'edgy jokes, not serious'.",
+      "options": [
+        {
+          "text": "Note that the jokes are the on-ramp to the real thing",
+          "consequence": "You see how 'ironic' content normalises the rest.",
+          "outcome": "clear",
+          "best": true
+        },
+        {
+          "text": "Agree it's harmless because it's 'just jokes'",
+          "consequence": "'Just jokes' is often the funnel's on-ramp; stay aware."
+        }
+      ],
+      "debrief": "'Ironic' content frequently softens the ground for the serious version.",
+      "relearn": "'Just jokes' is often the funnel's on-ramp, not harmless.",
+      "persona": "any",
+      "source": "normalisation"
+    },
+    {
+      "id": "rh-011",
+      "cat": "the-funnel",
+      "type": "strike-rewrite",
+      "hook": "\"I sought this out, so it's what I really believe.\"",
+      "myth": {
+        "un": "I sought this content out, so it must be what I really believe.",
+        "re": "Mostly the algorithm served it to you, on purpose; it isn't your considered view.",
+        "why": "Recommendation feeds escalate you without you choosing to."
+      },
+      "relearn": "The algorithm served it; it isn't proof of what you truly believe.",
+      "persona": "Veer",
+      "source": "algorithm / no shame"
+    },
+    {
+      "id": "rh-012",
+      "cat": "the-funnel",
+      "type": "strike-rewrite",
+      "hook": "\"If lots of guys believe it, it must be true.\"",
+      "myth": {
+        "un": "So many guys believe it, so it must be true.",
+        "re": "A funnel pushing the same content to millions makes it feel true, that's reach, not truth.",
+        "why": "Popularity engineered by an algorithm isn't evidence."
+      },
+      "relearn": "Mass reach engineered by a funnel isn't proof that something's true.",
+      "persona": "any",
+      "source": "popularity vs truth"
+    },
+    {
+      "id": "rh-013",
+      "cat": "the-funnel",
+      "type": "reflect",
+      "hook": "Lensy: once you can see the funnel, it loses a lot of its power. Notice that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I can see it now",
+        "It feels less true"
+      ],
+      "affirm": "Seeing the machinery is exactly what frees you from it.",
+      "relearn": "Seeing the funnel's design is what takes away its power.",
+      "persona": "any",
+      "source": "media literacy"
+    },
+    {
+      "id": "rh-014",
+      "cat": "the-funnel",
+      "type": "reflect",
+      "hook": "Lensy: it makes sense that lonely or stressed moments are when the funnel bites hardest. Fair?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "That's when I'm vulnerable",
+        "Good to know"
+      ],
+      "affirm": "Knowing your vulnerable moments helps you guard them, kindly.",
+      "relearn": "The funnel bites hardest in lonely moments; knowing that helps you guard them.",
+      "persona": "Veer",
+      "source": "vulnerability / compassion"
+    },
+    {
+      "id": "rh-015",
+      "cat": "follow-the-money",
+      "type": "spot",
+      "hook": "Spot the business behind the 'mentor'.",
+      "scene": [
+        {
+          "text": "Free clips that make you feel not enough",
+          "trick": true
+        },
+        {
+          "text": "He seems confident",
+          "trick": false
+        },
+        {
+          "text": "...then a paid 'academy' that fixes it",
+          "trick": true
+        }
+      ],
+      "why": "Make you feel lacking, then sell the cure, that's the business model.",
+      "relearn": "Making you feel 'not enough' then selling the fix is the grift.",
+      "persona": "any",
+      "source": "the grift"
+    },
+    {
+      "id": "rh-016",
+      "cat": "follow-the-money",
+      "type": "spot",
+      "hook": "Spot what you really are to him.",
+      "scene": [
+        {
+          "text": "Courses, subscriptions and affiliate links everywhere",
+          "trick": true
+        },
+        {
+          "text": "He calls you 'brother'",
+          "trick": false
+        },
+        {
+          "text": "Your attention and money are the product",
+          "trick": true
+        }
+      ],
+      "why": "The 'brotherhood' is a funnel to courses and subs; you're the product.",
+      "relearn": "To the grifter you're the product; the 'brotherhood' sells courses.",
+      "persona": "Veer",
+      "source": "you're the product"
+    },
+    {
+      "id": "rh-017",
+      "cat": "follow-the-money",
+      "type": "spot",
+      "hook": "Spot why the outrage is manufactured.",
+      "scene": [
+        {
+          "text": "Deliberately shocking 'hot takes'",
+          "trick": true
+        },
+        {
+          "text": "He films in a nice car",
+          "trick": false
+        },
+        {
+          "text": "Outrage drives the views that pay him",
+          "trick": true
+        }
+      ],
+      "why": "Rage-bait exists because outrage drives the engagement that earns money.",
+      "relearn": "Manufactured outrage is rage-bait; it exists to earn engagement and money.",
+      "persona": "any",
+      "source": "rage-bait economics"
+    },
+    {
+      "id": "rh-018",
+      "cat": "follow-the-money",
+      "type": "spot",
+      "hook": "Spot the tell that 'free advice' isn't free.",
+      "scene": [
+        {
+          "text": "Every video ends with 'link in bio'",
+          "trick": true
+        },
+        {
+          "text": "Some tips are generic and fine",
+          "trick": false
+        },
+        {
+          "text": "The real pitch is always the paid tier",
+          "trick": true
+        }
+      ],
+      "why": "When the destination is always a paywall, the 'advice' is bait.",
+      "relearn": "If it always funnels to a paywall, the 'free advice' is a sales pitch.",
+      "persona": "any",
+      "source": "the grift"
+    },
+    {
+      "id": "rh-019",
+      "cat": "follow-the-money",
+      "type": "sort",
+      "hook": "Sort: a sign of a grift, or genuine help?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Telling you you're worthless without his course"
+        },
+        {
+          "id": "b",
+          "text": "A coach who wants you to need them less"
+        },
+        {
+          "id": "c",
+          "text": "Endless upsells and 'secret' tiers"
+        },
+        {
+          "id": "d",
+          "text": "Free, clear guidance with no catch"
+        }
+      ],
+      "bins": [
+        {
+          "id": "grift",
+          "label": "A grift"
+        },
+        {
+          "id": "genuine",
+          "label": "Genuine help"
+        }
+      ],
+      "key": {
+        "a": "grift",
+        "b": "genuine",
+        "c": "grift",
+        "d": "genuine"
+      },
+      "relearn": "Grifts make you dependent and upsell; genuine help wants you stronger.",
+      "persona": "any",
+      "source": "grift vs help"
+    },
+    {
+      "id": "rh-020",
+      "cat": "follow-the-money",
+      "type": "sort",
+      "hook": "Sort: who profits, you or him?",
+      "items": [
+        {
+          "id": "a",
+          "text": "You buy the 'academy'"
+        },
+        {
+          "id": "b",
+          "text": "You build real skills for free"
+        },
+        {
+          "id": "c",
+          "text": "You rage-share his clip"
+        },
+        {
+          "id": "d",
+          "text": "You find a free local mentor"
+        }
+      ],
+      "bins": [
+        {
+          "id": "him",
+          "label": "He profits"
+        },
+        {
+          "id": "you",
+          "label": "You gain"
+        }
+      ],
+      "key": {
+        "a": "him",
+        "b": "you",
+        "c": "him",
+        "d": "you"
+      },
+      "relearn": "Buying in and rage-sharing pay him; free skills and real mentors grow you.",
+      "persona": "any",
+      "source": "follow the money"
+    },
+    {
+      "id": "rh-021",
+      "cat": "follow-the-money",
+      "type": "sort",
+      "hook": "Sort: real self-improvement, or a sales funnel?",
+      "items": [
+        {
+          "id": "a",
+          "text": "A library book on confidence"
+        },
+        {
+          "id": "b",
+          "text": "A 'high-value male' paid masterclass"
+        },
+        {
+          "id": "c",
+          "text": "A school counsellor's free support"
+        },
+        {
+          "id": "d",
+          "text": "A subscription to 'unlock alpha secrets'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "Real growth"
+        },
+        {
+          "id": "funnel",
+          "label": "Sales funnel"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "funnel",
+        "c": "real",
+        "d": "funnel"
+      },
+      "relearn": "Real growth is mostly free; 'secret alpha' tiers are a sales funnel.",
+      "persona": "any",
+      "source": "real vs grift"
+    },
+    {
+      "id": "rh-022",
+      "cat": "follow-the-money",
+      "type": "strike-rewrite",
+      "hook": "\"He's giving me the secret to becoming a man.\"",
+      "myth": {
+        "un": "This mentor is giving me the secret to becoming a real man.",
+        "re": "He's selling a cure for a problem he invented; you don't need his 'secret'.",
+        "why": "The insecurity he stokes is the thing he profits from."
+      },
+      "relearn": "He invented the problem to sell the cure; you don't need his 'secret'.",
+      "persona": "Veer",
+      "source": "the grift"
+    },
+    {
+      "id": "rh-023",
+      "cat": "follow-the-money",
+      "type": "strike-rewrite",
+      "hook": "\"If I pay in, I'll finally belong.\"",
+      "myth": {
+        "un": "If I buy into the brotherhood, I'll finally belong.",
+        "re": "Real belonging isn't sold; paid 'brotherhoods' keep you paying, not connected.",
+        "why": "Genuine connection doesn't run on a subscription."
+      },
+      "relearn": "Real belonging isn't a subscription; it's not something you buy in.",
+      "persona": "any",
+      "source": "belonging"
+    },
+    {
+      "id": "rh-024",
+      "cat": "follow-the-money",
+      "type": "match",
+      "hook": "Match the grift move to what it really is.",
+      "pairs": [
+        {
+          "left": "'You're not enough'",
+          "right": "The setup for a sale"
+        },
+        {
+          "left": "'Link in bio'",
+          "right": "The paywall"
+        },
+        {
+          "left": "Rage-bait take",
+          "right": "Engagement for profit"
+        }
+      ],
+      "relearn": "Each grift move, the put-down, the link, the rage, exists to earn money.",
+      "persona": "any",
+      "source": "the grift"
+    },
+    {
+      "id": "rh-025",
+      "cat": "follow-the-money",
+      "type": "match",
+      "hook": "Match the promise to the catch.",
+      "pairs": [
+        {
+          "left": "'Secret to confidence'",
+          "right": "Behind a paywall"
+        },
+        {
+          "left": "'Join the brotherhood'",
+          "right": "Monthly subscription"
+        },
+        {
+          "left": "'I'll fix your life'",
+          "right": "If you keep buying"
+        }
+      ],
+      "relearn": "Every big promise here comes with a price tag attached.",
+      "persona": "any",
+      "source": "follow the money"
+    },
+    {
+      "id": "rh-026",
+      "cat": "follow-the-money",
+      "type": "branch",
+      "hook": "A 'mentor' clip leaves you feeling you must buy his course to be okay.",
+      "options": [
+        {
+          "text": "Notice the sell, you're the product, and close it",
+          "consequence": "You keep your money and your self-worth.",
+          "outcome": "free",
+          "best": true
+        },
+        {
+          "text": "Buy it, maybe he's right that you're lacking",
+          "consequence": "He profits from that feeling; you don't need his course to be okay."
+        }
+      ],
+      "debrief": "The feeling of 'not enough' was manufactured to make the sale.",
+      "relearn": "That 'I must buy it' feeling was manufactured; you're already okay.",
+      "persona": "Veer",
+      "source": "the grift / self-worth"
+    },
+    {
+      "id": "rh-027",
+      "cat": "follow-the-money",
+      "type": "reflect",
+      "hook": "Lensy: once you see the salesman behind the 'mentor', does the message lose its grip?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "He's just selling",
+        "It loosens"
+      ],
+      "affirm": "Seeing the incentive is what frees you from the message.",
+      "relearn": "Seeing the salesman behind the message takes away its grip.",
+      "persona": "any",
+      "source": "media literacy"
+    },
+    {
+      "id": "rh-028",
+      "cat": "spot-the-hook",
+      "type": "strike-rewrite",
+      "hook": "\"You're not a real man unless you dominate others.\"",
+      "myth": {
+        "un": "You're not a real man unless you dominate other people.",
+        "re": "Worth isn't a ranking; real strength never needs anyone else to be small.",
+        "why": "Dominance is insecurity in costume, not strength."
+      },
+      "relearn": "Worth isn't a rank; real strength doesn't need to make others small.",
+      "persona": "Veer",
+      "source": "the hook / positive masculinity"
+    },
+    {
+      "id": "rh-029",
+      "cat": "spot-the-hook",
+      "type": "strike-rewrite",
+      "hook": "\"Women or feminism are why your life is hard.\"",
+      "myth": {
+        "un": "Women, or feminism, are the reason your life is hard.",
+        "re": "Loneliness and rejection are real and common, and not a group's fault to pin.",
+        "why": "Blaming a whole group is the funnel's oldest trick."
+      },
+      "relearn": "Real struggles aren't women's or feminism's fault; blame-a-group is the trick.",
+      "persona": "any",
+      "source": "the hook / scapegoating"
+    },
+    {
+      "id": "rh-030",
+      "cat": "spot-the-hook",
+      "type": "strike-rewrite",
+      "hook": "\"There are 'alpha' and 'beta' males, it's just science.\"",
+      "myth": {
+        "un": "Men are 'alphas' and 'betas', it's basic science.",
+        "re": "That's pseudo-science; people aren't ranked into wolf-pack tiers.",
+        "why": "The 'alpha wolf' idea was debunked even in wolves."
+      },
+      "relearn": "'Alpha/beta males' is pseudo-science, not how people actually are.",
+      "persona": "any",
+      "source": "pseudo-science"
+    },
+    {
+      "id": "rh-031",
+      "cat": "spot-the-hook",
+      "type": "strike-rewrite",
+      "hook": "\"It's men versus women out there.\"",
+      "myth": {
+        "un": "It's basically men versus women out there.",
+        "re": "Us-vs-them is the manipulation; most people want the same respect and connection.",
+        "why": "Turning half of humanity into the enemy serves the grifter, not you."
+      },
+      "relearn": "'Men vs women' is the manipulation; most people want the same things.",
+      "persona": "any",
+      "source": "us-vs-them"
+    },
+    {
+      "id": "rh-032",
+      "cat": "spot-the-hook",
+      "type": "strike-rewrite",
+      "hook": "\"Showing feelings makes you weak and unmanly.\"",
+      "myth": {
+        "un": "Showing any feelings makes you weak and unmanly.",
+        "re": "Naming feelings and asking for help takes real strength.",
+        "why": "The 'always hard' mask is a cage, not a strength."
+      },
+      "relearn": "Feeling and asking for help is strength, not weakness.",
+      "persona": "Veer",
+      "source": "the hook / wellbeing"
+    },
+    {
+      "id": "rh-033",
+      "cat": "spot-the-hook",
+      "type": "strike-rewrite",
+      "hook": "\"Being kind or respectful gets you nowhere.\"",
+      "myth": {
+        "un": "Being kind or respectful just gets you walked over.",
+        "re": "Respect builds the real relationships and reputation people actually want.",
+        "why": "Contempt pushes people away; respect draws them in."
+      },
+      "relearn": "Kindness and respect build what you actually want; contempt repels it.",
+      "persona": "any",
+      "source": "the hook"
+    },
+    {
+      "id": "rh-034",
+      "cat": "spot-the-hook",
+      "type": "strike-rewrite",
+      "hook": "\"If a girl rejects you, she owes you an explanation, or worse.\"",
+      "myth": {
+        "un": "If a girl isn't interested, she owes you something.",
+        "re": "Everyone can say no; rejection stings but no one owes you their interest.",
+        "why": "Entitlement is exactly the mindset the funnel breeds."
+      },
+      "relearn": "No one owes you their interest; everyone can say no.",
+      "persona": "any",
+      "source": "the hook / consent"
+    },
+    {
+      "id": "rh-035",
+      "cat": "spot-the-hook",
+      "type": "strike-rewrite",
+      "hook": "\"Real men don't need anyone.\"",
+      "myth": {
+        "un": "Real men don't need anyone; needing people is weak.",
+        "re": "Everyone needs connection; pretending you don't is what isolates you.",
+        "why": "Isolation is what the funnel feeds on."
+      },
+      "relearn": "Everyone needs people; 'needing no one' just isolates you.",
+      "persona": "Veer",
+      "source": "the hook / belonging"
+    },
+    {
+      "id": "rh-036",
+      "cat": "spot-the-hook",
+      "type": "sort",
+      "hook": "Sort: a manosphere hook, or a healthy truth?",
+      "items": [
+        {
+          "id": "a",
+          "text": "'Dominate or you're nothing'"
+        },
+        {
+          "id": "b",
+          "text": "'Respect lifts everyone'"
+        },
+        {
+          "id": "c",
+          "text": "'Blame women for your pain'"
+        },
+        {
+          "id": "d",
+          "text": "'Your worth isn't a rank'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "hook",
+          "label": "A hook"
+        },
+        {
+          "id": "truth",
+          "label": "A healthy truth"
+        }
+      ],
+      "key": {
+        "a": "hook",
+        "b": "truth",
+        "c": "hook",
+        "d": "truth"
+      },
+      "relearn": "Domination and blame are hooks; respect and self-worth are the truths.",
+      "persona": "any",
+      "source": "hook vs truth"
+    },
+    {
+      "id": "rh-037",
+      "cat": "spot-the-hook",
+      "type": "sort",
+      "hook": "Sort: real science, or pseudo-science dressed up?",
+      "items": [
+        {
+          "id": "a",
+          "text": "'Alpha/beta male hierarchy'"
+        },
+        {
+          "id": "b",
+          "text": "People have varied, changeable strengths"
+        },
+        {
+          "id": "c",
+          "text": "'High-value vs low-value humans'"
+        },
+        {
+          "id": "d",
+          "text": "Everyone has equal worth"
+        }
+      ],
+      "bins": [
+        {
+          "id": "pseudo",
+          "label": "Pseudo-science"
+        },
+        {
+          "id": "real",
+          "label": "Real / true"
+        }
+      ],
+      "key": {
+        "a": "pseudo",
+        "b": "real",
+        "c": "pseudo",
+        "d": "real"
+      },
+      "relearn": "Ranking people into 'alpha' or 'value' tiers is pseudo-science.",
+      "persona": "any",
+      "source": "pseudo-science"
+    },
+    {
+      "id": "rh-038",
+      "cat": "spot-the-hook",
+      "type": "sort",
+      "hook": "Sort: builds you up honestly, or hooks you?",
+      "items": [
+        {
+          "id": "a",
+          "text": "'You're already enough, and can grow'"
+        },
+        {
+          "id": "b",
+          "text": "'You're worthless until you obey me'"
+        },
+        {
+          "id": "c",
+          "text": "'Improve for yourself'"
+        },
+        {
+          "id": "d",
+          "text": "'Hate them to feel strong'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "build",
+          "label": "Builds you up"
+        },
+        {
+          "id": "hook",
+          "label": "Hooks you"
+        }
+      ],
+      "key": {
+        "a": "build",
+        "b": "hook",
+        "c": "build",
+        "d": "hook"
+      },
+      "relearn": "Honest growth says you're enough and can improve; hooks trade on hate and worthlessness.",
+      "persona": "any",
+      "source": "build vs hook"
+    },
+    {
+      "id": "rh-039",
+      "cat": "spot-the-hook",
+      "type": "sort",
+      "hook": "Sort: the unmet need, vs the toxic 'answer' sold for it.",
+      "items": [
+        {
+          "id": "a",
+          "text": "Wanting belonging"
+        },
+        {
+          "id": "b",
+          "text": "'Join us in hating them'"
+        },
+        {
+          "id": "c",
+          "text": "Wanting respect"
+        },
+        {
+          "id": "d",
+          "text": "'Dominate to be respected'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "need",
+          "label": "A real need"
+        },
+        {
+          "id": "toxic",
+          "label": "The toxic 'answer'"
+        }
+      ],
+      "key": {
+        "a": "need",
+        "b": "toxic",
+        "c": "need",
+        "d": "toxic"
+      },
+      "relearn": "The needs (belonging, respect) are real; the hateful 'answers' sold for them aren't.",
+      "persona": "any",
+      "source": "need vs answer"
+    },
+    {
+      "id": "rh-040",
+      "cat": "spot-the-hook",
+      "type": "spot",
+      "hook": "Spot the emotional manipulation in the pitch.",
+      "scene": [
+        {
+          "text": "'Everyone's laughing at you'",
+          "trick": true
+        },
+        {
+          "text": "'Here's a workout'",
+          "trick": false
+        },
+        {
+          "text": "'Only I can save you from being a loser'",
+          "trick": true
+        }
+      ],
+      "why": "Shame plus a saviour offer is emotional manipulation, not mentoring.",
+      "relearn": "Shaming you then offering to 'save' you is manipulation.",
+      "persona": "any",
+      "source": "emotional manipulation"
+    },
+    {
+      "id": "rh-041",
+      "cat": "spot-the-hook",
+      "type": "spot",
+      "hook": "Spot the honest need hiding under the hook.",
+      "scene": [
+        {
+          "text": "Under 'girls hate you' is a wish to be liked",
+          "trick": false
+        },
+        {
+          "text": "The clip says blame them",
+          "trick": true
+        },
+        {
+          "text": "The real need is connection, met by respect",
+          "trick": false
+        }
+      ],
+      "why": "The funnel hijacks a real need for connection and answers it with contempt.",
+      "relearn": "Under the hook is a real need for connection, met by respect, not contempt.",
+      "persona": "Veer",
+      "source": "the need underneath"
+    },
+    {
+      "id": "rh-042",
+      "cat": "spot-the-hook",
+      "type": "reflect",
+      "hook": "Lensy: the hooks are designed to be convincing, finding them convincing once isn't a flaw in you. Okay?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "That's reassuring",
+        "No shame then"
+      ],
+      "affirm": "They're engineered by pros; seeing through them now is what counts.",
+      "relearn": "The hooks are engineered to convince; seeing through them is the win.",
+      "persona": "any",
+      "source": "no shame"
+    },
+    {
+      "id": "rh-043",
+      "cat": "real-strong",
+      "type": "reflect",
+      "hook": "Lensy: real strength lifts people, it never needs anyone else to be small. Sit with that.",
+      "prompt": "What do you think?",
+      "options": [
+        "I like that",
+        "That's real strength",
+        "Yes"
+      ],
+      "affirm": "That's the whole idea, strength that builds, not belittles.",
+      "relearn": "Real strength lifts people; it never needs anyone else to be small.",
+      "persona": "Veer",
+      "source": "positive masculinity (heart)"
+    },
+    {
+      "id": "rh-044",
+      "cat": "real-strong",
+      "type": "reflect",
+      "hook": "Lensy: you can be ambitious and disciplined AND kind and respectful. Does that fit you?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I want that",
+        "Both at once"
+      ],
+      "affirm": "Strong and kind isn't a contradiction, it's the goal.",
+      "relearn": "Ambition and discipline live happily alongside kindness and respect.",
+      "persona": "Veer",
+      "source": "positive masculinity"
+    },
+    {
+      "id": "rh-045",
+      "cat": "real-strong",
+      "type": "reflect",
+      "hook": "Lensy: you can want love and respect without putting anyone down to get it. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Of course",
+        "That's better"
+      ],
+      "affirm": "Wanting connection is human, and contempt only gets in its way.",
+      "relearn": "You can want love and respect without belittling anyone.",
+      "persona": "any",
+      "source": "positive masculinity"
+    },
+    {
+      "id": "rh-046",
+      "cat": "real-strong",
+      "type": "reflect",
+      "hook": "Lensy: confidence is built, not bought. What actually builds yours?",
+      "prompt": "Pick one.",
+      "options": [
+        "Real skills and effort",
+        "Good friends",
+        "Living by my values"
+      ],
+      "affirm": "All of those are real and yours, no subscription required.",
+      "relearn": "Real confidence is built through skills, friends and values, not bought.",
+      "persona": "Veer",
+      "source": "confidence"
+    },
+    {
+      "id": "rh-047",
+      "cat": "real-strong",
+      "type": "reflect",
+      "hook": "Lensy: the truth the grift hides, you're already enough, and you can still grow. Both true?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Both",
+        "Good to hear"
+      ],
+      "affirm": "You're enough as you are, and growth is yours to choose, no contradiction.",
+      "relearn": "You're already enough, and you can still grow, both are true.",
+      "persona": "any",
+      "source": "self-worth"
+    },
+    {
+      "id": "rh-048",
+      "cat": "real-strong",
+      "type": "reflect",
+      "hook": "Lensy: which real model of strength do you most admire?",
+      "prompt": "Pick one.",
+      "options": [
+        "Someone calm under pressure",
+        "Someone who lifts others up",
+        "Someone true to their values"
+      ],
+      "affirm": "That's a strength worth growing toward, and it's all within reach.",
+      "relearn": "The strength worth admiring is calm, lifting others, and true to values.",
+      "persona": "any",
+      "source": "role models"
+    },
+    {
+      "id": "rh-049",
+      "cat": "real-strong",
+      "type": "sort",
+      "hook": "Sort: healthy strength, or the toxic imitation?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Protecting people smaller than you"
+        },
+        {
+          "id": "b",
+          "text": "Belittling people to feel big"
+        },
+        {
+          "id": "c",
+          "text": "Owning a mistake"
+        },
+        {
+          "id": "d",
+          "text": "Never admitting you're wrong"
+        }
+      ],
+      "bins": [
+        {
+          "id": "healthy",
+          "label": "Real strength"
+        },
+        {
+          "id": "toxic",
+          "label": "Toxic imitation"
+        }
+      ],
+      "key": {
+        "a": "healthy",
+        "b": "toxic",
+        "c": "healthy",
+        "d": "toxic"
+      },
+      "relearn": "Protecting and owning mistakes is strength; belittling and bravado isn't.",
+      "persona": "any",
+      "source": "positive masculinity"
+    },
+    {
+      "id": "rh-050",
+      "cat": "real-strong",
+      "type": "sort",
+      "hook": "Sort: meets the need in a healthy way, or a toxic way?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Belonging via real friends"
+        },
+        {
+          "id": "b",
+          "text": "Belonging via hating a group"
+        },
+        {
+          "id": "c",
+          "text": "Purpose via things that matter"
+        },
+        {
+          "id": "d",
+          "text": "Purpose via dominating others"
+        }
+      ],
+      "bins": [
+        {
+          "id": "healthy",
+          "label": "Healthy"
+        },
+        {
+          "id": "toxic",
+          "label": "Toxic"
+        }
+      ],
+      "key": {
+        "a": "healthy",
+        "b": "toxic",
+        "c": "healthy",
+        "d": "toxic"
+      },
+      "relearn": "Real friends and real purpose meet the need; hate and domination don't.",
+      "persona": "any",
+      "source": "healthy needs"
+    },
+    {
+      "id": "rh-051",
+      "cat": "real-strong",
+      "type": "sort",
+      "hook": "Sort: a green flag of positive masculinity, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Strong and gentle"
+        },
+        {
+          "id": "b",
+          "text": "Respects a 'no'"
+        },
+        {
+          "id": "c",
+          "text": "Needs others to lose"
+        },
+        {
+          "id": "d",
+          "text": "Mocks anyone different"
+        }
+      ],
+      "bins": [
+        {
+          "id": "green",
+          "label": "Positive"
+        },
+        {
+          "id": "no",
+          "label": "Not"
+        }
+      ],
+      "key": {
+        "a": "green",
+        "b": "green",
+        "c": "no",
+        "d": "no"
+      },
+      "relearn": "Strong-and-gentle and respecting 'no' are positive; needing others to lose isn't.",
+      "persona": "any",
+      "source": "green flags"
+    },
+    {
+      "id": "rh-052",
+      "cat": "real-strong",
+      "type": "sort",
+      "hook": "Sort: equality frees boys (true), or 'men lose' (the myth)?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Less pressure to always be tough"
+        },
+        {
+          "id": "b",
+          "text": "'Equality means men get nothing'"
+        },
+        {
+          "id": "c",
+          "text": "Freedom to feel and connect"
+        },
+        {
+          "id": "d",
+          "text": "'Sharing makes you less of a man'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "frees",
+          "label": "Frees boys (true)"
+        },
+        {
+          "id": "myth",
+          "label": "The myth"
+        }
+      ],
+      "key": {
+        "a": "frees",
+        "b": "myth",
+        "c": "frees",
+        "d": "myth"
+      },
+      "relearn": "Equality frees boys from the 'always tough' cage; 'men lose' is the myth.",
+      "persona": "Veer",
+      "source": "links g26 / equality"
+    },
+    {
+      "id": "rh-053",
+      "cat": "real-strong",
+      "type": "branch",
+      "hook": "You want to improve yourself for real. What's the healthy route?",
+      "options": [
+        {
+          "text": "Build skills, real friends and purpose, no contempt needed",
+          "consequence": "You grow in ways that last and lift you.",
+          "outcome": "real",
+          "best": true
+        },
+        {
+          "text": "Buy the 'alpha' course and look down on others",
+          "consequence": "Real growth needs skills and connection, not contempt or a paywall."
+        }
+      ],
+      "debrief": "Genuine self-improvement is skills, connection and purpose, freely yours.",
+      "relearn": "Improve through skills, friends and purpose, not contempt or courses.",
+      "persona": "Veer",
+      "source": "real growth"
+    },
+    {
+      "id": "rh-054",
+      "cat": "real-strong",
+      "type": "branch",
+      "hook": "You feel the pull to prove you're 'high value' by putting someone down.",
+      "options": [
+        {
+          "text": "Choose to lift instead, that's the stronger move",
+          "consequence": "You feel genuinely good and others respect it.",
+          "outcome": "strong",
+          "best": true
+        },
+        {
+          "text": "Put them down to feel above them",
+          "consequence": "Belittling is the weak move; lifting others is real strength."
+        }
+      ],
+      "debrief": "The strong move is to raise people, not rank yourself above them.",
+      "relearn": "Lifting someone up is stronger than putting them down.",
+      "persona": "any",
+      "source": "positive masculinity"
+    },
+    {
+      "id": "rh-055",
+      "cat": "real-strong",
+      "type": "role-play",
+      "hook": "A friend says respect is 'soft'. Offer the better view.",
+      "setup": "Reframe strength. Say:",
+      "yourLine": [
+        {
+          "text": "\"Real strength lifts people. You don't have to make anyone small to be big.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, you have to be ruthless to win.\""
+        }
+      ],
+      "relearn": "Real strength lifts people; you don't make others small to be big.",
+      "persona": "Veer",
+      "source": "positive masculinity voice"
+    },
+    {
+      "id": "rh-056",
+      "cat": "real-strong",
+      "type": "role-play",
+      "hook": "A younger boy asks you what being 'a real man' means.",
+      "setup": "Give him a better answer. Say:",
+      "yourLine": [
+        {
+          "text": "\"Be strong and kind, work hard, respect people, and be yourself, that's it.\"",
+          "best": true
+        },
+        {
+          "text": "\"Dominate everyone and never show feelings.\""
+        }
+      ],
+      "relearn": "Tell him: strong and kind, hardworking, respectful, yourself.",
+      "persona": "any",
+      "source": "mentoring / positive masculinity"
+    },
+    {
+      "id": "rh-057",
+      "cat": "real-strong",
+      "type": "match",
+      "hook": "Match the real need to the healthy way to meet it.",
+      "pairs": [
+        {
+          "left": "Belonging",
+          "right": "Real friends and community"
+        },
+        {
+          "left": "Identity",
+          "right": "Your own values"
+        },
+        {
+          "left": "Confidence",
+          "right": "Built through effort"
+        }
+      ],
+      "relearn": "Belonging, identity and confidence have healthy sources, not a guru's paywall.",
+      "persona": "any",
+      "source": "healthy needs"
+    },
+    {
+      "id": "rh-058",
+      "cat": "real-strong",
+      "type": "match",
+      "hook": "Match the cage to the freedom equality offers boys.",
+      "pairs": [
+        {
+          "left": "'Always be tough'",
+          "right": "Allowed to feel"
+        },
+        {
+          "left": "'Always the provider'",
+          "right": "Share the load"
+        },
+        {
+          "left": "'Never need help'",
+          "right": "Free to ask"
+        }
+      ],
+      "relearn": "Equality frees boys from the toughness, provider and 'no help' cages.",
+      "persona": "Veer",
+      "source": "links g26"
+    },
+    {
+      "id": "rh-059",
+      "cat": "have-each-others-backs",
+      "type": "branch",
+      "hook": "A close friend is starting to repeat manosphere talking points.",
+      "options": [
+        {
+          "text": "Stay connected and ask real questions, don't mock him",
+          "consequence": "He stays open to you instead of digging in.",
+          "outcome": "call-in",
+          "best": true
+        },
+        {
+          "text": "Mock him and call him a creep",
+          "consequence": "Mockery pushes him deeper; staying connected works better."
+        }
+      ],
+      "debrief": "Calling-in (staying close, asking questions) reaches him; calling-out doesn't.",
+      "relearn": "Help a friend by staying connected and asking, not mocking.",
+      "persona": "any",
+      "source": "call-in (evidence)"
+    },
+    {
+      "id": "rh-060",
+      "cat": "have-each-others-backs",
+      "type": "branch",
+      "hook": "Your friend in the funnel seems lonely underneath it all.",
+      "options": [
+        {
+          "text": "Be the belonging the funnel was offering him",
+          "consequence": "He has a real connection that competes with the feed.",
+          "outcome": "belonging",
+          "best": true
+        },
+        {
+          "text": "Write him off and drop him",
+          "consequence": "Dropping him leaves only the funnel; be the real belonging instead."
+        }
+      ],
+      "debrief": "Real friendship competes directly with what the funnel sells.",
+      "relearn": "Being a real friend offers the belonging the funnel was faking.",
+      "persona": "Veer",
+      "source": "belonging / call-in"
+    },
+    {
+      "id": "rh-061",
+      "cat": "have-each-others-backs",
+      "type": "branch",
+      "hook": "A friend's views are getting genuinely worrying, beyond your help.",
+      "options": [
+        {
+          "text": "Keep caring, and loop in a trusted adult",
+          "consequence": "He gets support bigger than either of you.",
+          "outcome": "help",
+          "best": true
+        },
+        {
+          "text": "Handle it all yourself or give up",
+          "consequence": "For the worrying stuff, loop in a trusted adult, gently."
+        }
+      ],
+      "debrief": "You can stay his friend and still bring in an adult's help.",
+      "relearn": "If it's beyond you, keep caring and loop in a trusted adult.",
+      "persona": "any",
+      "source": "safeguarding / call-in"
+    },
+    {
+      "id": "rh-062",
+      "cat": "have-each-others-backs",
+      "type": "branch",
+      "hook": "You're a girl seeing this stuff aimed your way; it tries to make you small.",
+      "options": [
+        {
+          "text": "Refuse to absorb it; your worth isn't theirs to set",
+          "consequence": "You keep your sense of self intact.",
+          "outcome": "resilient",
+          "best": true
+        },
+        {
+          "text": "Believe the worst it says about you",
+          "consequence": "Don't absorb it, your worth isn't set by online contempt."
+        }
+      ],
+      "debrief": "Recognising it as manipulation lets you refuse to internalise it.",
+      "relearn": "You can refuse to absorb online misogyny; your worth isn't theirs to set.",
+      "persona": "Riya",
+      "source": "for everyone / resilience"
+    },
+    {
+      "id": "rh-063",
+      "cat": "have-each-others-backs",
+      "type": "branch",
+      "hook": "Boys in your class are quoting a misogynist influencer at girls to get a reaction.",
+      "options": [
+        {
+          "text": "Don't reward it; name it calmly or get a teacher",
+          "consequence": "You deny the rage-bait its payoff and protect classmates.",
+          "outcome": "upstander",
+          "best": true
+        },
+        {
+          "text": "Laugh so you fit in",
+          "consequence": "Laughing rewards it; calmly naming it or telling a teacher is better."
+        }
+      ],
+      "debrief": "Not feeding the reaction, and naming it, takes away its power.",
+      "relearn": "Don't reward provocation; name it calmly or tell a teacher.",
+      "persona": "Riya",
+      "source": "links g27 / upstander"
+    },
+    {
+      "id": "rh-064",
+      "cat": "have-each-others-backs",
+      "type": "branch",
+      "hook": "You realise mocking your friend last week pushed him further in.",
+      "options": [
+        {
+          "text": "Reconnect warmly; it's not too late to be his friend",
+          "consequence": "You reopen the door the mockery closed.",
+          "outcome": "repair",
+          "best": true
+        },
+        {
+          "text": "Decide he's a lost cause now",
+          "consequence": "It's rarely too late; reconnecting still helps."
+        }
+      ],
+      "debrief": "Reconnection can undo the push that call-out caused.",
+      "relearn": "It's rarely too late to reconnect and be a real friend again.",
+      "persona": "any",
+      "source": "call-in / repair"
+    },
+    {
+      "id": "rh-065",
+      "cat": "have-each-others-backs",
+      "type": "role-play",
+      "hook": "You want to open a caring conversation with a friend who's changing.",
+      "setup": "Lead with care, not accusation. Say:",
+      "yourLine": [
+        {
+          "text": "\"Hey, I've missed hanging out, how are you really doing lately?\"",
+          "best": true
+        },
+        {
+          "text": "\"You've turned into a sexist idiot.\""
+        }
+      ],
+      "relearn": "Open with care and curiosity, not accusation, to reach a friend.",
+      "persona": "any",
+      "source": "call-in voice"
+    },
+    {
+      "id": "rh-066",
+      "cat": "have-each-others-backs",
+      "type": "role-play",
+      "hook": "Your friend repeats a blame-women line. Respond without a fight.",
+      "setup": "Ask a real question. Say:",
+      "yourLine": [
+        {
+          "text": "\"What's really going on for you? That doesn't sound like the you I know.\"",
+          "best": true
+        },
+        {
+          "text": "\"Shut up, you sound pathetic.\""
+        }
+      ],
+      "relearn": "A real, caring question reaches further than an insult.",
+      "persona": "Veer",
+      "source": "call-in voice"
+    },
+    {
+      "id": "rh-067",
+      "cat": "have-each-others-backs",
+      "type": "role-play",
+      "hook": "A friend admits the content made him feel less alone, and ashamed of that.",
+      "setup": "Take the shame off him. Say:",
+      "yourLine": [
+        {
+          "text": "\"That makes sense, it's built to do that. No shame. I'm here, for real.\"",
+          "best": true
+        },
+        {
+          "text": "\"That's so weak of you.\""
+        }
+      ],
+      "relearn": "Normalise the need, drop the shame, and offer real connection.",
+      "persona": "any",
+      "source": "no shame / belonging"
+    },
+    {
+      "id": "rh-068",
+      "cat": "have-each-others-backs",
+      "type": "role-play",
+      "hook": "A girl friend is shaken by misogynist abuse online. Support her.",
+      "setup": "Have her back. Say:",
+      "yourLine": [
+        {
+          "text": "\"That's on them, not you. You don't have to take it, let's report it.\"",
+          "best": true
+        },
+        {
+          "text": "\"Just ignore it, it's no big deal.\""
+        }
+      ],
+      "relearn": "Back up someone targeted: it's on them, and offer to help report it.",
+      "persona": "Riya",
+      "source": "for everyone / support"
+    },
+    {
+      "id": "rh-069",
+      "cat": "have-each-others-backs",
+      "type": "reflect",
+      "hook": "Lensy: writing someone off vs staying connected, which actually helps them out?",
+      "prompt": "What do you think?",
+      "options": [
+        "Staying connected",
+        "Being there",
+        "Not mocking them"
+      ],
+      "affirm": "Connection is what competes with the funnel, mockery just feeds it.",
+      "relearn": "Staying connected helps a friend out; writing them off pushes them in.",
+      "persona": "any",
+      "source": "call-in"
+    },
+    {
+      "id": "rh-070",
+      "cat": "have-each-others-backs",
+      "type": "reflect",
+      "hook": "Lensy: for everyone, refusing to absorb or spread online misogyny is its own quiet power. Feel that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I won't absorb it",
+        "Quiet power"
+      ],
+      "affirm": "Every person who won't pass it on shrinks its reach.",
+      "relearn": "Refusing to absorb or spread misogyny is real, quiet power.",
+      "persona": "any",
+      "source": "for everyone"
+    },
+    {
+      "id": "rh-071",
+      "cat": "have-each-others-backs",
+      "type": "reflect",
+      "hook": "Lensy: what kind of friend do you want to be if someone you love starts slipping?",
+      "prompt": "Pick one.",
+      "options": [
+        "The one who stays",
+        "The one who asks",
+        "The one who gets help"
+      ],
+      "affirm": "Any of those could be the thing that brings them back.",
+      "relearn": "Staying, asking and getting help are how you bring a friend back.",
+      "persona": "any",
+      "source": "identity"
+    },
+    {
+      "id": "rh-072",
+      "cat": "have-each-others-backs",
+      "type": "sort",
+      "hook": "Sort: pulls a friend back, or pushes them deeper?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Staying connected"
+        },
+        {
+          "id": "b",
+          "text": "Public mockery"
+        },
+        {
+          "id": "c",
+          "text": "Asking real questions"
+        },
+        {
+          "id": "d",
+          "text": "Writing them off"
+        }
+      ],
+      "bins": [
+        {
+          "id": "back",
+          "label": "Pulls them back"
+        },
+        {
+          "id": "deeper",
+          "label": "Pushes them in"
+        }
+      ],
+      "key": {
+        "a": "back",
+        "b": "deeper",
+        "c": "back",
+        "d": "deeper"
+      },
+      "relearn": "Connection and questions pull a friend back; mockery and rejection push them in.",
+      "persona": "any",
+      "source": "call-in"
+    },
+    {
+      "id": "rh-073",
+      "cat": "the-need-underneath",
+      "type": "reflect",
+      "hook": "Lensy: the loneliness or insecurity the funnel preys on is real, and really common. Okay to admit?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I feel it sometimes",
+        "Good to name it"
+      ],
+      "affirm": "Naming it honestly is the opposite of weakness, it's the start of help.",
+      "relearn": "The loneliness the funnel preys on is real and common; naming it is strength.",
+      "persona": "Veer",
+      "source": "the need underneath"
+    },
+    {
+      "id": "rh-074",
+      "cat": "the-need-underneath",
+      "type": "reflect",
+      "hook": "Lensy: reaching out for support when you feel low is one of the strongest things you can do. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "That's real strength",
+        "I can do that"
+      ],
+      "affirm": "Asking for help is strength in action, full stop.",
+      "relearn": "Reaching for support when low is genuine strength.",
+      "persona": "any",
+      "source": "help-seeking"
+    },
+    {
+      "id": "rh-075",
+      "cat": "the-need-underneath",
+      "type": "reflect",
+      "hook": "Lensy: who or what helps you feel you belong, in real life?",
+      "prompt": "Pick one.",
+      "options": [
+        "A good friend",
+        "Family",
+        "A team or hobby",
+        "Something I'm building"
+      ],
+      "affirm": "That's real belonging, worth more than any 'brotherhood' for sale.",
+      "relearn": "Real belonging, friends, family, a team, beats anything sold online.",
+      "persona": "any",
+      "source": "belonging"
+    },
+    {
+      "id": "rh-076",
+      "cat": "the-need-underneath",
+      "type": "branch",
+      "hook": "You've been feeling low and isolated, and the funnel keeps offering 'answers'.",
+      "options": [
+        {
+          "text": "Talk to a trusted adult or call Tele-MANAS 14416",
+          "consequence": "You meet the real need with real support.",
+          "outcome": "help",
+          "best": true
+        },
+        {
+          "text": "Keep filling the gap with the feed",
+          "consequence": "The feed exploits the gap; real support fills it, an adult or 14416."
+        }
+      ],
+      "debrief": "The honest fix for loneliness is real connection and support, not the funnel.",
+      "relearn": "Feeling low? A trusted adult or Tele-MANAS 14416 meets the real need.",
+      "persona": "Veer",
+      "source": "Tele-MANAS (verified)"
+    },
+    {
+      "id": "rh-077",
+      "cat": "the-need-underneath",
+      "type": "branch",
+      "hook": "A friend confides he's been feeling worthless, which is why the content appealed.",
+      "options": [
+        {
+          "text": "Take it seriously and help him reach support",
+          "consequence": "He gets real help for the real hurt.",
+          "outcome": "caring",
+          "best": true
+        },
+        {
+          "text": "Tell him to just man up",
+          "consequence": "'Man up' is the trap; take it seriously and help him find support."
+        }
+      ],
+      "debrief": "Meeting the hurt with care, and real help, is what actually works.",
+      "relearn": "Help a hurting friend reach support; 'man up' only deepens it.",
+      "persona": "any",
+      "source": "support / wellbeing"
+    },
+    {
+      "id": "rh-078",
+      "cat": "the-need-underneath",
+      "type": "branch",
+      "hook": "You're being harassed online with misogynist abuse and it's getting to you.",
+      "options": [
+        {
+          "text": "Save evidence, report it, and tell someone you trust",
+          "consequence": "You get support and the abuse is on record.",
+          "outcome": "supported",
+          "best": true
+        },
+        {
+          "text": "Absorb it silently",
+          "consequence": "You don't have to carry it alone; save evidence, report, and tell someone."
+        }
+      ],
+      "debrief": "Targeted abuse is reportable, and you deserve support, not silence.",
+      "relearn": "For online misogynist abuse: save evidence, report, and tell someone.",
+      "persona": "Riya",
+      "source": "harassment routing"
+    },
+    {
+      "id": "rh-079",
+      "cat": "the-need-underneath",
+      "type": "strike-rewrite",
+      "hook": "\"Asking for help means I've failed as a man.\"",
+      "myth": {
+        "un": "Asking for help means I've failed as a man.",
+        "re": "Asking for help is strength and good sense; everyone needs it sometimes.",
+        "why": "The 'never need help' rule is exactly what isolates and traps boys."
+      },
+      "relearn": "Asking for help is strength, not failure.",
+      "persona": "Veer",
+      "source": "help-seeking / wellbeing"
+    },
+    {
+      "id": "rh-080",
+      "cat": "the-need-underneath",
+      "type": "strike-rewrite",
+      "hook": "\"If I feel lonely, something's wrong with me.\"",
+      "myth": {
+        "un": "Feeling lonely means something's wrong with me.",
+        "re": "Loneliness is a common human signal, not a defect; it's a cue to connect.",
+        "why": "The funnel reframes a normal feeling as a personal failure to exploit it."
+      },
+      "relearn": "Loneliness is a normal signal to connect, not a defect in you.",
+      "persona": "any",
+      "source": "wellbeing"
+    },
+    {
+      "id": "rh-081",
+      "cat": "the-need-underneath",
+      "type": "strike-rewrite",
+      "hook": "\"There's no real help for how I feel.\"",
+      "myth": {
+        "un": "There's no real help for how I feel.",
+        "re": "There is, trusted people and services like Tele-MANAS 14416 are there for exactly this.",
+        "why": "Believing 'no help exists' is part of what keeps you stuck."
+      },
+      "relearn": "Real help exists, trusted people and Tele-MANAS 14416, for how you feel.",
+      "persona": "Counsellor",
+      "source": "Tele-MANAS (verified)"
+    },
+    {
+      "id": "rh-082",
+      "cat": "the-need-underneath",
+      "type": "match",
+      "hook": "Match the need to where real help is (India).",
+      "pairs": [
+        {
+          "left": "Loneliness or low mood",
+          "right": "Tele-MANAS 14416"
+        },
+        {
+          "left": "Right now, in person",
+          "right": "A trusted adult"
+        },
+        {
+          "left": "Online misogynist abuse",
+          "right": "cybercrime.gov.in / 1930"
+        }
+      ],
+      "relearn": "India help: Tele-MANAS 14416, a trusted adult, and cybercrime.gov.in / 1930.",
+      "persona": "Counsellor",
+      "source": "helplines (verified)"
+    },
+    {
+      "id": "rh-083",
+      "cat": "the-need-underneath",
+      "type": "match",
+      "hook": "Match the feeling to the truth that answers it.",
+      "pairs": [
+        {
+          "left": "'I'm not enough'",
+          "right": "You already are"
+        },
+        {
+          "left": "'I'm alone'",
+          "right": "Connection is out there"
+        },
+        {
+          "left": "'It's their fault I hurt'",
+          "right": "The hurt is real, the blame isn't"
+        }
+      ],
+      "relearn": "You're enough, you're not alone, and the hurt is real even when the blame is misplaced.",
+      "persona": "any",
+      "source": "self-worth"
+    },
+    {
+      "id": "rh-084",
+      "cat": "the-need-underneath",
+      "type": "role-play",
+      "hook": "You want to check in on a mate who's gone quiet and angry online.",
+      "setup": "Reach out simply. Say:",
+      "yourLine": [
+        {
+          "text": "\"Thinking of you, mate. Want to hang out this week, just us?\"",
+          "best": true
+        },
+        {
+          "text": "Say nothing; it's not your problem"
+        }
+      ],
+      "relearn": "A simple, warm check-in can reach a friend the funnel is isolating.",
+      "persona": "any",
+      "source": "connection"
+    }
+  ]
+}

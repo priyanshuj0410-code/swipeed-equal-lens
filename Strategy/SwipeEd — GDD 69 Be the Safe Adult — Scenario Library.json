@@ -1,0 +1,1969 @@
+{
+  "game": "Be the Safe Adult",
+  "gameId": "be-the-safe-adult",
+  "node": "g69",
+  "chapter": 8,
+  "ages": null,
+  "ageBand": "Parent Layer (safeguarding)",
+  "thread": "B · Parent Layer · Safeguarding",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Open (adult, comprehensive, ungated)",
+  "leadMechanics": [
+    "strike-rewrite",
+    "role-play",
+    "branch"
+  ],
+  "note": "Safeguarding literacy: spotting abuse, POCSO basics, online dangers, and how to respond to a disclosure, the trusted adult the kids' journey assumes (UNESCO 4.1, 4.2, 4.3, 5.5). New v2 build, the safeguarding keystone that closes the Parent Layer and underwrites the entire kids' journey, because from My Body, My Rules (g02) onward the curriculum tells children to tell a trusted adult, and this node makes sure that adult exists, notices and responds right. Maximum-care and trauma-informed, direct but never fear-mongering and never graphic. Six modes: be tellable (the biggest protection is a child who knows they can tell you anything, so the open, no-blame door is built on purpose; bust 'it won't happen to us' and 'they'd tell me anyway', and read silence as fear and threats, not betrayal), spot the signs (behavioural and physical signs and grooming red flags, told calmly without paranoia, and the crucial fact that most abuse is by a known and trusted adult rather than a stranger, so a child's sudden fear of a familiar person is a signal), if they tell you (the disclosure response that shapes everything: believe the child, stay calm rather than showing horror or rage, tell them clearly it is not their fault, do not interrogate but let them talk at their own pace, then act and protect, never hush it up for the family's image), the law and the call (POCSO basics, any sexual offence against an under-18 is a crime and the child is always the victim, reporting is obliged and protective, with routes to Childline 1098, the police and POCSO e-Box, and cybercrime 1930 for online abuse), safe online and off (online grooming, exploitation and sextortion are real and never the child's fault, so stay involved, keep the door open, keep evidence and report), tools and respond (the signs checklist, the disclosure-response steps and the helpline card, with the child's safety always the first priority). High-care: it is educational and not legal advice, routes real concerns immediately to authorities, never provides any detail that could enable harm, and centres the child as always the protected victim. Builds on Safety Squad (g08), My Body, My Rules (g02) and Firewall (g40). India: most child sexual abuse is by someone known to the family while silence, disbelief and victim-blaming remain common, which makes the safe, tellable, correctly-responding parent decisive; routes are Childline 1098, POCSO e-Box, the police and cybercrime 1930.",
+  "categories": {
+    "be-tellable": "Be tellable: a child who can tell you anything",
+    "spot-the-signs": "Spot the signs: calmly, and the known-adult risk",
+    "if-they-tell-you": "If they tell you: believe, stay calm, no blame, act",
+    "the-law-and-the-call": "The law & the call: POCSO basics, who to contact",
+    "safe-online-and-off": "Safe online & off: real risks, stay close, report",
+    "tools-and-respond": "Tools & respond: signs, response steps, helplines"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "strike-rewrite",
+    "sort",
+    "reflect",
+    "role-play",
+    "match",
+    "spot"
+  ],
+  "evidenceBase": [
+    "A child's safety rests above all on a trusted adult they can tell, so the single biggest protection is being warmly and deliberately tellable: children often stay silent out of fear, confusion, shame or an abuser's threats rather than a lack of love, so a parent builds tellability on purpose by reacting calmly to hard news, never punishing the messenger, and telling a child in advance that they can always come to them with no trouble. The harm can reach any child and silence should be read as fear, not betrayal, so this open, no-blame door, the very 'tell a trusted adult' the whole curriculum relies on, is what makes disclosure possible (UNESCO ITGSE Key Concept 4 violence and keeping safe; child-protection and disclosure research)",
+    "Most abuse comes from someone the child knows and trusts rather than a stranger, around nine in ten cases, so protection means holding that known-adult risk calmly without paranoia: abusers often appear respectable and use trust to gain access, grooming red flags include an adult seeking excessive alone time, special gifts, secrets and favouritism, and ignoring a child's boundaries, and a child's sudden fear of a familiar person, or new unexplained distress, withdrawal or regression, is a signal to take seriously. Age-appropriate body-safety and an open door make a child safer rather than less innocent, and respecting a child's discomfort with someone is protective (child-sexual-abuse-by-known-persons statistics; grooming and warning-signs guidance)",
+    "How a parent responds to a disclosure shapes the child's safety and recovery, and the law puts the child first: the right response is to believe the child (children very rarely lie about abuse), stay calm rather than showing horror or rage which can make a child shut down or feel blamed, tell them clearly it is not their fault and they are not in trouble, avoid interrogating and let them share at their own pace while leaving detailed questioning to professionals, and then act and protect rather than hushing it up for the family's image. Under India's POCSO Act any sexual offence against anyone under 18 is a crime with the child always the victim and reporting is obliged and protective, with routes through Childline 1098, the police and POCSO e-Box, and cybercrime 1930 for online grooming, exploitation or sextortion, which are real and never the child's fault; the node is educational, not legal advice, and routes real concerns to authorities (POCSO Act 2012; disclosure-response best practice; Childline 1098 / cybercrime 1930)"
+  ],
+  "scenarios": [
+    {
+      "id": "sa-001",
+      "cat": "be-tellable",
+      "type": "strike-rewrite",
+      "hook": "\"It won't happen to my child, so I don't need to think about this.\"",
+      "relearn": "Harm can reach any child; being prepared, tellable and ready to respond is the strongest protection.",
+      "persona": "Kamla",
+      "source": "it can happen",
+      "myth": {
+        "un": "It won't happen to my child, so I don't need to think about this.",
+        "re": "Harm can reach any child; the parents who protect best are the ones who prepare to be safe, tellable and ready to respond.",
+        "why": "Preparation protects; denial leaves a gap."
+      }
+    },
+    {
+      "id": "sa-002",
+      "cat": "be-tellable",
+      "type": "strike-rewrite",
+      "hook": "\"My child would obviously tell me right away if anything happened.\"",
+      "relearn": "Children often stay silent; being warmly, deliberately tellable is what makes a child able to come to you.",
+      "persona": "Kamla",
+      "source": "tellability is built",
+      "myth": {
+        "un": "My child would obviously tell me right away if anything happened.",
+        "re": "Children often stay silent from fear, confusion or shame; being warmly tellable, on purpose, is what makes telling possible.",
+        "why": "Tellability is built, not assumed."
+      }
+    },
+    {
+      "id": "sa-003",
+      "cat": "be-tellable",
+      "type": "reflect",
+      "hook": "Sam: the single biggest protection your child has is knowing they can tell you anything. Sit right?",
+      "relearn": "The biggest protection your child has is knowing they can tell you anything.",
+      "persona": "Kamla",
+      "source": "biggest protection",
+      "prompt": "What do you think?",
+      "options": [
+        "Sits right",
+        "Tell me anything",
+        "I'll be that"
+      ],
+      "affirm": "A child who knows they can tell their parent anything has the single strongest protection there is."
+    },
+    {
+      "id": "sa-004",
+      "cat": "be-tellable",
+      "type": "sort",
+      "hook": "Sort: builds a tellable, open relationship, or quietly closes the door?",
+      "relearn": "Calm reactions and 'no trouble for telling' build tellability; punishing the messenger and big anger close the door.",
+      "persona": "any",
+      "source": "open or close",
+      "items": [
+        {
+          "id": "a",
+          "text": "Calm reactions to hard news"
+        },
+        {
+          "id": "b",
+          "text": "Punishing the messenger"
+        },
+        {
+          "id": "c",
+          "text": "'You can always come to me, no trouble'"
+        },
+        {
+          "id": "d",
+          "text": "Big anger when they admit mistakes"
+        }
+      ],
+      "bins": [
+        {
+          "id": "open",
+          "label": "Builds tellability"
+        },
+        {
+          "id": "closes",
+          "label": "Closes the door"
+        }
+      ],
+      "key": {
+        "a": "open",
+        "b": "closes",
+        "c": "open",
+        "d": "closes"
+      }
+    },
+    {
+      "id": "sa-005",
+      "cat": "be-tellable",
+      "type": "role-play",
+      "hook": "You want your child to know, before anything ever happens, that they can always come to you. You tell them.",
+      "relearn": "Telling a child in advance that they can always come to you, with no trouble, is what makes disclosure possible later.",
+      "persona": "Kamla",
+      "source": "tell them early",
+      "setup": "Say it clearly:",
+      "yourLine": [
+        {
+          "text": "\"If anything ever scares or confuses you, or someone hurts you, you can always tell me, you'll never be in trouble.\"",
+          "best": true
+        },
+        {
+          "text": "\"Don't bother me with small things, just behave.\""
+        }
+      ]
+    },
+    {
+      "id": "sa-006",
+      "cat": "be-tellable",
+      "type": "strike-rewrite",
+      "hook": "\"If a child keeps a worrying secret, it means they didn't trust me enough.\"",
+      "relearn": "A child's silence usually comes from fear and threats, not lack of trust; staying tellable invites them to come to you.",
+      "persona": "any",
+      "source": "silence isn't betrayal",
+      "myth": {
+        "un": "If a child keeps a worrying secret, it means they didn't trust me enough.",
+        "re": "Silence usually comes from an abuser's threats and a child's fear, not a failure of love; staying tellable invites them back.",
+        "why": "Don't read silence as betrayal."
+      }
+    },
+    {
+      "id": "sa-007",
+      "cat": "be-tellable",
+      "type": "reflect",
+      "hook": "Sam: every calm, loving response to a small disclosure makes a big one possible. Worth building? ",
+      "relearn": "Every calm, loving response to a small disclosure makes a big one possible.",
+      "persona": "any",
+      "source": "small builds big",
+      "prompt": "What's your take?",
+      "options": [
+        "Worth it",
+        "Small builds big",
+        "Building it"
+      ],
+      "affirm": "Responding calmly and lovingly to small disclosures builds the trust that lets a child bring you the biggest things."
+    },
+    {
+      "id": "sa-008",
+      "cat": "be-tellable",
+      "type": "spot",
+      "hook": "Spot what makes a parent genuinely tellable.",
+      "relearn": "Be tellable by welcoming hard truths calmly and loving unconditionally, not by reacting with anger or blame.",
+      "persona": "any",
+      "source": "genuinely tellable",
+      "scene": [
+        {
+          "text": "Welcoming hard truths without blow-ups",
+          "trick": false
+        },
+        {
+          "text": "Reacting with panic, anger or blame",
+          "trick": true
+        },
+        {
+          "text": "'Nothing you tell me will stop me loving you'",
+          "trick": false
+        }
+      ],
+      "why": "Welcoming hard truths and unconditional love make a parent tellable; panic, anger and blame make a child hide."
+    },
+    {
+      "id": "sa-009",
+      "cat": "be-tellable",
+      "type": "branch",
+      "hook": "Your child tests you with a small, awkward admission.",
+      "relearn": "Pass a child's small disclosure 'test' with calm warmth; overreacting teaches them to hide the big things.",
+      "persona": "Divya",
+      "source": "pass the test",
+      "options": [
+        {
+          "text": "Respond with calm and warmth, passing their test of safety",
+          "consequence": "They learn it's safe to tell you more.",
+          "outcome": "passed",
+          "best": true
+        },
+        {
+          "text": "Overreact, teaching them to keep things from you",
+          "consequence": "Responding calmly passes their safety test and opens the door wider; overreacting teaches them to hide the bigger things."
+        }
+      ],
+      "debrief": "Treat a small awkward admission as a safety test, and pass it with calm and warmth so they bring you more."
+    },
+    {
+      "id": "sa-010",
+      "cat": "spot-the-signs",
+      "type": "strike-rewrite",
+      "hook": "\"Danger to children comes mainly from strangers.\"",
+      "relearn": "Most child abuse is by someone known and trusted, not a stranger; knowing this is key to protecting your child.",
+      "persona": "Kamla",
+      "source": "known not stranger",
+      "myth": {
+        "un": "Danger to children comes mainly from strangers.",
+        "re": "Most abuse is by someone the child knows and trusts, a relative, family friend or known adult, far more often than a stranger.",
+        "why": "Stranger-danger misses where most harm comes from."
+      }
+    },
+    {
+      "id": "sa-011",
+      "cat": "spot-the-signs",
+      "type": "sort",
+      "hook": "Sort: a possible warning sign worth noticing calmly, or ordinary childhood?",
+      "relearn": "Sudden fear of a person or place, and unexplained distress or regression, are worth noticing; haircuts and outgrowing toys aren't.",
+      "persona": "any",
+      "source": "sign or ordinary",
+      "items": [
+        {
+          "id": "a",
+          "text": "Sudden fear of a particular person or place"
+        },
+        {
+          "id": "b",
+          "text": "Wanting a new haircut"
+        },
+        {
+          "id": "c",
+          "text": "New, unexplained distress, withdrawal or regression"
+        },
+        {
+          "id": "d",
+          "text": "Outgrowing an old toy"
+        }
+      ],
+      "bins": [
+        {
+          "id": "sign",
+          "label": "Worth noticing"
+        },
+        {
+          "id": "ordinary",
+          "label": "Ordinary"
+        }
+      ],
+      "key": {
+        "a": "sign",
+        "b": "ordinary",
+        "c": "sign",
+        "d": "ordinary"
+      }
+    },
+    {
+      "id": "sa-012",
+      "cat": "spot-the-signs",
+      "type": "strike-rewrite",
+      "hook": "\"A trusted, respectable adult could never be a risk to my child.\"",
+      "relearn": "Abusers often seem respectable and use trust to gain access; gentle alertness, not blind trust, protects a child.",
+      "persona": "Kamla",
+      "source": "respectability isn't safety",
+      "myth": {
+        "un": "A trusted, respectable adult could never be a risk to my child.",
+        "re": "Abusers often seem trustworthy and respectable and use that trust to get access; staying gently alert protects your child.",
+        "why": "Respectability is not proof of safety."
+      }
+    },
+    {
+      "id": "sa-013",
+      "cat": "spot-the-signs",
+      "type": "match",
+      "hook": "Match each grooming red flag to why it's worth attention.",
+      "relearn": "Excessive alone time, secrets and gifts, and ignoring boundaries are grooming red flags worth calm attention.",
+      "persona": "Kamla",
+      "source": "grooming flags",
+      "pairs": [
+        {
+          "left": "An adult seeking lots of alone time with your child",
+          "right": "Access is how harm starts"
+        },
+        {
+          "left": "Special gifts, secrets or favouritism",
+          "right": "Building secrecy and obligation"
+        },
+        {
+          "left": "Ignoring your child's 'no' or boundaries",
+          "right": "Testing and eroding limits"
+        }
+      ]
+    },
+    {
+      "id": "sa-014",
+      "cat": "spot-the-signs",
+      "type": "reflect",
+      "hook": "Sam: noticing changes early, calmly and without paranoia, is part of being the safe adult. Sit right?",
+      "relearn": "Noticing changes early, calmly and without paranoia, is part of being the safe adult.",
+      "persona": "any",
+      "source": "calm noticing",
+      "prompt": "What do you think?",
+      "options": [
+        "Sits right",
+        "Calm noticing",
+        "Not paranoia"
+      ],
+      "affirm": "Calmly noticing changes in your child, without tipping into paranoia, is a core part of keeping them safe."
+    },
+    {
+      "id": "sa-015",
+      "cat": "spot-the-signs",
+      "type": "spot",
+      "hook": "Spot the calm, protective way to hold the known-adult risk.",
+      "relearn": "Hold the known-adult risk by trusting yet staying observant and respecting your child's discomfort, not with paranoia.",
+      "persona": "any",
+      "source": "calm protective",
+      "scene": [
+        {
+          "text": "Trusting, but staying gently observant",
+          "trick": false
+        },
+        {
+          "text": "Suspecting everyone with paranoia",
+          "trick": true
+        },
+        {
+          "text": "Respecting your child's discomfort with someone",
+          "trick": false
+        }
+      ],
+      "why": "Trusting-but-observant and respecting a child's discomfort are protective; blanket paranoia isn't the goal."
+    },
+    {
+      "id": "sa-016",
+      "cat": "spot-the-signs",
+      "type": "branch",
+      "hook": "Your child suddenly seems frightened of an adult they used to like.",
+      "relearn": "Treat sudden fear of a familiar adult as a signal; stay close and find out why, don't force the contact.",
+      "persona": "Kamla",
+      "source": "take fear seriously",
+      "options": [
+        {
+          "text": "Take it seriously, stay close, and gently find out why",
+          "consequence": "You act on an important signal.",
+          "outcome": "act-signal",
+          "best": true
+        },
+        {
+          "text": "Dismiss it and make them spend time with the adult anyway",
+          "consequence": "Taking the fear seriously and staying close acts on an important signal; forcing the contact ignores your child's instinct."
+        }
+      ],
+      "debrief": "Take a child's sudden fear of an adult seriously, stay close and gently find out why, rather than forcing contact."
+    },
+    {
+      "id": "sa-017",
+      "cat": "spot-the-signs",
+      "type": "strike-rewrite",
+      "hook": "\"If I never talk about safety, I keep my child innocent and protected.\"",
+      "relearn": "Silence doesn't protect; age-appropriate body-safety and an open door make a child safer, not less innocent.",
+      "persona": "any",
+      "source": "openness protects",
+      "myth": {
+        "un": "If I never talk about safety, I keep my child innocent and protected.",
+        "re": "Silence leaves a child unprotected; age-appropriate body-safety and an open door make a child safer, not less innocent.",
+        "why": "Knowledge and openness are shields."
+      }
+    },
+    {
+      "id": "sa-018",
+      "cat": "spot-the-signs",
+      "type": "sort",
+      "hook": "Sort: helps you spot harm early, or leaves your child exposed?",
+      "relearn": "Knowing the signs and trusting a child's discomfort help; denial and forcing contact despite fear leave a child exposed.",
+      "persona": "any",
+      "source": "spot or expose",
+      "items": [
+        {
+          "id": "a",
+          "text": "Knowing the real warning signs"
+        },
+        {
+          "id": "b",
+          "text": "Believing it can't happen to you"
+        },
+        {
+          "id": "c",
+          "text": "Trusting your child's discomfort"
+        },
+        {
+          "id": "d",
+          "text": "Forcing contact despite their fear"
+        }
+      ],
+      "bins": [
+        {
+          "id": "helps",
+          "label": "Helps spot it"
+        },
+        {
+          "id": "exposes",
+          "label": "Leaves them exposed"
+        }
+      ],
+      "key": {
+        "a": "helps",
+        "b": "exposes",
+        "c": "helps",
+        "d": "exposes"
+      }
+    },
+    {
+      "id": "sa-019",
+      "cat": "if-they-tell-you",
+      "type": "strike-rewrite",
+      "hook": "\"If my child tells me something happened, I should question whether they're making it up.\"",
+      "relearn": "Believe your child if they disclose; children very rarely lie about this, and being believed is vital to their recovery.",
+      "persona": "Kamla",
+      "source": "believe them",
+      "myth": {
+        "un": "If my child tells me something happened, I should question whether they're making it up.",
+        "re": "Believe your child; children very rarely lie about abuse, and being believed is vital to their safety and recovery.",
+        "why": "Believing is the first protection."
+      }
+    },
+    {
+      "id": "sa-020",
+      "cat": "if-they-tell-you",
+      "type": "strike-rewrite",
+      "hook": "\"Showing my horror, anger or panic is the natural way to react to a disclosure.\"",
+      "relearn": "Visible horror or rage can make a disclosing child shut down or feel blamed; stay calm and warm so they keep talking.",
+      "persona": "Kamla",
+      "source": "stay calm",
+      "myth": {
+        "un": "Showing my horror, anger or panic is the natural way to react to a disclosure.",
+        "re": "Strong visible horror or rage can make a child shut down or feel blamed; staying calm and warm keeps them talking and safe.",
+        "why": "Your calm is what they need most."
+      }
+    },
+    {
+      "id": "sa-021",
+      "cat": "if-they-tell-you",
+      "type": "strike-rewrite",
+      "hook": "\"A child who was harmed must have done something to cause or allow it.\"",
+      "relearn": "A child is never to blame for abuse; tell them clearly it is not their fault and they did nothing wrong.",
+      "persona": "Kamla",
+      "source": "never the child's fault",
+      "myth": {
+        "un": "A child who was harmed must have done something to cause or allow it.",
+        "re": "A child is never to blame for abuse; the responsibility is entirely the abuser's, and the child needs to hear that clearly.",
+        "why": "The child is always the victim, never at fault."
+      }
+    },
+    {
+      "id": "sa-022",
+      "cat": "if-they-tell-you",
+      "type": "role-play",
+      "hook": "Your child haltingly tells you that someone has been hurting them. Your first words matter most of all.",
+      "relearn": "'I believe you, it's not your fault, I'll keep you safe' is the response that protects a child and aids their recovery.",
+      "persona": "Kamla",
+      "source": "first words",
+      "setup": "Respond with calm love:",
+      "yourLine": [
+        {
+          "text": "\"Thank you for telling me, I believe you, it's not your fault, and I'm going to keep you safe.\"",
+          "best": true
+        },
+        {
+          "text": "\"Are you sure? Why didn't you say something sooner?\""
+        }
+      ]
+    },
+    {
+      "id": "sa-023",
+      "cat": "if-they-tell-you",
+      "type": "strike-rewrite",
+      "hook": "\"I should press my child for every detail right away to get the full story.\"",
+      "relearn": "Don't interrogate a disclosing child; let them share at their own pace, and leave detailed questioning to professionals.",
+      "persona": "Kamla",
+      "source": "don't interrogate",
+      "myth": {
+        "un": "I should press my child for every detail right away to get the full story.",
+        "re": "Don't interrogate; let the child share at their own pace in their own words, and leave detailed questioning to trained professionals.",
+        "why": "Listening, not interrogating, is the parent's job."
+      }
+    },
+    {
+      "id": "sa-024",
+      "cat": "if-they-tell-you",
+      "type": "match",
+      "hook": "Match each disclosure-response step to what it does.",
+      "relearn": "Assure, believe and stay calm, let the child talk, then act: the steps that protect a disclosing child.",
+      "persona": "Kamla",
+      "source": "response steps",
+      "pairs": [
+        {
+          "left": "Assure them they're safe",
+          "right": "Calms fear and shame"
+        },
+        {
+          "left": "Believe and stay calm",
+          "right": "Keeps them talking, not shut down"
+        },
+        {
+          "left": "Let the child talk, then act",
+          "right": "Their pace, then real protection"
+        }
+      ]
+    },
+    {
+      "id": "sa-025",
+      "cat": "if-they-tell-you",
+      "type": "reflect",
+      "hook": "Sam: how you respond in that first moment shapes your child's safety and their healing. Feel the weight?",
+      "relearn": "How you respond in that first moment shapes your child's safety and their healing.",
+      "persona": "Kamla",
+      "source": "first moment",
+      "prompt": "What do you think?",
+      "options": [
+        "Feel it",
+        "First moment matters",
+        "I'll get it right"
+      ],
+      "affirm": "A parent's response in the first moment of a disclosure profoundly shapes the child's safety and their healing."
+    },
+    {
+      "id": "sa-026",
+      "cat": "if-they-tell-you",
+      "type": "branch",
+      "hook": "Your child discloses something and part of you wants to keep it quiet to avoid 'trouble' or scandal.",
+      "relearn": "Protect and report after a disclosure; silencing it for the family's image abandons your child.",
+      "persona": "Kamla",
+      "source": "safety over image",
+      "options": [
+        {
+          "text": "Reassure your child, then take protective action and report",
+          "consequence": "You put your child's safety above appearances.",
+          "outcome": "protect",
+          "best": true
+        },
+        {
+          "text": "Hush it up to protect the family's image",
+          "consequence": "Reassuring and reporting puts your child's safety first; hushing it up to protect the family's image leaves a child unprotected."
+        }
+      ],
+      "debrief": "After a disclosure, reassure your child and take protective action, never hush it up to protect the family's image."
+    },
+    {
+      "id": "sa-027",
+      "cat": "if-they-tell-you",
+      "type": "spot",
+      "hook": "Spot the response that keeps a disclosing child safe.",
+      "relearn": "Keep a disclosing child safe with belief, 'it's not your fault', calm, and protective action, never blame or doubt.",
+      "persona": "Kamla",
+      "source": "safe response",
+      "scene": [
+        {
+          "text": "'I believe you, it's not your fault'",
+          "trick": false
+        },
+        {
+          "text": "Blaming, doubting or interrogating them",
+          "trick": true
+        },
+        {
+          "text": "Staying calm and acting to protect",
+          "trick": false
+        }
+      ],
+      "why": "'I believe you, not your fault' and calm protective action keep a child safe; blame, doubt and interrogation harm them."
+    },
+    {
+      "id": "sa-028",
+      "cat": "if-they-tell-you",
+      "type": "role-play",
+      "hook": "After a disclosure, your child asks if you still love them and if they're in trouble. You leave no doubt.",
+      "relearn": "Unconditional love, 'not in trouble', 'so brave', 'not your fault' is exactly what a child needs to hear to begin healing.",
+      "persona": "Kamla",
+      "source": "no doubt",
+      "setup": "Leave no doubt:",
+      "yourLine": [
+        {
+          "text": "\"I love you completely, you are not in any trouble, you were so brave to tell me, and none of this is your fault.\"",
+          "best": true
+        },
+        {
+          "text": "\"We'll discuss what you did wrong later.\""
+        }
+      ]
+    },
+    {
+      "id": "sa-029",
+      "cat": "the-law-and-the-call",
+      "type": "strike-rewrite",
+      "hook": "\"What counts as abuse is fuzzy, and the child might share the blame.\"",
+      "relearn": "Under POCSO, any sexual offence against an under-18 is a crime and the child is always the victim, never to blame.",
+      "persona": "Kamla",
+      "source": "POCSO basics",
+      "myth": {
+        "un": "What counts as abuse is fuzzy, and the child might share the blame.",
+        "re": "Under India's POCSO Act, any sexual offence against anyone under 18 is a crime, and the child is always the victim, never to blame.",
+        "why": "The law is clear: the child is the protected victim."
+      }
+    },
+    {
+      "id": "sa-030",
+      "cat": "the-law-and-the-call",
+      "type": "strike-rewrite",
+      "hook": "\"This is a private family matter; I shouldn't involve the authorities.\"",
+      "relearn": "Child abuse is a crime to report, not a private matter; the law obliges it, and reporting protects your child.",
+      "persona": "Kamla",
+      "source": "not private",
+      "myth": {
+        "un": "This is a private family matter; I shouldn't involve the authorities.",
+        "re": "Child abuse is a crime, not a private matter, and the law obliges reporting; the authorities exist to protect your child.",
+        "why": "Reporting protects the child and others."
+      }
+    },
+    {
+      "id": "sa-031",
+      "cat": "the-law-and-the-call",
+      "type": "match",
+      "hook": "Match each route to when it's for (India).",
+      "relearn": "Childline 1098, the police and POCSO e-Box, and cybercrime 1930 are the routes to report and protect a child.",
+      "persona": "Kamla",
+      "source": "the routes",
+      "pairs": [
+        {
+          "left": "Childline 1098",
+          "right": "Help for a child in danger or distress"
+        },
+        {
+          "left": "Police / POCSO e-Box",
+          "right": "Reporting a sexual offence against a child"
+        },
+        {
+          "left": "Cybercrime 1930",
+          "right": "Online child abuse or exploitation"
+        }
+      ]
+    },
+    {
+      "id": "sa-032",
+      "cat": "the-law-and-the-call",
+      "type": "sort",
+      "hook": "Sort: the right action if you learn a child is being abused, or the wrong one?",
+      "relearn": "Reporting and protecting the child are right; staying quiet or confronting privately and dropping it leave a child at risk.",
+      "persona": "any",
+      "source": "right vs wrong",
+      "items": [
+        {
+          "id": "a",
+          "text": "Reporting to Childline or the police"
+        },
+        {
+          "id": "b",
+          "text": "Keeping quiet to avoid scandal"
+        },
+        {
+          "id": "c",
+          "text": "Believing and protecting the child"
+        },
+        {
+          "id": "d",
+          "text": "Confronting the abuser alone and dropping it"
+        }
+      ],
+      "bins": [
+        {
+          "id": "right",
+          "label": "Right action"
+        },
+        {
+          "id": "wrong",
+          "label": "Wrong action"
+        }
+      ],
+      "key": {
+        "a": "right",
+        "b": "wrong",
+        "c": "right",
+        "d": "wrong"
+      }
+    },
+    {
+      "id": "sa-033",
+      "cat": "the-law-and-the-call",
+      "type": "reflect",
+      "hook": "Sam: the law puts the child first and obliges adults to act; you are not overreacting by reporting. Clear?",
+      "relearn": "The law puts the child first and obliges adults to act; reporting isn't overreacting.",
+      "persona": "any",
+      "source": "child first",
+      "prompt": "What do you think?",
+      "options": [
+        "Clear",
+        "Child first",
+        "Not overreacting"
+      ],
+      "affirm": "The law places the child first and obliges adults to report; acting to protect a child is never overreacting."
+    },
+    {
+      "id": "sa-034",
+      "cat": "the-law-and-the-call",
+      "type": "strike-rewrite",
+      "hook": "\"Reporting will only make things worse for everyone.\"",
+      "relearn": "Not reporting leaves a child in danger; reporting, with support, is how real protection begins.",
+      "persona": "Kamla",
+      "source": "silence protects abuser",
+      "myth": {
+        "un": "Reporting will only make things worse for everyone.",
+        "re": "Not reporting leaves a child in danger and the abuser free to continue; reporting, with support, is how protection begins.",
+        "why": "Silence protects the abuser, not the child."
+      }
+    },
+    {
+      "id": "sa-035",
+      "cat": "the-law-and-the-call",
+      "type": "branch",
+      "hook": "You suspect a child, yours or another, may be being abused.",
+      "relearn": "Report a reasonable concern and let professionals investigate; you needn't have proof to act.",
+      "persona": "Vikram",
+      "source": "act on concern",
+      "options": [
+        {
+          "text": "Act on the concern, report it, and let professionals investigate",
+          "consequence": "A child gets the protection they need.",
+          "outcome": "report",
+          "best": true
+        },
+        {
+          "text": "Wait for certain proof before doing anything",
+          "consequence": "Acting on a reasonable concern lets professionals investigate and protect; waiting for 'proof' can leave a child in harm."
+        }
+      ],
+      "debrief": "Act on a reasonable concern of abuse by reporting it; you don't need certain proof to protect a child."
+    },
+    {
+      "id": "sa-036",
+      "cat": "the-law-and-the-call",
+      "type": "spot",
+      "hook": "Spot the action that actually protects a child.",
+      "relearn": "Protect a child by reporting and believing them, not by covering it up for the family.",
+      "persona": "any",
+      "source": "protective action",
+      "scene": [
+        {
+          "text": "Reporting to the right authority",
+          "trick": false
+        },
+        {
+          "text": "Covering it up for the family",
+          "trick": true
+        },
+        {
+          "text": "Believing the child and getting help",
+          "trick": false
+        }
+      ],
+      "why": "Reporting and believing-and-helping protect a child; covering it up for the family leaves them in danger."
+    },
+    {
+      "id": "sa-037",
+      "cat": "safe-online-and-off",
+      "type": "strike-rewrite",
+      "hook": "\"Online dangers to children are exaggerated; the internet is basically safe for kids.\"",
+      "relearn": "Online grooming, exploitation and sextortion are real risks; staying involved and tellable protects a child online.",
+      "persona": "Vikram",
+      "source": "online harm is real",
+      "myth": {
+        "un": "Online dangers to children are exaggerated; the internet is basically safe for kids.",
+        "re": "Online grooming, exploitation and sextortion are real risks; staying involved and keeping the door open protects a child online.",
+        "why": "Online harm is real, and parents help most by staying close."
+      }
+    },
+    {
+      "id": "sa-038",
+      "cat": "safe-online-and-off",
+      "type": "sort",
+      "hook": "Sort: a healthy online-safety habit, or one that leaves a child exposed?",
+      "relearn": "Open talk and 'tell me about anyone uneasy' keep kids safer online; total secrecy and silent bans leave them exposed.",
+      "persona": "any",
+      "source": "safe or exposed",
+      "items": [
+        {
+          "id": "a",
+          "text": "Talking openly about online risks"
+        },
+        {
+          "id": "b",
+          "text": "Total secrecy about what kids do online"
+        },
+        {
+          "id": "c",
+          "text": "'Tell me about anyone who makes you uneasy'"
+        },
+        {
+          "id": "d",
+          "text": "Banning everything with no conversation"
+        }
+      ],
+      "bins": [
+        {
+          "id": "healthy",
+          "label": "Healthy safety"
+        },
+        {
+          "id": "exposed",
+          "label": "Leaves them exposed"
+        }
+      ],
+      "key": {
+        "a": "healthy",
+        "b": "exposed",
+        "c": "healthy",
+        "d": "exposed"
+      }
+    },
+    {
+      "id": "sa-039",
+      "cat": "safe-online-and-off",
+      "type": "strike-rewrite",
+      "hook": "\"If my child is groomed or exploited online, it's their own fault for engaging.\"",
+      "relearn": "Online grooming and exploitation are never the child's fault; abusers manipulate children, who need support, not blame.",
+      "persona": "Vikram",
+      "source": "not the child's fault",
+      "myth": {
+        "un": "If my child is groomed or exploited online, it's their own fault for engaging.",
+        "re": "Children are targeted and manipulated by skilled abusers; it is never the child's fault, and they need support, not blame.",
+        "why": "Manipulation isn't the child's fault."
+      }
+    },
+    {
+      "id": "sa-040",
+      "cat": "safe-online-and-off",
+      "type": "branch",
+      "hook": "Your child is being pressured or threatened by someone online.",
+      "relearn": "Respond to online threats by reassuring and reporting (cybercrime 1930), not by punishing the child for being targeted.",
+      "persona": "Vikram",
+      "source": "report online",
+      "options": [
+        {
+          "text": "Reassure them it's not their fault, keep evidence, and report to cybercrime",
+          "consequence": "You respond protectively and act.",
+          "outcome": "report-online",
+          "best": true
+        },
+        {
+          "text": "Get angry at the child and take the device away as punishment",
+          "consequence": "Reassuring and reporting protects your child; anger and punishment make them hide the next, possibly worse, threat."
+        }
+      ],
+      "debrief": "If a child faces online pressure or threats, reassure them it's not their fault, keep evidence, and report (cybercrime 1930)."
+    },
+    {
+      "id": "sa-041",
+      "cat": "safe-online-and-off",
+      "type": "match",
+      "hook": "Match each online-safety practice to what it protects.",
+      "relearn": "An open door, knowing the report routes and staying involved each protect a child online.",
+      "persona": "any",
+      "source": "online practices",
+      "pairs": [
+        {
+          "left": "An open, no-blame door about online life",
+          "right": "A child who'll tell you about danger"
+        },
+        {
+          "left": "Knowing the report routes (1930)",
+          "right": "Fast action if something happens"
+        },
+        {
+          "left": "Age-appropriate involvement",
+          "right": "A safer online world for your child"
+        }
+      ]
+    },
+    {
+      "id": "sa-042",
+      "cat": "safe-online-and-off",
+      "type": "reflect",
+      "hook": "Sam: the same rule holds online and off, be the calm, tellable adult your child can turn to. Resonate?",
+      "relearn": "Online and off, the rule is the same: be the calm, tellable adult your child can turn to.",
+      "persona": "any",
+      "source": "same online and off",
+      "prompt": "What do you think?",
+      "options": [
+        "Resonates",
+        "Online and off",
+        "Be tellable"
+      ],
+      "affirm": "Online or off, the protection is the same: a calm, tellable adult the child can turn to without blame."
+    },
+    {
+      "id": "sa-043",
+      "cat": "safe-online-and-off",
+      "type": "spot",
+      "hook": "Spot the move that keeps a child safer online.",
+      "relearn": "Keep a child safer online by staying involved and knowing how to report, not by reacting with rage.",
+      "persona": "any",
+      "source": "safer online",
+      "scene": [
+        {
+          "text": "Staying involved and keeping the door open",
+          "trick": false
+        },
+        {
+          "text": "Reacting with rage so they hide things",
+          "trick": true
+        },
+        {
+          "text": "Knowing how and where to report",
+          "trick": false
+        }
+      ],
+      "why": "Staying involved and knowing how to report keep a child safer online; rage that makes them hide does the opposite."
+    },
+    {
+      "id": "sa-044",
+      "cat": "safe-online-and-off",
+      "type": "branch",
+      "hook": "Your child shows you a disturbing message from an online contact.",
+      "relearn": "Thank a child for showing you a disturbing message and report it calmly; panic and blame teach them to hide.",
+      "persona": "Vikram",
+      "source": "calm and report",
+      "options": [
+        {
+          "text": "Stay calm, thank them, keep it as evidence, and report it",
+          "consequence": "Your child learns telling you works.",
+          "outcome": "calm-report",
+          "best": true
+        },
+        {
+          "text": "Panic and blame them for talking to strangers",
+          "consequence": "Calm thanks and reporting protects your child and keeps them telling you; panic and blame teach them to hide future dangers."
+        }
+      ],
+      "debrief": "When a child shows you a disturbing online message, stay calm, thank them, keep evidence and report it."
+    },
+    {
+      "id": "sa-045",
+      "cat": "tools-and-respond",
+      "type": "branch",
+      "hook": "You want to be genuinely ready to protect your child, not just hope for the best.",
+      "relearn": "Prepare now, the signs, the response steps, the saved helplines; the moment of crisis is the hardest time to learn.",
+      "persona": "Kamla",
+      "source": "be ready",
+      "options": [
+        {
+          "text": "Learn the signs, the response steps, and save the helplines now",
+          "consequence": "You can act calmly and correctly if you ever need to.",
+          "outcome": "ready",
+          "best": true
+        },
+        {
+          "text": "Assume you'll know what to do in the moment",
+          "consequence": "Learning the signs and steps and saving helplines now means you can act right under pressure; hoping leaves you unprepared."
+        }
+      ],
+      "debrief": "Be ready: learn the signs, the disclosure-response steps and save the helplines before you ever need them."
+    },
+    {
+      "id": "sa-046",
+      "cat": "tools-and-respond",
+      "type": "match",
+      "hook": "Match each tool to what it does.",
+      "relearn": "The signs checklist, the response steps and the helpline card are the core tools of the safe adult.",
+      "persona": "any",
+      "source": "the toolkit",
+      "pairs": [
+        {
+          "left": "The signs checklist",
+          "right": "Knowing what to notice, calmly"
+        },
+        {
+          "left": "The disclosure-response steps",
+          "right": "Believe, calm, no blame, act"
+        },
+        {
+          "left": "The helpline card (1098, 1930)",
+          "right": "Exactly who to call"
+        }
+      ]
+    },
+    {
+      "id": "sa-047",
+      "cat": "tools-and-respond",
+      "type": "strike-rewrite",
+      "hook": "\"Once my child is older, none of this safeguarding matters anymore.\"",
+      "relearn": "Safeguarding matters at every age, online and off; being a tellable, ready adult never stops mattering.",
+      "persona": "any",
+      "source": "lifelong safeguarding",
+      "myth": {
+        "un": "Once my child is older, none of this safeguarding matters anymore.",
+        "re": "Being tellable, alert and ready matters at every age, online and off; the safe adult stays the safe adult.",
+        "why": "Safeguarding is lifelong, not a stage."
+      }
+    },
+    {
+      "id": "sa-048",
+      "cat": "tools-and-respond",
+      "type": "reflect",
+      "hook": "Sam: the whole kids' journey tells children to 'tell a trusted adult', this is the node that makes that adult real. Feel it?",
+      "relearn": "The whole journey tells kids to tell a trusted adult; you are the node that makes that adult real.",
+      "persona": "any",
+      "source": "make it real",
+      "prompt": "What do you think?",
+      "options": [
+        "Feel it",
+        "Make it real",
+        "Be that adult"
+      ],
+      "affirm": "Every part of a child's learning tells them to tell a trusted adult; being that adult is what makes all of it work."
+    },
+    {
+      "id": "sa-049",
+      "cat": "tools-and-respond",
+      "type": "role-play",
+      "hook": "A friend's child has disclosed something and the friend is panicking. You want to guide them to respond right.",
+      "relearn": "Guiding a panicking friend to believe, stay calm, not blame and call Childline is exactly the right, protective help.",
+      "persona": "Divya",
+      "source": "guide a friend",
+      "setup": "Guide them calmly:",
+      "yourLine": [
+        {
+          "text": "\"Believe your child, stay calm, tell them it's not their fault, and let's call Childline 1098 together.\"",
+          "best": true
+        },
+        {
+          "text": "\"Don't tell anyone, just deal with it quietly at home.\""
+        }
+      ]
+    },
+    {
+      "id": "sa-050",
+      "cat": "tools-and-respond",
+      "type": "sort",
+      "hook": "Sort: the right priority when a child may be in danger, or the wrong one?",
+      "relearn": "The child's safety and getting help fast are the right priorities; avoiding embarrassment or protecting a reputation aren't.",
+      "persona": "any",
+      "source": "right priority",
+      "items": [
+        {
+          "id": "a",
+          "text": "The child's immediate safety"
+        },
+        {
+          "id": "b",
+          "text": "Avoiding embarrassment"
+        },
+        {
+          "id": "c",
+          "text": "Getting them the right help fast"
+        },
+        {
+          "id": "d",
+          "text": "Protecting an adult's reputation"
+        }
+      ],
+      "bins": [
+        {
+          "id": "right",
+          "label": "Right priority"
+        },
+        {
+          "id": "wrong",
+          "label": "Wrong priority"
+        }
+      ],
+      "key": {
+        "a": "right",
+        "b": "wrong",
+        "c": "right",
+        "d": "wrong"
+      }
+    },
+    {
+      "id": "sa-051",
+      "cat": "tools-and-respond",
+      "type": "spot",
+      "hook": "Spot the mindset of a true safe adult.",
+      "relearn": "The safe adult puts the child's safety first and lives 'I believe, I stay calm, I act', never image over the child.",
+      "persona": "Kamla",
+      "source": "safe-adult mindset",
+      "scene": [
+        {
+          "text": "'My child's safety comes before everything'",
+          "trick": false
+        },
+        {
+          "text": "'Our image matters more than this'",
+          "trick": true
+        },
+        {
+          "text": "'I believe, I stay calm, I act'",
+          "trick": false
+        }
+      ],
+      "why": "'Safety before everything' and 'believe, stay calm, act' are the safe-adult mindset; 'image over this' is not."
+    },
+    {
+      "id": "sa-052",
+      "cat": "tools-and-respond",
+      "type": "reflect",
+      "hook": "Sam: be tellable, notice the signs, believe and stay calm, know the law and the call. You complete the whole circle. Ready?",
+      "relearn": "Be tellable, notice the signs, believe and stay calm, know the law and the call, and you are the safe adult.",
+      "persona": "any",
+      "source": "complete the circle",
+      "prompt": "What's your take?",
+      "options": [
+        "Ready",
+        "I complete the circle",
+        "Be the safe adult"
+      ],
+      "affirm": "Being tellable, noticing signs, believing and staying calm, and knowing the law and the call make you the safe adult the whole journey needs."
+    },
+    {
+      "id": "sa-053",
+      "cat": "tools-and-respond",
+      "type": "role-play",
+      "hook": "Your co-parent wants to keep a disclosure quiet to avoid family conflict. You want to hold the line for your child.",
+      "relearn": "Holding the line that the child's safety comes first, and reporting together, protects the child over family peace.",
+      "persona": "Vikram",
+      "source": "hold the line",
+      "setup": "Hold the line:",
+      "yourLine": [
+        {
+          "text": "\"Our child's safety comes first, we believe them, we protect them, and we report, together.\"",
+          "best": true
+        },
+        {
+          "text": "\"Fine, let's keep it quiet to keep the peace.\""
+        }
+      ]
+    },
+    {
+      "id": "sa-054",
+      "cat": "be-tellable",
+      "type": "role-play",
+      "hook": "Your child admits to a mistake they were scared to mention. You want to reward the honesty, not the error.",
+      "relearn": "Praising the courage to tell, even about a mistake, keeps the door open for the things that matter most.",
+      "persona": "Divya",
+      "source": "reward honesty",
+      "setup": "Reward the honesty:",
+      "yourLine": [
+        {
+          "text": "\"I'm really glad you told me, that took courage, let's sort it out together.\"",
+          "best": true
+        },
+        {
+          "text": "\"How could you? You're in big trouble now.\""
+        }
+      ]
+    },
+    {
+      "id": "sa-055",
+      "cat": "be-tellable",
+      "type": "sort",
+      "hook": "Sort: makes a child more likely to confide, or less?",
+      "relearn": "Calm listening and 'no topic off-limits' make a child confide; mockery and scary reactions make them clam up.",
+      "persona": "any",
+      "source": "more or less",
+      "items": [
+        {
+          "id": "a",
+          "text": "Calm, listening responses"
+        },
+        {
+          "id": "b",
+          "text": "Mocking or dismissing their worries"
+        },
+        {
+          "id": "c",
+          "text": "'No topic is off-limits with me'"
+        },
+        {
+          "id": "d",
+          "text": "Big reactions that scare them"
+        }
+      ],
+      "bins": [
+        {
+          "id": "more",
+          "label": "More likely to tell"
+        },
+        {
+          "id": "less",
+          "label": "Less likely"
+        }
+      ],
+      "key": {
+        "a": "more",
+        "b": "less",
+        "c": "more",
+        "d": "less"
+      }
+    },
+    {
+      "id": "sa-056",
+      "cat": "be-tellable",
+      "type": "branch",
+      "hook": "You're tempted to react with anger to keep your child 'in line'.",
+      "relearn": "Keep the telling-channel open with calm connection; fear closes it exactly when a child needs it.",
+      "persona": "Vikram",
+      "source": "keep the channel",
+      "options": [
+        {
+          "text": "Choose calm connection so they stay willing to tell you things",
+          "consequence": "You protect the channel they may one day need.",
+          "outcome": "channel",
+          "best": true
+        },
+        {
+          "text": "Rule by fear and lose their confidences",
+          "consequence": "Calm connection keeps the channel open they may urgently need; ruling by fear closes it just when it matters most."
+        }
+      ],
+      "debrief": "Choose calm connection over fear; a child who fears you stops telling you the things you most need to hear."
+    },
+    {
+      "id": "sa-057",
+      "cat": "be-tellable",
+      "type": "role-play",
+      "hook": "You want to make a simple family promise about telling. You say it warmly to your kids.",
+      "relearn": "A clear family promise to listen, believe and help builds the tellability that keeps children safe.",
+      "persona": "Priya",
+      "source": "family promise",
+      "setup": "Make the promise:",
+      "yourLine": [
+        {
+          "text": "\"In our home, you can tell us anything, and we will listen, believe you, and help, always.\"",
+          "best": true
+        },
+        {
+          "text": "\"Children should be seen and not heard in this house.\""
+        }
+      ]
+    },
+    {
+      "id": "sa-058",
+      "cat": "be-tellable",
+      "type": "match",
+      "hook": "Match each parent habit to the message a child receives.",
+      "relearn": "Listening, staying calm and following through tell a child that confiding in you is safe and worthwhile.",
+      "persona": "any",
+      "source": "habit to message",
+      "pairs": [
+        {
+          "left": "Listening without interrupting",
+          "right": "What I feel matters to them"
+        },
+        {
+          "left": "Calm with bad news",
+          "right": "I won't get in trouble for telling"
+        },
+        {
+          "left": "Following through to help",
+          "right": "Telling actually changes things"
+        }
+      ]
+    },
+    {
+      "id": "sa-059",
+      "cat": "spot-the-signs",
+      "type": "role-play",
+      "hook": "You want to gently check in on a child who seems withdrawn, without alarming them.",
+      "relearn": "A gentle, loving check-in invites a withdrawn child to open up, where impatience makes them retreat further.",
+      "persona": "Meena",
+      "source": "gentle check-in",
+      "setup": "Check in gently:",
+      "yourLine": [
+        {
+          "text": "\"You've seemed a bit quiet lately, I'm here and I love you, is there anything you want to tell me?\"",
+          "best": true
+        },
+        {
+          "text": "\"What's wrong with you these days? Snap out of it.\""
+        }
+      ]
+    },
+    {
+      "id": "sa-060",
+      "cat": "spot-the-signs",
+      "type": "sort",
+      "hook": "Sort: a reason to gently pay closer attention, or just normal variation?",
+      "relearn": "Sudden fear of an adult and unexplained marks plus distress warrant attention; moodiness and preferring friends are normal.",
+      "persona": "any",
+      "source": "attention or normal",
+      "items": [
+        {
+          "id": "a",
+          "text": "Sudden secrecy and fear around one adult"
+        },
+        {
+          "id": "b",
+          "text": "A normal phase of moodiness"
+        },
+        {
+          "id": "c",
+          "text": "Unexplained marks plus distress"
+        },
+        {
+          "id": "d",
+          "text": "Preferring friends to family outings"
+        }
+      ],
+      "bins": [
+        {
+          "id": "attention",
+          "label": "Pay attention"
+        },
+        {
+          "id": "normal",
+          "label": "Normal variation"
+        }
+      ],
+      "key": {
+        "a": "attention",
+        "b": "normal",
+        "c": "attention",
+        "d": "normal"
+      }
+    },
+    {
+      "id": "sa-061",
+      "cat": "spot-the-signs",
+      "type": "branch",
+      "hook": "Another adult dismisses your concern about how someone behaves around your child.",
+      "relearn": "Act on your protective instinct even if others dismiss it; better safe than sorry where a child is concerned.",
+      "persona": "Kamla",
+      "source": "trust your instinct",
+      "options": [
+        {
+          "text": "Trust your instinct and keep your child safe anyway",
+          "consequence": "You act as the safe adult regardless.",
+          "outcome": "trust-instinct",
+          "best": true
+        },
+        {
+          "text": "Let yourself be talked out of your worry",
+          "consequence": "Trusting your protective instinct keeps your child safe; being talked out of a real worry can leave them exposed."
+        }
+      ],
+      "debrief": "Trust your protective instinct about someone around your child, even if another adult dismisses your concern."
+    },
+    {
+      "id": "sa-062",
+      "cat": "spot-the-signs",
+      "type": "match",
+      "hook": "Match each protective practice to what it guards against.",
+      "relearn": "Knowing red flags, respecting a child's 'no', and staying observant each guard against how harm takes hold.",
+      "persona": "Kamla",
+      "source": "practice guards",
+      "pairs": [
+        {
+          "left": "Knowing grooming red flags",
+          "right": "Manipulation by a trusted adult"
+        },
+        {
+          "left": "Respecting your child's 'no'",
+          "right": "Eroded boundaries"
+        },
+        {
+          "left": "Staying gently observant",
+          "right": "Harm going unnoticed"
+        }
+      ]
+    },
+    {
+      "id": "sa-063",
+      "cat": "spot-the-signs",
+      "type": "spot",
+      "hook": "Spot the balanced way to keep a child safe from known-adult risk.",
+      "relearn": "Keep a child safe with warm trust plus quiet vigilance and believing their discomfort, not blind trust or paranoia.",
+      "persona": "any",
+      "source": "balanced safety",
+      "scene": [
+        {
+          "text": "Warm trust plus quiet vigilance",
+          "trick": false
+        },
+        {
+          "text": "Either blind trust or total paranoia",
+          "trick": true
+        },
+        {
+          "text": "Believing a child's discomfort",
+          "trick": false
+        }
+      ],
+      "why": "Warm trust with quiet vigilance and believing a child's discomfort are balanced; blind trust or paranoia aren't."
+    },
+    {
+      "id": "sa-064",
+      "cat": "if-they-tell-you",
+      "type": "role-play",
+      "hook": "Your child is crying and struggling to get the words out. You want to make it safe to speak.",
+      "relearn": "Gently giving a child time and safety to speak, at their own pace, helps far more than pressing for a fast account.",
+      "persona": "Kamla",
+      "source": "make it safe",
+      "setup": "Make it safe:",
+      "yourLine": [
+        {
+          "text": "\"Take your time, you're safe now, I'm right here and I'm listening, whatever it is.\"",
+          "best": true
+        },
+        {
+          "text": "\"Stop crying and just tell me exactly what happened, now.\""
+        }
+      ]
+    },
+    {
+      "id": "sa-065",
+      "cat": "if-they-tell-you",
+      "type": "sort",
+      "hook": "Sort: a response that helps a child who has disclosed, or one that harms?",
+      "relearn": "Belief, 'not your fault' and calm protection help; doubting them or frightening anger harm a child who has disclosed.",
+      "persona": "Kamla",
+      "source": "helps or harms",
+      "items": [
+        {
+          "id": "a",
+          "text": "'I believe you and it's not your fault'"
+        },
+        {
+          "id": "b",
+          "text": "'Are you sure you didn't imagine it?'"
+        },
+        {
+          "id": "c",
+          "text": "Staying calm and protective"
+        },
+        {
+          "id": "d",
+          "text": "Anger that frightens them into silence"
+        }
+      ],
+      "bins": [
+        {
+          "id": "helps",
+          "label": "Helps the child"
+        },
+        {
+          "id": "harms",
+          "label": "Harms them"
+        }
+      ],
+      "key": {
+        "a": "helps",
+        "b": "harms",
+        "c": "helps",
+        "d": "harms"
+      }
+    },
+    {
+      "id": "sa-066",
+      "cat": "if-they-tell-you",
+      "type": "branch",
+      "hook": "Your child begs you not to tell anyone about what they disclosed.",
+      "relearn": "Reassure a frightened child, but get safe help; promising to tell no one can leave them in danger.",
+      "persona": "Kamla",
+      "source": "no secrecy promise",
+      "options": [
+        {
+          "text": "Reassure them, but gently explain you must get safe help to protect them",
+          "consequence": "You honour their feelings and their safety.",
+          "outcome": "safe-help",
+          "best": true
+        },
+        {
+          "text": "Promise total secrecy to calm them",
+          "consequence": "Reassuring while getting safe help protects the child; promising total secrecy can trap you both and leave them unprotected."
+        }
+      ],
+      "debrief": "Don't promise a disclosing child total secrecy; reassure them, and gently get the safe help that protects them."
+    },
+    {
+      "id": "sa-067",
+      "cat": "if-they-tell-you",
+      "type": "role-play",
+      "hook": "Days after a disclosure, your child seems to be checking whether you still see them the same way. You reassure them.",
+      "relearn": "Reassuring a child that the disclosure changed nothing about your love, and not silencing it, supports their healing.",
+      "persona": "Kamla",
+      "source": "still the same love",
+      "setup": "Reassure warmly:",
+      "yourLine": [
+        {
+          "text": "\"Nothing about what happened changes how much I love you or how proud I am of you for telling me.\"",
+          "best": true
+        },
+        {
+          "text": "\"Let's just put it behind us and never speak of it.\""
+        }
+      ]
+    },
+    {
+      "id": "sa-068",
+      "cat": "the-law-and-the-call",
+      "type": "role-play",
+      "hook": "You're scared to make the report and want to talk yourself into it. You picture the call.",
+      "relearn": "A simple call to report and protect a child is exactly your place; the people on the line will guide you through it.",
+      "persona": "Vikram",
+      "source": "make the report",
+      "setup": "Make the call:",
+      "yourLine": [
+        {
+          "text": "\"I need to report something to protect a child, can you help me with what to do next?\"",
+          "best": true
+        },
+        {
+          "text": "\"Actually, maybe it's not my place, I'll stay out of it.\""
+        }
+      ]
+    },
+    {
+      "id": "sa-069",
+      "cat": "the-law-and-the-call",
+      "type": "sort",
+      "hook": "Sort: aligns with protecting the child under the law, or works against it?",
+      "relearn": "Reporting and keeping the child as the protected victim align with the law; blaming the child or shielding an adult work against it.",
+      "persona": "any",
+      "source": "protects or against",
+      "items": [
+        {
+          "id": "a",
+          "text": "Reporting a sexual offence against a child"
+        },
+        {
+          "id": "b",
+          "text": "Treating the child as partly to blame"
+        },
+        {
+          "id": "c",
+          "text": "Keeping the child as the protected victim"
+        },
+        {
+          "id": "d",
+          "text": "Hiding it to shield an adult"
+        }
+      ],
+      "bins": [
+        {
+          "id": "protects",
+          "label": "Protects the child"
+        },
+        {
+          "id": "against",
+          "label": "Works against it"
+        }
+      ],
+      "key": {
+        "a": "protects",
+        "b": "against",
+        "c": "protects",
+        "d": "against"
+      }
+    },
+    {
+      "id": "sa-070",
+      "cat": "the-law-and-the-call",
+      "type": "branch",
+      "hook": "You worry that reporting will bring shame on the family.",
+      "relearn": "Choose the child's safety over the family name; the shame is the abuser's, and reporting is protection.",
+      "persona": "Kamla",
+      "source": "child over name",
+      "options": [
+        {
+          "text": "Put the child's safety first and report; shame belongs to the abuser, not the child",
+          "consequence": "You protect the child as the law intends.",
+          "outcome": "child-first",
+          "best": true
+        },
+        {
+          "text": "Protect the family name over the child",
+          "consequence": "Putting the child first and reporting protects them; protecting the family name over a child leaves them in harm and the abuser free."
+        }
+      ],
+      "debrief": "Report to protect the child even if you fear family shame; the shame belongs to the abuser, never the child."
+    },
+    {
+      "id": "sa-071",
+      "cat": "the-law-and-the-call",
+      "type": "match",
+      "hook": "Match each fact under the law to what it means.",
+      "relearn": "Under the law any offence against a child is a serious crime, the child is always the victim, and reporting is required.",
+      "persona": "Kamla",
+      "source": "law facts",
+      "pairs": [
+        {
+          "left": "Any offence against an under-18 is a crime",
+          "right": "It must be taken seriously"
+        },
+        {
+          "left": "The child is always the victim",
+          "right": "Never blame the child"
+        },
+        {
+          "left": "Reporting is obliged",
+          "right": "Acting is required, not optional"
+        }
+      ]
+    },
+    {
+      "id": "sa-072",
+      "cat": "the-law-and-the-call",
+      "type": "sort",
+      "hook": "Sort: a route that gets a child protection, or a dead end?",
+      "relearn": "Childline 1098 and the police or POCSO e-Box get a child protection; hoping or warning the abuser off are dead ends.",
+      "persona": "any",
+      "source": "route or dead end",
+      "items": [
+        {
+          "id": "a",
+          "text": "Childline 1098"
+        },
+        {
+          "id": "b",
+          "text": "Telling no one and hoping"
+        },
+        {
+          "id": "c",
+          "text": "The police or POCSO e-Box"
+        },
+        {
+          "id": "d",
+          "text": "Just warning the abuser off"
+        }
+      ],
+      "bins": [
+        {
+          "id": "route",
+          "label": "Real route"
+        },
+        {
+          "id": "deadend",
+          "label": "A dead end"
+        }
+      ],
+      "key": {
+        "a": "route",
+        "b": "deadend",
+        "c": "route",
+        "d": "deadend"
+      }
+    },
+    {
+      "id": "sa-073",
+      "cat": "the-law-and-the-call",
+      "type": "branch",
+      "hook": "You're unsure whether what you've learned is 'serious enough' to report.",
+      "relearn": "Report when unsure; let trained professionals decide, rather than dropping a concern that may be real.",
+      "persona": "Vikram",
+      "source": "let pros decide",
+      "options": [
+        {
+          "text": "Report it and let the professionals decide; you don't have to be certain",
+          "consequence": "A child gets a proper, expert assessment.",
+          "outcome": "let-pros",
+          "best": true
+        },
+        {
+          "text": "Decide it's probably nothing and drop it",
+          "consequence": "Reporting and letting professionals assess protects the child; deciding it's 'probably nothing' can leave real harm unaddressed."
+        }
+      ],
+      "debrief": "Report a concern even if unsure it's serious enough; professionals assess it, you don't have to be certain."
+    },
+    {
+      "id": "sa-074",
+      "cat": "safe-online-and-off",
+      "type": "role-play",
+      "hook": "You want your child to feel safe telling you about anything creepy online. You set that up.",
+      "relearn": "Promising no-trouble openness about anything creepy online makes a child far likelier to tell you before harm grows.",
+      "persona": "Vikram",
+      "source": "creepy online",
+      "setup": "Set it up warmly:",
+      "yourLine": [
+        {
+          "text": "\"If anyone online ever makes you uncomfortable or asks for something odd, just tell me, you'll never be in trouble.\"",
+          "best": true
+        },
+        {
+          "text": "\"If you talk to strangers online, that's your own fault.\""
+        }
+      ]
+    },
+    {
+      "id": "sa-075",
+      "cat": "safe-online-and-off",
+      "type": "sort",
+      "hook": "Sort: protects a child online, or leaves them exposed?",
+      "relearn": "An open door and knowing how to report protect online; shaming a targeted child and assuming harmlessness leave them exposed.",
+      "persona": "any",
+      "source": "protect or expose",
+      "items": [
+        {
+          "id": "a",
+          "text": "An open, no-blame door about online life"
+        },
+        {
+          "id": "b",
+          "text": "Shaming them for being targeted"
+        },
+        {
+          "id": "c",
+          "text": "Knowing how to report (1930)"
+        },
+        {
+          "id": "d",
+          "text": "Assuming the internet is harmless"
+        }
+      ],
+      "bins": [
+        {
+          "id": "protect",
+          "label": "Protects online"
+        },
+        {
+          "id": "expose",
+          "label": "Leaves exposed"
+        }
+      ],
+      "key": {
+        "a": "protect",
+        "b": "expose",
+        "c": "protect",
+        "d": "expose"
+      }
+    },
+    {
+      "id": "sa-076",
+      "cat": "safe-online-and-off",
+      "type": "branch",
+      "hook": "Your child confides that they shared something online they now regret and are scared.",
+      "relearn": "Help a scared child handle an online regret with reassurance and support; shame just drives the next danger underground.",
+      "persona": "Vikram",
+      "source": "reassure and handle",
+      "options": [
+        {
+          "text": "Reassure them it's not the end, keep evidence, and get help to handle it",
+          "consequence": "You turn fear into a safe, handled situation.",
+          "outcome": "handled",
+          "best": true
+        },
+        {
+          "text": "Shame and punish them, deepening the fear",
+          "consequence": "Reassuring and helping turns it into a handled situation and keeps them telling you; shame and punishment make them hide future danger."
+        }
+      ],
+      "debrief": "If a child regrets something shared online, reassure them, keep evidence and get help; don't shame or punish them."
+    },
+    {
+      "id": "sa-077",
+      "cat": "safe-online-and-off",
+      "type": "match",
+      "hook": "Match each online risk to a protective parent move.",
+      "relearn": "Grooming, threats and online regret each meet a protective move that keeps a child safe and talking.",
+      "persona": "Vikram",
+      "source": "risk to move",
+      "pairs": [
+        {
+          "left": "Online grooming",
+          "right": "Stay involved and keep the door open"
+        },
+        {
+          "left": "Pressure or threats",
+          "right": "Keep evidence and report to 1930"
+        },
+        {
+          "left": "Regret over something shared",
+          "right": "Calm support, not punishment"
+        }
+      ]
+    },
+    {
+      "id": "sa-078",
+      "cat": "safe-online-and-off",
+      "type": "role-play",
+      "hook": "A friend is panicking that their child is being targeted online. You want to steady them toward action.",
+      "relearn": "Steadying a friend toward reassurance, evidence and reporting protects the child better than a panicked over-reaction.",
+      "persona": "Divya",
+      "source": "steady to action",
+      "setup": "Steady them toward action:",
+      "yourLine": [
+        {
+          "text": "\"Stay calm, support your child, save the messages, and report to cybercrime 1930, that's how you protect them.\"",
+          "best": true
+        },
+        {
+          "text": "\"Just smash the phone and hope it stops.\""
+        }
+      ]
+    },
+    {
+      "id": "sa-079",
+      "cat": "safe-online-and-off",
+      "type": "spot",
+      "hook": "Spot what keeps a child safest online.",
+      "relearn": "Stay the calm, tellable adult and know the report routes to keep a child safest online.",
+      "persona": "any",
+      "source": "safest online",
+      "scene": [
+        {
+          "text": "Being the calm, tellable adult about online life",
+          "trick": false
+        },
+        {
+          "text": "Reacting so harshly they hide things",
+          "trick": true
+        },
+        {
+          "text": "Knowing the report routes",
+          "trick": false
+        }
+      ],
+      "why": "Being the calm, tellable adult and knowing the report routes keep a child safest online; harsh reactions make them hide."
+    },
+    {
+      "id": "sa-080",
+      "cat": "tools-and-respond",
+      "type": "role-play",
+      "hook": "You want to set up your phone so the right help is one tap away. You tell your co-parent the plan.",
+      "relearn": "Saving the key helplines in advance means that in a frightening moment, the right help is instantly to hand.",
+      "persona": "Vikram",
+      "source": "save the numbers",
+      "setup": "Make it concrete:",
+      "yourLine": [
+        {
+          "text": "\"Let's save Childline 1098 and cybercrime 1930 now, so if we ever need them, help is one tap away.\"",
+          "best": true
+        },
+        {
+          "text": "\"We'll look up numbers if something ever happens.\""
+        }
+      ]
+    },
+    {
+      "id": "sa-081",
+      "cat": "tools-and-respond",
+      "type": "sort",
+      "hook": "Sort: a green-flag safe-adult habit, or one to change?",
+      "relearn": "An open door and knowing the signs and routes are green flags; punishing honesty and denial are habits to change.",
+      "persona": "any",
+      "source": "green or change",
+      "items": [
+        {
+          "id": "a",
+          "text": "An open, no-blame door"
+        },
+        {
+          "id": "b",
+          "text": "Punishing children for telling the truth"
+        },
+        {
+          "id": "c",
+          "text": "Knowing the signs and routes"
+        },
+        {
+          "id": "d",
+          "text": "Assuming it could never happen"
+        }
+      ],
+      "bins": [
+        {
+          "id": "green",
+          "label": "Green-flag habit"
+        },
+        {
+          "id": "change",
+          "label": "Habit to change"
+        }
+      ],
+      "key": {
+        "a": "green",
+        "b": "change",
+        "c": "green",
+        "d": "change"
+      }
+    },
+    {
+      "id": "sa-082",
+      "cat": "tools-and-respond",
+      "type": "branch",
+      "hook": "You realise you've been avoiding learning about this because it's frightening.",
+      "relearn": "Prepare despite the fear; an informed, ready parent is a child's safety when it counts.",
+      "persona": "Kamla",
+      "source": "face it now",
+      "options": [
+        {
+          "text": "Face it calmly now, so you can protect calmly later",
+          "consequence": "Your preparedness becomes your child's safety.",
+          "outcome": "prepared",
+          "best": true
+        },
+        {
+          "text": "Keep avoiding it and stay unprepared",
+          "consequence": "Facing it calmly now builds the preparedness that protects later; avoiding it leaves you unready when it matters."
+        }
+      ],
+      "debrief": "Face this hard topic calmly now so you can respond calmly and protect your child if you ever need to."
+    },
+    {
+      "id": "sa-083",
+      "cat": "tools-and-respond",
+      "type": "match",
+      "hook": "Match a moment to the safe-adult tool for it.",
+      "relearn": "Each moment has a safe-adult tool: a gentle check-in, the disclosure-response steps, or the helpline card.",
+      "persona": "Kamla",
+      "source": "moment to tool",
+      "pairs": [
+        {
+          "left": "A child seems withdrawn",
+          "right": "A gentle, open check-in"
+        },
+        {
+          "left": "A child discloses",
+          "right": "Believe, stay calm, no blame, act"
+        },
+        {
+          "left": "You need to report",
+          "right": "The helpline card (1098, 1930)"
+        }
+      ]
+    },
+    {
+      "id": "sa-084",
+      "cat": "tools-and-respond",
+      "type": "role-play",
+      "hook": "Your child has come through something hard with your support, and you want to affirm them. You tell them.",
+      "relearn": "Affirming a child's bravery, their blamelessness and your permanent open door supports healing far more than silence.",
+      "persona": "Kamla",
+      "source": "affirm them",
+      "setup": "Affirm them:",
+      "yourLine": [
+        {
+          "text": "\"You were so brave, none of it was your fault, and I will always be here as the person you can tell anything.\"",
+          "best": true
+        },
+        {
+          "text": "\"Let's never mention this again, it's embarrassing.\""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2016 @@
+{
+  "game": "Justice League: Rights Edition",
+  "gameId": "justice-league",
+  "node": "g35",
+  "chapter": 5,
+  "ages": "15-18",
+  "thread": "G · Values, Rights & Media",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Core",
+  "leadMechanics": [
+    "branch",
+    "match",
+    "strike-rewrite"
+  ],
+  "note": "Rights & redress pathways (UNESCO 1, 3.3, 2.2, 3.2, 4.1, 1.4). New v2 build, Chapter 5. You have rights, there are laws that protect you, and there are real ways to get help and justice, knowing them is your superpower. Empowerment through knowledge: a person who knows their rights and how to claim them is far harder to exploit and better able to help others. EDUCATIONAL, NOT legal advice: translates law into plain language, demystifies redress, and points to real authorities and free legal aid; never promises outcomes. Builds on g20 (Defenders of the Body); pairs g34 (Change Makers); underwrites g31 (Mutual). India framework: constitutional rights (equality, dignity, free education/RTE), POCSO (age of consent 18), POSH Act (workplace harassment, Internal Committee), Prohibition of Child Marriage Act (18/21), DV Act, cyber-law; routes, a trusted adult, the police/FIR (mandatory for a cognizable offence; Zero FIR at any station), school/college Internal Committees, Child Welfare Committees, NCPCR/women's commissions, free legal aid via NALSA (15100, Article 39A), and helplines (Childline 1098, Women 181, women-in-distress 1091, emergency 112, cybercrime 1930). All law content must be expert-reviewed, localised and kept current; live danger routes to help.",
+  "categories": {
+    "know-your-rights": "Know your rights",
+    "know-the-law": "Know the law (plain language)",
+    "get-justice": "Get justice: the practical path",
+    "rights-in-action": "Rights in action: apply it",
+    "educational-not-advice": "Educational, not legal advice",
+    "your-rights-toolkit": "Your rights toolkit"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "match",
+    "strike-rewrite",
+    "sort",
+    "reflect",
+    "role-play",
+    "spot"
+  ],
+  "evidenceBase": [
+    "Every person, including every child and teen, holds rights, equality and non-discrimination, dignity, free education (the Right to Education Act / Article 21A), safety and protection, guaranteed by the Constitution and by law; rights are not a favour granted to the lucky few. Knowing your rights and how to claim them makes you far harder to exploit and better able to help others (UNESCO KC1; Constitution of India)",
+    "Key Indian laws protect young people in plain terms: POCSO protects minors and the age of consent is 18; the POSH Act protects against workplace sexual harassment (with an Internal Committee); the Prohibition of Child Marriage Act sets the minimum marriage age at 18 for women and 21 for men; the Domestic Violence Act, the Dowry Prohibition Act and the Bharatiya Nyaya Sanhita protect against gender-based violence; and cyber-law covers online abuse (India Code; expert-reviewed and to be kept current)",
+    "There are real routes to justice: tell a trusted adult, teacher or counsellor; the police must register an FIR for a serious (cognizable) offence and a Zero FIR can be filed at any police station regardless of jurisdiction (Lalita Kumari, 2014); school/college Internal Committees, Child Welfare Committees and the NCPCR/women's commissions help; free legal aid is available to those who cannot afford a lawyer through NALSA and the Legal Services Authorities (helpline 15100, Article 39A); and helplines (1098, 181, 1091, 112, 1930) connect to immediate help. This is educational, not legal advice, and points to real authorities and free legal aid (NALSA; Lalita Kumari v. State of UP)"
+  ],
+  "scenarios": [
+    {
+      "id": "jl-001",
+      "cat": "know-your-rights",
+      "type": "strike-rewrite",
+      "hook": "\"Rights are for adults and powerful people, not someone like me.\"",
+      "myth": {
+        "un": "Rights are for adults and the powerful, not me.",
+        "re": "Every person, including every teen, holds rights, they aren't a favour for the lucky few.",
+        "why": "Rights are guaranteed by the Constitution and law for all."
+      },
+      "relearn": "Rights belong to everyone, including you; they're not just for the powerful.",
+      "persona": "any",
+      "source": "rights for all"
+    },
+    {
+      "id": "jl-002",
+      "cat": "know-your-rights",
+      "type": "strike-rewrite",
+      "hook": "\"You have to earn your rights by behaving.\"",
+      "myth": {
+        "un": "You have to earn your rights.",
+        "re": "Rights aren't earned or granted as a reward; you have them simply as a person.",
+        "why": "They're guaranteed, not conditional on approval."
+      },
+      "relearn": "Rights aren't earned; you hold them simply by being a person.",
+      "persona": "any",
+      "source": "rights are inherent"
+    },
+    {
+      "id": "jl-003",
+      "cat": "know-your-rights",
+      "type": "match",
+      "hook": "Match the right to what it means for you.",
+      "pairs": [
+        {
+          "left": "Equality",
+          "right": "Treated the same, no discrimination"
+        },
+        {
+          "left": "Dignity",
+          "right": "Treated with respect"
+        },
+        {
+          "left": "Education",
+          "right": "Your right to learn"
+        }
+      ],
+      "relearn": "Equality, dignity and education are real rights you personally hold.",
+      "persona": "any",
+      "source": "fundamental rights"
+    },
+    {
+      "id": "jl-004",
+      "cat": "know-your-rights",
+      "type": "sort",
+      "hook": "Sort: a right you actually hold, or not a right?",
+      "items": [
+        {
+          "id": "a",
+          "text": "To be safe at school"
+        },
+        {
+          "id": "b",
+          "text": "To treat others unfairly"
+        },
+        {
+          "id": "c",
+          "text": "To be treated equally"
+        },
+        {
+          "id": "d",
+          "text": "To harm someone who annoys you"
+        }
+      ],
+      "bins": [
+        {
+          "id": "right",
+          "label": "A real right"
+        },
+        {
+          "id": "no",
+          "label": "Not a right"
+        }
+      ],
+      "key": {
+        "a": "right",
+        "b": "no",
+        "c": "right",
+        "d": "no"
+      },
+      "relearn": "Safety and equal treatment are rights; harming others isn't a right.",
+      "persona": "any",
+      "source": "rights"
+    },
+    {
+      "id": "jl-005",
+      "cat": "know-your-rights",
+      "type": "reflect",
+      "hook": "Lensy: 'I have the right to be safe and treated equally', does saying it feel like a power-up?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Power-up",
+        "It's mine"
+      ],
+      "affirm": "Knowing a right is yours is genuine power, it changes what you'll accept.",
+      "relearn": "Knowing your rights is a real power; it changes what you'll accept.",
+      "persona": "any",
+      "source": "empowerment"
+    },
+    {
+      "id": "jl-006",
+      "cat": "know-your-rights",
+      "type": "match",
+      "hook": "Match the right to where it shows up.",
+      "pairs": [
+        {
+          "left": "Right to free education",
+          "right": "School (RTE)"
+        },
+        {
+          "left": "Right to be free from harassment",
+          "right": "School, work, online"
+        },
+        {
+          "left": "Right to protection",
+          "right": "Anywhere you're at risk"
+        }
+      ],
+      "relearn": "Your rights apply at school, at work, online and anywhere you're at risk.",
+      "persona": "any",
+      "source": "rights in context"
+    },
+    {
+      "id": "jl-007",
+      "cat": "know-your-rights",
+      "type": "strike-rewrite",
+      "hook": "\"Children and teens don't really have rights of their own.\"",
+      "myth": {
+        "un": "Children and teens don't have rights of their own.",
+        "re": "They do, including protection, education and to be heard, with bodies that defend them.",
+        "why": "Child rights are specifically protected in law."
+      },
+      "relearn": "Children and teens hold their own rights, specifically protected in law.",
+      "persona": "any",
+      "source": "child rights"
+    },
+    {
+      "id": "jl-008",
+      "cat": "know-your-rights",
+      "type": "sort",
+      "hook": "Sort: respects others' rights, or violates them?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Letting everyone be treated equally"
+        },
+        {
+          "id": "b",
+          "text": "Discriminating against a group"
+        },
+        {
+          "id": "c",
+          "text": "Respecting someone's dignity"
+        },
+        {
+          "id": "d",
+          "text": "Bullying someone for who they are"
+        }
+      ],
+      "bins": [
+        {
+          "id": "respects",
+          "label": "Respects rights"
+        },
+        {
+          "id": "violates",
+          "label": "Violates them"
+        }
+      ],
+      "key": {
+        "a": "respects",
+        "b": "violates",
+        "c": "respects",
+        "d": "violates"
+      },
+      "relearn": "Equal treatment and dignity respect rights; discrimination and bullying violate them.",
+      "persona": "any",
+      "source": "rights + respect"
+    },
+    {
+      "id": "jl-009",
+      "cat": "know-your-rights",
+      "type": "reflect",
+      "hook": "Lensy: your rights come with respect for everyone else's too. Fair deal?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Mutual",
+        "Both ways"
+      ],
+      "affirm": "Rights are mutual, claiming yours means respecting everyone else's the same.",
+      "relearn": "Your rights come with respecting everyone else's equally.",
+      "persona": "any",
+      "source": "mutual rights"
+    },
+    {
+      "id": "jl-010",
+      "cat": "know-your-rights",
+      "type": "reflect",
+      "hook": "Lensy: knowing your rights makes you harder to exploit. Feel that protection?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Harder to fool",
+        "Protected"
+      ],
+      "affirm": "Someone who knows their rights is much harder to mislead or exploit.",
+      "relearn": "Knowing your rights makes you harder to exploit.",
+      "persona": "any",
+      "source": "protection"
+    },
+    {
+      "id": "jl-011",
+      "cat": "know-your-rights",
+      "type": "match",
+      "hook": "Match the body to who it protects (India).",
+      "pairs": [
+        {
+          "left": "Child rights body (NCPCR)",
+          "right": "Children's rights"
+        },
+        {
+          "left": "Women's commission",
+          "right": "Women's rights"
+        },
+        {
+          "left": "Legal Services Authority",
+          "right": "Free legal aid for all who need it"
+        }
+      ],
+      "relearn": "India has bodies that defend children's, women's, and everyone's right to legal help.",
+      "persona": "Counsellor",
+      "source": "rights bodies (verified)"
+    },
+    {
+      "id": "jl-012",
+      "cat": "know-your-rights",
+      "type": "sort",
+      "hook": "Sort: a true statement about rights, or a myth?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Rights apply to everyone equally"
+        },
+        {
+          "id": "b",
+          "text": "\"Only the rich have rights\""
+        },
+        {
+          "id": "c",
+          "text": "You can claim your rights"
+        },
+        {
+          "id": "d",
+          "text": "\"Rights are just on paper, useless\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "true",
+          "label": "True"
+        },
+        {
+          "id": "myth",
+          "label": "Myth"
+        }
+      ],
+      "key": {
+        "a": "true",
+        "b": "myth",
+        "c": "true",
+        "d": "myth"
+      },
+      "relearn": "Rights are for all and can be claimed; 'only the rich' and 'useless on paper' are myths.",
+      "persona": "any",
+      "source": "rights truths"
+    },
+    {
+      "id": "jl-013",
+      "cat": "know-your-rights",
+      "type": "reflect",
+      "hook": "Lensy: which right feels most important to you to know you hold?",
+      "prompt": "Pick one.",
+      "options": [
+        "Safety",
+        "Equality",
+        "Education",
+        "Dignity"
+      ],
+      "affirm": "Whichever you chose, it's yours, and knowing it is the first step to claiming it.",
+      "relearn": "Safety, equality, education and dignity are all yours to know and claim.",
+      "persona": "any",
+      "source": "motivation"
+    },
+    {
+      "id": "jl-014",
+      "cat": "know-your-rights",
+      "type": "strike-rewrite",
+      "hook": "\"Knowing your rights makes no real difference.\"",
+      "myth": {
+        "un": "Knowing your rights makes no difference.",
+        "re": "It changes what you accept, how you act, and your ability to help others.",
+        "why": "Knowledge is the first tool of every protection."
+      },
+      "relearn": "Knowing your rights changes what you accept and lets you help others.",
+      "persona": "any",
+      "source": "knowledge is power"
+    },
+    {
+      "id": "jl-015",
+      "cat": "know-the-law",
+      "type": "match",
+      "hook": "Match the law to what it protects, in plain terms (India).",
+      "pairs": [
+        {
+          "left": "POCSO",
+          "right": "Protects minors; age of consent 18"
+        },
+        {
+          "left": "POSH Act",
+          "right": "Protects from workplace harassment"
+        },
+        {
+          "left": "Child Marriage Act",
+          "right": "Sets minimum marriage age"
+        }
+      ],
+      "relearn": "POCSO, the POSH Act and the Child Marriage Act each protect young people.",
+      "persona": "any",
+      "source": "key laws (verified)"
+    },
+    {
+      "id": "jl-016",
+      "cat": "know-the-law",
+      "type": "match",
+      "hook": "Match the harm to the law against it.",
+      "pairs": [
+        {
+          "left": "Domestic violence",
+          "right": "Domestic Violence Act"
+        },
+        {
+          "left": "Dowry demands",
+          "right": "Dowry Prohibition Act"
+        },
+        {
+          "left": "Online abuse",
+          "right": "Cyber-law / IT Act"
+        }
+      ],
+      "relearn": "There are specific laws against domestic violence, dowry, and online abuse.",
+      "persona": "any",
+      "source": "laws (verified)"
+    },
+    {
+      "id": "jl-017",
+      "cat": "know-the-law",
+      "type": "strike-rewrite",
+      "hook": "\"The law is too complicated for a teenager to understand.\"",
+      "myth": {
+        "un": "The law is too complicated for a teen to understand.",
+        "re": "The core protections can be put in plain language anyone can use.",
+        "why": "You don't need legalese to know your rights."
+      },
+      "relearn": "The core legal protections can be understood in plain language.",
+      "persona": "any",
+      "source": "plain language"
+    },
+    {
+      "id": "jl-018",
+      "cat": "know-the-law",
+      "type": "sort",
+      "hook": "Sort: a real legal protection (India), or a made-up one?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Protection from sexual offences for minors"
+        },
+        {
+          "id": "b",
+          "text": "\"It's legal to harass online\""
+        },
+        {
+          "id": "c",
+          "text": "A minimum age for marriage"
+        },
+        {
+          "id": "d",
+          "text": "\"There's no law on dowry\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "Real protection"
+        },
+        {
+          "id": "false",
+          "label": "False"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "false",
+        "c": "real",
+        "d": "false"
+      },
+      "relearn": "Minor protection and a minimum marriage age are real; 'harassment is legal' and 'no dowry law' are false.",
+      "persona": "any",
+      "source": "laws"
+    },
+    {
+      "id": "jl-019",
+      "cat": "know-the-law",
+      "type": "strike-rewrite",
+      "hook": "\"Laws are there to catch you out, not protect you.\"",
+      "myth": {
+        "un": "Laws are there to catch you out.",
+        "re": "These laws exist to protect you; they're a shield, not a trap.",
+        "why": "Knowing them is using a protection meant for you."
+      },
+      "relearn": "These laws are protection for you, a shield, not a trap.",
+      "persona": "any",
+      "source": "laws as protection"
+    },
+    {
+      "id": "jl-020",
+      "cat": "know-the-law",
+      "type": "sort",
+      "hook": "Sort: what POCSO does, or doesn't, mean.",
+      "items": [
+        {
+          "id": "a",
+          "text": "It protects under-18s from sexual offences"
+        },
+        {
+          "id": "b",
+          "text": "It punishes the young person who is the victim"
+        },
+        {
+          "id": "c",
+          "text": "The age of consent is 18"
+        },
+        {
+          "id": "d",
+          "text": "It's optional for police to act"
+        }
+      ],
+      "bins": [
+        {
+          "id": "true",
+          "label": "What it means"
+        },
+        {
+          "id": "false",
+          "label": "What it doesn't"
+        }
+      ],
+      "key": {
+        "a": "true",
+        "b": "false",
+        "c": "true",
+        "d": "false"
+      },
+      "relearn": "POCSO protects under-18s as victims (age of consent 18); it doesn't punish the victim.",
+      "persona": "Counsellor",
+      "source": "POCSO (verified)"
+    },
+    {
+      "id": "jl-021",
+      "cat": "know-the-law",
+      "type": "match",
+      "hook": "Match the setting to a protection that applies there.",
+      "pairs": [
+        {
+          "left": "At work",
+          "right": "POSH Act (Internal Committee)"
+        },
+        {
+          "left": "At school",
+          "right": "Right to education & safety"
+        },
+        {
+          "left": "Online",
+          "right": "Cyber-law & reporting portal"
+        }
+      ],
+      "relearn": "Work, school and online each have specific protections you can use.",
+      "persona": "any",
+      "source": "protections by setting"
+    },
+    {
+      "id": "jl-022",
+      "cat": "know-the-law",
+      "type": "strike-rewrite",
+      "hook": "\"Early marriage of a minor is just a family matter, not a legal one.\"",
+      "myth": {
+        "un": "Marrying off a minor is just a family matter.",
+        "re": "The law sets a minimum marriage age and child marriage can be reported and prevented.",
+        "why": "It's a legal protection, not only a private decision."
+      },
+      "relearn": "Child marriage is against the law and can be reported and prevented.",
+      "persona": "any",
+      "source": "PCMA (links g26)"
+    },
+    {
+      "id": "jl-023",
+      "cat": "know-the-law",
+      "type": "sort",
+      "hook": "Sort: accurate about the law, or a discouraging myth?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"There are laws against harassment\""
+        },
+        {
+          "id": "b",
+          "text": "\"Nothing illegal happens online\""
+        },
+        {
+          "id": "c",
+          "text": "\"Minors are protected, not blamed\""
+        },
+        {
+          "id": "d",
+          "text": "\"The law never helps anyone\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "accurate",
+          "label": "Accurate"
+        },
+        {
+          "id": "myth",
+          "label": "Discouraging myth"
+        }
+      ],
+      "key": {
+        "a": "accurate",
+        "b": "myth",
+        "c": "accurate",
+        "d": "myth"
+      },
+      "relearn": "Laws against harassment and protection for minors are accurate; 'law never helps' is a myth.",
+      "persona": "any",
+      "source": "accuracy"
+    },
+    {
+      "id": "jl-024",
+      "cat": "know-the-law",
+      "type": "match",
+      "hook": "Match the plain-language summary to the law.",
+      "pairs": [
+        {
+          "left": "\"You're protected from violence at home\"",
+          "right": "Domestic Violence Act"
+        },
+        {
+          "left": "\"Serious crimes against women are punished\"",
+          "right": "Bharatiya Nyaya Sanhita"
+        },
+        {
+          "left": "\"Free, compulsory schooling\"",
+          "right": "Right to Education Act"
+        }
+      ],
+      "relearn": "Plain-language summaries make the DV Act, BNS and RTE Act usable.",
+      "persona": "any",
+      "source": "plain language (verified)"
+    },
+    {
+      "id": "jl-025",
+      "cat": "know-the-law",
+      "type": "reflect",
+      "hook": "Lensy: once a scary law is in plain words, it suddenly becomes a tool you can hold. Feel that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Now it's usable",
+        "Makes sense"
+      ],
+      "affirm": "Plain language turns an intimidating law into a tool you can actually use.",
+      "relearn": "Plain language turns a scary law into a usable tool.",
+      "persona": "any",
+      "source": "plain language"
+    },
+    {
+      "id": "jl-026",
+      "cat": "know-the-law",
+      "type": "sort",
+      "hook": "Sort: a protection that exists for under-18s, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Protection from sexual offences (POCSO)"
+        },
+        {
+          "id": "b",
+          "text": "\"No protection until you turn 18\""
+        },
+        {
+          "id": "c",
+          "text": "Right to education"
+        },
+        {
+          "id": "d",
+          "text": "\"Kids have to fend for themselves\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "exists",
+          "label": "Exists"
+        },
+        {
+          "id": "false",
+          "label": "False"
+        }
+      ],
+      "key": {
+        "a": "exists",
+        "b": "false",
+        "c": "exists",
+        "d": "false"
+      },
+      "relearn": "POCSO protection and the right to education exist for under-18s; 'no protection' is false.",
+      "persona": "any",
+      "source": "child protections"
+    },
+    {
+      "id": "jl-027",
+      "cat": "know-the-law",
+      "type": "reflect",
+      "hook": "Lensy: laws keep changing, so this game is kept current and is educational, not legal advice. Good to know?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Stay current",
+        "Check real sources"
+      ],
+      "affirm": "Knowing the basics here, then checking real authorities for specifics, is exactly right.",
+      "relearn": "Use this to learn the basics; check real authorities for current specifics.",
+      "persona": "any",
+      "source": "educational not advice"
+    },
+    {
+      "id": "jl-028",
+      "cat": "know-the-law",
+      "type": "strike-rewrite",
+      "hook": "\"You need to be a lawyer to use the law.\"",
+      "myth": {
+        "un": "You need to be a lawyer to use the law.",
+        "re": "Anyone can know the basics and reach qualified, often free, help to use them.",
+        "why": "The law is meant to be used by the people it protects."
+      },
+      "relearn": "You don't need to be a lawyer; know the basics and reach free help.",
+      "persona": "any",
+      "source": "law for all"
+    },
+    {
+      "id": "jl-029",
+      "cat": "get-justice",
+      "type": "branch",
+      "hook": "Something serious has happened and you don't know the first move.",
+      "options": [
+        {
+          "text": "Tell a trusted adult, teacher or counsellor first",
+          "consequence": "You're no longer handling it alone and get guidance.",
+          "outcome": "first-step",
+          "best": true
+        },
+        {
+          "text": "Try to handle it entirely by yourself",
+          "consequence": "The first step is telling a trusted adult; you don't handle it alone."
+        }
+      ],
+      "debrief": "The first route to justice is almost always a trusted adult.",
+      "relearn": "First step to justice: tell a trusted adult, teacher or counsellor.",
+      "persona": "Counsellor",
+      "source": "first step"
+    },
+    {
+      "id": "jl-030",
+      "cat": "get-justice",
+      "type": "strike-rewrite",
+      "hook": "\"The police can just refuse to register your complaint.\"",
+      "myth": {
+        "un": "The police can refuse to register your complaint.",
+        "re": "For a serious (cognizable) offence, registering an FIR is mandatory; and a Zero FIR can be filed at any police station.",
+        "why": "The Supreme Court made FIR registration mandatory for such offences."
+      },
+      "relearn": "For a serious offence, an FIR is mandatory, and a Zero FIR can be filed anywhere.",
+      "persona": "any",
+      "source": "Lalita Kumari / FIR (verified)"
+    },
+    {
+      "id": "jl-031",
+      "cat": "get-justice",
+      "type": "match",
+      "hook": "Match the route to what it's for (India).",
+      "pairs": [
+        {
+          "left": "FIR",
+          "right": "Starts a police case"
+        },
+        {
+          "left": "Internal Committee",
+          "right": "Workplace/college harassment"
+        },
+        {
+          "left": "Free legal aid (NALSA)",
+          "right": "Help if you can't afford a lawyer"
+        }
+      ],
+      "relearn": "FIRs, Internal Committees and free legal aid are real routes to justice.",
+      "persona": "Counsellor",
+      "source": "routes (verified)"
+    },
+    {
+      "id": "jl-032",
+      "cat": "get-justice",
+      "type": "strike-rewrite",
+      "hook": "\"You can't get justice without money for a lawyer.\"",
+      "myth": {
+        "un": "You can't get justice without money for a lawyer.",
+        "re": "Free legal aid is available to those who can't afford one, through the Legal Services Authorities.",
+        "why": "Justice can't be denied for lack of money (Article 39A)."
+      },
+      "relearn": "Free legal aid exists for those who can't afford a lawyer (NALSA, 15100).",
+      "persona": "any",
+      "source": "free legal aid (verified)"
+    },
+    {
+      "id": "jl-033",
+      "cat": "get-justice",
+      "type": "branch",
+      "hook": "You face sexual harassment at your first part-time job.",
+      "options": [
+        {
+          "text": "Use the workplace Internal Committee and tell a trusted adult",
+          "consequence": "You use the route built for exactly this.",
+          "outcome": "redress",
+          "best": true
+        },
+        {
+          "text": "Quit quietly and say nothing",
+          "consequence": "The POSH Internal Committee exists for this; use it, with a trusted adult's support."
+        }
+      ],
+      "debrief": "Workplaces must have an Internal Committee for harassment; it's a real route.",
+      "relearn": "For workplace harassment, use the Internal Committee (POSH) and tell an adult.",
+      "persona": "Sneha",
+      "source": "POSH redress (verified)"
+    },
+    {
+      "id": "jl-034",
+      "cat": "get-justice",
+      "type": "match",
+      "hook": "Match the need to the helpline (India).",
+      "pairs": [
+        {
+          "left": "Anyone under 18",
+          "right": "Childline 1098"
+        },
+        {
+          "left": "A woman needing help",
+          "right": "Women Helpline 181"
+        },
+        {
+          "left": "Online abuse",
+          "right": "Cybercrime 1930"
+        }
+      ],
+      "relearn": "Childline 1098, Women 181 and Cybercrime 1930 connect to immediate help.",
+      "persona": "Counsellor",
+      "source": "helplines (verified)"
+    },
+    {
+      "id": "jl-035",
+      "cat": "get-justice",
+      "type": "branch",
+      "hook": "A friend is in immediate danger right now.",
+      "options": [
+        {
+          "text": "Call emergency 112 and get a trusted adult",
+          "consequence": "You get the fastest real help.",
+          "outcome": "urgent",
+          "best": true
+        },
+        {
+          "text": "Look up the law first",
+          "consequence": "In immediate danger, call 112 and get an adult; learn the law later."
+        }
+      ],
+      "debrief": "Immediate danger means emergency help first, the law comes after.",
+      "relearn": "In immediate danger, call 112 and get a trusted adult first.",
+      "persona": "any",
+      "source": "emergency"
+    },
+    {
+      "id": "jl-036",
+      "cat": "get-justice",
+      "type": "role-play",
+      "hook": "You're helping a friend report something and they're scared.",
+      "setup": "Reassure and guide. Say:",
+      "yourLine": [
+        {
+          "text": "\"You have the right to report this, and I'll come with you to a trusted adult.\"",
+          "best": true
+        },
+        {
+          "text": "\"You'll probably just get in trouble.\""
+        }
+      ],
+      "relearn": "Remind a scared friend they have the right to report, and go with them.",
+      "persona": "any",
+      "source": "support"
+    },
+    {
+      "id": "jl-037",
+      "cat": "get-justice",
+      "type": "role-play",
+      "hook": "You need to ask a teacher to help you make a complaint.",
+      "setup": "Ask clearly. Say:",
+      "yourLine": [
+        {
+          "text": "\"Something happened and I need help reporting it, can you guide me?\"",
+          "best": true
+        },
+        {
+          "text": "Stay silent and hope it resolves"
+        }
+      ],
+      "relearn": "A clear ask to a trusted adult starts the route to help.",
+      "persona": "Arjun",
+      "source": "self-advocacy"
+    },
+    {
+      "id": "jl-038",
+      "cat": "get-justice",
+      "type": "sort",
+      "hook": "Sort: a real route to justice, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Filing an FIR with the police"
+        },
+        {
+          "id": "b",
+          "text": "Taking revenge yourself"
+        },
+        {
+          "id": "c",
+          "text": "Free legal aid via NALSA"
+        },
+        {
+          "id": "d",
+          "text": "Just posting about it angrily"
+        }
+      ],
+      "bins": [
+        {
+          "id": "route",
+          "label": "A real route"
+        },
+        {
+          "id": "no",
+          "label": "Not a route"
+        }
+      ],
+      "key": {
+        "a": "route",
+        "b": "no",
+        "c": "route",
+        "d": "no"
+      },
+      "relearn": "FIRs and free legal aid are real routes; revenge and angry posts aren't.",
+      "persona": "any",
+      "source": "routes"
+    },
+    {
+      "id": "jl-039",
+      "cat": "get-justice",
+      "type": "branch",
+      "hook": "A child you know is being harmed and the family is silent.",
+      "options": [
+        {
+          "text": "Contact Childline 1098 or a Child Welfare Committee / trusted adult",
+          "consequence": "The child gets protection from the right body.",
+          "outcome": "protect",
+          "best": true
+        },
+        {
+          "text": "Assume it's the family's private business",
+          "consequence": "A child at risk can be helped via Childline 1098, a CWC, or a trusted adult."
+        }
+      ],
+      "debrief": "Child protection has dedicated routes; a child's safety isn't 'private business'.",
+      "relearn": "For a child at risk: Childline 1098, a Child Welfare Committee, or a trusted adult.",
+      "persona": "Counsellor",
+      "source": "child protection (verified)"
+    },
+    {
+      "id": "jl-040",
+      "cat": "get-justice",
+      "type": "match",
+      "hook": "Match the step to where it comes in the path.",
+      "pairs": [
+        {
+          "left": "First",
+          "right": "Tell a trusted adult"
+        },
+        {
+          "left": "To start a case",
+          "right": "File an FIR"
+        },
+        {
+          "left": "If you can't afford a lawyer",
+          "right": "Free legal aid"
+        }
+      ],
+      "relearn": "The path: trusted adult, then FIR if needed, with free legal aid available.",
+      "persona": "any",
+      "source": "path to justice"
+    },
+    {
+      "id": "jl-041",
+      "cat": "get-justice",
+      "type": "branch",
+      "hook": "You're worried reporting will be ignored or you'll be turned away.",
+      "options": [
+        {
+          "text": "Know your rights: serious offences must be registered; bring an adult",
+          "consequence": "You go in informed and supported.",
+          "outcome": "informed",
+          "best": true
+        },
+        {
+          "text": "Don't bother, assuming you'll be ignored",
+          "consequence": "For a serious offence the FIR is mandatory; go informed, with an adult."
+        }
+      ],
+      "debrief": "Knowing the rules and bringing support makes being turned away far less likely.",
+      "relearn": "Serious offences must be registered; go informed and with a trusted adult.",
+      "persona": "any",
+      "source": "FIR rights"
+    },
+    {
+      "id": "jl-042",
+      "cat": "get-justice",
+      "type": "reflect",
+      "hook": "Lensy: seeing the path to justice unlock step by step, does redress feel reachable now?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Reachable",
+        "I know the steps"
+      ],
+      "affirm": "Step by step, the route to justice is navigable, and now you know it.",
+      "relearn": "The route to justice is navigable when you know the steps.",
+      "persona": "any",
+      "source": "reachable"
+    },
+    {
+      "id": "jl-043",
+      "cat": "get-justice",
+      "type": "sort",
+      "hook": "Sort: true about getting justice, or a myth?",
+      "items": [
+        {
+          "id": "a",
+          "text": "You can file a Zero FIR at any station"
+        },
+        {
+          "id": "b",
+          "text": "\"You must go to your local station only\""
+        },
+        {
+          "id": "c",
+          "text": "Free legal aid exists"
+        },
+        {
+          "id": "d",
+          "text": "\"Justice is only for the rich\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "true",
+          "label": "True"
+        },
+        {
+          "id": "myth",
+          "label": "Myth"
+        }
+      ],
+      "key": {
+        "a": "true",
+        "b": "myth",
+        "c": "true",
+        "d": "myth"
+      },
+      "relearn": "Zero FIR (any station) and free legal aid are true; 'local station only' and 'only for the rich' are myths.",
+      "persona": "any",
+      "source": "justice facts (verified)"
+    },
+    {
+      "id": "jl-044",
+      "cat": "get-justice",
+      "type": "role-play",
+      "hook": "You want to tell someone about free legal aid they didn't know existed.",
+      "setup": "Share it simply. Say:",
+      "yourLine": [
+        {
+          "text": "\"If you can't afford a lawyer, there's free legal aid, you can even call 15100.\"",
+          "best": true
+        },
+        {
+          "text": "\"Guess there's nothing you can do.\""
+        }
+      ],
+      "relearn": "Tell people: free legal aid exists for those who can't afford a lawyer (15100).",
+      "persona": "Counsellor",
+      "source": "free legal aid (verified)"
+    },
+    {
+      "id": "jl-045",
+      "cat": "get-justice",
+      "type": "branch",
+      "hook": "You could try to be a one-person justice system, or use the real one.",
+      "options": [
+        {
+          "text": "Use the real routes, authorities, committees, legal aid",
+          "consequence": "You get lawful, effective help.",
+          "outcome": "lawful",
+          "best": true
+        },
+        {
+          "text": "Take the law into your own hands",
+          "consequence": "Use the real routes; taking the law into your own hands isn't justice."
+        }
+      ],
+      "debrief": "Real justice runs through real, lawful routes, not vigilante action.",
+      "relearn": "Use the real, lawful routes to justice, never take the law into your own hands.",
+      "persona": "any",
+      "source": "lawful redress"
+    },
+    {
+      "id": "jl-046",
+      "cat": "get-justice",
+      "type": "reflect",
+      "hook": "Lensy: knowing exactly who to tell and how to complain, do you feel readier to act if you had to?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Readier",
+        "I know how"
+      ],
+      "affirm": "Knowing the who and the how is what turns a right into something you can actually claim.",
+      "relearn": "Knowing who to tell and how to complain makes a right claimable.",
+      "persona": "any",
+      "source": "readiness"
+    },
+    {
+      "id": "jl-047",
+      "cat": "rights-in-action",
+      "type": "spot",
+      "hook": "Spot the rights violation here.",
+      "scene": [
+        {
+          "text": "A student denied a club for their gender",
+          "trick": true
+        },
+        {
+          "text": "A normal club tryout",
+          "trick": false
+        },
+        {
+          "text": "A teacher mocking a student's caste",
+          "trick": true
+        }
+      ],
+      "why": "Gender-based denial and caste mockery are violations; a fair tryout isn't.",
+      "relearn": "Spot violations like discrimination and mockery; not everything is one.",
+      "persona": "any",
+      "source": "spot violation"
+    },
+    {
+      "id": "jl-048",
+      "cat": "rights-in-action",
+      "type": "branch",
+      "hook": "You're being harassed online and it's escalating.",
+      "options": [
+        {
+          "text": "Save evidence, report at cybercrime.gov.in / 1930, tell an adult",
+          "consequence": "You use the cyber-law route effectively.",
+          "outcome": "reported",
+          "best": true
+        },
+        {
+          "text": "Delete everything and stay quiet",
+          "consequence": "Save evidence and report (cybercrime.gov.in / 1930); cyber-law protects you."
+        }
+      ],
+      "debrief": "Online abuse has a specific legal route, evidence plus the cyber portal.",
+      "relearn": "For online abuse: save evidence, report to cybercrime.gov.in / 1930, tell an adult.",
+      "persona": "any",
+      "source": "cyber-law (links g28/g40)"
+    },
+    {
+      "id": "jl-049",
+      "cat": "rights-in-action",
+      "type": "branch",
+      "hook": "You're under 18 and your family is arranging your marriage now.",
+      "options": [
+        {
+          "text": "Reach Childline 1098 or a trusted adult; child marriage is preventable",
+          "consequence": "You get protection and options.",
+          "outcome": "protected",
+          "best": true
+        },
+        {
+          "text": "Assume there's nothing to be done",
+          "consequence": "Child marriage is against the law and preventable; Childline 1098 can help."
+        }
+      ],
+      "debrief": "The law sets a minimum marriage age, and child marriage can be reported and stopped.",
+      "relearn": "Under-18 marriage can be reported and prevented; call Childline 1098.",
+      "persona": "Sneha",
+      "source": "PCMA (verified)"
+    },
+    {
+      "id": "jl-050",
+      "cat": "rights-in-action",
+      "type": "branch",
+      "hook": "A classmate is facing violence at home.",
+      "options": [
+        {
+          "text": "Help them reach a trusted adult and a helpline (1098 / 181)",
+          "consequence": "They get real protection.",
+          "outcome": "help",
+          "best": true
+        },
+        {
+          "text": "Tell them it's their private family issue",
+          "consequence": "Domestic violence is covered by law; help them reach a trusted adult and 1098/181."
+        }
+      ],
+      "debrief": "Domestic violence is a legal matter with real help, not just 'private'.",
+      "relearn": "For violence at home: a trusted adult and helplines (1098/181); the law protects them.",
+      "persona": "Counsellor",
+      "source": "DV Act (verified)"
+    },
+    {
+      "id": "jl-051",
+      "cat": "rights-in-action",
+      "type": "spot",
+      "hook": "Spot which right applies to this scene.",
+      "scene": [
+        {
+          "text": "A girl pulled out of school to work",
+          "trick": true
+        },
+        {
+          "text": "A normal school holiday",
+          "trick": false
+        },
+        {
+          "text": "A teen denied a job for their religion",
+          "trick": true
+        }
+      ],
+      "why": "Denying schooling and religious job-discrimination violate rights; a holiday doesn't.",
+      "relearn": "Spot when the right to education or to non-discrimination is being violated.",
+      "persona": "any",
+      "source": "apply rights"
+    },
+    {
+      "id": "jl-052",
+      "cat": "rights-in-action",
+      "type": "branch",
+      "hook": "You witness clear discrimination but it doesn't affect you directly.",
+      "options": [
+        {
+          "text": "Support the person and help them know their rights and routes",
+          "consequence": "You turn your knowledge into help for someone else.",
+          "outcome": "ally",
+          "best": true
+        },
+        {
+          "text": "Stay out of it since it's not your problem",
+          "consequence": "Knowing rights lets you help others; support them and share the routes."
+        }
+      ],
+      "debrief": "Rights knowledge is most powerful when you use it to help others too.",
+      "relearn": "Use your rights knowledge to support others facing violations.",
+      "persona": "any",
+      "source": "helping others"
+    },
+    {
+      "id": "jl-053",
+      "cat": "rights-in-action",
+      "type": "sort",
+      "hook": "Sort: a likely rights violation, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Unequal pay for the same work"
+        },
+        {
+          "id": "b",
+          "text": "A fair, open competition"
+        },
+        {
+          "id": "c",
+          "text": "Harassment at college"
+        },
+        {
+          "id": "d",
+          "text": "Being asked to follow a safety rule"
+        }
+      ],
+      "bins": [
+        {
+          "id": "violation",
+          "label": "Likely violation"
+        },
+        {
+          "id": "ok",
+          "label": "Not a violation"
+        }
+      ],
+      "key": {
+        "a": "violation",
+        "b": "ok",
+        "c": "violation",
+        "d": "ok"
+      },
+      "relearn": "Unequal pay and harassment are likely violations; fair competition and safety rules aren't.",
+      "persona": "any",
+      "source": "spotting violations"
+    },
+    {
+      "id": "jl-054",
+      "cat": "rights-in-action",
+      "type": "branch",
+      "hook": "Responding to a violation might put you at physical risk.",
+      "options": [
+        {
+          "text": "Put safety first: get help and use safe routes, not confrontation",
+          "consequence": "You protect yourself and still act.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Confront the wrongdoer directly regardless",
+          "consequence": "Safety first; use safe routes and get help rather than risky confrontation."
+        }
+      ],
+      "debrief": "Claiming rights still follows the safety-first rule, get help, don't risk yourself.",
+      "relearn": "Put safety first when responding; use safe routes and get help.",
+      "persona": "any",
+      "source": "safety-first (links g27)"
+    },
+    {
+      "id": "jl-055",
+      "cat": "rights-in-action",
+      "type": "spot",
+      "hook": "Spot the appropriate, safe response.",
+      "scene": [
+        {
+          "text": "Telling a trusted adult and reporting",
+          "trick": false
+        },
+        {
+          "text": "Publicly attacking the accused yourself",
+          "trick": true
+        },
+        {
+          "text": "Using the right committee or helpline",
+          "trick": false
+        }
+      ],
+      "why": "Telling an adult and using the right route are appropriate; public attacks aren't.",
+      "relearn": "Respond via trusted adults and the right routes, not public attacks.",
+      "persona": "any",
+      "source": "appropriate response"
+    },
+    {
+      "id": "jl-056",
+      "cat": "rights-in-action",
+      "type": "branch",
+      "hook": "You're unsure which right or law applies to a situation.",
+      "options": [
+        {
+          "text": "Ask a trusted adult or qualified help to identify the right route",
+          "consequence": "You get accurate guidance for the specifics.",
+          "outcome": "guided",
+          "best": true
+        },
+        {
+          "text": "Guess and act on your own interpretation",
+          "consequence": "For specifics, ask a trusted adult or qualified help; don't just guess."
+        }
+      ],
+      "debrief": "When unsure of the exact law, qualified help points you the right way.",
+      "relearn": "If unsure which law applies, ask a trusted adult or qualified help.",
+      "persona": "any",
+      "source": "get guidance"
+    },
+    {
+      "id": "jl-057",
+      "cat": "rights-in-action",
+      "type": "sort",
+      "hook": "Sort the situation to the right first route.",
+      "items": [
+        {
+          "id": "a",
+          "text": "Immediate danger"
+        },
+        {
+          "id": "b",
+          "text": "Workplace harassment"
+        },
+        {
+          "id": "c",
+          "text": "A child at risk"
+        },
+        {
+          "id": "d",
+          "text": "Online abuse"
+        }
+      ],
+      "bins": [
+        {
+          "id": "emergency",
+          "label": "112 / urgent help"
+        },
+        {
+          "id": "specific",
+          "label": "A specific committee/portal"
+        }
+      ],
+      "key": {
+        "a": "emergency",
+        "b": "specific",
+        "c": "specific",
+        "d": "specific"
+      },
+      "relearn": "Immediate danger means 112; harassment, child-risk and online abuse have specific routes.",
+      "persona": "any",
+      "source": "matching routes"
+    },
+    {
+      "id": "jl-058",
+      "cat": "rights-in-action",
+      "type": "branch",
+      "hook": "Someone tells you 'rights don't apply in real life'.",
+      "options": [
+        {
+          "text": "Show that real routes exist and have helped real people",
+          "consequence": "You replace cynicism with usable knowledge.",
+          "outcome": "informed",
+          "best": true
+        },
+        {
+          "text": "Agree that it's all useless",
+          "consequence": "Real routes exist and work; cynicism just leaves people unprotected."
+        }
+      ],
+      "debrief": "Rights become real exactly when people know and use the routes.",
+      "relearn": "Rights are real because real routes exist and have helped people.",
+      "persona": "any",
+      "source": "rights are real"
+    },
+    {
+      "id": "jl-059",
+      "cat": "rights-in-action",
+      "type": "reflect",
+      "hook": "Lensy: applying a right to a real situation, that's where knowledge becomes protection. See it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Knowledge to protection",
+        "It's practical"
+      ],
+      "affirm": "Applying rights to real life is exactly where knowledge becomes real protection.",
+      "relearn": "Applying rights to real situations turns knowledge into protection.",
+      "persona": "any",
+      "source": "application"
+    },
+    {
+      "id": "jl-060",
+      "cat": "rights-in-action",
+      "type": "spot",
+      "hook": "Spot the situation where a right is being respected.",
+      "scene": [
+        {
+          "text": "Everyone given an equal chance to apply",
+          "trick": false
+        },
+        {
+          "text": "Someone excluded for their background",
+          "trick": true
+        },
+        {
+          "text": "A complaint taken seriously and acted on",
+          "trick": false
+        }
+      ],
+      "why": "Equal chances and complaints acted on respect rights; exclusion by background violates them.",
+      "relearn": "Equal chances and complaints acted on are rights respected.",
+      "persona": "any",
+      "source": "rights respected"
+    },
+    {
+      "id": "jl-061",
+      "cat": "rights-in-action",
+      "type": "branch",
+      "hook": "A workplace says it has no harassment committee.",
+      "options": [
+        {
+          "text": "Know that one is legally required, and seek help/escalate",
+          "consequence": "You hold them to the law and find another route.",
+          "outcome": "escalate",
+          "best": true
+        },
+        {
+          "text": "Accept that there's no option",
+          "consequence": "Workplaces of a certain size must have a committee; seek help and escalate."
+        }
+      ],
+      "debrief": "The law requires harassment committees; their absence isn't the end of the route.",
+      "relearn": "Harassment committees are legally required; escalate if one's missing.",
+      "persona": "Sneha",
+      "source": "POSH (verified)"
+    },
+    {
+      "id": "jl-062",
+      "cat": "rights-in-action",
+      "type": "reflect",
+      "hook": "Lensy: which real-life situation do you most want to be ready to handle?",
+      "prompt": "Pick one.",
+      "options": [
+        "Online abuse",
+        "Harassment",
+        "Discrimination",
+        "Helping a friend"
+      ],
+      "affirm": "Whichever you pick, you now know a right and a route for it.",
+      "relearn": "You know a right and a route for online abuse, harassment, discrimination and helping a friend.",
+      "persona": "any",
+      "source": "readiness"
+    },
+    {
+      "id": "jl-063",
+      "cat": "educational-not-advice",
+      "type": "strike-rewrite",
+      "hook": "\"A rights game can tell me exactly what to do in my legal case.\"",
+      "myth": {
+        "un": "This can tell me exactly what to do in my own legal case.",
+        "re": "It's educational, not legal advice; for real situations, go to trusted adults, authorities and free legal aid.",
+        "why": "Real cases need qualified, current, specific help."
+      },
+      "relearn": "This is educational, not legal advice; real cases need qualified help.",
+      "persona": "any",
+      "source": "educational not advice"
+    },
+    {
+      "id": "jl-064",
+      "cat": "educational-not-advice",
+      "type": "branch",
+      "hook": "You face a real, specific legal situation right now.",
+      "options": [
+        {
+          "text": "Use this for the basics, then get qualified, free legal help",
+          "consequence": "You're informed and properly supported.",
+          "outcome": "qualified",
+          "best": true
+        },
+        {
+          "text": "Rely only on what a game told you",
+          "consequence": "Use the basics here, but get qualified, often free, help for your real situation."
+        }
+      ],
+      "debrief": "Education gives the map; qualified help handles your real, specific case.",
+      "relearn": "For a real case, use the basics then get qualified, free legal help.",
+      "persona": "any",
+      "source": "qualified help"
+    },
+    {
+      "id": "jl-065",
+      "cat": "educational-not-advice",
+      "type": "reflect",
+      "hook": "Lensy: a good rights guide is honest, it explains routes without promising outcomes. Trust that more?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Honest is better",
+        "No false promises"
+      ],
+      "affirm": "Honest guidance, routes yes, guaranteed outcomes no, is the trustworthy kind.",
+      "relearn": "Honest guidance explains routes without promising specific outcomes.",
+      "persona": "any",
+      "source": "no false guarantees"
+    },
+    {
+      "id": "jl-066",
+      "cat": "educational-not-advice",
+      "type": "branch",
+      "hook": "You're in current danger while learning about your rights.",
+      "options": [
+        {
+          "text": "Stop and get immediate help (112 / a trusted adult) first",
+          "consequence": "Your safety comes before any lesson.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Keep reading about the law",
+          "consequence": "In current danger, get immediate help first; the law lesson can wait."
+        }
+      ],
+      "debrief": "Live danger always routes to immediate help before anything else.",
+      "relearn": "If you're in danger now, get immediate help first (112 / a trusted adult).",
+      "persona": "Counsellor",
+      "source": "live-danger routing"
+    },
+    {
+      "id": "jl-067",
+      "cat": "educational-not-advice",
+      "type": "sort",
+      "hook": "Sort: what this game is, or isn't.",
+      "items": [
+        {
+          "id": "a",
+          "text": "A plain-language guide to rights"
+        },
+        {
+          "id": "b",
+          "text": "A substitute for a real lawyer"
+        },
+        {
+          "id": "c",
+          "text": "A signpost to real help"
+        },
+        {
+          "id": "d",
+          "text": "A guarantee of a legal outcome"
+        }
+      ],
+      "bins": [
+        {
+          "id": "is",
+          "label": "What it is"
+        },
+        {
+          "id": "isnt",
+          "label": "What it isn't"
+        }
+      ],
+      "key": {
+        "a": "is",
+        "b": "isnt",
+        "c": "is",
+        "d": "isnt"
+      },
+      "relearn": "It's a plain-language guide and signpost, not a lawyer or a guarantee.",
+      "persona": "any",
+      "source": "scope"
+    },
+    {
+      "id": "jl-068",
+      "cat": "educational-not-advice",
+      "type": "strike-rewrite",
+      "hook": "\"If a guide is honest that it can't promise outcomes, it must be useless.\"",
+      "myth": {
+        "un": "If it can't promise an outcome, it's useless.",
+        "re": "Honest route-knowledge is exactly what empowers you to act; no honest guide promises outcomes.",
+        "why": "Outcomes depend on facts and process no one can guarantee."
+      },
+      "relearn": "Honest route-knowledge empowers you; promised outcomes would be a lie.",
+      "persona": "any",
+      "source": "honesty = useful"
+    },
+    {
+      "id": "jl-069",
+      "cat": "educational-not-advice",
+      "type": "reflect",
+      "hook": "Lensy: knowing your limits, and pointing to qualified help, is part of using rights wisely. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Know my limits",
+        "Get real help"
+      ],
+      "affirm": "Knowing when to bring in qualified help is itself a smart use of your rights.",
+      "relearn": "Knowing your limits and reaching qualified help is using rights wisely.",
+      "persona": "any",
+      "source": "wisdom"
+    },
+    {
+      "id": "jl-070",
+      "cat": "educational-not-advice",
+      "type": "branch",
+      "hook": "A friend asks you to give them legal advice for a serious case.",
+      "options": [
+        {
+          "text": "Share the basics and routes, and point them to free legal aid",
+          "consequence": "They get accurate help, not your improvisation.",
+          "outcome": "responsible",
+          "best": true
+        },
+        {
+          "text": "Confidently act as their lawyer",
+          "consequence": "Share basics and routes, and point them to free legal aid; don't improvise as a lawyer."
+        }
+      ],
+      "debrief": "The responsible help is basics plus a route to qualified aid, not playing lawyer.",
+      "relearn": "Share basics and routes; point friends to free legal aid, don't play lawyer.",
+      "persona": "any",
+      "source": "responsible help"
+    },
+    {
+      "id": "jl-071",
+      "cat": "educational-not-advice",
+      "type": "sort",
+      "hook": "Sort: responsible with rights info, or risky?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Pointing to real authorities"
+        },
+        {
+          "id": "b",
+          "text": "Guaranteeing someone will win"
+        },
+        {
+          "id": "c",
+          "text": "Sharing accurate helplines"
+        },
+        {
+          "id": "d",
+          "text": "Improvising legal advice"
+        }
+      ],
+      "bins": [
+        {
+          "id": "responsible",
+          "label": "Responsible"
+        },
+        {
+          "id": "risky",
+          "label": "Risky"
+        }
+      ],
+      "key": {
+        "a": "responsible",
+        "b": "risky",
+        "c": "responsible",
+        "d": "risky"
+      },
+      "relearn": "Pointing to authorities and accurate helplines is responsible; guarantees and improvised advice aren't.",
+      "persona": "any",
+      "source": "responsible info"
+    },
+    {
+      "id": "jl-072",
+      "cat": "educational-not-advice",
+      "type": "reflect",
+      "hook": "Lensy: 'know the basics, then get real help', does that feel like the safe, smart way to use rights?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Safe and smart",
+        "That's the way"
+      ],
+      "affirm": "Basics plus real qualified help is exactly the safe, smart way to use your rights.",
+      "relearn": "Know the basics, then get real qualified help, that's the smart way.",
+      "persona": "any",
+      "source": "the smart way"
+    },
+    {
+      "id": "jl-073",
+      "cat": "your-rights-toolkit",
+      "type": "match",
+      "hook": "Match the helpline to its number (India).",
+      "pairs": [
+        {
+          "left": "Childline (under-18)",
+          "right": "1098"
+        },
+        {
+          "left": "Women Helpline",
+          "right": "181"
+        },
+        {
+          "left": "Emergency",
+          "right": "112"
+        }
+      ],
+      "relearn": "Childline 1098, Women 181 and Emergency 112 are core numbers to know.",
+      "persona": "any",
+      "source": "helplines (verified)"
+    },
+    {
+      "id": "jl-074",
+      "cat": "your-rights-toolkit",
+      "type": "match",
+      "hook": "Match the rest of the toolkit.",
+      "pairs": [
+        {
+          "left": "Cybercrime",
+          "right": "1930 / cybercrime.gov.in"
+        },
+        {
+          "left": "Women in distress",
+          "right": "1091"
+        },
+        {
+          "left": "Free legal aid",
+          "right": "NALSA (15100)"
+        }
+      ],
+      "relearn": "Cybercrime 1930, women-in-distress 1091 and free legal aid (15100) complete the kit.",
+      "persona": "Counsellor",
+      "source": "toolkit (verified)"
+    },
+    {
+      "id": "jl-075",
+      "cat": "your-rights-toolkit",
+      "type": "sort",
+      "hook": "Sort: belongs in your rights toolkit, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Key helpline numbers"
+        },
+        {
+          "id": "b",
+          "text": "A rumour about the law"
+        },
+        {
+          "id": "c",
+          "text": "The routes to redress"
+        },
+        {
+          "id": "d",
+          "text": "A promise of guaranteed wins"
+        }
+      ],
+      "bins": [
+        {
+          "id": "in",
+          "label": "In the toolkit"
+        },
+        {
+          "id": "out",
+          "label": "Not in it"
+        }
+      ],
+      "key": {
+        "a": "in",
+        "b": "out",
+        "c": "in",
+        "d": "out"
+      },
+      "relearn": "Helplines and redress routes belong; rumours and 'guaranteed wins' don't.",
+      "persona": "any",
+      "source": "toolkit"
+    },
+    {
+      "id": "jl-076",
+      "cat": "your-rights-toolkit",
+      "type": "reflect",
+      "hook": "Lensy: keeping a simple rights card, numbers, routes, basics, means you're ready. Useful?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I'll keep it",
+        "Ready"
+      ],
+      "affirm": "A simple rights card means help and your rights are always at your fingertips.",
+      "relearn": "A simple rights card keeps your numbers, routes and basics ready.",
+      "persona": "any",
+      "source": "toolkit"
+    },
+    {
+      "id": "jl-077",
+      "cat": "your-rights-toolkit",
+      "type": "branch",
+      "hook": "A friend doesn't know any of this. What do you do?",
+      "options": [
+        {
+          "text": "Share the toolkit, rights, routes and helplines, with them",
+          "consequence": "You pass on real protection.",
+          "outcome": "share",
+          "best": true
+        },
+        {
+          "text": "Keep it to yourself",
+          "consequence": "Sharing the toolkit spreads real protection; pass it on."
+        }
+      ],
+      "debrief": "Rights knowledge multiplies when you share the toolkit.",
+      "relearn": "Share the rights toolkit; it spreads real protection.",
+      "persona": "any",
+      "source": "share knowledge"
+    },
+    {
+      "id": "jl-078",
+      "cat": "your-rights-toolkit",
+      "type": "reflect",
+      "hook": "Lensy: knowing your rights AND the routes, do you feel genuinely more powerful?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "More powerful",
+        "Equipped"
+      ],
+      "affirm": "Rights plus routes is real power, you're genuinely better equipped to protect yourself and others.",
+      "relearn": "Knowing your rights and the routes makes you genuinely more powerful.",
+      "persona": "any",
+      "source": "empowerment"
+    },
+    {
+      "id": "jl-079",
+      "cat": "your-rights-toolkit",
+      "type": "sort",
+      "hook": "Sort: a smart rights habit, or a risky one?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Knowing your core helplines"
+        },
+        {
+          "id": "b",
+          "text": "Trusting law rumours online"
+        },
+        {
+          "id": "c",
+          "text": "Telling a trusted adult early"
+        },
+        {
+          "id": "d",
+          "text": "Handling serious things alone"
+        }
+      ],
+      "bins": [
+        {
+          "id": "smart",
+          "label": "Smart"
+        },
+        {
+          "id": "risky",
+          "label": "Risky"
+        }
+      ],
+      "key": {
+        "a": "smart",
+        "b": "risky",
+        "c": "smart",
+        "d": "risky"
+      },
+      "relearn": "Knowing helplines and telling an adult early is smart; rumours and going solo are risky.",
+      "persona": "any",
+      "source": "smart habits"
+    },
+    {
+      "id": "jl-080",
+      "cat": "your-rights-toolkit",
+      "type": "match",
+      "hook": "Match the situation to the toolkit item to reach for.",
+      "pairs": [
+        {
+          "left": "Immediate danger",
+          "right": "112"
+        },
+        {
+          "left": "Can't afford a lawyer",
+          "right": "Free legal aid"
+        },
+        {
+          "left": "Online abuse",
+          "right": "cybercrime.gov.in / 1930"
+        }
+      ],
+      "relearn": "Reach for 112 in danger, free legal aid if you can't pay, and 1930 for online abuse.",
+      "persona": "any",
+      "source": "toolkit use"
+    },
+    {
+      "id": "jl-081",
+      "cat": "your-rights-toolkit",
+      "type": "reflect",
+      "hook": "Lensy: biggest take-away from Justice League?",
+      "prompt": "Pick your motto.",
+      "options": [
+        "I have rights",
+        "There are routes",
+        "Free help exists",
+        "Knowledge is power"
+      ],
+      "affirm": "Any of those, held firmly, makes you harder to exploit and ready to help others.",
+      "relearn": "You have rights, there are routes, free help exists, knowledge is power.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "jl-082",
+      "cat": "your-rights-toolkit",
+      "type": "reflect",
+      "hook": "Lensy: rights work both ways, claiming yours means respecting everyone's. Carry that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Both ways",
+        "For everyone"
+      ],
+      "affirm": "Rights for you and rights for all, that's the just world this whole journey points to.",
+      "relearn": "Claiming your rights means respecting everyone's rights too.",
+      "persona": "any",
+      "source": "rights for all"
+    },
+    {
+      "id": "jl-083",
+      "cat": "your-rights-toolkit",
+      "type": "branch",
+      "hook": "You finish the game and want it to matter beyond the screen.",
+      "options": [
+        {
+          "text": "Save the rights card and share it with people who need it",
+          "consequence": "Your knowledge becomes real-world protection.",
+          "outcome": "real",
+          "best": true
+        },
+        {
+          "text": "Close it and forget it",
+          "consequence": "Saving and sharing the rights card turns the lesson into real protection."
+        }
+      ],
+      "debrief": "A saved, shared rights card is how this knowledge protects people for real.",
+      "relearn": "Save and share the rights card so the knowledge protects people for real.",
+      "persona": "any",
+      "source": "make it real"
+    },
+    {
+      "id": "jl-084",
+      "cat": "your-rights-toolkit",
+      "type": "reflect",
+      "hook": "Lensy: a generation that knows its rights and the routes to justice, worth being part of?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Count me in",
+        "Knowledge is power"
+      ],
+      "affirm": "A generation that knows its rights and how to claim them is far harder to exploit, that's the goal.",
+      "relearn": "Knowing your rights and the routes to justice is real, lasting power.",
+      "persona": "any",
+      "source": "vision"
+    }
+  ]
+}

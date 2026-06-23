@@ -1,0 +1,1979 @@
+{
+  "game": "Plan It",
+  "gameId": "plan-it",
+  "node": "g22",
+  "chapter": 4,
+  "ages": "12-15",
+  "thread": "F · Sexual & Reproductive Health",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 85,
+  "leadMechanics": [
+    "strike-rewrite",
+    "sort",
+    "branch"
+  ],
+  "note": "Fertility, pregnancy & contraception (UNESCO 6.2, 8.1). New v2 build, Chapter 4 (real, matter-of-fact, values-first). GATED (school-comfort). Delaying is fully valid & respected; accurate facts bust dangerous myths; contraception at an age-appropriate overview level. Builds on g14; prereq g39. Non-judgmental, non-explicit; routes to a doctor/trusted adult for facts.",
+  "categories": {
+    "how-it-happens": "How pregnancy happens",
+    "bust-myths": "Bust the dangerous myths",
+    "ways-to-prevent": "Ways it's prevented",
+    "delaying-valid": "Delaying is valid",
+    "plan-future": "Plan your future",
+    "facts-help": "Get the facts, not rumours"
+  },
+  "mechanicsUsed": [
+    "strike-rewrite",
+    "sort",
+    "branch",
+    "build",
+    "reflect",
+    "role-play",
+    "match"
+  ],
+  "evidenceBase": [
+    "Pregnancy can happen any time sperm meets egg, including the first time and (less likely) during a period; withdrawal and douching are unreliable, and orgasm is not required, common myths endanger teens",
+    "Not having sex is the only fully reliable way to avoid pregnancy and is a completely valid, respected choice; condoms prevent pregnancy and STIs, and several other methods exist that a doctor can explain",
+    "High-quality comprehensive sexuality education delays sexual initiation and increases protection use, it does not encourage earlier sex; accurate facts from a doctor or trusted adult beat rumours"
+  ],
+  "scenarios": [
+    {
+      "id": "pl-001",
+      "cat": "how-it-happens",
+      "type": "build",
+      "hook": "Build the basic chain of how a pregnancy can begin.",
+      "prompt": "Put the steps in order.",
+      "pieces": [
+        "an egg is released (ovulation)",
+        "sperm meets the egg",
+        "the egg is fertilised",
+        "it settles in the uterus"
+      ],
+      "mode": "sequence",
+      "key": [
+        "an egg is released (ovulation)",
+        "sperm meets the egg",
+        "the egg is fertilised",
+        "it settles in the uterus"
+      ],
+      "relearn": "Pregnancy begins when sperm fertilises an egg, which then settles in the uterus.",
+      "persona": "any",
+      "source": "reproduction (UNESCO 6.2)"
+    },
+    {
+      "id": "pl-002",
+      "cat": "how-it-happens",
+      "type": "strike-rewrite",
+      "hook": "\"Pregnancy is random and mysterious.\"",
+      "myth": {
+        "un": "Pregnancy just happens randomly and mysteriously.",
+        "re": "Pregnancy follows clear biology: sperm meeting an egg.",
+        "why": "Knowing the rules lets you understand and prevent it."
+      },
+      "relearn": "Pregnancy isn't a mystery; it follows clear, knowable biology.",
+      "persona": "any",
+      "source": "reproduction"
+    },
+    {
+      "id": "pl-002b",
+      "cat": "how-it-happens",
+      "type": "strike-rewrite",
+      "hook": "\"You can get pregnant on any day, equally, all month.\"",
+      "myth": {
+        "un": "The chance is exactly the same every single day.",
+        "re": "There's a fertile window around ovulation, but sperm live up to 5 days, so it's hard to predict.",
+        "why": "Cycles vary, which is why 'safe days' alone are unreliable."
+      },
+      "relearn": "There's a fertile window, but it's hard to predict, so 'safe days' aren't reliable.",
+      "persona": "any",
+      "source": "fertility window"
+    },
+    {
+      "id": "pl-003",
+      "cat": "how-it-happens",
+      "type": "sort",
+      "hook": "Sort: needed for a pregnancy, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "An egg"
+        },
+        {
+          "id": "b",
+          "text": "Sperm"
+        },
+        {
+          "id": "c",
+          "text": "An orgasm by the girl"
+        },
+        {
+          "id": "d",
+          "text": "A full moon"
+        }
+      ],
+      "bins": [
+        {
+          "id": "needed",
+          "label": "Needed"
+        },
+        {
+          "id": "not",
+          "label": "Not needed"
+        }
+      ],
+      "key": {
+        "a": "needed",
+        "b": "needed",
+        "c": "not",
+        "d": "not"
+      },
+      "relearn": "Pregnancy needs sperm and egg; it doesn't need orgasm or luck.",
+      "persona": "any",
+      "source": "reproduction facts"
+    },
+    {
+      "id": "pl-004",
+      "cat": "how-it-happens",
+      "type": "sort",
+      "hook": "Sort: a real fact about fertility, or made up?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Sperm can live a few days inside the body"
+        },
+        {
+          "id": "b",
+          "text": "Bodies become able to make babies during puberty"
+        },
+        {
+          "id": "c",
+          "text": "You can tell the exact safe day easily"
+        },
+        {
+          "id": "d",
+          "text": "Only adults over 20 can get pregnant"
+        }
+      ],
+      "bins": [
+        {
+          "id": "fact",
+          "label": "Fact"
+        },
+        {
+          "id": "madeup",
+          "label": "Made up"
+        }
+      ],
+      "key": {
+        "a": "fact",
+        "b": "fact",
+        "c": "madeup",
+        "d": "madeup"
+      },
+      "relearn": "Once puberty starts, pregnancy is biologically possible; 'safe days' aren't easy to know.",
+      "persona": "any",
+      "source": "fertility facts"
+    },
+    {
+      "id": "pl-005",
+      "cat": "how-it-happens",
+      "type": "sort",
+      "hook": "Sort: about the body becoming fertile.",
+      "items": [
+        {
+          "id": "a",
+          "text": "Periods can signal fertility has begun"
+        },
+        {
+          "id": "b",
+          "text": "Sperm production begins in puberty"
+        },
+        {
+          "id": "c",
+          "text": "Fertility waits until marriage"
+        },
+        {
+          "id": "d",
+          "text": "You must 'feel' fertile to be fertile"
+        }
+      ],
+      "bins": [
+        {
+          "id": "true",
+          "label": "True"
+        },
+        {
+          "id": "false",
+          "label": "False"
+        }
+      ],
+      "key": {
+        "a": "true",
+        "b": "true",
+        "c": "false",
+        "d": "false"
+      },
+      "relearn": "Fertility begins with puberty's changes, not at any particular life event.",
+      "persona": "any",
+      "source": "fertility / puberty"
+    },
+    {
+      "id": "pl-006",
+      "cat": "how-it-happens",
+      "type": "match",
+      "hook": "Match the part to its role in reproduction.",
+      "pairs": [
+        {
+          "left": "Egg",
+          "right": "Released from the ovary"
+        },
+        {
+          "left": "Sperm",
+          "right": "Can fertilise the egg"
+        },
+        {
+          "left": "Uterus",
+          "right": "Where a pregnancy grows"
+        }
+      ],
+      "relearn": "Egg, sperm and uterus each play a clear role.",
+      "persona": "any",
+      "source": "reproduction"
+    },
+    {
+      "id": "pl-007",
+      "cat": "how-it-happens",
+      "type": "match",
+      "hook": "Match the term to its plain meaning.",
+      "pairs": [
+        {
+          "left": "Ovulation",
+          "right": "An egg is released"
+        },
+        {
+          "left": "Fertilisation",
+          "right": "Sperm joins the egg"
+        },
+        {
+          "left": "Fertile window",
+          "right": "Days pregnancy is likeliest"
+        }
+      ],
+      "relearn": "Knowing the basic terms makes the facts clear.",
+      "persona": "any",
+      "source": "vocabulary"
+    },
+    {
+      "id": "pl-008",
+      "cat": "how-it-happens",
+      "type": "match",
+      "hook": "Match the fact to why it matters.",
+      "pairs": [
+        {
+          "left": "Sperm live up to ~5 days",
+          "right": "'Safe days' are unreliable"
+        },
+        {
+          "left": "Cycles vary a lot",
+          "right": "Timing is hard to predict"
+        },
+        {
+          "left": "First time counts",
+          "right": "Risk is there from the start"
+        }
+      ],
+      "relearn": "These facts are exactly why simple 'timing' tricks fail.",
+      "persona": "any",
+      "source": "fertility facts"
+    },
+    {
+      "id": "pl-009",
+      "cat": "how-it-happens",
+      "type": "build",
+      "hook": "Build the 'when can it happen?' summary.",
+      "prompt": "Assemble the true points.",
+      "pieces": [
+        "once puberty has begun",
+        "when sperm can reach an egg",
+        "even the first time",
+        "timing is hard to predict"
+      ],
+      "mode": "assemble",
+      "key": [
+        "once puberty has begun",
+        "when sperm can reach an egg",
+        "even the first time",
+        "timing is hard to predict"
+      ],
+      "relearn": "Pregnancy is possible once puberty starts, any time sperm can reach an egg.",
+      "persona": "any",
+      "source": "fertility summary"
+    },
+    {
+      "id": "pl-010",
+      "cat": "how-it-happens",
+      "type": "reflect",
+      "hook": "Lensy: knowing how it actually works puts you in charge, not in the dark. Feel that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Knowledge is power",
+        "Less confusing now"
+      ],
+      "affirm": "Understanding the biology means no one can mislead you about it.",
+      "relearn": "Understanding how pregnancy works puts you in charge of the facts.",
+      "persona": "any",
+      "source": "agency"
+    },
+    {
+      "id": "pl-011",
+      "cat": "how-it-happens",
+      "type": "reflect",
+      "hook": "Lensy: this is just biology, calm and factual, nothing to be embarrassed about. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "It's just facts",
+        "Good to know plainly"
+      ],
+      "affirm": "Bodies and biology are normal; learning them is simply being informed.",
+      "relearn": "How reproduction works is normal biology, learned calmly.",
+      "persona": "any",
+      "source": "normalising"
+    },
+    {
+      "id": "pl-012",
+      "cat": "bust-myths",
+      "type": "strike-rewrite",
+      "hook": "\"You can't get pregnant the first time.\"",
+      "myth": {
+        "un": "You can't get pregnant the first time.",
+        "re": "Pregnancy is possible the very first time, every time carries a chance.",
+        "why": "The body doesn't get a 'free pass' on the first occasion."
+      },
+      "relearn": "You can get pregnant the first time; there's no 'free pass'.",
+      "persona": "any",
+      "source": "myth-busting (verified)"
+    },
+    {
+      "id": "pl-013",
+      "cat": "bust-myths",
+      "type": "strike-rewrite",
+      "hook": "\"You can't get pregnant during your period.\"",
+      "myth": {
+        "un": "It's impossible to get pregnant during a period.",
+        "re": "It's less likely but still possible, especially with shorter or irregular cycles.",
+        "why": "Sperm can live for days and cycles vary."
+      },
+      "relearn": "Pregnancy during a period is less likely but still possible.",
+      "persona": "Riya",
+      "source": "myth-busting (verified)"
+    },
+    {
+      "id": "pl-014",
+      "cat": "bust-myths",
+      "type": "strike-rewrite",
+      "hook": "\"Pulling out in time prevents pregnancy.\"",
+      "myth": {
+        "un": "Pulling out (withdrawal) reliably prevents pregnancy.",
+        "re": "Withdrawal is unreliable; fluid before climax can contain sperm.",
+        "why": "About 1 in 5 who rely on it each year have an unplanned pregnancy."
+      },
+      "relearn": "Withdrawal is unreliable; it isn't a dependable method.",
+      "persona": "any",
+      "source": "myth-busting (verified)"
+    },
+    {
+      "id": "pl-015",
+      "cat": "bust-myths",
+      "type": "strike-rewrite",
+      "hook": "\"If she doesn't orgasm, she can't get pregnant.\"",
+      "myth": {
+        "un": "Pregnancy needs the girl to orgasm.",
+        "re": "Orgasm has nothing to do with whether an egg gets fertilised.",
+        "why": "Fertilisation is about sperm meeting egg, not pleasure."
+      },
+      "relearn": "Orgasm isn't required for pregnancy; that myth is false.",
+      "persona": "any",
+      "source": "myth-busting (verified)"
+    },
+    {
+      "id": "pl-016",
+      "cat": "bust-myths",
+      "type": "strike-rewrite",
+      "hook": "\"Washing or douching afterwards stops pregnancy.\"",
+      "myth": {
+        "un": "Washing or douching after sex prevents pregnancy.",
+        "re": "It does not; sperm can already be on the way.",
+        "why": "You can't rinse away the possibility."
+      },
+      "relearn": "Douching or washing afterwards does not prevent pregnancy.",
+      "persona": "any",
+      "source": "myth-busting (verified)"
+    },
+    {
+      "id": "pl-017",
+      "cat": "bust-myths",
+      "type": "strike-rewrite",
+      "hook": "\"Standing up or jumping afterwards prevents it.\"",
+      "myth": {
+        "un": "Position, standing or jumping afterwards prevents pregnancy.",
+        "re": "None of these affect whether sperm reaches an egg.",
+        "why": "Gravity tricks are myths."
+      },
+      "relearn": "Position and 'tricks' afterwards don't prevent pregnancy.",
+      "persona": "any",
+      "source": "myth-busting"
+    },
+    {
+      "id": "pl-018",
+      "cat": "bust-myths",
+      "type": "strike-rewrite",
+      "hook": "\"You're too young for your body to get pregnant.\"",
+      "myth": {
+        "un": "A teen's body is too young to get pregnant.",
+        "re": "Once puberty's changes begin, pregnancy is biologically possible.",
+        "why": "Biology doesn't wait for a 'ready' age."
+      },
+      "relearn": "Once puberty begins, pregnancy is biologically possible.",
+      "persona": "any",
+      "source": "myth-busting"
+    },
+    {
+      "id": "pl-019",
+      "cat": "bust-myths",
+      "type": "strike-rewrite",
+      "hook": "\"Only certain 'types' of people need to know this.\"",
+      "myth": {
+        "un": "Only some people need to understand pregnancy and prevention.",
+        "re": "Everyone benefits from accurate facts, whatever their plans.",
+        "why": "Knowledge protects everyone, including future-you."
+      },
+      "relearn": "Everyone benefits from knowing the facts, whatever their plans.",
+      "persona": "any",
+      "source": "access to info"
+    },
+    {
+      "id": "pl-020",
+      "cat": "bust-myths",
+      "type": "strike-rewrite",
+      "hook": "\"Learning this means I'm being pushed to do something.\"",
+      "myth": {
+        "un": "Learning about this is pressure to have sex.",
+        "re": "Knowing the facts actually helps people wait and stay safer.",
+        "why": "Good information leads to better, often more cautious, choices."
+      },
+      "relearn": "Knowing the facts helps you wait and stay safe; it isn't pressure.",
+      "persona": "Veer",
+      "source": "CSE evidence"
+    },
+    {
+      "id": "pl-021",
+      "cat": "bust-myths",
+      "type": "strike-rewrite",
+      "hook": "\"You can tell a 'safe day' just by counting, easily.\"",
+      "myth": {
+        "un": "You can always pick a guaranteed 'safe day' by counting.",
+        "re": "Cycles vary and sperm live for days, so counting alone is unreliable.",
+        "why": "Prediction is much harder than the myth suggests."
+      },
+      "relearn": "'Safe day' counting alone is unreliable for preventing pregnancy.",
+      "persona": "any",
+      "source": "fertility awareness limits"
+    },
+    {
+      "id": "pl-022",
+      "cat": "bust-myths",
+      "type": "strike-rewrite",
+      "hook": "\"Myths from friends are good enough to rely on.\"",
+      "myth": {
+        "un": "What friends say about pregnancy is reliable enough.",
+        "re": "Friend 'facts' are often myths; check with a doctor or trusted adult.",
+        "why": "Rumours cause real, avoidable harm."
+      },
+      "relearn": "Don't rely on friend-rumours; check facts with a doctor or trusted adult.",
+      "persona": "any",
+      "source": "help-seeking"
+    },
+    {
+      "id": "pl-023",
+      "cat": "bust-myths",
+      "type": "sort",
+      "hook": "Sort: dangerous myth, or real fact?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Can't happen the first time\""
+        },
+        {
+          "id": "b",
+          "text": "\"Every time carries a chance\""
+        },
+        {
+          "id": "c",
+          "text": "\"Pulling out is safe\""
+        },
+        {
+          "id": "d",
+          "text": "\"Sperm can live for days\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "myth",
+          "label": "Dangerous myth"
+        },
+        {
+          "id": "fact",
+          "label": "Real fact"
+        }
+      ],
+      "key": {
+        "a": "myth",
+        "b": "fact",
+        "c": "myth",
+        "d": "fact"
+      },
+      "relearn": "The 'first time' and 'pulling out' beliefs are dangerous myths.",
+      "persona": "any",
+      "source": "myth-busting"
+    },
+    {
+      "id": "pl-024",
+      "cat": "bust-myths",
+      "type": "sort",
+      "hook": "Sort: reliable, or not reliable, for preventing pregnancy?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Not having sex"
+        },
+        {
+          "id": "b",
+          "text": "Withdrawal"
+        },
+        {
+          "id": "c",
+          "text": "Douching"
+        },
+        {
+          "id": "d",
+          "text": "A condom used correctly"
+        }
+      ],
+      "bins": [
+        {
+          "id": "reliable",
+          "label": "Reliable"
+        },
+        {
+          "id": "not",
+          "label": "Not reliable"
+        }
+      ],
+      "key": {
+        "a": "reliable",
+        "b": "not",
+        "c": "not",
+        "d": "reliable"
+      },
+      "relearn": "Not having sex is fully reliable; a correctly used condom is reliable; withdrawal and douching are not.",
+      "persona": "any",
+      "source": "prevention facts"
+    },
+    {
+      "id": "pl-025",
+      "cat": "bust-myths",
+      "type": "sort",
+      "hook": "Sort: where good pregnancy facts come from.",
+      "items": [
+        {
+          "id": "a",
+          "text": "A doctor or health worker"
+        },
+        {
+          "id": "b",
+          "text": "A random forwarded message"
+        },
+        {
+          "id": "c",
+          "text": "A trusted adult or counsellor"
+        },
+        {
+          "id": "d",
+          "text": "Locker-room rumours"
+        }
+      ],
+      "bins": [
+        {
+          "id": "reliable",
+          "label": "Reliable source"
+        },
+        {
+          "id": "not",
+          "label": "Unreliable"
+        }
+      ],
+      "key": {
+        "a": "reliable",
+        "b": "not",
+        "c": "reliable",
+        "d": "not"
+      },
+      "relearn": "Trust doctors and trusted adults for facts, not rumours.",
+      "persona": "any",
+      "source": "help-seeking"
+    },
+    {
+      "id": "pl-026",
+      "cat": "ways-to-prevent",
+      "type": "sort",
+      "hook": "Sort: how well does each prevent pregnancy?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Not having sex"
+        },
+        {
+          "id": "b",
+          "text": "A condom, used correctly"
+        },
+        {
+          "id": "c",
+          "text": "Hoping for the best"
+        },
+        {
+          "id": "d",
+          "text": "Withdrawal"
+        }
+      ],
+      "bins": [
+        {
+          "id": "works",
+          "label": "Reliable"
+        },
+        {
+          "id": "weak",
+          "label": "Unreliable"
+        }
+      ],
+      "key": {
+        "a": "works",
+        "b": "works",
+        "c": "weak",
+        "d": "weak"
+      },
+      "relearn": "Not having sex is fully reliable; condoms used correctly work well; hoping and withdrawal don't.",
+      "persona": "any",
+      "source": "prevention"
+    },
+    {
+      "id": "pl-027",
+      "cat": "ways-to-prevent",
+      "type": "sort",
+      "hook": "Sort: also protects against STIs, or only pregnancy?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Condoms"
+        },
+        {
+          "id": "b",
+          "text": "The pill"
+        },
+        {
+          "id": "c",
+          "text": "Not having sex"
+        },
+        {
+          "id": "d",
+          "text": "Most other methods"
+        }
+      ],
+      "bins": [
+        {
+          "id": "both",
+          "label": "Pregnancy + STIs"
+        },
+        {
+          "id": "pregonly",
+          "label": "Mainly pregnancy"
+        }
+      ],
+      "key": {
+        "a": "both",
+        "b": "pregonly",
+        "c": "both",
+        "d": "pregonly"
+      },
+      "relearn": "Condoms (and not having sex) also reduce STIs; most other methods only prevent pregnancy.",
+      "persona": "any",
+      "source": "prevention / STIs (links g20)"
+    },
+    {
+      "id": "pl-028",
+      "cat": "ways-to-prevent",
+      "type": "sort",
+      "hook": "Sort: a real method a doctor can explain, or a myth?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Condoms"
+        },
+        {
+          "id": "b",
+          "text": "The pill"
+        },
+        {
+          "id": "c",
+          "text": "Crossing fingers"
+        },
+        {
+          "id": "d",
+          "text": "A lucky charm"
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "Real method"
+        },
+        {
+          "id": "myth",
+          "label": "Not a method"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "real",
+        "c": "myth",
+        "d": "myth"
+      },
+      "relearn": "Real methods exist and a doctor can explain them; luck isn't one.",
+      "persona": "any",
+      "source": "prevention overview"
+    },
+    {
+      "id": "pl-029",
+      "cat": "ways-to-prevent",
+      "type": "sort",
+      "hook": "Sort: true about prevention, or false?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Several methods exist"
+        },
+        {
+          "id": "b",
+          "text": "A doctor can explain options"
+        },
+        {
+          "id": "c",
+          "text": "There's only one method"
+        },
+        {
+          "id": "d",
+          "text": "Methods never need correct use"
+        }
+      ],
+      "bins": [
+        {
+          "id": "true",
+          "label": "True"
+        },
+        {
+          "id": "false",
+          "label": "False"
+        }
+      ],
+      "key": {
+        "a": "true",
+        "b": "true",
+        "c": "false",
+        "d": "false"
+      },
+      "relearn": "Many methods exist; using them correctly matters, and a doctor can help.",
+      "persona": "any",
+      "source": "prevention overview"
+    },
+    {
+      "id": "pl-030",
+      "cat": "ways-to-prevent",
+      "type": "match",
+      "hook": "Match the method to a plain fact about it.",
+      "pairs": [
+        {
+          "left": "Not having sex",
+          "right": "Fully prevents pregnancy"
+        },
+        {
+          "left": "Condom",
+          "right": "Prevents pregnancy and STIs"
+        },
+        {
+          "left": "The pill",
+          "right": "A doctor explains how it's used"
+        }
+      ],
+      "relearn": "Each method has clear facts; a doctor fills in the details.",
+      "persona": "any",
+      "source": "prevention overview"
+    },
+    {
+      "id": "pl-031",
+      "cat": "ways-to-prevent",
+      "type": "match",
+      "hook": "Match the question to who answers it best.",
+      "pairs": [
+        {
+          "left": "Which method suits me later?",
+          "right": "A doctor"
+        },
+        {
+          "left": "Is this rumour true?",
+          "right": "A trusted adult"
+        },
+        {
+          "left": "How do I feel about waiting?",
+          "right": "You"
+        }
+      ],
+      "relearn": "Doctors and trusted adults answer the facts; the feelings are yours.",
+      "persona": "any",
+      "source": "help-seeking"
+    },
+    {
+      "id": "pl-032",
+      "cat": "ways-to-prevent",
+      "type": "strike-rewrite",
+      "hook": "\"Carrying or knowing about condoms means you're planning to be reckless.\"",
+      "myth": {
+        "un": "Knowing about condoms means you're being reckless.",
+        "re": "Being informed is responsible, whatever you choose to do or not do.",
+        "why": "Knowledge is protection, not a plan."
+      },
+      "relearn": "Being informed about protection is responsible, not reckless.",
+      "persona": "Veer",
+      "source": "de-stigmatise"
+    },
+    {
+      "id": "pl-033",
+      "cat": "ways-to-prevent",
+      "type": "strike-rewrite",
+      "hook": "\"Only one person in a couple is responsible for prevention.\"",
+      "myth": {
+        "un": "Preventing pregnancy is only one person's job.",
+        "re": "It's a shared responsibility between both people.",
+        "why": "Both are involved, so both look after it."
+      },
+      "relearn": "Preventing pregnancy is a shared responsibility, not one person's.",
+      "persona": "any",
+      "source": "shared responsibility"
+    },
+    {
+      "id": "pl-034",
+      "cat": "ways-to-prevent",
+      "type": "strike-rewrite",
+      "hook": "\"If something goes wrong, there's nothing anyone can do.\"",
+      "myth": {
+        "un": "If a method fails, there's nothing to be done.",
+        "re": "A doctor or health worker can advise on next steps and options.",
+        "why": "There's always someone to ask; you're not stuck."
+      },
+      "relearn": "If something goes wrong, a doctor or health worker can help with next steps.",
+      "persona": "Counsellor",
+      "source": "help-seeking"
+    },
+    {
+      "id": "pl-035",
+      "cat": "ways-to-prevent",
+      "type": "build",
+      "hook": "Build the 'know your options' idea (for now and the future).",
+      "prompt": "Assemble the calm, true summary.",
+      "pieces": [
+        "not having sex fully prevents it",
+        "condoms also reduce STIs",
+        "other methods exist",
+        "a doctor can explain them"
+      ],
+      "mode": "assemble",
+      "key": [
+        "not having sex fully prevents it",
+        "condoms also reduce STIs",
+        "other methods exist",
+        "a doctor can explain them"
+      ],
+      "relearn": "Knowing your options, starting with waiting, keeps future-you in control.",
+      "persona": "any",
+      "source": "prevention overview"
+    },
+    {
+      "id": "pl-036",
+      "cat": "ways-to-prevent",
+      "type": "build",
+      "hook": "Build the two-job summary of a condom.",
+      "prompt": "Assemble what a condom does.",
+      "pieces": [
+        "helps prevent pregnancy",
+        "helps prevent STIs",
+        "needs correct use",
+        "is widely available"
+      ],
+      "mode": "assemble",
+      "key": [
+        "helps prevent pregnancy",
+        "helps prevent STIs",
+        "needs correct use",
+        "is widely available"
+      ],
+      "relearn": "A condom can prevent both pregnancy and STIs when used correctly.",
+      "persona": "any",
+      "source": "prevention / STIs"
+    },
+    {
+      "id": "pl-037",
+      "cat": "ways-to-prevent",
+      "type": "reflect",
+      "hook": "Lensy: knowing your options doesn't mean you have to use any of them now. Reassuring?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Knowledge isn't pressure",
+        "Good distinction"
+      ],
+      "affirm": "Knowing your options is freedom; using them is a separate, future choice.",
+      "relearn": "Knowing your options is separate from choosing to use them.",
+      "persona": "any",
+      "source": "agency"
+    },
+    {
+      "id": "pl-038",
+      "cat": "ways-to-prevent",
+      "type": "reflect",
+      "hook": "Lensy: the most reliable method at your age is also the simplest, waiting. Make sense?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Waiting is solid",
+        "Good to know"
+      ],
+      "affirm": "Waiting is the one fully reliable choice, and it's completely respected.",
+      "relearn": "Not having sex is the most reliable choice and is fully valid.",
+      "persona": "any",
+      "source": "abstinence-respected"
+    },
+    {
+      "id": "pl-039",
+      "cat": "delaying-valid",
+      "type": "role-play",
+      "hook": "Someone pressures you with \"everyone's doing it\".",
+      "setup": "Hold your choice. Say:",
+      "yourLine": [
+        {
+          "text": "\"Not everyone is, and I'm not ready, that's my call.\"",
+          "best": true
+        },
+        {
+          "text": "\"I guess I have to, then.\""
+        }
+      ],
+      "relearn": "You can hold your own pace against 'everyone's doing it'.",
+      "persona": "Veer",
+      "source": "refusal / pace"
+    },
+    {
+      "id": "pl-040",
+      "cat": "delaying-valid",
+      "type": "role-play",
+      "hook": "A partner says \"if you loved me, you would\".",
+      "setup": "Name the pressure. Say:",
+      "yourLine": [
+        {
+          "text": "\"If you respected me, you wouldn't pressure me.\"",
+          "best": true
+        },
+        {
+          "text": "\"...okay, fine.\""
+        }
+      ],
+      "relearn": "'If you loved me' is pressure; real respect waits for your yes.",
+      "persona": "Riya",
+      "source": "pressure / consent (links g24)"
+    },
+    {
+      "id": "pl-041",
+      "cat": "delaying-valid",
+      "type": "role-play",
+      "hook": "You want to say you're not ready, without a big argument.",
+      "setup": "Keep it simple. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'm not ready, and that's not going to change tonight.\"",
+          "best": true
+        },
+        {
+          "text": "Give in to avoid awkwardness"
+        }
+      ],
+      "relearn": "A calm, clear 'I'm not ready' is a complete answer.",
+      "persona": "any",
+      "source": "assertiveness"
+    },
+    {
+      "id": "pl-042",
+      "cat": "delaying-valid",
+      "type": "role-play",
+      "hook": "Friends tease you for not having a 'story' to share.",
+      "setup": "Own your pace. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'm good doing things in my own time.\"",
+          "best": true
+        },
+        {
+          "text": "Make something up to fit in"
+        }
+      ],
+      "relearn": "You don't owe anyone a 'story'; your pace is yours.",
+      "persona": "Veer",
+      "source": "peer pressure"
+    },
+    {
+      "id": "pl-043",
+      "cat": "delaying-valid",
+      "type": "role-play",
+      "hook": "You're not sure how to say a clear 'no' and still be kind.",
+      "setup": "Be kind and firm. Say:",
+      "yourLine": [
+        {
+          "text": "\"I like you, and I'm still not ready, both are true.\"",
+          "best": true
+        },
+        {
+          "text": "Apologise endlessly and cave"
+        }
+      ],
+      "relearn": "You can be kind and say a firm 'not ready' at once.",
+      "persona": "Riya",
+      "source": "assertiveness"
+    },
+    {
+      "id": "pl-044",
+      "cat": "delaying-valid",
+      "type": "role-play",
+      "hook": "Someone says waiting is 'old-fashioned' or 'uncool'.",
+      "setup": "Reframe it. Say:",
+      "yourLine": [
+        {
+          "text": "\"Doing what's right for me is exactly cool enough.\"",
+          "best": true
+        },
+        {
+          "text": "\"Maybe you're right...\""
+        }
+      ],
+      "relearn": "Waiting isn't old-fashioned; it's your valid choice.",
+      "persona": "any",
+      "source": "reframe / pace"
+    },
+    {
+      "id": "pl-045",
+      "cat": "delaying-valid",
+      "type": "strike-rewrite",
+      "hook": "\"Everyone my age is having sex.\"",
+      "myth": {
+        "un": "Everyone my age is already having sex.",
+        "re": "Most teens this age are not; the 'everyone' is a myth.",
+        "why": "People exaggerate; the real numbers are far lower."
+      },
+      "relearn": "Most teens your age aren't having sex; 'everyone is' is a myth.",
+      "persona": "Veer",
+      "source": "norms / pace"
+    },
+    {
+      "id": "pl-046",
+      "cat": "delaying-valid",
+      "type": "strike-rewrite",
+      "hook": "\"Waiting means something's wrong with me.\"",
+      "myth": {
+        "un": "If I'm waiting, something must be wrong with me.",
+        "re": "Waiting is healthy, common and smart; nothing is wrong with you.",
+        "why": "Readiness is personal, not a deadline."
+      },
+      "relearn": "Waiting is healthy and common; nothing's wrong with you.",
+      "persona": "Riya",
+      "source": "self-worth / pace"
+    },
+    {
+      "id": "pl-047",
+      "cat": "delaying-valid",
+      "type": "strike-rewrite",
+      "hook": "\"Once you've said no, you can't change your mind later, or vice versa.\"",
+      "myth": {
+        "un": "Your choice about this is fixed forever once made.",
+        "re": "You can decide at your own pace, and a 'yes' can always become 'no' again.",
+        "why": "Consent and readiness are ongoing, never locked in."
+      },
+      "relearn": "Your pace is yours; you can always change your mind.",
+      "persona": "any",
+      "source": "ongoing consent (links g24)"
+    },
+    {
+      "id": "pl-048",
+      "cat": "delaying-valid",
+      "type": "branch",
+      "hook": "You feel rushed to 'keep up' with what others claim they're doing.",
+      "options": [
+        {
+          "text": "Go at your own pace, ignore the scoreboard",
+          "consequence": "You make calm choices that are actually yours.",
+          "outcome": "self-led",
+          "best": true
+        },
+        {
+          "text": "Rush to match the stories",
+          "consequence": "There's no scoreboard; your pace is the only one that matters."
+        }
+      ],
+      "debrief": "This isn't a race; the only pace that matters is yours.",
+      "relearn": "Go at your own pace; there's no scoreboard to keep up with.",
+      "persona": "any",
+      "source": "pace / autonomy"
+    },
+    {
+      "id": "pl-049",
+      "cat": "delaying-valid",
+      "type": "branch",
+      "hook": "You're with someone you like and feeling unsure in the moment.",
+      "options": [
+        {
+          "text": "Pause; 'unsure' means wait",
+          "consequence": "You honour your own uncertainty.",
+          "outcome": "self-respect",
+          "best": true
+        },
+        {
+          "text": "Push past your own hesitation",
+          "consequence": "Unsure means not now; your hesitation is information."
+        }
+      ],
+      "debrief": "If you're unsure, that's a 'not yet'; trust it.",
+      "relearn": "Uncertainty means wait; 'unsure' is a 'not now'.",
+      "persona": "Riya",
+      "source": "readiness"
+    },
+    {
+      "id": "pl-050",
+      "cat": "delaying-valid",
+      "type": "reflect",
+      "hook": "Lensy: readiness is about you, not a date on a calendar. Sit right?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "My timing, my call",
+        "No deadline"
+      ],
+      "affirm": "There's no 'right age' but your own readiness, freely chosen.",
+      "relearn": "Readiness is personal; there's no deadline or 'right age'.",
+      "persona": "any",
+      "source": "readiness"
+    },
+    {
+      "id": "pl-051",
+      "cat": "delaying-valid",
+      "type": "reflect",
+      "hook": "Lensy: what would 'ready' even include, for you, one day?",
+      "prompt": "Think of one.",
+      "options": [
+        "Real trust",
+        "Feeling safe",
+        "Being older",
+        "Mutual respect"
+      ],
+      "affirm": "Knowing what readiness means to you guards your future choices.",
+      "relearn": "Defining your own 'ready' protects your future decisions.",
+      "persona": "any",
+      "source": "readiness / values"
+    },
+    {
+      "id": "pl-052",
+      "cat": "delaying-valid",
+      "type": "reflect",
+      "hook": "Lensy: most teens your age are choosing to wait, you're in good company. Reassuring?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Not alone",
+        "Good to know"
+      ],
+      "affirm": "Waiting is the common, healthy choice at your age, you're far from alone.",
+      "relearn": "Most teens your age wait; you're in good company.",
+      "persona": "any",
+      "source": "norms (verified)"
+    },
+    {
+      "id": "pl-053",
+      "cat": "plan-future",
+      "type": "branch",
+      "hook": "Plan It: you set a big goal (study, sport, a dream). A choice now could derail it.",
+      "options": [
+        {
+          "text": "Choose the path that protects your goal",
+          "consequence": "Your future self thanks you.",
+          "outcome": "planner",
+          "best": true
+        },
+        {
+          "text": "Ignore how today's choice ripples forward",
+          "consequence": "Today's choices ripple; protect the future you want."
+        }
+      ],
+      "debrief": "Planning means seeing how today's choice touches tomorrow's goal.",
+      "relearn": "Today's choices ripple forward; plan to protect your goals.",
+      "persona": "Riya",
+      "source": "life-planning (life-sim)"
+    },
+    {
+      "id": "pl-054",
+      "cat": "plan-future",
+      "type": "branch",
+      "hook": "An unplanned pregnancy as a teen would change a lot of plans. How do you factor that in?",
+      "options": [
+        {
+          "text": "Let it strengthen your reasons to wait or be careful",
+          "consequence": "You connect the facts to your own future.",
+          "outcome": "informed",
+          "best": true
+        },
+        {
+          "text": "Refuse to think about it at all",
+          "consequence": "Facing it calmly helps you protect your plans."
+        }
+      ],
+      "debrief": "Understanding the stakes makes 'wait or be careful' feel like your own choice.",
+      "relearn": "Knowing the stakes strengthens your own reasons to wait or be careful.",
+      "persona": "any",
+      "source": "consequences / planning"
+    },
+    {
+      "id": "pl-055",
+      "cat": "plan-future",
+      "type": "branch",
+      "hook": "You're mapping the next few years of your life.",
+      "options": [
+        {
+          "text": "Put your goals first and let choices serve them",
+          "consequence": "Your decisions line up behind your dreams.",
+          "outcome": "planner",
+          "best": true
+        },
+        {
+          "text": "Drift and react with no plan",
+          "consequence": "A plan helps your choices serve your goals."
+        }
+      ],
+      "debrief": "A plan turns scattered choices into steps toward what you want.",
+      "relearn": "Planning lines your choices up behind your goals.",
+      "persona": "Veer",
+      "source": "planning / agency"
+    },
+    {
+      "id": "pl-056",
+      "cat": "plan-future",
+      "type": "branch",
+      "hook": "A choice feels good right now but clashes with a big goal later.",
+      "options": [
+        {
+          "text": "Weigh now against later before deciding",
+          "consequence": "You protect the bigger thing you want.",
+          "outcome": "thoughtful",
+          "best": true
+        },
+        {
+          "text": "Only think about right now",
+          "consequence": "Weigh the long game; future-you is counting on it."
+        }
+      ],
+      "debrief": "Planning is weighing the now against the later you care about.",
+      "relearn": "Weigh short-term feelings against your long-term goals.",
+      "persona": "any",
+      "source": "planning (links g16)"
+    },
+    {
+      "id": "pl-057",
+      "cat": "plan-future",
+      "type": "branch",
+      "hook": "Friends say planning your future is pointless, 'just live for today'.",
+      "options": [
+        {
+          "text": "Enjoy today and keep an eye on tomorrow",
+          "consequence": "You balance living now with protecting later.",
+          "outcome": "balanced",
+          "best": true
+        },
+        {
+          "text": "Drop all planning",
+          "consequence": "You can enjoy today and still protect tomorrow."
+        }
+      ],
+      "debrief": "Living now and planning ahead aren't enemies; do both.",
+      "relearn": "You can live today and plan for tomorrow at once.",
+      "persona": "any",
+      "source": "planning"
+    },
+    {
+      "id": "pl-058",
+      "cat": "plan-future",
+      "type": "branch",
+      "hook": "You realise a goal needs choices you haven't been making.",
+      "options": [
+        {
+          "text": "Adjust your choices to match your goal",
+          "consequence": "You close the gap between dream and habit.",
+          "outcome": "aligned",
+          "best": true
+        },
+        {
+          "text": "Keep the goal but ignore the steps",
+          "consequence": "Goals need matching choices; line them up."
+        }
+      ],
+      "debrief": "A goal is only as real as the choices that feed it.",
+      "relearn": "Match your daily choices to the goals you care about.",
+      "persona": "any",
+      "source": "goals"
+    },
+    {
+      "id": "pl-059",
+      "cat": "plan-future",
+      "type": "branch",
+      "hook": "Plan It: a setback knocks your plan off course.",
+      "options": [
+        {
+          "text": "Adjust the plan and keep going",
+          "consequence": "Plans flex; you stay on track overall.",
+          "outcome": "resilient",
+          "best": true
+        },
+        {
+          "text": "Abandon the whole plan",
+          "consequence": "Plans can bend without breaking; adjust and continue."
+        }
+      ],
+      "debrief": "A good plan flexes around setbacks instead of shattering.",
+      "relearn": "Adjust your plan around setbacks; don't scrap it.",
+      "persona": "Veer",
+      "source": "planning / resilience (links g39)"
+    },
+    {
+      "id": "pl-060",
+      "cat": "plan-future",
+      "type": "build",
+      "hook": "Build a simple 'protect my future' plan.",
+      "prompt": "Order the planning steps.",
+      "pieces": [
+        "name a goal that matters",
+        "spot choices that could derail it",
+        "decide how you'll protect it",
+        "ask for support if needed"
+      ],
+      "mode": "sequence",
+      "key": [
+        "name a goal that matters",
+        "spot choices that could derail it",
+        "decide how you'll protect it",
+        "ask for support if needed"
+      ],
+      "relearn": "Protect your future: name the goal, spot risks, decide, get support.",
+      "persona": "any",
+      "source": "planning"
+    },
+    {
+      "id": "pl-061",
+      "cat": "plan-future",
+      "type": "build",
+      "hook": "Build the 'choices ripple' idea.",
+      "prompt": "Assemble how a choice today touches the future.",
+      "pieces": [
+        "a choice today",
+        "leads to a consequence",
+        "which shapes options later",
+        "which shapes your goal"
+      ],
+      "mode": "sequence",
+      "key": [
+        "a choice today",
+        "leads to a consequence",
+        "which shapes options later",
+        "which shapes your goal"
+      ],
+      "relearn": "Choices ripple: today's choice shapes tomorrow's options.",
+      "persona": "any",
+      "source": "consequential thinking"
+    },
+    {
+      "id": "pl-062",
+      "cat": "plan-future",
+      "type": "build",
+      "hook": "Build your 'reasons to wait or be careful' list (your own).",
+      "prompt": "Assemble reasons that are yours.",
+      "pieces": [
+        "my goals come first",
+        "I want to be truly ready",
+        "my health matters",
+        "my future is mine to protect"
+      ],
+      "mode": "assemble",
+      "key": [
+        "my goals come first",
+        "I want to be truly ready",
+        "my health matters",
+        "my future is mine to protect"
+      ],
+      "relearn": "Your own reasons to wait or be careful are powerful and valid.",
+      "persona": "any",
+      "source": "values / planning"
+    },
+    {
+      "id": "pl-063",
+      "cat": "plan-future",
+      "type": "reflect",
+      "hook": "Lensy: what's one dream you're protecting by planning ahead?",
+      "prompt": "Think of one.",
+      "options": [
+        "My studies",
+        "A career",
+        "Travel",
+        "Just my freedom"
+      ],
+      "affirm": "Keep that dream in view; your choices can guard it.",
+      "relearn": "Naming the dream you're protecting makes planning meaningful.",
+      "persona": "any",
+      "source": "motivation"
+    },
+    {
+      "id": "pl-064",
+      "cat": "plan-future",
+      "type": "reflect",
+      "hook": "Lensy: you're the author of your future, not a passenger. Feel that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I'm in charge",
+        "Empowering"
+      ],
+      "affirm": "Your choices write your future; that's real power.",
+      "relearn": "You author your future through the choices you make.",
+      "persona": "any",
+      "source": "agency"
+    },
+    {
+      "id": "pl-065",
+      "cat": "facts-help",
+      "type": "sort",
+      "hook": "Sort: reliable place for SRH facts, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "A doctor or clinic"
+        },
+        {
+          "id": "b",
+          "text": "Pornography"
+        },
+        {
+          "id": "c",
+          "text": "A trusted adult or counsellor"
+        },
+        {
+          "id": "d",
+          "text": "Random social media claims"
+        }
+      ],
+      "bins": [
+        {
+          "id": "reliable",
+          "label": "Reliable"
+        },
+        {
+          "id": "not",
+          "label": "Not reliable"
+        }
+      ],
+      "key": {
+        "a": "reliable",
+        "b": "not",
+        "c": "reliable",
+        "d": "not"
+      },
+      "relearn": "Trust doctors and trusted adults; porn and random posts aren't fact sources.",
+      "persona": "any",
+      "source": "help-seeking / media literacy"
+    },
+    {
+      "id": "pl-066",
+      "cat": "facts-help",
+      "type": "sort",
+      "hook": "Sort: porn as a guide to real sex and bodies, true or false?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Porn shows realistic bodies\""
+        },
+        {
+          "id": "b",
+          "text": "\"Porn is performance, not reality\""
+        },
+        {
+          "id": "c",
+          "text": "\"Porn teaches real consent\""
+        },
+        {
+          "id": "d",
+          "text": "\"Porn is made to sell, not to teach\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "false",
+          "label": "False"
+        },
+        {
+          "id": "true",
+          "label": "True"
+        }
+      ],
+      "key": {
+        "a": "false",
+        "b": "true",
+        "c": "false",
+        "d": "true"
+      },
+      "relearn": "Porn is performance made to sell, not a guide to real bodies, sex or consent.",
+      "persona": "Veer",
+      "source": "porn literacy (links later nodes)"
+    },
+    {
+      "id": "pl-067",
+      "cat": "facts-help",
+      "type": "sort",
+      "hook": "Sort: a smart question to ask a doctor, or something to fear asking?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"How does this actually work?\""
+        },
+        {
+          "id": "b",
+          "text": "Nothing, too embarrassing to ask"
+        },
+        {
+          "id": "c",
+          "text": "\"Is this rumour true?\""
+        },
+        {
+          "id": "d",
+          "text": "Staying silent and guessing"
+        }
+      ],
+      "bins": [
+        {
+          "id": "smart",
+          "label": "Smart to ask"
+        },
+        {
+          "id": "avoid",
+          "label": "Don't avoid"
+        }
+      ],
+      "key": {
+        "a": "smart",
+        "b": "avoid",
+        "c": "smart",
+        "d": "avoid"
+      },
+      "relearn": "Doctors are there for exactly these questions; asking is smart.",
+      "persona": "any",
+      "source": "help-seeking"
+    },
+    {
+      "id": "pl-068",
+      "cat": "facts-help",
+      "type": "sort",
+      "hook": "Sort: keeps SRH info private and trustworthy, or risky?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Asking a doctor privately"
+        },
+        {
+          "id": "b",
+          "text": "Believing a viral 'hack'"
+        },
+        {
+          "id": "c",
+          "text": "Reading a reputable health site"
+        },
+        {
+          "id": "d",
+          "text": "Trusting a stranger's DM"
+        }
+      ],
+      "bins": [
+        {
+          "id": "safe",
+          "label": "Trustworthy"
+        },
+        {
+          "id": "risky",
+          "label": "Risky"
+        }
+      ],
+      "key": {
+        "a": "safe",
+        "b": "risky",
+        "c": "safe",
+        "d": "risky"
+      },
+      "relearn": "Doctors and reputable health sources beat viral 'hacks' and strangers.",
+      "persona": "any",
+      "source": "media literacy"
+    },
+    {
+      "id": "pl-069",
+      "cat": "facts-help",
+      "type": "sort",
+      "hook": "Sort: a fact, or a rumour, about getting information?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Asking questions is healthy\""
+        },
+        {
+          "id": "b",
+          "text": "\"Only 'bad' kids ask about this\""
+        },
+        {
+          "id": "c",
+          "text": "\"Doctors keep things professional\""
+        },
+        {
+          "id": "d",
+          "text": "\"You should just know it all already\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "fact",
+          "label": "Fact"
+        },
+        {
+          "id": "rumour",
+          "label": "Rumour"
+        }
+      ],
+      "key": {
+        "a": "fact",
+        "b": "rumour",
+        "c": "fact",
+        "d": "rumour"
+      },
+      "relearn": "Asking questions is healthy and normal; no one is born knowing this.",
+      "persona": "any",
+      "source": "de-stigmatise"
+    },
+    {
+      "id": "pl-070",
+      "cat": "facts-help",
+      "type": "role-play",
+      "hook": "You want to ask a doctor a private SRH question but feel shy.",
+      "setup": "Just ask. Say:",
+      "yourLine": [
+        {
+          "text": "\"I have a question about my body, it's a bit private.\"",
+          "best": true
+        },
+        {
+          "text": "Say nothing and look it up on a sketchy site"
+        }
+      ],
+      "relearn": "You can ask a doctor a private body question; that's what they're for.",
+      "persona": "any",
+      "source": "help-seeking"
+    },
+    {
+      "id": "pl-071",
+      "cat": "facts-help",
+      "type": "role-play",
+      "hook": "A friend repeats a dangerous pregnancy myth as fact.",
+      "setup": "Correct it kindly. Say:",
+      "yourLine": [
+        {
+          "text": "\"Actually that's a myth, let's check the real facts.\"",
+          "best": true
+        },
+        {
+          "text": "Let the myth spread"
+        }
+      ],
+      "relearn": "You can kindly correct a dangerous myth and point to real facts.",
+      "persona": "any",
+      "source": "myth-busting / peer"
+    },
+    {
+      "id": "pl-072",
+      "cat": "facts-help",
+      "type": "role-play",
+      "hook": "You want to ask a trusted adult something about this topic.",
+      "setup": "Open simply. Say:",
+      "yourLine": [
+        {
+          "text": "\"Can I ask you something about growing up, just between us?\"",
+          "best": true
+        },
+        {
+          "text": "Bottle the question up"
+        }
+      ],
+      "relearn": "A trusted adult can be a safe, private place to ask.",
+      "persona": "Counsellor",
+      "source": "help-seeking"
+    },
+    {
+      "id": "pl-073",
+      "cat": "facts-help",
+      "type": "strike-rewrite",
+      "hook": "\"Asking about this means I've already done something.\"",
+      "myth": {
+        "un": "Asking questions about sex means I've already done something.",
+        "re": "Curiosity and questions are normal; they say nothing about your actions.",
+        "why": "Learning is not the same as doing."
+      },
+      "relearn": "Asking questions is normal curiosity, not proof of anything.",
+      "persona": "any",
+      "source": "de-stigmatise"
+    },
+    {
+      "id": "pl-074",
+      "cat": "facts-help",
+      "type": "strike-rewrite",
+      "hook": "\"Porn is a decent way to learn about sex.\"",
+      "myth": {
+        "un": "Porn is a realistic way to learn about sex.",
+        "re": "Porn is staged entertainment, not a guide to real bodies, sex or consent.",
+        "why": "It's made to sell, and it misleads."
+      },
+      "relearn": "Porn is staged entertainment, not sex education.",
+      "persona": "Veer",
+      "source": "porn literacy"
+    },
+    {
+      "id": "pl-075",
+      "cat": "facts-help",
+      "type": "branch",
+      "hook": "You got conflicting 'facts' from a friend and a website.",
+      "options": [
+        {
+          "text": "Check with a doctor or trusted adult to be sure",
+          "consequence": "You land on the real answer.",
+          "outcome": "informed",
+          "best": true
+        },
+        {
+          "text": "Just believe whichever sounds easier",
+          "consequence": "When sources clash, a doctor or trusted adult settles it."
+        }
+      ],
+      "debrief": "When facts clash, go to a reliable source, not the easy one.",
+      "relearn": "When facts conflict, verify with a doctor or trusted adult.",
+      "persona": "any",
+      "source": "media literacy"
+    },
+    {
+      "id": "pl-076",
+      "cat": "facts-help",
+      "type": "branch",
+      "hook": "You're worried about something private and don't know who to ask.",
+      "options": [
+        {
+          "text": "Pick one trusted adult, doctor, or health worker to start",
+          "consequence": "You find a safe first door.",
+          "outcome": "resourceful",
+          "best": true
+        },
+        {
+          "text": "Carry the worry alone",
+          "consequence": "There's always one safe person to start with."
+        }
+      ],
+      "debrief": "There's always a safe first person for a private worry.",
+      "relearn": "For a private worry, start with one trusted adult or doctor.",
+      "persona": "Counsellor",
+      "source": "help-seeking"
+    },
+    {
+      "id": "pl-077",
+      "cat": "facts-help",
+      "type": "reflect",
+      "hook": "Lensy: accurate facts protect you far more than cool-sounding rumours. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Facts over rumours",
+        "I'll check sources"
+      ],
+      "affirm": "Good information is real protection; rumours just sound confident.",
+      "relearn": "Accurate facts protect you; confident rumours don't.",
+      "persona": "any",
+      "source": "media literacy"
+    },
+    {
+      "id": "pl-078",
+      "cat": "facts-help",
+      "type": "reflect",
+      "hook": "Lensy: who is one adult you could ask a private question, if you needed to?",
+      "prompt": "Think of one.",
+      "options": [
+        "A parent",
+        "A doctor",
+        "A counsellor",
+        "An older relative"
+      ],
+      "affirm": "Knowing your person means a private question always has a safe home.",
+      "relearn": "Knowing a trusted adult to ask keeps you informed and safe.",
+      "persona": "any",
+      "source": "help-seeking"
+    },
+    {
+      "id": "pl-079",
+      "cat": "facts-help",
+      "type": "match",
+      "hook": "Match the source to how much to trust it.",
+      "pairs": [
+        {
+          "left": "A doctor",
+          "right": "Trust it"
+        },
+        {
+          "left": "A viral 'hack'",
+          "right": "Be skeptical"
+        },
+        {
+          "left": "A reputable health site",
+          "right": "Trust it"
+        }
+      ],
+      "relearn": "Weigh sources: doctors and reputable health info over viral hacks.",
+      "persona": "any",
+      "source": "media literacy"
+    },
+    {
+      "id": "pl-080",
+      "cat": "facts-help",
+      "type": "reflect",
+      "hook": "Lensy: biggest take-away from Plan It?",
+      "prompt": "Pick your motto.",
+      "options": [
+        "Pregnancy follows clear rules",
+        "Waiting is fully valid",
+        "Plan to protect my future",
+        "Get facts, not rumours"
+      ],
+      "affirm": "That's planning power, informed, unhurried, and yours.",
+      "relearn": "Know the facts, respect waiting, and plan to protect your future.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "pl-081",
+      "cat": "how-it-happens",
+      "type": "reflect",
+      "hook": "Lensy: this whole topic is about health and future, calm and factual. Sit okay with you?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Just health facts",
+        "Less awkward now"
+      ],
+      "affirm": "Treated as health and planning, it's just useful knowledge.",
+      "relearn": "Fertility and planning are health topics, learned calmly.",
+      "persona": "any",
+      "source": "framing"
+    },
+    {
+      "id": "pl-082",
+      "cat": "bust-myths",
+      "type": "sort",
+      "hook": "Sort: safe to rely on, or a myth that gets people in trouble?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"First time is free\""
+        },
+        {
+          "id": "b",
+          "text": "\"Not having sex prevents pregnancy\""
+        },
+        {
+          "id": "c",
+          "text": "\"Period days are always safe\""
+        },
+        {
+          "id": "d",
+          "text": "\"A condom used right helps\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "reliable",
+          "label": "Reliable truth"
+        },
+        {
+          "id": "myth",
+          "label": "Dangerous myth"
+        }
+      ],
+      "key": {
+        "a": "myth",
+        "b": "reliable",
+        "c": "myth",
+        "d": "reliable"
+      },
+      "relearn": "'First time free' and 'period days always safe' are dangerous myths.",
+      "persona": "any",
+      "source": "myth-busting"
+    },
+    {
+      "id": "pl-083",
+      "cat": "ways-to-prevent",
+      "type": "reflect",
+      "hook": "Lensy: 'shared responsibility' means it's never just one person's job. Important?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Both share it",
+        "Fairer that way"
+      ],
+      "affirm": "Prevention and care are shared, by both people, equally.",
+      "relearn": "Preventing pregnancy is a shared, equal responsibility.",
+      "persona": "any",
+      "source": "shared responsibility / equality"
+    },
+    {
+      "id": "pl-084",
+      "cat": "delaying-valid",
+      "type": "reflect",
+      "hook": "Lensy: your body, your timeline, your choice, whatever anyone else says. Hold onto that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "My choice",
+        "My timeline"
+      ],
+      "affirm": "Your body and your timeline are yours; that never changes.",
+      "relearn": "Your body, your timeline, your choice, always.",
+      "persona": "any",
+      "source": "autonomy"
+    }
+  ]
+}

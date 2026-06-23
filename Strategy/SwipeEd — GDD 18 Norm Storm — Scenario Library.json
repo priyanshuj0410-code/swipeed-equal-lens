@@ -1,0 +1,2106 @@
+{
+  "game": "Norm Storm",
+  "gameId": "norm-storm",
+  "node": "g18",
+  "chapter": 3,
+  "ages": "9-12",
+  "thread": "E · Gender & Respect",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "leadMechanics": [
+    "sort",
+    "strike-rewrite",
+    "role-play"
+  ],
+  "note": "Which social norms help, and which harm (UNESCO 3.2, 2.3). New v2 build, Chapter 3 (matter-of-fact, near-peer, respectful of culture). Builds on g17; prereq g17.",
+  "categories": {
+    "what-is-a-norm": "What is a norm?",
+    "helpful-norms": "Norms that help",
+    "harmful-norms": "Norms that harm",
+    "where-from": "Where norms come from",
+    "good-norm-test": "The good-norm test",
+    "question-change": "Question it, change it"
+  },
+  "mechanicsUsed": [
+    "sort",
+    "strike-rewrite",
+    "branch",
+    "reflect",
+    "role-play",
+    "spot",
+    "match"
+  ],
+  "evidenceBase": [
+    "A social norm is an unwritten rule a group follows; norms are made by people, not by nature, and they change over time",
+    "Some norms help everyone (kindness, fairness, hygiene, consent); some harm by limiting or hurting a group, especially gendered norms",
+    "Harmful norms can be questioned respectfully and changed; many once-common norms in India (child marriage, untouchability, barring girls from school) have already changed"
+  ],
+  "scenarios": [
+    {
+      "id": "ns-001",
+      "cat": "what-is-a-norm",
+      "type": "reflect",
+      "hook": "Lensy: a 'norm' is an unwritten rule lots of people just follow. Heard the word before?",
+      "prompt": "What do you think?",
+      "options": [
+        "New word",
+        "Kind of",
+        "Makes sense"
+      ],
+      "affirm": "A norm is an unwritten rule a group treats as 'normal'.",
+      "relearn": "A social norm is an unwritten rule a group follows.",
+      "persona": "any",
+      "source": "concept"
+    },
+    {
+      "id": "ns-002",
+      "cat": "what-is-a-norm",
+      "type": "sort",
+      "hook": "Sort: is this a written rule or an unwritten norm?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Stop at a red light\""
+        },
+        {
+          "id": "b",
+          "text": "\"Boys shouldn't cry\""
+        },
+        {
+          "id": "c",
+          "text": "\"No phones in exams\""
+        },
+        {
+          "id": "d",
+          "text": "\"Girls should be quiet\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "rule",
+          "label": "Written rule"
+        },
+        {
+          "id": "norm",
+          "label": "Unwritten norm"
+        }
+      ],
+      "key": {
+        "a": "rule",
+        "b": "norm",
+        "c": "rule",
+        "d": "norm"
+      },
+      "relearn": "Norms are unwritten; rules are written down.",
+      "persona": "any",
+      "source": "concept"
+    },
+    {
+      "id": "ns-003",
+      "cat": "what-is-a-norm",
+      "type": "sort",
+      "hook": "Sort: made by people, or by nature?",
+      "items": [
+        {
+          "id": "a",
+          "text": "The sun rises in the east"
+        },
+        {
+          "id": "b",
+          "text": "\"Pink is for girls\""
+        },
+        {
+          "id": "c",
+          "text": "Water flows downhill"
+        },
+        {
+          "id": "d",
+          "text": "\"Men should earn, women should cook\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "nature",
+          "label": "By nature"
+        },
+        {
+          "id": "people",
+          "label": "Made by people"
+        }
+      ],
+      "key": {
+        "a": "nature",
+        "b": "people",
+        "c": "nature",
+        "d": "people"
+      },
+      "relearn": "Norms are made by people, not fixed by nature.",
+      "persona": "any",
+      "source": "concept"
+    },
+    {
+      "id": "ns-004",
+      "cat": "what-is-a-norm",
+      "type": "strike-rewrite",
+      "hook": "\"That's just how it's always been, so it can't change.\"",
+      "myth": {
+        "un": "Norms have always been this way and can never change.",
+        "re": "Norms are made by people and change all the time.",
+        "why": "What's 'normal' is different across places and times."
+      },
+      "relearn": "Norms aren't fixed; people make them and people change them.",
+      "persona": "any",
+      "source": "concept"
+    },
+    {
+      "id": "ns-005",
+      "cat": "what-is-a-norm",
+      "type": "sort",
+      "hook": "Sort: same everywhere, or different in different places?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Which hand you eat with"
+        },
+        {
+          "id": "b",
+          "text": "That 2+2=4"
+        },
+        {
+          "id": "c",
+          "text": "Taking shoes off indoors"
+        },
+        {
+          "id": "d",
+          "text": "That ice is cold"
+        }
+      ],
+      "bins": [
+        {
+          "id": "varies",
+          "label": "Varies by place (norm)"
+        },
+        {
+          "id": "same",
+          "label": "Same everywhere (fact)"
+        }
+      ],
+      "key": {
+        "a": "varies",
+        "b": "same",
+        "c": "varies",
+        "d": "same"
+      },
+      "relearn": "Norms vary by place and culture; facts don't.",
+      "persona": "any",
+      "source": "concept"
+    },
+    {
+      "id": "ns-006",
+      "cat": "what-is-a-norm",
+      "type": "spot",
+      "hook": "At a wedding. Spot the norm at work.",
+      "scene": [
+        {
+          "text": "Everyone removes their shoes before the prayer area",
+          "trick": true
+        },
+        {
+          "text": "There's lots of food",
+          "trick": false
+        },
+        {
+          "text": "Guests greet elders first",
+          "trick": true
+        }
+      ],
+      "why": "Removing shoes and greeting elders first are norms, unwritten rules everyone just follows.",
+      "relearn": "Lots of everyday behaviour is guided by unwritten norms.",
+      "persona": "any",
+      "source": "observation"
+    },
+    {
+      "id": "ns-007",
+      "cat": "what-is-a-norm",
+      "type": "spot",
+      "hook": "In a queue. Spot the norm.",
+      "scene": [
+        {
+          "text": "People stand in line and wait their turn",
+          "trick": true
+        },
+        {
+          "text": "The shop sells groceries",
+          "trick": false
+        },
+        {
+          "text": "Someone who jumps the line gets frowns",
+          "trick": true
+        }
+      ],
+      "why": "Queuing is a norm; we learn it without anyone writing it down.",
+      "relearn": "Norms are taught by example and reaction, not just rules.",
+      "persona": "any",
+      "source": "observation"
+    },
+    {
+      "id": "ns-008",
+      "cat": "what-is-a-norm",
+      "type": "reflect",
+      "hook": "Lensy: not all norms are bad, and not all are good. Worth checking each one?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Check each",
+        "Fair point"
+      ],
+      "affirm": "The skill is sorting helpful norms from harmful ones.",
+      "relearn": "Norms can be helpful or harmful; it's worth checking which.",
+      "persona": "any",
+      "source": "framing"
+    },
+    {
+      "id": "ns-009",
+      "cat": "what-is-a-norm",
+      "type": "strike-rewrite",
+      "hook": "\"If everyone does it, it must be right.\"",
+      "myth": {
+        "un": "If everyone follows a norm, it must be right.",
+        "re": "Common doesn't mean good; some popular norms are unfair.",
+        "why": "Lots of people once accepted unfair norms too."
+      },
+      "relearn": "A norm being common doesn't make it fair.",
+      "persona": "any",
+      "source": "critical thinking"
+    },
+    {
+      "id": "ns-010",
+      "cat": "what-is-a-norm",
+      "type": "reflect",
+      "hook": "Lensy: ready to be a 'norm detective' and sort the storm of rules around you?",
+      "prompt": "What do you think?",
+      "options": [
+        "Ready",
+        "Let's go",
+        "Detective mode on"
+      ],
+      "affirm": "A norm detective asks: does this help, or does this harm?",
+      "relearn": "You can examine norms instead of just absorbing them.",
+      "persona": "any",
+      "source": "framing"
+    },
+    {
+      "id": "ns-011",
+      "cat": "what-is-a-norm",
+      "type": "match",
+      "hook": "Match the word to its meaning.",
+      "pairs": [
+        {
+          "left": "Norm",
+          "right": "Unwritten rule a group follows"
+        },
+        {
+          "left": "Fact",
+          "right": "True everywhere, by nature"
+        },
+        {
+          "left": "Law",
+          "right": "Written rule with consequences"
+        }
+      ],
+      "relearn": "Norms, facts and laws are different kinds of 'rules'.",
+      "persona": "any",
+      "source": "vocabulary"
+    },
+    {
+      "id": "ns-012",
+      "cat": "what-is-a-norm",
+      "type": "sort",
+      "hook": "Sort: norm, or law?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Wear a seatbelt\""
+        },
+        {
+          "id": "b",
+          "text": "\"Don't wear white to a happy event\""
+        },
+        {
+          "id": "c",
+          "text": "\"Pay your taxes\""
+        },
+        {
+          "id": "d",
+          "text": "\"Touch elders' feet to show respect\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "law",
+          "label": "Law"
+        },
+        {
+          "id": "norm",
+          "label": "Norm"
+        }
+      ],
+      "key": {
+        "a": "law",
+        "b": "norm",
+        "c": "law",
+        "d": "norm"
+      },
+      "relearn": "Some rules are laws; many are just norms.",
+      "persona": "any",
+      "source": "concept"
+    },
+    {
+      "id": "ns-013",
+      "cat": "helpful-norms",
+      "type": "sort",
+      "hook": "Sort: does this norm help everyone?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Saying please and thank you"
+        },
+        {
+          "id": "b",
+          "text": "Washing hands before eating"
+        },
+        {
+          "id": "c",
+          "text": "Waiting your turn"
+        },
+        {
+          "id": "d",
+          "text": "Helping someone who falls"
+        }
+      ],
+      "bins": [
+        {
+          "id": "helps",
+          "label": "Helps everyone"
+        },
+        {
+          "id": "harms",
+          "label": "Harms someone"
+        }
+      ],
+      "key": {
+        "a": "helps",
+        "b": "helps",
+        "c": "helps",
+        "d": "helps"
+      },
+      "relearn": "Many norms help everyone and keep life kind and fair.",
+      "persona": "any",
+      "source": "helpful norms"
+    },
+    {
+      "id": "ns-014",
+      "cat": "helpful-norms",
+      "type": "sort",
+      "hook": "Sort: a helpful norm, or just a habit that hurts no one either way?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Asking before borrowing"
+        },
+        {
+          "id": "b",
+          "text": "Wearing blue on Mondays"
+        },
+        {
+          "id": "c",
+          "text": "Not littering"
+        },
+        {
+          "id": "d",
+          "text": "Parting your hair on one side"
+        }
+      ],
+      "bins": [
+        {
+          "id": "helps",
+          "label": "Helpful norm"
+        },
+        {
+          "id": "neutral",
+          "label": "Harmless habit"
+        }
+      ],
+      "key": {
+        "a": "helps",
+        "b": "neutral",
+        "c": "helps",
+        "d": "neutral"
+      },
+      "relearn": "Some norms actively help; others are just neutral habits.",
+      "persona": "any",
+      "source": "helpful norms"
+    },
+    {
+      "id": "ns-015",
+      "cat": "helpful-norms",
+      "type": "match",
+      "hook": "Match the helpful norm to who it protects.",
+      "pairs": [
+        {
+          "left": "Ask before touching",
+          "right": "Everyone's body"
+        },
+        {
+          "left": "Queue fairly",
+          "right": "People who waited"
+        },
+        {
+          "left": "Tell the truth",
+          "right": "Trust between people"
+        }
+      ],
+      "relearn": "Helpful norms protect people and trust.",
+      "persona": "any",
+      "source": "helpful norms"
+    },
+    {
+      "id": "ns-016",
+      "cat": "helpful-norms",
+      "type": "match",
+      "hook": "Match the helpful norm to why it exists.",
+      "pairs": [
+        {
+          "left": "Wash hands",
+          "right": "Stops germs spreading"
+        },
+        {
+          "left": "Say sorry",
+          "right": "Repairs a hurt"
+        },
+        {
+          "left": "Help elders cross",
+          "right": "Keeps them safe"
+        }
+      ],
+      "relearn": "Helpful norms usually have a caring reason behind them.",
+      "persona": "Rohit",
+      "source": "helpful norms"
+    },
+    {
+      "id": "ns-017",
+      "cat": "helpful-norms",
+      "type": "reflect",
+      "hook": "Lensy: a good norm respects everyone and hurts no one. Useful definition?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Clear test",
+        "I'll remember it"
+      ],
+      "affirm": "Respects everyone, hurts no one, that's a helpful norm.",
+      "relearn": "A helpful norm respects everyone and harms no one.",
+      "persona": "any",
+      "source": "definition"
+    },
+    {
+      "id": "ns-018",
+      "cat": "helpful-norms",
+      "type": "reflect",
+      "hook": "Lensy: which helpful norm makes your day nicer?",
+      "prompt": "Pick one.",
+      "options": [
+        "People saying thanks",
+        "Folks waiting their turn",
+        "Neighbours helping out"
+      ],
+      "affirm": "Helpful norms are the quiet glue of a kind community.",
+      "relearn": "Helpful norms keep a community kind and smooth.",
+      "persona": "any",
+      "source": "helpful norms"
+    },
+    {
+      "id": "ns-019",
+      "cat": "helpful-norms",
+      "type": "branch",
+      "hook": "A new kid doesn't know the 'shoes off inside' norm here.",
+      "options": [
+        {
+          "text": "Kindly explain the norm, no shaming",
+          "consequence": "They learn and feel welcome.",
+          "outcome": "kind",
+          "best": true
+        },
+        {
+          "text": "Laugh at them for not knowing",
+          "consequence": "Helpful norms are taught kindly, not used to shame."
+        }
+      ],
+      "debrief": "Even helpful norms should be shared with kindness, not mockery.",
+      "relearn": "Teach norms kindly; don't use them to shame newcomers.",
+      "persona": "any",
+      "source": "helpful norms / kindness"
+    },
+    {
+      "id": "ns-020",
+      "cat": "helpful-norms",
+      "type": "branch",
+      "hook": "Everyone's littering at a picnic spot; the norm here seems to be 'just drop it'.",
+      "options": [
+        {
+          "text": "Follow the better norm: bin your trash anyway",
+          "consequence": "You set a helpful example; others may copy.",
+          "outcome": "leader",
+          "best": true
+        },
+        {
+          "text": "Litter because everyone does",
+          "consequence": "You can keep a helpful norm even when others drop it."
+        }
+      ],
+      "debrief": "You can hold a helpful norm even when the crowd doesn't.",
+      "relearn": "You can keep doing the helpful thing even if others don't.",
+      "persona": "any",
+      "source": "helpful norms / integrity"
+    },
+    {
+      "id": "ns-021",
+      "cat": "harmful-norms",
+      "type": "sort",
+      "hook": "Sort: does this norm harm someone?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Girls shouldn't go out after dark\""
+        },
+        {
+          "id": "b",
+          "text": "\"Boys must never cry\""
+        },
+        {
+          "id": "c",
+          "text": "\"Be kind to guests\""
+        },
+        {
+          "id": "d",
+          "text": "\"Sons matter more than daughters\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "harms",
+          "label": "Harms someone"
+        },
+        {
+          "id": "helps",
+          "label": "Helps everyone"
+        }
+      ],
+      "key": {
+        "a": "harms",
+        "b": "harms",
+        "c": "helps",
+        "d": "harms"
+      },
+      "relearn": "Norms that limit or rank a group by gender harm people.",
+      "persona": "Diya",
+      "source": "harmful norms"
+    },
+    {
+      "id": "ns-022",
+      "cat": "harmful-norms",
+      "type": "strike-rewrite",
+      "hook": "\"Girls shouldn't study too much; they'll marry anyway.\"",
+      "myth": {
+        "un": "Girls don't need much education; they'll marry anyway.",
+        "re": "Every girl deserves a full education and her own future.",
+        "why": "Cutting girls' schooling harms them and society."
+      },
+      "relearn": "Girls deserve full education; the 'they'll marry anyway' norm harms them.",
+      "persona": "Diya",
+      "source": "harmful norms / education"
+    },
+    {
+      "id": "ns-023",
+      "cat": "harmful-norms",
+      "type": "strike-rewrite",
+      "hook": "\"Boys must be tough providers and never show weakness.\"",
+      "myth": {
+        "un": "Boys must always be tough providers who never show weakness.",
+        "re": "Boys can have feelings, ask for help, and share the load.",
+        "why": "This norm puts harmful pressure on boys too."
+      },
+      "relearn": "The 'always tough provider' norm harms boys as well.",
+      "persona": "Aarav",
+      "source": "harmful norms / masculinity"
+    },
+    {
+      "id": "ns-024",
+      "cat": "harmful-norms",
+      "type": "strike-rewrite",
+      "hook": "\"During her period, a girl is impure and must stay apart.\"",
+      "myth": {
+        "un": "A girl is impure during her period and must be kept apart.",
+        "re": "Periods are normal and healthy; no one should be shut out.",
+        "why": "Stigma norms shame girls for a natural process."
+      },
+      "relearn": "Period-stigma norms are harmful; menstruation is normal and healthy.",
+      "persona": "Diya",
+      "source": "harmful norms / menstruation"
+    },
+    {
+      "id": "ns-025",
+      "cat": "harmful-norms",
+      "type": "strike-rewrite",
+      "hook": "\"A daughter is a burden; a son carries the family.\"",
+      "myth": {
+        "un": "A daughter is a burden and a son is what really matters.",
+        "re": "Daughters and sons are equally valuable.",
+        "why": "Son-preference norms harm girls deeply."
+      },
+      "relearn": "Daughters and sons are equally valuable; son-preference harms girls.",
+      "persona": "any",
+      "source": "harmful norms / son preference"
+    },
+    {
+      "id": "ns-026",
+      "cat": "harmful-norms",
+      "type": "strike-rewrite",
+      "hook": "\"A girl's family must give gifts and money to the groom.\"",
+      "myth": {
+        "un": "It's normal for a bride's family to pay dowry.",
+        "re": "Dowry is harmful, and it's against the law in India.",
+        "why": "This norm treats girls as a cost and causes real harm."
+      },
+      "relearn": "Dowry is a harmful norm and is illegal in India.",
+      "persona": "Asha",
+      "source": "harmful norms / dowry (illegal since 1961)"
+    },
+    {
+      "id": "ns-026b",
+      "cat": "harmful-norms",
+      "type": "strike-rewrite",
+      "hook": "\"Some people are 'lower' and shouldn't be touched or mixed with.\"",
+      "myth": {
+        "un": "It's okay to treat some people as 'lower' or untouchable.",
+        "re": "Everyone is equal in dignity; untouchability is wrong and illegal.",
+        "why": "This old norm caused deep, unfair harm to whole communities."
+      },
+      "relearn": "Treating people as 'lower' is a harmful norm, and it's against the law.",
+      "persona": "any",
+      "source": "harmful norms / untouchability (abolished, Article 17)"
+    },
+    {
+      "id": "ns-027",
+      "cat": "harmful-norms",
+      "type": "sort",
+      "hook": "Sort: who does each norm limit?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Girls can't play outside\""
+        },
+        {
+          "id": "b",
+          "text": "\"Boys can't do art\""
+        },
+        {
+          "id": "c",
+          "text": "\"Girls must cook, not study\""
+        },
+        {
+          "id": "d",
+          "text": "\"Boys can't be gentle\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "girls",
+          "label": "Limits girls"
+        },
+        {
+          "id": "boys",
+          "label": "Limits boys"
+        }
+      ],
+      "key": {
+        "a": "girls",
+        "b": "boys",
+        "c": "girls",
+        "d": "boys"
+      },
+      "relearn": "Harmful gender norms box in both girls and boys.",
+      "persona": "any",
+      "source": "harmful norms / gender"
+    },
+    {
+      "id": "ns-028",
+      "cat": "harmful-norms",
+      "type": "sort",
+      "hook": "Sort: a harmful norm, or a fair rule?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"No outside play after dark for girls only\""
+        },
+        {
+          "id": "b",
+          "text": "\"Everyone home by dark for safety\""
+        },
+        {
+          "id": "c",
+          "text": "\"Only boys inherit property\""
+        },
+        {
+          "id": "d",
+          "text": "\"Everyone shares chores\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "harm",
+          "label": "Harmful norm"
+        },
+        {
+          "id": "fair",
+          "label": "Fair rule"
+        }
+      ],
+      "key": {
+        "a": "harm",
+        "b": "fair",
+        "c": "harm",
+        "d": "fair"
+      },
+      "relearn": "A rule that applies to one gender only is usually a harmful norm.",
+      "persona": "Diya",
+      "source": "harmful norms / fairness"
+    },
+    {
+      "id": "ns-029",
+      "cat": "harmful-norms",
+      "type": "spot",
+      "hook": "At a family dinner. Spot the harmful norm.",
+      "scene": [
+        {
+          "text": "The boys are served first and the most",
+          "trick": true
+        },
+        {
+          "text": "There's dal and rice",
+          "trick": false
+        },
+        {
+          "text": "The girls eat last, whatever's left",
+          "trick": true
+        }
+      ],
+      "why": "Serving boys first and best is a harmful norm that treats girls as less.",
+      "relearn": "Serving food by gender rank is a harmful, unfair norm.",
+      "persona": "Diya",
+      "source": "harmful norms / observation"
+    },
+    {
+      "id": "ns-030",
+      "cat": "harmful-norms",
+      "type": "spot",
+      "hook": "At a family gathering. Spot the harmful norm.",
+      "scene": [
+        {
+          "text": "\"When will you control your son's crying?\"",
+          "trick": true
+        },
+        {
+          "text": "Tea is served",
+          "trick": false
+        },
+        {
+          "text": "\"He needs to man up\"",
+          "trick": true
+        }
+      ],
+      "why": "Shaming a boy for crying is a harmful norm that hurts boys' feelings.",
+      "relearn": "Pressuring boys to never cry is a harmful norm.",
+      "persona": "Aarav",
+      "source": "harmful norms / masculinity"
+    },
+    {
+      "id": "ns-031",
+      "cat": "harmful-norms",
+      "type": "branch",
+      "hook": "Relatives say Diya can't cycle to school anymore 'because she's a big girl now'.",
+      "options": [
+        {
+          "text": "Diya asks, respectfully, why her brother still can",
+          "consequence": "The unfair norm gets questioned out loud.",
+          "outcome": "brave",
+          "best": true
+        },
+        {
+          "text": "Accept it silently",
+          "consequence": "A respectful question can expose an unfair gender norm."
+        }
+      ],
+      "debrief": "Asking 'why only me?' respectfully shines light on a harmful norm.",
+      "relearn": "You can respectfully question a norm that limits only you.",
+      "persona": "Diya",
+      "source": "harmful norms / voice"
+    },
+    {
+      "id": "ns-032",
+      "cat": "harmful-norms",
+      "type": "branch",
+      "hook": "Friends say a boy can't join the rangoli-making 'because that's for girls'.",
+      "options": [
+        {
+          "text": "Say the art is for anyone and invite him in",
+          "consequence": "You break the harmful norm in the moment.",
+          "outcome": "ally",
+          "best": true
+        },
+        {
+          "text": "Agree and shoo him away",
+          "consequence": "'Only girls/boys can do this' is a harmful norm; flip it."
+        }
+      ],
+      "debrief": "Gatekeeping fun by gender is a harmful norm you can refuse.",
+      "relearn": "You can refuse norms that gatekeep activities by gender.",
+      "persona": "any",
+      "source": "harmful norms / inclusion"
+    },
+    {
+      "id": "ns-033",
+      "cat": "where-from",
+      "type": "sort",
+      "hook": "Sort: where might this norm have come from?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Cover the food\" (keeps flies off)"
+        },
+        {
+          "id": "b",
+          "text": "\"Girls can't lead\" (old power habits)"
+        },
+        {
+          "id": "c",
+          "text": "\"Greet elders\" (showing respect)"
+        },
+        {
+          "id": "d",
+          "text": "\"Boys don't cook\" (old role splits)"
+        }
+      ],
+      "bins": [
+        {
+          "id": "caring",
+          "label": "A caring reason"
+        },
+        {
+          "id": "oldpower",
+          "label": "Old unfair habit"
+        }
+      ],
+      "key": {
+        "a": "caring",
+        "b": "oldpower",
+        "c": "caring",
+        "d": "oldpower"
+      },
+      "relearn": "Some norms began with care; others are just old, unfair habits.",
+      "persona": "any",
+      "source": "origins"
+    },
+    {
+      "id": "ns-034",
+      "cat": "where-from",
+      "type": "strike-rewrite",
+      "hook": "\"Norms come from nature, so they can't be wrong.\"",
+      "myth": {
+        "un": "Norms come from nature, so they must be correct.",
+        "re": "Norms come from people, history and habit, not nature.",
+        "why": "Human-made rules can be fair or unfair."
+      },
+      "relearn": "Norms come from people and history, not nature, so they can be wrong.",
+      "persona": "any",
+      "source": "origins"
+    },
+    {
+      "id": "ns-035",
+      "cat": "where-from",
+      "type": "strike-rewrite",
+      "hook": "\"This norm is far too old to ever change.\"",
+      "myth": {
+        "un": "This norm is too old to ever change.",
+        "re": "Many ancient norms in India have already changed.",
+        "why": "Age doesn't make a norm permanent or right."
+      },
+      "relearn": "Even very old norms can and do change.",
+      "persona": "any",
+      "source": "origins / change"
+    },
+    {
+      "id": "ns-036",
+      "cat": "where-from",
+      "type": "strike-rewrite",
+      "hook": "\"Norms have always been the same everywhere.\"",
+      "myth": {
+        "un": "Norms are the same in every place and time.",
+        "re": "Norms differ hugely across regions, families and eras.",
+        "why": "What's 'normal' is a local, changing thing."
+      },
+      "relearn": "Norms vary across place and time; none is universal.",
+      "persona": "any",
+      "source": "origins"
+    },
+    {
+      "id": "ns-037",
+      "cat": "where-from",
+      "type": "sort",
+      "hook": "Sort: norms that have already changed in India, or not real changes?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Girls now go to school in huge numbers"
+        },
+        {
+          "id": "b",
+          "text": "Child marriage is now illegal"
+        },
+        {
+          "id": "c",
+          "text": "The sky turned green"
+        },
+        {
+          "id": "d",
+          "text": "Many widows can remarry now"
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "Real change"
+        },
+        {
+          "id": "notreal",
+          "label": "Not real"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "real",
+        "c": "notreal",
+        "d": "real"
+      },
+      "relearn": "Big harmful norms in India have genuinely changed over time.",
+      "persona": "any",
+      "source": "origins / India history"
+    },
+    {
+      "id": "ns-038",
+      "cat": "where-from",
+      "type": "sort",
+      "hook": "Sort: who teaches us norms?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Family and elders"
+        },
+        {
+          "id": "b",
+          "text": "TV, films and ads"
+        },
+        {
+          "id": "c",
+          "text": "Friends and school"
+        },
+        {
+          "id": "d",
+          "text": "The weather"
+        }
+      ],
+      "bins": [
+        {
+          "id": "yes",
+          "label": "Teaches norms"
+        },
+        {
+          "id": "no",
+          "label": "Doesn't"
+        }
+      ],
+      "key": {
+        "a": "yes",
+        "b": "yes",
+        "c": "yes",
+        "d": "no"
+      },
+      "relearn": "We learn norms from family, media, friends and school.",
+      "persona": "any",
+      "source": "origins"
+    },
+    {
+      "id": "ns-039",
+      "cat": "where-from",
+      "type": "reflect",
+      "hook": "Lensy: norms are like clothes a society wears, they can be changed when they no longer fit. Like that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Good image",
+        "Makes sense"
+      ],
+      "affirm": "Norms can be re-stitched to fit fairness better.",
+      "relearn": "Norms can be changed when they no longer serve fairness.",
+      "persona": "any",
+      "source": "metaphor"
+    },
+    {
+      "id": "ns-040",
+      "cat": "where-from",
+      "type": "reflect",
+      "hook": "Lensy: knowing a norm was made by people, does it feel more changeable?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Much more",
+        "Good point"
+      ],
+      "affirm": "If people made it, people can remake it.",
+      "relearn": "What people made, people can change.",
+      "persona": "any",
+      "source": "agency"
+    },
+    {
+      "id": "ns-041",
+      "cat": "where-from",
+      "type": "reflect",
+      "hook": "Lensy: a norm that was normal 100 years ago can seem unfair now. Spot the lesson?",
+      "prompt": "What do you think?",
+      "options": [
+        "Norms change",
+        "Fairness grows",
+        "We learn better"
+      ],
+      "affirm": "Each generation can question and improve the norms it inherits.",
+      "relearn": "Each generation can improve the norms it inherits.",
+      "persona": "any",
+      "source": "change"
+    },
+    {
+      "id": "ns-042",
+      "cat": "where-from",
+      "type": "spot",
+      "hook": "An old textbook from decades ago. Spot the changed norm.",
+      "scene": [
+        {
+          "text": "\"Girls' subjects: cooking and sewing only\"",
+          "trick": true
+        },
+        {
+          "text": "It has a maths chapter",
+          "trick": false
+        },
+        {
+          "text": "\"Boys' subjects: science and trade\"",
+          "trick": true
+        }
+      ],
+      "why": "Splitting subjects by gender was once normal; now girls and boys study everything.",
+      "relearn": "Gender-split schooling was once a norm; it has changed.",
+      "persona": "Diya",
+      "source": "origins / change"
+    },
+    {
+      "id": "ns-043",
+      "cat": "where-from",
+      "type": "spot",
+      "hook": "A grandparent's story. Spot the norm that changed.",
+      "scene": [
+        {
+          "text": "\"In my day, a widow could never remarry\"",
+          "trick": true
+        },
+        {
+          "text": "\"We walked to the well\"",
+          "trick": false
+        },
+        {
+          "text": "\"Now things are different, and better\"",
+          "trick": false
+        }
+      ],
+      "why": "Banning widow remarriage was a harmful norm that has since changed.",
+      "relearn": "Harmful norms our elders knew have changed for the better.",
+      "persona": "Rohit",
+      "source": "origins / change"
+    },
+    {
+      "id": "ns-044",
+      "cat": "good-norm-test",
+      "type": "sort",
+      "hook": "The test: does this norm respect everyone? Sort.",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Everyone shares the housework\""
+        },
+        {
+          "id": "b",
+          "text": "\"Only girls do housework\""
+        },
+        {
+          "id": "c",
+          "text": "\"Listen when someone says stop\""
+        },
+        {
+          "id": "d",
+          "text": "\"Boys decide, girls obey\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "pass",
+          "label": "Respects everyone"
+        },
+        {
+          "id": "fail",
+          "label": "Disrespects someone"
+        }
+      ],
+      "key": {
+        "a": "pass",
+        "b": "fail",
+        "c": "pass",
+        "d": "fail"
+      },
+      "relearn": "Test a norm: does it respect everyone equally?",
+      "persona": "any",
+      "source": "good-norm test"
+    },
+    {
+      "id": "ns-045",
+      "cat": "good-norm-test",
+      "type": "sort",
+      "hook": "The test: would it feel fair if you were on the other side? Sort.",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Take turns on the swing\""
+        },
+        {
+          "id": "b",
+          "text": "\"Boys go first, always\""
+        },
+        {
+          "id": "c",
+          "text": "\"Share the last samosa\""
+        },
+        {
+          "id": "d",
+          "text": "\"Girls serve, then eat last\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "fair",
+          "label": "Fair both ways"
+        },
+        {
+          "id": "unfair",
+          "label": "Unfair if flipped"
+        }
+      ],
+      "key": {
+        "a": "fair",
+        "b": "unfair",
+        "c": "fair",
+        "d": "unfair"
+      },
+      "relearn": "A good norm feels fair even if you swap places.",
+      "persona": "Diya",
+      "source": "good-norm test / empathy"
+    },
+    {
+      "id": "ns-046",
+      "cat": "good-norm-test",
+      "type": "branch",
+      "hook": "You're unsure if a family norm is helpful or harmful.",
+      "options": [
+        {
+          "text": "Ask: does it hurt anyone, and is it fair both ways?",
+          "consequence": "The test makes the answer clear.",
+          "outcome": "thoughtful",
+          "best": true
+        },
+        {
+          "text": "Just assume it's fine because it's old",
+          "consequence": "Run it through the test instead of assuming."
+        }
+      ],
+      "debrief": "The good-norm test: respects everyone, hurts no one, fair both ways.",
+      "relearn": "Use the good-norm test instead of assuming a norm is fine.",
+      "persona": "any",
+      "source": "good-norm test"
+    },
+    {
+      "id": "ns-047",
+      "cat": "good-norm-test",
+      "type": "branch",
+      "hook": "A norm is comfortable for you but quietly unfair to someone else.",
+      "options": [
+        {
+          "text": "Notice the unfairness and question it, even though it suits you",
+          "consequence": "You choose fairness over your own comfort.",
+          "outcome": "fair",
+          "best": true
+        },
+        {
+          "text": "Keep quiet because it benefits you",
+          "consequence": "A good norm is fair to others too, not just to you."
+        }
+      ],
+      "debrief": "A norm that only suits you while hurting others fails the test.",
+      "relearn": "Question norms that suit you but harm others.",
+      "persona": "Aarav",
+      "source": "good-norm test / fairness"
+    },
+    {
+      "id": "ns-048",
+      "cat": "good-norm-test",
+      "type": "branch",
+      "hook": "You spot a norm that's harmful but everyone insists it's 'tradition'.",
+      "options": [
+        {
+          "text": "Respect the people, but still question the harmful norm",
+          "consequence": "You separate caring for people from accepting harm.",
+          "outcome": "wise",
+          "best": true
+        },
+        {
+          "text": "Accept it because it's called tradition",
+          "consequence": "You can honour people while questioning a harmful tradition."
+        }
+      ],
+      "debrief": "Calling something 'tradition' doesn't pass it through the test.",
+      "relearn": "You can respect people and still question a harmful tradition.",
+      "persona": "Asha",
+      "source": "good-norm test / respect"
+    },
+    {
+      "id": "ns-049",
+      "cat": "good-norm-test",
+      "type": "strike-rewrite",
+      "hook": "\"If it's tradition, it must be good.\"",
+      "myth": {
+        "un": "If something is tradition, it must be good.",
+        "re": "Traditions can be kind or harmful; test each one.",
+        "why": "Age and habit don't equal fairness."
+      },
+      "relearn": "Tradition isn't automatically good; test it for harm.",
+      "persona": "any",
+      "source": "good-norm test"
+    },
+    {
+      "id": "ns-050",
+      "cat": "good-norm-test",
+      "type": "strike-rewrite",
+      "hook": "\"Questioning a norm means I'm disrespecting my elders.\"",
+      "myth": {
+        "un": "Questioning a norm disrespects my elders.",
+        "re": "You can love and respect elders and still ask 'is this fair?'.",
+        "why": "Respect and honest questions can go together."
+      },
+      "relearn": "Questioning a norm isn't the same as disrespecting people.",
+      "persona": "Diya",
+      "source": "good-norm test / respect"
+    },
+    {
+      "id": "ns-051",
+      "cat": "good-norm-test",
+      "type": "role-play",
+      "hook": "You want to question a norm without sounding rude.",
+      "setup": "Ask with curiosity. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'm just wondering, why is it like that?\"",
+          "best": true
+        },
+        {
+          "text": "\"That's so stupid and old.\""
+        }
+      ],
+      "relearn": "A curious, respectful question opens minds better than an attack.",
+      "persona": "Diya",
+      "source": "good-norm test / voice"
+    },
+    {
+      "id": "ns-052",
+      "cat": "good-norm-test",
+      "type": "role-play",
+      "hook": "An elder explains a norm; you see it harms someone.",
+      "setup": "Respond respectfully but honestly. Say:",
+      "yourLine": [
+        {
+          "text": "\"I hear you, can we make it fairer for everyone?\"",
+          "best": true
+        },
+        {
+          "text": "\"You're just wrong.\""
+        }
+      ],
+      "relearn": "You can acknowledge someone and still push for fairness.",
+      "persona": "any",
+      "source": "good-norm test / voice"
+    },
+    {
+      "id": "ns-053",
+      "cat": "good-norm-test",
+      "type": "reflect",
+      "hook": "Lensy: the three-part test, respects everyone, hurts no one, fair both ways. Got it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Got it",
+        "Easy to remember",
+        "Three checks"
+      ],
+      "affirm": "Run any norm through those three checks.",
+      "relearn": "Good-norm test: respects everyone, hurts no one, fair both ways.",
+      "persona": "any",
+      "source": "good-norm test"
+    },
+    {
+      "id": "ns-054",
+      "cat": "good-norm-test",
+      "type": "reflect",
+      "hook": "Lensy: which norm around you would you put to the test first?",
+      "prompt": "Think of one.",
+      "options": [
+        "A chore one",
+        "A 'girls/boys can't' one",
+        "A 'log kya kahenge' one"
+      ],
+      "affirm": "Testing the norms closest to you is where change starts.",
+      "relearn": "Start by testing the norms nearest to your own life.",
+      "persona": "any",
+      "source": "good-norm test / application"
+    },
+    {
+      "id": "ns-055",
+      "cat": "good-norm-test",
+      "type": "match",
+      "hook": "Match the norm to its test result.",
+      "pairs": [
+        {
+          "left": "\"Be kind to all\"",
+          "right": "Passes"
+        },
+        {
+          "left": "\"Girls eat last\"",
+          "right": "Fails"
+        },
+        {
+          "left": "\"Wait your turn\"",
+          "right": "Passes"
+        }
+      ],
+      "relearn": "Run each norm through the fairness test to see if it passes.",
+      "persona": "any",
+      "source": "good-norm test"
+    },
+    {
+      "id": "ns-056",
+      "cat": "good-norm-test",
+      "type": "sort",
+      "hook": "Sort: passes the good-norm test, or fails it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"Ask before sharing someone's photo\""
+        },
+        {
+          "id": "b",
+          "text": "\"Boys never apologise\""
+        },
+        {
+          "id": "c",
+          "text": "\"Help a lost child\""
+        },
+        {
+          "id": "d",
+          "text": "\"Girls shouldn't laugh loudly\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "pass",
+          "label": "Passes"
+        },
+        {
+          "id": "fail",
+          "label": "Fails"
+        }
+      ],
+      "key": {
+        "a": "pass",
+        "b": "fail",
+        "c": "pass",
+        "d": "fail"
+      },
+      "relearn": "Helpful norms pass the fairness test; harmful ones fail it.",
+      "persona": "any",
+      "source": "good-norm test"
+    },
+    {
+      "id": "ns-057",
+      "cat": "question-change",
+      "type": "role-play",
+      "hook": "\"Log kya kahenge!\" (\"What will people say!\") is used to stop you doing something fair.",
+      "setup": "Answer it kindly. Say:",
+      "yourLine": [
+        {
+          "text": "\"Maybe people will learn something new.\"",
+          "best": true
+        },
+        {
+          "text": "\"You're right, I'll stop.\""
+        }
+      ],
+      "relearn": "You can answer 'what will people say?' without giving up on fairness.",
+      "persona": "Diya",
+      "source": "question-change / log kya kahenge"
+    },
+    {
+      "id": "ns-058",
+      "cat": "question-change",
+      "type": "role-play",
+      "hook": "A relative says \"good girls don't argue\".",
+      "setup": "Reframe it. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'm not arguing, I'm asking a fair question.\"",
+          "best": true
+        },
+        {
+          "text": "\"Sorry, I'll be quiet.\""
+        }
+      ],
+      "relearn": "Asking a fair question isn't 'arguing'.",
+      "persona": "Diya",
+      "source": "question-change / voice"
+    },
+    {
+      "id": "ns-059",
+      "cat": "question-change",
+      "type": "role-play",
+      "hook": "Friends pressure you: \"everyone follows this, don't be weird\".",
+      "setup": "Hold your ground. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'd rather be fair than just follow the crowd.\"",
+          "best": true
+        },
+        {
+          "text": "\"Okay, I'll just go along.\""
+        }
+      ],
+      "relearn": "You can choose fairness over 'everyone does it'.",
+      "persona": "Aarav",
+      "source": "question-change / peer pressure"
+    },
+    {
+      "id": "ns-060",
+      "cat": "question-change",
+      "type": "role-play",
+      "hook": "You want to suggest sharing chores fairly at home.",
+      "setup": "Propose it warmly. Say:",
+      "yourLine": [
+        {
+          "text": "\"What if we all share the chores, it'd be fairer.\"",
+          "best": true
+        },
+        {
+          "text": "Say nothing and stay annoyed"
+        }
+      ],
+      "relearn": "You can warmly propose a fairer norm at home.",
+      "persona": "Rohit",
+      "source": "question-change / home"
+    },
+    {
+      "id": "ns-061",
+      "cat": "question-change",
+      "type": "role-play",
+      "hook": "Someone says \"that's just our culture, don't question it\".",
+      "setup": "Respond with respect and curiosity. Say:",
+      "yourLine": [
+        {
+          "text": "\"I love our culture, that's why I want it to be fair.\"",
+          "best": true
+        },
+        {
+          "text": "\"Fine, I won't care.\""
+        }
+      ],
+      "relearn": "Loving your culture and wanting it fairer go together.",
+      "persona": "Asha",
+      "source": "question-change / culture"
+    },
+    {
+      "id": "ns-062",
+      "cat": "question-change",
+      "type": "role-play",
+      "hook": "Your younger sibling is being taught a harmful norm.",
+      "setup": "Offer a fairer message. Say:",
+      "yourLine": [
+        {
+          "text": "\"Actually, anyone can do that, you know.\"",
+          "best": true
+        },
+        {
+          "text": "Let it pass"
+        }
+      ],
+      "relearn": "You can pass a fairer norm to younger kids.",
+      "persona": "any",
+      "source": "question-change / mentoring"
+    },
+    {
+      "id": "ns-063",
+      "cat": "question-change",
+      "type": "role-play",
+      "hook": "A teacher follows a gendered classroom norm without noticing.",
+      "setup": "Ask politely for fairness. Say:",
+      "yourLine": [
+        {
+          "text": "\"Could we all get a turn, miss, not just the boys?\"",
+          "best": true
+        },
+        {
+          "text": "Stay silent"
+        }
+      ],
+      "relearn": "A polite request can update an unfair classroom norm.",
+      "persona": "any",
+      "source": "question-change / school"
+    },
+    {
+      "id": "ns-064",
+      "cat": "question-change",
+      "type": "branch",
+      "hook": "You want to change a harmful norm, but you're just one kid.",
+      "options": [
+        {
+          "text": "Start small, question it, and find others who agree",
+          "consequence": "Small acts add up; others join in.",
+          "outcome": "changemaker",
+          "best": true
+        },
+        {
+          "text": "Give up because you're only one person",
+          "consequence": "Big norm changes started with a few people questioning."
+        }
+      ],
+      "debrief": "Norms change when people start questioning them together.",
+      "relearn": "Even one questioning voice can start a norm changing.",
+      "persona": "Asha",
+      "source": "question-change / collective"
+    },
+    {
+      "id": "ns-065",
+      "cat": "question-change",
+      "type": "branch",
+      "hook": "Questioning a norm might get you teased.",
+      "options": [
+        {
+          "text": "Question it anyway, kindly and bravely",
+          "consequence": "You model courage; some respect you for it.",
+          "outcome": "brave",
+          "best": true
+        },
+        {
+          "text": "Stay quiet to avoid teasing",
+          "consequence": "Standing for fairness can mean some short-term teasing."
+        }
+      ],
+      "debrief": "Changing norms takes a little courage; it's worth it.",
+      "relearn": "Questioning a harmful norm can take courage and is worth it.",
+      "persona": "Aarav",
+      "source": "question-change / courage"
+    },
+    {
+      "id": "ns-066",
+      "cat": "question-change",
+      "type": "branch",
+      "hook": "An adult dismisses your fair point with \"you're just a child\".",
+      "options": [
+        {
+          "text": "Stay calm; restate your point respectfully",
+          "consequence": "Your steadiness makes the point land.",
+          "outcome": "steady",
+          "best": true
+        },
+        {
+          "text": "Shout back",
+          "consequence": "Calm, respectful repetition works better than shouting."
+        }
+      ],
+      "debrief": "Kids' fair questions deserve to be heard; stay calm and clear.",
+      "relearn": "Make your fair point calmly, even if you're dismissed at first.",
+      "persona": "Diya",
+      "source": "question-change / voice"
+    },
+    {
+      "id": "ns-067",
+      "cat": "question-change",
+      "type": "branch",
+      "hook": "You realise you've been following a harmful norm yourself.",
+      "options": [
+        {
+          "text": "Own it and start doing the fairer thing",
+          "consequence": "You change yourself first, the truest start.",
+          "outcome": "growth",
+          "best": true
+        },
+        {
+          "text": "Feel guilty and do nothing",
+          "consequence": "Changing your own behaviour is the best first step."
+        }
+      ],
+      "debrief": "Changing a norm starts with changing what you do.",
+      "relearn": "You can start by changing the norms in your own behaviour.",
+      "persona": "any",
+      "source": "question-change / self"
+    },
+    {
+      "id": "ns-068",
+      "cat": "question-change",
+      "type": "branch",
+      "hook": "A fair new norm you suggested is catching on with your friends.",
+      "options": [
+        {
+          "text": "Keep encouraging it gently",
+          "consequence": "The fairer norm spreads and sticks.",
+          "outcome": "changemaker",
+          "best": true
+        },
+        {
+          "text": "Stop, thinking the job's done",
+          "consequence": "New norms stick when you keep gently modelling them."
+        }
+      ],
+      "debrief": "New norms spread when people keep living them.",
+      "relearn": "Fairer norms spread when people keep modelling them.",
+      "persona": "any",
+      "source": "question-change / spread"
+    },
+    {
+      "id": "ns-069",
+      "cat": "question-change",
+      "type": "strike-rewrite",
+      "hook": "\"One kid can't change what a whole society believes.\"",
+      "myth": {
+        "un": "One child can't change society's norms.",
+        "re": "Big changes often begin with a few people questioning.",
+        "why": "Every changed norm started somewhere small."
+      },
+      "relearn": "Norm change can start with one questioning voice.",
+      "persona": "Asha",
+      "source": "question-change / agency"
+    },
+    {
+      "id": "ns-070",
+      "cat": "question-change",
+      "type": "strike-rewrite",
+      "hook": "\"Going along with a harmful norm is harmless if I do nothing.\"",
+      "myth": {
+        "un": "Quietly going along with a harmful norm does no harm.",
+        "re": "Silence helps a harmful norm survive.",
+        "why": "Norms continue when people keep following them."
+      },
+      "relearn": "Quietly following a harmful norm helps keep it alive.",
+      "persona": "any",
+      "source": "question-change / bystander"
+    },
+    {
+      "id": "ns-071",
+      "cat": "question-change",
+      "type": "strike-rewrite",
+      "hook": "\"Changing norms means throwing away all our culture.\"",
+      "myth": {
+        "un": "Questioning a harmful norm means rejecting all our culture.",
+        "re": "You can keep what's good in a culture and fix what harms.",
+        "why": "Cultures grow by keeping the kind parts and dropping the cruel."
+      },
+      "relearn": "You can honour a culture while changing its harmful norms.",
+      "persona": "Asha",
+      "source": "question-change / culture"
+    },
+    {
+      "id": "ns-072",
+      "cat": "question-change",
+      "type": "reflect",
+      "hook": "Lensy: a fairer norm you'd love to see become normal?",
+      "prompt": "Pick one.",
+      "options": [
+        "Shared chores",
+        "Girls out as freely as boys",
+        "Boys allowed to cry"
+      ],
+      "affirm": "Picture it normal, then help make it so.",
+      "relearn": "Imagining a fairer norm is the first step to making it normal.",
+      "persona": "any",
+      "source": "question-change / vision"
+    },
+    {
+      "id": "ns-073",
+      "cat": "question-change",
+      "type": "reflect",
+      "hook": "Lensy: biggest take-away from Norm Storm?",
+      "prompt": "Pick your motto.",
+      "options": [
+        "Norms are made by people",
+        "Some help, some harm",
+        "Test it for fairness",
+        "I can help change it"
+      ],
+      "affirm": "Sort the storm: keep the helpful, question the harmful.",
+      "relearn": "Norms are made by people; keep the helpful, question the harmful.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "ns-074",
+      "cat": "question-change",
+      "type": "spot",
+      "hook": "Your own daily life. Spot a norm you could improve.",
+      "scene": [
+        {
+          "text": "You wait your turn politely",
+          "trick": false
+        },
+        {
+          "text": "You let only one gender carry 'heavy' things",
+          "trick": true
+        },
+        {
+          "text": "You say thank you to helpers",
+          "trick": false
+        }
+      ],
+      "why": "Even small everyday habits can carry a harmful norm worth fixing.",
+      "relearn": "You can spot and improve harmful norms in your own routine.",
+      "persona": "any",
+      "source": "question-change / self"
+    },
+    {
+      "id": "ns-075",
+      "cat": "what-is-a-norm",
+      "type": "sort",
+      "hook": "Sort: a shared norm, or just your personal taste?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Everyone greets elders first"
+        },
+        {
+          "id": "b",
+          "text": "You like mango over banana"
+        },
+        {
+          "id": "c",
+          "text": "People queue at the counter"
+        },
+        {
+          "id": "d",
+          "text": "You prefer the window seat"
+        }
+      ],
+      "bins": [
+        {
+          "id": "norm",
+          "label": "Shared norm"
+        },
+        {
+          "id": "taste",
+          "label": "Personal taste"
+        }
+      ],
+      "key": {
+        "a": "norm",
+        "b": "taste",
+        "c": "norm",
+        "d": "taste"
+      },
+      "relearn": "A norm is shared by a group; a taste is just yours.",
+      "persona": "any",
+      "source": "concept"
+    },
+    {
+      "id": "ns-076",
+      "cat": "helpful-norms",
+      "type": "sort",
+      "hook": "Sort: a safety or consent norm worth keeping?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Ask before hugging someone"
+        },
+        {
+          "id": "b",
+          "text": "Knock before entering a room"
+        },
+        {
+          "id": "c",
+          "text": "Grab whatever you want"
+        },
+        {
+          "id": "d",
+          "text": "Hold the door for the next person"
+        }
+      ],
+      "bins": [
+        {
+          "id": "keep",
+          "label": "Helpful, keep it"
+        },
+        {
+          "id": "drop",
+          "label": "Unkind, drop it"
+        }
+      ],
+      "key": {
+        "a": "keep",
+        "b": "keep",
+        "c": "drop",
+        "d": "keep"
+      },
+      "relearn": "Consent and courtesy norms protect everyone and are worth keeping.",
+      "persona": "any",
+      "source": "helpful norms"
+    },
+    {
+      "id": "ns-077",
+      "cat": "harmful-norms",
+      "type": "sort",
+      "hook": "Sort: which of these norms ranks one group above another?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Sons inherit, daughters don't"
+        },
+        {
+          "id": "b",
+          "text": "Everyone shares the sweets"
+        },
+        {
+          "id": "c",
+          "text": "Boys' opinions count more"
+        },
+        {
+          "id": "d",
+          "text": "We all clean up together"
+        }
+      ],
+      "bins": [
+        {
+          "id": "ranks",
+          "label": "Ranks a group higher"
+        },
+        {
+          "id": "equal",
+          "label": "Treats all equally"
+        }
+      ],
+      "key": {
+        "a": "ranks",
+        "b": "equal",
+        "c": "ranks",
+        "d": "equal"
+      },
+      "relearn": "Norms that rank one gender above another are harmful.",
+      "persona": "Diya",
+      "source": "harmful norms"
+    },
+    {
+      "id": "ns-078",
+      "cat": "where-from",
+      "type": "sort",
+      "hook": "Sort: a norm that has changed over time, or one that stayed the same?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Girls now play competitive sport"
+        },
+        {
+          "id": "b",
+          "text": "We still say thank you"
+        },
+        {
+          "id": "c",
+          "text": "Many dads now help cook"
+        },
+        {
+          "id": "d",
+          "text": "We still help elders"
+        }
+      ],
+      "bins": [
+        {
+          "id": "changed",
+          "label": "Has changed"
+        },
+        {
+          "id": "stayed",
+          "label": "Stayed (and helps)"
+        }
+      ],
+      "key": {
+        "a": "changed",
+        "b": "stayed",
+        "c": "changed",
+        "d": "stayed"
+      },
+      "relearn": "Harmful norms change while helpful ones can stay.",
+      "persona": "any",
+      "source": "origins / change"
+    },
+    {
+      "id": "ns-079",
+      "cat": "good-norm-test",
+      "type": "sort",
+      "hook": "Sort: passes the good-norm test, or fails?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Everyone gets a turn to speak"
+        },
+        {
+          "id": "b",
+          "text": "Girls can't ride bikes"
+        },
+        {
+          "id": "c",
+          "text": "Share credit fairly"
+        },
+        {
+          "id": "d",
+          "text": "Boys must hide fear"
+        }
+      ],
+      "bins": [
+        {
+          "id": "pass",
+          "label": "Passes"
+        },
+        {
+          "id": "fail",
+          "label": "Fails"
+        }
+      ],
+      "key": {
+        "a": "pass",
+        "b": "fail",
+        "c": "pass",
+        "d": "fail"
+      },
+      "relearn": "Fair, inclusive norms pass the test; limiting ones fail.",
+      "persona": "any",
+      "source": "good-norm test"
+    },
+    {
+      "id": "ns-080",
+      "cat": "harmful-norms",
+      "type": "spot",
+      "hook": "A TV serial scene. Spot the harmful norm.",
+      "scene": [
+        {
+          "text": "The daughter-in-law does every chore alone",
+          "trick": true
+        },
+        {
+          "text": "There is a family dinner",
+          "trick": false
+        },
+        {
+          "text": "The men are praised just for showing up",
+          "trick": true
+        }
+      ],
+      "why": "Showing women doing all the work while men are praised for little is a harmful norm.",
+      "relearn": "Media often normalises women doing all the household labour; spot it.",
+      "persona": "any",
+      "source": "harmful norms / media"
+    },
+    {
+      "id": "ns-081",
+      "cat": "helpful-norms",
+      "type": "spot",
+      "hook": "On the bus. Spot the helpful norm.",
+      "scene": [
+        {
+          "text": "A young person gives their seat to someone who needs it",
+          "trick": true
+        },
+        {
+          "text": "The bus is blue",
+          "trick": false
+        },
+        {
+          "text": "People say a quiet thank you",
+          "trick": true
+        }
+      ],
+      "why": "Offering a seat and saying thanks are helpful norms that make life kinder.",
+      "relearn": "Helpful norms like offering a seat keep a community caring.",
+      "persona": "Rohit",
+      "source": "helpful norms"
+    },
+    {
+      "id": "ns-082",
+      "cat": "harmful-norms",
+      "type": "match",
+      "hook": "Match the harmful norm to who it hurts most.",
+      "pairs": [
+        {
+          "left": "Girls eat last",
+          "right": "Girls"
+        },
+        {
+          "left": "Boys can't cry",
+          "right": "Boys"
+        },
+        {
+          "left": "Daughters are a burden",
+          "right": "Daughters"
+        }
+      ],
+      "relearn": "Each harmful norm has a clear group it hurts.",
+      "persona": "Diya",
+      "source": "harmful norms"
+    },
+    {
+      "id": "ns-083",
+      "cat": "question-change",
+      "type": "branch",
+      "hook": "A fair idea of yours is dismissed as \"not how we do things\".",
+      "options": [
+        {
+          "text": "Gently ask \"could we try a fairer way?\"",
+          "consequence": "You open a door instead of a fight.",
+          "outcome": "changemaker",
+          "best": true
+        },
+        {
+          "text": "Drop it instantly",
+          "consequence": "A gentle nudge can start a norm shifting."
+        }
+      ],
+      "debrief": "\"Not how we do things\" can become \"how we do things now\".",
+      "relearn": "You can gently propose a fairer way when waved off with tradition.",
+      "persona": "Asha",
+      "source": "question-change"
+    }
+  ]
+}

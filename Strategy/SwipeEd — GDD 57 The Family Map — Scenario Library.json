@@ -1,0 +1,1911 @@
+{
+  "game": "The Family Map",
+  "gameId": "family-map",
+  "node": "g57",
+  "chapter": 7,
+  "ages": null,
+  "ageBand": "22+",
+  "thread": "D · Relationships",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Open (adult, comprehensive, ungated)",
+  "leadMechanics": [
+    "branch",
+    "strike-rewrite",
+    "sort"
+  ],
+  "note": "In-laws & extended/joint family: navigating dynamics, setting kind boundaries, finding your place (UNESCO 1.1, 2.3, 5.3). New v2 build, the full-circle callback to My Family Garden (g03): in India you don't just marry a person, you join a family. Six modes: the web you join (map the extended family and your new place in it; both partners join each other's families), kind boundaries (respectful limits that protect the couple without rejecting anyone; bust 'family always knows best' / 'interference is love' / 'a good bahu never says no'), couple as a team (the couple is the primary team; a united, kind front; refuse triangulation; decide together then face family as one), respect both ways (honour elders and culture while keeping your own voice and choices; respect is not obedience and flows both ways), when it turns harmful (dowry is illegal under the Dowry Prohibition Act 1961; coercive in-law control, threats and dowry harassment are abuse, not friction, and route to Respect at Home g56 and help), tools & help (the couple check-in, the warm 'no', the repeatable team line, the help routes). Even-handed and warm; never 'cut them off' as a default; honours the value placed on family while equipping couples to set kind limits; links Equal Partners (g55) for the load and Respect at Home (g56) where dynamics become abusive. Builds on My Family Garden (g03). India: joint families and in-law ties are central and a leading source of marital strain, expectations fall heaviest on the daughter-in-law (sons-in-law increasingly adjust too), dowry is illegal, and abuse routes to 181, 112 and a counsellor.",
+  "categories": {
+    "web-you-join": "The web you join: you join a family, find your place",
+    "kind-boundaries": "Kind boundaries: respectful limits that protect",
+    "couple-team": "Couple as a team: a united, kind front",
+    "respect-both-ways": "Respect both ways: honour elders, keep your voice",
+    "when-it-turns-harmful": "When it turns harmful: dowry, control, get help",
+    "tools-and-help": "Tools & help: the couple check-in & warm 'no'"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "strike-rewrite",
+    "sort",
+    "reflect",
+    "role-play",
+    "match",
+    "spot"
+  ],
+  "evidenceBase": [
+    "In India a marriage is not only between two people but joins them to a wider extended and often joint family, and in-law relationships are central to married life and one of its leading sources of strain: research and counselling practice find disagreements about relatives are among the most common marital conflicts (one dual-career study found around 72% of women reported such disagreements), with expectations falling heaviest on the new daughter-in-law, though sons-in-law increasingly adjust too. The healthy task is to find your place in the web and build the relationships over time, not to merge into sameness or win instant, automatic love (UNESCO ITGSE Key Concept 1 families & 2 culture; India in-law and joint-family research)",
+    "A partnership is protected by kind boundaries and a united couple-team, not by obedience or silence: clear, warmly-set limits around the couple's privacy and decisions protect the relationship rather than reject the family, and 'family always knows best', 'interference is love' and 'a good bahu never says no' are myths to retire gently. The most useful move is to decide together and present one kind, united answer, refusing to be triangulated, while respect runs both ways across generations, honouring elders and culture without surrendering your own voice, because respect is not the same as obedience (couples and family-systems research; UNESCO gender & rights)",
+    "There is a clear line between ordinary family friction and abuse, and crossing it calls for help, not more adjusting: dowry is illegal in India, giving, taking or demanding it are offences under the Dowry Prohibition Act 1961, and dowry harassment and cruelty by a husband or his relatives are criminal (the former Section 498A IPC now Section 85 of the Bharatiya Nyaya Sanhita, in force from 1 July 2024), while coercive control, isolation and threats are abuse rather than boundary problems. These route to Respect at Home (g56) and to help, the Women's Helpline 181, emergency 112, and a counsellor, and seeking help is courage, not shame; the framing stays even-handed, noting that protections, though sometimes debated for misuse, offer genuine and important safety (Dowry Prohibition Act 1961; BNS 2023; India domestic-help and safeguarding resources)"
+  ],
+  "scenarios": [
+    {
+      "id": "fm-001",
+      "cat": "web-you-join",
+      "type": "strike-rewrite",
+      "hook": "\"You marry a person, not a family.\"",
+      "relearn": "Marriage joins two families, not just two people; that web is real either way.",
+      "persona": "Pooja",
+      "source": "you join a family",
+      "myth": {
+        "un": "You marry a person, not a family.",
+        "re": "In India especially, marrying someone means joining their wider family and being joined to yours.",
+        "why": "A partnership lives inside an extended web of relationships."
+      }
+    },
+    {
+      "id": "fm-002",
+      "cat": "web-you-join",
+      "type": "sort",
+      "hook": "Sort: part of the family web you're joining, or not your concern?",
+      "relearn": "Your partner's close family becomes part of your everyday web; strangers and celebrities don't.",
+      "persona": "any",
+      "source": "mapping the web",
+      "items": [
+        {
+          "id": "a",
+          "text": "Your partner's parents and siblings"
+        },
+        {
+          "id": "b",
+          "text": "A stranger on the street"
+        },
+        {
+          "id": "c",
+          "text": "The relatives who'll be at every function"
+        },
+        {
+          "id": "d",
+          "text": "A celebrity you follow online"
+        }
+      ],
+      "bins": [
+        {
+          "id": "web",
+          "label": "Your new web"
+        },
+        {
+          "id": "not",
+          "label": "Not your web"
+        }
+      ],
+      "key": {
+        "a": "web",
+        "b": "not",
+        "c": "web",
+        "d": "not"
+      }
+    },
+    {
+      "id": "fm-003",
+      "cat": "web-you-join",
+      "type": "branch",
+      "hook": "You've just married into a big joint family and feel lost about who's who and how it works.",
+      "relearn": "Map the family and its unspoken rules together; understanding the web helps you find your place.",
+      "persona": "Pooja",
+      "source": "finding your place",
+      "options": [
+        {
+          "text": "Get curious: ask your partner to map the family and its unspoken rules with you",
+          "consequence": "You start to find your footing and your place.",
+          "outcome": "oriented",
+          "best": true
+        },
+        {
+          "text": "Stay quiet and hope you'll figure it out without asking",
+          "consequence": "Asking your partner to map the family and its rules helps you find your place faster than guessing."
+        }
+      ],
+      "debrief": "Understanding the web, and your new place in it, is the first step to navigating it well."
+    },
+    {
+      "id": "fm-004",
+      "cat": "web-you-join",
+      "type": "match",
+      "hook": "Match each part of the new web to what it really is.",
+      "relearn": "In-laws, siblings-in-law and the extended relatives are the parts of the family web you join.",
+      "persona": "any",
+      "source": "who's who",
+      "pairs": [
+        {
+          "left": "Your in-laws",
+          "right": "Your partner's parents, now family"
+        },
+        {
+          "left": "Your partner's siblings",
+          "right": "New brothers or sisters-in-law"
+        },
+        {
+          "left": "The extended relatives",
+          "right": "The wider circle at every function"
+        }
+      ]
+    },
+    {
+      "id": "fm-005",
+      "cat": "web-you-join",
+      "type": "strike-rewrite",
+      "hook": "\"It's only the wife who has to adjust to a new family.\"",
+      "relearn": "Both partners join each other's families; adjusting isn't a one-way, wife-only job.",
+      "persona": "Karthik",
+      "source": "both ways",
+      "myth": {
+        "un": "It's only the wife who has to adjust to a new family.",
+        "re": "Both partners join each other's families; increasingly sons-in-law adjust too, and that's healthy.",
+        "why": "Joining a family goes both ways, not just one."
+      }
+    },
+    {
+      "id": "fm-006",
+      "cat": "web-you-join",
+      "type": "reflect",
+      "hook": "Sam: you're not just gaining a partner, you're gaining a whole web, with a place in it that's yours to shape. How does that land?",
+      "relearn": "Your place in the new family web is yours to shape, not just inherit.",
+      "persona": "any",
+      "source": "your place to shape",
+      "prompt": "What do you think?",
+      "options": [
+        "It's a lot",
+        "Makes sense",
+        "Mine to shape"
+      ],
+      "affirm": "Seeing the whole web, and that your place in it is yours to shape, is where navigating it begins."
+    },
+    {
+      "id": "fm-007",
+      "cat": "web-you-join",
+      "type": "spot",
+      "hook": "Spot what's genuinely part of joining a family, versus a myth about it.",
+      "relearn": "Joining a family is about building relationships over time, not instant, automatic love.",
+      "persona": "any",
+      "source": "real vs myth",
+      "scene": [
+        {
+          "text": "Building new relationships over time",
+          "trick": false
+        },
+        {
+          "text": "Having to instantly love everyone",
+          "trick": true
+        },
+        {
+          "text": "Learning the family's rhythms and ways",
+          "trick": false
+        }
+      ],
+      "why": "Building relationships and learning the family's ways is real; instant, automatic love is a myth."
+    },
+    {
+      "id": "fm-008",
+      "cat": "web-you-join",
+      "type": "branch",
+      "hook": "Your partner's family does things very differently from how you grew up, and it's disorienting.",
+      "relearn": "Different family ways are things to learn, not proof that one side is wrong.",
+      "persona": "Sneha",
+      "source": "different not wrong",
+      "options": [
+        {
+          "text": "Treat the differences as things to learn, not as wrong",
+          "consequence": "You stay open and adapt without losing yourself.",
+          "outcome": "open",
+          "best": true
+        },
+        {
+          "text": "Decide their way is wrong because it's not what you're used to",
+          "consequence": "Treating differences as things to learn keeps you open; labelling them wrong starts needless conflict."
+        }
+      ],
+      "debrief": "Different isn't wrong; family customs vary, and learning them beats judging them."
+    },
+    {
+      "id": "fm-009",
+      "cat": "web-you-join",
+      "type": "match",
+      "hook": "Match each new in-law tie to a warm way to begin it.",
+      "relearn": "Each new relationship starts best with patience and small, genuine gestures, not forced closeness.",
+      "persona": "any",
+      "source": "starting the ties",
+      "pairs": [
+        {
+          "left": "A reserved mother-in-law",
+          "right": "Small, genuine gestures over time"
+        },
+        {
+          "left": "A talkative father-in-law",
+          "right": "Listen and ask about his stories"
+        },
+        {
+          "left": "A guarded sibling-in-law",
+          "right": "Patience, no forcing closeness"
+        }
+      ]
+    },
+    {
+      "id": "fm-010",
+      "cat": "web-you-join",
+      "type": "strike-rewrite",
+      "hook": "\"A good marriage means the two families merge into one with no differences.\"",
+      "relearn": "Families can stay distinct and still be close; merging into sameness isn't the goal.",
+      "persona": "any",
+      "source": "distinct yet close",
+      "myth": {
+        "un": "A good marriage means the two families merge into one with no differences.",
+        "re": "Two families staying distinct, with their own ways, can still be close and respectful.",
+        "why": "Closeness doesn't require erasing every difference between families."
+      }
+    },
+    {
+      "id": "fm-011",
+      "cat": "web-you-join",
+      "type": "sort",
+      "hook": "Sort: a realistic hope for the new family web, or an unfair expectation?",
+      "relearn": "Warmth over time and mutual respect are realistic; instant agreement and being everyone's favourite aren't.",
+      "persona": "Pooja",
+      "source": "realistic hopes",
+      "items": [
+        {
+          "id": "a",
+          "text": "Building warmth over years"
+        },
+        {
+          "id": "b",
+          "text": "Everyone agreeing on everything at once"
+        },
+        {
+          "id": "c",
+          "text": "Mutual respect from the start"
+        },
+        {
+          "id": "d",
+          "text": "Becoming everyone's favourite instantly"
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "Realistic"
+        },
+        {
+          "id": "unfair",
+          "label": "Unfair expectation"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "unfair",
+        "c": "real",
+        "d": "unfair"
+      }
+    },
+    {
+      "id": "fm-012",
+      "cat": "web-you-join",
+      "type": "reflect",
+      "hook": "Sam: finding your place doesn't mean shrinking to fit, it means taking up your fair space in the web. Agree?",
+      "relearn": "Finding your place means taking your fair space, not shrinking to fit the family.",
+      "persona": "any",
+      "source": "not shrinking",
+      "prompt": "What's your take?",
+      "options": [
+        "Agree",
+        "Taking my space",
+        "Not shrinking"
+      ],
+      "affirm": "Finding your place means taking up your fair space in the family, not shrinking yourself to fit."
+    },
+    {
+      "id": "fm-013",
+      "cat": "web-you-join",
+      "type": "role-play",
+      "hook": "A relative asks how you're settling into the family. You want to be warm and honest.",
+      "relearn": "A warm, honest answer builds the new ties: glad to be here, and still learning.",
+      "persona": "Sneha",
+      "source": "settling in",
+      "setup": "Answer warmly:",
+      "yourLine": [
+        {
+          "text": "\"Still learning everyone's ways, but I'm glad to be part of this family.\"",
+          "best": true
+        },
+        {
+          "text": "\"Fine, I guess.\""
+        }
+      ]
+    },
+    {
+      "id": "fm-014",
+      "cat": "web-you-join",
+      "type": "branch",
+      "hook": "You realise you've been so focused on being accepted that you've forgotten to get to know them as people.",
+      "relearn": "Get to know in-laws as people, not just roles to win over.",
+      "persona": "any",
+      "source": "as people",
+      "options": [
+        {
+          "text": "Get curious about them as individuals, not just as 'the in-laws'",
+          "consequence": "Real relationships start to form.",
+          "outcome": "curious",
+          "best": true
+        },
+        {
+          "text": "Keep performing the 'perfect' new spouse to win approval",
+          "consequence": "Getting curious about in-laws as people builds real ties; performing perfection just exhausts you."
+        }
+      ],
+      "debrief": "In-laws are individuals to know, not just roles to impress; curiosity builds real bonds."
+    },
+    {
+      "id": "fm-015",
+      "cat": "kind-boundaries",
+      "type": "strike-rewrite",
+      "hook": "\"Setting a boundary with family means you're rejecting them.\"",
+      "relearn": "A boundary protects the relationship; saying no kindly isn't rejection.",
+      "persona": "Pooja",
+      "source": "boundaries protect",
+      "myth": {
+        "un": "Setting a boundary with family means you're rejecting them.",
+        "re": "A boundary is about protecting the relationship, not ending it; you can say no and still love them.",
+        "why": "Boundaries protect closeness; they don't destroy it."
+      }
+    },
+    {
+      "id": "fm-016",
+      "cat": "kind-boundaries",
+      "type": "strike-rewrite",
+      "hook": "\"Family always knows best, so you should just do as they say.\"",
+      "relearn": "Respect elders, but the couple still decides their own life; 'they know best' isn't a rule to obey blindly.",
+      "persona": "Pooja",
+      "source": "knows best myth",
+      "myth": {
+        "un": "Family always knows best, so you should just do as they say.",
+        "re": "Elders deserve respect, but you and your partner get to decide your own life together.",
+        "why": "Respecting elders doesn't mean handing them every decision."
+      }
+    },
+    {
+      "id": "fm-017",
+      "cat": "kind-boundaries",
+      "type": "sort",
+      "hook": "Sort: the couple's own call to make, or genuinely the wider family's to decide?",
+      "relearn": "Your children and your salary are the couple's call; genuinely shared rituals can be decided together.",
+      "persona": "any",
+      "source": "whose call",
+      "items": [
+        {
+          "id": "a",
+          "text": "When you two have children"
+        },
+        {
+          "id": "b",
+          "text": "The menu for a shared family festival"
+        },
+        {
+          "id": "c",
+          "text": "How you spend your own salary"
+        },
+        {
+          "id": "d",
+          "text": "A joint family ritual everyone shares"
+        }
+      ],
+      "bins": [
+        {
+          "id": "couple",
+          "label": "Couple's call"
+        },
+        {
+          "id": "family",
+          "label": "Shared family call"
+        }
+      ],
+      "key": {
+        "a": "couple",
+        "b": "family",
+        "c": "couple",
+        "d": "family"
+      }
+    },
+    {
+      "id": "fm-018",
+      "cat": "kind-boundaries",
+      "type": "branch",
+      "hook": "Your in-laws drop by unannounced often, and you and your partner never get private time.",
+      "relearn": "Set kind boundaries together and warmly; silence turns into resentment.",
+      "persona": "Pooja",
+      "source": "kind boundary",
+      "options": [
+        {
+          "text": "Agree a kind boundary together and set it warmly, e.g. a heads-up call first",
+          "consequence": "You get privacy without anyone feeling shut out.",
+          "outcome": "bounded",
+          "best": true
+        },
+        {
+          "text": "Say nothing and quietly grow resentful",
+          "consequence": "A warmly set boundary protects your privacy; silence just breeds resentment that leaks out later."
+        }
+      ],
+      "debrief": "A kind, clear boundary, set together, protects the couple without rejecting anyone."
+    },
+    {
+      "id": "fm-019",
+      "cat": "kind-boundaries",
+      "type": "match",
+      "hook": "Match a harsh way to set a limit with its kinder, clearer version.",
+      "relearn": "The same boundary can be said with warmth and clarity instead of harshness.",
+      "persona": "any",
+      "source": "kinder version",
+      "pairs": [
+        {
+          "left": "\"Stop interfering in our lives.\"",
+          "right": "\"We love your input, and this one's ours to decide.\""
+        },
+        {
+          "left": "\"You're always here.\"",
+          "right": "\"We'd love a heads-up before visits so we can be ready.\""
+        },
+        {
+          "left": "\"Mind your own business.\"",
+          "right": "\"We'll come to you when we want advice on this.\""
+        }
+      ]
+    },
+    {
+      "id": "fm-020",
+      "cat": "kind-boundaries",
+      "type": "strike-rewrite",
+      "hook": "\"Interference is just love, so you have to accept all of it.\"",
+      "relearn": "Care and overreach can both be true; accept the love, keep the boundary.",
+      "persona": "Sneha",
+      "source": "love and limit",
+      "myth": {
+        "un": "Interference is just love, so you have to accept all of it.",
+        "re": "Concern can come from love and still cross a line; you can receive the love and decline the overreach.",
+        "why": "You can honour the love behind it and still keep the boundary."
+      }
+    },
+    {
+      "id": "fm-021",
+      "cat": "kind-boundaries",
+      "type": "spot",
+      "hook": "Spot the kind boundary, versus a wall that just shuts people out.",
+      "relearn": "A kind boundary is warm and clear; cold cut-offs are walls, not boundaries.",
+      "persona": "any",
+      "source": "boundary not wall",
+      "scene": [
+        {
+          "text": "\"We'll decide this together, and tell you once we have.\"",
+          "trick": false
+        },
+        {
+          "text": "Cold silence and avoiding them for weeks",
+          "trick": true
+        },
+        {
+          "text": "\"We love visits, just call first.\"",
+          "trick": false
+        }
+      ],
+      "why": "A kind boundary names the limit warmly; cold silence and avoidance are walls, not boundaries."
+    },
+    {
+      "id": "fm-022",
+      "cat": "kind-boundaries",
+      "type": "reflect",
+      "hook": "Sam: a boundary said with warmth, 'we love you, and this is ours to decide', is the strongest kind. Make sense?",
+      "relearn": "The strongest boundary is warm and firm together: 'we love you, and this is ours.'",
+      "persona": "any",
+      "source": "warm and firm",
+      "prompt": "What do you think?",
+      "options": [
+        "Makes sense",
+        "Warm and firm",
+        "I'll try it"
+      ],
+      "affirm": "The strongest boundary pairs warmth with clarity: love them, and still hold the line."
+    },
+    {
+      "id": "fm-023",
+      "cat": "kind-boundaries",
+      "type": "branch",
+      "hook": "A relative keeps pushing for a decision you and your partner aren't ready to make.",
+      "relearn": "Hold the line kindly under pressure: 'we'll decide together and tell you.'",
+      "persona": "Karthik",
+      "source": "holding under push",
+      "options": [
+        {
+          "text": "Buy time kindly: 'we hear you, we'll decide together and let you know'",
+          "consequence": "You hold the boundary without a fight.",
+          "outcome": "held",
+          "best": true
+        },
+        {
+          "text": "Cave just to end the discomfort",
+          "consequence": "Buying time kindly holds the boundary; caving to end discomfort trades your real choice for a moment's peace."
+        }
+      ],
+      "debrief": "You can hold a boundary kindly under pressure without caving or fighting."
+    },
+    {
+      "id": "fm-024",
+      "cat": "kind-boundaries",
+      "type": "sort",
+      "hook": "Sort: a healthy boundary, or actually shutting family out unkindly?",
+      "relearn": "Asking for notice and keeping your finances are healthy; spite-blocking and total cut-offs over small slights aren't.",
+      "persona": "any",
+      "source": "healthy vs shut-out",
+      "items": [
+        {
+          "id": "a",
+          "text": "Asking for a call before visits"
+        },
+        {
+          "id": "b",
+          "text": "Blocking their number out of spite"
+        },
+        {
+          "id": "c",
+          "text": "Keeping your finances your own"
+        },
+        {
+          "id": "d",
+          "text": "Refusing to ever see them again over a small slight"
+        }
+      ],
+      "bins": [
+        {
+          "id": "healthy",
+          "label": "Healthy boundary"
+        },
+        {
+          "id": "unkind",
+          "label": "Unkindly shutting out"
+        }
+      ],
+      "key": {
+        "a": "healthy",
+        "b": "unkind",
+        "c": "healthy",
+        "d": "unkind"
+      }
+    },
+    {
+      "id": "fm-025",
+      "cat": "kind-boundaries",
+      "type": "role-play",
+      "hook": "Your mother-in-law offers strong opinions on how you should run your kitchen. You want to be warm but clear.",
+      "relearn": "You can welcome the warmth and still hold your own way, in the same kind sentence.",
+      "persona": "Pooja",
+      "source": "kitchen boundary",
+      "setup": "Say it kindly:",
+      "yourLine": [
+        {
+          "text": "\"I love learning your recipes, Ma, and I'll run the kitchen my own way too.\"",
+          "best": true
+        },
+        {
+          "text": "\"Please just let me do it myself.\""
+        }
+      ]
+    },
+    {
+      "id": "fm-026",
+      "cat": "kind-boundaries",
+      "type": "strike-rewrite",
+      "hook": "\"A good daughter-in-law never says no to family.\"",
+      "relearn": "A kind 'no' is compatible with respect; never saying no isn't the measure of a good bahu.",
+      "persona": "Pooja",
+      "source": "kind no",
+      "myth": {
+        "un": "A good daughter-in-law never says no to family.",
+        "re": "Respect and a kind 'no' can coexist; saying no to overreach doesn't make you a bad bahu.",
+        "why": "Self-respect and family respect aren't opposites."
+      }
+    },
+    {
+      "id": "fm-027",
+      "cat": "kind-boundaries",
+      "type": "branch",
+      "hook": "Your partner's family expects you to drop your own plans whenever they call.",
+      "relearn": "Keep some plans your own; saying yes always, at your own cost, erases you.",
+      "persona": "Sneha",
+      "source": "keep a self",
+      "options": [
+        {
+          "text": "Lovingly hold some plans as yours while saying yes to many family things too",
+          "consequence": "You stay connected and keep a self.",
+          "outcome": "balanced",
+          "best": true
+        },
+        {
+          "text": "Cancel everything of your own, every time, to avoid upsetting anyone",
+          "consequence": "Holding some of your own plans keeps a self; cancelling everything every time erases you and breeds resentment."
+        }
+      ],
+      "debrief": "You can say yes to family often and still keep some plans as your own."
+    },
+    {
+      "id": "fm-028",
+      "cat": "kind-boundaries",
+      "type": "reflect",
+      "hook": "Sam: boundaries aren't built once, they're re-set gently, again and again, as people test them. Ready for that?",
+      "relearn": "Boundaries are re-set gently over time, not built once and forgotten.",
+      "persona": "any",
+      "source": "re-set gently",
+      "prompt": "What's your take?",
+      "options": [
+        "Ready",
+        "Again and again",
+        "That's real"
+      ],
+      "affirm": "Boundaries are maintained, not set once; re-stating them gently over time is normal and healthy."
+    },
+    {
+      "id": "fm-029",
+      "cat": "couple-team",
+      "type": "strike-rewrite",
+      "hook": "\"In a disagreement with family, you should always side with your own parents.\"",
+      "relearn": "The couple is the primary team; decide together first, not parents-first by default.",
+      "persona": "Karthik",
+      "source": "couple is the team",
+      "myth": {
+        "un": "In a disagreement with family, you should always side with your own parents.",
+        "re": "Your partner and you are the primary team; you decide together, then face the wider family as one.",
+        "why": "The couple is the core unit decisions run through."
+      }
+    },
+    {
+      "id": "fm-030",
+      "cat": "couple-team",
+      "type": "branch",
+      "hook": "Your mother criticises your partner to you, hoping you'll agree and take her side.",
+      "relearn": "Refuse triangulation: defend your partner kindly rather than siding against them.",
+      "persona": "Karthik",
+      "source": "no triangulation",
+      "options": [
+        {
+          "text": "Gently defend your partner and decline to be triangulated",
+          "consequence": "Your partner trusts you, and the family learns the couple is solid.",
+          "outcome": "united",
+          "best": true
+        },
+        {
+          "text": "Join in the criticism to keep your mother happy",
+          "consequence": "Defending your partner builds trust and a united front; joining in teaches the family they can divide you."
+        }
+      ],
+      "debrief": "Don't let a relative triangulate you against your partner; the couple stands together."
+    },
+    {
+      "id": "fm-031",
+      "cat": "couple-team",
+      "type": "sort",
+      "hook": "Sort: a united-front move, or something that quietly undermines the couple?",
+      "relearn": "Aligning privately and backing each other in the room is a united front; blaming or deciding without your partner undermines it.",
+      "persona": "any",
+      "source": "united or not",
+      "items": [
+        {
+          "id": "a",
+          "text": "Agreeing your stance privately before facing family"
+        },
+        {
+          "id": "b",
+          "text": "Letting family hear you blame your partner"
+        },
+        {
+          "id": "c",
+          "text": "Backing your partner in the room, debriefing later"
+        },
+        {
+          "id": "d",
+          "text": "Making big calls with your parents, not your partner"
+        }
+      ],
+      "bins": [
+        {
+          "id": "united",
+          "label": "United front"
+        },
+        {
+          "id": "undermine",
+          "label": "Undermines the couple"
+        }
+      ],
+      "key": {
+        "a": "united",
+        "b": "undermine",
+        "c": "united",
+        "d": "undermine"
+      }
+    },
+    {
+      "id": "fm-032",
+      "cat": "couple-team",
+      "type": "strike-rewrite",
+      "hook": "\"A husband torn between his mother and his wife should just keep them both happy somehow.\"",
+      "relearn": "He isn't 'torn': he stands with his partner as a team and respects his mother; both at once.",
+      "persona": "Karthik",
+      "source": "not torn",
+      "myth": {
+        "un": "A husband torn between his mother and his wife should just keep them both happy by pleasing each in turn.",
+        "re": "He doesn't have to choose sides; he stands with his partner as a team while still respecting his mother.",
+        "why": "Partnership-first isn't the same as disrespecting a parent."
+      }
+    },
+    {
+      "id": "fm-033",
+      "cat": "couple-team",
+      "type": "match",
+      "hook": "Match a family-pressure moment to the couple-team response.",
+      "relearn": "The couple-team response is to decide together and present one kind, united answer.",
+      "persona": "any",
+      "source": "team responses",
+      "pairs": [
+        {
+          "left": "Relatives push a big decision on the spot",
+          "right": "\"We'll talk and come back to you together.\""
+        },
+        {
+          "left": "One partner is being singled out",
+          "right": "The other steps in to back them"
+        },
+        {
+          "left": "Plans clash between two families",
+          "right": "The couple agrees their own plan first"
+        }
+      ]
+    },
+    {
+      "id": "fm-034",
+      "cat": "couple-team",
+      "type": "branch",
+      "hook": "You and your partner disagree about a family matter, in front of the whole family.",
+      "relearn": "Resolve couple disagreements privately, then face family as one team.",
+      "persona": "Sneha",
+      "source": "private then united",
+      "options": [
+        {
+          "text": "Pause it: 'let's talk privately and come back', then resolve as a team",
+          "consequence": "You protect both the decision and the partnership.",
+          "outcome": "private-first",
+          "best": true
+        },
+        {
+          "text": "Argue it out in front of everyone, taking sides",
+          "consequence": "Pausing to decide privately protects the team; arguing in front of family invites everyone to pick a side."
+        }
+      ],
+      "debrief": "Disagree in private, decide as a team, present one answer; don't fight in front of family."
+    },
+    {
+      "id": "fm-035",
+      "cat": "couple-team",
+      "type": "reflect",
+      "hook": "Sam: the couple is the new first team. That isn't disloyal to your parents, it's what marriage means. Sit right?",
+      "relearn": "The couple becomes the first team, while still honouring parents; that isn't disloyalty.",
+      "persona": "any",
+      "source": "first team",
+      "prompt": "What do you think?",
+      "options": [
+        "Sits right",
+        "New first team",
+        "Still respect parents"
+      ],
+      "affirm": "Making the couple the primary team isn't disloyalty to parents; it's the core of a partnership."
+    },
+    {
+      "id": "fm-036",
+      "cat": "couple-team",
+      "type": "role-play",
+      "hook": "At dinner, a relative tries to get you to agree your partner is 'too modern'. You want to back your partner warmly.",
+      "relearn": "Backing your partner warmly in the room keeps the team solid and ends the wedge.",
+      "persona": "Karthik",
+      "source": "back them warmly",
+      "setup": "Say warmly:",
+      "yourLine": [
+        {
+          "text": "\"I actually love that about them, we're figuring our life out together.\"",
+          "best": true
+        },
+        {
+          "text": "\"Hmm, maybe you're right.\""
+        }
+      ]
+    },
+    {
+      "id": "fm-037",
+      "cat": "couple-team",
+      "type": "sort",
+      "hook": "Sort: a decision the couple should make as a team, or one to share with the elders too?",
+      "relearn": "Chores, money and kids are the couple's; shared pujas and joint holidays can be planned with elders too.",
+      "persona": "Pooja",
+      "source": "team vs shared",
+      "items": [
+        {
+          "id": "a",
+          "text": "How you split chores and money"
+        },
+        {
+          "id": "b",
+          "text": "Hosting a shared family puja"
+        },
+        {
+          "id": "c",
+          "text": "Whether and when to have kids"
+        },
+        {
+          "id": "d",
+          "text": "Planning a joint family holiday"
+        }
+      ],
+      "bins": [
+        {
+          "id": "couple",
+          "label": "Couple-team call"
+        },
+        {
+          "id": "shared",
+          "label": "Share with elders"
+        }
+      ],
+      "key": {
+        "a": "couple",
+        "b": "shared",
+        "c": "couple",
+        "d": "shared"
+      }
+    },
+    {
+      "id": "fm-038",
+      "cat": "couple-team",
+      "type": "strike-rewrite",
+      "hook": "\"Keeping secrets from your partner to protect your family is loyalty.\"",
+      "relearn": "The couple runs on honesty; hiding family matters from your partner weakens the team, not protects it.",
+      "persona": "any",
+      "source": "team honesty",
+      "myth": {
+        "un": "Keeping secrets from your partner to protect your family is loyalty.",
+        "re": "The couple-team runs on honesty between you two; hidden family deals erode the trust the team needs.",
+        "why": "Transparency with your partner is what keeps the team strong."
+      }
+    },
+    {
+      "id": "fm-039",
+      "cat": "couple-team",
+      "type": "branch",
+      "hook": "Your family asks you to make a financial commitment without telling your partner.",
+      "relearn": "Keep money and big commitments transparent between partners, not hidden for family.",
+      "persona": "Karthik",
+      "source": "no hidden deals",
+      "options": [
+        {
+          "text": "Decline to hide it: 'we decide money together, I'll talk to them'",
+          "consequence": "Your partnership stays trustworthy and aligned.",
+          "outcome": "transparent",
+          "best": true
+        },
+        {
+          "text": "Quietly agree and keep it from your partner",
+          "consequence": "Looping your partner in keeps the team aligned; a hidden money deal is exactly what breaks trust later."
+        }
+      ],
+      "debrief": "Big commitments go through the couple-team together, never hidden from your partner."
+    },
+    {
+      "id": "fm-040",
+      "cat": "couple-team",
+      "type": "reflect",
+      "hook": "Sam: 'we'll decide together and let you know' is the most useful sentence in a joint family. Worth memorising?",
+      "relearn": "One sentence carries the couple-team: 'we'll decide together and let you know.'",
+      "persona": "any",
+      "source": "the useful sentence",
+      "prompt": "What's your take?",
+      "options": [
+        "Worth it",
+        "Memorising it",
+        "So useful"
+      ],
+      "affirm": "'We'll decide together and let you know' protects the couple-team kindly in almost any family pressure."
+    },
+    {
+      "id": "fm-041",
+      "cat": "couple-team",
+      "type": "match",
+      "hook": "Match each couple-team habit to what it protects.",
+      "relearn": "Aligning before, debriefing after, and one united answer are the habits that keep a couple solid in a big family.",
+      "persona": "any",
+      "source": "team habits",
+      "pairs": [
+        {
+          "left": "Aligning before family events",
+          "right": "Fewer surprises and public clashes"
+        },
+        {
+          "left": "Debriefing afterward",
+          "right": "Repair and learning as a team"
+        },
+        {
+          "left": "One united answer to pressure",
+          "right": "Trust that you've got each other"
+        }
+      ]
+    },
+    {
+      "id": "fm-042",
+      "cat": "couple-team",
+      "type": "spot",
+      "hook": "Spot the move that keeps the couple a team under family pressure.",
+      "relearn": "Stay a team under pressure: align privately and back each other in the room.",
+      "persona": "Sneha",
+      "source": "stay a team",
+      "scene": [
+        {
+          "text": "Checking in privately before answering relatives",
+          "trick": false
+        },
+        {
+          "text": "Letting relatives split you by flattery",
+          "trick": true
+        },
+        {
+          "text": "Backing each other in the room",
+          "trick": false
+        }
+      ],
+      "why": "Checking in privately and backing each other keep the team; letting flattery split you breaks it."
+    },
+    {
+      "id": "fm-043",
+      "cat": "respect-both-ways",
+      "type": "strike-rewrite",
+      "hook": "\"Respecting elders means obeying them in everything.\"",
+      "relearn": "Respect means honouring and listening, not obeying in everything; you can respect and still choose.",
+      "persona": "Pooja",
+      "source": "respect not obedience",
+      "myth": {
+        "un": "Respecting elders means obeying them in everything.",
+        "re": "Respect means honouring and listening to elders; it doesn't mean surrendering every choice to them.",
+        "why": "You can deeply respect someone and still disagree."
+      }
+    },
+    {
+      "id": "fm-044",
+      "cat": "respect-both-ways",
+      "type": "branch",
+      "hook": "An elder gives advice you disagree with, but you don't want to be disrespectful.",
+      "relearn": "Honour the advice sincerely, then decide for yourselves; respect and autonomy can coexist.",
+      "persona": "Sneha",
+      "source": "honour then choose",
+      "options": [
+        {
+          "text": "Thank them sincerely, consider it, then decide for yourselves",
+          "consequence": "You honour them and keep your own choice.",
+          "outcome": "honoured",
+          "best": true
+        },
+        {
+          "text": "Either obey to avoid offence or dismiss them rudely",
+          "consequence": "Thanking and then deciding for yourselves honours the elder and your autonomy; obeying or dismissing loses one or the other."
+        }
+      ],
+      "debrief": "You can receive elders' advice with real respect and still make your own decision."
+    },
+    {
+      "id": "fm-045",
+      "cat": "respect-both-ways",
+      "type": "match",
+      "hook": "Match each elder's offering to the respectful way to receive it.",
+      "relearn": "Respect both ways means listening to wisdom, declining the outdated kindly, and joining traditions that mean something.",
+      "persona": "any",
+      "source": "receiving respectfully",
+      "pairs": [
+        {
+          "left": "Hard-won life wisdom",
+          "right": "Listen genuinely, take what fits"
+        },
+        {
+          "left": "An outdated expectation",
+          "right": "Decline kindly, without scorn"
+        },
+        {
+          "left": "A warm tradition",
+          "right": "Join in where it's meaningful to you"
+        }
+      ]
+    },
+    {
+      "id": "fm-046",
+      "cat": "respect-both-ways",
+      "type": "strike-rewrite",
+      "hook": "\"If you keep your own views, you're being a disrespectful, modern troublemaker.\"",
+      "relearn": "Keeping your own values respectfully isn't disrespect; respect is meant to flow both ways.",
+      "persona": "Pooja",
+      "source": "voice and respect",
+      "myth": {
+        "un": "If you keep your own views, you're being a disrespectful, modern troublemaker.",
+        "re": "Holding your own values respectfully is healthy; respect flows both ways between generations.",
+        "why": "Having a voice and showing respect aren't opposites."
+      }
+    },
+    {
+      "id": "fm-047",
+      "cat": "respect-both-ways",
+      "type": "sort",
+      "hook": "Sort: respect flowing both ways, or respect demanded only one way?",
+      "relearn": "Valuing elders' experience and the couple's choices is mutual; demanding all the adjusting and silence from the young isn't.",
+      "persona": "any",
+      "source": "both ways or one",
+      "items": [
+        {
+          "id": "a",
+          "text": "Elders' experience is valued"
+        },
+        {
+          "id": "b",
+          "text": "Only the young must adjust, never elders"
+        },
+        {
+          "id": "c",
+          "text": "The couple's choices are also respected"
+        },
+        {
+          "id": "d",
+          "text": "Disagreement from the young is 'insolence'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "both",
+          "label": "Both ways"
+        },
+        {
+          "id": "one",
+          "label": "One way only"
+        }
+      ],
+      "key": {
+        "a": "both",
+        "b": "one",
+        "c": "both",
+        "d": "one"
+      }
+    },
+    {
+      "id": "fm-048",
+      "cat": "respect-both-ways",
+      "type": "reflect",
+      "hook": "Sam: the goal isn't to win against elders, it's a relationship where both generations feel respected. Resonate?",
+      "relearn": "The goal is mutual respect across generations, not winning against elders.",
+      "persona": "any",
+      "source": "mutual respect",
+      "prompt": "What do you think?",
+      "options": [
+        "Resonates",
+        "Both respected",
+        "Not winning"
+      ],
+      "affirm": "The aim is mutual respect across generations, not defeating the elders or being defeated by them."
+    },
+    {
+      "id": "fm-049",
+      "cat": "respect-both-ways",
+      "type": "spot",
+      "hook": "Spot genuine respect, versus fear dressed up as respect.",
+      "relearn": "Real respect includes honest disagreement; silent fear isn't respect.",
+      "persona": "Sneha",
+      "source": "respect not fear",
+      "scene": [
+        {
+          "text": "Listening because you value their experience",
+          "trick": false
+        },
+        {
+          "text": "Agreeing only because you're scared to speak",
+          "trick": true
+        },
+        {
+          "text": "Disagreeing politely and still being warm",
+          "trick": false
+        }
+      ],
+      "why": "Valuing experience and disagreeing politely are respect; silent agreement out of fear is just fear."
+    },
+    {
+      "id": "fm-050",
+      "cat": "respect-both-ways",
+      "type": "branch",
+      "hook": "Your in-laws follow a tradition that doesn't fit your beliefs, and they'd love you to join.",
+      "relearn": "Join traditions where you can and opt out kindly; honour the bond and yourself.",
+      "persona": "Razia",
+      "source": "join and opt out",
+      "options": [
+        {
+          "text": "Join the parts you can warmly, and opt out of the rest kindly",
+          "consequence": "You honour the bond without betraying yourself.",
+          "outcome": "warm-opt",
+          "best": true
+        },
+        {
+          "text": "Either fake full belief or refuse the whole thing coldly",
+          "consequence": "Joining what you can and opting out kindly honours the bond and yourself; faking or cold refusal loses one."
+        }
+      ],
+      "debrief": "You can take part in a tradition warmly where you can, and decline the rest with respect."
+    },
+    {
+      "id": "fm-051",
+      "cat": "respect-both-ways",
+      "type": "match",
+      "hook": "Match a respectful phrase to the situation it fits.",
+      "relearn": "Respectful phrasing lets you receive advice, disagree, and choose, all without contempt.",
+      "persona": "any",
+      "source": "respectful phrasing",
+      "pairs": [
+        {
+          "left": "\"Thank you, that helps, we'll think it over.\"",
+          "right": "Receiving unsolicited advice"
+        },
+        {
+          "left": "\"We see it differently, with respect.\"",
+          "right": "A genuine disagreement"
+        },
+        {
+          "left": "\"We'd love to do it our way this time.\"",
+          "right": "A choice that's yours to make"
+        }
+      ]
+    },
+    {
+      "id": "fm-052",
+      "cat": "respect-both-ways",
+      "type": "strike-rewrite",
+      "hook": "\"In-laws can never really become close, loving family.\"",
+      "relearn": "In-law bonds can grow into real, loving family with time and patience; the cynical version isn't fixed.",
+      "persona": "Pooja",
+      "source": "bonds can grow",
+      "myth": {
+        "un": "In-laws can never really become close, loving family.",
+        "re": "Many in-law bonds grow into genuine warmth and support over time, with patience on both sides.",
+        "why": "These relationships can become some of life's most supportive."
+      }
+    },
+    {
+      "id": "fm-053",
+      "cat": "respect-both-ways",
+      "type": "reflect",
+      "hook": "Sam: an elder who feels respected is far more open to your boundaries. Respect and boundaries work together. See it?",
+      "relearn": "Respect and boundaries reinforce each other; a respected elder hears your limits better.",
+      "persona": "any",
+      "source": "respect aids boundaries",
+      "prompt": "What's your take?",
+      "options": [
+        "I see it",
+        "They work together",
+        "Worth remembering"
+      ],
+      "affirm": "Respect and boundaries reinforce each other: a respected elder is more open to your limits."
+    },
+    {
+      "id": "fm-054",
+      "cat": "respect-both-ways",
+      "type": "role-play",
+      "hook": "An elder shares strong advice about your career that you won't be taking. Be respectful and clear.",
+      "relearn": "Gratitude plus a clear, warm 'my own way' honours the elder and your autonomy at once.",
+      "persona": "Sneha",
+      "source": "career advice",
+      "setup": "Respond warmly:",
+      "yourLine": [
+        {
+          "text": "\"Thank you for caring about my future, I've thought hard and I'm going my own way on this.\"",
+          "best": true
+        },
+        {
+          "text": "\"You don't understand my life, stop telling me what to do.\""
+        }
+      ]
+    },
+    {
+      "id": "fm-055",
+      "cat": "respect-both-ways",
+      "type": "branch",
+      "hook": "You catch yourself resenting your in-laws and writing them off entirely.",
+      "relearn": "Hold boundaries and stay open to the bond; writing in-laws off ends what could grow.",
+      "persona": "any",
+      "source": "stay open",
+      "options": [
+        {
+          "text": "Stay open to building the bond, while keeping your boundaries",
+          "consequence": "Respect and warmth have room to grow.",
+          "outcome": "open",
+          "best": true
+        },
+        {
+          "text": "Decide the relationship is hopeless and stop trying",
+          "consequence": "Staying open with boundaries lets the bond grow; writing them off guarantees the distance you fear."
+        }
+      ],
+      "debrief": "Keep the door open to the bond even as you hold boundaries; don't write the relationship off."
+    },
+    {
+      "id": "fm-056",
+      "cat": "when-it-turns-harmful",
+      "type": "strike-rewrite",
+      "hook": "\"A little dowry is just tradition, so it's fine.\"",
+      "relearn": "Dowry, giving, taking or demanding, is illegal under the Dowry Prohibition Act, 1961, not just 'tradition'.",
+      "persona": "Razia",
+      "source": "dowry is illegal",
+      "myth": {
+        "un": "A little dowry is just tradition, so it's fine.",
+        "re": "Dowry is illegal in India, giving, taking and demanding it are all offences under the Dowry Prohibition Act, 1961.",
+        "why": "The law bans dowry whatever the custom is called."
+      }
+    },
+    {
+      "id": "fm-057",
+      "cat": "when-it-turns-harmful",
+      "type": "strike-rewrite",
+      "hook": "\"Boundary problems and abuse from in-laws are the same thing.\"",
+      "relearn": "Everyday friction differs from abuse, a pattern of control, threats or dowry harassment; abuse needs help.",
+      "persona": "Reshma",
+      "source": "friction vs abuse",
+      "myth": {
+        "un": "Boundary problems and abuse from in-laws are the same thing.",
+        "re": "Normal friction is about limits and adjusting; abuse is a pattern of control, threats, dowry harassment or violence, and needs help.",
+        "why": "There's a clear line between everyday friction and abuse."
+      }
+    },
+    {
+      "id": "fm-058",
+      "cat": "when-it-turns-harmful",
+      "type": "sort",
+      "hook": "Sort: ordinary family friction to work through, or a red flag that needs help?",
+      "relearn": "Visit-frequency and custom clashes are friction; threats for money and controlling your movements are red flags needing help.",
+      "persona": "Reshma",
+      "source": "friction or red flag",
+      "items": [
+        {
+          "id": "a",
+          "text": "Disagreeing about visit frequency"
+        },
+        {
+          "id": "b",
+          "text": "Demands for money or gifts under threat"
+        },
+        {
+          "id": "c",
+          "text": "Differing festival customs"
+        },
+        {
+          "id": "d",
+          "text": "Controlling your movements, phone or money"
+        }
+      ],
+      "bins": [
+        {
+          "id": "friction",
+          "label": "Work-through friction"
+        },
+        {
+          "id": "redflag",
+          "label": "Red flag, get help"
+        }
+      ],
+      "key": {
+        "a": "friction",
+        "b": "redflag",
+        "c": "friction",
+        "d": "redflag"
+      }
+    },
+    {
+      "id": "fm-059",
+      "cat": "when-it-turns-harmful",
+      "type": "branch",
+      "hook": "Your in-laws begin pressuring your family for money and gifts after the wedding.",
+      "relearn": "Post-wedding money demands are illegal dowry harassment; name it and seek help, don't pay quietly.",
+      "persona": "Razia",
+      "source": "name dowry harassment",
+      "options": [
+        {
+          "text": "Name it as dowry harassment, talk to your partner, and seek help",
+          "consequence": "You treat an illegal, serious harm seriously.",
+          "outcome": "named",
+          "best": true
+        },
+        {
+          "text": "Pay quietly to keep the peace and tell no one",
+          "consequence": "Naming dowry harassment and seeking help addresses an illegal harm; paying quietly usually invites more demands."
+        }
+      ],
+      "debrief": "Post-wedding demands for money are dowry harassment, which is illegal; name it and get help."
+    },
+    {
+      "id": "fm-060",
+      "cat": "when-it-turns-harmful",
+      "type": "spot",
+      "hook": "Spot the sign that in-law conflict has crossed into coercive control.",
+      "relearn": "Being isolated from money and people, or threatened, is coercive control, not ordinary conflict.",
+      "persona": "Reshma",
+      "source": "coercive control",
+      "scene": [
+        {
+          "text": "Disagreeing about how to host a festival",
+          "trick": false
+        },
+        {
+          "text": "Being cut off from your own money and friends",
+          "trick": true
+        },
+        {
+          "text": "Being threatened if you don't obey",
+          "trick": true
+        }
+      ],
+      "why": "Festival disagreements are normal; cutting you off from money and friends, and threats, are coercive control."
+    },
+    {
+      "id": "fm-061",
+      "cat": "when-it-turns-harmful",
+      "type": "strike-rewrite",
+      "hook": "\"What happens inside the family is private, so no one should ever get help.\"",
+      "relearn": "Privacy doesn't cover abuse; you can always seek help when there's control, threats or violence.",
+      "persona": "Reshma",
+      "source": "not a private matter",
+      "myth": {
+        "un": "What happens inside the family is private, so no one should ever get help.",
+        "re": "Privacy never covers abuse; you have every right to seek help when control, threats or violence appear.",
+        "why": "Abuse isn't a private matter to be hidden."
+      }
+    },
+    {
+      "id": "fm-062",
+      "cat": "when-it-turns-harmful",
+      "type": "match",
+      "hook": "Match each India helpline to when it's for.",
+      "relearn": "181, 112 and a counsellor are real routes when family conflict turns to abuse, dowry harassment or danger.",
+      "persona": "Reshma",
+      "source": "help routes",
+      "pairs": [
+        {
+          "left": "Women's Helpline 181",
+          "right": "In-law abuse or dowry harassment"
+        },
+        {
+          "left": "Police / emergency 112",
+          "right": "Immediate danger or violence"
+        },
+        {
+          "left": "Respect at Home (g56) + a counsellor",
+          "right": "Naming and planning around abuse"
+        }
+      ]
+    },
+    {
+      "id": "fm-063",
+      "cat": "when-it-turns-harmful",
+      "type": "branch",
+      "hook": "A friend confides that her in-laws control her every move and threaten her.",
+      "relearn": "Believe someone describing control and threats; offer help, don't tell them to adjust.",
+      "persona": "Razia",
+      "source": "believe and support",
+      "options": [
+        {
+          "text": "Believe her, tell her it's not okay, and share help options gently",
+          "consequence": "She feels supported and less alone.",
+          "outcome": "supported",
+          "best": true
+        },
+        {
+          "text": "Tell her it's normal and she should just adjust",
+          "consequence": "Believing her and sharing help options supports her; calling abuse 'normal adjusting' leaves her trapped."
+        }
+      ],
+      "debrief": "When someone describes control and threats, believe them and offer help, never 'just adjust'."
+    },
+    {
+      "id": "fm-064",
+      "cat": "when-it-turns-harmful",
+      "type": "reflect",
+      "hook": "Sam: kind boundaries handle the everyday, but control, threats or dowry demands aren't boundary problems, they need help. Clear?",
+      "relearn": "Control, threats and dowry demands aren't boundary problems; they're abuse that needs help.",
+      "persona": "Reshma",
+      "source": "beyond boundaries",
+      "prompt": "What do you think?",
+      "options": [
+        "Clear",
+        "That's different",
+        "Get help then"
+      ],
+      "affirm": "Boundaries handle ordinary friction; control, threats and dowry demands are abuse that needs help, not negotiation."
+    },
+    {
+      "id": "fm-065",
+      "cat": "when-it-turns-harmful",
+      "type": "strike-rewrite",
+      "hook": "\"Anti-dowry and cruelty laws are only ever misused, so they don't really protect anyone.\"",
+      "relearn": "Anti-dowry and cruelty laws offer real protection from serious harm, even though misuse is debated.",
+      "persona": "Reshma",
+      "source": "real protection",
+      "myth": {
+        "un": "Anti-dowry and cruelty laws are only ever misused, so they don't really protect anyone.",
+        "re": "These laws exist to protect people from real, serious harm; misuse can occur, but the protections are genuine and important.",
+        "why": "Protections being imperfect doesn't make them fake."
+      }
+    },
+    {
+      "id": "fm-066",
+      "cat": "when-it-turns-harmful",
+      "type": "reflect",
+      "hook": "Sam: needing help with a harmful family situation is never your failure, and never your shame. Hear that?",
+      "relearn": "Seeking help for a harmful family situation is courage, never your failure or shame.",
+      "persona": "Reshma",
+      "source": "not your shame",
+      "prompt": "What's your take?",
+      "options": [
+        "I hear it",
+        "Not my shame",
+        "Thank you"
+      ],
+      "affirm": "Reaching for help with a harmful family situation is courage, not failure or shame."
+    },
+    {
+      "id": "fm-067",
+      "cat": "when-it-turns-harmful",
+      "type": "branch",
+      "hook": "You're unsure whether what you're experiencing at home 'counts' as serious enough for help.",
+      "relearn": "You can seek help while still unsure; you don't have to wait until it's 'bad enough'.",
+      "persona": "Reshma",
+      "source": "reach out anyway",
+      "options": [
+        {
+          "text": "Reach out anyway, a counsellor or 181 can help you make sense of it",
+          "consequence": "You get clarity and support without having to be certain first.",
+          "outcome": "reached",
+          "best": true
+        },
+        {
+          "text": "Wait until it's 'bad enough', alone",
+          "consequence": "Reaching out early gets you clarity and support; waiting until it's 'bad enough' alone often means waiting too long."
+        }
+      ],
+      "debrief": "You don't have to be certain it's 'serious enough' to reach out; help can start with uncertainty."
+    },
+    {
+      "id": "fm-068",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "Before a big family visit, you want to avoid the usual blow-ups.",
+      "relearn": "Align before visits with a quick couple check-in; don't wing the hard topics.",
+      "persona": "Pooja",
+      "source": "pre-visit check-in",
+      "options": [
+        {
+          "text": "Run a two-minute couple check-in: agree your line on the likely topics",
+          "consequence": "You arrive aligned and calm.",
+          "outcome": "aligned",
+          "best": true
+        },
+        {
+          "text": "Wing it and hope nothing comes up",
+          "consequence": "A quick check-in to agree your line keeps you aligned; winging it leaves you to be split in the moment."
+        }
+      ],
+      "debrief": "A two-minute pre-visit check-in, agreeing your line, prevents most family blow-ups."
+    },
+    {
+      "id": "fm-069",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match each tool to the job it does.",
+      "relearn": "The warm no, the couple check-in and the help routes are the core tools of navigating family kindly and safely.",
+      "persona": "any",
+      "source": "the toolkit",
+      "pairs": [
+        {
+          "left": "The warm 'no'",
+          "right": "Decline without rejecting"
+        },
+        {
+          "left": "The couple check-in",
+          "right": "Agree your line before family time"
+        },
+        {
+          "left": "The help routes",
+          "right": "When friction becomes abuse"
+        }
+      ]
+    },
+    {
+      "id": "fm-070",
+      "cat": "tools-and-help",
+      "type": "role-play",
+      "hook": "A relative pushes you to justify a private decision. You want a warm, firm, repeatable line.",
+      "relearn": "A warm, firm, repeatable line ends the pressure without a fight, every time.",
+      "persona": "Karthik",
+      "source": "the repeatable line",
+      "setup": "Use the line:",
+      "yourLine": [
+        {
+          "text": "\"We've thought about it and we're happy with our choice, thank you for caring.\"",
+          "best": true
+        },
+        {
+          "text": "\"Ugh, why do you always ask me that?\""
+        }
+      ]
+    },
+    {
+      "id": "fm-071",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: a tool that protects the relationship, or a habit that quietly damages it?",
+      "relearn": "Aligning privately and the warm no protect the bond; gossiping and silent resentment quietly corrode it.",
+      "persona": "any",
+      "source": "tool or damage",
+      "items": [
+        {
+          "id": "a",
+          "text": "Agreeing your stance privately first"
+        },
+        {
+          "id": "b",
+          "text": "Venting about in-laws to everyone but them"
+        },
+        {
+          "id": "c",
+          "text": "A warm, clear 'no'"
+        },
+        {
+          "id": "d",
+          "text": "Silent resentment that builds for months"
+        }
+      ],
+      "bins": [
+        {
+          "id": "tool",
+          "label": "Protective tool"
+        },
+        {
+          "id": "damage",
+          "label": "Quietly damaging"
+        }
+      ],
+      "key": {
+        "a": "tool",
+        "b": "damage",
+        "c": "tool",
+        "d": "damage"
+      }
+    },
+    {
+      "id": "fm-072",
+      "cat": "tools-and-help",
+      "type": "strike-rewrite",
+      "hook": "\"There's nothing you can actually do about family dynamics, you just endure them.\"",
+      "relearn": "You're not powerless; alignment, boundaries, lines and help routes genuinely shift family dynamics over time.",
+      "persona": "any",
+      "source": "not powerless",
+      "myth": {
+        "un": "There's nothing you can actually do about family dynamics, you just endure them.",
+        "re": "You have real tools, alignment, kind boundaries, repeatable lines and help routes, that change the dynamic over time.",
+        "why": "Family dynamics are workable, not just endurable."
+      }
+    },
+    {
+      "id": "fm-073",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: you can't control how relatives act, but you can control your alignment, your boundaries and your warmth. Enough to start?",
+      "relearn": "Control what's yours, alignment, boundaries and warmth; that's enough to change the dynamic.",
+      "persona": "any",
+      "source": "what's yours",
+      "prompt": "What do you think?",
+      "options": [
+        "Enough",
+        "I can do that",
+        "Starting there"
+      ],
+      "affirm": "You can't control relatives, but your alignment, boundaries and warmth are yours, and they're enough to start."
+    },
+    {
+      "id": "fm-074",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "After a tense family event, you and your partner feel raw and disconnected.",
+      "relearn": "Debrief as a team after tense events; blame just imports the family's tension into the couple.",
+      "persona": "Karthik",
+      "source": "team debrief",
+      "options": [
+        {
+          "text": "Debrief gently as a team: what worked, what you'd do differently",
+          "consequence": "You repair and get stronger for next time.",
+          "outcome": "repaired",
+          "best": true
+        },
+        {
+          "text": "Blame each other for how it went",
+          "consequence": "A gentle team debrief repairs and improves; blaming each other turns the family's tension into your own."
+        }
+      ],
+      "debrief": "Debriefing kindly after family events repairs the couple and builds skill for next time."
+    },
+    {
+      "id": "fm-075",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match a tricky moment to the tool that fits it.",
+      "relearn": "Each moment has a tool: a warm deflect, the couple line, or a help route when it's serious.",
+      "persona": "Reshma",
+      "source": "moment to tool",
+      "pairs": [
+        {
+          "left": "Unsolicited advice",
+          "right": "\"Thanks, we'll think it over.\""
+        },
+        {
+          "left": "A surprise demand",
+          "right": "\"We'll decide together and tell you.\""
+        },
+        {
+          "left": "Signs of control or threats",
+          "right": "Reach out to 181 or a counsellor"
+        }
+      ]
+    },
+    {
+      "id": "fm-076",
+      "cat": "tools-and-help",
+      "type": "spot",
+      "hook": "Spot the sustainable approach to a lifelong family relationship.",
+      "relearn": "Sustainable family navigation is consistent small boundaries and alignment, not one big confrontation.",
+      "persona": "Sneha",
+      "source": "sustainable approach",
+      "scene": [
+        {
+          "text": "Small, warm boundaries kept consistently",
+          "trick": false
+        },
+        {
+          "text": "One huge confrontation to 'sort it all out'",
+          "trick": true
+        },
+        {
+          "text": "Aligning as a couple again and again",
+          "trick": false
+        }
+      ],
+      "why": "Consistent small boundaries and ongoing alignment last; one big blow-up rarely fixes a lifelong relationship."
+    },
+    {
+      "id": "fm-077",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: you've mapped the web, learned the warm 'no', and the team line. The family map is yours now. Ready to use it?",
+      "relearn": "You hold the family map now: the web, the warm no, the couple line and help routes.",
+      "persona": "any",
+      "source": "the map is yours",
+      "prompt": "What's your take?",
+      "options": [
+        "Ready",
+        "It's mine now",
+        "Let's go"
+      ],
+      "affirm": "With the web mapped, the warm no, the couple line and the help routes, you can navigate family with confidence."
+    },
+    {
+      "id": "fm-078",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "You want one principle to carry into every family situation from here.",
+      "relearn": "Lead with warmth and clarity: honour them, protect us, get help if it turns harmful.",
+      "persona": "Pooja",
+      "source": "the one principle",
+      "options": [
+        {
+          "text": "Lead with warmth and clarity: honour them, protect us, get help if it turns harmful",
+          "consequence": "You have a compass for the whole web.",
+          "outcome": "compass",
+          "best": true
+        },
+        {
+          "text": "Try to please everyone, all the time, at any cost",
+          "consequence": "Warmth-plus-clarity is a compass that holds; pleasing everyone at any cost erases you and never ends."
+        }
+      ],
+      "debrief": "One principle carries the map: honour them, protect the couple, and get help if it turns harmful."
+    },
+    {
+      "id": "fm-079",
+      "cat": "tools-and-help",
+      "type": "role-play",
+      "hook": "Your partner asks how you want to handle their family going forward. Set the tone as a team.",
+      "relearn": "Setting a shared tone, warm, aligned, mutually backed, beats lurching from blow-up to blow-up.",
+      "persona": "Karthik",
+      "source": "set the tone",
+      "setup": "Say it as a team:",
+      "yourLine": [
+        {
+          "text": "\"Let's stay warm with them, decide the big stuff together, and back each other every time.\"",
+          "best": true
+        },
+        {
+          "text": "\"Let's just deal with each thing as it blows up.\""
+        }
+      ]
+    },
+    {
+      "id": "fm-080",
+      "cat": "respect-both-ways",
+      "type": "spot",
+      "hook": "Spot which response honours an elder AND keeps your voice.",
+      "relearn": "Honour the elder and keep your voice; silent obedience isn't the only respectful option.",
+      "persona": "Sneha",
+      "source": "honour and voice",
+      "scene": [
+        {
+          "text": "\"Thank you, we'll weigh it and decide for ourselves.\"",
+          "trick": false
+        },
+        {
+          "text": "Obeying silently to avoid any friction",
+          "trick": true
+        },
+        {
+          "text": "Listening fully, then making your own call",
+          "trick": false
+        }
+      ],
+      "why": "Thanking and deciding for yourselves honours the elder and your voice; silent obedience drops your voice."
+    },
+    {
+      "id": "fm-081",
+      "cat": "when-it-turns-harmful",
+      "type": "sort",
+      "hook": "Sort: handle as a couple, or this needs outside help now?",
+      "relearn": "Visit mismatches and ordinary tension are couple-level; threats and intimidating money demands need help now.",
+      "persona": "Reshma",
+      "source": "couple or help",
+      "items": [
+        {
+          "id": "a",
+          "text": "Mismatched expectations about visits"
+        },
+        {
+          "id": "b",
+          "text": "Threats to your safety"
+        },
+        {
+          "id": "c",
+          "text": "Tense but ordinary disagreements"
+        },
+        {
+          "id": "d",
+          "text": "Money demanded with intimidation"
+        }
+      ],
+      "bins": [
+        {
+          "id": "couple",
+          "label": "Handle as a couple"
+        },
+        {
+          "id": "help",
+          "label": "Needs help now"
+        }
+      ],
+      "key": {
+        "a": "couple",
+        "b": "help",
+        "c": "couple",
+        "d": "help"
+      }
+    },
+    {
+      "id": "fm-082",
+      "cat": "when-it-turns-harmful",
+      "type": "role-play",
+      "hook": "A relative hints that 'gifts' should keep coming from your family. You want to shut it down clearly.",
+      "relearn": "Naming dowry as illegal and declining plainly shuts down the demand without leaving a door open.",
+      "persona": "Razia",
+      "source": "shut down dowry",
+      "setup": "Say it plainly:",
+      "yourLine": [
+        {
+          "text": "\"Dowry is illegal, and our families won't be doing that, let's leave it there.\"",
+          "best": true
+        },
+        {
+          "text": "\"Um, I'll ask them, maybe.\""
+        }
+      ]
+    },
+    {
+      "id": "fm-083",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: a green-flag family habit to keep, or a pattern to change?",
+      "relearn": "Talking early and backing each other are habits to keep; festering and family-vs-family scorekeeping need changing.",
+      "persona": "any",
+      "source": "keep or change",
+      "items": [
+        {
+          "id": "a",
+          "text": "Talking issues through early and kindly"
+        },
+        {
+          "id": "b",
+          "text": "Letting things fester silently"
+        },
+        {
+          "id": "c",
+          "text": "Backing each other in the room"
+        },
+        {
+          "id": "d",
+          "text": "Competing over whose family is 'right'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "keep",
+          "label": "Green-flag habit"
+        },
+        {
+          "id": "change",
+          "label": "Pattern to change"
+        }
+      ],
+      "key": {
+        "a": "keep",
+        "b": "change",
+        "c": "keep",
+        "d": "change"
+      }
+    },
+    {
+      "id": "fm-084",
+      "cat": "tools-and-help",
+      "type": "spot",
+      "hook": "Spot the move that keeps a lifelong family bond healthy.",
+      "relearn": "Quick repair and good-faith assumptions sustain family bonds; keeping score erodes them.",
+      "persona": "Pooja",
+      "source": "keep it healthy",
+      "scene": [
+        {
+          "text": "Repairing quickly after a clash",
+          "trick": false
+        },
+        {
+          "text": "Keeping score of every past slight",
+          "trick": true
+        },
+        {
+          "text": "Assuming good intent where you can",
+          "trick": false
+        }
+      ],
+      "why": "Quick repair and assuming good intent keep the bond healthy; scorekeeping slowly poisons it."
+    }
+  ]
+}

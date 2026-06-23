@@ -1,0 +1,1941 @@
+{
+  "game": "My Choices, My Future",
+  "gameId": "my-choices-future",
+  "node": "g29",
+  "chapter": 5,
+  "ages": "15-18",
+  "thread": "F · Sexual & Reproductive Health",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Gated (school-comfort toggle; at 15-18 comprehensive info is the norm)",
+  "leadMechanics": [
+    "branch",
+    "sort",
+    "strike-rewrite"
+  ],
+  "note": "Contraception, family planning & services (UNESCO 8.1, 6.1, 6.2, 6.3, 5.5, 2.2). New v2 build, Chapter 5 opener (mature, matter-of-fact, autonomy-first). Your choices, your information, free of pressure in any direction; delaying/not having sex is fully valid, respected, and the only 100%-certain option. Comprehensive but never explicit. Builds on g22 (Plan It); links g30 (Status: Know It) and g31 (Mutual). India: RKSK / Adolescent Friendly Health Clinics (Ujala), confidential services; age of consent 18, POCSO protects under-18s and coercion is a child-protection matter; routes to a doctor / trusted adult.",
+  "categories": {
+    "the-full-picture": "The full picture: methods, effectiveness, access",
+    "if-when-whether": "If, when & whether: choices & rights",
+    "decide-it": "Decide It: values-based decisions",
+    "access-and-rights": "Access & rights: making it real",
+    "talk-it-through": "Talk it through: partner & doctor",
+    "my-future-no-pressure": "My future: no pressure, your values"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "strike-rewrite",
+    "sort",
+    "reflect",
+    "match",
+    "role-play",
+    "spot"
+  ],
+  "evidenceBase": [
+    "Contraceptive methods sit on an effectiveness tier by real-life (typical) use: long-acting reversible methods (IUD, implant) are most effective (over 99%, no daily action needed); injectables and the daily pill/patch/ring are very effective with consistent correct use (pill ~91% typical use); male condoms are ~87% with typical use but are the ONLY method that also protects against STIs and HIV (dual protection); and not having sex (delaying) is the only 100%-certain option and is fully valid and respected (WHO; CDC/ACOG)",
+    "Emergency contraception prevents pregnancy after unprotected sex if used within 5 days (sooner is better); it works mainly by delaying ovulation and is NOT the same as abortion and will not end an existing pregnancy; it is a backup, not a regular method (WHO). Contraception is reversible and does not cause future infertility; the pill does not protect against STIs",
+    "These are the young person's own choices, to be made with complete accurate information and free of pressure in any direction, including the choice to delay. In India, confidential services exist through RKSK Adolescent Friendly Health Clinics (Ujala) and public family planning; the age of consent is 18 and the law (POCSO) protects under-18s, so any pressure, coercion or exploitation is a child-protection matter to route to a trusted adult or doctor (MoHFW RKSK; UNESCO KC8)"
+  ],
+  "scenarios": [
+    {
+      "id": "mc-001",
+      "cat": "the-full-picture",
+      "type": "sort",
+      "hook": "Sort by real-life effectiveness: very high, or depends on perfect use?",
+      "items": [
+        {
+          "id": "a",
+          "text": "IUD / implant (LARC)"
+        },
+        {
+          "id": "b",
+          "text": "The daily pill"
+        },
+        {
+          "id": "c",
+          "text": "Male condom"
+        },
+        {
+          "id": "d",
+          "text": "Not having sex (delaying)"
+        }
+      ],
+      "bins": [
+        {
+          "id": "top",
+          "label": "Top-tier / certain"
+        },
+        {
+          "id": "depends",
+          "label": "Depends on consistent use"
+        }
+      ],
+      "key": {
+        "a": "top",
+        "b": "depends",
+        "c": "depends",
+        "d": "top"
+      },
+      "relearn": "LARC and delaying are most certain; the pill and condoms depend on consistent, correct use.",
+      "persona": "any",
+      "source": "effectiveness tiers (WHO/CDC)"
+    },
+    {
+      "id": "mc-002",
+      "cat": "the-full-picture",
+      "type": "sort",
+      "hook": "Sort: protects against STIs too, or only against pregnancy?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Condom"
+        },
+        {
+          "id": "b",
+          "text": "The pill"
+        },
+        {
+          "id": "c",
+          "text": "IUD / implant"
+        },
+        {
+          "id": "d",
+          "text": "Injectable"
+        }
+      ],
+      "bins": [
+        {
+          "id": "both",
+          "label": "Pregnancy + STIs"
+        },
+        {
+          "id": "preg",
+          "label": "Pregnancy only"
+        }
+      ],
+      "key": {
+        "a": "both",
+        "b": "preg",
+        "c": "preg",
+        "d": "preg"
+      },
+      "relearn": "Only condoms protect against STIs as well as pregnancy; that's 'dual protection'.",
+      "persona": "any",
+      "source": "dual protection (CDC)"
+    },
+    {
+      "id": "mc-003",
+      "cat": "the-full-picture",
+      "type": "sort",
+      "hook": "Sort: a real contraceptive method, or a myth?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Implant"
+        },
+        {
+          "id": "b",
+          "text": "Pulling out fully prevents pregnancy"
+        },
+        {
+          "id": "c",
+          "text": "Condom"
+        },
+        {
+          "id": "d",
+          "text": "Washing after sex prevents pregnancy"
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "Real method"
+        },
+        {
+          "id": "myth",
+          "label": "Myth"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "myth",
+        "c": "real",
+        "d": "myth"
+      },
+      "relearn": "Implants and condoms are real methods; 'pulling out' and 'washing after' are unreliable myths.",
+      "persona": "any",
+      "source": "methods vs myths"
+    },
+    {
+      "id": "mc-004",
+      "cat": "the-full-picture",
+      "type": "match",
+      "hook": "Match the method to its key feature.",
+      "pairs": [
+        {
+          "left": "IUD / implant",
+          "right": "Set-and-forget, longest-lasting"
+        },
+        {
+          "left": "Condom",
+          "right": "Also blocks STIs"
+        },
+        {
+          "left": "The pill",
+          "right": "Taken daily"
+        }
+      ],
+      "relearn": "Each method has a feature: LARC lasts, condoms protect from STIs, the pill is daily.",
+      "persona": "Sneha",
+      "source": "method features"
+    },
+    {
+      "id": "mc-005",
+      "cat": "the-full-picture",
+      "type": "match",
+      "hook": "Match the method to its real-life effectiveness.",
+      "pairs": [
+        {
+          "left": "IUD / implant",
+          "right": "Over 99%"
+        },
+        {
+          "left": "Pill (typical use)",
+          "right": "About 91%"
+        },
+        {
+          "left": "Condom (typical use)",
+          "right": "About 87%"
+        }
+      ],
+      "relearn": "LARC is over 99%; the pill and condoms are lower in typical use, but still effective when used well.",
+      "persona": "any",
+      "source": "effectiveness (WHO/CDC)"
+    },
+    {
+      "id": "mc-006",
+      "cat": "the-full-picture",
+      "type": "match",
+      "hook": "Match the situation to the method worth knowing.",
+      "pairs": [
+        {
+          "left": "Want STI protection too",
+          "right": "Condom (with or without another method)"
+        },
+        {
+          "left": "Want nothing to remember daily",
+          "right": "IUD / implant"
+        },
+        {
+          "left": "Unprotected sex already happened",
+          "right": "Emergency contraception (within 5 days)"
+        }
+      ],
+      "relearn": "Match the method to the need: dual protection, set-and-forget, or backup.",
+      "persona": "any",
+      "source": "method matching"
+    },
+    {
+      "id": "mc-007",
+      "cat": "the-full-picture",
+      "type": "strike-rewrite",
+      "hook": "\"The pill protects you against STIs.\"",
+      "myth": {
+        "un": "The pill protects you against STIs.",
+        "re": "The pill prevents pregnancy only; condoms are what protect against STIs.",
+        "why": "Different methods do different jobs."
+      },
+      "relearn": "The pill stops pregnancy, not STIs; only condoms do both.",
+      "persona": "any",
+      "source": "dual protection"
+    },
+    {
+      "id": "mc-008",
+      "cat": "the-full-picture",
+      "type": "strike-rewrite",
+      "hook": "\"Using contraception now makes you infertile later.\"",
+      "myth": {
+        "un": "Contraception now makes you infertile later.",
+        "re": "These methods are reversible; fertility returns after stopping.",
+        "why": "They prevent pregnancy while used, not permanently."
+      },
+      "relearn": "Contraception is reversible; it doesn't cause future infertility.",
+      "persona": "Sneha",
+      "source": "reversibility (WHO)"
+    },
+    {
+      "id": "mc-009",
+      "cat": "the-full-picture",
+      "type": "strike-rewrite",
+      "hook": "\"Emergency contraception is the same as an abortion.\"",
+      "myth": {
+        "un": "Emergency contraception is the same as an abortion.",
+        "re": "It mainly delays ovulation to prevent pregnancy; it won't end an existing pregnancy.",
+        "why": "It's prevention after unprotected sex, not termination."
+      },
+      "relearn": "Emergency contraception prevents pregnancy; it is not an abortion.",
+      "persona": "Counsellor",
+      "source": "emergency contraception (WHO)"
+    },
+    {
+      "id": "mc-010",
+      "cat": "the-full-picture",
+      "type": "strike-rewrite",
+      "hook": "\"Condoms never really work, so why bother.\"",
+      "myth": {
+        "un": "Condoms don't really work.",
+        "re": "Used correctly every time they're about 98% effective, and they're the only STI protection.",
+        "why": "Most 'failure' is inconsistent or incorrect use."
+      },
+      "relearn": "Used right every time, condoms work well and uniquely guard against STIs.",
+      "persona": "Vijay",
+      "source": "condom effectiveness"
+    },
+    {
+      "id": "mc-011",
+      "cat": "the-full-picture",
+      "type": "match",
+      "hook": "Match the term to what it means.",
+      "pairs": [
+        {
+          "left": "Typical use",
+          "right": "Real life, including slips"
+        },
+        {
+          "left": "Perfect use",
+          "right": "Every time, exactly right"
+        },
+        {
+          "left": "Dual protection",
+          "right": "Pregnancy + STIs covered"
+        }
+      ],
+      "relearn": "Real-life effectiveness depends on consistent, correct use, that's 'typical use'.",
+      "persona": "any",
+      "source": "typical vs perfect use"
+    },
+    {
+      "id": "mc-012",
+      "cat": "the-full-picture",
+      "type": "sort",
+      "hook": "Sort: raises real-life effectiveness, or lowers it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Using it correctly every single time"
+        },
+        {
+          "id": "b",
+          "text": "Skipping pills or going without"
+        },
+        {
+          "id": "c",
+          "text": "Knowing how your method works"
+        },
+        {
+          "id": "d",
+          "text": "Guessing from rumour"
+        }
+      ],
+      "bins": [
+        {
+          "id": "up",
+          "label": "Raises it"
+        },
+        {
+          "id": "down",
+          "label": "Lowers it"
+        }
+      ],
+      "key": {
+        "a": "up",
+        "b": "down",
+        "c": "up",
+        "d": "down"
+      },
+      "relearn": "Consistent, correct, informed use is what makes a method actually effective.",
+      "persona": "any",
+      "source": "consistent use"
+    },
+    {
+      "id": "mc-013",
+      "cat": "the-full-picture",
+      "type": "sort",
+      "hook": "Sort: where you can actually get these.",
+      "items": [
+        {
+          "id": "a",
+          "text": "Condoms at a pharmacy"
+        },
+        {
+          "id": "b",
+          "text": "An IUD fitted by a clinician"
+        },
+        {
+          "id": "c",
+          "text": "Pills via a doctor / AFHC clinic"
+        },
+        {
+          "id": "d",
+          "text": "A reliable method from a rumour"
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "A real source"
+        },
+        {
+          "id": "no",
+          "label": "Not a source"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "real",
+        "c": "real",
+        "d": "no"
+      },
+      "relearn": "Pharmacies, clinics and doctors are real sources; rumour isn't.",
+      "persona": "any",
+      "source": "access (RKSK/AFHC)"
+    },
+    {
+      "id": "mc-014",
+      "cat": "the-full-picture",
+      "type": "reflect",
+      "hook": "Lensy: with the full picture, the choice of method is genuinely yours. Feel that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I can choose now",
+        "Good to know it all"
+      ],
+      "affirm": "Complete information is exactly what makes a choice truly your own.",
+      "relearn": "Full, accurate information is what makes the choice genuinely yours.",
+      "persona": "Sneha",
+      "source": "autonomy"
+    },
+    {
+      "id": "mc-015",
+      "cat": "the-full-picture",
+      "type": "spot",
+      "hook": "Spot the misinformation in this 'advice'.",
+      "scene": [
+        {
+          "text": "\"You can't get pregnant the first time\"",
+          "trick": true
+        },
+        {
+          "text": "\"Condoms also protect from STIs\"",
+          "trick": false
+        },
+        {
+          "text": "\"A certain day of the month is always safe\"",
+          "trick": true
+        }
+      ],
+      "why": "'First time' and 'always safe day' are myths; the condom-STI line is the true one.",
+      "relearn": "Spot the classic myths; trust evidence, not rumour.",
+      "persona": "any",
+      "source": "myth-spotting"
+    },
+    {
+      "id": "mc-016",
+      "cat": "the-full-picture",
+      "type": "strike-rewrite",
+      "hook": "\"Only people who have a lot of sex need to think about contraception.\"",
+      "myth": {
+        "un": "Only people having lots of sex need contraception.",
+        "re": "Any unprotected sex can lead to pregnancy or an STI; and delaying is the certain option.",
+        "why": "It's about whether, not how often."
+      },
+      "relearn": "It's the act, not the frequency; informed choice (including delaying) is for everyone.",
+      "persona": "any",
+      "source": "risk basics"
+    },
+    {
+      "id": "mc-017",
+      "cat": "if-when-whether",
+      "type": "reflect",
+      "hook": "Lensy: whether to have children, and when, is genuinely your own choice. Sit with that.",
+      "prompt": "What do you think?",
+      "options": [
+        "It's my choice",
+        "Good to know",
+        "Reassuring"
+      ],
+      "affirm": "Whether, when and how, those are yours to decide, on your timeline.",
+      "relearn": "Whether and when to have children is your own choice to make.",
+      "persona": "Sneha",
+      "source": "reproductive rights"
+    },
+    {
+      "id": "mc-018",
+      "cat": "if-when-whether",
+      "type": "reflect",
+      "hook": "Lensy: choosing to delay sex, or not have it for now, is a fully valid, respected choice. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Totally valid",
+        "Respected"
+      ],
+      "affirm": "Delaying is wise, certain and entirely your right, no one should pressure you out of it.",
+      "relearn": "Delaying or not having sex is fully valid and the most certain choice.",
+      "persona": "any",
+      "source": "delaying respected"
+    },
+    {
+      "id": "mc-019",
+      "cat": "if-when-whether",
+      "type": "strike-rewrite",
+      "hook": "\"A girl your age should be thinking about marriage and babies, not the future.\"",
+      "myth": {
+        "un": "At your age you should focus on marriage and babies.",
+        "re": "Your education and future are yours to build; family planning is a tool for the life you want.",
+        "why": "Whether and when is a personal right, not a deadline set by others."
+      },
+      "relearn": "Your future is yours to plan; whether and when to marry or have children is your choice.",
+      "persona": "Sneha",
+      "source": "rights / against early marriage"
+    },
+    {
+      "id": "mc-020",
+      "cat": "if-when-whether",
+      "type": "strike-rewrite",
+      "hook": "\"Family planning is just about stopping babies.\"",
+      "myth": {
+        "un": "Family planning is only about preventing babies.",
+        "re": "It's a positive tool to choose if, when and how, for the life and family you want.",
+        "why": "Planning is about building a future, not just preventing one thing."
+      },
+      "relearn": "Family planning is a positive tool for the future you choose.",
+      "persona": "any",
+      "source": "family planning framing"
+    },
+    {
+      "id": "mc-021",
+      "cat": "if-when-whether",
+      "type": "strike-rewrite",
+      "hook": "\"Spacing pregnancies doesn't really matter.\"",
+      "myth": {
+        "un": "When and how far apart you have children doesn't matter.",
+        "re": "Spacing supports the health of parent and child; it's part of planning.",
+        "why": "Timing is a real, health-relevant choice."
+      },
+      "relearn": "If and when, including spacing, are real choices that support health.",
+      "persona": "Counsellor",
+      "source": "family planning / health"
+    },
+    {
+      "id": "mc-022",
+      "cat": "if-when-whether",
+      "type": "sort",
+      "hook": "Sort: a personal right, or something others get to decide for you?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Whether you have children"
+        },
+        {
+          "id": "b",
+          "text": "When you have them"
+        },
+        {
+          "id": "c",
+          "text": "Being forced into it by others"
+        },
+        {
+          "id": "d",
+          "text": "Whether you delay sex"
+        }
+      ],
+      "bins": [
+        {
+          "id": "right",
+          "label": "Your right"
+        },
+        {
+          "id": "no",
+          "label": "Not theirs to force"
+        }
+      ],
+      "key": {
+        "a": "right",
+        "b": "right",
+        "c": "no",
+        "d": "right"
+      },
+      "relearn": "Whether, when and delaying are your rights; no one gets to force them.",
+      "persona": "any",
+      "source": "reproductive rights"
+    },
+    {
+      "id": "mc-023",
+      "cat": "if-when-whether",
+      "type": "sort",
+      "hook": "Sort: respects your choice, or pressures it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Giving you full information and space"
+        },
+        {
+          "id": "b",
+          "text": "Pushing you to 'prove' love by having sex"
+        },
+        {
+          "id": "c",
+          "text": "Supporting whatever you decide"
+        },
+        {
+          "id": "d",
+          "text": "Shaming you for waiting"
+        }
+      ],
+      "bins": [
+        {
+          "id": "respect",
+          "label": "Respects you"
+        },
+        {
+          "id": "pressure",
+          "label": "Pressures you"
+        }
+      ],
+      "key": {
+        "a": "respect",
+        "b": "pressure",
+        "c": "respect",
+        "d": "pressure"
+      },
+      "relearn": "Respect gives information and space; pressure pushes or shames.",
+      "persona": "any",
+      "source": "pressure-free"
+    },
+    {
+      "id": "mc-024",
+      "cat": "if-when-whether",
+      "type": "sort",
+      "hook": "Sort: no one should be pushed into this.",
+      "items": [
+        {
+          "id": "a",
+          "text": "Sex"
+        },
+        {
+          "id": "b",
+          "text": "Marriage"
+        },
+        {
+          "id": "c",
+          "text": "Having a child"
+        },
+        {
+          "id": "d",
+          "text": "A freely made, informed choice"
+        }
+      ],
+      "bins": [
+        {
+          "id": "nopush",
+          "label": "Never to be forced"
+        },
+        {
+          "id": "ok",
+          "label": "Yours to make freely"
+        }
+      ],
+      "key": {
+        "a": "nopush",
+        "b": "nopush",
+        "c": "nopush",
+        "d": "ok"
+      },
+      "relearn": "No one should be pushed into sex, marriage or childbearing; free, informed choice is the point.",
+      "persona": "any",
+      "source": "consent (links g31)"
+    },
+    {
+      "id": "mc-025",
+      "cat": "if-when-whether",
+      "type": "reflect",
+      "hook": "Lensy: 'no pressure in any direction' includes no pressure to wait AND no pressure to rush. Fair?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Both ways",
+        "That's real freedom"
+      ],
+      "affirm": "Real freedom is the absence of pressure either way, the choice is simply yours.",
+      "relearn": "Pressure-free means neither pushed to act nor shamed for waiting.",
+      "persona": "any",
+      "source": "pressure-free"
+    },
+    {
+      "id": "mc-026",
+      "cat": "if-when-whether",
+      "type": "reflect",
+      "hook": "Lensy: knowing your rights here, do you feel more in charge of your own future?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "More in charge",
+        "It's mine"
+      ],
+      "affirm": "Knowing your rights is what puts your future in your own hands.",
+      "relearn": "Knowing your reproductive rights puts your future in your hands.",
+      "persona": "Arjun",
+      "source": "rights / agency"
+    },
+    {
+      "id": "mc-027",
+      "cat": "if-when-whether",
+      "type": "branch",
+      "hook": "A relative insists you should marry and start a family soon. It's not what you want yet.",
+      "options": [
+        {
+          "text": "Respectfully hold that it's your choice and your timeline",
+          "consequence": "You keep ownership of your own future.",
+          "outcome": "autonomy",
+          "best": true
+        },
+        {
+          "text": "Give in because they expect it",
+          "consequence": "Whether and when are your rights; you can hold your timeline respectfully."
+        }
+      ],
+      "debrief": "Family input is fine; the decision is still yours to make freely.",
+      "relearn": "You can respectfully hold that whether and when are your own choice.",
+      "persona": "Sneha",
+      "source": "autonomy / family"
+    },
+    {
+      "id": "mc-028",
+      "cat": "if-when-whether",
+      "type": "branch",
+      "hook": "You're not ready for sex, but a partner implies everyone your age is doing it.",
+      "options": [
+        {
+          "text": "Trust your own pace; 'everyone's doing it' isn't a reason",
+          "consequence": "You honour your own readiness.",
+          "outcome": "own-pace",
+          "best": true
+        },
+        {
+          "text": "Go along so you don't seem behind",
+          "consequence": "Your pace is yours; 'everyone' is pressure, not a fact."
+        }
+      ],
+      "debrief": "Readiness is personal; delaying is valid and certain.",
+      "relearn": "Decide by your own readiness, not 'everyone's doing it'.",
+      "persona": "Vijay",
+      "source": "delaying / pressure"
+    },
+    {
+      "id": "mc-029",
+      "cat": "if-when-whether",
+      "type": "strike-rewrite",
+      "hook": "\"Wanting to wait means something's wrong with you.\"",
+      "myth": {
+        "un": "Wanting to wait means something's wrong with you.",
+        "re": "Waiting is a common, healthy, fully respected choice.",
+        "why": "Readiness differs for everyone, and that's normal."
+      },
+      "relearn": "Choosing to wait is normal, healthy and respected.",
+      "persona": "any",
+      "source": "delaying respected"
+    },
+    {
+      "id": "mc-030",
+      "cat": "decide-it",
+      "type": "branch",
+      "hook": "Decide It. You're choosing whether and how to be sexually active. What's the sound way to decide?",
+      "options": [
+        {
+          "text": "Gather the facts, check your own values, decide freely, and own it",
+          "consequence": "You make a real, informed, self-owned choice.",
+          "outcome": "values-based",
+          "best": true
+        },
+        {
+          "text": "Just do whatever your friends or partner expect",
+          "consequence": "A good decision is facts + your values + free choice, not others' expectations."
+        }
+      ],
+      "debrief": "Deciding well: gather facts, weigh your values and consequences, choose freely, own it.",
+      "relearn": "Decide by facts and your own values, freely, and own the choice.",
+      "persona": "any",
+      "source": "decision skill"
+    },
+    {
+      "id": "mc-031",
+      "cat": "decide-it",
+      "type": "branch",
+      "hook": "Decide It. You and a partner choose to be active and want to avoid both pregnancy and STIs.",
+      "options": [
+        {
+          "text": "Use condoms (optionally plus another method for extra pregnancy cover)",
+          "consequence": "You get STI protection and strong pregnancy protection.",
+          "outcome": "dual",
+          "best": true
+        },
+        {
+          "text": "Use the pill alone and skip condoms",
+          "consequence": "The pill won't stop STIs; condoms give the dual protection you wanted."
+        }
+      ],
+      "debrief": "For both pregnancy and STIs, condoms are essential, optionally paired for extra cover.",
+      "relearn": "Want both kinds of protection? Condoms are the dual-protection move.",
+      "persona": "Vijay",
+      "source": "dual protection"
+    },
+    {
+      "id": "mc-032",
+      "cat": "decide-it",
+      "type": "branch",
+      "hook": "Decide It. A condom split during sex last night. What's the informed move?",
+      "options": [
+        {
+          "text": "Consider emergency contraception soon, it works best within 5 days",
+          "consequence": "You act in the window where EC can prevent pregnancy.",
+          "outcome": "ec",
+          "best": true
+        },
+        {
+          "text": "Just hope for the best",
+          "consequence": "EC works within 5 days (sooner is better); it's the backup for exactly this."
+        }
+      ],
+      "debrief": "After unprotected sex or a split, EC within 5 days is the backup option.",
+      "relearn": "After a slip, emergency contraception works best within 5 days.",
+      "persona": "any",
+      "source": "emergency contraception (WHO)"
+    },
+    {
+      "id": "mc-033",
+      "cat": "decide-it",
+      "type": "branch",
+      "hook": "Decide It. You keep forgetting the daily pill. How do you decide what fits your life?",
+      "options": [
+        {
+          "text": "Consider a method that doesn't need daily action, like a LARC",
+          "consequence": "You pick a method that matches how you actually live.",
+          "outcome": "fit",
+          "best": true
+        },
+        {
+          "text": "Keep forgetting and hope it's fine",
+          "consequence": "If daily isn't working, a set-and-forget method may fit you better; ask a clinician."
+        }
+      ],
+      "debrief": "The 'best' method is the one you'll actually use consistently.",
+      "relearn": "Match the method to your real life; a forgotten pill protects less.",
+      "persona": "Sneha",
+      "source": "method fit"
+    },
+    {
+      "id": "mc-034",
+      "cat": "decide-it",
+      "type": "branch",
+      "hook": "Decide It. You're unsure and want to choose well. Where do the facts come from?",
+      "options": [
+        {
+          "text": "A doctor / AFHC clinic and reliable sources",
+          "consequence": "Your decision rests on accurate information.",
+          "outcome": "informed",
+          "best": true
+        },
+        {
+          "text": "Whatever a forwarded message claims",
+          "consequence": "Decide from a clinician and reliable sources, not forwards."
+        }
+      ],
+      "debrief": "A good decision starts with accurate facts from real sources.",
+      "relearn": "Base the choice on a clinician and reliable sources, not rumour.",
+      "persona": "any",
+      "source": "informed decisions"
+    },
+    {
+      "id": "mc-035",
+      "cat": "decide-it",
+      "type": "branch",
+      "hook": "Decide It. There isn't a single 'right' life choice here, but there are non-negotiables. Which hold always?",
+      "options": [
+        {
+          "text": "Consent, safety and the law are non-negotiable",
+          "consequence": "You keep the floor that protects everyone.",
+          "outcome": "non-negotiables",
+          "best": true
+        },
+        {
+          "text": "Anything goes if you want it enough",
+          "consequence": "Personal choices vary, but consent, safety and law always hold."
+        }
+      ],
+      "debrief": "Beyond consent, safety and law, the diverse choices people make are legitimate and personal.",
+      "relearn": "Consent, safety and law are the non-negotiables; the rest is your values.",
+      "persona": "Counsellor",
+      "source": "non-negotiables"
+    },
+    {
+      "id": "mc-036",
+      "cat": "decide-it",
+      "type": "branch",
+      "hook": "Decide It. A partner says using a condom 'means you don't trust them'.",
+      "options": [
+        {
+          "text": "Keep your boundary; protection is about health, not trust",
+          "consequence": "You protect yourself and set a fair standard.",
+          "outcome": "boundary",
+          "best": true
+        },
+        {
+          "text": "Drop it to avoid upsetting them",
+          "consequence": "Protection isn't an insult; a caring partner respects it."
+        }
+      ],
+      "debrief": "Insisting on protection is health-smart and reasonable; pressure against it is a flag.",
+      "relearn": "Protection is about health, not distrust; hold the boundary.",
+      "persona": "Vijay",
+      "source": "consent / negotiation"
+    },
+    {
+      "id": "mc-037",
+      "cat": "decide-it",
+      "type": "branch",
+      "hook": "Decide It. You realise you're choosing mostly to please someone else.",
+      "options": [
+        {
+          "text": "Pause, and re-decide from your own values",
+          "consequence": "You take the choice back as your own.",
+          "outcome": "self-owned",
+          "best": true
+        },
+        {
+          "text": "Carry on to keep them happy",
+          "consequence": "A real choice is yours, not made to please someone else."
+        }
+      ],
+      "debrief": "If a choice isn't truly yours, you can pause and reclaim it.",
+      "relearn": "A genuine choice is owned by you, not made to please others.",
+      "persona": "any",
+      "source": "autonomy"
+    },
+    {
+      "id": "mc-038",
+      "cat": "decide-it",
+      "type": "branch",
+      "hook": "Decide It. You're under 18 and a much older person is pushing a sexual relationship.",
+      "options": [
+        {
+          "text": "Step back and tell a trusted adult; the law protects you here",
+          "consequence": "You stay safe and supported.",
+          "outcome": "protected",
+          "best": true
+        },
+        {
+          "text": "Go along to seem mature",
+          "consequence": "At under 18 the law protects you; pressure from an older person is a red flag to report."
+        }
+      ],
+      "debrief": "For under-18s the age of consent (18) protects you; coercion is a child-protection matter.",
+      "relearn": "Under 18, the law protects you; tell a trusted adult about pressure from an older person.",
+      "persona": "Counsellor",
+      "source": "POCSO / age of consent 18"
+    },
+    {
+      "id": "mc-039",
+      "cat": "decide-it",
+      "type": "reflect",
+      "hook": "Lensy: the 'Decide It' skill, facts + values + free choice + ownership, works for big decisions for life. See it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "A skill for life",
+        "I can use this"
+      ],
+      "affirm": "That four-step way of deciding will serve you far beyond this topic.",
+      "relearn": "Facts, values, free choice and ownership is a decision skill for life.",
+      "persona": "any",
+      "source": "decision skill"
+    },
+    {
+      "id": "mc-040",
+      "cat": "decide-it",
+      "type": "reflect",
+      "hook": "Lensy: which part of deciding well do you most want to get better at?",
+      "prompt": "Pick one.",
+      "options": [
+        "Gathering real facts",
+        "Knowing my values",
+        "Choosing free of pressure",
+        "Owning it"
+      ],
+      "affirm": "Strengthening any one of those makes your choices more truly yours.",
+      "relearn": "Facts, values, freedom and ownership are the parts of a good decision.",
+      "persona": "Arjun",
+      "source": "decision skill"
+    },
+    {
+      "id": "mc-041",
+      "cat": "decide-it",
+      "type": "reflect",
+      "hook": "Lensy: there's no single 'right' life here, only your informed, freely made choice. Freeing?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Less judged",
+        "It's mine"
+      ],
+      "affirm": "Beyond the non-negotiables, your legitimate choices are yours alone, and that's freedom.",
+      "relearn": "Beyond consent, safety and law, your informed choice is yours, no single 'right' answer.",
+      "persona": "any",
+      "source": "non-judgmental"
+    },
+    {
+      "id": "mc-042",
+      "cat": "decide-it",
+      "type": "reflect",
+      "hook": "Lensy: a good decision can still feel hard. Knowing your values makes it clearer. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Values guide me",
+        "Clearer"
+      ],
+      "affirm": "Your values are the compass when a choice feels genuinely hard.",
+      "relearn": "Knowing your own values guides you through hard decisions.",
+      "persona": "any",
+      "source": "values"
+    },
+    {
+      "id": "mc-043",
+      "cat": "decide-it",
+      "type": "branch",
+      "hook": "Decide It. Friends pressure a quick decision 'right now'.",
+      "options": [
+        {
+          "text": "Take the time you need; a real choice isn't rushed",
+          "consequence": "You decide calmly and well.",
+          "outcome": "unrushed",
+          "best": true
+        },
+        {
+          "text": "Decide on the spot to satisfy them",
+          "consequence": "You're allowed to take time; pressure to rush isn't a reason."
+        }
+      ],
+      "debrief": "Good decisions get the time they need; urgency is often just pressure.",
+      "relearn": "You can take the time a real decision needs; don't be rushed.",
+      "persona": "any",
+      "source": "unrushed choice"
+    },
+    {
+      "id": "mc-044",
+      "cat": "decide-it",
+      "type": "spot",
+      "hook": "Spot the values-based decision (not the pressured one).",
+      "scene": [
+        {
+          "text": "Weighing facts against what matters to you",
+          "trick": false
+        },
+        {
+          "text": "Doing it because you'll look cool",
+          "trick": true
+        },
+        {
+          "text": "Choosing freely and owning it",
+          "trick": false
+        }
+      ],
+      "why": "Values + free ownership is deciding well; doing it for image is pressure.",
+      "relearn": "A values-based choice weighs facts and is freely owned, not done for image.",
+      "persona": "any",
+      "source": "decision skill"
+    },
+    {
+      "id": "mc-045",
+      "cat": "decide-it",
+      "type": "reflect",
+      "hook": "Lensy: whatever you decide, deciding it well, informed and freely, is the win here. Yes?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "The process matters",
+        "I've got this"
+      ],
+      "affirm": "Deciding well is the real skill, the specific choice is yours.",
+      "relearn": "Deciding well, informed and free, is the win, whatever you choose.",
+      "persona": "any",
+      "source": "decision skill"
+    },
+    {
+      "id": "mc-046",
+      "cat": "access-and-rights",
+      "type": "branch",
+      "hook": "You want contraception but worry it won't be private.",
+      "options": [
+        {
+          "text": "Use an Adolescent Friendly Health Clinic / doctor, confidentiality is part of the service",
+          "consequence": "You get private, professional care.",
+          "outcome": "confidential",
+          "best": true
+        },
+        {
+          "text": "Give up because you assume everyone will know",
+          "consequence": "AFHCs and doctors offer confidential services; you can ask privately."
+        }
+      ],
+      "debrief": "Confidential services exist; privacy is part of good care.",
+      "relearn": "AFHCs / doctors offer confidential contraceptive services.",
+      "persona": "Sneha",
+      "source": "access / confidentiality (RKSK)"
+    },
+    {
+      "id": "mc-047",
+      "cat": "access-and-rights",
+      "type": "match",
+      "hook": "Match the need to where to go (India).",
+      "pairs": [
+        {
+          "left": "Confidential adolescent SRH care",
+          "right": "AFHC / Ujala clinic"
+        },
+        {
+          "left": "A method or prescription",
+          "right": "A doctor / family-planning service"
+        },
+        {
+          "left": "Condoms / EC pills",
+          "right": "A pharmacy"
+        }
+      ],
+      "relearn": "India routes: AFHC/Ujala clinics, doctors/FP services, and pharmacies.",
+      "persona": "Counsellor",
+      "source": "access (RKSK/AFHC)"
+    },
+    {
+      "id": "mc-048",
+      "cat": "access-and-rights",
+      "type": "match",
+      "hook": "Match your right to what backs it.",
+      "pairs": [
+        {
+          "left": "To decide if/when/whether",
+          "right": "Reproductive rights"
+        },
+        {
+          "left": "To private care",
+          "right": "Confidentiality"
+        },
+        {
+          "left": "To be free from coercion",
+          "right": "The law (POCSO for under-18s)"
+        }
+      ],
+      "relearn": "Your choices, privacy and freedom from coercion are real, backed rights.",
+      "persona": "any",
+      "source": "rights"
+    },
+    {
+      "id": "mc-049",
+      "cat": "access-and-rights",
+      "type": "role-play",
+      "hook": "You're nervous to ask a clinician for contraception.",
+      "setup": "Keep it simple and direct. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'd like to talk about contraception options, privately. Can you help me?\"",
+          "best": true
+        },
+        {
+          "text": "Say nothing and leave"
+        }
+      ],
+      "relearn": "A simple, direct ask is all it takes to start; clinicians are there to help.",
+      "persona": "Arjun",
+      "source": "self-advocacy"
+    },
+    {
+      "id": "mc-050",
+      "cat": "access-and-rights",
+      "type": "role-play",
+      "hook": "You want to ask whether your visit stays confidential.",
+      "setup": "Ask plainly. Say:",
+      "yourLine": [
+        {
+          "text": "\"Is what we discuss here kept confidential?\"",
+          "best": true
+        },
+        {
+          "text": "Worry silently and never ask"
+        }
+      ],
+      "relearn": "You're allowed to ask about confidentiality up front.",
+      "persona": "any",
+      "source": "confidentiality"
+    },
+    {
+      "id": "mc-051",
+      "cat": "access-and-rights",
+      "type": "role-play",
+      "hook": "A friend doesn't know services exist. Point them the right way.",
+      "setup": "Share what you know. Say:",
+      "yourLine": [
+        {
+          "text": "\"There are adolescent-friendly clinics for this, confidential, and a doctor can help too.\"",
+          "best": true
+        },
+        {
+          "text": "\"No idea, you're on your own.\""
+        }
+      ],
+      "relearn": "Knowing services exist lets you guide a friend to confidential help.",
+      "persona": "Vijay",
+      "source": "peer support"
+    },
+    {
+      "id": "mc-052",
+      "cat": "access-and-rights",
+      "type": "branch",
+      "hook": "You're under 18 and unsure if you can access services or info.",
+      "options": [
+        {
+          "text": "Seek adolescent-friendly services and a trusted adult or doctor's guidance",
+          "consequence": "You get age-appropriate, supportive help.",
+          "outcome": "supported",
+          "best": true
+        },
+        {
+          "text": "Assume you're not allowed anything and stay in the dark",
+          "consequence": "Adolescent-friendly services and trusted adults exist precisely for your age."
+        }
+      ],
+      "debrief": "Adolescent-friendly services and trusted guidance are designed for under-18s.",
+      "relearn": "Under 18, adolescent-friendly services and trusted adults can guide you.",
+      "persona": "Counsellor",
+      "source": "access for adolescents"
+    },
+    {
+      "id": "mc-053",
+      "cat": "access-and-rights",
+      "type": "branch",
+      "hook": "Someone is pressuring or exploiting you sexually and you feel trapped.",
+      "options": [
+        {
+          "text": "Tell a trusted adult / doctor; coercion is a child-protection matter",
+          "consequence": "You get protection and support.",
+          "outcome": "protected",
+          "best": true
+        },
+        {
+          "text": "Stay silent and cope alone",
+          "consequence": "Coercion or exploitation is never your fault; a trusted adult can protect you."
+        }
+      ],
+      "debrief": "Pressure or exploitation is a safeguarding matter, route it to help, never carry it alone.",
+      "relearn": "Coercion or exploitation: tell a trusted adult / doctor; it's a child-protection matter.",
+      "persona": "Counsellor",
+      "source": "safeguarding / POCSO"
+    },
+    {
+      "id": "mc-054",
+      "cat": "access-and-rights",
+      "type": "strike-rewrite",
+      "hook": "\"You need a parent's permission for any contraception info.\"",
+      "myth": {
+        "un": "You can't get any contraception information without a parent's permission.",
+        "re": "Adolescent-friendly services offer confidential information and counselling.",
+        "why": "Confidentiality is a core part of these services."
+      },
+      "relearn": "Confidential adolescent services exist; you can seek information privately.",
+      "persona": "any",
+      "source": "confidentiality (RKSK)"
+    },
+    {
+      "id": "mc-055",
+      "cat": "access-and-rights",
+      "type": "strike-rewrite",
+      "hook": "\"Asking a doctor about this is embarrassing and they'll judge you.\"",
+      "myth": {
+        "un": "A doctor will judge you for asking about contraception.",
+        "re": "Clinicians are there to inform and help, not judge; it's routine care.",
+        "why": "This is exactly what these services are for."
+      },
+      "relearn": "Clinicians help, not judge; asking is normal, smart self-care.",
+      "persona": "Arjun",
+      "source": "self-advocacy"
+    },
+    {
+      "id": "mc-056",
+      "cat": "access-and-rights",
+      "type": "sort",
+      "hook": "Sort: a safe, real way to access care, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "An AFHC / Ujala clinic"
+        },
+        {
+          "id": "b",
+          "text": "A licensed doctor"
+        },
+        {
+          "id": "c",
+          "text": "An unverified online 'cure'"
+        },
+        {
+          "id": "d",
+          "text": "A pharmacy for condoms"
+        }
+      ],
+      "bins": [
+        {
+          "id": "safe",
+          "label": "Safe / real"
+        },
+        {
+          "id": "no",
+          "label": "Not safe"
+        }
+      ],
+      "key": {
+        "a": "safe",
+        "b": "safe",
+        "c": "no",
+        "d": "safe"
+      },
+      "relearn": "Clinics, doctors and pharmacies are safe; unverified online 'cures' aren't.",
+      "persona": "any",
+      "source": "safe access"
+    },
+    {
+      "id": "mc-057",
+      "cat": "access-and-rights",
+      "type": "sort",
+      "hook": "Sort: part of your rights, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Confidential care"
+        },
+        {
+          "id": "b",
+          "text": "Deciding whether and when"
+        },
+        {
+          "id": "c",
+          "text": "Being coerced into sex"
+        },
+        {
+          "id": "d",
+          "text": "Accurate information"
+        }
+      ],
+      "bins": [
+        {
+          "id": "right",
+          "label": "Your right"
+        },
+        {
+          "id": "no",
+          "label": "A violation"
+        }
+      ],
+      "key": {
+        "a": "right",
+        "b": "right",
+        "c": "no",
+        "d": "right"
+      },
+      "relearn": "Confidential care, free choice and accurate info are rights; coercion is a violation.",
+      "persona": "any",
+      "source": "rights"
+    },
+    {
+      "id": "mc-058",
+      "cat": "access-and-rights",
+      "type": "reflect",
+      "hook": "Lensy: knowledge only protects if you can act on it, and now you know where to go. Ready?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I know where to go",
+        "Ready"
+      ],
+      "affirm": "Knowing the services turns information into something you can actually use.",
+      "relearn": "Knowing where to access services turns knowledge into real protection.",
+      "persona": "any",
+      "source": "access"
+    },
+    {
+      "id": "mc-059",
+      "cat": "talk-it-through",
+      "type": "role-play",
+      "hook": "You want to agree on protection with a partner, before anything.",
+      "setup": "Be clear and matter-of-fact. Say:",
+      "yourLine": [
+        {
+          "text": "\"If we ever do this, I want us to use protection. Are we agreed?\"",
+          "best": true
+        },
+        {
+          "text": "Hope it just sorts itself out"
+        }
+      ],
+      "relearn": "Agreeing on protection beforehand is mature and caring.",
+      "persona": "Vijay",
+      "source": "partner communication"
+    },
+    {
+      "id": "mc-060",
+      "cat": "talk-it-through",
+      "type": "role-play",
+      "hook": "A partner brushes off the conversation as 'unromantic'.",
+      "setup": "Hold it kindly but firmly. Say:",
+      "yourLine": [
+        {
+          "text": "\"Looking after each other is part of caring. Let's talk about it.\"",
+          "best": true
+        },
+        {
+          "text": "\"Okay, forget I said anything.\""
+        }
+      ],
+      "relearn": "Caring includes the practical talk; a good partner will have it.",
+      "persona": "any",
+      "source": "partner communication"
+    },
+    {
+      "id": "mc-061",
+      "cat": "talk-it-through",
+      "type": "role-play",
+      "hook": "You need to tell a partner you're not ready yet.",
+      "setup": "Be honest and kind. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'm not ready for that yet, and I need you to respect that.\"",
+          "best": true
+        },
+        {
+          "text": "Go along to avoid the conversation"
+        }
+      ],
+      "relearn": "You can say you're not ready and ask for respect, clearly.",
+      "persona": "Sneha",
+      "source": "boundaries"
+    },
+    {
+      "id": "mc-062",
+      "cat": "talk-it-through",
+      "type": "role-play",
+      "hook": "You want to ask a doctor a question you find embarrassing.",
+      "setup": "Just ask it plainly. Say:",
+      "yourLine": [
+        {
+          "text": "\"This feels awkward to ask, but I want to understand my options.\"",
+          "best": true
+        },
+        {
+          "text": "Leave without asking"
+        }
+      ],
+      "relearn": "Naming the awkwardness and asking anyway gets you the answers.",
+      "persona": "Arjun",
+      "source": "clinician communication"
+    },
+    {
+      "id": "mc-063",
+      "cat": "talk-it-through",
+      "type": "role-play",
+      "hook": "A partner says they 'don't like' condoms.",
+      "setup": "Problem-solve together, keep the boundary. Say:",
+      "yourLine": [
+        {
+          "text": "\"Then let's find a protection plan we're both okay with, but protection stays.\"",
+          "best": true
+        },
+        {
+          "text": "Drop protection to please them"
+        }
+      ],
+      "relearn": "You can negotiate the method, but keep protection itself non-negotiable.",
+      "persona": "Vijay",
+      "source": "negotiation"
+    },
+    {
+      "id": "mc-064",
+      "cat": "talk-it-through",
+      "type": "role-play",
+      "hook": "You want to check in that a partner is comfortable and willing.",
+      "setup": "Ask, genuinely. Say:",
+      "yourLine": [
+        {
+          "text": "\"Are you okay with this, and do you actually want to?\"",
+          "best": true
+        },
+        {
+          "text": "Assume it's fine without asking"
+        }
+      ],
+      "relearn": "Checking that a partner is comfortable and willing is part of consent.",
+      "persona": "any",
+      "source": "consent (links g31)"
+    },
+    {
+      "id": "mc-065",
+      "cat": "talk-it-through",
+      "type": "branch",
+      "hook": "A partner won't discuss protection at all and gets annoyed.",
+      "options": [
+        {
+          "text": "Treat refusal-to-discuss as a serious flag, and don't proceed unprotected",
+          "consequence": "You protect your health and standards.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Proceed anyway to keep the peace",
+          "consequence": "Refusing the conversation is a flag; don't proceed unprotected to keep peace."
+        }
+      ],
+      "debrief": "A partner who won't even discuss protection isn't respecting your health.",
+      "relearn": "Refusal to discuss protection is a flag; don't proceed unprotected.",
+      "persona": "any",
+      "source": "red flags"
+    },
+    {
+      "id": "mc-066",
+      "cat": "talk-it-through",
+      "type": "branch",
+      "hook": "You don't know how to start the conversation at all.",
+      "options": [
+        {
+          "text": "Pick a calm, private moment and start simply and honestly",
+          "consequence": "The talk goes better than the dread suggested.",
+          "outcome": "opened",
+          "best": true
+        },
+        {
+          "text": "Avoid it forever",
+          "consequence": "A calm, private, simple opener makes the talk doable."
+        }
+      ],
+      "debrief": "A calm moment and a simple honest start is usually all it takes.",
+      "relearn": "Start the talk simply, in a calm private moment.",
+      "persona": "Arjun",
+      "source": "communication"
+    },
+    {
+      "id": "mc-067",
+      "cat": "talk-it-through",
+      "type": "branch",
+      "hook": "A friend asks you how to bring protection up with their partner.",
+      "options": [
+        {
+          "text": "Help them script a clear, kind, matter-of-fact line",
+          "consequence": "They feel ready to have the talk.",
+          "outcome": "helpful",
+          "best": true
+        },
+        {
+          "text": "Tell them it's too awkward to bother",
+          "consequence": "A simple scripted line makes it doable; help them prepare."
+        }
+      ],
+      "debrief": "Helping a friend prepare the words makes a hard talk easy.",
+      "relearn": "A clear, kind, prepared line makes the protection talk doable.",
+      "persona": "Vijay",
+      "source": "peer support"
+    },
+    {
+      "id": "mc-068",
+      "cat": "talk-it-through",
+      "type": "spot",
+      "hook": "Spot the respectful protection conversation.",
+      "scene": [
+        {
+          "text": "Both calmly agreeing on a plan",
+          "trick": false
+        },
+        {
+          "text": "One guilt-tripping the other out of it",
+          "trick": true
+        },
+        {
+          "text": "Checking each other's comfort",
+          "trick": false
+        }
+      ],
+      "why": "Mutual agreement and checking comfort is respectful; guilt-tripping isn't.",
+      "relearn": "Respectful talks are mutual and check comfort, not guilt-trips.",
+      "persona": "any",
+      "source": "respect"
+    },
+    {
+      "id": "mc-069",
+      "cat": "talk-it-through",
+      "type": "spot",
+      "hook": "Spot what makes this conversation go well.",
+      "scene": [
+        {
+          "text": "Honesty about what you want and don't",
+          "trick": false
+        },
+        {
+          "text": "Listening to the other person",
+          "trick": false
+        },
+        {
+          "text": "Pressuring for a 'yes'",
+          "trick": true
+        }
+      ],
+      "why": "Honesty and listening help; pressuring for a yes doesn't.",
+      "relearn": "Honesty and listening make the talk work; pressure breaks it.",
+      "persona": "any",
+      "source": "communication"
+    },
+    {
+      "id": "mc-070",
+      "cat": "talk-it-through",
+      "type": "reflect",
+      "hook": "Lensy: being able to talk this through, with a partner and a doctor, is a real adult skill. Feel ready to build it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I'll practise",
+        "Ready"
+      ],
+      "affirm": "Talking openly about health and boundaries is a skill that protects you for life.",
+      "relearn": "Talking it through with partners and doctors is a protective adult skill.",
+      "persona": "any",
+      "source": "communication"
+    },
+    {
+      "id": "mc-071",
+      "cat": "my-future-no-pressure",
+      "type": "strike-rewrite",
+      "hook": "\"Choosing to wait makes you a prude.\"",
+      "myth": {
+        "un": "Choosing to wait makes you a prude.",
+        "re": "Waiting is a valid, respected, common choice, and the most certain one.",
+        "why": "Labels are just pressure dressed up."
+      },
+      "relearn": "Waiting is valid and respected, not something to be labelled for.",
+      "persona": "Sneha",
+      "source": "delaying respected"
+    },
+    {
+      "id": "mc-072",
+      "cat": "my-future-no-pressure",
+      "type": "strike-rewrite",
+      "hook": "\"Choosing to be active means you're irresponsible.\"",
+      "myth": {
+        "un": "Being sexually active means you're irresponsible.",
+        "re": "Active or not, what matters is that the choice is informed, consensual and protected.",
+        "why": "Responsibility is about how you decide, not the choice itself."
+      },
+      "relearn": "Responsibility is informed, consensual, protected choice, whatever you decide.",
+      "persona": "any",
+      "source": "non-judgmental"
+    },
+    {
+      "id": "mc-073",
+      "cat": "my-future-no-pressure",
+      "type": "strike-rewrite",
+      "hook": "\"Your future is already decided for you.\"",
+      "myth": {
+        "un": "Your future is already decided for you.",
+        "re": "Your education, relationships and family choices are yours to shape.",
+        "why": "Planning is how you take the wheel."
+      },
+      "relearn": "Your future is yours to shape; planning puts you in the driver's seat.",
+      "persona": "Sneha",
+      "source": "agency"
+    },
+    {
+      "id": "mc-074",
+      "cat": "my-future-no-pressure",
+      "type": "strike-rewrite",
+      "hook": "\"Knowing all this will just make you go and have sex.\"",
+      "myth": {
+        "un": "Comprehensive information makes young people have sex.",
+        "re": "Good information helps people make safer, more thoughtful choices, including delaying.",
+        "why": "Knowledge supports decisions; it doesn't dictate them."
+      },
+      "relearn": "Accurate information leads to safer, more thoughtful choices, not pressure to act.",
+      "persona": "Counsellor",
+      "source": "CSE evidence"
+    },
+    {
+      "id": "mc-075",
+      "cat": "my-future-no-pressure",
+      "type": "strike-rewrite",
+      "hook": "\"Real adults just figure this out without help.\"",
+      "myth": {
+        "un": "Mature people don't need information or to ask.",
+        "re": "Seeking accurate information and asking is exactly what maturity looks like.",
+        "why": "Owning your choices means informing them."
+      },
+      "relearn": "Getting informed and asking is what real maturity looks like.",
+      "persona": "Arjun",
+      "source": "maturity"
+    },
+    {
+      "id": "mc-076",
+      "cat": "my-future-no-pressure",
+      "type": "reflect",
+      "hook": "Lensy: picture the life you want. How do these choices serve it?",
+      "prompt": "Pick what matters to you.",
+      "options": [
+        "My education / goals",
+        "Healthy relationships",
+        "Being ready on my terms",
+        "All of it"
+      ],
+      "affirm": "These choices are tools for the future you're building, on your terms.",
+      "relearn": "Reproductive choices are tools for the future and life you want.",
+      "persona": "Sneha",
+      "source": "values / future"
+    },
+    {
+      "id": "mc-077",
+      "cat": "my-future-no-pressure",
+      "type": "reflect",
+      "hook": "Lensy: 'no pressure in any direction' is the whole spirit here. Does that feel respectful?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Respectful",
+        "My call"
+      ],
+      "affirm": "No pressure either way, just full information and your own free choice.",
+      "relearn": "The spirit is no pressure in any direction, just info and your free choice.",
+      "persona": "any",
+      "source": "pressure-free"
+    },
+    {
+      "id": "mc-078",
+      "cat": "my-future-no-pressure",
+      "type": "spot",
+      "hook": "Spot the pressure (so you can refuse it).",
+      "scene": [
+        {
+          "text": "\"Everyone's doing it, don't be a baby\"",
+          "trick": true
+        },
+        {
+          "text": "\"Here's the full info, it's your call\"",
+          "trick": false
+        },
+        {
+          "text": "\"If you really loved me you would\"",
+          "trick": true
+        }
+      ],
+      "why": "'Everyone's doing it' and 'if you loved me' are pressure; 'your call' is respect.",
+      "relearn": "Spot pressure lines like 'everyone's doing it' and 'if you loved me'.",
+      "persona": "Vijay",
+      "source": "spot pressure"
+    },
+    {
+      "id": "mc-079",
+      "cat": "my-future-no-pressure",
+      "type": "spot",
+      "hook": "Spot the respectful, pressure-free support.",
+      "scene": [
+        {
+          "text": "Giving you accurate facts",
+          "trick": false
+        },
+        {
+          "text": "Letting you decide on your timeline",
+          "trick": false
+        },
+        {
+          "text": "Shaming whichever choice you make",
+          "trick": true
+        }
+      ],
+      "why": "Facts and space are support; shaming any choice is pressure.",
+      "relearn": "Real support gives facts and space, and never shames your choice.",
+      "persona": "any",
+      "source": "pressure-free"
+    },
+    {
+      "id": "mc-080",
+      "cat": "my-future-no-pressure",
+      "type": "spot",
+      "hook": "Spot the sign a decision is truly your own.",
+      "scene": [
+        {
+          "text": "You could explain your reasons by your values",
+          "trick": false
+        },
+        {
+          "text": "You're mainly avoiding someone's disappointment",
+          "trick": true
+        },
+        {
+          "text": "You'd choose the same with no one watching",
+          "trick": false
+        }
+      ],
+      "why": "Owning your reasons and choosing the same unobserved means it's yours; avoiding disappointment doesn't.",
+      "relearn": "A choice is yours when it's reasoned by your values and holds with no one watching.",
+      "persona": "any",
+      "source": "autonomy"
+    },
+    {
+      "id": "mc-081",
+      "cat": "my-future-no-pressure",
+      "type": "sort",
+      "hook": "Sort: respects your autonomy, or undermines it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Full, accurate information"
+        },
+        {
+          "id": "b",
+          "text": "Scare tactics"
+        },
+        {
+          "id": "c",
+          "text": "Your free, owned choice"
+        },
+        {
+          "id": "d",
+          "text": "Guilt and labels"
+        }
+      ],
+      "bins": [
+        {
+          "id": "respect",
+          "label": "Respects autonomy"
+        },
+        {
+          "id": "under",
+          "label": "Undermines it"
+        }
+      ],
+      "key": {
+        "a": "respect",
+        "b": "under",
+        "c": "respect",
+        "d": "under"
+      },
+      "relearn": "Information and free choice respect autonomy; scares, guilt and labels undermine it.",
+      "persona": "any",
+      "source": "autonomy"
+    },
+    {
+      "id": "mc-082",
+      "cat": "my-future-no-pressure",
+      "type": "sort",
+      "hook": "Sort: a healthy basis for a choice, or a poor one?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Accurate facts"
+        },
+        {
+          "id": "b",
+          "text": "Your own values"
+        },
+        {
+          "id": "c",
+          "text": "Fear of being judged"
+        },
+        {
+          "id": "d",
+          "text": "A rumour"
+        }
+      ],
+      "bins": [
+        {
+          "id": "good",
+          "label": "Healthy basis"
+        },
+        {
+          "id": "poor",
+          "label": "Poor basis"
+        }
+      ],
+      "key": {
+        "a": "good",
+        "b": "good",
+        "c": "poor",
+        "d": "poor"
+      },
+      "relearn": "Decide from facts and your values, not fear of judgement or rumour.",
+      "persona": "any",
+      "source": "decision basis"
+    },
+    {
+      "id": "mc-083",
+      "cat": "my-future-no-pressure",
+      "type": "sort",
+      "hook": "Sort: a respected choice, or a forced one?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Deciding to wait"
+        },
+        {
+          "id": "b",
+          "text": "Being coerced into sex"
+        },
+        {
+          "id": "c",
+          "text": "Freely choosing your method"
+        },
+        {
+          "id": "d",
+          "text": "Being shamed into a decision"
+        }
+      ],
+      "bins": [
+        {
+          "id": "respected",
+          "label": "Respected choice"
+        },
+        {
+          "id": "forced",
+          "label": "Forced / wrong"
+        }
+      ],
+      "key": {
+        "a": "respected",
+        "b": "forced",
+        "c": "respected",
+        "d": "forced"
+      },
+      "relearn": "Waiting and free choice are respected; coercion and shaming are not.",
+      "persona": "any",
+      "source": "autonomy"
+    },
+    {
+      "id": "mc-084",
+      "cat": "my-future-no-pressure",
+      "type": "reflect",
+      "hook": "Lensy: biggest take-away from My Choices, My Future?",
+      "prompt": "Pick your motto.",
+      "options": [
+        "My choices, my information",
+        "No pressure, any direction",
+        "Delaying is fully valid",
+        "Decide by my values"
+      ],
+      "affirm": "Full information, zero pressure, and a choice that's genuinely yours, that's the whole point.",
+      "relearn": "Your choices, full information, no pressure, decided by your own values.",
+      "persona": "any",
+      "source": "consolidation"
+    }
+  ]
+}

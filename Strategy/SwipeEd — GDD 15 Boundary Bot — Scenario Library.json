@@ -1,0 +1,1801 @@
+{
+  "game": "Boundary Bot",
+  "gameId": "boundary-bot",
+  "node": "g15",
+  "chapter": 3,
+  "ages": "9-12",
+  "thread": "B · Safety, Consent & Boundaries",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 85,
+  "leadMechanics": [
+    "branch",
+    "role-play",
+    "strike-rewrite"
+  ],
+  "note": "Consent, boundaries & online safety (UNESCO 4.1, 4.2, 4.3, 3.3, 5.5). New v2 build, Chapter 3 (matter-of-fact, private). Builds on g08 (Safety Squad); prereq g14. Empower never frighten; Childline 1098.",
+  "categories": {
+    "my-boundaries": "Setting my own boundaries",
+    "consent-mutual": "Consent: ask, ongoing, can change",
+    "respect-others": "Reading & respecting others' boundaries",
+    "peer-pressure": "Standing up to peer pressure",
+    "online-boundaries": "Online boundaries & sharing",
+    "crossed-support": "When a boundary's crossed (tell & support)"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "role-play",
+    "strike-rewrite",
+    "spot",
+    "sort",
+    "reflect",
+    "build"
+  ],
+  "evidenceBase": [
+    "Bodily autonomy: everyone decides what happens to their body; teach kids to set/hold/change their own boundaries AND ask and respect others'",
+    "Peer pressure is normal; teach assertive 'no' scripts, exit lines and a safe signal; role-play builds confidence",
+    "Digital consent: don't overshare (location, school, routines); ask before posting others; a request for photos is a red flag, tell a trusted adult; posts can be copied forever"
+  ],
+  "scenarios": [
+    {
+      "id": "bb-001",
+      "cat": "my-boundaries",
+      "type": "reflect",
+      "hook": "Boundary Bot online! A boundary is your personal line, what's okay and not okay for you. Got one in mind?",
+      "prompt": "What's a boundary you have?",
+      "options": [
+        "My personal space",
+        "My things",
+        "My time/attention",
+        "My body"
+      ],
+      "affirm": "That's a real boundary, and you're allowed to have it.",
+      "relearn": "A boundary is your personal line; you're allowed to set them.",
+      "persona": "any",
+      "source": "boundaries basics"
+    },
+    {
+      "id": "bb-002",
+      "cat": "my-boundaries",
+      "type": "strike-rewrite",
+      "hook": "\"Setting a boundary is rude or selfish.\"",
+      "myth": {
+        "un": "Saying no or setting a boundary is rude.",
+        "re": "Boundaries are healthy and respectful, of yourself and others.",
+        "why": "You can set a boundary kindly and clearly."
+      },
+      "relearn": "Setting boundaries is healthy, not rude.",
+      "persona": "Diya",
+      "source": "boundaries"
+    },
+    {
+      "id": "bb-003",
+      "cat": "my-boundaries",
+      "type": "role-play",
+      "hook": "Someone keeps reading over your shoulder and you don't like it.",
+      "setup": "Set the boundary. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'd like some privacy, please.\"",
+          "best": true
+        },
+        {
+          "text": "Say nothing and feel annoyed"
+        }
+      ],
+      "relearn": "You can ask for personal space, calmly and clearly.",
+      "persona": "any",
+      "source": "personal space / voice"
+    },
+    {
+      "id": "bb-004",
+      "cat": "my-boundaries",
+      "type": "branch",
+      "hook": "A relative wants a big hug but you're not feeling it.",
+      "options": [
+        {
+          "text": "Offer a wave or handshake instead",
+          "consequence": "You keep your body boundary, warmly.",
+          "outcome": "empowered",
+          "best": true
+        },
+        {
+          "text": "Hug while uncomfortable",
+          "consequence": "Your body, your choice, a wave is a fine alternative."
+        }
+      ],
+      "debrief": "Your body boundaries still count, even with family.",
+      "relearn": "You can choose how others greet your body, even relatives.",
+      "persona": "any",
+      "source": "bodily autonomy (links g02)"
+    },
+    {
+      "id": "bb-005",
+      "cat": "my-boundaries",
+      "type": "strike-rewrite",
+      "hook": "\"Once I set a boundary I can never change it.\"",
+      "myth": {
+        "un": "A boundary can never be changed once set.",
+        "re": "Your boundaries can change with how you feel; that's your right.",
+        "why": "You stay in charge of your own lines."
+      },
+      "relearn": "You can change your boundaries; you're in charge of them.",
+      "persona": "any",
+      "source": "boundaries"
+    },
+    {
+      "id": "bb-006",
+      "cat": "my-boundaries",
+      "type": "reflect",
+      "hook": "Lensy: boundaries can be about your body, your stuff, your time, even your feelings. More than one kind?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes, lots",
+        "Body, stuff, time, feelings",
+        "Good to know"
+      ],
+      "affirm": "Boundaries come in many kinds, and all of yours are valid.",
+      "relearn": "You have body, time, space, stuff and emotional boundaries.",
+      "persona": "any",
+      "source": "types of boundaries"
+    },
+    {
+      "id": "bb-007",
+      "cat": "my-boundaries",
+      "type": "role-play",
+      "hook": "A friend keeps borrowing your things without asking.",
+      "setup": "Set the boundary, kindly. Say:",
+      "yourLine": [
+        {
+          "text": "\"Please ask me first before taking my stuff.\"",
+          "best": true
+        },
+        {
+          "text": "Let it keep happening"
+        }
+      ],
+      "relearn": "You can ask people to respect your things.",
+      "persona": "any",
+      "source": "boundaries / voice"
+    },
+    {
+      "id": "bb-008",
+      "cat": "my-boundaries",
+      "type": "sort",
+      "hook": "Sort: a healthy boundary, or not really a boundary?",
+      "items": [
+        {
+          "id": "a",
+          "text": "\"I need some alone time\""
+        },
+        {
+          "id": "b",
+          "text": "\"You must do exactly what I say always\""
+        },
+        {
+          "id": "c",
+          "text": "\"Please knock before entering\""
+        },
+        {
+          "id": "d",
+          "text": "\"You can't have any other friends\""
+        }
+      ],
+      "bins": [
+        {
+          "id": "healthy",
+          "label": "Healthy boundary"
+        },
+        {
+          "id": "control",
+          "label": "Control, not a boundary"
+        }
+      ],
+      "key": {
+        "a": "healthy",
+        "b": "control",
+        "c": "healthy",
+        "d": "control"
+      },
+      "relearn": "Boundaries protect you; controlling others isn't a boundary.",
+      "persona": "any",
+      "source": "boundaries vs control"
+    },
+    {
+      "id": "bb-009",
+      "cat": "my-boundaries",
+      "type": "reflect",
+      "hook": "Lensy: knowing your own boundaries makes you stronger. Feel that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "More in control",
+        "Stronger"
+      ],
+      "affirm": "Knowing your boundaries is a quiet superpower.",
+      "relearn": "Knowing your own boundaries makes you confident and safe.",
+      "persona": "any",
+      "source": "empowerment"
+    },
+    {
+      "id": "bb-010",
+      "cat": "consent-mutual",
+      "type": "strike-rewrite",
+      "hook": "\"If someone doesn't say no, that means yes.\"",
+      "myth": {
+        "un": "No 'no' means yes.",
+        "re": "Consent is a clear yes; silence or freezing isn't a yes.",
+        "why": "You check for a real, willing yes."
+      },
+      "relearn": "Consent is a clear yes; silence isn't agreement.",
+      "persona": "any",
+      "source": "consent"
+    },
+    {
+      "id": "bb-011",
+      "cat": "consent-mutual",
+      "type": "branch",
+      "hook": "You want to share a funny photo of your friend.",
+      "options": [
+        {
+          "text": "Ask them first if it's okay",
+          "consequence": "They feel respected; that's digital consent.",
+          "outcome": "respectful",
+          "best": true
+        },
+        {
+          "text": "Post it without asking",
+          "consequence": "It's their image, ask before sharing."
+        }
+      ],
+      "debrief": "Ask before sharing someone's photo, that's consent online too.",
+      "relearn": "Get consent before sharing someone else's photo.",
+      "persona": "Aarav",
+      "source": "digital consent"
+    },
+    {
+      "id": "bb-012",
+      "cat": "consent-mutual",
+      "type": "strike-rewrite",
+      "hook": "\"Once you say yes, you can't change your mind.\"",
+      "myth": {
+        "un": "If you agreed once, you can't change your mind.",
+        "re": "You can change your mind any time; consent can be taken back.",
+        "why": "It's ongoing, not a one-time switch."
+      },
+      "relearn": "You can change your mind; consent is ongoing.",
+      "persona": "any",
+      "source": "consent"
+    },
+    {
+      "id": "bb-012b",
+      "cat": "consent-mutual",
+      "type": "reflect",
+      "hook": "Lensy: a real yes is free and willing, not pressured. Makes sense?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Free, not forced",
+        "A real yes"
+      ],
+      "affirm": "A pressured 'yes' isn't real consent; a free, willing yes is.",
+      "relearn": "Real consent is freely given, not pressured.",
+      "persona": "any",
+      "source": "consent"
+    },
+    {
+      "id": "bb-013",
+      "cat": "consent-mutual",
+      "type": "role-play",
+      "hook": "You want to join a game your friends are playing.",
+      "setup": "Ask, don't barge. Say:",
+      "yourLine": [
+        {
+          "text": "\"Mind if I join?\"",
+          "best": true
+        },
+        {
+          "text": "Just take over"
+        }
+      ],
+      "relearn": "Asking first respects others' space and choices.",
+      "persona": "any",
+      "source": "consent / voice"
+    },
+    {
+      "id": "bb-014",
+      "cat": "consent-mutual",
+      "type": "sort",
+      "hook": "Sort: that's consent, or not consent?",
+      "items": [
+        {
+          "id": "a",
+          "text": "A clear, happy yes"
+        },
+        {
+          "id": "b",
+          "text": "A pressured 'fine, whatever'"
+        },
+        {
+          "id": "c",
+          "text": "Asking and waiting for an answer"
+        },
+        {
+          "id": "d",
+          "text": "Assuming because they didn't object"
+        }
+      ],
+      "bins": [
+        {
+          "id": "consent",
+          "label": "Consent"
+        },
+        {
+          "id": "not",
+          "label": "Not consent"
+        }
+      ],
+      "key": {
+        "a": "consent",
+        "b": "not",
+        "c": "consent",
+        "d": "not"
+      },
+      "relearn": "Consent is a free, clear yes, not pressure or assuming.",
+      "persona": "any",
+      "source": "consent"
+    },
+    {
+      "id": "bb-015",
+      "cat": "consent-mutual",
+      "type": "branch",
+      "hook": "You're play-wrestling and your friend says 'stop'.",
+      "options": [
+        {
+          "text": "Stop right away",
+          "consequence": "They feel safe; you can play again later.",
+          "outcome": "respectful",
+          "best": true
+        },
+        {
+          "text": "Keep going, it's just fun",
+          "consequence": "Stop means stop, even in fun."
+        }
+      ],
+      "debrief": "Stop means stop, instantly, every time.",
+      "relearn": "When someone says stop, you stop at once.",
+      "persona": "any",
+      "source": "consent"
+    },
+    {
+      "id": "bb-016",
+      "cat": "consent-mutual",
+      "type": "strike-rewrite",
+      "hook": "\"Consent is only about big serious things.\"",
+      "myth": {
+        "un": "Consent only matters for big things.",
+        "re": "Consent matters for everyday things too, hugs, photos, borrowing, joining in.",
+        "why": "Practising it small makes it natural."
+      },
+      "relearn": "Consent matters in everyday things, not just big ones.",
+      "persona": "any",
+      "source": "consent"
+    },
+    {
+      "id": "bb-017",
+      "cat": "respect-others",
+      "type": "branch",
+      "hook": "A friend says they don't want to talk right now.",
+      "options": [
+        {
+          "text": "Respect it and give them space",
+          "consequence": "They appreciate it; you stay close.",
+          "outcome": "respectful",
+          "best": true
+        },
+        {
+          "text": "Keep pushing them to talk",
+          "consequence": "Respecting their boundary is the kind move."
+        }
+      ],
+      "debrief": "Respecting someone's 'not now' is part of being a good friend.",
+      "relearn": "Respect others' boundaries, even small ones like 'not now'.",
+      "persona": "any",
+      "source": "respecting boundaries"
+    },
+    {
+      "id": "bb-018",
+      "cat": "respect-others",
+      "type": "role-play",
+      "hook": "You want to hug a friend who seems unsure.",
+      "setup": "Check first. Say:",
+      "yourLine": [
+        {
+          "text": "\"Do you want a hug?\"",
+          "best": true
+        },
+        {
+          "text": "Just grab them"
+        }
+      ],
+      "relearn": "Asking before touching respects someone's body boundary.",
+      "persona": "any",
+      "source": "consent / voice"
+    },
+    {
+      "id": "bb-019",
+      "cat": "respect-others",
+      "type": "strike-rewrite",
+      "hook": "\"If I want to, I can ignore someone's no.\"",
+      "myth": {
+        "un": "I can ignore someone's no if I really want to.",
+        "re": "A no is a no; respecting it is non-negotiable.",
+        "why": "Everyone's boundaries deserve respect."
+      },
+      "relearn": "You always respect someone's no.",
+      "persona": "any",
+      "source": "respecting boundaries"
+    },
+    {
+      "id": "bb-020",
+      "cat": "respect-others",
+      "type": "spot",
+      "hook": "Spot the sign someone is uncomfortable.",
+      "scene": [
+        {
+          "id": "a",
+          "text": "They pull away and go quiet",
+          "trick": true
+        },
+        {
+          "id": "b",
+          "text": "They laugh and lean in",
+          "trick": false
+        },
+        {
+          "id": "c",
+          "text": "They say 'this is fun!'",
+          "trick": false
+        }
+      ],
+      "why": "Pulling away and going quiet is a sign to check in and back off.",
+      "relearn": "Read body language; pulling away means back off and check in.",
+      "persona": "any",
+      "source": "reading cues"
+    },
+    {
+      "id": "bb-021",
+      "cat": "respect-others",
+      "type": "branch",
+      "hook": "You asked someone to play and they said no.",
+      "options": [
+        {
+          "text": "Accept it gracefully: \"okay, maybe another time\"",
+          "consequence": "You respect their choice; no hard feelings.",
+          "outcome": "respectful",
+          "best": true
+        },
+        {
+          "text": "Sulk or pressure them",
+          "consequence": "A graceful 'okay' respects their no."
+        }
+      ],
+      "debrief": "Taking a no gracefully is a sign of real respect.",
+      "relearn": "Accept a no without pressure or sulking.",
+      "persona": "Aarav",
+      "source": "respecting boundaries"
+    },
+    {
+      "id": "bb-022",
+      "cat": "respect-others",
+      "type": "reflect",
+      "hook": "Lensy: respecting others' boundaries is how you'd want yours respected. Fair?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Golden rule",
+        "Both ways"
+      ],
+      "affirm": "Respecting others' lines, as you'd want yours respected, builds trust.",
+      "relearn": "Respect others' boundaries as you'd want yours respected.",
+      "persona": "any",
+      "source": "reciprocity"
+    },
+    {
+      "id": "bb-023",
+      "cat": "respect-others",
+      "type": "sort",
+      "hook": "Sort: respects a boundary, or crosses it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Asking before borrowing"
+        },
+        {
+          "id": "b",
+          "text": "Reading someone's private messages"
+        },
+        {
+          "id": "c",
+          "text": "Knocking before entering"
+        },
+        {
+          "id": "d",
+          "text": "Tickling after they said stop"
+        }
+      ],
+      "bins": [
+        {
+          "id": "respect",
+          "label": "Respects"
+        },
+        {
+          "id": "cross",
+          "label": "Crosses"
+        }
+      ],
+      "key": {
+        "a": "respect",
+        "b": "cross",
+        "c": "respect",
+        "d": "cross"
+      },
+      "relearn": "Asking and knocking respect boundaries; snooping and ignoring 'stop' cross them.",
+      "persona": "any",
+      "source": "respecting boundaries"
+    },
+    {
+      "id": "bb-024",
+      "cat": "peer-pressure",
+      "type": "branch",
+      "hook": "Friends dare you to do something you're not comfortable with.",
+      "options": [
+        {
+          "text": "Say \"no thanks, not for me\" and stand firm",
+          "consequence": "Real friends respect it; you keep your boundary.",
+          "outcome": "assertive",
+          "best": true
+        },
+        {
+          "text": "Do it so they don't call you boring",
+          "consequence": "You can say no to a dare; that's strength, not weakness."
+        }
+      ],
+      "debrief": "A dare doesn't override your boundary; 'no thanks' is enough.",
+      "relearn": "You can say no to a dare; you don't owe anyone a yes.",
+      "persona": "Aarav",
+      "source": "peer pressure"
+    },
+    {
+      "id": "bb-025",
+      "cat": "peer-pressure",
+      "type": "strike-rewrite",
+      "hook": "\"Real friends pressure you to fit in.\"",
+      "myth": {
+        "un": "Real friends pressure you into things.",
+        "re": "Real friends respect your no; pressure is a red flag.",
+        "why": "True friendship doesn't need you to cross your own lines."
+      },
+      "relearn": "Real friends respect your boundaries; pressure isn't friendship.",
+      "persona": "any",
+      "source": "peer pressure / friendship (links g09)"
+    },
+    {
+      "id": "bb-026",
+      "cat": "peer-pressure",
+      "type": "role-play",
+      "hook": "\"Everyone's doing it, come on!\"",
+      "setup": "Hold your line. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'm good, thanks.\" (and change the subject)",
+          "best": true
+        },
+        {
+          "text": "\"Okay, fine.\""
+        }
+      ],
+      "relearn": "A calm \"I'm good, thanks\" is a strong refusal.",
+      "persona": "any",
+      "source": "refusal skills / voice"
+    },
+    {
+      "id": "bb-027",
+      "cat": "peer-pressure",
+      "type": "branch",
+      "hook": "You feel pressured but it's hard to say a flat no.",
+      "options": [
+        {
+          "text": "Use an exit: \"my parents are strict, gotta go\"",
+          "consequence": "You get out without a confrontation.",
+          "outcome": "resourceful",
+          "best": true
+        },
+        {
+          "text": "Give in because saying no is hard",
+          "consequence": "An exit line is an easy way out of pressure."
+        }
+      ],
+      "debrief": "You can use an excuse or exit line to leave pressure, no shame.",
+      "relearn": "An exit line is a smart way out of peer pressure.",
+      "persona": "any",
+      "source": "refusal skills"
+    },
+    {
+      "id": "bb-028",
+      "cat": "peer-pressure",
+      "type": "build",
+      "hook": "Build your 'pressure escape kit'.",
+      "prompt": "Pick your go-to moves.",
+      "pieces": [
+        "a calm 'no thanks'",
+        "an exit line",
+        "a safe friend to leave with",
+        "text a trusted adult to fetch you"
+      ],
+      "mode": "assemble",
+      "key": [
+        "a calm 'no thanks'",
+        "an exit line",
+        "a safe friend to leave with",
+        "text a trusted adult to fetch you"
+      ],
+      "relearn": "Your pressure-escape kit: say no, exit line, a safe friend, a trusted adult.",
+      "persona": "any",
+      "source": "refusal skills"
+    },
+    {
+      "id": "bb-029",
+      "cat": "peer-pressure",
+      "type": "reflect",
+      "hook": "Lensy: feeling pressured is normal, and saying no is always allowed. Reassuring?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "No is allowed",
+        "Good to know"
+      ],
+      "affirm": "Pressure is common, and you always have the right to say no.",
+      "relearn": "Feeling pressure is normal; you can always say no.",
+      "persona": "any",
+      "source": "peer pressure"
+    },
+    {
+      "id": "bb-030",
+      "cat": "peer-pressure",
+      "type": "branch",
+      "hook": "A friend is being pressured and looks at you for backup.",
+      "options": [
+        {
+          "text": "Back them up: \"yeah, leave it, let's go\"",
+          "consequence": "Together you both resist the pressure.",
+          "outcome": "ally",
+          "best": true
+        },
+        {
+          "text": "Stay silent",
+          "consequence": "Backing a friend makes resisting pressure easier for both."
+        }
+      ],
+      "debrief": "Two people resisting pressure is far stronger than one.",
+      "relearn": "You can back up a friend who's being pressured.",
+      "persona": "any",
+      "source": "peer support"
+    },
+    {
+      "id": "bb-031",
+      "cat": "peer-pressure",
+      "type": "strike-rewrite",
+      "hook": "\"Saying no makes you weak or boring.\"",
+      "myth": {
+        "un": "Saying no makes you weak or boring.",
+        "re": "Saying no to what's wrong for you is strong and cool.",
+        "why": "It takes more strength to refuse than to go along."
+      },
+      "relearn": "Saying no to pressure is strength, not weakness.",
+      "persona": "Aarav",
+      "source": "refusal skills"
+    },
+    {
+      "id": "bb-032",
+      "cat": "peer-pressure",
+      "type": "role-play",
+      "hook": "Online, a group urges you to send a mean message to someone.",
+      "setup": "Refuse the pressure. Say:",
+      "yourLine": [
+        {
+          "text": "\"Nah, I'm not doing that.\"",
+          "best": true
+        },
+        {
+          "text": "Send it to fit in"
+        }
+      ],
+      "relearn": "You can refuse online pressure just like offline.",
+      "persona": "any",
+      "source": "online peer pressure"
+    },
+    {
+      "id": "bb-033",
+      "cat": "online-boundaries",
+      "type": "strike-rewrite",
+      "hook": "\"It's fine to share my address, school and routine online.\"",
+      "myth": {
+        "un": "Sharing my address, school and daily routine online is fine.",
+        "re": "Keep private info private; oversharing can reach the wrong people.",
+        "why": "Strangers can misuse location and routine details."
+      },
+      "relearn": "Keep private info (address, school, routine) off public posts.",
+      "persona": "Aarav",
+      "source": "oversharing"
+    },
+    {
+      "id": "bb-034",
+      "cat": "online-boundaries",
+      "type": "spot",
+      "hook": "Spot the online red flag.",
+      "scene": [
+        {
+          "id": "a",
+          "text": "Someone you don't know asks for a photo of you",
+          "trick": true
+        },
+        {
+          "id": "b",
+          "text": "A friend shares a meme",
+          "trick": false
+        },
+        {
+          "id": "c",
+          "text": "A game invite from a real friend",
+          "trick": false
+        }
+      ],
+      "why": "A stranger (or anyone) asking for your photo is a red flag, don't send, tell a trusted adult.",
+      "relearn": "A request for your photo online is a red flag; tell a trusted adult.",
+      "persona": "any",
+      "source": "online safety / grooming"
+    },
+    {
+      "id": "bb-035",
+      "cat": "online-boundaries",
+      "type": "branch",
+      "hook": "An online 'friend' keeps pushing you to share a private photo.",
+      "options": [
+        {
+          "text": "Refuse, block if needed, and tell a trusted adult",
+          "consequence": "You stay safe; that pressure is a serious red flag.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Send it so they stop asking",
+          "consequence": "Never send private photos; refuse and tell a trusted adult."
+        }
+      ],
+      "debrief": "Anyone pressuring you for private photos is unsafe, refuse and tell.",
+      "relearn": "Never send private photos; tell a trusted adult about the pressure.",
+      "persona": "any",
+      "source": "sextortion prevention (age-appropriate)"
+    },
+    {
+      "id": "bb-036",
+      "cat": "online-boundaries",
+      "type": "strike-rewrite",
+      "hook": "\"What I post online disappears.\"",
+      "myth": {
+        "un": "What I post online just disappears.",
+        "re": "Posts can be saved, screenshotted and copied, possibly forever.",
+        "why": "Once it's out, you can't fully take it back."
+      },
+      "relearn": "Online posts can last forever; think before you share.",
+      "persona": "Aarav",
+      "source": "digital footprint"
+    },
+    {
+      "id": "bb-037",
+      "cat": "online-boundaries",
+      "type": "branch",
+      "hook": "You're about to post something private about your day.",
+      "options": [
+        {
+          "text": "Keep the private details (location, school) out of it",
+          "consequence": "You share safely, no risky info.",
+          "outcome": "savvy",
+          "best": true
+        },
+        {
+          "text": "Post everything including where you are",
+          "consequence": "Leave out location and routine; keep it general."
+        }
+      ],
+      "debrief": "Share the fun, keep the private details (where/when) out.",
+      "relearn": "Post safely: leave out location, school and routine.",
+      "persona": "any",
+      "source": "oversharing"
+    },
+    {
+      "id": "bb-038",
+      "cat": "online-boundaries",
+      "type": "sort",
+      "hook": "Sort: safe to share publicly, or keep private?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Your favourite song"
+        },
+        {
+          "id": "b",
+          "text": "Your home address"
+        },
+        {
+          "id": "c",
+          "text": "A drawing you made"
+        },
+        {
+          "id": "d",
+          "text": "Your daily route to school"
+        }
+      ],
+      "bins": [
+        {
+          "id": "share",
+          "label": "Okay to share"
+        },
+        {
+          "id": "private",
+          "label": "Keep private"
+        }
+      ],
+      "key": {
+        "a": "share",
+        "b": "private",
+        "c": "share",
+        "d": "private"
+      },
+      "relearn": "Hobbies are fine to share; address and routine stay private.",
+      "persona": "any",
+      "source": "oversharing"
+    },
+    {
+      "id": "bb-039",
+      "cat": "online-boundaries",
+      "type": "role-play",
+      "hook": "A friend wants to post a photo of you you don't like.",
+      "setup": "Set your boundary. Say:",
+      "yourLine": [
+        {
+          "text": "\"Please don't post that one of me.\"",
+          "best": true
+        },
+        {
+          "text": "Let it go even though you hate it"
+        }
+      ],
+      "relearn": "You can ask others not to post photos of you.",
+      "persona": "Diya",
+      "source": "digital consent / voice"
+    },
+    {
+      "id": "bb-040",
+      "cat": "online-boundaries",
+      "type": "strike-rewrite",
+      "hook": "\"Sharing my password with a best friend proves trust.\"",
+      "myth": {
+        "un": "Sharing passwords proves friendship.",
+        "re": "Passwords stay private; a real friend won't need yours.",
+        "why": "Even good friends can fall out or slip up."
+      },
+      "relearn": "Keep passwords private; real friends don't need them.",
+      "persona": "any",
+      "source": "digital boundaries"
+    },
+    {
+      "id": "bb-041",
+      "cat": "online-boundaries",
+      "type": "branch",
+      "hook": "Someone screenshots your private chat to share it around.",
+      "options": [
+        {
+          "text": "Tell them it's not okay and tell a trusted adult if it spreads",
+          "consequence": "You stand up for your privacy and get help.",
+          "outcome": "assertive",
+          "best": true
+        },
+        {
+          "text": "Do nothing",
+          "consequence": "Sharing your private chat crosses a boundary; you can act."
+        }
+      ],
+      "debrief": "Your private messages are yours; sharing them around isn't okay.",
+      "relearn": "It's not okay to screenshot and spread your private chats.",
+      "persona": "any",
+      "source": "digital boundaries"
+    },
+    {
+      "id": "bb-042",
+      "cat": "online-boundaries",
+      "type": "reflect",
+      "hook": "Lensy: the same boundary rules work online and offline. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Same rules",
+        "Ask, respect, tell"
+      ],
+      "affirm": "Ask first, respect a no, tell a trusted adult, online and off.",
+      "relearn": "Boundary rules are the same online as offline.",
+      "persona": "any",
+      "source": "digital consent"
+    },
+    {
+      "id": "bb-043",
+      "cat": "crossed-support",
+      "type": "branch",
+      "hook": "Someone crosses a boundary and you feel uncomfortable.",
+      "options": [
+        {
+          "text": "Name it, leave if you can, and tell a trusted adult",
+          "consequence": "You protect yourself and get support.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Freeze and say nothing",
+          "consequence": "It's okay if you froze; you can still leave and tell."
+        }
+      ],
+      "debrief": "If a boundary's crossed: name it, leave, tell, and it's never your fault.",
+      "relearn": "If a boundary's crossed, you can name it, leave and tell a trusted adult.",
+      "persona": "any",
+      "source": "safety (links g08)"
+    },
+    {
+      "id": "bb-044",
+      "cat": "crossed-support",
+      "type": "strike-rewrite",
+      "hook": "\"If I didn't fight back, it's my fault.\"",
+      "myth": {
+        "un": "If I didn't fight or shout, it's my fault.",
+        "re": "Freezing is a normal reaction; a crossed boundary is never your fault.",
+        "why": "The person who crossed it is responsible."
+      },
+      "relearn": "A crossed boundary is never your fault, even if you froze.",
+      "persona": "any",
+      "source": "non-blame"
+    },
+    {
+      "id": "bb-045",
+      "cat": "crossed-support",
+      "type": "role-play",
+      "hook": "A friend tells you someone crossed their boundary.",
+      "setup": "Support them. Say:",
+      "yourLine": [
+        {
+          "text": "\"That wasn't okay, and it's not your fault. Let's tell someone.\"",
+          "best": true
+        },
+        {
+          "text": "\"Are you sure? Maybe you imagined it.\""
+        }
+      ],
+      "relearn": "Believe and support a friend; help them tell a trusted adult.",
+      "persona": "Asha",
+      "source": "peer support"
+    },
+    {
+      "id": "bb-046",
+      "cat": "crossed-support",
+      "type": "reflect",
+      "hook": "Lensy: in India you can call Childline at 1098 if you ever need help. Good to know?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "1098",
+        "Good to know"
+      ],
+      "affirm": "Childline 1098 is there for children who need help.",
+      "relearn": "Childline 1098 is a helpline for children in India.",
+      "persona": "any",
+      "source": "Childline 1098"
+    },
+    {
+      "id": "bb-047",
+      "cat": "crossed-support",
+      "type": "branch",
+      "hook": "You told one adult about a crossed boundary but they brushed it off.",
+      "options": [
+        {
+          "text": "Tell another trusted adult; keep telling",
+          "consequence": "Someone will help; keep going.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Give up",
+          "consequence": "If one adult doesn't help, tell another."
+        }
+      ],
+      "debrief": "Keep telling trusted adults until someone helps.",
+      "relearn": "If one adult doesn't help, tell another, keep telling.",
+      "persona": "any",
+      "source": "keep telling"
+    },
+    {
+      "id": "bb-048",
+      "cat": "crossed-support",
+      "type": "sort",
+      "hook": "Sort: a good move when a boundary's crossed, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Tell a trusted adult"
+        },
+        {
+          "id": "b",
+          "text": "Blame yourself"
+        },
+        {
+          "id": "c",
+          "text": "Get away from the situation"
+        },
+        {
+          "id": "d",
+          "text": "Keep it a secret forever"
+        }
+      ],
+      "bins": [
+        {
+          "id": "good",
+          "label": "Good move"
+        },
+        {
+          "id": "no",
+          "label": "Not helpful"
+        }
+      ],
+      "key": {
+        "a": "good",
+        "b": "no",
+        "c": "good",
+        "d": "no"
+      },
+      "relearn": "Tell an adult and get away; don't self-blame or stay silent.",
+      "persona": "any",
+      "source": "safety"
+    },
+    {
+      "id": "bb-049",
+      "cat": "my-boundaries",
+      "type": "branch",
+      "hook": "You're tired and a friend wants you to keep playing online for hours.",
+      "options": [
+        {
+          "text": "Say \"I'm logging off now, catch you tomorrow\"",
+          "consequence": "You honour your own time boundary.",
+          "outcome": "assertive",
+          "best": true
+        },
+        {
+          "text": "Keep going past your limit",
+          "consequence": "Your time and rest are boundaries worth keeping."
+        }
+      ],
+      "debrief": "Your time and energy are boundaries you can protect.",
+      "relearn": "You can set time boundaries, even with friends online.",
+      "persona": "Aarav",
+      "source": "time boundaries"
+    },
+    {
+      "id": "bb-050",
+      "cat": "consent-mutual",
+      "type": "branch",
+      "hook": "You want to tell others a secret a friend shared with you.",
+      "options": [
+        {
+          "text": "Keep it; it was shared in confidence",
+          "consequence": "You honour their trust and boundary.",
+          "outcome": "respectful",
+          "best": true
+        },
+        {
+          "text": "Tell everyone for the gossip",
+          "consequence": "A confided secret isn't yours to share (unless it's a safety matter)."
+        }
+      ],
+      "debrief": "Respect what's shared in confidence, unless someone's safety is at risk.",
+      "relearn": "Keep confidences; sharing them crosses a trust boundary.",
+      "persona": "any",
+      "source": "emotional boundaries"
+    },
+    {
+      "id": "bb-051",
+      "cat": "respect-others",
+      "type": "reflect",
+      "hook": "Lensy: everyone's boundaries are different, and all deserve respect. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "All different",
+        "All respected"
+      ],
+      "affirm": "People's lines differ; respecting each person's is what counts.",
+      "relearn": "Everyone's boundaries differ and all deserve respect.",
+      "persona": "any",
+      "source": "respecting boundaries"
+    },
+    {
+      "id": "bb-052",
+      "cat": "peer-pressure",
+      "type": "branch",
+      "hook": "You went along with something and now wish you'd said no.",
+      "options": [
+        {
+          "text": "Be kind to yourself; plan to say no next time",
+          "consequence": "You learn and prepare, no shame.",
+          "outcome": "growth",
+          "best": true
+        },
+        {
+          "text": "Beat yourself up about it",
+          "consequence": "It's okay to slip; plan for next time."
+        }
+      ],
+      "debrief": "If you gave in once, you can be kind to yourself and prepare for next time.",
+      "relearn": "If you slipped, be kind to yourself and plan a no for next time.",
+      "persona": "any",
+      "source": "self-compassion / growth"
+    },
+    {
+      "id": "bb-053",
+      "cat": "online-boundaries",
+      "type": "strike-rewrite",
+      "hook": "\"If someone's nice online, I can trust them with anything.\"",
+      "myth": {
+        "un": "A nice online person can be trusted with anything.",
+        "re": "People online can pretend; keep boundaries even with 'nice' ones.",
+        "why": "Niceness isn't proof of safety."
+      },
+      "relearn": "Keep your boundaries online, even with friendly-seeming people.",
+      "persona": "Aarav",
+      "source": "online safety (links g08/g12)"
+    },
+    {
+      "id": "bb-054",
+      "cat": "crossed-support",
+      "type": "reflect",
+      "hook": "Lensy: telling about a crossed boundary takes courage, and it's the right move. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Brave and right",
+        "I'd tell"
+      ],
+      "affirm": "Telling is brave and right; you deserve support.",
+      "relearn": "Telling about a crossed boundary is brave and right.",
+      "persona": "any",
+      "source": "disclosure"
+    },
+    {
+      "id": "bb-055",
+      "cat": "my-boundaries",
+      "type": "role-play",
+      "hook": "Someone teases you for having a boundary ('why so uptight?').",
+      "setup": "Stand firm, calmly. Say:",
+      "yourLine": [
+        {
+          "text": "\"It's just my boundary, and that's okay.\"",
+          "best": true
+        },
+        {
+          "text": "Drop the boundary to avoid teasing"
+        }
+      ],
+      "relearn": "You can keep your boundary even if someone teases.",
+      "persona": "Diya",
+      "source": "boundaries / voice"
+    },
+    {
+      "id": "bb-056",
+      "cat": "consent-mutual",
+      "type": "strike-rewrite",
+      "hook": "\"Asking for consent is awkward and unnecessary.\"",
+      "myth": {
+        "un": "Asking for consent is awkward and not needed.",
+        "re": "Asking is respectful and quickly becomes natural.",
+        "why": "A quick 'is this okay?' shows you care."
+      },
+      "relearn": "Asking for consent is respectful and gets easy with practice.",
+      "persona": "any",
+      "source": "consent"
+    },
+    {
+      "id": "bb-057",
+      "cat": "respect-others",
+      "type": "branch",
+      "hook": "You notice a friend goes quiet when a topic comes up.",
+      "options": [
+        {
+          "text": "Change the subject and check in privately later",
+          "consequence": "You respect their unspoken boundary.",
+          "outcome": "empathic",
+          "best": true
+        },
+        {
+          "text": "Keep pushing the topic",
+          "consequence": "Noticing discomfort and easing off is kind."
+        }
+      ],
+      "debrief": "Reading and respecting unspoken boundaries is real empathy.",
+      "relearn": "Notice discomfort and ease off; respect unspoken boundaries.",
+      "persona": "Asha",
+      "source": "reading cues / empathy"
+    },
+    {
+      "id": "bb-058",
+      "cat": "peer-pressure",
+      "type": "spot",
+      "hook": "Spot the peer-pressure tactic.",
+      "scene": [
+        {
+          "id": "a",
+          "text": "\"If you were really our friend, you'd do it\"",
+          "trick": true
+        },
+        {
+          "id": "b",
+          "text": "\"No worries if you don't want to\"",
+          "trick": false
+        },
+        {
+          "id": "c",
+          "text": "\"Take your time to decide\"",
+          "trick": false
+        }
+      ],
+      "why": "\"If you were really our friend...\" is guilt-trip pressure, a manipulation.",
+      "relearn": "'If you were really my friend' is a pressure trick; you can still say no.",
+      "persona": "any",
+      "source": "manipulation / peer pressure"
+    },
+    {
+      "id": "bb-059",
+      "cat": "online-boundaries",
+      "type": "branch",
+      "hook": "A stranger online is being very friendly and asking personal questions fast.",
+      "options": [
+        {
+          "text": "Don't share; tell a trusted adult",
+          "consequence": "You stay safe; over-friendly fast questions are a flag.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Answer to be polite",
+          "consequence": "Keep info private and tell a trusted adult."
+        }
+      ],
+      "debrief": "Over-friendly strangers asking lots of personal questions is a flag.",
+      "relearn": "Don't share with over-friendly online strangers; tell a trusted adult.",
+      "persona": "Aarav",
+      "source": "online safety / grooming"
+    },
+    {
+      "id": "bb-060",
+      "cat": "crossed-support",
+      "type": "build",
+      "hook": "Build your 'boundary crossed' response plan.",
+      "prompt": "Order the steps.",
+      "pieces": [
+        "notice the uncomfortable feeling",
+        "name it / say no if you can",
+        "get away from the situation",
+        "tell a trusted adult"
+      ],
+      "mode": "sequence",
+      "key": [
+        "notice the uncomfortable feeling",
+        "name it / say no if you can",
+        "get away from the situation",
+        "tell a trusted adult"
+      ],
+      "relearn": "Notice, name, get away, tell, your plan if a boundary is crossed.",
+      "persona": "any",
+      "source": "safety plan"
+    },
+    {
+      "id": "bb-061",
+      "cat": "my-boundaries",
+      "type": "reflect",
+      "hook": "Lensy: your boundaries protect your wellbeing, not shut people out. See the difference?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "They protect me",
+        "Not mean, just safe"
+      ],
+      "affirm": "Boundaries protect you; they're self-care, not rejection.",
+      "relearn": "Boundaries protect your wellbeing; they're healthy, not mean.",
+      "persona": "any",
+      "source": "boundaries / wellbeing"
+    },
+    {
+      "id": "bb-062",
+      "cat": "consent-mutual",
+      "type": "role-play",
+      "hook": "You're not sure if your friend wants a playful shove in a game.",
+      "setup": "Check first. Say:",
+      "yourLine": [
+        {
+          "text": "\"Is rough-and-tumble okay with you?\"",
+          "best": true
+        },
+        {
+          "text": "Just shove them"
+        }
+      ],
+      "relearn": "Check before rough play; it respects their body boundary.",
+      "persona": "Aarav",
+      "source": "consent"
+    },
+    {
+      "id": "bb-063",
+      "cat": "respect-others",
+      "type": "strike-rewrite",
+      "hook": "\"If they're my sibling/friend, I can do what I like with their stuff.\"",
+      "myth": {
+        "un": "Close people don't need their boundaries respected.",
+        "re": "Even siblings and best friends deserve boundary respect.",
+        "why": "Closeness doesn't cancel consent."
+      },
+      "relearn": "Respect boundaries even with siblings and close friends.",
+      "persona": "any",
+      "source": "respecting boundaries"
+    },
+    {
+      "id": "bb-064",
+      "cat": "peer-pressure",
+      "type": "reflect",
+      "hook": "Lensy: who could you call to come get you if pressure ever felt unsafe?",
+      "prompt": "Think of someone.",
+      "options": [
+        "A parent",
+        "A trusted adult",
+        "An older sibling",
+        "Someone I trust"
+      ],
+      "affirm": "Having a 'come get me' person is a great safety plan.",
+      "relearn": "Have a trusted adult who'll come get you from an unsafe spot.",
+      "persona": "any",
+      "source": "safety planning"
+    },
+    {
+      "id": "bb-065",
+      "cat": "online-boundaries",
+      "type": "reflect",
+      "hook": "Lensy: before you post, a quick 'would I be okay with anyone seeing this forever?' Useful test?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Great test",
+        "I'll use it"
+      ],
+      "affirm": "That 'forever test' keeps your posts safe and smart.",
+      "relearn": "Before posting, ask 'okay if anyone saw this forever?'",
+      "persona": "Aarav",
+      "source": "digital footprint"
+    },
+    {
+      "id": "bb-066",
+      "cat": "crossed-support",
+      "type": "branch",
+      "hook": "A friend says a boundary thing happened but begs you to keep it secret.",
+      "options": [
+        {
+          "text": "Help them tell a trusted adult; some things need help",
+          "consequence": "They get support; safety beats secrecy.",
+          "outcome": "caring",
+          "best": true
+        },
+        {
+          "text": "Promise to keep the secret",
+          "consequence": "For safety matters, helping them tell is the caring move."
+        }
+      ],
+      "debrief": "For a safety boundary, helping a friend tell beats keeping it secret.",
+      "relearn": "Help a friend tell a trusted adult about a crossed safety boundary.",
+      "persona": "Asha",
+      "source": "safeguarding (links g09)"
+    },
+    {
+      "id": "bb-067",
+      "cat": "my-boundaries",
+      "type": "sort",
+      "hook": "Sort: a boundary you can set, or someone else's choice?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Who touches my body"
+        },
+        {
+          "id": "b",
+          "text": "What my friend wears"
+        },
+        {
+          "id": "c",
+          "text": "My own time and space"
+        },
+        {
+          "id": "d",
+          "text": "What others must believe"
+        }
+      ],
+      "bins": [
+        {
+          "id": "mine",
+          "label": "My boundary"
+        },
+        {
+          "id": "theirs",
+          "label": "Not mine to set"
+        }
+      ],
+      "key": {
+        "a": "mine",
+        "b": "theirs",
+        "c": "mine",
+        "d": "theirs"
+      },
+      "relearn": "You set boundaries about yourself, not control over others.",
+      "persona": "any",
+      "source": "boundaries vs control"
+    },
+    {
+      "id": "bb-068",
+      "cat": "consent-mutual",
+      "type": "strike-rewrite",
+      "hook": "\"Boys don't need to ask, they should just go for it.\"",
+      "myth": {
+        "un": "Boys should just 'go for it' without asking.",
+        "re": "Everyone, all genders, asks and respects consent.",
+        "why": "Consent isn't gendered; it's for everyone."
+      },
+      "relearn": "Everyone asks for consent; it's not just a 'girls' thing'.",
+      "persona": "Aarav",
+      "source": "consent / gender (links healthy masculinity)"
+    },
+    {
+      "id": "bb-069",
+      "cat": "peer-pressure",
+      "type": "branch",
+      "hook": "Friends pressure you to share someone else's secret online.",
+      "options": [
+        {
+          "text": "Refuse; it's not yours to share",
+          "consequence": "You protect someone's privacy and your integrity.",
+          "outcome": "values",
+          "best": true
+        },
+        {
+          "text": "Share it for the laughs",
+          "consequence": "Spreading someone's secret crosses their boundary."
+        }
+      ],
+      "debrief": "Pressure to expose someone else is still pressure you can refuse.",
+      "relearn": "You can refuse pressure to expose someone else's private stuff.",
+      "persona": "any",
+      "source": "peer pressure / privacy"
+    },
+    {
+      "id": "bb-070",
+      "cat": "respect-others",
+      "type": "role-play",
+      "hook": "You accidentally crossed a friend's boundary.",
+      "setup": "Repair it. Say:",
+      "yourLine": [
+        {
+          "text": "\"Sorry, I shouldn't have, I'll respect that.\"",
+          "best": true
+        },
+        {
+          "text": "\"You're too sensitive.\""
+        }
+      ],
+      "relearn": "If you cross a boundary, own it and respect it going forward.",
+      "persona": "any",
+      "source": "repair / accountability"
+    },
+    {
+      "id": "bb-071",
+      "cat": "online-boundaries",
+      "type": "spot",
+      "hook": "Spot the digital-consent slip.",
+      "scene": [
+        {
+          "id": "a",
+          "text": "Posting a group photo without asking the others",
+          "trick": true
+        },
+        {
+          "id": "b",
+          "text": "Asking before tagging a friend",
+          "trick": false
+        },
+        {
+          "id": "c",
+          "text": "Sharing your own art",
+          "trick": false
+        }
+      ],
+      "why": "Posting others without asking skips their consent.",
+      "relearn": "Ask the others before posting a group photo.",
+      "persona": "Aarav",
+      "source": "digital consent"
+    },
+    {
+      "id": "bb-072",
+      "cat": "crossed-support",
+      "type": "reflect",
+      "hook": "Lensy: you have a right to feel safe, and to get help. Believe that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I deserve safety",
+        "I can get help"
+      ],
+      "affirm": "You have every right to feel safe and to ask for help.",
+      "relearn": "You have a right to feel safe and to ask for help.",
+      "persona": "any",
+      "source": "rights / safety"
+    },
+    {
+      "id": "bb-073",
+      "cat": "peer-pressure",
+      "type": "role-play",
+      "hook": "Capstone pressure: a group dares you to do something risky for a video.",
+      "setup": "Refuse with a clear line.",
+      "yourLine": [
+        {
+          "text": "\"Not doing that, it's not worth it.\"",
+          "best": true
+        },
+        {
+          "text": "Do it for the views"
+        }
+      ],
+      "relearn": "A clear refusal protects you from risky dares for clout.",
+      "persona": "Aarav",
+      "source": "refusal skills / online"
+    },
+    {
+      "id": "bb-074",
+      "cat": "consent-mutual",
+      "type": "reflect",
+      "hook": "Lensy: ask, listen, respect, the heart of consent. Got it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Ask-listen-respect",
+        "Got it"
+      ],
+      "affirm": "Ask, listen, respect, that's consent in three steps.",
+      "relearn": "Consent is ask, listen and respect.",
+      "persona": "any",
+      "source": "consent"
+    },
+    {
+      "id": "bb-075",
+      "cat": "my-boundaries",
+      "type": "branch",
+      "hook": "You realise you've been letting people cross your boundaries to be liked.",
+      "options": [
+        {
+          "text": "Start setting and holding your boundaries kindly",
+          "consequence": "You feel more respected and like yourself more.",
+          "outcome": "growth",
+          "best": true
+        },
+        {
+          "text": "Keep ignoring your own limits",
+          "consequence": "Holding your boundaries earns real respect."
+        }
+      ],
+      "debrief": "People-pleasing past your limits hurts you; boundaries help.",
+      "relearn": "You can start setting boundaries instead of people-pleasing.",
+      "persona": "Diya",
+      "source": "boundaries / self-worth"
+    },
+    {
+      "id": "bb-076",
+      "cat": "online-boundaries",
+      "type": "branch",
+      "hook": "Capstone: an online contact asks for a private photo and says 'keep it secret'.",
+      "options": [
+        {
+          "text": "Refuse, don't keep it secret, tell a trusted adult now",
+          "consequence": "You shut down a serious danger and get help.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Send it and keep quiet",
+          "consequence": "This is a serious red flag, refuse and tell a trusted adult."
+        }
+      ],
+      "debrief": "A photo request plus 'keep it secret' is a serious danger; refuse and tell.",
+      "relearn": "Never send private photos; a 'keep it secret' request means tell a trusted adult.",
+      "persona": "any",
+      "source": "sextortion prevention (age-appropriate)"
+    },
+    {
+      "id": "bb-077",
+      "cat": "respect-others",
+      "type": "reflect",
+      "hook": "Lensy: being someone who respects boundaries makes you a person others trust. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Trustworthy",
+        "I want to be that"
+      ],
+      "affirm": "Respecting boundaries makes you a safe, trusted person to be around.",
+      "relearn": "Respecting boundaries makes you trustworthy.",
+      "persona": "any",
+      "source": "values"
+    },
+    {
+      "id": "bb-078",
+      "cat": "crossed-support",
+      "type": "strike-rewrite",
+      "hook": "\"Telling about a crossed boundary is snitching.\"",
+      "myth": {
+        "un": "Telling an adult about a crossed boundary is snitching.",
+        "re": "Telling to stay safe is reporting, and it's the right thing.",
+        "why": "Safety telling protects you and others."
+      },
+      "relearn": "Telling to stay safe is reporting, not snitching.",
+      "persona": "any",
+      "source": "telling vs tattling"
+    },
+    {
+      "id": "bb-079",
+      "cat": "my-boundaries",
+      "type": "build",
+      "hook": "Capstone: build your personal boundary toolkit.",
+      "prompt": "Pick your tools.",
+      "pieces": [
+        "know my limits",
+        "say no clearly",
+        "an exit line",
+        "respect others' limits",
+        "tell a trusted adult if crossed"
+      ],
+      "mode": "assemble",
+      "key": [
+        "know my limits",
+        "say no clearly",
+        "an exit line",
+        "respect others' limits",
+        "tell a trusted adult if crossed"
+      ],
+      "relearn": "Your boundary toolkit: know limits, say no, exit, respect others, tell if crossed.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "bb-080",
+      "cat": "consent-mutual",
+      "type": "sort",
+      "hook": "Final sort: respects consent & boundaries, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Asking before sharing a photo"
+        },
+        {
+          "id": "b",
+          "text": "Ignoring a 'stop'"
+        },
+        {
+          "id": "c",
+          "text": "Accepting a no"
+        },
+        {
+          "id": "d",
+          "text": "Pressuring for a yes"
+        }
+      ],
+      "bins": [
+        {
+          "id": "yes",
+          "label": "Respects"
+        },
+        {
+          "id": "no",
+          "label": "Doesn't"
+        }
+      ],
+      "key": {
+        "a": "yes",
+        "b": "no",
+        "c": "yes",
+        "d": "no"
+      },
+      "relearn": "Asking and accepting a no respect consent; ignoring 'stop' and pressuring don't.",
+      "persona": "any",
+      "source": "consent"
+    },
+    {
+      "id": "bb-081",
+      "cat": "peer-pressure",
+      "type": "reflect",
+      "hook": "Lensy: what's your go-to line for saying no to pressure?",
+      "prompt": "Pick one to keep ready.",
+      "options": [
+        "\"No thanks, not for me\"",
+        "\"I'm good\"",
+        "\"Gotta go\"",
+        "\"Not doing that\""
+      ],
+      "affirm": "Keep that line ready; it'll serve you again and again.",
+      "relearn": "Have a go-to refusal line ready for pressure moments.",
+      "persona": "any",
+      "source": "refusal skills"
+    },
+    {
+      "id": "bb-082",
+      "cat": "crossed-support",
+      "type": "reflect",
+      "hook": "Lensy: what's your big take-away from Boundary Bot?",
+      "prompt": "Pick your motto.",
+      "options": [
+        "My boundaries matter",
+        "Ask, listen, respect",
+        "No is a full sentence",
+        "Tell if it's crossed"
+      ],
+      "affirm": "Carry that. You can set, respect and protect boundaries now.",
+      "relearn": "Set your boundaries, respect others', and tell if one's crossed.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "bb-083",
+      "cat": "respect-others",
+      "type": "branch",
+      "hook": "A quieter classmate clearly wants space at lunch.",
+      "options": [
+        {
+          "text": "Give them space, with a friendly 'here if you want company'",
+          "consequence": "You respect their boundary AND stay kind.",
+          "outcome": "respectful",
+          "best": true
+        },
+        {
+          "text": "Insist they join your group",
+          "consequence": "Respecting space, while staying warm, is the kind move."
+        }
+      ],
+      "debrief": "You can respect someone's space and still be kind and available.",
+      "relearn": "Respect others' need for space while staying warm.",
+      "persona": "any",
+      "source": "respecting boundaries"
+    },
+    {
+      "id": "bb-084",
+      "cat": "online-boundaries",
+      "type": "reflect",
+      "hook": "Lensy: online, ask before sharing others, guard your private info, tell if pressured. Locked in?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Locked in",
+        "I've got this"
+      ],
+      "affirm": "You've got the online boundary basics down. Stay sharp and kind.",
+      "relearn": "Online: ask before sharing others, guard private info, tell if pressured.",
+      "persona": "Aarav",
+      "source": "consolidation"
+    }
+  ]
+}

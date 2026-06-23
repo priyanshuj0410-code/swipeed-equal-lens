@@ -1,0 +1,1913 @@
+{
+  "game": "Stand Up",
+  "gameId": "stand-up",
+  "node": "g27",
+  "chapter": 4,
+  "ages": "12-15",
+  "thread": "B · Safety, Consent & Boundaries",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "leadMechanics": [
+    "branch",
+    "role-play",
+    "spot"
+  ],
+  "note": "GBV: bystander action & rights (UNESCO 3.3, 4.1, 2.2). New v2 build, Chapter 4 (real, safety-first). The gender thread's call to action: from bystander to upstander, safely. Teen GBV/harassment + rights, the 5 Ds applied. Builds on g19; prereq g26. Safety-first: never confront danger alone; target never to blame; routes to a trusted adult, Women Helpline 181, ERSS 112 or Childline 1098.",
+  "categories": {
+    "gbv-and-rights": "What GBV is, and your rights",
+    "spot-harassment": "Spot the harassment",
+    "safety-first": "Safety first",
+    "five-ds": "The five safe moves",
+    "after-support": "After & support",
+    "be-the-upstander": "Be the upstander"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "role-play",
+    "spot",
+    "strike-rewrite",
+    "sort",
+    "reflect",
+    "match"
+  ],
+  "evidenceBase": [
+    "Gender-based violence and harassment (from 'eve-teasing' and stares to groping and online abuse) is a violation of the right to be safe and respected; it is always wrong and never the target's fault",
+    "Safe bystander action follows the 5 Ds (Distract, Delegate, Document, Delay, Direct) with safety first: assess whether you can help safely, never confront danger alone, and favour distract/delegate over direct for public harassment",
+    "Support the person after (believe them, check in, offer to accompany or report), and route serious cases to a trusted adult, Women Helpline 181, ERSS 112, or Childline 1098 (all integrated in India)"
+  ],
+  "scenarios": [
+    {
+      "id": "st-001",
+      "cat": "gbv-and-rights",
+      "type": "strike-rewrite",
+      "hook": "\"Eve-teasing is just harmless fun or a compliment.\"",
+      "myth": {
+        "un": "Street 'eve-teasing' is harmless fun or a compliment.",
+        "re": "It's harassment, it makes people feel unsafe and it's a rights violation.",
+        "why": "Unwanted comments and following are not compliments."
+      },
+      "relearn": "'Eve-teasing' is harassment, not a compliment or harmless fun.",
+      "persona": "Riya",
+      "source": "GBV / India"
+    },
+    {
+      "id": "st-002",
+      "cat": "gbv-and-rights",
+      "type": "strike-rewrite",
+      "hook": "\"If someone's harassed, they must have invited it by how they dressed or acted.\"",
+      "myth": {
+        "un": "People get harassed because of how they dress or act.",
+        "re": "Harassment is always the harasser's choice; nothing 'invites' it.",
+        "why": "The target is never to blame."
+      },
+      "relearn": "Harassment is never the target's fault, whatever they wore or did.",
+      "persona": "any",
+      "source": "no victim-blaming"
+    },
+    {
+      "id": "st-003",
+      "cat": "gbv-and-rights",
+      "type": "strike-rewrite",
+      "hook": "\"Only girls and women face harassment.\"",
+      "myth": {
+        "un": "Only girls and women get harassed.",
+        "re": "Anyone can face harassment; it's wrong whoever the target is.",
+        "why": "GBV harms people of every gender."
+      },
+      "relearn": "Harassment can target anyone, and it's always wrong.",
+      "persona": "Veer",
+      "source": "GBV / inclusive"
+    },
+    {
+      "id": "st-004",
+      "cat": "gbv-and-rights",
+      "type": "strike-rewrite",
+      "hook": "\"Harassment is normal, you just have to put up with it.\"",
+      "myth": {
+        "un": "Harassment is normal and you just have to tolerate it.",
+        "re": "No one has to accept harassment; everyone has the right to be safe.",
+        "why": "'Normal' doesn't make it acceptable."
+      },
+      "relearn": "No one has to put up with harassment; safety is a right.",
+      "persona": "Riya",
+      "source": "rights"
+    },
+    {
+      "id": "st-005",
+      "cat": "gbv-and-rights",
+      "type": "strike-rewrite",
+      "hook": "\"What counts as harassment is totally subjective, so nothing is.\"",
+      "myth": {
+        "un": "Harassment is so subjective that nothing really counts.",
+        "re": "Unwanted, unwelcome sexual or gendered behaviour is harassment, that's clear.",
+        "why": "Impact on the target is what defines it."
+      },
+      "relearn": "Unwanted, unwelcome sexual or gendered behaviour is harassment.",
+      "persona": "any",
+      "source": "definition"
+    },
+    {
+      "id": "st-006",
+      "cat": "gbv-and-rights",
+      "type": "strike-rewrite",
+      "hook": "\"Boys can't be expected to control themselves, it's nature.\"",
+      "myth": {
+        "un": "Boys can't help harassing; it's just nature.",
+        "re": "Everyone can control their behaviour; harassment is a choice.",
+        "why": "This 'excuse' insults boys and excuses harm."
+      },
+      "relearn": "Harassment is a choice; 'boys can't help it' is a false excuse.",
+      "persona": "Veer",
+      "source": "accountability"
+    },
+    {
+      "id": "st-007",
+      "cat": "gbv-and-rights",
+      "type": "sort",
+      "hook": "Sort: a right everyone has, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "To feel safe in public"
+        },
+        {
+          "id": "b",
+          "text": "To be respected"
+        },
+        {
+          "id": "c",
+          "text": "To harass others"
+        },
+        {
+          "id": "d",
+          "text": "To say no to unwanted touch"
+        }
+      ],
+      "bins": [
+        {
+          "id": "right",
+          "label": "A real right"
+        },
+        {
+          "id": "no",
+          "label": "Not a right"
+        }
+      ],
+      "key": {
+        "a": "right",
+        "b": "right",
+        "c": "no",
+        "d": "right"
+      },
+      "relearn": "Everyone has the right to safety, respect and to refuse unwanted touch.",
+      "persona": "any",
+      "source": "rights"
+    },
+    {
+      "id": "st-008",
+      "cat": "gbv-and-rights",
+      "type": "sort",
+      "hook": "Sort: harassment, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Unwanted staring and comments"
+        },
+        {
+          "id": "b",
+          "text": "A genuine, respectful compliment once"
+        },
+        {
+          "id": "c",
+          "text": "Following someone who's uncomfortable"
+        },
+        {
+          "id": "d",
+          "text": "Saying hello to a friend"
+        }
+      ],
+      "bins": [
+        {
+          "id": "harassment",
+          "label": "Harassment"
+        },
+        {
+          "id": "ok",
+          "label": "Okay"
+        }
+      ],
+      "key": {
+        "a": "harassment",
+        "b": "ok",
+        "c": "harassment",
+        "d": "ok"
+      },
+      "relearn": "Unwanted, persistent or following behaviour is harassment; a one-off kind word isn't.",
+      "persona": "any",
+      "source": "definition"
+    },
+    {
+      "id": "st-009",
+      "cat": "gbv-and-rights",
+      "type": "sort",
+      "hook": "Sort: a form of GBV/harassment, or something else?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Groping on a bus"
+        },
+        {
+          "id": "b",
+          "text": "Sending unwanted sexual messages"
+        },
+        {
+          "id": "c",
+          "text": "A friendly team huddle"
+        },
+        {
+          "id": "d",
+          "text": "Spreading sexual rumours about someone"
+        }
+      ],
+      "bins": [
+        {
+          "id": "gbv",
+          "label": "Harassment/GBV"
+        },
+        {
+          "id": "no",
+          "label": "Not"
+        }
+      ],
+      "key": {
+        "a": "gbv",
+        "b": "gbv",
+        "c": "no",
+        "d": "gbv"
+      },
+      "relearn": "Groping, unwanted sexual messages and sexual rumours are all harassment.",
+      "persona": "any",
+      "source": "forms of GBV"
+    },
+    {
+      "id": "st-010",
+      "cat": "gbv-and-rights",
+      "type": "match",
+      "hook": "Match the right to what protects it.",
+      "pairs": [
+        {
+          "left": "Right to be safe",
+          "right": "Laws against harassment"
+        },
+        {
+          "left": "Right to say no",
+          "right": "Consent"
+        },
+        {
+          "left": "Right to help",
+          "right": "Helplines like 181"
+        }
+      ],
+      "relearn": "Rights are backed by consent, laws and helplines.",
+      "persona": "any",
+      "source": "rights / help"
+    },
+    {
+      "id": "st-011",
+      "cat": "gbv-and-rights",
+      "type": "match",
+      "hook": "Match the myth to the truth that beats it.",
+      "pairs": [
+        {
+          "left": "\"It's a compliment\"",
+          "right": "It's harassment"
+        },
+        {
+          "left": "\"They invited it\"",
+          "right": "Never the target's fault"
+        },
+        {
+          "left": "\"Just put up with it\"",
+          "right": "Safety is a right"
+        }
+      ],
+      "relearn": "Each harassment myth has a clear, rights-based answer.",
+      "persona": "any",
+      "source": "rights"
+    },
+    {
+      "id": "st-012",
+      "cat": "gbv-and-rights",
+      "type": "reflect",
+      "hook": "Lensy: everyone deserves to move through the world feeling safe. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Completely",
+        "Yes",
+        "It's a basic right"
+      ],
+      "affirm": "Safety and respect are everyone's right, no exceptions.",
+      "relearn": "Everyone has the right to feel safe and respected.",
+      "persona": "any",
+      "source": "rights"
+    },
+    {
+      "id": "st-013",
+      "cat": "gbv-and-rights",
+      "type": "reflect",
+      "hook": "Lensy: knowing harassment is never the target's fault, who does that free?",
+      "prompt": "What do you think?",
+      "options": [
+        "The people harmed",
+        "Everyone",
+        "Us, to help"
+      ],
+      "affirm": "Dropping victim-blame frees survivors and frees us to help.",
+      "relearn": "Harassment is the harasser's fault; that truth helps everyone act.",
+      "persona": "any",
+      "source": "no victim-blaming"
+    },
+    {
+      "id": "st-014",
+      "cat": "gbv-and-rights",
+      "type": "strike-rewrite",
+      "hook": "\"Reporting harassment just causes trouble; better to stay quiet.\"",
+      "myth": {
+        "un": "Reporting harassment only causes trouble.",
+        "re": "Reporting is your right and can stop harm; help exists.",
+        "why": "Silence protects harassers, not you."
+      },
+      "relearn": "Reporting harassment is your right and can stop the harm.",
+      "persona": "any",
+      "source": "rights / help"
+    },
+    {
+      "id": "st-015",
+      "cat": "spot-harassment",
+      "type": "spot",
+      "hook": "On the bus. Spot the harassment.",
+      "scene": [
+        {
+          "text": "A man keeps 'accidentally' pressing against a girl who moves away",
+          "trick": true
+        },
+        {
+          "text": "The bus is crowded",
+          "trick": false
+        },
+        {
+          "text": "He follows her when she shifts seats",
+          "trick": true
+        }
+      ],
+      "why": "Repeated unwanted contact and following are harassment, not 'the crowd'.",
+      "relearn": "Repeated unwanted contact and following on transport is harassment.",
+      "persona": "Riya",
+      "source": "public harassment (India)"
+    },
+    {
+      "id": "st-016",
+      "cat": "spot-harassment",
+      "type": "spot",
+      "hook": "On the street. Spot the harassment.",
+      "scene": [
+        {
+          "text": "A group makes comments and whistles at someone passing",
+          "trick": true
+        },
+        {
+          "text": "It's a busy market",
+          "trick": false
+        },
+        {
+          "text": "They start following and filming her",
+          "trick": true
+        }
+      ],
+      "why": "Comments, whistling and following are 'eve-teasing', which is harassment.",
+      "relearn": "Street comments, whistling and following are harassment.",
+      "persona": "any",
+      "source": "street harassment (India)"
+    },
+    {
+      "id": "st-017",
+      "cat": "spot-harassment",
+      "type": "spot",
+      "hook": "In the corridor. Spot the harassment.",
+      "scene": [
+        {
+          "text": "A boy corners a girl who's clearly trying to leave",
+          "trick": true
+        },
+        {
+          "text": "The bell rings",
+          "trick": false
+        },
+        {
+          "text": "He blocks her path and won't let her pass",
+          "trick": true
+        }
+      ],
+      "why": "Cornering and blocking someone who wants to leave is harassment.",
+      "relearn": "Cornering or blocking someone who wants to leave is harassment.",
+      "persona": "any",
+      "source": "peer harassment"
+    },
+    {
+      "id": "st-018",
+      "cat": "spot-harassment",
+      "type": "spot",
+      "hook": "Online. Spot the harassment.",
+      "scene": [
+        {
+          "text": "Someone sends repeated unwanted sexual messages",
+          "trick": true
+        },
+        {
+          "text": "It's a school group chat",
+          "trick": false
+        },
+        {
+          "text": "They threaten to share private images",
+          "trick": true
+        }
+      ],
+      "why": "Unwanted sexual messages and threats to share images are serious harassment.",
+      "relearn": "Unwanted sexual messages and image threats online are harassment.",
+      "persona": "any",
+      "source": "online GBV (links g12)"
+    },
+    {
+      "id": "st-019",
+      "cat": "spot-harassment",
+      "type": "spot",
+      "hook": "At a gathering. Spot the harassment hiding as 'fun'.",
+      "scene": [
+        {
+          "text": "Someone keeps touching a friend who keeps removing their hand",
+          "trick": true
+        },
+        {
+          "text": "Music is playing",
+          "trick": false
+        },
+        {
+          "text": "\"Relax, it's just a bit of fun\"",
+          "trick": true
+        }
+      ],
+      "why": "Touch after a clear 'no', excused as 'fun', is still harassment.",
+      "relearn": "Unwanted touch excused as 'just fun' is still harassment.",
+      "persona": "any",
+      "source": "peer / consent"
+    },
+    {
+      "id": "st-020",
+      "cat": "spot-harassment",
+      "type": "spot",
+      "hook": "Spot what is NOT harassment here.",
+      "scene": [
+        {
+          "text": "Two friends happily joking around",
+          "trick": false
+        },
+        {
+          "text": "Persisting after someone says stop",
+          "trick": true
+        },
+        {
+          "text": "Comments about a stranger's body",
+          "trick": true
+        }
+      ],
+      "why": "Mutual joking is fine; persisting past 'stop' and body comments are harassment.",
+      "relearn": "Mutual, welcome interaction isn't harassment; unwanted, persistent behaviour is.",
+      "persona": "any",
+      "source": "definition"
+    },
+    {
+      "id": "st-021",
+      "cat": "spot-harassment",
+      "type": "spot",
+      "hook": "Check yourself: spot if your own behaviour ever crosses a line.",
+      "scene": [
+        {
+          "text": "Complimenting a friend who enjoys it",
+          "trick": false
+        },
+        {
+          "text": "Commenting on a stranger's body 'as a joke'",
+          "trick": true
+        },
+        {
+          "text": "Not stopping when someone looks uncomfortable",
+          "trick": true
+        }
+      ],
+      "why": "Being an upstander includes checking your own behaviour honestly.",
+      "relearn": "Reading harassment includes honestly checking your own behaviour.",
+      "persona": "Veer",
+      "source": "self-accountability"
+    },
+    {
+      "id": "st-022",
+      "cat": "spot-harassment",
+      "type": "spot",
+      "hook": "Spot the early warning that someone needs help.",
+      "scene": [
+        {
+          "text": "A person looks tense and keeps backing away",
+          "trick": true
+        },
+        {
+          "text": "It's an ordinary evening",
+          "trick": false
+        },
+        {
+          "text": "They glance around for help",
+          "trick": true
+        }
+      ],
+      "why": "Tension, backing away and looking for help can signal someone in trouble.",
+      "relearn": "Body language can signal someone being harassed needs help.",
+      "persona": "any",
+      "source": "reading the scene"
+    },
+    {
+      "id": "st-023",
+      "cat": "spot-harassment",
+      "type": "sort",
+      "hook": "Sort: harassment, or a normal interaction?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Repeated unwanted DMs after 'no'"
+        },
+        {
+          "id": "b",
+          "text": "A friend asking to study together"
+        },
+        {
+          "id": "c",
+          "text": "Catcalling a passer-by"
+        },
+        {
+          "id": "d",
+          "text": "Saying 'good game' after a match"
+        }
+      ],
+      "bins": [
+        {
+          "id": "harassment",
+          "label": "Harassment"
+        },
+        {
+          "id": "normal",
+          "label": "Normal"
+        }
+      ],
+      "key": {
+        "a": "harassment",
+        "b": "normal",
+        "c": "harassment",
+        "d": "normal"
+      },
+      "relearn": "Unwanted, repeated or sexualising behaviour is harassment; ordinary friendliness isn't.",
+      "persona": "any",
+      "source": "definition"
+    },
+    {
+      "id": "st-024",
+      "cat": "spot-harassment",
+      "type": "sort",
+      "hook": "Sort: where harassment can happen?",
+      "items": [
+        {
+          "id": "a",
+          "text": "On the street / bus"
+        },
+        {
+          "id": "b",
+          "text": "At school"
+        },
+        {
+          "id": "c",
+          "text": "Online"
+        },
+        {
+          "id": "d",
+          "text": "Only in 'bad' places"
+        }
+      ],
+      "bins": [
+        {
+          "id": "yes",
+          "label": "It can happen here"
+        },
+        {
+          "id": "myth",
+          "label": "Myth"
+        }
+      ],
+      "key": {
+        "a": "yes",
+        "b": "yes",
+        "c": "yes",
+        "d": "myth"
+      },
+      "relearn": "Harassment can happen anywhere, not just in 'bad' places.",
+      "persona": "any",
+      "source": "awareness"
+    },
+    {
+      "id": "st-025",
+      "cat": "spot-harassment",
+      "type": "reflect",
+      "hook": "Lensy: once you can name harassment clearly, you can act on it. See that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Naming it helps",
+        "I can spot it now"
+      ],
+      "affirm": "Naming harassment is the first step to standing up to it.",
+      "relearn": "Clearly naming harassment is the first step to acting.",
+      "persona": "any",
+      "source": "awareness"
+    },
+    {
+      "id": "st-026",
+      "cat": "spot-harassment",
+      "type": "reflect",
+      "hook": "Lensy: have you seen something like this and weren't sure what it was?",
+      "prompt": "Be honest.",
+      "options": [
+        "Yes",
+        "Maybe",
+        "Now I'd know"
+      ],
+      "affirm": "Now you can name it, and naming it is where standing up begins.",
+      "relearn": "Recognising harassment you've witnessed helps you respond next time.",
+      "persona": "any",
+      "source": "awareness"
+    },
+    {
+      "id": "st-027",
+      "cat": "safety-first",
+      "type": "branch",
+      "hook": "You see harassment, but the harasser looks aggressive and you're alone.",
+      "options": [
+        {
+          "text": "Don't confront directly; distract or get help",
+          "consequence": "You help without risking yourself.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Charge in and confront them",
+          "consequence": "For danger, distract or get help, never confront alone."
+        }
+      ],
+      "debrief": "Your safety comes first; for danger, use distract or delegate, not direct.",
+      "relearn": "When it's dangerous, distract or get help, don't confront alone.",
+      "persona": "any",
+      "source": "safety-first (verified)"
+    },
+    {
+      "id": "st-028",
+      "cat": "safety-first",
+      "type": "branch",
+      "hook": "Before acting, what's your first question?",
+      "options": [
+        {
+          "text": "\"Can I help safely here?\"",
+          "consequence": "You choose a safe move that fits.",
+          "outcome": "assessed",
+          "best": true
+        },
+        {
+          "text": "\"How do I look brave?\"",
+          "consequence": "Start with 'can I help safely?', not 'how do I look'."
+        }
+      ],
+      "debrief": "Always start by assessing whether you can help safely.",
+      "relearn": "Ask 'can I help safely?' before you act.",
+      "persona": "any",
+      "source": "safety-first"
+    },
+    {
+      "id": "st-029",
+      "cat": "safety-first",
+      "type": "branch",
+      "hook": "It's risky to act alone right now.",
+      "options": [
+        {
+          "text": "Get others, a conductor, adult, or call a helpline",
+          "consequence": "Numbers and authority make it safer for everyone.",
+          "outcome": "delegate",
+          "best": true
+        },
+        {
+          "text": "Handle it solo to seem tough",
+          "consequence": "Don't act alone in danger; bring others in."
+        }
+      ],
+      "debrief": "Delegating, getting others, is often the safest, strongest move.",
+      "relearn": "In risky moments, get others rather than acting alone.",
+      "persona": "any",
+      "source": "safety-first / delegate"
+    },
+    {
+      "id": "st-030",
+      "cat": "safety-first",
+      "type": "branch",
+      "hook": "You stepped in and it's escalating dangerously.",
+      "options": [
+        {
+          "text": "Step back and call for help / 112",
+          "consequence": "You de-escalate and bring real help.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Keep pushing the confrontation",
+          "consequence": "If it escalates, step back and call for help."
+        }
+      ],
+      "debrief": "If a situation turns dangerous, disengage and call for help.",
+      "relearn": "If it escalates, step back and call for help (112).",
+      "persona": "Counsellor",
+      "source": "safety-first / ERSS"
+    },
+    {
+      "id": "st-031",
+      "cat": "safety-first",
+      "type": "branch",
+      "hook": "You want to help but freeze, unsure if it's 'your place'.",
+      "options": [
+        {
+          "text": "Pick the smallest safe action, even just standing near or filming safely",
+          "consequence": "A small safe act still helps.",
+          "outcome": "upstander",
+          "best": true
+        },
+        {
+          "text": "Decide it's not your business",
+          "consequence": "Even a small safe action, presence, distraction, helps."
+        }
+      ],
+      "debrief": "You don't have to be a hero; any small safe action counts.",
+      "relearn": "Any small, safe action is better than doing nothing.",
+      "persona": "any",
+      "source": "safety-first"
+    },
+    {
+      "id": "st-032",
+      "cat": "safety-first",
+      "type": "branch",
+      "hook": "A friend wants to chase down a harasser who's fled.",
+      "options": [
+        {
+          "text": "Don't chase; focus on the person harmed and report it",
+          "consequence": "You stay safe and support the target.",
+          "outcome": "safe",
+          "best": true
+        },
+        {
+          "text": "Chase the harasser",
+          "consequence": "Don't chase; support the target and report instead."
+        }
+      ],
+      "debrief": "Chasing risks safety; supporting the target and reporting is better.",
+      "relearn": "Don't chase a harasser; support the target and report.",
+      "persona": "Veer",
+      "source": "safety-first"
+    },
+    {
+      "id": "st-033",
+      "cat": "safety-first",
+      "type": "sort",
+      "hook": "Sort: a safe way to help, or a risky one?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Distracting the harasser"
+        },
+        {
+          "id": "b",
+          "text": "Physically fighting them"
+        },
+        {
+          "id": "c",
+          "text": "Getting others / calling help"
+        },
+        {
+          "id": "d",
+          "text": "Threatening them back"
+        }
+      ],
+      "bins": [
+        {
+          "id": "safe",
+          "label": "Safe"
+        },
+        {
+          "id": "risky",
+          "label": "Risky"
+        }
+      ],
+      "key": {
+        "a": "safe",
+        "b": "risky",
+        "c": "safe",
+        "d": "risky"
+      },
+      "relearn": "Distraction and getting help are safe; fighting and threats are risky.",
+      "persona": "any",
+      "source": "safety-first"
+    },
+    {
+      "id": "st-034",
+      "cat": "safety-first",
+      "type": "sort",
+      "hook": "Sort: prioritises safety, or ignores it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Checking for danger first"
+        },
+        {
+          "id": "b",
+          "text": "Acting on impulse in a risky scene"
+        },
+        {
+          "id": "c",
+          "text": "Calling for backup"
+        },
+        {
+          "id": "d",
+          "text": "Going in alone against a group"
+        }
+      ],
+      "bins": [
+        {
+          "id": "safe",
+          "label": "Safety-first"
+        },
+        {
+          "id": "no",
+          "label": "Ignores safety"
+        }
+      ],
+      "key": {
+        "a": "safe",
+        "b": "no",
+        "c": "safe",
+        "d": "no"
+      },
+      "relearn": "Safety-first means assessing danger and getting backup, not impulse.",
+      "persona": "any",
+      "source": "safety-first"
+    },
+    {
+      "id": "st-035",
+      "cat": "safety-first",
+      "type": "reflect",
+      "hook": "Lensy: 'your safety comes first' isn't selfish, it's how you help without becoming a second victim. Agree?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Makes sense",
+        "Safe helps more"
+      ],
+      "affirm": "Staying safe yourself is what lets you actually help.",
+      "relearn": "Keeping yourself safe is what makes helping possible.",
+      "persona": "any",
+      "source": "safety-first"
+    },
+    {
+      "id": "st-036",
+      "cat": "safety-first",
+      "type": "reflect",
+      "hook": "Lensy: knowing you have safe options, do you feel more able to act?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Less helpless",
+        "I can do something"
+      ],
+      "affirm": "Safe options mean you're never stuck choosing 'hero or nothing'.",
+      "relearn": "Safe options free you from 'be a hero or do nothing'.",
+      "persona": "any",
+      "source": "empowerment"
+    },
+    {
+      "id": "st-037",
+      "cat": "safety-first",
+      "type": "strike-rewrite",
+      "hook": "\"To help, you have to physically confront the harasser.\"",
+      "myth": {
+        "un": "Helping means confronting the harasser head-on.",
+        "re": "The safest, most effective help is often distraction or getting others.",
+        "why": "Direct confrontation can be dangerous and isn't required."
+      },
+      "relearn": "You don't have to confront a harasser; safe moves work better.",
+      "persona": "any",
+      "source": "safety-first / 5 Ds"
+    },
+    {
+      "id": "st-038",
+      "cat": "five-ds",
+      "type": "branch",
+      "hook": "DISTRACT. A person is being harassed; it's not safe to confront the harasser.",
+      "options": [
+        {
+          "text": "Interrupt: ask the target the time, or pretend you know them",
+          "consequence": "The harasser is thrown off; the target can leave.",
+          "outcome": "distract",
+          "best": true
+        },
+        {
+          "text": "Do nothing",
+          "consequence": "A casual interruption (Distract) safely breaks it up."
+        }
+      ],
+      "debrief": "The Distract move derails harassment without a confrontation.",
+      "relearn": "Distract: interrupt casually so the target can get away.",
+      "persona": "any",
+      "source": "5 Ds / Distract (verified)"
+    },
+    {
+      "id": "st-039",
+      "cat": "five-ds",
+      "type": "branch",
+      "hook": "DELEGATE. The situation needs more than you alone.",
+      "options": [
+        {
+          "text": "Get a conductor, teacher, adult, or call a helpline",
+          "consequence": "Numbers and authority step in.",
+          "outcome": "delegate",
+          "best": true
+        },
+        {
+          "text": "Try to manage it all yourself",
+          "consequence": "Delegate, bring in others or authority."
+        }
+      ],
+      "debrief": "The Delegate move brings in people who can help safely.",
+      "relearn": "Delegate: get others or authority to help.",
+      "persona": "any",
+      "source": "5 Ds / Delegate"
+    },
+    {
+      "id": "st-040",
+      "cat": "five-ds",
+      "type": "branch",
+      "hook": "DOCUMENT. It's safe, and a record could help the person later.",
+      "options": [
+        {
+          "text": "Film/note safely, then give it to the target to use as they wish",
+          "consequence": "There's evidence, and the target stays in control.",
+          "outcome": "document",
+          "best": true
+        },
+        {
+          "text": "Post it publicly for laughs",
+          "consequence": "Document for the target's use, never for public mockery."
+        }
+      ],
+      "debrief": "The Document move records safely, for the target, not for posting.",
+      "relearn": "Document only if safe, and give it to the target, never post it.",
+      "persona": "any",
+      "source": "5 Ds / Document"
+    },
+    {
+      "id": "st-041",
+      "cat": "five-ds",
+      "type": "branch",
+      "hook": "DELAY. The moment has passed, but the person looked shaken.",
+      "options": [
+        {
+          "text": "Check in after: 'are you okay? that wasn't okay'",
+          "consequence": "They feel supported and less alone.",
+          "outcome": "delay",
+          "best": true
+        },
+        {
+          "text": "Move on as if nothing happened",
+          "consequence": "Checking in afterward (Delay) really helps."
+        }
+      ],
+      "debrief": "The Delay move supports the person after the moment.",
+      "relearn": "Delay: check in afterwards, 'are you okay?'.",
+      "persona": "Riya",
+      "source": "5 Ds / Delay"
+    },
+    {
+      "id": "st-042",
+      "cat": "five-ds",
+      "type": "branch",
+      "hook": "DIRECT. It's clearly safe, and a calm word could stop it.",
+      "options": [
+        {
+          "text": "Calmly say 'that's not okay, leave them alone'",
+          "consequence": "Naming it can stop the behaviour.",
+          "outcome": "direct",
+          "best": true
+        },
+        {
+          "text": "Stay silent though it's safe to speak",
+          "consequence": "When it's safe, a calm Direct word can work."
+        }
+      ],
+      "debrief": "The Direct move, only when safe, names the harassment plainly.",
+      "relearn": "Direct: when safe, calmly name that it's not okay.",
+      "persona": "Veer",
+      "source": "5 Ds / Direct"
+    },
+    {
+      "id": "st-043",
+      "cat": "five-ds",
+      "type": "branch",
+      "hook": "Which D fits: a dangerous harasser, target needs to get away now?",
+      "options": [
+        {
+          "text": "Distract (and Delegate), not Direct",
+          "consequence": "You help safely without confrontation.",
+          "outcome": "distract",
+          "best": true
+        },
+        {
+          "text": "Direct confrontation",
+          "consequence": "For danger, Distract and Delegate are safer than Direct."
+        }
+      ],
+      "debrief": "Match the move to safety; for danger, Distract or Delegate.",
+      "relearn": "For dangerous harassers, choose Distract or Delegate over Direct.",
+      "persona": "any",
+      "source": "5 Ds / matching"
+    },
+    {
+      "id": "st-044",
+      "cat": "five-ds",
+      "type": "branch",
+      "hook": "Which D fits: harassment over, person is upset and alone?",
+      "options": [
+        {
+          "text": "Delay, check in and support them",
+          "consequence": "They feel seen and cared for.",
+          "outcome": "delay",
+          "best": true
+        },
+        {
+          "text": "Nothing, it's done",
+          "consequence": "Afterwards, Delay (check in) is exactly the move."
+        }
+      ],
+      "debrief": "After the moment, Delay supports the person.",
+      "relearn": "After harassment, use Delay to support the person.",
+      "persona": "any",
+      "source": "5 Ds"
+    },
+    {
+      "id": "st-045",
+      "cat": "five-ds",
+      "type": "branch",
+      "hook": "Which D fits: a big crowd, you can't act alone safely?",
+      "options": [
+        {
+          "text": "Delegate, rally others or alert authority",
+          "consequence": "Shared action makes it safe and strong.",
+          "outcome": "delegate",
+          "best": true
+        },
+        {
+          "text": "Push in by yourself",
+          "consequence": "In a crowd, Delegate, get others to act with you."
+        }
+      ],
+      "debrief": "When alone-action is unsafe, Delegate to others.",
+      "relearn": "When you can't act alone safely, Delegate.",
+      "persona": "any",
+      "source": "5 Ds"
+    },
+    {
+      "id": "st-046",
+      "cat": "five-ds",
+      "type": "role-play",
+      "hook": "You use the Distract move on a bus.",
+      "setup": "Interrupt naturally. Say:",
+      "yourLine": [
+        {
+          "text": "\"Hey! There you are, come sit with me, I've been looking for you.\"",
+          "best": true
+        },
+        {
+          "text": "Say nothing"
+        }
+      ],
+      "relearn": "A friendly 'come sit with me' is a perfect Distract.",
+      "persona": "Riya",
+      "source": "5 Ds / Distract voice"
+    },
+    {
+      "id": "st-047",
+      "cat": "five-ds",
+      "type": "role-play",
+      "hook": "You use the Delegate move.",
+      "setup": "Rally help. Say:",
+      "yourLine": [
+        {
+          "text": "\"Excuse me, this person needs help, can you assist?\"",
+          "best": true
+        },
+        {
+          "text": "Hope someone else notices"
+        }
+      ],
+      "relearn": "Asking specific people for help gets a real response.",
+      "persona": "any",
+      "source": "5 Ds / Delegate voice"
+    },
+    {
+      "id": "st-048",
+      "cat": "five-ds",
+      "type": "role-play",
+      "hook": "You use the Direct move (it's safe).",
+      "setup": "Be calm and clear. Say:",
+      "yourLine": [
+        {
+          "text": "\"That's not okay. Leave them alone.\"",
+          "best": true
+        },
+        {
+          "text": "\"...\" (freeze)"
+        }
+      ],
+      "relearn": "A calm, clear 'that's not okay' is a strong Direct move.",
+      "persona": "Veer",
+      "source": "5 Ds / Direct voice"
+    },
+    {
+      "id": "st-049",
+      "cat": "five-ds",
+      "type": "match",
+      "hook": "Match the D to what it does.",
+      "pairs": [
+        {
+          "left": "Distract",
+          "right": "Break it up indirectly"
+        },
+        {
+          "left": "Delegate",
+          "right": "Get others/authority"
+        },
+        {
+          "left": "Delay",
+          "right": "Support after"
+        }
+      ],
+      "relearn": "Each D is a distinct, safe way to help.",
+      "persona": "any",
+      "source": "5 Ds"
+    },
+    {
+      "id": "st-050",
+      "cat": "five-ds",
+      "type": "match",
+      "hook": "Match the situation to the best D.",
+      "pairs": [
+        {
+          "left": "Dangerous harasser",
+          "right": "Distract / Delegate"
+        },
+        {
+          "left": "Safe to speak",
+          "right": "Direct"
+        },
+        {
+          "left": "After the event",
+          "right": "Delay"
+        }
+      ],
+      "relearn": "Choose the D that fits the safety of the moment.",
+      "persona": "any",
+      "source": "5 Ds"
+    },
+    {
+      "id": "st-051",
+      "cat": "five-ds",
+      "type": "sort",
+      "hook": "Sort: a real D move, or not one of the five?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Distract"
+        },
+        {
+          "id": "b",
+          "text": "Delegate"
+        },
+        {
+          "id": "c",
+          "text": "Dominate"
+        },
+        {
+          "id": "d",
+          "text": "Delay"
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "A real D"
+        },
+        {
+          "id": "no",
+          "label": "Not a D"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "real",
+        "c": "no",
+        "d": "real"
+      },
+      "relearn": "The five Ds are Distract, Delegate, Document, Delay, Direct, not 'dominate'.",
+      "persona": "any",
+      "source": "5 Ds"
+    },
+    {
+      "id": "st-052",
+      "cat": "five-ds",
+      "type": "sort",
+      "hook": "Sort: helps safely, or escalates?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Pretending to know the target"
+        },
+        {
+          "id": "b",
+          "text": "Shoving the harasser"
+        },
+        {
+          "id": "c",
+          "text": "Alerting a guard"
+        },
+        {
+          "id": "d",
+          "text": "Yelling threats"
+        }
+      ],
+      "bins": [
+        {
+          "id": "safe",
+          "label": "Helps safely"
+        },
+        {
+          "id": "escalates",
+          "label": "Escalates"
+        }
+      ],
+      "key": {
+        "a": "safe",
+        "b": "escalates",
+        "c": "safe",
+        "d": "escalates"
+      },
+      "relearn": "Distraction and alerting help safely; shoving and threats escalate.",
+      "persona": "any",
+      "source": "5 Ds / safety"
+    },
+    {
+      "id": "st-053",
+      "cat": "five-ds",
+      "type": "reflect",
+      "hook": "Lensy: with five moves, there's always at least one safe way to help. Reassuring?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Always an option",
+        "I can pick one"
+      ],
+      "affirm": "Five Ds means you're never stuck with 'nothing'.",
+      "relearn": "With five Ds, there's always a safe way to help.",
+      "persona": "any",
+      "source": "5 Ds"
+    },
+    {
+      "id": "st-054",
+      "cat": "after-support",
+      "type": "role-play",
+      "hook": "Right after, the person who was harassed looks shaken.",
+      "setup": "Support them. Say:",
+      "yourLine": [
+        {
+          "text": "\"Are you okay? That wasn't okay, and it wasn't your fault.\"",
+          "best": true
+        },
+        {
+          "text": "\"Why didn't you say something?\""
+        }
+      ],
+      "relearn": "Support afterwards: 'are you okay? it wasn't your fault'.",
+      "persona": "Riya",
+      "source": "after-support (verified)"
+    },
+    {
+      "id": "st-055",
+      "cat": "after-support",
+      "type": "role-play",
+      "hook": "They're scared to walk home alone after it.",
+      "setup": "Offer real help. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'll walk with you, or we can call someone.\"",
+          "best": true
+        },
+        {
+          "text": "\"You'll be fine, bye.\""
+        }
+      ],
+      "relearn": "Offering to accompany someone is concrete, caring support.",
+      "persona": "any",
+      "source": "after-support"
+    },
+    {
+      "id": "st-056",
+      "cat": "after-support",
+      "type": "role-play",
+      "hook": "They're unsure whether to report it.",
+      "setup": "Respect their choice and inform. Say:",
+      "yourLine": [
+        {
+          "text": "\"It's your call, and I'll help you report it if you want, 181 or 112 can help.\"",
+          "best": true
+        },
+        {
+          "text": "\"You have to report it right now.\""
+        }
+      ],
+      "relearn": "Offer help to report, on their terms, and name 181/112.",
+      "persona": "Counsellor",
+      "source": "after-support / helplines"
+    },
+    {
+      "id": "st-057",
+      "cat": "after-support",
+      "type": "role-play",
+      "hook": "A friend confides they were harassed and feels ashamed.",
+      "setup": "Reassure them. Say:",
+      "yourLine": [
+        {
+          "text": "\"This is not your fault. I believe you, and I'm here.\"",
+          "best": true
+        },
+        {
+          "text": "\"What were you doing there?\""
+        }
+      ],
+      "relearn": "Tell a survivor: it's not your fault, I believe you, I'm here.",
+      "persona": "any",
+      "source": "believe survivors"
+    },
+    {
+      "id": "st-058",
+      "cat": "after-support",
+      "type": "role-play",
+      "hook": "Others start gossiping about the person who was harassed.",
+      "setup": "Protect them. Say:",
+      "yourLine": [
+        {
+          "text": "\"Let's not gossip, they need support, not rumours.\"",
+          "best": true
+        },
+        {
+          "text": "Join the gossip"
+        }
+      ],
+      "relearn": "Protect a survivor's dignity; shut down the gossip.",
+      "persona": "any",
+      "source": "after-support / dignity"
+    },
+    {
+      "id": "st-059",
+      "cat": "after-support",
+      "type": "branch",
+      "hook": "A friend was harassed and doesn't know where to turn.",
+      "options": [
+        {
+          "text": "Help them reach a trusted adult or call 181 / 112 / 1098",
+          "consequence": "They get real support and options.",
+          "outcome": "caring",
+          "best": true
+        },
+        {
+          "text": "Tell them to just forget it",
+          "consequence": "Help them reach a trusted adult or a helpline."
+        }
+      ],
+      "debrief": "Knowing the helplines turns 'I don't know' into real help.",
+      "relearn": "Route a friend to a trusted adult or 181/112/1098.",
+      "persona": "Counsellor",
+      "source": "helplines (verified)"
+    },
+    {
+      "id": "st-060",
+      "cat": "after-support",
+      "type": "branch",
+      "hook": "Something serious happened and your friend swears you to secrecy.",
+      "options": [
+        {
+          "text": "For safety, gently insist on telling a trusted adult",
+          "consequence": "They get protection, even if upset now.",
+          "outcome": "protective",
+          "best": true
+        },
+        {
+          "text": "Keep the dangerous secret",
+          "consequence": "Serious harm needs a trusted adult; safety over secrecy."
+        }
+      ],
+      "debrief": "Some things are too serious to keep secret; safety comes first.",
+      "relearn": "For serious harm, tell a trusted adult, even if asked to keep it secret.",
+      "persona": "any",
+      "source": "safeguarding"
+    },
+    {
+      "id": "st-061",
+      "cat": "after-support",
+      "type": "strike-rewrite",
+      "hook": "\"If they didn't fight back, it wasn't really that bad.\"",
+      "myth": {
+        "un": "If someone didn't fight back, it wasn't serious.",
+        "re": "Freezing is a normal response; it doesn't lessen the harm or their right to support.",
+        "why": "People freeze; that's not consent or 'fine'."
+      },
+      "relearn": "Freezing is normal; not fighting back doesn't make harm 'okay'.",
+      "persona": "any",
+      "source": "trauma-informed"
+    },
+    {
+      "id": "st-062",
+      "cat": "after-support",
+      "type": "strike-rewrite",
+      "hook": "\"Supporting the person means hunting down the harasser.\"",
+      "myth": {
+        "un": "Real support means going after the harasser.",
+        "re": "The best support centres the person, believe, comfort, help them choose next steps.",
+        "why": "Revenge isn't support and isn't safe."
+      },
+      "relearn": "Support centres the person harmed, not revenge on the harasser.",
+      "persona": "any",
+      "source": "survivor-centred"
+    },
+    {
+      "id": "st-063",
+      "cat": "after-support",
+      "type": "strike-rewrite",
+      "hook": "\"Bringing it up again just upsets them; better to never mention it.\"",
+      "myth": {
+        "un": "You should never mention it again.",
+        "re": "A gentle check-in shows you care; let them lead how much to talk.",
+        "why": "Being there beats pretending it didn't happen."
+      },
+      "relearn": "A gentle check-in helps; let the person lead the conversation.",
+      "persona": "any",
+      "source": "after-support"
+    },
+    {
+      "id": "st-064",
+      "cat": "after-support",
+      "type": "reflect",
+      "hook": "Lensy: 'I believe you' can be the most powerful thing you say. Feel that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Belief matters",
+        "I'll say it"
+      ],
+      "affirm": "Being believed helps a survivor more than almost anything.",
+      "relearn": "'I believe you' is powerful support for someone harmed.",
+      "persona": "any",
+      "source": "believe survivors"
+    },
+    {
+      "id": "st-065",
+      "cat": "after-support",
+      "type": "match",
+      "hook": "Match the need to the helpline (India).",
+      "pairs": [
+        {
+          "left": "A woman in distress",
+          "right": "Women Helpline 181"
+        },
+        {
+          "left": "An emergency now",
+          "right": "112"
+        },
+        {
+          "left": "A child at risk",
+          "right": "Childline 1098"
+        }
+      ],
+      "relearn": "India has 181 (women), 112 (emergency) and 1098 (children) for support.",
+      "persona": "Counsellor",
+      "source": "helplines (verified)"
+    },
+    {
+      "id": "st-066",
+      "cat": "after-support",
+      "type": "reflect",
+      "hook": "Lensy: knowing 181, 112 and 1098, do you feel readier to help?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I know who to call",
+        "Readier"
+      ],
+      "affirm": "Knowing the helplines turns good intentions into real help.",
+      "relearn": "Knowing 181/112/1098 makes you ready to get real help.",
+      "persona": "any",
+      "source": "helplines"
+    },
+    {
+      "id": "st-067",
+      "cat": "be-the-upstander",
+      "type": "branch",
+      "hook": "Capstone: on a bus, a man is harassing a girl who looks scared. You're alone.",
+      "options": [
+        {
+          "text": "Distract, sit by her, then alert the conductor",
+          "consequence": "You help safely and bring in authority.",
+          "outcome": "upstander",
+          "best": true
+        },
+        {
+          "text": "Look away",
+          "consequence": "Distract plus alerting the conductor helps safely."
+        }
+      ],
+      "debrief": "Distract + Delegate is the safe upstander combo in public.",
+      "relearn": "On transport, distract and alert staff, the safe upstander move.",
+      "persona": "Riya",
+      "source": "consolidation"
+    },
+    {
+      "id": "st-068",
+      "cat": "be-the-upstander",
+      "type": "branch",
+      "hook": "In a corridor, friends are cornering and harassing a junior.",
+      "options": [
+        {
+          "text": "Break it up and, if needed, get a teacher",
+          "consequence": "You stop it and the junior is safe.",
+          "outcome": "upstander",
+          "best": true
+        },
+        {
+          "text": "Laugh along with your friends",
+          "consequence": "Even with friends, break it up and get a teacher."
+        }
+      ],
+      "debrief": "Standing up sometimes means stopping your own friends.",
+      "relearn": "You can stand up even when the harassers are your friends.",
+      "persona": "Veer",
+      "source": "peer / courage"
+    },
+    {
+      "id": "st-069",
+      "cat": "be-the-upstander",
+      "type": "branch",
+      "hook": "Online, a group is sexually harassing a classmate in a chat.",
+      "options": [
+        {
+          "text": "Don't pile on; report it and check on the classmate",
+          "consequence": "You cut the pile-on and support them.",
+          "outcome": "upstander",
+          "best": true
+        },
+        {
+          "text": "Stay in the chat and watch",
+          "consequence": "Report online harassment and support the target."
+        }
+      ],
+      "debrief": "Online upstanding: report, don't pile on, support the target.",
+      "relearn": "For online harassment: report it and support the person.",
+      "persona": "any",
+      "source": "online GBV"
+    },
+    {
+      "id": "st-070",
+      "cat": "be-the-upstander",
+      "type": "branch",
+      "hook": "You're a boy and your mates expect you to join 'harmless' harassment.",
+      "options": [
+        {
+          "text": "Refuse and shift the vibe; be the ally",
+          "consequence": "You break the group's harmful norm.",
+          "outcome": "ally",
+          "best": true
+        },
+        {
+          "text": "Join in to belong",
+          "consequence": "Being an ally means refusing to join the harassment."
+        }
+      ],
+      "debrief": "Boys have huge power to stop harassment by refusing to join.",
+      "relearn": "As an ally, refuse to join harassment and shift the group.",
+      "persona": "Veer",
+      "source": "ally / norms"
+    },
+    {
+      "id": "st-071",
+      "cat": "be-the-upstander",
+      "type": "branch",
+      "hook": "You froze last time and regret it. It's happening again.",
+      "options": [
+        {
+          "text": "Use one safe move this time, even a small one",
+          "consequence": "You act, and it gets easier.",
+          "outcome": "growth",
+          "best": true
+        },
+        {
+          "text": "Freeze again and feel worse",
+          "consequence": "Freezing once is okay; try one safe move now."
+        }
+      ],
+      "debrief": "Freezing once is human; you can choose a safe move next time.",
+      "relearn": "After freezing once, you can choose a safe action next time.",
+      "persona": "any",
+      "source": "growth / courage"
+    },
+    {
+      "id": "st-072",
+      "cat": "be-the-upstander",
+      "type": "branch",
+      "hook": "Acting might make you unpopular with the harasser's friends.",
+      "options": [
+        {
+          "text": "Help anyway, using a safe move",
+          "consequence": "You do the right thing; the right people respect it.",
+          "outcome": "brave",
+          "best": true
+        },
+        {
+          "text": "Stay popular and silent",
+          "consequence": "Someone's safety outweighs a harasser's friends' approval."
+        }
+      ],
+      "debrief": "Doing right can cost a little popularity; it's worth it.",
+      "relearn": "Help even if it risks the harasser's friends' approval.",
+      "persona": "any",
+      "source": "courage"
+    },
+    {
+      "id": "st-073",
+      "cat": "be-the-upstander",
+      "type": "role-play",
+      "hook": "You want to set the tone so your group never harasses.",
+      "setup": "Lead it. Say:",
+      "yourLine": [
+        {
+          "text": "\"We don't do that, it's not funny and it's not okay.\"",
+          "best": true
+        },
+        {
+          "text": "Stay quiet and let it slide"
+        }
+      ],
+      "relearn": "You can set a no-harassment tone in your group.",
+      "persona": "Veer",
+      "source": "ally / leadership"
+    },
+    {
+      "id": "st-074",
+      "cat": "be-the-upstander",
+      "type": "role-play",
+      "hook": "A younger student asks you how to handle harassment they're facing.",
+      "setup": "Guide them. Say:",
+      "yourLine": [
+        {
+          "text": "\"It's not your fault, tell a trusted adult, and you can call 1098.\"",
+          "best": true
+        },
+        {
+          "text": "\"Just ignore it.\""
+        }
+      ],
+      "relearn": "Guide a younger student: not your fault, tell an adult, call 1098.",
+      "persona": "Counsellor",
+      "source": "mentoring / helplines"
+    },
+    {
+      "id": "st-075",
+      "cat": "be-the-upstander",
+      "type": "role-play",
+      "hook": "You're rallying a friend to help you intervene safely.",
+      "setup": "Team up. Say:",
+      "yourLine": [
+        {
+          "text": "\"Come with me, let's check they're okay, together.\"",
+          "best": true
+        },
+        {
+          "text": "Go in alone"
+        }
+      ],
+      "relearn": "Teaming up makes intervening safer and easier.",
+      "persona": "any",
+      "source": "delegate / teamwork"
+    },
+    {
+      "id": "st-076",
+      "cat": "be-the-upstander",
+      "type": "spot",
+      "hook": "Spot the upstander in this scene.",
+      "scene": [
+        {
+          "text": "One person quietly alerts a guard",
+          "trick": true
+        },
+        {
+          "text": "Most people film for laughs",
+          "trick": false
+        },
+        {
+          "text": "Another sits with the target",
+          "trick": true
+        }
+      ],
+      "why": "The upstanders alert help and support the target, not film for laughs.",
+      "relearn": "Upstanders get help and support the target; they don't film for fun.",
+      "persona": "any",
+      "source": "spotting"
+    },
+    {
+      "id": "st-077",
+      "cat": "be-the-upstander",
+      "type": "spot",
+      "hook": "Spot your safest first move here.",
+      "scene": [
+        {
+          "text": "You could quietly alert the nearby guard",
+          "trick": true
+        },
+        {
+          "text": "The harasser is much bigger",
+          "trick": false
+        },
+        {
+          "text": "You could grab the harasser",
+          "trick": false
+        }
+      ],
+      "why": "With a bigger harasser, quietly alerting the guard is the safe first move.",
+      "relearn": "When outmatched, alert authority rather than confront.",
+      "persona": "any",
+      "source": "safety-first"
+    },
+    {
+      "id": "st-078",
+      "cat": "be-the-upstander",
+      "type": "reflect",
+      "hook": "Lensy: one upstander can change a whole scene, and inspire others. Believe it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "One person matters",
+        "I can be that one"
+      ],
+      "affirm": "One person acting safely often unfreezes everyone else.",
+      "relearn": "One safe upstander can change a scene and free others to help.",
+      "persona": "any",
+      "source": "agency"
+    },
+    {
+      "id": "st-079",
+      "cat": "be-the-upstander",
+      "type": "reflect",
+      "hook": "Lensy: what kind of person do you want to be when you see harassment?",
+      "prompt": "Pick one.",
+      "options": [
+        "One who acts safely",
+        "One who supports",
+        "One who refuses to join",
+        "All of these"
+      ],
+      "affirm": "That's the upstander the world needs, safe, supportive, and not silent.",
+      "relearn": "You can choose to be a safe, supportive, non-silent upstander.",
+      "persona": "any",
+      "source": "identity"
+    },
+    {
+      "id": "st-080",
+      "cat": "be-the-upstander",
+      "type": "strike-rewrite",
+      "hook": "\"It's not my problem if it's not happening to me.\"",
+      "myth": {
+        "un": "Harassment isn't my problem unless it's happening to me.",
+        "re": "In a community, everyone's safety is everyone's business.",
+        "why": "Bystanders who act make everyone safer."
+      },
+      "relearn": "Others' safety is your business too; upstanders make everyone safer.",
+      "persona": "any",
+      "source": "allyship"
+    },
+    {
+      "id": "st-081",
+      "cat": "be-the-upstander",
+      "type": "sort",
+      "hook": "Sort: an upstander action, or a bystander non-action?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Alerting a guard"
+        },
+        {
+          "id": "b",
+          "text": "Filming for laughs"
+        },
+        {
+          "id": "c",
+          "text": "Checking the person is okay"
+        },
+        {
+          "id": "d",
+          "text": "Walking away unbothered"
+        }
+      ],
+      "bins": [
+        {
+          "id": "up",
+          "label": "Upstander"
+        },
+        {
+          "id": "by",
+          "label": "Bystander"
+        }
+      ],
+      "key": {
+        "a": "up",
+        "b": "by",
+        "c": "up",
+        "d": "by"
+      },
+      "relearn": "Upstanders get help and support; bystanders film or walk away.",
+      "persona": "any",
+      "source": "upstander vs bystander"
+    },
+    {
+      "id": "st-082",
+      "cat": "be-the-upstander",
+      "type": "reflect",
+      "hook": "Lensy: biggest take-away from Stand Up?",
+      "prompt": "Pick your motto.",
+      "options": [
+        "Safety first, always",
+        "Five safe ways to help",
+        "Never the target's fault",
+        "Be the upstander"
+      ],
+      "affirm": "Help safely, support the person, and never be silent, that's standing up.",
+      "relearn": "Stand up safely, support the person, and never stay silent.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "st-083",
+      "cat": "be-the-upstander",
+      "type": "reflect",
+      "hook": "Lensy: knowing the safe moves and the helplines, ready to stand up?",
+      "prompt": "What do you think?",
+      "options": [
+        "Ready",
+        "Yes",
+        "I know what to do"
+      ],
+      "affirm": "You've got the moves, the limits and the helplines, you're ready.",
+      "relearn": "With safe moves and helplines, you're ready to stand up.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "st-084",
+      "cat": "gbv-and-rights",
+      "type": "reflect",
+      "hook": "Lensy: a world where bystanders act is a world where harassment shrinks. Worth building?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Worth it",
+        "Let's build it"
+      ],
+      "affirm": "Every safe upstander shrinks harassment's space, that's the change.",
+      "relearn": "When bystanders act safely, harassment has less room to thrive.",
+      "persona": "any",
+      "source": "vision"
+    }
+  ]
+}

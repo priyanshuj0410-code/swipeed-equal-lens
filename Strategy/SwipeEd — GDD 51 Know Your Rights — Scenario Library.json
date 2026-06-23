@@ -1,0 +1,1965 @@
+{
+  "game": "Know Your Rights",
+  "gameId": "know-your-rights",
+  "node": "g51",
+  "chapter": 6,
+  "ages": "18-22",
+  "thread": "G · Values, Rights & Media",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Open (adult, comprehensive, ungated) · educational, NOT legal advice",
+  "leadMechanics": [
+    "branch",
+    "strike-rewrite",
+    "match"
+  ],
+  "note": "Adult rights: POSH/harassment, consent law, work/tenancy/cyber rights (UNESCO 2.2, 4.3, 3.3). New v2 build, the College node that closes the chapter by turning the rights work of Justice League (g35) into the adult arenas a young adult now enters: the workplace and internships, harassment and POSH, renting a room, consumer and cyber rights, and the law in relationships. Six modes: rights at work, harassment & POSH, renting & consumer, cyber & data, claim it (UN&RE: 'you can't fight the system' -> you can; redress & free legal aid), tools/help. Empowering and practical: knowing your rights, and the routes to claim them, is one of the strongest protections an adult has. Educational, NOT legal advice; all law content flagged for expert review, localisation and currency. India: POSH Act 2013 and Internal Committees (10+ employees, complaint within 3 months, covers interns), basic labour/internship and tenancy/deposit norms, Consumer Protection Act 2019, cyber rights and DPDP, redress via Internal Committees, police/FIR and free legal aid (NALSA, 15100); helplines 181, 1091, 112, 1930, 1098. Builds on g35 (Justice League); pairs with g50; precedes the c6 capstone. Plain, usable for working youth (Meena, Farhan's cohort).",
+  "categories": {
+    "rights-at-work": "Rights at work: labour, contracts, pay, interns",
+    "harassment-and-posh": "Harassment & POSH: the Internal Committee",
+    "renting-and-consumer": "Renting & consumer: tenancy, deposits, goods",
+    "cyber-and-data": "Cyber & data: online fraud, abuse, your data",
+    "claim-it": "Claim it: redress routes & free legal aid",
+    "tools-and-help": "Tools & help: the rights & helpline card"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "strike-rewrite",
+    "sort",
+    "reflect",
+    "role-play",
+    "match",
+    "spot"
+  ],
+  "evidenceBase": [
+    "Adults hold real rights at work and in a rented home, even when junior: a contract or offer should state pay, hours and role, wages must be paid for work done, and interns and contract workers have protections too, so unpaid 'internships' doing real work, or wages withheld, are not okay. Sexual harassment at work or college is illegal and has formal redress under India's POSH Act 2013: every workplace with 10 or more employees (and colleges) must have an Internal Committee, a complaint can be filed within three months (extendable), the process is confidential, and the Act covers regular, temporary, contract, part-time and intern women; harassment is never the price of a job (India Code, POSH Act 2013; labour law)",
+    "Tenancy, consumer and cyber rights protect young adults in plain terms: a rent agreement protects both sides and deposits are returnable minus genuine, documented damages; consumer law (the Consumer Protection Act 2019) gives rights to refund or replacement for defective goods and a route to complain; and online fraud, harassment, blackmail and non-consensual intimate images can be reported at the National Cyber Crime Reporting Portal cybercrime.gov.in or helpline 1930, with personal data protected under the DPDP Act. Image-based abuse is a crime and the fault of the perpetrator, never the victim (Consumer Protection Act 2019; IT/cyber law; DPDP Act)",
+    "Redress is reachable, not just for the rich or connected: 'you can't fight the system' is false, because for a serious (cognizable) offence registering an FIR is mandatory and a Zero FIR can be filed at any station, and free legal aid is available through the National Legal Services Authority (NALSA) and the Legal Services Authorities for anyone who can't afford a lawyer (helpline 15100). This is educational, not legal advice, with all law flagged for expert review, localisation and currency, and live harassment or abuse routed to the right committee and helplines (181, 1091, 112, 1930, 1098); knowing the route is half the protection (Lalita Kumari / FIR; NALSA / Article 39A free legal aid)"
+  ],
+  "scenarios": [
+    {
+      "id": "kr-001",
+      "cat": "rights-at-work",
+      "type": "strike-rewrite",
+      "hook": "\"As a junior or intern, you have no rights at work.\"",
+      "myth": {
+        "un": "As a junior or intern, you have no rights at work.",
+        "re": "You have basic labour rights regardless of seniority; interns and contract workers are protected too.",
+        "why": "Rights don't start only at senior level."
+      },
+      "relearn": "You have basic labour rights regardless of seniority; interns are protected too.",
+      "persona": "Meena",
+      "source": "rights at any level"
+    },
+    {
+      "id": "kr-002",
+      "cat": "rights-at-work",
+      "type": "sort",
+      "hook": "Sort: okay at work, or not okay?",
+      "items": [
+        {
+          "id": "a",
+          "text": "A contract stating pay, hours and role"
+        },
+        {
+          "id": "b",
+          "text": "Being made to work unpaid 'to prove yourself'"
+        },
+        {
+          "id": "c",
+          "text": "Being paid on time for work done"
+        },
+        {
+          "id": "d",
+          "text": "Wages withheld with no reason"
+        }
+      ],
+      "bins": [
+        {
+          "id": "ok",
+          "label": "Okay"
+        },
+        {
+          "id": "not",
+          "label": "Not okay"
+        }
+      ],
+      "key": {
+        "a": "ok",
+        "b": "not",
+        "c": "ok",
+        "d": "not"
+      },
+      "relearn": "A clear contract and being paid on time is okay; unpaid 'real' work and withheld wages aren't.",
+      "persona": "any",
+      "source": "what's okay at work"
+    },
+    {
+      "id": "kr-003",
+      "cat": "rights-at-work",
+      "type": "branch",
+      "hook": "A 'job' wants you to do real, full work for free as an extended 'trial'.",
+      "options": [
+        {
+          "text": "Recognise that unpaid real work isn't okay and push back",
+          "consequence": "You protect your right to be paid.",
+          "outcome": "protected",
+          "best": true
+        },
+        {
+          "text": "Accept it to seem committed",
+          "consequence": "Real work deserves pay; an endless unpaid 'trial' is exploitation, not commitment."
+        }
+      ],
+      "debrief": "Doing genuine, ongoing work for free is exploitation; you have a right to be paid.",
+      "relearn": "Real work deserves pay; an unpaid 'trial' doing real work isn't okay.",
+      "persona": "any",
+      "source": "unpaid work"
+    },
+    {
+      "id": "kr-004",
+      "cat": "rights-at-work",
+      "type": "match",
+      "hook": "Match the work right to what it means.",
+      "pairs": [
+        {
+          "left": "A contract/offer letter",
+          "right": "States pay, hours and role"
+        },
+        {
+          "left": "Being paid for work done",
+          "right": "A basic labour right"
+        },
+        {
+          "left": "Safe conditions",
+          "right": "Owed to every worker"
+        }
+      ],
+      "relearn": "A contract states the terms, pay-for-work and safety are basic rights owed to every worker.",
+      "persona": "any",
+      "source": "work rights"
+    },
+    {
+      "id": "kr-005",
+      "cat": "rights-at-work",
+      "type": "branch",
+      "hook": "Your employer keeps 'forgetting' to pay you on time.",
+      "options": [
+        {
+          "text": "Keep records and raise it formally; you're owed your wages",
+          "consequence": "You assert your right with evidence.",
+          "outcome": "asserted",
+          "best": true
+        },
+        {
+          "text": "Stay quiet so you're not 'difficult'",
+          "consequence": "You're owed your wages; keeping records and raising it formally is your right, not being difficult."
+        }
+      ],
+      "debrief": "You have a right to be paid; documenting and formally raising late pay is how you claim it.",
+      "relearn": "Keep records and formally raise unpaid or late wages; you're owed them.",
+      "persona": "Meena",
+      "source": "unpaid wages"
+    },
+    {
+      "id": "kr-006",
+      "cat": "rights-at-work",
+      "type": "sort",
+      "hook": "Sort: a real labour-rights protection, or a myth?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Minimum wage exists"
+        },
+        {
+          "id": "b",
+          "text": "Juniors can be paid nothing legally"
+        },
+        {
+          "id": "c",
+          "text": "You should have a contract"
+        },
+        {
+          "id": "d",
+          "text": "Interns have zero protections"
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "Real protection"
+        },
+        {
+          "id": "myth",
+          "label": "Myth"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "myth",
+        "c": "real",
+        "d": "myth"
+      },
+      "relearn": "Minimum wage and contracts are real; 'juniors paid nothing' and 'interns have no protection' are myths.",
+      "persona": "any",
+      "source": "labour facts"
+    },
+    {
+      "id": "kr-007",
+      "cat": "rights-at-work",
+      "type": "strike-rewrite",
+      "hook": "\"If you complain about work conditions, you'll just be fired and that's legal.\"",
+      "myth": {
+        "un": "Complaining about conditions means you can be fired, and that's fine.",
+        "re": "You have rights to fair treatment and safe conditions; raising them is legitimate.",
+        "why": "Workers can assert conditions without forfeiting protection."
+      },
+      "relearn": "You have rights to fair treatment and safe conditions; raising them is legitimate.",
+      "persona": "any",
+      "source": "raising conditions"
+    },
+    {
+      "id": "kr-008",
+      "cat": "rights-at-work",
+      "type": "reflect",
+      "hook": "Sam: knowing your basic work rights makes you much harder to exploit. Feel that?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Harder to exploit",
+        "Knowledge protects"
+      ],
+      "affirm": "A worker who knows their rights is far harder to take advantage of; knowledge is protection.",
+      "relearn": "Knowing your basic work rights makes you much harder to exploit.",
+      "persona": "any",
+      "source": "knowledge protects"
+    },
+    {
+      "id": "kr-009",
+      "cat": "rights-at-work",
+      "type": "branch",
+      "hook": "You're offered a role with no contract, just a verbal promise.",
+      "options": [
+        {
+          "text": "Ask for the terms in writing before starting",
+          "consequence": "You protect yourself with a record.",
+          "outcome": "documented",
+          "best": true
+        },
+        {
+          "text": "Start on a handshake and hope",
+          "consequence": "Getting the terms in writing protects you; a verbal-only promise is easy to deny later."
+        }
+      ],
+      "debrief": "Written terms protect you; a verbal-only arrangement leaves you exposed.",
+      "relearn": "Ask for the terms in writing before starting a job.",
+      "persona": "any",
+      "source": "get it in writing"
+    },
+    {
+      "id": "kr-010",
+      "cat": "harassment-and-posh",
+      "type": "strike-rewrite",
+      "hook": "\"Workplace harassment is just something you put up with.\"",
+      "myth": {
+        "un": "Workplace harassment is something you just put up with.",
+        "re": "Sexual harassment at work is illegal, with formal redress under the POSH Act; you never have to just endure it.",
+        "why": "The law gives you a real route."
+      },
+      "relearn": "Workplace harassment is illegal; POSH gives you formal redress, you don't just endure it.",
+      "persona": "Aarti",
+      "source": "never endure it"
+    },
+    {
+      "id": "kr-011",
+      "cat": "harassment-and-posh",
+      "type": "strike-rewrite",
+      "hook": "\"Harassment is the price of having a job.\"",
+      "myth": {
+        "un": "Harassment is the price of having a job.",
+        "re": "Harassment is never the price of a job; you have a right to a safe, dignified workplace.",
+        "why": "Dignity at work is a right, not a favour."
+      },
+      "relearn": "Harassment is never the price of a job; you have a right to safety and dignity at work.",
+      "persona": "Meena",
+      "source": "not the price"
+    },
+    {
+      "id": "kr-012",
+      "cat": "harassment-and-posh",
+      "type": "match",
+      "hook": "Match the POSH basic to what it means.",
+      "pairs": [
+        {
+          "left": "Internal Committee (IC)",
+          "right": "Where you complain, confidentially"
+        },
+        {
+          "left": "10+ employees",
+          "right": "An IC is mandatory"
+        },
+        {
+          "left": "Within 3 months",
+          "right": "The window to file (extendable)"
+        }
+      ],
+      "relearn": "The IC is your confidential complaint route, mandatory at 10+ staff, with a 3-month window.",
+      "persona": "any",
+      "source": "POSH basics"
+    },
+    {
+      "id": "kr-013",
+      "cat": "harassment-and-posh",
+      "type": "branch",
+      "hook": "You're being harassed at work and don't know what to do.",
+      "options": [
+        {
+          "text": "Document it and complain to the Internal Committee",
+          "consequence": "You use the real, confidential redress route.",
+          "outcome": "redress",
+          "best": true
+        },
+        {
+          "text": "Assume nothing can be done",
+          "consequence": "The Internal Committee is a real, confidential route; documenting and complaining to it is how you act."
+        }
+      ],
+      "debrief": "The POSH Internal Committee is a confidential, formal route; documenting and complaining is how you use it.",
+      "relearn": "Document harassment and complain to the Internal Committee (POSH).",
+      "persona": "any",
+      "source": "using POSH"
+    },
+    {
+      "id": "kr-014",
+      "cat": "harassment-and-posh",
+      "type": "strike-rewrite",
+      "hook": "\"If you complain about harassment, they can punish you for it.\"",
+      "myth": {
+        "un": "If you complain about harassment, they can punish you.",
+        "re": "Retaliation for a good-faith complaint is itself prohibited under the POSH Act.",
+        "why": "The law protects complainants from reprisal."
+      },
+      "relearn": "Retaliation for a good-faith harassment complaint is itself prohibited.",
+      "persona": "any",
+      "source": "no retaliation"
+    },
+    {
+      "id": "kr-015",
+      "cat": "harassment-and-posh",
+      "type": "sort",
+      "hook": "Sort: true about POSH, or false?",
+      "items": [
+        {
+          "id": "a",
+          "text": "It covers interns and contract staff"
+        },
+        {
+          "id": "b",
+          "text": "It only protects senior women"
+        },
+        {
+          "id": "c",
+          "text": "The process is confidential"
+        },
+        {
+          "id": "d",
+          "text": "You must just confront them alone"
+        }
+      ],
+      "bins": [
+        {
+          "id": "true",
+          "label": "True"
+        },
+        {
+          "id": "false",
+          "label": "False"
+        }
+      ],
+      "key": {
+        "a": "true",
+        "b": "false",
+        "c": "true",
+        "d": "false"
+      },
+      "relearn": "POSH covers interns and contract staff and is confidential; it isn't only for seniors or a solo confrontation.",
+      "persona": "any",
+      "source": "POSH facts"
+    },
+    {
+      "id": "kr-016",
+      "cat": "harassment-and-posh",
+      "type": "role-play",
+      "hook": "A colleague is being harassed and feels powerless.",
+      "setup": "Tell them their options. Say:",
+      "yourLine": [
+        {
+          "text": "\"This isn't okay and it's not your fault, there's an Internal Committee you can complain to, confidentially.\"",
+          "best": true
+        },
+        {
+          "text": "\"Maybe just ignore it.\""
+        }
+      ],
+      "relearn": "Tell a harassed colleague it's not their fault and point them to the confidential IC.",
+      "persona": "Mehta",
+      "source": "supporting a colleague"
+    },
+    {
+      "id": "kr-017",
+      "cat": "harassment-and-posh",
+      "type": "branch",
+      "hook": "Your college has no functioning harassment committee that you can find.",
+      "options": [
+        {
+          "text": "Know it's legally required, and push for it / use external routes",
+          "consequence": "You don't accept the gap as final.",
+          "outcome": "persistent",
+          "best": true
+        },
+        {
+          "text": "Assume there's no recourse",
+          "consequence": "An IC is legally required; you can push for it or use external routes (police, 181), not accept a gap as final."
+        }
+      ],
+      "debrief": "A missing committee doesn't end your rights; it's legally required, and external routes exist.",
+      "relearn": "Committees are legally required; if one's missing, push for it or use external routes.",
+      "persona": "any",
+      "source": "missing committee"
+    },
+    {
+      "id": "kr-018",
+      "cat": "harassment-and-posh",
+      "type": "reflect",
+      "hook": "Sam: knowing the POSH route turns harassment from something you endure into something you can act on. Powerful?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I can act",
+        "Not endure"
+      ],
+      "affirm": "Knowing the route changes everything: harassment becomes something with a real, claimable remedy.",
+      "relearn": "Knowing the POSH route turns harassment into something you can act on.",
+      "persona": "any",
+      "source": "route to action"
+    },
+    {
+      "id": "kr-019",
+      "cat": "renting-and-consumer",
+      "type": "strike-rewrite",
+      "hook": "\"A landlord can keep your deposit for any reason.\"",
+      "myth": {
+        "un": "A landlord can keep your deposit for any reason.",
+        "re": "Deposits are returnable minus genuine, documented damages; not at a whim.",
+        "why": "A deposit isn't the landlord's to keep arbitrarily."
+      },
+      "relearn": "Deposits are returnable minus genuine, documented damages, not kept at a whim.",
+      "persona": "any",
+      "source": "deposits"
+    },
+    {
+      "id": "kr-020",
+      "cat": "renting-and-consumer",
+      "type": "branch",
+      "hook": "You're moving into a rented room with only a verbal agreement.",
+      "options": [
+        {
+          "text": "Get a written rent agreement and document the deposit",
+          "consequence": "You protect both sides with a record.",
+          "outcome": "documented",
+          "best": true
+        },
+        {
+          "text": "Skip the paperwork to keep it simple",
+          "consequence": "A written agreement and documented deposit protect you; verbal-only is hard to enforce later."
+        }
+      ],
+      "debrief": "A written rent agreement and documented deposit protect you if there's a dispute.",
+      "relearn": "Get a written rent agreement and document the deposit.",
+      "persona": "any",
+      "source": "tenancy basics"
+    },
+    {
+      "id": "kr-021",
+      "cat": "renting-and-consumer",
+      "type": "sort",
+      "hook": "Sort: a tenant protection, or a myth?",
+      "items": [
+        {
+          "id": "a",
+          "text": "A written agreement protects both sides"
+        },
+        {
+          "id": "b",
+          "text": "A landlord can evict you instantly, anytime"
+        },
+        {
+          "id": "c",
+          "text": "Deposits should be documented"
+        },
+        {
+          "id": "d",
+          "text": "Tenants have no rights at all"
+        }
+      ],
+      "bins": [
+        {
+          "id": "real",
+          "label": "Real protection"
+        },
+        {
+          "id": "myth",
+          "label": "Myth"
+        }
+      ],
+      "key": {
+        "a": "real",
+        "b": "myth",
+        "c": "real",
+        "d": "myth"
+      },
+      "relearn": "Written agreements and documented deposits protect tenants; 'instant eviction' and 'no rights' are myths.",
+      "persona": "Meena",
+      "source": "tenancy facts"
+    },
+    {
+      "id": "kr-022",
+      "cat": "renting-and-consumer",
+      "type": "strike-rewrite",
+      "hook": "\"If you bought it and it's faulty, that's just your bad luck.\"",
+      "myth": {
+        "un": "If you bought it and it's faulty, that's your bad luck.",
+        "re": "Consumer law gives you rights to refund or replacement for defective goods, and a route to complain.",
+        "why": "Sellers owe you working goods."
+      },
+      "relearn": "Consumer law gives you a right to refund or replacement for faulty goods.",
+      "persona": "any",
+      "source": "consumer rights"
+    },
+    {
+      "id": "kr-023",
+      "cat": "renting-and-consumer",
+      "type": "branch",
+      "hook": "A shop refuses to refund or replace a clearly defective product.",
+      "options": [
+        {
+          "text": "Cite your consumer rights and use the complaint route",
+          "consequence": "You assert a real right with a route.",
+          "outcome": "asserted",
+          "best": true
+        },
+        {
+          "text": "Give up; the shop said no",
+          "consequence": "Consumer law backs you on defective goods; citing your rights and using the complaint route works better than giving up."
+        }
+      ],
+      "debrief": "Consumer protection law and complaint forums exist precisely for refused refunds on faulty goods.",
+      "relearn": "Cite your consumer rights and use the complaint route for defective goods.",
+      "persona": "any",
+      "source": "consumer redress"
+    },
+    {
+      "id": "kr-024",
+      "cat": "renting-and-consumer",
+      "type": "match",
+      "hook": "Match the situation to the protection.",
+      "pairs": [
+        {
+          "left": "A faulty product",
+          "right": "Refund/replacement rights"
+        },
+        {
+          "left": "A rented room",
+          "right": "A written agreement"
+        },
+        {
+          "left": "A returnable deposit",
+          "right": "Minus documented damages"
+        }
+      ],
+      "relearn": "Consumer law covers faulty goods, a written agreement covers renting, deposits return minus damages.",
+      "persona": "any",
+      "source": "protections map"
+    },
+    {
+      "id": "kr-025",
+      "cat": "renting-and-consumer",
+      "type": "sort",
+      "hook": "Sort: protects you as a renter/consumer, or leaves you exposed?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Keeping receipts and records"
+        },
+        {
+          "id": "b",
+          "text": "Paying cash with no proof"
+        },
+        {
+          "id": "c",
+          "text": "A signed agreement"
+        },
+        {
+          "id": "d",
+          "text": "Relying on a verbal promise"
+        }
+      ],
+      "bins": [
+        {
+          "id": "protects",
+          "label": "Protects"
+        },
+        {
+          "id": "exposed",
+          "label": "Exposed"
+        }
+      ],
+      "key": {
+        "a": "protects",
+        "b": "exposed",
+        "c": "protects",
+        "d": "exposed"
+      },
+      "relearn": "Receipts and signed agreements protect you; cash-no-proof and verbal promises leave you exposed.",
+      "persona": "any",
+      "source": "keep records"
+    },
+    {
+      "id": "kr-026",
+      "cat": "renting-and-consumer",
+      "type": "branch",
+      "hook": "A landlord withholds your full deposit citing vague 'wear and tear'.",
+      "options": [
+        {
+          "text": "Ask for an itemised reason and dispute it with your records",
+          "consequence": "You challenge an unfair deduction.",
+          "outcome": "challenged",
+          "best": true
+        },
+        {
+          "text": "Accept the loss without question",
+          "consequence": "Asking for itemised reasons and disputing with your move-in records can recover an unfairly withheld deposit."
+        }
+      ],
+      "debrief": "Documented condition and itemised deductions are how you contest an unfair deposit deduction.",
+      "relearn": "Ask for itemised reasons and dispute unfair deposit deductions with records.",
+      "persona": "any",
+      "source": "deposit disputes"
+    },
+    {
+      "id": "kr-027",
+      "cat": "cyber-and-data",
+      "type": "strike-rewrite",
+      "hook": "\"Online scams and fraud can't really be reported.\"",
+      "myth": {
+        "un": "Online scams and fraud can't really be reported.",
+        "re": "You can report cyber fraud and crime at cybercrime.gov.in or helpline 1930, and fast reporting helps.",
+        "why": "There's a real national reporting route."
+      },
+      "relearn": "Report cyber fraud at cybercrime.gov.in or 1930; fast reporting helps.",
+      "persona": "any",
+      "source": "cyber reporting"
+    },
+    {
+      "id": "kr-028",
+      "cat": "cyber-and-data",
+      "type": "strike-rewrite",
+      "hook": "\"If someone shares an intimate image of me, it's partly my fault.\"",
+      "myth": {
+        "un": "If an intimate image of me is shared, it's partly my fault.",
+        "re": "Image-based abuse is a crime and the fault of the perpetrator, never the victim; it can be reported.",
+        "why": "The blame and the crime sit with the abuser."
+      },
+      "relearn": "Image-based abuse is a crime, on the perpetrator, never your fault, and reportable.",
+      "persona": "any",
+      "source": "image abuse"
+    },
+    {
+      "id": "kr-029",
+      "cat": "cyber-and-data",
+      "type": "branch",
+      "hook": "Someone is blackmailing you over private photos.",
+      "options": [
+        {
+          "text": "Don't pay; preserve evidence and report to 1930 / cybercrime.gov.in",
+          "consequence": "You take the real protective steps.",
+          "outcome": "reported",
+          "best": true
+        },
+        {
+          "text": "Pay them to make it stop",
+          "consequence": "Paying rarely stops blackmail; preserving evidence and reporting to 1930 is the protective move."
+        }
+      ],
+      "debrief": "For sextortion or blackmail: don't pay, preserve evidence, and report to cybercrime 1930.",
+      "relearn": "Don't pay blackmailers; preserve evidence and report to 1930 / cybercrime.gov.in.",
+      "persona": "any",
+      "source": "sextortion"
+    },
+    {
+      "id": "kr-030",
+      "cat": "cyber-and-data",
+      "type": "spot",
+      "hook": "Spot your data right under the DPDP framework.",
+      "scene": [
+        {
+          "text": "You can ask what data is held about you",
+          "trick": false
+        },
+        {
+          "text": "Apps can do anything with your data, no consent",
+          "trick": true
+        },
+        {
+          "text": "Your consent matters for your data",
+          "trick": false
+        }
+      ],
+      "why": "Asking what's held and your consent mattering are data rights; 'apps can do anything' isn't true.",
+      "relearn": "Under the DPDP framework, your consent matters and you have rights over your data.",
+      "persona": "any",
+      "source": "data rights"
+    },
+    {
+      "id": "kr-031",
+      "cat": "cyber-and-data",
+      "type": "match",
+      "hook": "Match the online harm to where you report it (India).",
+      "pairs": [
+        {
+          "left": "Financial fraud / scam",
+          "right": "1930 / cybercrime.gov.in"
+        },
+        {
+          "left": "An intimate image shared",
+          "right": "cybercrime.gov.in (and take-down)"
+        },
+        {
+          "left": "A child at risk online",
+          "right": "Childline 1098"
+        }
+      ],
+      "relearn": "1930 for fraud, cybercrime.gov.in for image abuse, 1098 for a child at risk.",
+      "persona": "any",
+      "source": "cyber routes"
+    },
+    {
+      "id": "kr-032",
+      "cat": "cyber-and-data",
+      "type": "branch",
+      "hook": "You've been defrauded online and feel embarrassed to report it.",
+      "options": [
+        {
+          "text": "Report it fast anyway; speed can help recover money",
+          "consequence": "You act despite the embarrassment.",
+          "outcome": "acted",
+          "best": true
+        },
+        {
+          "text": "Stay silent out of shame",
+          "consequence": "Reporting fast (1930) can help freeze and recover funds; shame shouldn't stop you."
+        }
+      ],
+      "debrief": "Fast reporting of online fraud (1930) improves the chance of recovering money; shame just delays it.",
+      "relearn": "Report online fraud fast (1930); speed can help recover money.",
+      "persona": "Meena",
+      "source": "fraud no shame"
+    },
+    {
+      "id": "kr-033",
+      "cat": "cyber-and-data",
+      "type": "strike-rewrite",
+      "hook": "\"Once something bad is online, nothing can ever be done.\"",
+      "myth": {
+        "un": "Once something bad is online, nothing can be done.",
+        "re": "You can report it, request take-downs, and pursue redress; it's not hopeless.",
+        "why": "Reporting routes and take-down rights exist."
+      },
+      "relearn": "Online harms can be reported and taken down; it isn't hopeless.",
+      "persona": "any",
+      "source": "not hopeless"
+    },
+    {
+      "id": "kr-034",
+      "cat": "cyber-and-data",
+      "type": "sort",
+      "hook": "Sort: a smart move after a cyber harm, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Preserving screenshots and evidence"
+        },
+        {
+          "id": "b",
+          "text": "Deleting everything in a panic"
+        },
+        {
+          "id": "c",
+          "text": "Reporting to 1930 quickly"
+        },
+        {
+          "id": "d",
+          "text": "Paying a blackmailer"
+        }
+      ],
+      "bins": [
+        {
+          "id": "smart",
+          "label": "Smart"
+        },
+        {
+          "id": "not",
+          "label": "Not"
+        }
+      ],
+      "key": {
+        "a": "smart",
+        "b": "not",
+        "c": "smart",
+        "d": "not"
+      },
+      "relearn": "Preserving evidence and reporting fast is smart; panic-deleting or paying blackmailers isn't.",
+      "persona": "any",
+      "source": "after a cyber harm"
+    },
+    {
+      "id": "kr-035",
+      "cat": "claim-it",
+      "type": "strike-rewrite",
+      "hook": "\"You can't fight the system; ordinary people just lose.\"",
+      "myth": {
+        "un": "You can't fight the system; ordinary people just lose.",
+        "re": "There are real, reachable routes to redress, and knowing them shifts the odds.",
+        "why": "Rights are useless unknown, powerful when used."
+      },
+      "relearn": "There are real, reachable routes to redress; knowing them shifts the odds.",
+      "persona": "any",
+      "source": "you can claim it"
+    },
+    {
+      "id": "kr-036",
+      "cat": "claim-it",
+      "type": "strike-rewrite",
+      "hook": "\"You need money and connections to claim your rights.\"",
+      "myth": {
+        "un": "You need money and connections to claim your rights.",
+        "re": "Free legal aid (NALSA, helpline 15100) exists for anyone who can't afford a lawyer.",
+        "why": "Justice isn't only for those who can pay."
+      },
+      "relearn": "Free legal aid (NALSA, 15100) exists for those who can't afford a lawyer.",
+      "persona": "Meena",
+      "source": "free legal aid"
+    },
+    {
+      "id": "kr-037",
+      "cat": "claim-it",
+      "type": "strike-rewrite",
+      "hook": "\"The police can just refuse to register your complaint.\"",
+      "myth": {
+        "un": "The police can just refuse to register your complaint.",
+        "re": "For a serious (cognizable) offence, registering an FIR is mandatory; a Zero FIR can be filed at any station.",
+        "why": "The law requires it for serious offences."
+      },
+      "relearn": "For a serious offence an FIR is mandatory; a Zero FIR can be filed at any station.",
+      "persona": "any",
+      "source": "FIR / Zero FIR"
+    },
+    {
+      "id": "kr-038",
+      "cat": "claim-it",
+      "type": "match",
+      "hook": "Match the need to the redress route (India).",
+      "pairs": [
+        {
+          "left": "Workplace harassment",
+          "right": "The Internal Committee (POSH)"
+        },
+        {
+          "left": "A serious offence",
+          "right": "An FIR (Zero FIR anywhere)"
+        },
+        {
+          "left": "Can't afford a lawyer",
+          "right": "Free legal aid (NALSA, 15100)"
+        }
+      ],
+      "relearn": "IC for workplace harassment, FIR for serious offences, NALSA free legal aid if you can't pay.",
+      "persona": "any",
+      "source": "redress routes"
+    },
+    {
+      "id": "kr-039",
+      "cat": "claim-it",
+      "type": "branch",
+      "hook": "You have a real grievance but assume pursuing it is pointless.",
+      "options": [
+        {
+          "text": "Find the right route and use it; rights are claimable",
+          "consequence": "You turn a grievance into action.",
+          "outcome": "acted",
+          "best": true
+        },
+        {
+          "text": "Drop it, assuming nothing will change",
+          "consequence": "Finding the right route (IC, FIR, free legal aid) turns a grievance into action; 'pointless' is the myth."
+        }
+      ],
+      "debrief": "Most rights have a real route to claim them; finding and using it is how change happens.",
+      "relearn": "Find the right route and use it; rights are claimable, not pointless.",
+      "persona": "any",
+      "source": "taking action"
+    },
+    {
+      "id": "kr-040",
+      "cat": "claim-it",
+      "type": "reflect",
+      "hook": "Sam: knowing the routes, free legal aid, the IC, the FIR, means you're never as powerless as it feels. Land?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Not powerless",
+        "I know the routes"
+      ],
+      "affirm": "Knowing the routes means you always have somewhere to turn; you're far from powerless.",
+      "relearn": "Knowing the redress routes means you're never as powerless as it feels.",
+      "persona": "any",
+      "source": "never powerless"
+    },
+    {
+      "id": "kr-041",
+      "cat": "claim-it",
+      "type": "role-play",
+      "hook": "A friend won't pursue a clear rights violation because they can't afford a lawyer.",
+      "relearn": "Tell people who can't afford a lawyer about free legal aid (NALSA, 15100).",
+      "persona": "any",
+      "source": "sharing the route",
+      "setup": "Open a door for them. Say:",
+      "yourLine": [
+        {
+          "text": "\"There's free legal aid, NALSA, helpline 15100, cost doesn't have to stop you.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, without money it's hopeless.\""
+        }
+      ]
+    },
+    {
+      "id": "kr-042",
+      "cat": "claim-it",
+      "type": "sort",
+      "hook": "Sort: a real route to redress, or a dead end?",
+      "items": [
+        {
+          "id": "a",
+          "text": "An Internal Committee complaint"
+        },
+        {
+          "id": "b",
+          "text": "Just hoping it resolves itself"
+        },
+        {
+          "id": "c",
+          "text": "An FIR for a serious offence"
+        },
+        {
+          "id": "d",
+          "text": "Assuming you have no options"
+        }
+      ],
+      "bins": [
+        {
+          "id": "route",
+          "label": "Real route"
+        },
+        {
+          "id": "deadend",
+          "label": "Dead end"
+        }
+      ],
+      "key": {
+        "a": "route",
+        "b": "deadend",
+        "c": "route",
+        "d": "deadend"
+      },
+      "relearn": "An IC complaint and an FIR are real routes; hoping it resolves itself or assuming no options is a dead end.",
+      "persona": "any",
+      "source": "routes vs dead ends"
+    },
+    {
+      "id": "kr-043",
+      "cat": "claim-it",
+      "type": "role-play",
+      "hook": "You need to ask where to get free legal help for a rights issue.",
+      "setup": "Ask plainly; it's your right. Say:",
+      "yourLine": [
+        {
+          "text": "\"I can't afford a lawyer, how do I access free legal aid through the Legal Services Authority?\"",
+          "best": true
+        },
+        {
+          "text": "Assume free help isn't really available"
+        }
+      ],
+      "relearn": "You can plainly ask for free legal aid; it's a right, not a favour.",
+      "persona": "any",
+      "source": "asking for aid"
+    },
+    {
+      "id": "kr-044",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match the need to the helpline (India).",
+      "pairs": [
+        {
+          "left": "A woman in distress",
+          "right": "181 / 1091"
+        },
+        {
+          "left": "Immediate danger",
+          "right": "112"
+        },
+        {
+          "left": "Cyber fraud or abuse",
+          "right": "1930 / cybercrime.gov.in"
+        }
+      ],
+      "relearn": "181/1091 for women in distress, 112 for danger, 1930 for cyber harm.",
+      "persona": "any",
+      "source": "helplines"
+    },
+    {
+      "id": "kr-045",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: a reliable rights resource, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "A Legal Services Authority"
+        },
+        {
+          "id": "b",
+          "text": "A random WhatsApp forward"
+        },
+        {
+          "id": "c",
+          "text": "The cybercrime portal"
+        },
+        {
+          "id": "d",
+          "text": "A stranger's confident guess"
+        }
+      ],
+      "bins": [
+        {
+          "id": "reliable",
+          "label": "Reliable"
+        },
+        {
+          "id": "not",
+          "label": "Not"
+        }
+      ],
+      "key": {
+        "a": "reliable",
+        "b": "not",
+        "c": "reliable",
+        "d": "not"
+      },
+      "relearn": "Legal Services Authorities and the cybercrime portal are reliable; forwards and guesses aren't.",
+      "persona": "any",
+      "source": "reliable resources"
+    },
+    {
+      "id": "kr-046",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: this is education, not legal advice, so for a real case, get qualified or free legal help. Clear?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Get qualified help",
+        "Makes sense"
+      ],
+      "affirm": "Treating this as solid grounding, and getting qualified or free legal help for real cases, is exactly right.",
+      "relearn": "This is education, not legal advice; for a real case, get qualified or free legal help.",
+      "persona": "any",
+      "source": "not legal advice"
+    },
+    {
+      "id": "kr-047",
+      "cat": "tools-and-help",
+      "type": "role-play",
+      "hook": "A friend faces a rights issue and doesn't know where to start.",
+      "relearn": "Point a friend with a rights issue to the right route and a helpline.",
+      "persona": "Farhan",
+      "source": "helping others",
+      "setup": "Give them a first step. Say:",
+      "yourLine": [
+        {
+          "text": "\"Here's the route, and a helpline you can call, you don't have to figure it out alone.\"",
+          "best": true
+        },
+        {
+          "text": "\"Just let it go.\""
+        }
+      ]
+    },
+    {
+      "id": "kr-048",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match the myth to the truth that replaces it.",
+      "pairs": [
+        {
+          "left": "\"Interns have no rights\"",
+          "right": "Basic labour rights apply"
+        },
+        {
+          "left": "\"Just endure harassment\"",
+          "right": "POSH gives formal redress"
+        },
+        {
+          "left": "\"Need money for justice\"",
+          "right": "Free legal aid exists"
+        }
+      ],
+      "relearn": "Interns have rights, POSH gives redress, and free legal aid means justice isn't only for the rich.",
+      "persona": "any",
+      "source": "myth to truth"
+    },
+    {
+      "id": "kr-049",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: rights you know are rights you can use, that's the whole point of this. Carry it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Know to use",
+        "The whole point"
+      ],
+      "affirm": "Rights you know are rights you can use; that knowledge is one of the strongest protections you have.",
+      "relearn": "Rights you know are rights you can use; that's your strongest protection.",
+      "persona": "any",
+      "source": "the point"
+    },
+    {
+      "id": "kr-050",
+      "cat": "tools-and-help",
+      "type": "spot",
+      "hook": "Spot the accurate rights statement.",
+      "scene": [
+        {
+          "text": "\"Harassment has formal redress (POSH)\"",
+          "trick": false
+        },
+        {
+          "text": "\"You have no rights as a junior\"",
+          "trick": true
+        },
+        {
+          "text": "\"Free legal aid exists if you can't pay\"",
+          "trick": false
+        }
+      ],
+      "why": "POSH redress and free legal aid are accurate; 'no rights as a junior' is false.",
+      "relearn": "POSH redress and free legal aid are real; 'no rights as a junior' is false.",
+      "persona": "any",
+      "source": "accurate rights"
+    },
+    {
+      "id": "kr-051",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: which right or route do you most want to remember?",
+      "prompt": "Pick one.",
+      "options": [
+        "Work rights",
+        "The POSH route",
+        "Consumer/cyber redress",
+        "Free legal aid"
+      ],
+      "affirm": "Carry that one, and you've got a real protection ready when you, or a friend, needs it.",
+      "relearn": "Work rights, the POSH route, consumer/cyber redress, and free legal aid, keep one ready.",
+      "persona": "any",
+      "source": "consolidation"
+    },
+    {
+      "id": "kr-052",
+      "cat": "rights-at-work",
+      "type": "role-play",
+      "hook": "Your boss pressures you to work far beyond agreed hours, unpaid.",
+      "setup": "Hold the line, politely. Say:",
+      "yourLine": [
+        {
+          "text": "\"I'm happy to help, but extra hours need to be agreed and paid as per my terms.\"",
+          "best": true
+        },
+        {
+          "text": "Just do it silently to avoid trouble"
+        }
+      ],
+      "relearn": "You can politely hold the line that extra work should be agreed and paid.",
+      "persona": "any",
+      "source": "overwork"
+    },
+    {
+      "id": "kr-053",
+      "cat": "harassment-and-posh",
+      "type": "branch",
+      "hook": "You witness a colleague being harassed by a senior.",
+      "options": [
+        {
+          "text": "Support them and note what you saw as a potential witness",
+          "consequence": "You strengthen any future complaint.",
+          "outcome": "witness",
+          "best": true
+        },
+        {
+          "text": "Look away; not your problem",
+          "consequence": "Supporting them and noting what you saw can strengthen a POSH complaint; bystanding doesn't help."
+        }
+      ],
+      "debrief": "Witness support and accounts can strengthen a harassment complaint; being an active bystander matters.",
+      "relearn": "Support a harassed colleague and note what you witnessed.",
+      "persona": "Rohan",
+      "source": "witness support"
+    },
+    {
+      "id": "kr-054",
+      "cat": "renting-and-consumer",
+      "type": "branch",
+      "hook": "An online seller delivers a fake product and stops responding.",
+      "options": [
+        {
+          "text": "Use consumer complaint routes and report the fraud",
+          "consequence": "You pursue a real remedy.",
+          "outcome": "pursued",
+          "best": true
+        },
+        {
+          "text": "Write it off as a loss",
+          "consequence": "Consumer complaint routes and fraud reporting (1930) pursue a real remedy, better than writing it off."
+        }
+      ],
+      "debrief": "Fake-product fraud has both consumer and cyber routes; you don't just absorb the loss.",
+      "relearn": "Use consumer routes and report fraud for fake products; don't just absorb the loss.",
+      "persona": "any",
+      "source": "online fraud"
+    },
+    {
+      "id": "kr-055",
+      "cat": "cyber-and-data",
+      "type": "branch",
+      "hook": "An app demands far more data and permissions than it needs.",
+      "options": [
+        {
+          "text": "Decline the unnecessary permissions; your data is yours",
+          "consequence": "You exercise your data rights.",
+          "outcome": "private",
+          "best": true
+        },
+        {
+          "text": "Allow everything by default",
+          "consequence": "You can decline unnecessary permissions; your consent and your data are yours under DPDP."
+        }
+      ],
+      "debrief": "You have a right to control your data; declining unnecessary permissions is exercising it.",
+      "relearn": "Decline unnecessary app permissions; your consent and data are yours.",
+      "persona": "any",
+      "source": "data control"
+    },
+    {
+      "id": "kr-056",
+      "cat": "claim-it",
+      "type": "strike-rewrite",
+      "hook": "\"The law is too complicated for someone like me to understand.\"",
+      "myth": {
+        "un": "The law is too complicated for me to understand.",
+        "re": "The core protections can be put in plain language anyone can use.",
+        "why": "You don't need to be a lawyer to know your basic rights."
+      },
+      "relearn": "The core protections can be put in plain language anyone can use.",
+      "persona": "Meena",
+      "source": "plain language"
+    },
+    {
+      "id": "kr-057",
+      "cat": "rights-at-work",
+      "type": "sort",
+      "hook": "Sort: a fair internship, or exploitation dressed as one?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Real learning, fair stipend, set hours"
+        },
+        {
+          "id": "b",
+          "text": "Full unpaid work indefinitely"
+        },
+        {
+          "id": "c",
+          "text": "A clear agreement"
+        },
+        {
+          "id": "d",
+          "text": "'Pay' that never arrives"
+        }
+      ],
+      "bins": [
+        {
+          "id": "fair",
+          "label": "Fair internship"
+        },
+        {
+          "id": "exploit",
+          "label": "Exploitation"
+        }
+      ],
+      "key": {
+        "a": "fair",
+        "b": "exploit",
+        "c": "fair",
+        "d": "exploit"
+      },
+      "relearn": "Learning, fair stipend and clear terms is a fair internship; endless unpaid work or vanishing pay is exploitation.",
+      "persona": "Deepak",
+      "source": "internships"
+    },
+    {
+      "id": "kr-058",
+      "cat": "harassment-and-posh",
+      "type": "role-play",
+      "hook": "A colleague blames themselves for being harassed.",
+      "relearn": "Harassment is never your fault; the law is on your side.",
+      "persona": "any",
+      "source": "on your side",
+      "setup": "Set them straight, gently. Say:",
+      "yourLine": [
+        {
+          "text": "\"It's not your fault, and the law is on your side, not theirs.\"",
+          "best": true
+        },
+        {
+          "text": "\"Maybe you misread it.\""
+        }
+      ]
+    },
+    {
+      "id": "kr-059",
+      "cat": "renting-and-consumer",
+      "type": "spot",
+      "hook": "Spot the smart move before signing.",
+      "relearn": "Read and understand what you sign; never sign blind.",
+      "persona": "any",
+      "source": "read before signing",
+      "scene": [
+        {
+          "text": "Reading and understanding the terms",
+          "trick": false
+        },
+        {
+          "text": "Signing blind to save time",
+          "trick": true
+        },
+        {
+          "text": "Questioning unfair clauses",
+          "trick": false
+        }
+      ],
+      "why": "Reading and questioning terms protects you; signing blind doesn't."
+    },
+    {
+      "id": "kr-060",
+      "cat": "cyber-and-data",
+      "type": "sort",
+      "hook": "Sort: a place you have rights and routes, or a lawless-zone myth?",
+      "relearn": "You have rights and routes online (reporting, data rights); 'the internet is lawless for you' is a myth.",
+      "persona": "any",
+      "source": "rights online",
+      "items": [
+        {
+          "id": "a",
+          "text": "Reporting online fraud to 1930"
+        },
+        {
+          "id": "b",
+          "text": "Assuming the internet is lawless for you"
+        },
+        {
+          "id": "c",
+          "text": "Exercising your data rights"
+        },
+        {
+          "id": "d",
+          "text": "Believing nothing online can be acted on"
+        }
+      ],
+      "bins": [
+        {
+          "id": "rights",
+          "label": "You have rights"
+        },
+        {
+          "id": "lawless",
+          "label": "Lawless myth"
+        }
+      ],
+      "key": {
+        "a": "rights",
+        "b": "lawless",
+        "c": "rights",
+        "d": "lawless"
+      }
+    },
+    {
+      "id": "kr-061",
+      "cat": "claim-it",
+      "type": "branch",
+      "hook": "You're unsure whether your situation is 'serious enough' to act on.",
+      "options": [
+        {
+          "text": "Check the route; you can ask without committing to anything",
+          "consequence": "You get clarity with no downside.",
+          "outcome": "informed",
+          "best": true
+        },
+        {
+          "text": "Assume it's not worth bothering",
+          "consequence": "You can ask about routes (free legal aid, an IC) without committing; clarity has no downside."
+        }
+      ],
+      "debrief": "Asking about your options costs nothing and commits you to nothing; it just gives clarity.",
+      "relearn": "You can ask about your rights and routes without committing to anything.",
+      "persona": "any",
+      "source": "just ask"
+    },
+    {
+      "id": "kr-062",
+      "cat": "rights-at-work",
+      "type": "strike-rewrite",
+      "hook": "\"If you're paid in cash off the books, you have no rights.\"",
+      "myth": {
+        "un": "If you're paid in cash off the books, you have no rights.",
+        "re": "You still have rights as a worker; off-the-books pay is a warning sign, not a loss of your protections.",
+        "why": "Informal pay doesn't erase labour rights."
+      },
+      "relearn": "Off-the-books cash pay doesn't erase your rights; it's a warning sign.",
+      "persona": "Meena",
+      "source": "informal work"
+    },
+    {
+      "id": "kr-063",
+      "cat": "harassment-and-posh",
+      "type": "sort",
+      "hook": "Sort: a step that helps a POSH complaint, or hinders it?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Documenting incidents with dates"
+        },
+        {
+          "id": "b",
+          "text": "Deleting all the evidence"
+        },
+        {
+          "id": "c",
+          "text": "Complaining within the time window"
+        },
+        {
+          "id": "d",
+          "text": "Telling no one and waiting years"
+        }
+      ],
+      "bins": [
+        {
+          "id": "helps",
+          "label": "Helps"
+        },
+        {
+          "id": "hinders",
+          "label": "Hinders"
+        }
+      ],
+      "key": {
+        "a": "helps",
+        "b": "hinders",
+        "c": "helps",
+        "d": "hinders"
+      },
+      "relearn": "Documenting incidents and complaining in the window helps a POSH case; deleting evidence or long delay hinders it.",
+      "persona": "any",
+      "source": "strong complaint"
+    },
+    {
+      "id": "kr-064",
+      "cat": "renting-and-consumer",
+      "type": "spot",
+      "hook": "Spot the rental-scam sign.",
+      "relearn": "Verify before paying; upfront deposits for unseen rentals are a common scam.",
+      "persona": "any",
+      "source": "rental scams",
+      "scene": [
+        {
+          "text": "A big deposit demanded before you've seen the place",
+          "trick": true
+        },
+        {
+          "text": "Viewing first, then a documented agreement",
+          "trick": false
+        },
+        {
+          "text": "Pressure to pay instantly to 'secure' it",
+          "trick": true
+        }
+      ],
+      "why": "Big upfront deposits for unseen places and instant-pay pressure are rental-scam signs."
+    },
+    {
+      "id": "kr-065",
+      "cat": "cyber-and-data",
+      "type": "spot",
+      "hook": "Spot the cyber-rights-aware move.",
+      "scene": [
+        {
+          "text": "Reporting fraud to 1930 quickly",
+          "trick": false
+        },
+        {
+          "text": "Paying a blackmailer to stay quiet",
+          "trick": true
+        },
+        {
+          "text": "Preserving evidence before reporting",
+          "trick": false
+        }
+      ],
+      "why": "Fast reporting and preserving evidence are rights-aware; paying blackmailers isn't.",
+      "relearn": "Report fast and preserve evidence; don't pay blackmailers.",
+      "persona": "any",
+      "source": "cyber-aware"
+    },
+    {
+      "id": "kr-066",
+      "cat": "claim-it",
+      "type": "reflect",
+      "hook": "Sam: a young adult who knows their rights and the routes is genuinely harder to exploit. Feel equipped?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Equipped",
+        "Harder to exploit"
+      ],
+      "affirm": "Knowing your rights and the routes to claim them is real, practical protection; you're equipped.",
+      "relearn": "Knowing your rights and the routes makes you genuinely harder to exploit.",
+      "persona": "any",
+      "source": "equipped"
+    },
+    {
+      "id": "kr-067",
+      "cat": "rights-at-work",
+      "type": "branch",
+      "hook": "You're asked to sign a contract with terms that seem unfair.",
+      "options": [
+        {
+          "text": "Read it, question unfair terms, and seek advice before signing",
+          "consequence": "You protect yourself from a bad deal.",
+          "outcome": "careful",
+          "best": true
+        },
+        {
+          "text": "Sign quickly to get the job",
+          "consequence": "Reading, questioning unfair terms and seeking advice protects you; signing blind can trap you."
+        }
+      ],
+      "debrief": "Questioning unfair contract terms and getting advice before signing is basic self-protection.",
+      "relearn": "Read, question unfair terms, and seek advice before signing a contract.",
+      "persona": "any",
+      "source": "contracts"
+    },
+    {
+      "id": "kr-068",
+      "cat": "harassment-and-posh",
+      "type": "spot",
+      "hook": "Spot what counts as workplace harassment.",
+      "relearn": "Harassment includes unwelcome comments, messages and a hostile environment, not just physical acts.",
+      "persona": "any",
+      "source": "what counts",
+      "scene": [
+        {
+          "text": "Unwelcome comments or messages",
+          "trick": false
+        },
+        {
+          "text": "Only physical acts count",
+          "trick": true
+        },
+        {
+          "text": "Creating a hostile environment",
+          "trick": false
+        }
+      ],
+      "why": "Unwelcome comments/messages and a hostile environment count, not only physical acts."
+    },
+    {
+      "id": "kr-069",
+      "cat": "renting-and-consumer",
+      "type": "match",
+      "hook": "Match the record to the protection it gives.",
+      "pairs": [
+        {
+          "left": "A signed rent agreement",
+          "right": "Proof of your terms"
+        },
+        {
+          "left": "Move-in photos",
+          "right": "Evidence for your deposit"
+        },
+        {
+          "left": "Receipts",
+          "right": "Proof for consumer claims"
+        }
+      ],
+      "relearn": "Agreements, move-in photos and receipts each give concrete proof if there's a dispute.",
+      "persona": "any",
+      "source": "keeping proof"
+    },
+    {
+      "id": "kr-070",
+      "cat": "cyber-and-data",
+      "type": "strike-rewrite",
+      "hook": "\"Sharing my passwords with a partner proves trust and is harmless.\"",
+      "myth": {
+        "un": "Sharing all my passwords proves trust and is harmless.",
+        "re": "Your accounts and data are yours; sharing everything can enable control or misuse, trust doesn't require it.",
+        "why": "Privacy and trust can coexist."
+      },
+      "relearn": "Your accounts and data are yours; trust doesn't require handing over all access.",
+      "persona": "any",
+      "source": "data and trust"
+    },
+    {
+      "id": "kr-071",
+      "cat": "claim-it",
+      "type": "role-play",
+      "hook": "You want to help your community know their rights better.",
+      "relearn": "Share plain-language rights and routes; it spreads real protection.",
+      "persona": "Farhan",
+      "source": "spreading knowledge",
+      "setup": "Pass it on plainly. Say:",
+      "yourLine": [
+        {
+          "text": "\"Let me share the rights and routes I've learned, in plain terms, so you can use them.\"",
+          "best": true
+        },
+        {
+          "text": "Keep it to yourself"
+        }
+      ]
+    },
+    {
+      "id": "kr-072",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: in the rights & helpline card, or not?",
+      "items": [
+        {
+          "id": "a",
+          "text": "The POSH Internal Committee route"
+        },
+        {
+          "id": "b",
+          "text": "'Just put up with it'"
+        },
+        {
+          "id": "c",
+          "text": "Free legal aid (15100)"
+        },
+        {
+          "id": "d",
+          "text": "'You have no options'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "card",
+          "label": "On the card"
+        },
+        {
+          "id": "not",
+          "label": "Not"
+        }
+      ],
+      "key": {
+        "a": "card",
+        "b": "not",
+        "c": "card",
+        "d": "not"
+      },
+      "relearn": "The POSH route and free legal aid are on the card; 'put up with it' and 'no options' aren't.",
+      "persona": "any",
+      "source": "the card"
+    },
+    {
+      "id": "kr-073",
+      "cat": "rights-at-work",
+      "type": "reflect",
+      "hook": "Sam: you deserve fair pay, safe conditions and dignity at work, always. Believe that for yourself?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "I deserve it",
+        "Always"
+      ],
+      "affirm": "Fair pay, safe conditions and dignity at work are yours by right; never settle below them.",
+      "relearn": "You deserve fair pay, safe conditions and dignity at work, always.",
+      "persona": "any",
+      "source": "you deserve"
+    },
+    {
+      "id": "kr-074",
+      "cat": "harassment-and-posh",
+      "type": "branch",
+      "hook": "You filed a POSH complaint and worry about facing the person daily.",
+      "options": [
+        {
+          "text": "Ask the committee about interim relief and confidentiality",
+          "consequence": "You use the protections built into the process.",
+          "outcome": "protected",
+          "best": true
+        },
+        {
+          "text": "Withdraw it to avoid the discomfort",
+          "consequence": "The committee can offer interim relief and confidentiality; you don't have to just endure the discomfort."
+        }
+      ],
+      "debrief": "The POSH process includes confidentiality and interim measures; you can ask the committee to use them.",
+      "relearn": "Ask the committee about interim relief and confidentiality after filing.",
+      "persona": "any",
+      "source": "interim relief"
+    },
+    {
+      "id": "kr-075",
+      "cat": "renting-and-consumer",
+      "type": "reflect",
+      "hook": "Sam: a written record is your best friend in any rent or consumer dispute. Worth the habit?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Keep records",
+        "Worth it"
+      ],
+      "affirm": "Records and receipts quietly win disputes; it's a small habit with big protection.",
+      "relearn": "A written record is your best protection in rent and consumer disputes.",
+      "persona": "any",
+      "source": "records win"
+    },
+    {
+      "id": "kr-076",
+      "cat": "cyber-and-data",
+      "type": "match",
+      "hook": "Match the cyber harm to the first right move.",
+      "pairs": [
+        {
+          "left": "Sextortion / blackmail",
+          "right": "Don't pay; preserve evidence; report"
+        },
+        {
+          "left": "Account hacked",
+          "right": "Secure it and report"
+        },
+        {
+          "left": "Data misused",
+          "right": "Exercise your DPDP rights"
+        }
+      ],
+      "relearn": "Don't-pay-and-report for blackmail, secure-and-report for hacks, DPDP rights for data misuse.",
+      "persona": "any",
+      "source": "first moves"
+    },
+    {
+      "id": "kr-077",
+      "cat": "claim-it",
+      "type": "sort",
+      "hook": "Sort: makes claiming a right easier, or harder?",
+      "items": [
+        {
+          "id": "a",
+          "text": "Knowing the route and helpline"
+        },
+        {
+          "id": "b",
+          "text": "Believing you have no options"
+        },
+        {
+          "id": "c",
+          "text": "Keeping evidence"
+        },
+        {
+          "id": "d",
+          "text": "Waiting until the deadline passes"
+        }
+      ],
+      "bins": [
+        {
+          "id": "easier",
+          "label": "Easier"
+        },
+        {
+          "id": "harder",
+          "label": "Harder"
+        }
+      ],
+      "key": {
+        "a": "easier",
+        "b": "harder",
+        "c": "easier",
+        "d": "harder"
+      },
+      "relearn": "Knowing the route and keeping evidence makes claiming easier; defeatism and missed deadlines make it harder.",
+      "persona": "any",
+      "source": "claiming well"
+    },
+    {
+      "id": "kr-078",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "You're not sure which authority handles your specific issue.",
+      "options": [
+        {
+          "text": "Start with a helpline or legal-aid clinic; they'll direct you",
+          "consequence": "You get pointed to the right place.",
+          "outcome": "directed",
+          "best": true
+        },
+        {
+          "text": "Give up because it's confusing",
+          "consequence": "A helpline or legal-aid clinic will direct you to the right authority; confusion isn't a dead end."
+        }
+      ],
+      "debrief": "When unsure of the route, a helpline or legal-aid clinic can point you to the right authority.",
+      "relearn": "Unsure of the route? A helpline or legal-aid clinic will direct you.",
+      "persona": "any",
+      "source": "where to start"
+    },
+    {
+      "id": "kr-079",
+      "cat": "rights-at-work",
+      "type": "match",
+      "hook": "Match the workplace problem to a first step.",
+      "pairs": [
+        {
+          "left": "Unpaid wages",
+          "right": "Document and formally claim"
+        },
+        {
+          "left": "Harassment",
+          "right": "The Internal Committee"
+        },
+        {
+          "left": "Unsafe conditions",
+          "right": "Raise it; it's your right"
+        }
+      ],
+      "relearn": "Document for unpaid wages, the IC for harassment, raising it for unsafe conditions.",
+      "persona": "any",
+      "source": "first steps at work"
+    },
+    {
+      "id": "kr-080",
+      "cat": "harassment-and-posh",
+      "type": "reflect",
+      "hook": "Sam: the POSH process exists so you never have to choose between your job and your dignity. Reassuring?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Both protected",
+        "Reassuring"
+      ],
+      "affirm": "You shouldn't have to trade dignity for a job; POSH exists precisely so you don't.",
+      "relearn": "POSH exists so you never have to choose between your job and your dignity.",
+      "persona": "any",
+      "source": "job and dignity"
+    },
+    {
+      "id": "kr-081",
+      "cat": "cyber-and-data",
+      "type": "role-play",
+      "hook": "A friend is being harassed online and feels it's not 'serious enough' to report.",
+      "relearn": "Online harassment is reportable; show a friend the route (cybercrime.gov.in, 1930).",
+      "persona": "any",
+      "source": "online harassment",
+      "setup": "Validate and guide. Say:",
+      "yourLine": [
+        {
+          "text": "\"Online harassment is real and reportable, cybercrime.gov.in or 1930, want help doing it?\"",
+          "best": true
+        },
+        {
+          "text": "\"It's probably nothing.\""
+        }
+      ]
+    },
+    {
+      "id": "kr-082",
+      "cat": "claim-it",
+      "type": "reflect",
+      "hook": "Sam: 'you can't fight the system' is the lie that keeps people unprotected. Reject it?",
+      "prompt": "What do you think?",
+      "options": [
+        "Yes",
+        "Reject the lie",
+        "I can claim it"
+      ],
+      "affirm": "Rejecting 'you can't fight the system' is the first step to actually using the rights you have.",
+      "relearn": "'You can't fight the system' is the lie that keeps people unprotected; reject it.",
+      "persona": "any",
+      "source": "reject the lie"
+    },
+    {
+      "id": "kr-083",
+      "cat": "tools-and-help",
+      "type": "spot",
+      "hook": "Spot the accurate statement about knowing your rights.",
+      "relearn": "Knowing your rights changes what you accept and your ability to help others.",
+      "persona": "any",
+      "source": "knowledge is power",
+      "scene": [
+        {
+          "text": "\"It changes what you accept and how you act\"",
+          "trick": false
+        },
+        {
+          "text": "\"It makes no real difference\"",
+          "trick": true
+        },
+        {
+          "text": "\"It helps you protect others too\"",
+          "trick": false
+        }
+      ],
+      "why": "Knowing your rights changes what you accept and helps others; 'no difference' is false."
+    },
+    {
+      "id": "kr-084",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: work, harassment, renting, online, you now know your rights and the routes. Carry which forward?",
+      "prompt": "Pick one.",
+      "options": [
+        "Rights at work",
+        "The POSH route",
+        "Consumer & cyber redress",
+        "Free legal aid"
+      ],
+      "affirm": "Carry that forward, and you close Chapter 6 as an adult who's genuinely hard to exploit, and ready to help others.",
+      "relearn": "Work rights, POSH, consumer & cyber redress, and free legal aid, carry your rights forward.",
+      "persona": "any",
+      "source": "carry forward"
+    }
+  ]
+}

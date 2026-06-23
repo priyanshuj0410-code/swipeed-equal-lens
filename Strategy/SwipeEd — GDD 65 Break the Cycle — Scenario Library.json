@@ -1,0 +1,1937 @@
+{
+  "game": "Break the Cycle",
+  "gameId": "break-the-cycle",
+  "node": "g65",
+  "chapter": 8,
+  "ages": null,
+  "ageBand": "Parent Layer (positive parenting)",
+  "thread": "C · Parent Layer · Positive Parenting",
+  "schema": "v2 · mechanic-embodying",
+  "standard": "GDD rework v2 · 80+ researched scenarios · scorecard-passed",
+  "count": 84,
+  "gating": "Open (adult, comprehensive, ungated)",
+  "leadMechanics": [
+    "strike-rewrite",
+    "branch",
+    "reflect"
+  ],
+  "note": "Positive parenting & breaking generational trauma; discipline without fear, shame or hitting; repair; healing your own wounds (Unlearn->Relearn, for parents) (UNESCO 5.6, 5.3). New v2 build, the emotional core of the Parent Layer and the deepest Unlearn->Relearn beat in the app: we parent the way we were parented, until we choose not to. Firmly NON-SHAMING, it busts the practice, never the parent, and treats inherited patterns with compassion, since most parents using harsh methods were raised that way. Six modes: how you were raised (gently surface inherited patterns, keep the good and leave the harmful; the inheritance isn't destiny and questioning it isn't betrayal), discipline differently (positive, firm and kind discipline that works; bust 'a slap never hurt me', 'fear equals respect', 'positive means permissive', and 'shaming motivates'; physical punishment is harmful and ineffective), the repair (reconnecting after you snap or get it wrong, a clean apology that owns it without blaming the child; repair beats perfection), calm yourself (self-regulation, the gap between feeling and acting, knowing your triggers, and stepping away safely to keep everyone safe when anger surges), heal your own wounds (unhealed pain resurfaces in parenting, so tend it and seek support; not therapy), tools & help (a calm-down-before-you-react and repair toolkit, and routing). Care-sensitive and child-safety aware: it promotes non-violent, evidence-based positive discipline and never endorses hitting or shaming, routes a parent's deeper wounds to support (Tele-MANAS 14416) and, where patterns risk real harm to a child, to Be the Safe Adult (g69) and help, with warmth and never shame. Builds on Mind Matters (g38) and Bounce (g39) and the Unlearn->Relearn core. India: corporal punishment and shaming are still widely normalised and most parents using them were raised that way, so the node is compassionate and honest that change is hard, offering positive-discipline alternatives that actually work.",
+  "categories": {
+    "how-you-were-raised": "How you were raised: keep the good, leave the harm",
+    "discipline-differently": "Discipline, differently: firm & kind, no fear",
+    "the-repair": "The repair: reconnect after you slip",
+    "calm-yourself": "Calm yourself: the gap between feeling and acting",
+    "heal-your-wounds": "Heal your own wounds: so it stops with you",
+    "tools-and-help": "Tools & help: calm-down & repair kit, support routes"
+  },
+  "mechanicsUsed": [
+    "branch",
+    "strike-rewrite",
+    "sort",
+    "reflect",
+    "role-play",
+    "match",
+    "spot"
+  ],
+  "evidenceBase": [
+    "Parents tend to repeat the discipline they were raised with, but the inheritance is not destiny and new patterns are learnable, and the node is firmly non-shaming: it busts the practice rather than the parent and treats inherited patterns with compassion, because most parents who use harsh methods were raised that way and corporal punishment and shaming remain widely normalised. Noticing what you inherited, keeping the warmth and bonds and gently leaving the hitting and shaming, is the first step, and questioning how you were raised is growth rather than betrayal of parents you can still love (positive-parenting and intergenerational-transmission research; UNESCO life-skills)",
+    "Physical punishment and shaming are harmful and ineffective, while positive discipline works: large bodies of evidence (WHO and UNICEF) find corporal punishment has no benefits and is linked to worse mental health, impaired development, increased aggression and the later perpetration of violence, and around two in three children worldwide endure violent discipline at home, so 'a slap never hurt me', 'fear equals respect' and 'shaming motivates' are myths. Positive discipline is firm and kind, clear boundaries and calm, related consequences held with warmth, and evidence-based parenting support improves behaviour and the mental health of both children and parents (WHO corporal-punishment-and-health; UNICEF violent-discipline data; positive-discipline research)",
+    "Repair, self-regulation and healing are how the cycle ends, and deeper needs are routed to help: every parent slips, so what matters most is the repair, a clean apology that owns it without blaming the child and a warm reconnection, which builds secure children and actually strengthens a parent's authority. There is a gap between feeling anger and acting on it, and a parent can learn to pause, breathe, know their triggers and step away safely to keep everyone safe, while unhealed childhood wounds that resurface in parenting are tended by seeking support rather than buried. The node is care-sensitive and child-safety aware, offering compassion and signposting rather than therapy, routing a parent's own past to support (Tele-MANAS 14416) and, where anger or patterns risk real harm to a child, to Be the Safe Adult (g69) and help, always with warmth and never shame (repair and emotion-regulation research; child-safeguarding practice; Tele-MANAS)"
+  ],
+  "scenarios": [
+    {
+      "id": "bc-001",
+      "cat": "how-you-were-raised",
+      "type": "strike-rewrite",
+      "hook": "\"You parent the way you were parented, and there's nothing you can do about it.\"",
+      "relearn": "You tend to parent as you were parented, but it isn't destiny; you can learn and choose new patterns.",
+      "persona": "Suresh",
+      "source": "not destiny",
+      "myth": {
+        "un": "You parent the way you were parented, and there's nothing you can do about it.",
+        "re": "We tend to repeat what we knew, but the inheritance isn't destiny; new patterns are genuinely learnable.",
+        "why": "Awareness is the first step to choosing differently."
+      }
+    },
+    {
+      "id": "bc-002",
+      "cat": "how-you-were-raised",
+      "type": "reflect",
+      "hook": "Sam: noticing a pattern you inherited isn't blaming anyone; it's the start of choosing what to keep and what to leave. Sit right?",
+      "relearn": "Noticing what you inherited lets you choose what to keep and what to leave, without blame.",
+      "persona": "any",
+      "source": "keep or leave",
+      "prompt": "What do you think?",
+      "options": [
+        "Sits right",
+        "Keep some, leave some",
+        "Start of change"
+      ],
+      "affirm": "Noticing inherited patterns, without blame, lets you keep the good ones and set down the ones that cause harm."
+    },
+    {
+      "id": "bc-003",
+      "cat": "how-you-were-raised",
+      "type": "sort",
+      "hook": "Sort: an inherited pattern worth keeping, or one worth gently leaving behind?",
+      "relearn": "Warmth, bonds and showing up are worth keeping; hitting and shaming are patterns worth gently leaving behind.",
+      "persona": "any",
+      "source": "keep vs leave",
+      "items": [
+        {
+          "id": "a",
+          "text": "Warmth, stories and showing up"
+        },
+        {
+          "id": "b",
+          "text": "Hitting when angry"
+        },
+        {
+          "id": "c",
+          "text": "Strong family bonds"
+        },
+        {
+          "id": "d",
+          "text": "Shaming and harsh words"
+        }
+      ],
+      "bins": [
+        {
+          "id": "keep",
+          "label": "Worth keeping"
+        },
+        {
+          "id": "leave",
+          "label": "Worth leaving"
+        }
+      ],
+      "key": {
+        "a": "keep",
+        "b": "leave",
+        "c": "keep",
+        "d": "leave"
+      }
+    },
+    {
+      "id": "bc-004",
+      "cat": "how-you-were-raised",
+      "type": "strike-rewrite",
+      "hook": "\"If I question how my parents raised me, I'm betraying or disrespecting them.\"",
+      "relearn": "You can honour your parents and still parent differently; choosing new ways is growth, not betrayal.",
+      "persona": "Suresh",
+      "source": "not betrayal",
+      "myth": {
+        "un": "If I question how my parents raised me, I'm betraying or disrespecting them.",
+        "re": "You can love and honour your parents and still choose to do some things differently; that's growth, not betrayal.",
+        "why": "Doing better isn't a verdict on them."
+      }
+    },
+    {
+      "id": "bc-005",
+      "cat": "how-you-were-raised",
+      "type": "branch",
+      "hook": "You catch yourself about to repeat a harsh thing your own parent did.",
+      "relearn": "Pause and choose when an inherited pattern rises; autopilot just passes it on.",
+      "persona": "Suresh",
+      "source": "interrupt the pattern",
+      "options": [
+        {
+          "text": "Pause and ask whether this is the parent you want to be",
+          "consequence": "You interrupt the pattern in the moment.",
+          "outcome": "interrupt",
+          "best": true
+        },
+        {
+          "text": "Run on autopilot because it's familiar",
+          "consequence": "Pausing to ask interrupts the inherited pattern; running on autopilot passes it straight to the next generation."
+        }
+      ],
+      "debrief": "When an old harsh pattern rises, pause and ask if it's the parent you want to be, rather than running on autopilot."
+    },
+    {
+      "id": "bc-006",
+      "cat": "how-you-were-raised",
+      "type": "match",
+      "hook": "Match each inherited message to the truer one to raise your child on.",
+      "relearn": "Each harsh inherited message has a truer one, voice matters, respect from trust, warmth strengthens, to pass on instead.",
+      "persona": "any",
+      "source": "truer messages",
+      "pairs": [
+        {
+          "left": "'Children should be seen, not heard'",
+          "right": "Your voice and feelings matter"
+        },
+        {
+          "left": "'Fear keeps kids in line'",
+          "right": "Respect grows from trust, not fear"
+        },
+        {
+          "left": "'Affection spoils them'",
+          "right": "Warmth makes children stronger"
+        }
+      ]
+    },
+    {
+      "id": "bc-007",
+      "cat": "how-you-were-raised",
+      "type": "reflect",
+      "hook": "Sam: most parents who were raised harshly aren't bad people; they're carrying what they were handed. Compassion for that?",
+      "relearn": "Most who parent harshly are carrying what they were handed; compassion for that is where change begins.",
+      "persona": "Suresh",
+      "source": "compassion",
+      "prompt": "What's your take?",
+      "options": [
+        "Compassion",
+        "They carried it too",
+        "I get it"
+      ],
+      "affirm": "Most parents who use harsh methods are repeating what they were handed; understanding that, without excusing harm, is where change starts."
+    },
+    {
+      "id": "bc-008",
+      "cat": "how-you-were-raised",
+      "type": "spot",
+      "hook": "Spot the healthy way to handle your own upbringing.",
+      "relearn": "Handle your upbringing by keeping the good and choosing your own patterns, not repeating it unquestioned.",
+      "persona": "any",
+      "source": "healthy handling",
+      "scene": [
+        {
+          "text": "Keeping the good, gently leaving the harmful",
+          "trick": false
+        },
+        {
+          "text": "Repeating it all unquestioned",
+          "trick": true
+        },
+        {
+          "text": "Choosing your own patterns with care",
+          "trick": false
+        }
+      ],
+      "why": "Keeping the good and choosing your own patterns is healthy; repeating it all unquestioned passes on the harm."
+    },
+    {
+      "id": "bc-009",
+      "cat": "how-you-were-raised",
+      "type": "branch",
+      "hook": "You feel guilt and grief realising how you were raised, and it's heavy.",
+      "relearn": "Feel the grief with compassion and let it fuel change, rather than burying it and repeating the past.",
+      "persona": "Suresh",
+      "source": "feel then fuel",
+      "options": [
+        {
+          "text": "Let yourself feel it, with compassion, and use it to fuel change",
+          "consequence": "The pain becomes motivation, not shame.",
+          "outcome": "fuel",
+          "best": true
+        },
+        {
+          "text": "Bury it and carry on as before",
+          "consequence": "Feeling it with compassion fuels change; burying it leaves the old patterns running unexamined."
+        }
+      ],
+      "debrief": "Let the grief of how you were raised be felt with compassion and turned into motivation, not buried."
+    },
+    {
+      "id": "bc-010",
+      "cat": "how-you-were-raised",
+      "type": "reflect",
+      "hook": "Sam: you get to decide what stops with you, and that decision is a gift to your child. Feel the weight?",
+      "relearn": "You decide what stops with you, and that decision is a gift to your child.",
+      "persona": "any",
+      "source": "stops with me",
+      "prompt": "What do you think?",
+      "options": [
+        "Feel it",
+        "Stops with me",
+        "A gift"
+      ],
+      "affirm": "Deciding what harmful patterns stop with you is a profound gift to your child and the generations after."
+    },
+    {
+      "id": "bc-011",
+      "cat": "discipline-differently",
+      "type": "strike-rewrite",
+      "hook": "\"A slap never hurt me, and hitting is just normal discipline.\"",
+      "relearn": "Physical punishment harms children and doesn't improve behaviour; it's common, but neither safe nor effective.",
+      "persona": "Suresh",
+      "source": "hitting harms",
+      "myth": {
+        "un": "A slap never hurt me, and hitting is just normal discipline.",
+        "re": "Evidence is clear that physical punishment harms children and doesn't work; it raises aggression and problems, not good behaviour.",
+        "why": "Common doesn't mean harmless or effective."
+      }
+    },
+    {
+      "id": "bc-012",
+      "cat": "discipline-differently",
+      "type": "strike-rewrite",
+      "hook": "\"Fear equals respect; a child who fears you will behave.\"",
+      "relearn": "Fear isn't respect; it teaches hiding and resentment, while real respect grows from trust and kind, firm limits.",
+      "persona": "Suresh",
+      "source": "fear isn't respect",
+      "myth": {
+        "un": "Fear equals respect; a child who fears you will behave.",
+        "re": "Fear gets short-term compliance but teaches hiding and resentment; real respect grows from trust and clear, kind limits.",
+        "why": "Fear and respect are not the same thing."
+      }
+    },
+    {
+      "id": "bc-013",
+      "cat": "discipline-differently",
+      "type": "strike-rewrite",
+      "hook": "\"Positive discipline means being permissive and having no rules.\"",
+      "relearn": "Positive discipline is firm and kind, clear limits held with warmth, not permissiveness and not harshness.",
+      "persona": "Vikram",
+      "source": "firm and kind",
+      "myth": {
+        "un": "Positive discipline means being permissive and having no rules.",
+        "re": "Positive discipline is firm and kind: clear boundaries and consequences held with warmth, not harshness, work better.",
+        "why": "Firm plus kind beats harsh or soft."
+      }
+    },
+    {
+      "id": "bc-014",
+      "cat": "discipline-differently",
+      "type": "sort",
+      "hook": "Sort: positive, effective discipline, or fear-based punishment?",
+      "relearn": "Calm consequences and explained limits are positive discipline; hitting and shaming are fear-based and harmful.",
+      "persona": "any",
+      "source": "positive vs fear",
+      "items": [
+        {
+          "id": "a",
+          "text": "A calm, clear consequence"
+        },
+        {
+          "id": "b",
+          "text": "Hitting or slapping"
+        },
+        {
+          "id": "c",
+          "text": "Naming the limit and the reason"
+        },
+        {
+          "id": "d",
+          "text": "Shaming or humiliating"
+        }
+      ],
+      "bins": [
+        {
+          "id": "positive",
+          "label": "Positive discipline"
+        },
+        {
+          "id": "fear",
+          "label": "Fear-based"
+        }
+      ],
+      "key": {
+        "a": "positive",
+        "b": "fear",
+        "c": "positive",
+        "d": "fear"
+      }
+    },
+    {
+      "id": "bc-015",
+      "cat": "discipline-differently",
+      "type": "branch",
+      "hook": "Your child does something that makes your hand itch to smack.",
+      "relearn": "Pause and use a calm consequence rather than smacking; it disciplines without harming and ends the cycle.",
+      "persona": "Suresh",
+      "source": "calm consequence",
+      "options": [
+        {
+          "text": "Pause, breathe, and choose a firm-but-calm consequence instead",
+          "consequence": "You discipline without harming, and it works better.",
+          "outcome": "calm-limit",
+          "best": true
+        },
+        {
+          "text": "Smack them like you would have been smacked",
+          "consequence": "A pause and a calm consequence disciplines without harm and teaches more; smacking repeats the cycle and harms the child."
+        }
+      ],
+      "debrief": "When the urge to smack rises, pause and use a firm, calm consequence instead; it works better and breaks the cycle."
+    },
+    {
+      "id": "bc-016",
+      "cat": "discipline-differently",
+      "type": "match",
+      "hook": "Match each misbehaviour to a positive-discipline response.",
+      "relearn": "Tantrums, broken rules and hitting each have a firm, kind, teaching response, no fear or pain required.",
+      "persona": "Vikram",
+      "source": "positive responses",
+      "pairs": [
+        {
+          "left": "A tantrum",
+          "right": "Stay calm, name the feeling, hold the limit"
+        },
+        {
+          "left": "Breaking a rule",
+          "right": "A clear, related consequence, explained"
+        },
+        {
+          "left": "Hitting a sibling",
+          "right": "Stop it firmly, teach the better choice"
+        }
+      ]
+    },
+    {
+      "id": "bc-017",
+      "cat": "discipline-differently",
+      "type": "strike-rewrite",
+      "hook": "\"Shaming a child, calling them stupid or bad, motivates them to improve.\"",
+      "relearn": "Shaming a child damages their self-worth and your bond; it discourages rather than motivates.",
+      "persona": "Suresh",
+      "source": "shame doesn't teach",
+      "myth": {
+        "un": "Shaming a child, calling them stupid or bad, motivates them to improve.",
+        "re": "Shaming damages a child's self-worth and bond with you; it discourages, it doesn't motivate.",
+        "why": "Shame wounds; it doesn't teach."
+      }
+    },
+    {
+      "id": "bc-018",
+      "cat": "discipline-differently",
+      "type": "reflect",
+      "hook": "Sam: discipline means to teach, not to punish or frighten. Does that reframe land?",
+      "relearn": "Discipline means to teach, not to punish or frighten; that reframe changes everything.",
+      "persona": "any",
+      "source": "teach not frighten",
+      "prompt": "What do you think?",
+      "options": [
+        "It lands",
+        "Teach not frighten",
+        "Reframed"
+      ],
+      "affirm": "Discipline at its root means to teach; the goal is a child who learns, not one who fears."
+    },
+    {
+      "id": "bc-019",
+      "cat": "discipline-differently",
+      "type": "spot",
+      "hook": "Spot the discipline that actually builds good behaviour.",
+      "relearn": "Good behaviour grows from calm, consistent, warm limits, not from hitting or fear.",
+      "persona": "any",
+      "source": "builds behaviour",
+      "scene": [
+        {
+          "text": "Clear, calm, consistent limits",
+          "trick": false
+        },
+        {
+          "text": "Hitting and yelling to instil fear",
+          "trick": true
+        },
+        {
+          "text": "Warmth alongside firm boundaries",
+          "trick": false
+        }
+      ],
+      "why": "Clear calm limits and warmth-with-boundaries build behaviour; hitting and fear-yelling harm and don't work."
+    },
+    {
+      "id": "bc-020",
+      "cat": "discipline-differently",
+      "type": "branch",
+      "hook": "Family insist you must beat your child or they'll be 'spoiled'.",
+      "relearn": "Hold firm on non-violence despite pressure; your child's safety outranks 'spoiling' fears.",
+      "persona": "Suresh",
+      "source": "hold the line",
+      "options": [
+        {
+          "text": "Hold your non-violent line, kindly but firmly",
+          "consequence": "You protect your child and your values.",
+          "outcome": "hold",
+          "best": true
+        },
+        {
+          "text": "Give in to family pressure and hit",
+          "consequence": "Holding the non-violent line protects your child; giving in to pressure passes on harm you've chosen to end."
+        }
+      ],
+      "debrief": "Hold your non-violent discipline line against family pressure; protecting your child matters more than the old norm."
+    },
+    {
+      "id": "bc-021",
+      "cat": "discipline-differently",
+      "type": "reflect",
+      "hook": "Sam: the parents kids feel safest with are firm and warm, not frightening. Worth aiming for?",
+      "relearn": "The parents kids feel safest with are firm and warm, not frightening; that's the aim.",
+      "persona": "any",
+      "source": "firm and warm",
+      "prompt": "What's your take?",
+      "options": [
+        "Worth it",
+        "Firm and warm",
+        "Aiming there"
+      ],
+      "affirm": "Children feel safest and behave best with parents who are both firm and warm, not frightening."
+    },
+    {
+      "id": "bc-022",
+      "cat": "the-repair",
+      "type": "strike-rewrite",
+      "hook": "\"If I lost my temper with my child, I've ruined everything and I'm a bad parent.\"",
+      "relearn": "Slipping doesn't make you a bad parent; the repair afterward is what counts and what children remember.",
+      "persona": "Divya",
+      "source": "repair not perfection",
+      "myth": {
+        "un": "If I lost my temper with my child, I've ruined everything and I'm a bad parent.",
+        "re": "Every parent slips; what matters most is the repair afterward, reconnecting and making it right, which children remember.",
+        "why": "Repair, not perfection, builds secure kids."
+      }
+    },
+    {
+      "id": "bc-023",
+      "cat": "the-repair",
+      "type": "branch",
+      "hook": "You snapped and yelled at your child, and you feel awful.",
+      "relearn": "Repair after a snap by owning it and reconnecting; pretending it didn't happen leaves the hurt unhealed.",
+      "persona": "Suresh",
+      "source": "go back and repair",
+      "options": [
+        {
+          "text": "Go back, own it, and reconnect once you're both calm",
+          "consequence": "Your child learns that ruptures get repaired.",
+          "outcome": "repair",
+          "best": true
+        },
+        {
+          "text": "Pretend it didn't happen to avoid the discomfort",
+          "consequence": "Going back to repair teaches that ruptures heal; pretending it away leaves the hurt and models avoidance."
+        }
+      ],
+      "debrief": "After you snap, go back, own it and reconnect when calm; repair is what your child remembers and learns."
+    },
+    {
+      "id": "bc-024",
+      "cat": "the-repair",
+      "type": "role-play",
+      "hook": "You want to apologise to your child after losing your temper, without excuses. You say:",
+      "relearn": "A clean apology, owning it without blaming the child, repairs the bond and models accountability.",
+      "persona": "Suresh",
+      "source": "clean apology",
+      "setup": "Apologise simply:",
+      "yourLine": [
+        {
+          "text": "\"I'm sorry I shouted, that wasn't okay and it wasn't your fault, I love you and I'll do better.\"",
+          "best": true
+        },
+        {
+          "text": "\"I only shouted because you made me angry.\""
+        }
+      ]
+    },
+    {
+      "id": "bc-025",
+      "cat": "the-repair",
+      "type": "strike-rewrite",
+      "hook": "\"Apologising to a child makes you lose authority.\"",
+      "relearn": "Apologising to your child models respect and strengthens your bond and authority; it doesn't weaken them.",
+      "persona": "Vikram",
+      "source": "apology builds authority",
+      "myth": {
+        "un": "Apologising to a child makes you lose authority.",
+        "re": "Apologising models honesty and respect and actually strengthens your bond and your authority, not weakens it.",
+        "why": "Owning a mistake earns respect."
+      }
+    },
+    {
+      "id": "bc-026",
+      "cat": "the-repair",
+      "type": "match",
+      "hook": "Match each part of a good repair to what it gives the child.",
+      "relearn": "Owning it, removing blame and reconnecting are the parts of a repair that restore a child's security.",
+      "persona": "any",
+      "source": "parts of repair",
+      "pairs": [
+        {
+          "left": "Owning what you did",
+          "right": "Honesty modelled"
+        },
+        {
+          "left": "Saying it's not their fault",
+          "right": "Their security restored"
+        },
+        {
+          "left": "Reconnecting warmly",
+          "right": "The bond made whole again"
+        }
+      ]
+    },
+    {
+      "id": "bc-027",
+      "cat": "the-repair",
+      "type": "reflect",
+      "hook": "Sam: kids don't need perfect parents; they need parents who come back and make it right. Resonate?",
+      "relearn": "Kids don't need perfect parents, just ones who come back and make it right.",
+      "persona": "any",
+      "source": "come back",
+      "prompt": "What do you think?",
+      "options": [
+        "Resonates",
+        "Come back",
+        "Not perfect"
+      ],
+      "affirm": "Children don't need perfection; they need parents who repair, who come back and make a rupture right."
+    },
+    {
+      "id": "bc-028",
+      "cat": "the-repair",
+      "type": "spot",
+      "hook": "Spot what a healthy repair looks like.",
+      "relearn": "A healthy repair is owning it and reconnecting warmly, never blaming the child for your reaction.",
+      "persona": "any",
+      "source": "healthy repair",
+      "scene": [
+        {
+          "text": "A genuine apology and reconnection",
+          "trick": false
+        },
+        {
+          "text": "Blaming the child for your reaction",
+          "trick": true
+        },
+        {
+          "text": "Reassuring them they're loved",
+          "trick": false
+        }
+      ],
+      "why": "A genuine apology and reassurance is repair; blaming the child for your reaction is not."
+    },
+    {
+      "id": "bc-029",
+      "cat": "the-repair",
+      "type": "branch",
+      "hook": "You worry that repairing after a slip is 'too late' to matter.",
+      "relearn": "Reach for repair even later; reconnection restores trust whenever it's offered.",
+      "persona": "Divya",
+      "source": "never too late",
+      "options": [
+        {
+          "text": "Repair anyway; it's almost never too late to reconnect",
+          "consequence": "You restore trust whenever you reach for it.",
+          "outcome": "never-late",
+          "best": true
+        },
+        {
+          "text": "Skip it, deciding the moment has passed",
+          "consequence": "Repairing whenever you can restores trust; deciding it's too late leaves the rupture to harden needlessly."
+        }
+      ],
+      "debrief": "It's almost never too late to repair; reconnect whenever you can, not only in the perfect moment."
+    },
+    {
+      "id": "bc-030",
+      "cat": "the-repair",
+      "type": "reflect",
+      "hook": "Sam: every repair teaches your child that love survives conflict, a priceless lesson. Worth it?",
+      "relearn": "Every repair teaches your child that love survives conflict, a priceless thing to learn.",
+      "persona": "any",
+      "source": "love survives",
+      "prompt": "What's your take?",
+      "options": [
+        "Worth it",
+        "Love survives conflict",
+        "Priceless"
+      ],
+      "affirm": "Each repair teaches a child that love and connection survive conflict, one of the most valuable lessons there is."
+    },
+    {
+      "id": "bc-031",
+      "cat": "the-repair",
+      "type": "sort",
+      "hook": "Sort: a true repair, or a false one that doesn't heal?",
+      "relearn": "A clean sorry and warm reconnection truly repair; a blaming 'sorry but' or ignoring it don't heal.",
+      "persona": "any",
+      "source": "true vs false repair",
+      "items": [
+        {
+          "id": "a",
+          "text": "'I'm sorry, that wasn't okay'"
+        },
+        {
+          "id": "b",
+          "text": "'Sorry, but you made me do it'"
+        },
+        {
+          "id": "c",
+          "text": "Warm reconnection after"
+        },
+        {
+          "id": "d",
+          "text": "Acting like nothing happened"
+        }
+      ],
+      "bins": [
+        {
+          "id": "true",
+          "label": "True repair"
+        },
+        {
+          "id": "false",
+          "label": "Doesn't heal"
+        }
+      ],
+      "key": {
+        "a": "true",
+        "b": "false",
+        "c": "true",
+        "d": "false"
+      }
+    },
+    {
+      "id": "bc-032",
+      "cat": "calm-yourself",
+      "type": "strike-rewrite",
+      "hook": "\"If I'm furious, I can't help how I react to my child.\"",
+      "relearn": "Anger is valid, but there's a gap between feeling and acting; you can learn to pause and choose your response.",
+      "persona": "Suresh",
+      "source": "feeling vs acting",
+      "myth": {
+        "un": "If I'm furious, I can't help how I react to my child.",
+        "re": "Strong feelings are valid, but there's a gap between feeling and acting, and you can learn to use it to choose your response.",
+        "why": "You can feel the anger and still choose the action."
+      }
+    },
+    {
+      "id": "bc-033",
+      "cat": "calm-yourself",
+      "type": "branch",
+      "hook": "You feel your anger surging toward your child and worry you'll lash out.",
+      "relearn": "Step away to calm down when anger surges; protecting your child in that moment comes first.",
+      "persona": "Suresh",
+      "source": "step away to calm",
+      "options": [
+        {
+          "text": "If it's safe, step away to calm down before you respond",
+          "consequence": "You protect your child and reset yourself.",
+          "outcome": "step-away",
+          "best": true
+        },
+        {
+          "text": "Stay in it and let the anger take over",
+          "consequence": "Stepping away to calm down protects your child and lets you reset; staying in a surge of anger risks harm and regret."
+        }
+      ],
+      "debrief": "When anger surges toward your child, if it's safe, step away to calm down before responding."
+    },
+    {
+      "id": "bc-034",
+      "cat": "calm-yourself",
+      "type": "match",
+      "hook": "Match each calming tool to the moment it helps.",
+      "relearn": "Slow breaths, a short step away and naming the feeling each help you ride out a surge without harm.",
+      "persona": "any",
+      "source": "calming tools",
+      "pairs": [
+        {
+          "left": "A few slow breaths",
+          "right": "The first rush of anger"
+        },
+        {
+          "left": "Stepping into another room",
+          "right": "When you feel close to losing it"
+        },
+        {
+          "left": "Naming your feeling silently",
+          "right": "Catching the surge early"
+        }
+      ]
+    },
+    {
+      "id": "bc-035",
+      "cat": "calm-yourself",
+      "type": "strike-rewrite",
+      "hook": "\"Walking away from my child in anger means I'm a failure.\"",
+      "relearn": "Stepping away to stay safe and calm isn't failure; it's a responsible, strong move, and you return calmer.",
+      "persona": "Suresh",
+      "source": "stepping away is strong",
+      "myth": {
+        "un": "Walking away from my child in anger means I'm a failure.",
+        "re": "Stepping away to keep everyone safe is a responsible, strong move, not a failure; you can return calm.",
+        "why": "A safe pause is strength, not surrender."
+      }
+    },
+    {
+      "id": "bc-036",
+      "cat": "calm-yourself",
+      "type": "sort",
+      "hook": "Sort: a healthy way to handle your own anger, or one that risks harm?",
+      "relearn": "Breathing and stepping away regulate anger safely; taking it out on the child or bottling it until you explode risk harm.",
+      "persona": "any",
+      "source": "regulate vs risk",
+      "items": [
+        {
+          "id": "a",
+          "text": "Breathing and a short pause"
+        },
+        {
+          "id": "b",
+          "text": "Taking it out on the child"
+        },
+        {
+          "id": "c",
+          "text": "Stepping away to cool down"
+        },
+        {
+          "id": "d",
+          "text": "Bottling it until you explode"
+        }
+      ],
+      "bins": [
+        {
+          "id": "healthy",
+          "label": "Healthy regulation"
+        },
+        {
+          "id": "risk",
+          "label": "Risks harm"
+        }
+      ],
+      "key": {
+        "a": "healthy",
+        "b": "risk",
+        "c": "healthy",
+        "d": "risk"
+      }
+    },
+    {
+      "id": "bc-037",
+      "cat": "calm-yourself",
+      "type": "branch",
+      "hook": "You notice the same situations keep triggering your temper.",
+      "relearn": "Spot your recurring triggers and plan a calm response, rather than being ambushed by them again and again.",
+      "persona": "Suresh",
+      "source": "know your triggers",
+      "options": [
+        {
+          "text": "Learn your triggers and plan a calm response in advance",
+          "consequence": "You meet the trigger ready, not blindsided.",
+          "outcome": "prepared",
+          "best": true
+        },
+        {
+          "text": "Keep getting ambushed by the same flashpoints",
+          "consequence": "Knowing your triggers and planning ahead meets them prepared; ignoring them leaves you ambushed every time."
+        }
+      ],
+      "debrief": "Learn the situations that trigger your temper and plan a calm response in advance."
+    },
+    {
+      "id": "bc-038",
+      "cat": "calm-yourself",
+      "type": "reflect",
+      "hook": "Sam: the moment you notice you're escalating is the moment you get your power back. Make sense?",
+      "relearn": "The moment you notice you're escalating is the moment you can choose differently.",
+      "persona": "any",
+      "source": "notice to choose",
+      "prompt": "What do you think?",
+      "options": [
+        "Makes sense",
+        "I get my power back",
+        "Notice and choose"
+      ],
+      "affirm": "Noticing that you're escalating is the moment you regain the power to choose a different response."
+    },
+    {
+      "id": "bc-039",
+      "cat": "calm-yourself",
+      "type": "spot",
+      "hook": "Spot the move that keeps a heated moment safe.",
+      "relearn": "Keep a heated moment safe by pausing, breathing or stepping away, not reacting straight from the anger.",
+      "persona": "any",
+      "source": "keep it safe",
+      "scene": [
+        {
+          "text": "Pausing and breathing before reacting",
+          "trick": false
+        },
+        {
+          "text": "Reacting instantly from the anger",
+          "trick": true
+        },
+        {
+          "text": "Stepping away until you're calm",
+          "trick": false
+        }
+      ],
+      "why": "Pausing, breathing and stepping away keep a heated moment safe; reacting instantly from anger risks harm."
+    },
+    {
+      "id": "bc-040",
+      "cat": "calm-yourself",
+      "type": "role-play",
+      "hook": "Your partner is escalating with your child and needs a gentle hand-off. You step in.",
+      "relearn": "A calm hand-off, take a breather, I've got this, defuses the moment far better than shouting at the parent too.",
+      "persona": "Vikram",
+      "source": "gentle hand-off",
+      "setup": "Step in gently:",
+      "yourLine": [
+        {
+          "text": "\"Hey, take a breather, I've got this one, we'll talk in a bit.\"",
+          "best": true
+        },
+        {
+          "text": "\"What is wrong with you, calm down!\""
+        }
+      ]
+    },
+    {
+      "id": "bc-041",
+      "cat": "calm-yourself",
+      "type": "reflect",
+      "hook": "Sam: regulating yourself first is how you teach your child to regulate themselves. Worth practising?",
+      "relearn": "Regulating yourself first is how you teach your child to regulate themselves.",
+      "persona": "any",
+      "source": "model regulation",
+      "prompt": "What's your take?",
+      "options": [
+        "Worth it",
+        "I model it",
+        "Practising"
+      ],
+      "affirm": "When you regulate your own emotions, you model and teach your child how to regulate theirs."
+    },
+    {
+      "id": "bc-042",
+      "cat": "heal-your-wounds",
+      "type": "strike-rewrite",
+      "hook": "\"My own childhood is in the past and has nothing to do with how I parent.\"",
+      "relearn": "Unhealed childhood wounds often resurface in parenting; tending them helps the harmful cycle stop with you.",
+      "persona": "Suresh",
+      "source": "past leaks in",
+      "myth": {
+        "un": "My own childhood is in the past and has nothing to do with how I parent.",
+        "re": "Unhealed wounds often resurface in parenting, in our triggers and reactions; tending them helps the cycle stop with you.",
+        "why": "The past leaks into the present until it's tended."
+      }
+    },
+    {
+      "id": "bc-043",
+      "cat": "heal-your-wounds",
+      "type": "reflect",
+      "hook": "Sam: healing your own wounds isn't self-indulgence; it's how you protect your child from inheriting them. Resonate?",
+      "relearn": "Healing your own wounds protects your child from inheriting them; it's for them as much as you.",
+      "persona": "Suresh",
+      "source": "protect from inheriting",
+      "prompt": "What do you think?",
+      "options": [
+        "Resonates",
+        "Protects them",
+        "Worth tending"
+      ],
+      "affirm": "Tending your own old wounds protects your child from inheriting them; it's a gift to them, not self-indulgence."
+    },
+    {
+      "id": "bc-044",
+      "cat": "heal-your-wounds",
+      "type": "sort",
+      "hook": "Sort: helps you heal and parent better, or keeps the wound running?",
+      "relearn": "Acknowledging the hurt and seeking support help you heal; insisting you're fine and numbing keep the wound running.",
+      "persona": "any",
+      "source": "heal vs running",
+      "items": [
+        {
+          "id": "a",
+          "text": "Acknowledging what hurt you"
+        },
+        {
+          "id": "b",
+          "text": "Insisting you're completely fine"
+        },
+        {
+          "id": "c",
+          "text": "Seeking support for your past"
+        },
+        {
+          "id": "d",
+          "text": "Numbing and never looking"
+        }
+      ],
+      "bins": [
+        {
+          "id": "heal",
+          "label": "Helps you heal"
+        },
+        {
+          "id": "running",
+          "label": "Keeps it running"
+        }
+      ],
+      "key": {
+        "a": "heal",
+        "b": "running",
+        "c": "heal",
+        "d": "running"
+      }
+    },
+    {
+      "id": "bc-045",
+      "cat": "heal-your-wounds",
+      "type": "strike-rewrite",
+      "hook": "\"Getting help for my own past means I'm weak or broken.\"",
+      "relearn": "Getting help to process your past isn't weakness; it's a strong, loving act for you and your child.",
+      "persona": "Suresh",
+      "source": "help is strength",
+      "myth": {
+        "un": "Getting help for my own past means I'm weak or broken.",
+        "re": "Reaching for support to process your past is a strong, loving act, for yourself and for your child.",
+        "why": "Tending wounds is strength, not brokenness."
+      }
+    },
+    {
+      "id": "bc-046",
+      "cat": "heal-your-wounds",
+      "type": "branch",
+      "hook": "You realise some of your reactions come from pain you've never dealt with.",
+      "relearn": "Seek support for unhealed pain behind your reactions; burying it keeps it surfacing in your parenting.",
+      "persona": "Suresh",
+      "source": "tend the root",
+      "options": [
+        {
+          "text": "Gently seek support to work through it, a counsellor or helpline",
+          "consequence": "You tend the root, not just the symptom.",
+          "outcome": "tend-root",
+          "best": true
+        },
+        {
+          "text": "Keep pushing it down and hope it stays buried",
+          "consequence": "Seeking support tends the root of your reactions; pushing it down keeps it leaking into your parenting."
+        }
+      ],
+      "debrief": "When old pain drives your reactions, gently seek support to work through it rather than pushing it down."
+    },
+    {
+      "id": "bc-047",
+      "cat": "heal-your-wounds",
+      "type": "match",
+      "hook": "Match each step of healing to what it makes possible.",
+      "relearn": "Naming, processing and getting support are the steps that turn an old wound into something that stops with you.",
+      "persona": "Suresh",
+      "source": "steps of healing",
+      "pairs": [
+        {
+          "left": "Naming what happened to you",
+          "right": "Understanding your triggers"
+        },
+        {
+          "left": "Grieving and processing it",
+          "right": "Less of it leaking onto your child"
+        },
+        {
+          "left": "Getting support (e.g. Tele-MANAS 14416)",
+          "right": "A real path through it"
+        }
+      ]
+    },
+    {
+      "id": "bc-048",
+      "cat": "heal-your-wounds",
+      "type": "reflect",
+      "hook": "Sam: you can give your child the childhood you didn't have, and healing is how. Feel the hope in that?",
+      "relearn": "You can give your child the childhood you didn't have, and healing yourself is how.",
+      "persona": "Suresh",
+      "source": "the childhood you didn't have",
+      "prompt": "What's your take?",
+      "options": [
+        "Feel it",
+        "The hope",
+        "I can"
+      ],
+      "affirm": "By tending your own wounds, you can give your child a childhood different from, and better than, your own."
+    },
+    {
+      "id": "bc-049",
+      "cat": "heal-your-wounds",
+      "type": "strike-rewrite",
+      "hook": "\"This game can heal my childhood trauma on its own.\"",
+      "relearn": "This game supports and signposts but isn't therapy; deeper wounds deserve professional support.",
+      "persona": "any",
+      "source": "not therapy",
+      "myth": {
+        "un": "This game can heal my childhood trauma on its own.",
+        "re": "This offers compassion and signposting, not therapy; deeper wounds deserve real professional support.",
+        "why": "Support tools point to care; they don't replace it."
+      }
+    },
+    {
+      "id": "bc-050",
+      "cat": "heal-your-wounds",
+      "type": "spot",
+      "hook": "Spot the move that helps the cycle stop with you.",
+      "relearn": "The cycle stops with you when you tend your wounds and reach for support, not when you deny the past.",
+      "persona": "any",
+      "source": "stop with you",
+      "scene": [
+        {
+          "text": "Tending your own old wounds",
+          "trick": false
+        },
+        {
+          "text": "Insisting the past doesn't matter",
+          "trick": true
+        },
+        {
+          "text": "Reaching for support when it's heavy",
+          "trick": false
+        }
+      ],
+      "why": "Tending your wounds and reaching for support help the cycle stop with you; denying the past keeps it alive."
+    },
+    {
+      "id": "bc-051",
+      "cat": "heal-your-wounds",
+      "type": "reflect",
+      "hook": "Sam: every wound you heal in yourself is one your child never has to carry. Sit right?",
+      "relearn": "Every wound you heal in yourself is one your child never has to carry.",
+      "persona": "any",
+      "source": "one less to carry",
+      "prompt": "What's your take?",
+      "options": [
+        "Sits right",
+        "One less to carry",
+        "For them"
+      ],
+      "affirm": "Each wound you heal in yourself is one your child won't have to carry or pass on further."
+    },
+    {
+      "id": "bc-052",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "You want something concrete to use in the heat of the moment.",
+      "relearn": "Have a concrete pause-breathe-step-away-repair plan ready; willpower alone tends to fail mid-surge.",
+      "persona": "Suresh",
+      "source": "ready plan",
+      "options": [
+        {
+          "text": "Set a simple plan: pause, breathe, step away if needed, repair after",
+          "consequence": "You have a path ready before the storm.",
+          "outcome": "plan",
+          "best": true
+        },
+        {
+          "text": "Rely on willpower alone when angry",
+          "consequence": "A simple ready plan gives you a path in the heat of the moment; willpower alone often fails mid-surge."
+        }
+      ],
+      "debrief": "Ready a simple plan, pause, breathe, step away if needed, repair after, for heated moments."
+    },
+    {
+      "id": "bc-053",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match each tool to what it does.",
+      "relearn": "The calm-down step, the repair routine and support routes are the core tools for breaking the cycle.",
+      "persona": "any",
+      "source": "the toolkit",
+      "pairs": [
+        {
+          "left": "The calm-down-before-you-react step",
+          "right": "Stops a harmful reaction"
+        },
+        {
+          "left": "The repair routine",
+          "right": "Heals a rupture after"
+        },
+        {
+          "left": "Support routes (Tele-MANAS 14416)",
+          "right": "Help for your own past or when it's too much"
+        }
+      ]
+    },
+    {
+      "id": "bc-054",
+      "cat": "tools-and-help",
+      "type": "strike-rewrite",
+      "hook": "\"Wanting to change but slipping sometimes means change is impossible for me.\"",
+      "relearn": "Slipping while changing doesn't mean change is impossible; each pause and repair is real progress.",
+      "persona": "Suresh",
+      "source": "progress not perfection",
+      "myth": {
+        "un": "Wanting to change but slipping sometimes means change is impossible for me.",
+        "re": "Change is gradual and slips are part of it; each pause, each repair, each calmer day is real progress.",
+        "why": "Progress isn't all-or-nothing."
+      }
+    },
+    {
+      "id": "bc-055",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: a green-flag move for breaking the cycle, or one to rethink?",
+      "relearn": "Pausing and repairing are green-flag moves; hitting when overwhelmed and shaming to control need a rethink.",
+      "persona": "any",
+      "source": "green or rethink",
+      "items": [
+        {
+          "id": "a",
+          "text": "Pausing before reacting"
+        },
+        {
+          "id": "b",
+          "text": "Hitting when overwhelmed"
+        },
+        {
+          "id": "c",
+          "text": "Repairing after a slip"
+        },
+        {
+          "id": "d",
+          "text": "Shaming to control"
+        }
+      ],
+      "bins": [
+        {
+          "id": "green",
+          "label": "Green-flag move"
+        },
+        {
+          "id": "rethink",
+          "label": "Rethink it"
+        }
+      ],
+      "key": {
+        "a": "green",
+        "b": "rethink",
+        "c": "green",
+        "d": "rethink"
+      }
+    },
+    {
+      "id": "bc-056",
+      "cat": "tools-and-help",
+      "type": "branch",
+      "hook": "You're frightened that your anger could seriously hurt your child, or it already has.",
+      "relearn": "When anger risks real harm to your child, reach for help now to keep them safe; you don't have to carry it alone.",
+      "persona": "Suresh",
+      "source": "reach for help now",
+      "options": [
+        {
+          "text": "Reach out for help now, to keep your child safe and get support",
+          "consequence": "You protect your child and find a way through.",
+          "outcome": "reach-now",
+          "best": true
+        },
+        {
+          "text": "Stay silent in shame and hope it won't happen again",
+          "consequence": "Reaching out now keeps your child safe and gets you real support; silence and shame leave the risk in place."
+        }
+      ],
+      "debrief": "If you fear your anger could harm your child, or it has, reach out for help now (see Be the Safe Adult); this keeps your child safe."
+    },
+    {
+      "id": "bc-057",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: needing help to parent gently isn't shameful; it's the most caring thing you can do for your child. Hear that?",
+      "relearn": "Needing help to parent gently isn't shameful; it's one of the most caring things you can do.",
+      "persona": "any",
+      "source": "not shameful",
+      "prompt": "What do you think?",
+      "options": [
+        "I hear it",
+        "Most caring",
+        "Not shameful"
+      ],
+      "affirm": "Reaching for help to parent more gently is a caring, courageous act, never a shameful one."
+    },
+    {
+      "id": "bc-058",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match a parent's need to where it routes.",
+      "relearn": "Anger and discipline help, support for your past, and child-safety routing each have a clear place to turn.",
+      "persona": "Suresh",
+      "source": "where it routes",
+      "pairs": [
+        {
+          "left": "Help regulating anger and discipline",
+          "right": "Positive-parenting support"
+        },
+        {
+          "left": "Processing your own past",
+          "right": "A counsellor or Tele-MANAS 14416"
+        },
+        {
+          "left": "A child at risk of harm",
+          "right": "Be the Safe Adult (g69) and help"
+        }
+      ]
+    },
+    {
+      "id": "bc-059",
+      "cat": "tools-and-help",
+      "type": "spot",
+      "hook": "Spot the sustainable way to break the cycle.",
+      "relearn": "Break the cycle through small consistent changes and self-compassion over time, not overnight perfection.",
+      "persona": "any",
+      "source": "sustainable change",
+      "scene": [
+        {
+          "text": "Small, consistent changes and self-compassion",
+          "trick": false
+        },
+        {
+          "text": "Expecting to be perfect overnight",
+          "trick": true
+        },
+        {
+          "text": "Pausing, repairing, healing over time",
+          "trick": false
+        }
+      ],
+      "why": "Small consistent changes with self-compassion, pausing, repairing and healing over time, are sustainable; expecting overnight perfection isn't."
+    },
+    {
+      "id": "bc-060",
+      "cat": "tools-and-help",
+      "type": "reflect",
+      "hook": "Sam: notice the pattern, discipline with warmth, repair your slips, heal your wounds, and reach for help. The cycle ends with you. Ready?",
+      "relearn": "Notice the pattern, discipline warmly, repair, heal, and reach for help, and the cycle ends with you.",
+      "persona": "any",
+      "source": "ends with me",
+      "prompt": "What's your take?",
+      "options": [
+        "Ready",
+        "It ends with me",
+        "Let's go"
+      ],
+      "affirm": "Noticing patterns, disciplining warmly, repairing, healing and reaching for help are how the harmful cycle ends with you."
+    },
+    {
+      "id": "bc-061",
+      "cat": "tools-and-help",
+      "type": "role-play",
+      "hook": "Your co-parent grew up with harsh discipline and defaults to it. You want to invite change together.",
+      "relearn": "Inviting change together, with compassion for your shared upbringing, motivates a co-parent far more than condemnation.",
+      "persona": "Vikram",
+      "source": "invite change together",
+      "setup": "Invite change together:",
+      "yourLine": [
+        {
+          "text": "\"We were both raised with that, but let's choose differently for our kid, and back each other up.\"",
+          "best": true
+        },
+        {
+          "text": "\"You're just like your father, you'll never change.\""
+        }
+      ]
+    },
+    {
+      "id": "bc-062",
+      "cat": "how-you-were-raised",
+      "type": "role-play",
+      "hook": "A relative says you're 'soft' for not raising your kids the strict way you were raised. You answer with calm conviction.",
+      "relearn": "Owning what you keep and what you change, calmly, holds your new path without attacking your own parents.",
+      "persona": "Suresh",
+      "source": "calm conviction",
+      "setup": "Answer with conviction:",
+      "yourLine": [
+        {
+          "text": "\"I loved a lot about my childhood, and I'm choosing to do some things differently, kindly and firmly.\"",
+          "best": true
+        },
+        {
+          "text": "\"You're right, maybe I should be harder on them.\""
+        }
+      ]
+    },
+    {
+      "id": "bc-063",
+      "cat": "how-you-were-raised",
+      "type": "sort",
+      "hook": "Sort: a compassionate truth about inherited parenting, or a shaming one?",
+      "relearn": "'Most were raised that way' and 'you can choose now' are compassionate; 'monster' and 'doomed' are shaming and false.",
+      "persona": "any",
+      "source": "compassion vs shame",
+      "items": [
+        {
+          "id": "a",
+          "text": "'Most harsh parents were raised that way'"
+        },
+        {
+          "id": "b",
+          "text": "'Anyone who slips is a monster'"
+        },
+        {
+          "id": "c",
+          "text": "'You can choose differently now'"
+        },
+        {
+          "id": "d",
+          "text": "'You're doomed to repeat it'"
+        }
+      ],
+      "bins": [
+        {
+          "id": "compassion",
+          "label": "Compassionate truth"
+        },
+        {
+          "id": "shame",
+          "label": "Shaming"
+        }
+      ],
+      "key": {
+        "a": "compassion",
+        "b": "shame",
+        "c": "compassion",
+        "d": "shame"
+      }
+    },
+    {
+      "id": "bc-064",
+      "cat": "how-you-were-raised",
+      "type": "match",
+      "hook": "Match each thing to keep or leave to the reason.",
+      "relearn": "Sorting your inheritance, keep the closeness and values, leave the harm, lets you pass on the best of it.",
+      "persona": "any",
+      "source": "keep-leave reasons",
+      "pairs": [
+        {
+          "left": "Keep: family closeness",
+          "right": "It nourished you"
+        },
+        {
+          "left": "Leave: hitting",
+          "right": "It harms and doesn't work"
+        },
+        {
+          "left": "Keep: hard work",
+          "right": "A value worth passing on"
+        }
+      ]
+    },
+    {
+      "id": "bc-065",
+      "cat": "how-you-were-raised",
+      "type": "spot",
+      "hook": "Spot the mindset that helps you parent differently.",
+      "relearn": "Parenting differently starts with 'I can learn' and 'I choose what stops with me', not 'this is just who I am'.",
+      "persona": "Suresh",
+      "source": "growth mindset",
+      "scene": [
+        {
+          "text": "'I can learn new ways'",
+          "trick": false
+        },
+        {
+          "text": "'This is just who I am, unchangeable'",
+          "trick": true
+        },
+        {
+          "text": "'I choose what stops with me'",
+          "trick": false
+        }
+      ],
+      "why": "'I can learn' and 'I choose what stops with me' help you change; 'unchangeable' keeps the old pattern running."
+    },
+    {
+      "id": "bc-066",
+      "cat": "discipline-differently",
+      "type": "role-play",
+      "hook": "Your child is melting down in public and you feel the old urge to grab and shout. You want to handle it calmly.",
+      "relearn": "Naming the feeling while holding the limit calms a meltdown and disciplines without threats or fear.",
+      "persona": "Vikram",
+      "source": "calm in public",
+      "setup": "Stay calm and firm:",
+      "yourLine": [
+        {
+          "text": "\"I can see you're upset, we're going to take a breath together, and we still can't do that.\"",
+          "best": true
+        },
+        {
+          "text": "\"Stop it right now or you'll get it when we get home.\""
+        }
+      ]
+    },
+    {
+      "id": "bc-067",
+      "cat": "discipline-differently",
+      "type": "sort",
+      "hook": "Sort: teaches the child a better choice, or just instils fear?",
+      "relearn": "Explaining and calm consequences teach a better choice; slaps and yelled threats only instil fear.",
+      "persona": "any",
+      "source": "teaches vs fear",
+      "items": [
+        {
+          "id": "a",
+          "text": "Explaining why and what to do instead"
+        },
+        {
+          "id": "b",
+          "text": "A slap to make them stop"
+        },
+        {
+          "id": "c",
+          "text": "A calm, related consequence"
+        },
+        {
+          "id": "d",
+          "text": "Yelling threats"
+        }
+      ],
+      "bins": [
+        {
+          "id": "teaches",
+          "label": "Teaches a better choice"
+        },
+        {
+          "id": "fear",
+          "label": "Just instils fear"
+        }
+      ],
+      "key": {
+        "a": "teaches",
+        "b": "fear",
+        "c": "teaches",
+        "d": "fear"
+      }
+    },
+    {
+      "id": "bc-068",
+      "cat": "discipline-differently",
+      "type": "role-play",
+      "hook": "Your child asks why you don't hit them when their friends get hit at home. You want to answer honestly.",
+      "relearn": "Telling a child you'll never hurt them, and don't need to, builds trust and models non-violence directly.",
+      "persona": "Suresh",
+      "source": "why no hitting",
+      "setup": "Answer honestly:",
+      "yourLine": [
+        {
+          "text": "\"Because hurting you would be wrong, and I can help you learn without ever needing to.\"",
+          "best": true
+        },
+        {
+          "text": "\"Don't give me ideas, behave or else.\""
+        }
+      ]
+    },
+    {
+      "id": "bc-069",
+      "cat": "the-repair",
+      "type": "role-play",
+      "hook": "Hours after snapping, your child is still subdued. You want to reopen and repair gently.",
+      "relearn": "Reopening with ownership and warmth repairs the rupture; dismissing the child's hurt deepens it.",
+      "persona": "Divya",
+      "source": "reopen and repair",
+      "setup": "Reopen gently:",
+      "yourLine": [
+        {
+          "text": "\"I've been thinking about earlier, I was wrong to shout, can we have a cuddle and start over?\"",
+          "best": true
+        },
+        {
+          "text": "\"Are you still sulking about that? Let it go.\""
+        }
+      ]
+    },
+    {
+      "id": "bc-070",
+      "cat": "the-repair",
+      "type": "sort",
+      "hook": "Sort: helps a child feel safe again after a rupture, or keeps them on edge?",
+      "relearn": "A sincere apology and warmth help a child feel safe; ignoring it or blaming them keeps them on edge.",
+      "persona": "any",
+      "source": "safe vs edge",
+      "items": [
+        {
+          "id": "a",
+          "text": "A sincere apology"
+        },
+        {
+          "id": "b",
+          "text": "Acting like nothing happened"
+        },
+        {
+          "id": "c",
+          "text": "Extra warmth and reassurance"
+        },
+        {
+          "id": "d",
+          "text": "Making them apologise for your outburst"
+        }
+      ],
+      "bins": [
+        {
+          "id": "safe",
+          "label": "Helps them feel safe"
+        },
+        {
+          "id": "edge",
+          "label": "Keeps them on edge"
+        }
+      ],
+      "key": {
+        "a": "safe",
+        "b": "edge",
+        "c": "safe",
+        "d": "edge"
+      }
+    },
+    {
+      "id": "bc-071",
+      "cat": "the-repair",
+      "type": "branch",
+      "hook": "You slipped again after doing well for weeks and feel like giving up.",
+      "relearn": "Treat a slip as a stumble, not the end; repair, self-forgive and continue rather than giving up.",
+      "persona": "Suresh",
+      "source": "slips don't erase",
+      "options": [
+        {
+          "text": "Repair, forgive yourself, and keep going, slips don't erase progress",
+          "consequence": "You stay on the path despite a stumble.",
+          "outcome": "keep-going",
+          "best": true
+        },
+        {
+          "text": "Decide you've failed and abandon the effort",
+          "consequence": "Repairing and forgiving yourself keeps you on the path; deciding you've failed abandons all the progress you've made."
+        }
+      ],
+      "debrief": "A slip after progress isn't failure; repair, forgive yourself and keep going."
+    },
+    {
+      "id": "bc-072",
+      "cat": "the-repair",
+      "type": "match",
+      "hook": "Match each repair phrase to what makes it land.",
+      "relearn": "A repair lands when it owns the behaviour, frees the child of blame, and restores the bond.",
+      "persona": "any",
+      "source": "what makes repair land",
+      "pairs": [
+        {
+          "left": "'I was wrong to do that'",
+          "right": "It owns the behaviour"
+        },
+        {
+          "left": "'It wasn't your fault'",
+          "right": "It frees the child of blame"
+        },
+        {
+          "left": "'I love you, always'",
+          "right": "It restores the bond"
+        }
+      ]
+    },
+    {
+      "id": "bc-073",
+      "cat": "calm-yourself",
+      "type": "role-play",
+      "hook": "You can feel yourself about to explode at your kids. You want to narrate a safe exit.",
+      "relearn": "Narrating a calm exit models emotional honesty and keeps everyone safe, unlike erupting at the children.",
+      "persona": "Suresh",
+      "source": "narrate safe exit",
+      "setup": "Narrate a safe exit:",
+      "yourLine": [
+        {
+          "text": "\"I'm getting too angry, I'm going to take a minute in the other room and come back calmer.\"",
+          "best": true
+        },
+        {
+          "text": "\"That's it, I've had it with all of you!\""
+        }
+      ]
+    },
+    {
+      "id": "bc-074",
+      "cat": "calm-yourself",
+      "type": "sort",
+      "hook": "Sort: a real self-regulation skill, or a way of feeding the anger?",
+      "relearn": "Breathing and a brief self time-out regulate anger; replaying the trigger and pushing on while clenched feed it.",
+      "persona": "any",
+      "source": "regulate vs feed",
+      "items": [
+        {
+          "id": "a",
+          "text": "Slow breathing"
+        },
+        {
+          "id": "b",
+          "text": "Replaying what enraged you"
+        },
+        {
+          "id": "c",
+          "text": "A brief, safe time-out for yourself"
+        },
+        {
+          "id": "d",
+          "text": "Clenching and pushing on"
+        }
+      ],
+      "bins": [
+        {
+          "id": "regulate",
+          "label": "Self-regulation"
+        },
+        {
+          "id": "feed",
+          "label": "Feeds the anger"
+        }
+      ],
+      "key": {
+        "a": "regulate",
+        "b": "feed",
+        "c": "regulate",
+        "d": "feed"
+      }
+    },
+    {
+      "id": "bc-075",
+      "cat": "calm-yourself",
+      "type": "branch",
+      "hook": "You realise you're most likely to snap when you're exhausted and overwhelmed.",
+      "relearn": "Tend your own exhaustion and load to prevent snaps; willpower alone runs out when you're depleted.",
+      "persona": "Divya",
+      "source": "reduce the load",
+      "options": [
+        {
+          "text": "Reduce the load and build in rest so you have more patience to give",
+          "consequence": "You shrink the conditions that cause the snaps.",
+          "outcome": "reduce-load",
+          "best": true
+        },
+        {
+          "text": "Ignore your own state and rely on willpower",
+          "consequence": "Reducing the load and resting shrinks the snap conditions; ignoring your state leaves you running on empty and short-fused."
+        }
+      ],
+      "debrief": "Notice that exhaustion and overwhelm fuel your snaps, and reduce the load and rest to widen your patience."
+    },
+    {
+      "id": "bc-076",
+      "cat": "calm-yourself",
+      "type": "spot",
+      "hook": "Spot the early-warning sign to act on before you lose it.",
+      "relearn": "Act on early-warning body signs by pausing; the thought 'I can't stop' is one to challenge, not obey.",
+      "persona": "Suresh",
+      "source": "early warning",
+      "scene": [
+        {
+          "text": "Jaw clenching, voice rising",
+          "trick": false
+        },
+        {
+          "text": "Telling yourself you can't stop",
+          "trick": true
+        },
+        {
+          "text": "Heart pounding, patience thinning",
+          "trick": false
+        }
+      ],
+      "why": "Clenching, a rising voice and thinning patience are early signs to pause; 'I can't stop' is a thought to challenge."
+    },
+    {
+      "id": "bc-077",
+      "cat": "heal-your-wounds",
+      "type": "role-play",
+      "hook": "A friend admits they're scared they'll repeat their own harsh upbringing. You want to support them.",
+      "relearn": "Affirming that their very worry means they're changing, plus pointing to help, supports a friend far more than fatalism.",
+      "persona": "Priya",
+      "source": "support a friend",
+      "setup": "Support them warmly:",
+      "yourLine": [
+        {
+          "text": "\"The fact that you're worried about it means you're already breaking the pattern, and help is out there.\"",
+          "best": true
+        },
+        {
+          "text": "\"Yeah, we all turn into our parents eventually.\""
+        }
+      ]
+    },
+    {
+      "id": "bc-078",
+      "cat": "heal-your-wounds",
+      "type": "sort",
+      "hook": "Sort: helps the cycle stop with you, or keeps passing it on?",
+      "relearn": "Tending wounds and seeking support stop the cycle; denying the past and taking pain out on kids pass it on.",
+      "persona": "any",
+      "source": "stops vs passes",
+      "items": [
+        {
+          "id": "a",
+          "text": "Tending your own wounds"
+        },
+        {
+          "id": "b",
+          "text": "Pretending the past didn't shape you"
+        },
+        {
+          "id": "c",
+          "text": "Seeking support for old pain"
+        },
+        {
+          "id": "d",
+          "text": "Taking your pain out on your kids"
+        }
+      ],
+      "bins": [
+        {
+          "id": "stops",
+          "label": "Stops with you"
+        },
+        {
+          "id": "passes",
+          "label": "Passes it on"
+        }
+      ],
+      "key": {
+        "a": "stops",
+        "b": "passes",
+        "c": "stops",
+        "d": "passes"
+      }
+    },
+    {
+      "id": "bc-079",
+      "cat": "heal-your-wounds",
+      "type": "role-play",
+      "hook": "You want to acknowledge to yourself, kindly, that you were hurt as a child. You say it inwardly.",
+      "relearn": "Acknowledging your own hurt with compassion, rather than dismissing it, is what lets you stop passing it on.",
+      "persona": "Suresh",
+      "source": "acknowledge kindly",
+      "setup": "Say it kindly to yourself:",
+      "yourLine": [
+        {
+          "text": "\"What happened to me wasn't okay, it wasn't my fault, and I can choose something better now.\"",
+          "best": true
+        },
+        {
+          "text": "\"It was nothing, I turned out fine, stop being dramatic.\""
+        }
+      ]
+    },
+    {
+      "id": "bc-080",
+      "cat": "heal-your-wounds",
+      "type": "branch",
+      "hook": "Processing your past brings up more than you can handle alone.",
+      "relearn": "Get support to process heavy past pain; you don't have to walk through it entirely alone.",
+      "persona": "Suresh",
+      "source": "not alone",
+      "options": [
+        {
+          "text": "Reach for a counsellor or helpline to walk through it with support",
+          "consequence": "You get real help for a heavy load.",
+          "outcome": "supported",
+          "best": true
+        },
+        {
+          "text": "Force yourself to deal with it entirely alone",
+          "consequence": "Reaching for support carries a heavy load with you; forcing it alone can overwhelm and stall your healing."
+        }
+      ],
+      "debrief": "When your past brings up more than you can handle alone, reach for a counsellor or helpline (e.g. Tele-MANAS 14416)."
+    },
+    {
+      "id": "bc-081",
+      "cat": "tools-and-help",
+      "type": "role-play",
+      "hook": "Your co-parent slipped and is spiralling in guilt. You want to steady them toward repair.",
+      "relearn": "Steadying a guilt-spiralling co-parent toward repair helps the child far more than piling on blame.",
+      "persona": "Vikram",
+      "source": "steady co-parent",
+      "setup": "Steady them gently:",
+      "yourLine": [
+        {
+          "text": "\"You slipped, it happens to all of us, go repair it with them, that's what matters now.\"",
+          "best": true
+        },
+        {
+          "text": "\"Great, now you've scarred them for life.\""
+        }
+      ]
+    },
+    {
+      "id": "bc-082",
+      "cat": "tools-and-help",
+      "type": "role-play",
+      "hook": "You want to set a shared family rule that no one, adult or child, hits when angry. You propose it.",
+      "relearn": "A shared no-hitting rule that applies to adults too models the very self-control you want your kids to learn.",
+      "persona": "Suresh",
+      "source": "shared family rule",
+      "setup": "Propose it clearly:",
+      "yourLine": [
+        {
+          "text": "\"In our home, none of us hits, not even when we're furious, we take a breath instead, all of us.\"",
+          "best": true
+        },
+        {
+          "text": "\"Do as I say, not as I do.\""
+        }
+      ]
+    },
+    {
+      "id": "bc-083",
+      "cat": "tools-and-help",
+      "type": "sort",
+      "hook": "Sort: a realistic plan for changing how you parent, or a setup to fail?",
+      "relearn": "One change at a time with self-compassion is realistic; expecting overnight perfection or quitting at a slip set you up to fail.",
+      "persona": "any",
+      "source": "realistic plan",
+      "items": [
+        {
+          "id": "a",
+          "text": "One small change at a time"
+        },
+        {
+          "id": "b",
+          "text": "Becoming a perfect parent overnight"
+        },
+        {
+          "id": "c",
+          "text": "Self-compassion when you slip"
+        },
+        {
+          "id": "d",
+          "text": "Quitting at the first relapse"
+        }
+      ],
+      "bins": [
+        {
+          "id": "realistic",
+          "label": "Realistic plan"
+        },
+        {
+          "id": "fail",
+          "label": "Setup to fail"
+        }
+      ],
+      "key": {
+        "a": "realistic",
+        "b": "fail",
+        "c": "realistic",
+        "d": "fail"
+      }
+    },
+    {
+      "id": "bc-084",
+      "cat": "tools-and-help",
+      "type": "match",
+      "hook": "Match a hard moment to the tool for it.",
+      "relearn": "Each hard moment has a tool: calm yourself, repair after, and reach for help fast when real harm is a risk.",
+      "persona": "Suresh",
+      "source": "moment to tool",
+      "pairs": [
+        {
+          "left": "Anger surging",
+          "right": "Pause, breathe, step away safely"
+        },
+        {
+          "left": "After a slip",
+          "right": "Repair and self-forgive"
+        },
+        {
+          "left": "Fear of real harm to your child",
+          "right": "Reach for help now (Be the Safe Adult)"
+        }
+      ]
+    }
+  ]
+}
