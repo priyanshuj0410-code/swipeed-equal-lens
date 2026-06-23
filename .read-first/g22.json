@@ -1,0 +1,35 @@
+{
+  "node": "g22",
+  "gameId": "plan-it",
+  "label": "Plan It",
+  "chapter": 4,
+  "attested_at": "2026-06-23T12:03:06+05:30",
+  "notes": "Read GDD 22 library in full (85 scenarios: how-it-happens/bust-myths/ways-to-prevent/delaying-valid/plan-future/facts-help), incl. all delaying-valid (consent/pace/'if you loved me' pressure) + how-it-happens + bust-myths verbatim; gameId 'plan-it' matches registry (no trap); GATED at path layer (age band), untouched by content/wrapper swap. Non-explicit, values-first, delaying fully respected, routes to doctor/trusted adult. binStyle: REMOVED 'not needed' from NEG (was wrongly red-tinting pl-003 'an orgasm by the girl' + clean-crew's neutral 'not needed'); added unreliable/made-up/rumour; emulated all 16 g22 bins + clean-crew regression (improved) clean.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 22 — Plan It (reworked v2).pdf",
+      "sha256": "91381b874c98388e29a2ae39d96e74d8cef0d8b321dd0f03dfbbc0d0b2fab3de",
+      "bytes": 61953
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 4 User Personas.pdf",
+      "sha256": "d86c9016bf58be6ef0771e9fcd923c987043e4286038da4cdeffb424de927c4d",
+      "bytes": 76452
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 22 Plan It — Scenario Library.json",
+      "sha256": "54bbe61f35ad0827e61c517c622453ddd2b49ff04c22bb565004c56b68b0c722",
+      "bytes": 59031
+    }
+  }
+}
