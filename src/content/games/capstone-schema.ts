@@ -73,5 +73,9 @@ export const GLYPH_EMOJI: Record<string, string> = {
   "consent-real": "🫶", "swipe-smart": "💘", "real-relationships": "💞", "own-health": "🩺",
   "independence-key": "🔑", "mind-belonging": "🫂", "find-feet": "🧭", "equal-confident": "🗣️",
   "standing-on-my-own-star": "🌟",
+  // Chapter 7 — Building a Life (c7 "A Life, Built"); glyphs mirror each game's node emoji
+  "choosing-building": "💍", "your-path": "🛤️", "equal-partners": "🧺", "respect-home": "🏠",
+  "family-map": "🗺️", "money-together": "💵", "if-when-whether": "🤰", "many-ways-family": "👪",
+  "a-life-built-star": "🏡",
 };
 export const glyphEmoji = (g: string): string => GLYPH_EMOJI[g] ?? "⭐";
