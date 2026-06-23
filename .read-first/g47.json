@@ -1,0 +1,35 @@
+{
+  "node": "g47",
+  "gameId": "own-your-health",
+  "label": "Own Your Health",
+  "chapter": 6,
+  "attested_at": "2026-06-23T19:39:50+05:30",
+  "notes": "Own Your Health: gameId own-your-health matches registry (export OwnYourHealthGame). Reworks ModesEngine build onto v2 engine. 84 scenarios faithfully mapped from GDD 47 JSON: 6 cats (protection-sorted/know-your-status/pleasure-and-wellbeing/the-health-talk/access-and-confidential/tools-and-help), 7 types (branch 21/strike-rewrite 17/sort 13/reflect 13/spot 7/role-play 7/match 6), 0% binary. Adult SRH ownership: protection sorted (dual protection), routine testing (U=U, confidential), pleasure & wellbeing (normal part of health within consent), the health talk, confidential access. Comprehensive/frank, never explicit-as-instruction, medically accurate, shame-free; CONFIDENTIALITY foregrounded; even-handed across genders/orientations. India: NACO ICTC/RKSK/doctors/pharmacies; sensitive for unmarried youth handled frankly+respectfully (reassureCats know-your-status+pleasure-and-wellbeing+access-and-confidential). binStyle: NO change needed (all 13 bins emulated clean: good sides green, bad sides red/neutral, no mis-colors). Spot ids injected (7). Builds on g30/g29/g22; pairs g44.",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 47 — Own Your Health (reworked v2).pdf",
+      "sha256": "08a8e79d65b5edcdfcaccf1ad19a5b76159d404b3b2802800ce4a0bb2975da6c",
+      "bytes": 65167
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 6 User Personas.pdf",
+      "sha256": "352e9362b69c5b5c5df7565066cbff0bf697a54efe848d6777390e2626065f38",
+      "bytes": 80363
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 47 Own Your Health — Scenario Library.json",
+      "sha256": "ab578002cde486c24e84bd3768e94a2ca5c70866830da27b0868d82bb3200863",
+      "bytes": 65501
+    }
+  }
+}
