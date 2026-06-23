@@ -1,0 +1,35 @@
+{
+  "node": "g33",
+  "gameId": "lead-the-way",
+  "label": "Lead the Way",
+  "chapter": 5,
+  "attested_at": "2026-06-23T18:36:07+05:30",
+  "notes": "Lead the Way: gameId lead-the-way matches registry (export LeadTheWayGame). 84 scenarios faithfully mapped from GDD 33 JSON: 6 cats (the-gaps/what-allyship-is/lead-by-example/lift-as-you-climb/call-in-not-out/your-leadership-style), 7 types (reflect 26/branch 20/strike-rewrite 12/sort 10/role-play 9/match 4/spot 3), 0% binary. Structural equality->everyday leadership; allyship is everyone's job; MEN LEADING ON EQUALITY IS STRENGTH NOT BETRAYAL (key India reframe); real gaps (pay ~34%, leadership, unpaid care); lead by example/lift as you climb/call in not out. India: engage boys/men, persuasion over confrontation, Women's Reservation Act 2023. Safety-first routing 181/112/1098 (reassureCats call-in-not-out). binStyle: added victim-blam/widens it/holds them down/undercuts/hardens them/shaming call/bystander->red + lifts others/active allyship/closes a gap/strong example->green; full cross-game regression clean (incidentally improved equalize 'Widens it'->red and stand-up/speak-up 'Bystander/Silent bystander'->red, both correct bad-side). Spot ids injected (3).",
+  "docs": {
+    "build_bible": {
+      "path": "Strategy/SwipeEd — Game Strategy (build bible).pdf",
+      "sha256": "9b508ece1ebfbc042999f845dcfb34c6aa97bce7e7f33bb03e55ffe17030f852",
+      "bytes": 75777
+    },
+    "transition_plan": {
+      "path": "Strategy/SwipeEd — Transition Plan (Step 1, GDD rework).pdf",
+      "sha256": "459454f5ec002722047621344b43d9ae47ae54267ad94932a2cd49ec1de7ba9a",
+      "bytes": 56015
+    },
+    "gdd": {
+      "path": "Strategy/GDD 33 — Lead the Way (reworked v2).pdf",
+      "sha256": "825a8bf6137510df38e09bfcbeb3cbad9bf2c6f58b75d250efa990094a44540c",
+      "bytes": 63804
+    },
+    "chapter_personas": {
+      "path": "Strategy/Personas/SwipeEd — Chapter 5 User Personas.pdf",
+      "sha256": "0aa28ddba75fd7ae198bc3ae24e7e01b1ef87b3e16c986e842dcd0c249fbfd45",
+      "bytes": 74728
+    },
+    "scenario_library": {
+      "path": "Strategy/SwipeEd — GDD 33 Lead the Way — Scenario Library.json",
+      "sha256": "17fabc31b0e915c77b4aeb35a45b8f4f79f72525db864e0f968fc56a819be983",
+      "bytes": 60431
+    }
+  }
+}
