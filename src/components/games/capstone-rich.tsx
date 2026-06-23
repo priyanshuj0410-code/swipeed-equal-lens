@@ -304,44 +304,46 @@ function SpotLap({ lap, say, onSolved }: Omit<LapProps<CapSpotLap>, "reduceMotio
   );
 }
 
-// — Swipe: cheer it on by nudging the card UP (drag up, or ↑ key); no buttons. ROBUST: it commits the moment
-// the drag passes a small fixed threshold (during the move — so a release can never leave it half-done), the
-// travel is clamped so the card can't fly off-screen, and on commit the card is replaced by a compact
-// "cheered!" confirmation (never a stuck empty box). The card is height-capped so it's a sane target on desktop.
+// — Swipe: cheer it on by SWIPING the card UP — it follows your finger, then once you've pulled it up far
+// enough (or flicked it) it swooshes off the top and the "cheered!" card slides in. ROBUST: it commits during
+// the drag (so a release can never leave it stuck), the commit animates a real fly-off (not an instant jump),
+// and the lap then renders its done state (never a stuck empty box). ↑/Enter is the keyboard path.
 function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
   const [dy, setDy] = useState(0);
+  const [flew, setFlew] = useState(false);
   const [solved, setSolved] = useState(false);
   const doneRef = useRef(false);
   useEffect(() => { say(`${lap.frame} ${lap.cue}`); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const THRESH = 56; // px up — small & fixed (not a fraction of a tall card)
+  const THRESH = 96; // a real upward swipe, not a nudge
   const commit = () => {
-    if (doneRef.current) return; doneRef.current = true; setSolved(true); setDy(0); vibrate(12); celebrate("big"); say(`${lap.up} ${lap.celebrate}`); onSolved();
+    if (doneRef.current) return; doneRef.current = true; vibrate(12); celebrate("big"); say(`${lap.up} ${lap.celebrate}`); onSolved();
+    if (reduceMotion) { setSolved(true); }
+    else { setFlew(true); setTimeout(() => setSolved(true), 320); } // fly the card off the top, THEN reveal the done card
   };
   const drag = usePointerDrag({
-    onMove: (s) => { setDy(Math.max(-110, Math.min(0, s.dy))); if (s.dy < -THRESH || s.vy < -0.55) commit(); }, // commit DURING the drag
-    onEnd: () => { if (!doneRef.current) setDy(0); }, // didn't reach it → spring back
+    onMove: (s) => { if (doneRef.current) return; setDy(Math.min(0, s.dy)); if (s.dy < -THRESH || s.vy < -0.6) commit(); }, // follows the finger up; catches + flies once past the swipe distance / on a flick
+    onEnd: () => { if (!doneRef.current) setDy(0); }, // released before the swipe distance → spring back
     onTap: () => setDy(0),
   });
   const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "ArrowUp" || e.key === "Enter" || e.key === " ") { e.preventDefault(); commit(); } };
   if (solved) {
     return (
       <div className="flex flex-1 flex-col">
-        <div className={`${card} flex min-h-72 w-full flex-1 flex-col items-center justify-center gap-3 rounded-3xl px-6 py-12 text-center`} style={{ boxShadow: "6px 6px 0 0 #62B84B" }}>
+        <div className={`${card} animate-in fade-in slide-in-from-bottom-4 flex min-h-72 w-full flex-1 flex-col items-center justify-center gap-3 rounded-3xl px-6 py-12 text-center duration-300`} style={{ boxShadow: "6px 6px 0 0 #62B84B" }}>
           <span className="text-6xl" aria-hidden>💚</span>
           <p className="text-lg font-bold text-foreground">{lap.up}</p>
         </div>
       </div>
     );
   }
-  const lifting = dy < -8;
-  // Full-height breathable card (it just nudges up a touch and commits — the clamp/threshold keep it robust).
+  const lifting = dy < -8 || flew;
   return (
     <div className="flex flex-1 flex-col gap-3">
       <div tabIndex={0} role="group" aria-roledescription="card you swipe up to cheer on"
         aria-label={`${lap.cue}. Press Up arrow to cheer it on.`} onKeyDown={onKeyDown} {...drag.handlers}
         className="glass-card relative flex min-h-72 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[19px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
-        style={{ transform: `translateY(${dy}px)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.2s ease-out", touchAction: "pan-x", boxShadow: lifting ? "0 -6px 0 0 #62B84B" : undefined }}>
+        style={{ transform: `translateY(${flew ? -880 : dy}px) rotate(${flew ? -4 : 0}deg)`, transition: flew ? "transform 0.32s cubic-bezier(0.33,0,0.2,1)" : drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.2s ease-out", touchAction: "pan-x", boxShadow: lifting ? "0 -6px 0 0 #62B84B" : undefined }}>
         {lifting && (
           <>
             <div className="pointer-events-none absolute inset-0" style={{ background: "#62B84B", opacity: 0.16 }} aria-hidden />
