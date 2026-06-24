@@ -30,5 +30,20 @@ if git diff --cached --name-only | grep -qE '^src/(content|components)/games/'; 
     echo "   Deliberate bypass once with:  READ_FIRST_OVERRIDE=1 git commit ..."
     exit 1
   fi
+
+  # Message-length guard: every visible field ≤160 chars (readability) AND no scenario over its chapter
+  # band ceiling (anti content-drift). Keeps copy from creeping back past the intended age-curve. See
+  # scripts/check_msg_len.py.
+  echo
+  if [ "${SWIPEED_MSGLEN_OVERRIDE:-}" = "1" ]; then
+    echo "▸ message-length guard: SKIPPED (SWIPEED_MSGLEN_OVERRIDE=1)"
+  elif python3 "$ROOT/scripts/check_msg_len.py"; then
+    :
+  else
+    echo
+    echo "⛔ Commit blocked: copy is over the length limits (see above)."
+    echo "   Tighten it, or bypass once with:  SWIPEED_MSGLEN_OVERRIDE=1 git commit ..."
+    exit 1
+  fi
 fi
 exit 0
