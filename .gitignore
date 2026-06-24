@@ -45,3 +45,6 @@ next-env.d.ts
 
 # Lazyweb design-research artifacts (tool output)
 .lazyweb/
+
+# forge content-pipeline working state (plans, generated batches — regenerable)
+.forge/
