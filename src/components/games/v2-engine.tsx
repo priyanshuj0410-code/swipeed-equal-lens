@@ -39,11 +39,18 @@ function binStyle(label: string, idx = 0): { emoji: string; tint: string } {
   return idx === 0 ? { emoji: "🔵", tint: "#5B9BD5" } : { emoji: "🟣", tint: "#7C5CFC" };
 }
 const NEUTRAL_BINS = [{ emoji: "🔵", tint: "#5B9BD5" }, { emoji: "🟣", tint: "#7C5CFC" }, { emoji: "🟢", tint: "#62B84B" }, { emoji: "🟠", tint: "#F0A93B" }];
+// Explicit-valence palette — used when a bin DECLARES its meaning (new content), so the engine never guesses.
+const VALENCE_STYLE: Record<string, { emoji: string; tint: string }> = {
+  pos: { emoji: "💚", tint: "#62B84B" }, neg: { emoji: "🛑", tint: "#E05C52" },
+  tell: { emoji: "🗣️", tint: "#F0A93B" }, uhoh: { emoji: "😬", tint: "#EF8A3C" },
+};
 // Guarantee the bins of one sort are visually distinct: if two would share a tint, fall back to a
 // position-based neutral palette so a non-reader always has a per-bin colour + emoji cue.
 // exported so the shared rich-capstone engine renders its sort dropzones with the SAME valence tinting.
-export function binStyles(bins: { label: string }[]): { emoji: string; tint: string }[] {
-  const s = bins.map((b, i) => binStyle(b.label, i));
+// A bin's explicit `valence` wins (pos/neg/tell/uhoh, or neutral→position colour); a bin without one falls
+// back to the label-regex binStyle() (legacy/un-migrated content).
+export function binStyles(bins: { label: string; valence?: string }[]): { emoji: string; tint: string }[] {
+  const s = bins.map((b, i) => (b.valence === "neutral" ? NEUTRAL_BINS[i % NEUTRAL_BINS.length] : b.valence ? (VALENCE_STYLE[b.valence] ?? binStyle(b.label, i)) : binStyle(b.label, i)));
   return new Set(s.map((x) => x.tint)).size < bins.length ? bins.map((_, i) => NEUTRAL_BINS[i % NEUTRAL_BINS.length]) : s;
 }
 const vibrate = (ms: number | number[]) => { try { navigator.vibrate?.(ms); } catch { /* unsupported */ } };

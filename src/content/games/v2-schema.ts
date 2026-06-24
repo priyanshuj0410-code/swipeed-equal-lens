@@ -18,7 +18,12 @@ export type StrikeRewriteScenario = Base & { type: "strike-rewrite"; myth: { un:
 // branch — choose what to do; each option has a consequence; one is `best`; a `debrief` reinforces the safe way.
 export type BranchScenario = Base & { type: "branch"; options: { text: string; consequence: string; outcome?: string; best?: boolean }[]; debrief: string };
 // sort — drop each item into the right bin (the `key` maps item id → bin id). Telling concepts apart.
-export type SortScenario = Base & { type: "sort"; items: { id: string; text: string }[]; bins: { id: string; label: string }[]; key: Record<string, string> };
+// `valence` makes a bin's meaning EXPLICIT so the engine never guesses it from the label (colour is a primary
+// signal for pre-readers): pos=good/true/safe 💚, neg=bad/false/unsafe 🛑, tell=speak-up 🗣️, uhoh=careful 😬,
+// neutral=non-valenced category (distinct position colour). New content always sets it; legacy bins fall back
+// to the label-regex in binStyle().
+export type BinValence = "pos" | "neg" | "tell" | "uhoh" | "neutral";
+export type SortScenario = Base & { type: "sort"; items: { id: string; text: string }[]; bins: { id: string; label: string; valence?: BinValence }[]; key: Record<string, string> };
 // match — connect each left to its right.
 export type MatchScenario = Base & { type: "match"; pairs: { left: string; right: string }[] };
 // build — assemble a team (order-free) or a plan (sequence) from `pieces`; `key` is the set/ordered answer.
