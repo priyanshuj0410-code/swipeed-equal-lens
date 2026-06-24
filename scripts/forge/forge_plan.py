@@ -37,7 +37,7 @@ def plan(game_id, lib_idx, g2ch):
     scns, errors = C.parse_file(path)
     if errors:
         raise SystemExit(f"parse errors in {game_id} (fix before planning): {errors[:3]}")
-    chapter = g2ch.get(game_id)
+    chapter = C.chapter_of(game_id)
     ceil = C.BAND_CEIL.get(chapter)
 
     lib = {}

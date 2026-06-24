@@ -187,6 +187,21 @@ def game_to_chapter():
                 m[gm.group(1)] = int(ch.group(1))
     return m
 
+def file_gameid(path):
+    """The RUNTIME gameId from a content file's config — may differ from the filename stem (e.g.
+    feelings-friends.ts → gameId 'feelings'). path.ts keys off this runtime id, not the filename."""
+    if not os.path.exists(path):
+        return os.path.basename(path)[:-3]
+    m = re.search(r'gameId:\s*"([^"]+)"', open(path, encoding="utf8").read())
+    return m.group(1) if m else os.path.basename(path)[:-3]
+
+def chapter_of(gid_or_path):
+    """Chapter for a game by filename stem OR path — resolves the config gameId first so a file whose name
+    differs from its gameId still gets the right chapter (hence the right band ceiling + band-mechanic guard)."""
+    g2ch = game_to_chapter()
+    path = gid_or_path if gid_or_path.endswith(".ts") else os.path.join(GAMES, gid_or_path + ".ts")
+    return g2ch.get(file_gameid(path)) if os.path.exists(path) else g2ch.get(gid_or_path)
+
 # ── dedup normalization ─────────────────────────────────────────────────────────────────────────────────────
 _WS = re.compile(r"\s+")
 _PUNCT = re.compile(r"[^\w\s]")

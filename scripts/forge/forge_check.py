@@ -77,8 +77,7 @@ def check_game(gid):
     if not os.path.exists(path):
         raise SystemExit(f"no game file: {gid}")
     plan = load_plan(gid)
-    g2ch = C.game_to_chapter()
-    chapter = (plan or {}).get("chapter", g2ch.get(gid))
+    chapter = (plan or {}).get("chapter") or C.chapter_of(gid)
     ceil = (plan or {}).get("band_ceiling", C.BAND_CEIL.get(chapter))
     allowed = set(plan["allowed_mechanics"]) if plan else C.allowed_mechanics(chapter, [])
     personas = personas_from_plan(plan)
