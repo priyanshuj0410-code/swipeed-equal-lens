@@ -327,10 +327,26 @@ def allowed_mechanics(chapter, lead_mechanics):
 def field_len_errors(o):
     return [f"{label} >{FIELD_MAX} ({len(txt)})" for label, txt in visible_fields(o) if len(txt) > FIELD_MAX]
 
+# keys that are NOT narrated prose — excluded from the per-scenario band total. MUST match check_msg_len.py's
+# NON_PROSE so the forge gate is at least as strict as the pre-commit length guard (else the gate passes a
+# scenario the commit hook then blocks).
+NON_PROSE = {"id", "cat", "type", "key", "persona", "source", "mode", "valence", "outcome"}
+
+def prose_chars(o):
+    def walk(v, k=None):
+        if isinstance(v, str):
+            return len(v) if k not in NON_PROSE else 0
+        if isinstance(v, dict):
+            return sum(walk(vv, kk) for kk, vv in v.items())
+        if isinstance(v, list):
+            return sum(walk(it, k) for it in v)
+        return 0
+    return sum(walk(vv, kk) for kk, vv in o.items())
+
 def band_error(o, ceil):
     if not ceil:
         return []
-    tot = sum(len(t) for _, t in visible_fields(o))
+    tot = prose_chars(o)
     return [f"prose total {tot} > band ceiling {ceil}"] if tot > ceil else []
 
 def claim_flags(o):

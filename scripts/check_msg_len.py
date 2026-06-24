@@ -30,8 +30,9 @@ PATH_TS = os.path.join(HERE, "..", "src", "content", "path.ts")
 
 CONFIG_FIELDS = ["greet", "reassure", "helpLine", "helpLabel"]
 SC_PLAIN = ["hook", "relearn", "affirm", "debrief", "why", "setup", "prompt"]
-# keys that are NOT narrated prose (ids/answers/structure) — excluded from the per-scenario total
-NON_PROSE = {"id", "cat", "type", "key", "persona", "source", "mode"}
+# keys that are NOT narrated prose (ids/answers/structure) — excluded from the per-scenario total.
+# MUST stay identical to forge/common.py's NON_PROSE so the forge gate and this guard never disagree.
+NON_PROSE = {"id", "cat", "type", "key", "persona", "source", "mode", "valence", "outcome"}
 
 
 def _dec(body):
