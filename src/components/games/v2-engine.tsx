@@ -48,6 +48,26 @@ export function binStyles(bins: { label: string }[]): { emoji: string; tint: str
 }
 const vibrate = (ms: number | number[]) => { try { navigator.vibrate?.(ms); } catch { /* unsupported */ } };
 
+// ---- anti-repeat rotation memory ----
+// shuffle() is memoryless, so with a shallow bank the same beats resurface session to session. We keep a small
+// per-game "recently served" id ring in localStorage and draw FRESH (unseen) beats first, falling back to seen
+// ones only once the unseen pool is exhausted. The ring caps at ~60% of the bank, so a beat won't recur until
+// you've moved well past it — replays feel new without ever starving a category.
+const SEEN_KEY = (gid: string) => `swipeed:seen:${gid}`;
+const loadSeen = (gid: string): string[] => { try { return JSON.parse(localStorage.getItem(SEEN_KEY(gid)) || "[]"); } catch { return []; } };
+const recordSeen = (gid: string, served: Scenario[], bank: number) => {
+  try {
+    const cap = Math.max(12, Math.floor(bank * 0.6));
+    localStorage.setItem(SEEN_KEY(gid), JSON.stringify([...loadSeen(gid), ...served.map((s) => s.id)].slice(-cap)));
+  } catch { /* storage unavailable */ }
+};
+// pick n from pool, unseen-first (each tier shuffled) so draws are both fresh AND varied.
+const chooseFresh = (pool: Scenario[], n: number, seen: Set<string>): Scenario[] => {
+  const fresh = shuffle(pool.filter((s) => !seen.has(s.id)));
+  const stale = shuffle(pool.filter((s) => seen.has(s.id)));
+  return [...fresh, ...stale].slice(0, n);
+};
+
 export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () => void }) {
   const { scenarios, gameId, title, greet, categories, badge, helpLine, helpLabel, reassureCats = [], reassure, buildLabels } = config;
   const [view, setView] = useState<"home" | "play" | "done">("home");
@@ -98,17 +118,22 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 
   const present = useCallback((s: Scenario) => { setBranchResolve(null); setPhase("play"); say(hookLine(s)); }, [say]);
 
-  // Rotation: one random scenario per category. We pick by SHUFFLE (natural frequency), not by forcing
-  // mechanic variety — forcing variety in a mechanic-skewed category (e.g. a swipe-heavy one with only a few
-  // sorts) kept surfacing those rare beats every session, so the same sort repeated. Shuffle keeps it fresh.
+  // Rotation: one beat per category, drawn UNSEEN-first (anti-repeat) — not just shuffled. Picking by natural
+  // frequency (not forced mechanic variety) keeps beats representative of each category's real mix; the seen-ring
+  // keeps them from recurring until you've moved well past them.
   const startRotate = () => {
-    const q = categories.map((cat) => shuffle(byCat(scenarios, cat.id))[0]).filter(Boolean);
+    const seen = new Set(loadSeen(gameId));
+    const q = categories.map((cat) => chooseFresh(byCat(scenarios, cat.id), 1, seen)[0]).filter(Boolean);
+    recordSeen(gameId, q, scenarios.length);
     setQueue(q); setQi(0); setView("play"); present(q[0]);
   };
-  // One category, three beats — three distinct scenarios drawn at random from the category (no forced
-  // mechanic variety, so beats reflect the category's real mix and don't over-surface rare mechanics).
+  // One category, SIX beats — six distinct scenarios drawn unseen-first from the category (no forced mechanic
+  // variety, so beats reflect the category's real mix). Six gives a substantial sub-topic session and, with the
+  // deepened bank, a fresh set most replays.
   const startCat = (catId: string) => {
-    const q = shuffle(byCat(scenarios, catId)).slice(0, 3);
+    const seen = new Set(loadSeen(gameId));
+    const q = chooseFresh(byCat(scenarios, catId), 6, seen);
+    recordSeen(gameId, q, scenarios.length);
     setQueue(q); setQi(0); setView("play"); present(q[0]);
   };
 
@@ -461,6 +486,7 @@ function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "bran
 // bin keeps its emoji + word). Reduced motion drops the lift/pulse animation, not the function.
 function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "sort" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
   const [placed, setPlaced] = useState<Record<string, string>>({});
+  const [order] = useState(() => shuffle(sc.items)); // display order — shuffle so the answer pattern (e.g. up/down/up/down) isn't memorisable across replays
   const [sel, setSel] = useState<string | null>(null);
   const [wrong, setWrong] = useState(false);
   const [drag, setDrag] = useState<{ id: string; x: number; y: number } | null>(null);
@@ -516,7 +542,7 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
     <div className="flex flex-col gap-1.5">
       {sel && !drag && <p className="text-center text-xs font-semibold text-foreground/70" aria-hidden>Carrying “{itemText(sel)}” — drop it in a zone</p>}
       <div className="flex flex-wrap justify-center gap-2">
-        {sc.items.filter((it) => !placed[it.id]).map((it) => (
+        {order.filter((it) => !placed[it.id]).map((it) => (
           <button key={it.id} type="button" data-id={it.id} onClick={() => arm(it.id)} {...pointer.handlers}
             className={`glass-card touch-none rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 ${sel === it.id && !drag && !reduceMotion ? "animate-pulse" : ""} ${drag?.id === it.id ? "opacity-30" : ""}`}
             style={sel === it.id && !drag ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>{it.text}</button>
@@ -552,6 +578,7 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
 const MATCH_GLYPHS = ["①", "②", "③", "④", "⑤", "⑥"];
 const MATCH_TINTS = ["#62B84B", "#7C5CFC", "#F0A93B", "#5B9BD5", "#E0727B", "#46B8A8"];
 function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "match" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
+  const [pairsOrder] = useState(() => shuffle(sc.pairs)); // left-column display order — shuffle so the left list isn't fixed across replays (rights are shuffled independently below)
   const [rights] = useState(() => shuffle(sc.pairs.map((p) => p.right)));
   const [matched, setMatched] = useState<string[]>([]); // left texts in connect order (→ shared glyph index)
   const [selLeft, setSelLeft] = useState<string | null>(null);
@@ -609,7 +636,7 @@ function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
       {/* one grid with auto-rows:1fr so every cell (left & right) is the SAME height — tidy, aligned cords */}
       <div ref={wrap} className="relative">
         <div className="grid grid-cols-2 gap-2.5" style={{ gridAutoRows: "1fr" }}>
-          {sc.pairs.map((p, i) => {
+          {pairsOrder.map((p, i) => {
             const r = rights[i];
             return (
               <Fragment key={i}>
@@ -770,28 +797,38 @@ function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type:
 // spot — tap the "trick"/red-flag in the scene; the item with trick:true is the answer, and `why` explains it
 // on resolve. A wrong tap warmly re-asks (no fail). The safety squad's signature spot-the-trick verb.
 function SpotPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "spot" }>; onSolved: () => void; say: (t: string) => void }) {
-  const [items] = useState(() => shuffle(sc.scene)); // shuffle so the trick slot varies
+  const [items] = useState(() => shuffle(sc.scene)); // shuffle so the trick slots vary
   const [wrong, setWrong] = useState(false);
-  const [caught, setCaught] = useState<string | null>(null);
-  // Cards start NEUTRAL (🔎) — the flag is the reveal, planted only on the card you catch (the old build stamped
-  // 🚩 on every card, so there was nothing to spot). Wrong tap = warm nudge (no fail).
+  const [caught, setCaught] = useState<Set<string>>(new Set());
+  const tricks = sc.scene.filter((s) => s.trick).map((s) => s.id); // a scene can hide MORE THAN ONE red flag
+  const done = caught.size >= tricks.length;
+  const plural = tricks.length > 1;
+  // Cards start NEUTRAL (🔎) — the flag is the reveal, planted only on a card you catch. When a scene hides
+  // several red flags (e.g. 3 truths + 2 lies) you must catch them ALL before the beat resolves (the old engine
+  // resolved on the FIRST trick, so extra tricks were unreachable). Wrong tap = warm nudge (no fail).
   const choose = (it: { id: string; text: string; trick: boolean }) => {
-    if (it.trick) { setCaught(it.id); setWrong(false); vibrate(12); setTimeout(onSolved, 450); }
-    else { setWrong(true); say("That one's okay. Which one is the tricky red flag?"); }
+    if (done || caught.has(it.id)) return;
+    if (it.trick) {
+      const nc = new Set(caught).add(it.id); setCaught(nc); setWrong(false); vibrate(12);
+      const left = tricks.length - nc.size;
+      if (left <= 0) setTimeout(onSolved, 450);
+      else say(left === 1 ? "Caught one! One more red flag to find." : `Caught one! ${left} more red flags to find.`);
+    } else { setWrong(true); say(plural ? "That one's okay. Which ones are the tricky red flags?" : "That one's okay. Which one is the tricky red flag?"); }
   };
   return (
     <div className="flex flex-col gap-2.5">
+      {plural && !done && <p className="text-center text-xs font-semibold text-foreground/60" aria-live="polite">Spot all {tricks.length} red flags 🚩 — {caught.size}/{tricks.length} caught</p>}
       <div className="grid grid-cols-1 gap-2.5">
         {items.map((it) => {
-          const got = caught === it.id;
+          const got = caught.has(it.id);
           return (
-            <button key={it.id} type="button" disabled={!!caught} onClick={() => choose(it)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] ${got ? "ring-2 ring-[#E05C52]" : ""}`}>
+            <button key={it.id} type="button" disabled={got || done} onClick={() => choose(it)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] ${got ? "ring-2 ring-[#E05C52]" : ""}`}>
               <span className="text-2xl" aria-hidden>{got ? "🚩" : "🔎"}</span><span className="flex-1">{it.text}</span>{got && <span className="text-xs font-extrabold text-[#E05C52]">Caught!</span>}
             </button>
           );
         })}
       </div>
-      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Keep looking — which one is the tricky red flag? 💛</p>}
+      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Keep looking — which {plural ? "ones are" : "one is"} the tricky red flag{plural ? "s" : ""}? 💛</p>}
     </div>
   );
 }
