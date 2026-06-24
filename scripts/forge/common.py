@@ -56,7 +56,9 @@ US_DENYLIST = re.compile(
 # law/statute sniffer — these claims MUST be web-verified (force needsFact regardless of generator's tag)
 STATUTE_YEAR = {"POSH": "2013", "PWDV": "2005", "DV Act": "2005", "BNS": "2023", "RPwD": "2016", "POCSO": "2012", "PCMA": "2006"}
 LAW_TOKENS = re.compile(r"\b(POCSO|POSH|BNS|BNSS|IPC|RPwD|PCMA|age of consent|child marriage|domestic violence act|section \d+)\b", re.I)
-STAT_PATTERN = re.compile(r"(\b\d{1,3}\s?%|\b\d+\s+(?:in|out of)\s+\d+\b|studies show|research shows|\baccording to\b|\bWHO\b|\bNCRB\b|\bNFHS\b)", re.I)
+# stat phrasing is case-insensitive; the source ORGS are case-SENSITIVE so the pronoun "who" doesn't trip \bWHO\b
+STAT_PATTERN = re.compile(r"(\b\d{1,3}\s?%|\b\d+\s+(?:in|out of)\s+\d+\b|studies show|research shows|\baccording to\b|\bpercent\b)", re.I)
+STAT_ORGS = re.compile(r"\b(WHO|NCRB|NFHS|UNICEF|UNESCO|NCERT|NCPCR)\b")
 AGE_OF_CONSENT = "18"
 
 # ── per-band mechanic allowlist ─────────────────────────────────────────────────────────────────────────────
@@ -372,7 +374,7 @@ def claim_flags(o):
     for txt in must_be_true_texts(o):
         if LAW_TOKENS.search(txt):
             flags.append(("law", txt[:70]))
-        if STAT_PATTERN.search(txt):
+        if STAT_PATTERN.search(txt) or STAT_ORGS.search(txt):
             flags.append(("stat", txt[:70]))
     return flags
 
