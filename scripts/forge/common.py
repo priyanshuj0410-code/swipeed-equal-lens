@@ -234,6 +234,40 @@ def jaccard(a, b):
         return 0.0
     return len(a & b) / len(a | b)
 
+# ── required fields per scenario type (mirrors the Base + payload in src/content/games/v2-schema.ts) ─────────
+# Base = {id, cat, persona, source, relearn, hook} is required on EVERY type — a scenario missing any of these
+# compiles to a tsc error and may render blank at runtime, so the gate must catch it (not rely on tsc backstop).
+REQUIRED_BASE = ["id", "cat", "type", "persona", "source", "relearn", "hook"]
+REQUIRED_PAYLOAD = {
+    "reflect": ["prompt", "options", "affirm"],
+    "role-play": ["setup", "yourLine"],
+    "strike-rewrite": ["myth"],
+    "branch": ["options", "debrief"],
+    "sort": ["items", "bins", "key"],
+    "match": ["pairs"],
+    "build": ["prompt", "pieces", "mode", "key"],
+    "explore-label": ["parts", "find", "answer", "reveal"],
+    "spot": ["scene", "why"],
+    "swipe": ["cue", "left", "right", "answer"],
+}
+
+def _missing(o, f):
+    v = o.get(f, None)
+    return f not in o or v is None or v == "" or v == [] or v == {}
+
+def required_field_errors(o):
+    """Every Base field + the per-type payload fields must be present and non-empty — mirrors the TS Scenario
+    union, so malformed (would-not-compile) content fails the gate instead of slipping through to tsc."""
+    e = [f"missing base field '{f}'" for f in REQUIRED_BASE if _missing(o, f)]
+    t = o.get("type")
+    if t in REQUIRED_PAYLOAD:
+        e += [f"missing {t} field '{f}'" for f in REQUIRED_PAYLOAD[t] if _missing(o, f)]
+    elif t is not None:
+        e.append(f"unknown type '{t}'")
+    if t == "strike-rewrite" and isinstance(o.get("myth"), dict):
+        e += [f"missing myth.{k}" for k in ("un", "re", "why") if not o["myth"].get(k)]
+    return e
+
 # ── per-mechanic structural validators ──────────────────────────────────────────────────────────────────────
 def shape_errors(o, strict_target=True):
     """Structural integrity per type. strict_target=True enforces the UPGRADED shapes (sort 6 / spot 5-2 /
@@ -390,6 +424,7 @@ def membership_errors(o, allowed, personas=None):
 def scenario_errors(o, chapter=None, allowed=None, ceil=None, strict_shape=True, personas=None):
     """Every DETERMINISTIC per-scenario check, as a flat list of error strings (empty = clean)."""
     out = []
+    out += [f"required: {x}" for x in required_field_errors(o)]
     out += [f"shape: {x}" for x in shape_errors(o, strict_target=strict_shape)]
     out += [f"helpline: {x}" for x in helpline_errors(o)]
     out += [f"len: {x}" for x in field_len_errors(o)]
