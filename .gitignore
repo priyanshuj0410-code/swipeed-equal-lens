@@ -48,3 +48,6 @@ next-env.d.ts
 
 # forge content-pipeline working state (plans, generated batches — regenerable)
 .forge/
+
+# transient Plane active-issue marker (per-session)
+.plane_current_issue
