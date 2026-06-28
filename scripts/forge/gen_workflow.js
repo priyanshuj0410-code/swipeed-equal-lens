@@ -77,7 +77,10 @@ const ASSEMBLE_SCHEMA = {
 }
 
 phase('Ground')
-const ground = await agent(
+let ground = null
+for (let groundTry = 1; groundTry <= 3 && (!ground || !ground.categories); groundTry++) {
+if (groundTry > 1) log(`ground:${GID} retry ${groundTry}/3 — prior attempt returned null (likely transient server rate-limit)`)
+ground = await agent(
   `You are the GROUNDING agent for SwipeEd game "${GID}" (repo ${REPO}; work there).
 Read, in order: ${REPO}/.forge/${GID}/plan.json (categories, band ceiling, allowed mechanics, reshape worklist);
 the game's GDD PDF + Scenario Library JSON + the matching Chapter personas PDF under ${REPO}/Strategy/ (glob for
@@ -88,9 +91,11 @@ voices/names available; the EXACT helpline string for this game; and banned fram
 any wrong-buzzer on a reflect, good/bad instead of safe/unsafe for young kids).
 Return the schema object: grounding_path, band_ceiling, current_total, target_total, helpline, allowed_mechanics,
 and categories[] with each cat's target and quota[] (convert plan.json's generate_by_type dict to {type,count} array).`,
-  { label: `ground:${GID}`, phase: 'Ground', schema: GROUND_SCHEMA, agentType: 'general-purpose' })
+  { label: `ground:${GID}${groundTry > 1 ? ` r${groundTry}` : ''}`, phase: 'Ground', schema: GROUND_SCHEMA, agentType: 'general-purpose' })
+}
+if (!ground || !ground.categories) throw new Error(`ground:${GID} failed after 3 attempts — server likely rate-limiting; relaunch this game alone when the field is clear`)
 
-const cats = (ground.categories || []).map((c, i) => ({ ...c, idStart: 900 + i * 90 }))
+const cats = (ground.categories).map((c, i) => ({ ...c, idStart: 900 + i * 90 }))
 
 phase('Generate')
 const results = await pipeline(cats,
