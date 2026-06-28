@@ -17,6 +17,12 @@ TARGET MECHANIC SHAPES (the gate REQUIRES these for new content — read scripts
 - sort: EXACTLY 6 items; EVERY bin declares "valence" ∈ {"pos","neg","tell","uhoh","neutral"}; key maps every
   item id → a bin id; every bin used. e.g. bins:[{"id":"safe","label":"Safe","valence":"pos"},{"id":"unsafe","label":"Unsafe","valence":"neg"}].
 - spot: EXACTLY 5 scene items, EXACTLY 2 with "trick":true (3 truths + 2 lies). (ONLY if spot is allowed for this band.)
+  POLARITY (the #1 spot bug — get this right): the engine only registers taps on the "trick":true items and shows
+  them as "🚩 Caught!". So "trick":true MUST be the UNSAFE / WRONG / MANIPULATIVE / red-flag item the player is meant
+  to CATCH — never the good/safe/healthy one. The "hook" MUST tell the player to find those bad items (e.g. "Spot the
+  two red flags", "Spot which lines assume a yes") — NEVER "spot the green flags / the kind ones / the good moves".
+  "why" explains why the caught items are the red flags. Inverting this silently teaches the wrong reflex (the engine
+  has no fail state), so double-check every spot: do the 2 trick:true items match the bad thing the hook asks for?
 - match: EXACTLY 5 pairs; distinct lefts; distinct rights; no left text equals a right text.
 - branch: exactly one option "best":true; every non-best option has a "consequence".
 - reflect: NO right answer — options:[…] + affirm:"…". Never put best/key/trick/answer on a reflect.
