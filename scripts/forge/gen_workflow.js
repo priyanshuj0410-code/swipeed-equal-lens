@@ -31,7 +31,10 @@ TARGET MECHANIC SHAPES (the gate REQUIRES these for new content — read scripts
 - build: prompt + pieces:[…] + mode:"assemble"|"sequence" + key:[…] (key ⊆ pieces).
 Base fields on EVERY scenario: id, cat, type, persona, source, relearn, hook.
 HARD limits: every visible string ≤160 chars; whole-scenario prose total ≤ the band ceiling. Helpline numbers EXACT.
-No US framing (no 911/CPS/$/"grade 3"/zip). ids globally unique.`
+No US framing (no 911/CPS/$/"grade 3"/zip). ids globally unique.
+NARRATOR: any guide/narrator lead-in (in a hook, affirm or prompt, e.g. "Lensy: ...") MUST be "Lensy:" — this is
+the Equal Lens re-skin. NEVER use "Sam:" (the stale original-GDD narrator); if the GROUNDING/GDD says "Sam", treat
+it as "Lensy". Keep it consistent with the rest of the bank (every other game uses Lensy).`
 
 const GROUND_SCHEMA = {
   type: 'object', additionalProperties: false,
