@@ -79,8 +79,11 @@
   --brand-500: var(--color-brand);
   --brand-600: var(--violet-700);
   --brand-foreground: #fbf9ff;
-  --flag-green: oklch(0.68 0.16 150); /* gameplay flag — kept semantic */
-  --flag-red: oklch(0.62 0.2 22);     /* gameplay flag — kept semantic */
+  /* RESERVED --prx-*: engine-owned semantic colour. NOT part of the themeable
+     brand surface — a customer theme must never be able to repaint what "correct"
+     looks like. See knowledge/architecture/creator-identity.md. */
+  --prx-flag-green: oklch(0.68 0.16 150);
+  --prx-flag-red: oklch(0.62 0.2 22);
   --flame: var(--color-sun);
   --accent-amber: var(--color-sun);
   --path-fill: oklch(0.95 0.022 85);
@@ -109,7 +112,9 @@
   --muted-foreground: #6e6580;
   --accent: var(--violet-100);
   --accent-foreground: var(--violet-700);
-  --destructive: var(--flag-red);
+  /* Own value, not var(--flag-red): a chrome colour must not be coupled to a
+     gameplay flag, or brand-driven UI changes propagate back into the answer key. */
+  --destructive: oklch(0.58 0.19 25);
   --border: var(--color-mist);
   --input: var(--color-mist);
   --ring: var(--color-brand);
@@ -138,8 +143,8 @@
   --brand-500: var(--color-brand);
   --brand-600: var(--color-brandsoft);
   --brand-foreground: #15101f;
-  --flag-green: oklch(0.76 0.16 150);
-  --flag-red: oklch(0.7 0.19 22);
+  --prx-flag-green: oklch(0.76 0.16 150);
+  --prx-flag-red: oklch(0.7 0.19 22);
   --flame: var(--color-sun);
   --accent-amber: var(--color-sun);
   --path-fill: oklch(0.72 0.03 85);

@@ -380,19 +380,29 @@ def helpline_errors(o):
     """
     e = []
     for label, txt in visible_fields(o):
-        if US_DENYLIST.search(txt):
-            e.append(f"{label}: US-framing token in '{txt[:50]}'")
-        for h in HELPLINES:
-            canon = {f.replace("-", "") for f in h["forms"]}
-            for nm in h["names"]:
-                for m in re.finditer(nm + r"\s*(?:at|on|number|helpline|[:\-–])?\s*(\d[\d\- ]{1,5}\d)", txt, re.I):
-                    nd = re.sub(r"[\s\-]", "", m.group(1))
-                    if nd not in canon and len(nd) <= 5:
-                        e.append(f"{label}: '{h['service']}' bound to {m.group(1).strip()} (want {h['forms'][0]})")
-        for m in DIAL_CONTEXT.finditer(txt):
-            nd = re.sub(r"[\s\-]", "", m.group(1))
-            if nd not in HELPLINE_FORMS and len(nd) <= 5:
-                e.append(f"{label}: dialed number '{m.group(1).strip()}' not on the helpline allowlist")
+        e += helpline_errors_text(label, txt)
+    return e
+
+def helpline_errors_text(label, txt):
+    """The same three checks over ONE string — so config fields (helpLine, helpLabel, greet, reassure) are
+    held to the identical standard as scenario prose. A game's helpLine is spoken aloud, with authority, to
+    a child in distress; it was previously length-checked and nothing more."""
+    e = []
+    if not isinstance(txt, str) or not txt:
+        return e
+    if US_DENYLIST.search(txt):
+        e.append(f"{label}: US-framing token in '{txt[:50]}'")
+    for h in HELPLINES:
+        canon = {f.replace("-", "") for f in h["forms"]}
+        for nm in h["names"]:
+            for m in re.finditer(nm + r"\s*(?:at|on|number|helpline|[:\-–])?\s*(\d[\d\- ]{1,5}\d)", txt, re.I):
+                nd = re.sub(r"[\s\-]", "", m.group(1))
+                if nd not in canon and len(nd) <= 5:
+                    e.append(f"{label}: '{h['service']}' bound to {m.group(1).strip()} (want {h['forms'][0]})")
+    for m in DIAL_CONTEXT.finditer(txt):
+        nd = re.sub(r"[\s\-]", "", m.group(1))
+        if nd not in HELPLINE_FORMS and len(nd) <= 5:
+            e.append(f"{label}: dialed number '{m.group(1).strip()}' not on the helpline allowlist")
     return e
 
 def allowed_mechanics(chapter, lead_mechanics):

@@ -28,6 +28,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 GAMES = os.path.join(HERE, "..", "src", "content", "games")
 PATH_TS = os.path.join(HERE, "..", "src", "content", "path.ts")
 
+sys.path.insert(0, os.path.join(HERE, "forge"))
+from common import helpline_errors_text  # noqa: E402  — shared allowlist, single source of truth
+
 CONFIG_FIELDS = ["greet", "reassure", "helpLine", "helpLabel"]
 SC_PLAIN = ["hook", "relearn", "affirm", "debrief", "why", "setup", "prompt"]
 # keys that are NOT narrated prose (ids/answers/structure) — excluded from the per-scenario total.
@@ -92,7 +95,7 @@ def _field_violations(o):
 
 def main():
     g2ch = _game_to_chapter()
-    field_bad, scn_bad = [], []
+    field_bad, scn_bad, helpline_bad = [], [], []
     for path in sorted(glob.glob(os.path.join(GAMES, "*.ts"))):
         base = os.path.basename(path)
         if base.endswith("v2-schema.ts") or base.endswith("capstone-schema.ts"):
@@ -105,8 +108,15 @@ def main():
         # config-level fields (RULE 1)
         for field in CONFIG_FIELDS:
             mm = re.search(field + r':\s*"((?:[^"\\]|\\.)*)"', t)
-            if mm and len(_dec(mm.group(1))) > FIELD_MAX:
-                field_bad.append((base, field, len(_dec(mm.group(1)))))
+            if not mm:
+                continue
+            val = _dec(mm.group(1))
+            if len(val) > FIELD_MAX:
+                field_bad.append((base, field, len(val)))
+            # A game's helpLine is spoken aloud, with authority, to a child in distress. Hold config
+            # prose to the SAME helpline allowlist as scenario prose — previously it was length-checked
+            # and nothing else, so a wrong number could ship.
+            helpline_bad.extend((base, e) for e in helpline_errors_text(field, val))
         mb = re.search(r'blurb:\s*"((?:[^"\\]|\\.)*)"', t)
         if mb and len(_dec(mb.group(1))) > FIELD_MAX:
             field_bad.append((base, "badge.blurb", len(_dec(mb.group(1)))))
@@ -134,7 +144,11 @@ def main():
         print(f"✗ RULE 2 — {len(scn_bad)} scenario(s) over their chapter band ceiling (content drift):")
         for b, i, n, c in sorted(scn_bad, key=lambda x: -x[2])[:40]:
             print(f"    {n:>4} (ceil {c})  {b:<30} {i}")
-    if field_bad or scn_bad:
+    if helpline_bad:
+        print(f"✗ RULE 3 — {len(helpline_bad)} config helpline problem(s) (spoken aloud to a child):")
+        for b, e in helpline_bad[:40]:
+            print(f"    {b:<30} {e}")
+    if field_bad or scn_bad or helpline_bad:
         print("\n  Tighten the copy (cut redundancy/hedging — keep every helpline number and the meaning),")
         print("  or override once: SWIPEED_MSGLEN_OVERRIDE=1 git commit ...")
         sys.exit(1)

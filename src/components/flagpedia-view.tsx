@@ -32,8 +32,8 @@ export function FlagpediaView({ onBack }: { onBack?: () => void }) {
         </div>
       </header>
 
-      <Section title="Green flags" color="var(--flag-green)" icon="green" signs={GREEN_SIGNS} mastery={profile.signMastery} />
-      <Section title="Red flags" color="var(--flag-red)" icon="red" signs={RED_SIGNS} mastery={profile.signMastery} />
+      <Section title="Green flags" color="var(--prx-flag-green)" icon="green" signs={GREEN_SIGNS} mastery={profile.signMastery} />
+      <Section title="Red flags" color="var(--prx-flag-red)" icon="red" signs={RED_SIGNS} mastery={profile.signMastery} />
     </div>
   );
 }

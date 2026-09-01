@@ -472,7 +472,7 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
               disabled={busy}
               onClick={() => commit("red")}
               className="flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold transition-transform active:scale-95 disabled:opacity-60"
-              style={{ background: "var(--color-surface)", color: "var(--flag-red)", border: "2.5px solid var(--flag-red)", boxShadow: "3px 3px 0 0 var(--color-ink)" }}
+              style={{ background: "var(--color-surface)", color: "var(--prx-flag-red)", border: "2.5px solid var(--prx-flag-red)", boxShadow: "3px 3px 0 0 var(--color-ink)" }}
             >
               <Flag className="size-5" aria-hidden /> {L.left}
             </button>
@@ -481,7 +481,7 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
               disabled={busy}
               onClick={() => commit("green")}
               className="flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold transition-transform active:scale-95 disabled:opacity-60"
-              style={{ background: "var(--color-surface)", color: "var(--flag-green)", border: "2.5px solid var(--flag-green)", boxShadow: "3px 3px 0 0 var(--color-ink)" }}
+              style={{ background: "var(--color-surface)", color: "var(--prx-flag-green)", border: "2.5px solid var(--prx-flag-green)", boxShadow: "3px 3px 0 0 var(--color-ink)" }}
             >
               <Check className="size-5" aria-hidden /> {L.right}
             </button>
