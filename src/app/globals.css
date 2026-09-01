@@ -84,6 +84,28 @@
      looks like. See knowledge/architecture/creator-identity.md. */
   --prx-flag-green: oklch(0.68 0.16 150);
   --prx-flag-red: oklch(0.62 0.2 22);
+
+  /* The rest of the reserved semantic ramp. Declared-valence colours, a NON-semantic position
+     wheel, and the foreground that goes on top of any of them. Hues are load-bearing: slot-1..6
+     deliberately avoid the green (~150), red (~22) and amber (~78) bands, so a neutral bin can
+     never be mistaken for a declared one. */
+  --prx-pos: var(--prx-flag-green);
+  --prx-neg: var(--prx-flag-red);
+  --prx-tell: oklch(0.70 0.15 78);
+  --prx-uhoh: oklch(0.64 0.16 45);
+  --prx-slot-1: oklch(0.62 0.11 196);
+  --prx-slot-2: oklch(0.62 0.16 256);
+  --prx-slot-3: oklch(0.62 0.16 316);
+  --prx-slot-4: oklch(0.62 0.12 226);
+  --prx-slot-5: oklch(0.62 0.16 286);
+  --prx-slot-6: oklch(0.62 0.16 346);
+  /* Ink on a semantic fill. NOT var(--color-ink): every fill above is mid-lightness in BOTH
+     themes, so the foreground must not flip. white-on-fill measured 2.01-3.61 (fails AA); this
+     scores 3.9-8.6. */
+  --prx-on-fill: #221436;
+  --prx-wash: 12%;
+  --prx-wash-hover: 28%;
+  --prx-dim: color-mix(in oklab, currentColor 28%, transparent);
   --flame: var(--color-sun);
   --accent-amber: var(--color-sun);
   --path-fill: oklch(0.95 0.022 85);
@@ -145,6 +167,17 @@
   --brand-foreground: #15101f;
   --prx-flag-green: oklch(0.76 0.16 150);
   --prx-flag-red: oklch(0.7 0.19 22);
+  --prx-tell: oklch(0.80 0.15 80);
+  --prx-uhoh: oklch(0.73 0.16 45);
+  --prx-slot-1: oklch(0.71 0.11 196);
+  --prx-slot-2: oklch(0.71 0.16 256);
+  --prx-slot-3: oklch(0.71 0.16 316);
+  --prx-slot-4: oklch(0.71 0.12 226);
+  --prx-slot-5: oklch(0.71 0.16 286);
+  --prx-slot-6: oklch(0.71 0.16 346);
+  --prx-wash: 20%;
+  --prx-wash-hover: 40%;
+  /* --prx-pos/-neg are aliases and follow their flag tokens; --prx-on-fill deliberately does NOT flip. */
   --flame: var(--color-sun);
   --accent-amber: var(--color-sun);
   --path-fill: oklch(0.72 0.03 85);

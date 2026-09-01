@@ -66,7 +66,7 @@ export function GameDone({
           <Star
             key={i}
             className="size-8"
-            style={{ color: i < stars ? "var(--accent-amber)" : "rgba(34,20,54,0.28)" }}
+            style={{ color: i < stars ? "var(--accent-amber)" : "var(--prx-dim)" }}
             fill={i < stars ? "currentColor" : "none"}
             aria-hidden
           />

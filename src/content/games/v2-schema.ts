@@ -42,7 +42,12 @@ export type SpotScenario = Base & { type: "spot"; scene: { id: string; text: str
 // swipe — read the `cue` and swipe it the right way: `left`/`right` are the two reading labels (e.g. "Red flag" /
 // "Green flag"), `answer` is the correct side. A wrong swipe warmly re-asks (no fail); `relearn` shows on resolve.
 // The teen flagship's signature green-light / red-light flag-reading verb (Green Light / Red Light, g24).
-export type SwipeScenario = Base & { type: "swipe"; cue: string; left: string; right: string; answer: "left" | "right" };
+// `leftValence`/`rightValence` DECLARE what each side means, reusing the same BinValence vocabulary as sort
+// bins — the engine must never infer it from the label. The old flagSide() regex did infer it, and got it
+// wrong on 16 shipped scenarios: "Not consent" matches /consent/ and "Unsafe step" matches /safe/, so both
+// sides painted the same affirming green and the NEGATIVE side carried it. Undeclared → side-distinct
+// neutral slots, asserting nothing. A non-valenced A/B swipe declares "neutral" on both sides.
+export type SwipeScenario = Base & { type: "swipe"; cue: string; left: string; right: string; answer: "left" | "right"; leftValence?: BinValence; rightValence?: BinValence };
 
 export type Scenario =
   | ReflectScenario | RolePlayScenario | StrikeRewriteScenario | BranchScenario | SortScenario | MatchScenario | BuildScenario | ExploreLabelScenario | SpotScenario | SwipeScenario;
