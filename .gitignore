@@ -51,3 +51,7 @@ next-env.d.ts
 
 # transient Plane active-issue marker (per-session)
 .plane_current_issue
+
+# Raw CC0 source kits (Kenney/Quaternius). The USED subset is vendored in public/models/;
+# these are the originals, re-downloadable, and 61MB has no business in git history.
+/assets/
