@@ -66,6 +66,7 @@ AGE_OF_CONSENT = "18"
 # Ch.1-2 (ages 3-9) default-DISALLOW the red-flag/predator-spotting (spot) and flag-reading (swipe) verbs —
 # they need older cognition and risk teaching fear to little kids — UNLESS that game's GDD leads with them.
 BAND_DISALLOW = {1: {"spot", "swipe"}, 2: {"spot", "swipe"}}
+BIN_VALENCES = {"pos", "neg", "tell", "uhoh", "neutral"}
 ALL_MECHANICS = {"reflect", "role-play", "strike-rewrite", "branch", "sort", "match", "build", "explore-label", "spot", "swipe"}
 
 # ── field roles: where canonical facts MUST hold vs where deliberate myths/lies live ─────────────────────────
@@ -315,7 +316,7 @@ def shape_errors(o, strict_target=True):
         for b in bins:
             if b.get("id") not in used:
                 e.append(f"sort bin '{b.get('id')}' never used")
-            if strict_target and "valence" not in b:
+            if strict_target and b.get("valence") not in BIN_VALENCES:
                 e.append(f"sort bin '{b.get('id')}' missing explicit valence")
     elif t == "spot":
         scene = o.get("scene", [])
@@ -359,6 +360,18 @@ def shape_errors(o, strict_target=True):
             e.append("swipe answer not in {left,right}")
         if o.get("left") == o.get("right"):
             e.append("swipe labels identical")
+        # Both sides must DECLARE their meaning. The engine used to infer it from the label prose and got
+        # it wrong on 16 shipped scenarios ("Not consent" matched /consent/, "Unsafe step" matched /safe/),
+        # painting the negative side the affirming green. Declared, or it does not ship.
+        for side in ("leftValence", "rightValence"):
+            v = o.get(side)
+            if strict_target and v is None:
+                e.append(f"swipe missing {side} (declare it; the engine never guesses)")
+            elif v is not None and v not in BIN_VALENCES:
+                e.append(f"swipe {side}={v!r} not in {sorted(BIN_VALENCES)}")
+        lv, rv = o.get("leftValence"), o.get("rightValence")
+        if lv and rv and lv == rv and lv != "neutral":
+            e.append(f"swipe both sides declare {lv!r} — the two sides would render identically")
     elif t == "build":
         key = o.get("key", []); pieces = o.get("pieces", [])
         if not set(key).issubset(set(pieces)):
@@ -415,7 +428,7 @@ def field_len_errors(o):
 # keys that are NOT narrated prose — excluded from the per-scenario band total. MUST match check_msg_len.py's
 # NON_PROSE so the forge gate is at least as strict as the pre-commit length guard (else the gate passes a
 # scenario the commit hook then blocks).
-NON_PROSE = {"id", "cat", "type", "key", "persona", "source", "mode", "valence", "outcome"}
+NON_PROSE = {"id", "cat", "type", "key", "persona", "source", "mode", "valence", "outcome", "leftValence", "rightValence"}
 
 def prose_chars(o):
     def walk(v, k=None):

@@ -27,11 +27,19 @@ import { shuffle, byCat, type Scenario, type V2GameConfig } from "@/content/game
 // bins in the catalog now declare a valence, so that regex is deleted rather than kept as a fallback:
 // an undeclared bin gets a NEUTRAL position colour and asserts nothing, instead of being guessed at.
 // See knowledge/architecture/creator-identity.md.
-const NEUTRAL_BINS = [{ emoji: "🔵", tint: "#5B9BD5" }, { emoji: "🟣", tint: "#7C5CFC" }, { emoji: "🟢", tint: "#62B84B" }, { emoji: "🟠", tint: "#F0A93B" }];
+// Non-semantic position wheel. SIX slots, because six sorts in the catalog have 5-6 bins and the old
+// 4-slot ring made bins 5-6 render identically to 1-2. None of these is the pos/neg/tell/uhoh hue, so an
+// undeclared bin can never be mistaken for a declared one — the old slots 3 and 4 were byte-identical to
+// VALENCE_STYLE.pos and .tell, which made "neutral asserts nothing" false as implemented.
+const NEUTRAL_BINS = [
+  { emoji: "🔵", tint: "var(--prx-slot-1)" }, { emoji: "🟣", tint: "var(--prx-slot-2)" },
+  { emoji: "🟠", tint: "var(--prx-slot-3)" }, { emoji: "🔶", tint: "var(--prx-slot-4)" },
+  { emoji: "🟤", tint: "var(--prx-slot-5)" }, { emoji: "⬛", tint: "var(--prx-slot-6)" },
+];
 // Explicit-valence palette — used when a bin DECLARES its meaning (new content), so the engine never guesses.
 const VALENCE_STYLE: Record<string, { emoji: string; tint: string }> = {
-  pos: { emoji: "💚", tint: "#62B84B" }, neg: { emoji: "🛑", tint: "#E05C52" },
-  tell: { emoji: "🗣️", tint: "#F0A93B" }, uhoh: { emoji: "😬", tint: "#EF8A3C" },
+  pos: { emoji: "💚", tint: "var(--prx-pos)" }, neg: { emoji: "🛑", tint: "var(--prx-neg)" },
+  tell: { emoji: "🗣️", tint: "var(--prx-tell)" }, uhoh: { emoji: "😬", tint: "var(--prx-uhoh)" },
 };
 // Guarantee the bins of one sort are visually distinct: if two would share a tint, fall back to a
 // position-based neutral palette so a non-reader always has a per-bin colour + emoji cue.
@@ -309,20 +317,27 @@ function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; 
 // fades in — no static side columns eating the width, no redundant instruction card (Sam + the slim hint cover
 // it). Drag past a forgiving threshold (or flick) commits; a short drag springs back (a no-fail "not yet"); a
 // wrong side springs back + a warm nudge. Keyboard: the card is the focusable control — ArrowLeft = left,
-// ArrowRight = right. Reduced motion degrades the fly-off/spring/tint to instant. Valence tint is by label
-// meaning, falling back to side-distinct neutral tints when a label has no flag/health keyword.
-function flagSide(label: string, side: "left" | "right"): { emoji: string; tint: string } {
-  const o = label.toLowerCase();
-  if (/green|healthy|safe|consent|\byes\b|\bok\b|\btrue\b|kind|respect/.test(o)) return { emoji: "💚", tint: "#62B84B" };
-  if (/\bred\b|unhealthy|unsafe|\bno\b|not ok|\bfalse\b|cross|disrespect|pressure/.test(o)) return { emoji: "🚩", tint: "#E05C52" };
-  return side === "left" ? { emoji: "👈", tint: "#5B9BD5" } : { emoji: "👉", tint: "#7C5CFC" };
+// ArrowRight = right. Reduced motion degrades the fly-off/spring/tint to instant. Side tint comes from the
+// scenario's DECLARED leftValence/rightValence — never inferred from the label.
+// Side styling comes from the DECLARED valence, never from the label. (This replaced a regex that read the
+// label prose and mis-classified 16 shipped scenarios — see v2-schema.ts.) Undeclared sides get
+// side-distinct neutral slots; if both sides would resolve to the same tint they fall back to neutral slots
+// so the two sides can never collapse into one colour.
+function swipeStyles(sc: Extract<Scenario, { type: "swipe" }>): [{ emoji: string; tint: string }, { emoji: string; tint: string }] {
+  const NEUTRAL_L = { emoji: "👈", tint: "var(--prx-slot-1)" };
+  const NEUTRAL_R = { emoji: "👉", tint: "var(--prx-slot-2)" };
+  const one = (v: string | undefined, fallback: { emoji: string; tint: string }) =>
+    v && v !== "neutral" ? (VALENCE_STYLE[v] ?? fallback) : fallback;
+  const L = one(sc.leftValence, NEUTRAL_L);
+  const R = one(sc.rightValence, NEUTRAL_R);
+  return L.tint === R.tint ? [NEUTRAL_L, NEUTRAL_R] : [L, R];
 }
 function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "swipe" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [dx, setDx] = useState(0);
   const [flyTo, setFlyTo] = useState<0 | 1 | -1>(0); // committing fly-off direction
   const [wrong, setWrong] = useState(false);
-  const L = flagSide(sc.left, "left"), R = flagSide(sc.right, "right");
+  const [L, R] = swipeStyles(sc);
   const threshold = () => Math.max(72, (cardRef.current?.offsetWidth ?? 300) * 0.25);
 
   const commit = (side: "left" | "right") => {
@@ -365,7 +380,7 @@ function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
           <>
             <div className="pointer-events-none absolute inset-0" style={{ background: edge.tint, opacity: 0.16 }} aria-hidden />
             <span className={`pointer-events-none absolute top-1/2 -translate-y-1/2 text-8xl ${dir === "left" ? "left-3" : "right-3"}`} style={{ opacity: 0.18 }} aria-hidden>{edge.emoji}</span>
-            <span className={`absolute top-3 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-extrabold text-white shadow-md ${dir === "left" ? "left-3" : "right-3"}`} style={{ background: edge.tint }} aria-hidden>
+            <span className={`absolute top-3 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-extrabold text-[var(--prx-on-fill)] shadow-md ${dir === "left" ? "left-3" : "right-3"}`} style={{ background: edge.tint }} aria-hidden>
               {dir === "left" ? <>{edge.emoji} {sc.left}</> : <>{sc.right} {edge.emoji}</>}
             </span>
           </>
@@ -576,7 +591,9 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
 // colour AND without the cord). Tap-a-left then tap-a-right is kept as the keyboard / screen-reader / ages-3–6
 // fallback (cells are native buttons). A wrong release retracts + a warm nudge (no fail).
 const MATCH_GLYPHS = ["①", "②", "③", "④", "⑤", "⑥"];
-const MATCH_TINTS = ["#62B84B", "#7C5CFC", "#F0A93B", "#5B9BD5", "#E0727B", "#46B8A8"];
+// Pair identity only — asserts nothing. Shares the neutral wheel (and is exported so capstone-rich
+// imports it instead of keeping a verbatim clone that could silently diverge).
+export const MATCH_TINTS = ["var(--prx-slot-1)", "var(--prx-slot-2)", "var(--prx-slot-3)", "var(--prx-slot-4)", "var(--prx-slot-5)", "var(--prx-slot-6)"];
 function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "match" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
   const [pairsOrder] = useState(() => shuffle(sc.pairs)); // left-column display order — shuffle so the left list isn't fixed across replays (rights are shuffled independently below)
   const [rights] = useState(() => shuffle(sc.pairs.map((p) => p.right)));
@@ -642,12 +659,12 @@ function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
               <Fragment key={i}>
                 <button type="button" data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={matched.includes(p.left)} onClick={() => { setSelLeft(p.left); setWrong(false); }} {...pointer.handlers}
                   className={`glass-card flex touch-none items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !reduceMotion ? "animate-pulse" : ""}`}
-                  style={matched.includes(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
+                  style={matched.includes(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--prx-pos)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
                   {matched.includes(p.left) ? `${tokenOf(p.left)} ${p.left}` : p.left}
                 </button>
                 <button type="button" ref={(el) => { rightEls.current[r] = el; }} disabled={rightDone(r)} onClick={() => { if (selLeft) connect(selLeft, r); }}
                   className="glass-card flex items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100"
-                  style={rightDone(r) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : hover === r ? { boxShadow: "inset 0 0 0 3.5px var(--color-ink)" } : undefined}>
+                  style={rightDone(r) ? { boxShadow: "inset 0 0 0 2.5px var(--prx-pos)" } : hover === r ? { boxShadow: "inset 0 0 0 3.5px var(--color-ink)" } : undefined}>
                   {rightDone(r) ? `${rightToken(r)} ${r}` : r}
                 </button>
               </Fragment>
@@ -767,7 +784,7 @@ function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type:
             return (
               <button key={p} type="button" disabled={!!found} onClick={() => choose(p)} aria-label={p}
                 className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full px-2.5 py-1 text-xs font-extrabold transition-transform active:scale-90"
-                style={{ left: `${pos.x}%`, top: `${pos.y}%`, background: got ? "var(--color-grow)" : "var(--color-sun)", color: got ? "#fff" : "#1a1a2e", boxShadow: got ? "0 0 0 7px color-mix(in srgb, var(--color-grow) 35%, transparent)" : "0 1px 4px rgba(0,0,0,0.25)" }}>
+                style={{ left: `${pos.x}%`, top: `${pos.y}%`, background: got ? "var(--prx-pos)" : "var(--color-sun)", color: "var(--prx-on-fill)", boxShadow: got ? "0 0 0 7px color-mix(in srgb, var(--prx-pos) 35%, transparent)" : "0 1px 4px rgba(0,0,0,0.25)" }}>
                 {got ? "✓ " : ""}{p}
               </button>
             );
@@ -783,7 +800,7 @@ function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type:
         {cards.map((p, i) => {
           const got = found === p;
           return (
-            <button key={p} type="button" disabled={!!found} onClick={() => choose(p)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] ${got ? "ring-2 ring-[var(--color-grow)]" : ""}`}>
+            <button key={p} type="button" disabled={!!found} onClick={() => choose(p)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] ${got ? "ring-2 ring-[var(--prx-pos)]" : ""}`}>
               <span className="text-2xl" aria-hidden>{["💡", "🔆", "✨", "🌟"][i % 4]}</span><span className="flex-1">{p}</span>{got && <span aria-hidden>✓</span>}
             </button>
           );
@@ -822,8 +839,8 @@ function SpotPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "spot" 
         {items.map((it) => {
           const got = caught.has(it.id);
           return (
-            <button key={it.id} type="button" disabled={got || done} onClick={() => choose(it)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] ${got ? "ring-2 ring-[#E05C52]" : ""}`}>
-              <span className="text-2xl" aria-hidden>{got ? "🚩" : "🔎"}</span><span className="flex-1">{it.text}</span>{got && <span className="text-xs font-extrabold text-[#E05C52]">Caught!</span>}
+            <button key={it.id} type="button" disabled={got || done} onClick={() => choose(it)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] ${got ? "ring-2 ring-[var(--prx-neg)]" : ""}`}>
+              <span className="text-2xl" aria-hidden>{got ? "🚩" : "🔎"}</span><span className="flex-1">{it.text}</span>{got && <span className="text-xs font-extrabold text-[var(--prx-neg)]">Caught!</span>}
             </button>
           );
         })}

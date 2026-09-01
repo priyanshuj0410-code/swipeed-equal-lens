@@ -35,7 +35,7 @@ CONFIG_FIELDS = ["greet", "reassure", "helpLine", "helpLabel"]
 SC_PLAIN = ["hook", "relearn", "affirm", "debrief", "why", "setup", "prompt"]
 # keys that are NOT narrated prose (ids/answers/structure) — excluded from the per-scenario total.
 # MUST stay identical to forge/common.py's NON_PROSE so the forge gate and this guard never disagree.
-NON_PROSE = {"id", "cat", "type", "key", "persona", "source", "mode", "valence", "outcome"}
+NON_PROSE = {"id", "cat", "type", "key", "persona", "source", "mode", "valence", "outcome", "leftValence", "rightValence"}
 
 
 def _dec(body):

@@ -9,7 +9,7 @@ import { UnReBeat } from "@/components/games/un-re";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import { prefersReducedMotion } from "@/lib/juice";
-import { binStyles } from "@/components/games/v2-engine";
+import { binStyles, MATCH_TINTS } from "@/components/games/v2-engine";
 import { usePointerDrag, hitTestZone, ConnectorOverlay, type Cord } from "@/components/games/interactions";
 import {
   type CapstoneConfig, type CapLap, type CapRecap, type CapReflect,
@@ -33,7 +33,6 @@ import {
 const shuffle = <T,>(a: T[]): T[] => a.map((v) => [Math.random(), v] as const).sort((x, y) => x[0] - y[0]).map(([, v]) => v);
 const vibrate = (ms: number | number[]) => { try { navigator.vibrate?.(ms); } catch { /* unsupported */ } };
 const MATCH_GLYPHS = ["①", "②", "③", "④", "⑤", "⑥"];
-const MATCH_TINTS = ["#62B84B", "#7C5CFC", "#F0A93B", "#5B9BD5", "#E0727B", "#46B8A8"];
 
 const card = "glass-card rounded-2xl backdrop-blur-[12px] backdrop-saturate-150";
 
@@ -145,12 +144,12 @@ function MatchLap({ lap, say, onSolved, reduceMotion }: LapProps<CapMatchLap>) {
               <Fragment key={i}>
                 <button type="button" data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={matched.includes(p.left)} onClick={() => { setSelLeft(p.left); setWrong(false); }} {...pointer.handlers}
                   className={`glass-card flex touch-none items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !reduceMotion ? "animate-pulse" : ""}`}
-                  style={matched.includes(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
+                  style={matched.includes(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--prx-pos)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
                   {matched.includes(p.left) ? `${tokenOf(p.left)} ${p.left}` : p.left}
                 </button>
                 <button type="button" ref={(el) => { rightEls.current[r] = el; }} disabled={rightDone(r)} onClick={() => { if (selLeft) connect(selLeft, r); }}
                   className="glass-card flex items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100"
-                  style={rightDone(r) ? { boxShadow: "inset 0 0 0 2.5px var(--color-grow)" } : hover === r ? { boxShadow: "inset 0 0 0 3.5px var(--color-ink)" } : undefined}>
+                  style={rightDone(r) ? { boxShadow: "inset 0 0 0 2.5px var(--prx-pos)" } : hover === r ? { boxShadow: "inset 0 0 0 3.5px var(--color-ink)" } : undefined}>
                   {rightDone(r) ? `${rightToken(r)} ${r}` : r}
                 </button>
               </Fragment>
@@ -330,7 +329,7 @@ function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
   if (solved) {
     return (
       <div className="flex flex-1 flex-col">
-        <div className={`${card} animate-in fade-in slide-in-from-bottom-4 flex min-h-72 w-full flex-1 flex-col items-center justify-center gap-3 rounded-3xl px-6 py-12 text-center duration-300`} style={{ boxShadow: "6px 6px 0 0 #62B84B" }}>
+        <div className={`${card} animate-in fade-in slide-in-from-bottom-4 flex min-h-72 w-full flex-1 flex-col items-center justify-center gap-3 rounded-3xl px-6 py-12 text-center duration-300`} style={{ boxShadow: "6px 6px 0 0 var(--prx-pos)" }}>
           <span className="text-6xl" aria-hidden>💚</span>
           <p className="text-lg font-bold text-foreground">{lap.up}</p>
         </div>
@@ -343,12 +342,12 @@ function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
       <div tabIndex={0} role="group" aria-roledescription="card you swipe up to cheer on"
         aria-label={`${lap.cue}. Press Up arrow to cheer it on.`} onKeyDown={onKeyDown} {...drag.handlers}
         className="glass-card relative flex min-h-72 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[19px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
-        style={{ transform: `translateY(${flew ? -880 : dy}px) rotate(${flew ? -4 : 0}deg)`, transition: flew ? "transform 0.32s cubic-bezier(0.33,0,0.2,1)" : drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.2s ease-out", touchAction: "pan-x", boxShadow: lifting ? "0 -6px 0 0 #62B84B" : undefined }}>
+        style={{ transform: `translateY(${flew ? -880 : dy}px) rotate(${flew ? -4 : 0}deg)`, transition: flew ? "transform 0.32s cubic-bezier(0.33,0,0.2,1)" : drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.2s ease-out", touchAction: "pan-x", boxShadow: lifting ? "0 -6px 0 0 var(--prx-pos)" : undefined }}>
         {lifting && (
           <>
-            <div className="pointer-events-none absolute inset-0" style={{ background: "#62B84B", opacity: 0.16 }} aria-hidden />
+            <div className="pointer-events-none absolute inset-0" style={{ background: "var(--prx-pos)", opacity: 0.16 }} aria-hidden />
             <span className="pointer-events-none absolute left-1/2 top-4 -translate-x-1/2 text-7xl" style={{ opacity: 0.2 }} aria-hidden>💚</span>
-            <span className="absolute left-1/2 top-3 flex -translate-x-1/2 items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-extrabold text-white shadow-md" style={{ background: "#62B84B" }} aria-hidden><ChevronUp className="size-4" /> {lap.up}</span>
+            <span className="absolute left-1/2 top-3 flex -translate-x-1/2 items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-extrabold text-[var(--prx-on-fill)] shadow-md" style={{ background: "var(--prx-pos)" }} aria-hidden><ChevronUp className="size-4" /> {lap.up}</span>
           </>
         )}
         <span className="relative z-10">{lap.cue}</span>
