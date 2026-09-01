@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
-    "@equal-lens/brand": "file:../The Equal Lens/brand/design-system/equal-lens-brand-0.1.0.tgz",
+    "@equal-lens/brand": "file:./vendor/equal-lens-brand-0.1.0.tgz",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
     "@react-three/postprocessing": "^3.0.4",
