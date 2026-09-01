@@ -184,10 +184,10 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete, labels }:
 
           <p className="flex flex-1 items-center text-balance text-center font-display text-[1.7rem] font-semibold leading-snug">{card.scenario_text}</p>
 
-          <span className="pointer-events-none absolute right-5 top-16 flex items-center gap-1 rounded-lg border-2 px-2 py-0.5 text-xs font-extrabold uppercase" style={{ opacity: greenHint, color: "var(--flag-green)", borderColor: "var(--flag-green)", transform: "rotate(12deg)" }}>
+          <span className="pointer-events-none absolute right-5 top-16 flex items-center gap-1 rounded-lg border-2 px-2 py-0.5 text-xs font-extrabold uppercase" style={{ opacity: greenHint, color: "var(--prx-flag-green)", borderColor: "var(--prx-flag-green)", transform: "rotate(12deg)" }}>
             <Check className="size-3.5" aria-hidden /> {L.right}
           </span>
-          <span className="pointer-events-none absolute left-5 top-16 flex items-center gap-1 rounded-lg border-2 px-2 py-0.5 text-xs font-extrabold uppercase" style={{ opacity: redHint, color: "var(--flag-red)", borderColor: "var(--flag-red)", transform: "rotate(-12deg)" }}>
+          <span className="pointer-events-none absolute left-5 top-16 flex items-center gap-1 rounded-lg border-2 px-2 py-0.5 text-xs font-extrabold uppercase" style={{ opacity: redHint, color: "var(--prx-flag-red)", borderColor: "var(--prx-flag-red)", transform: "rotate(-12deg)" }}>
             <Flag className="size-3.5" aria-hidden /> {L.left}
           </span>
 
@@ -217,7 +217,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete, labels }:
           className="h-14 flex-1 gap-2 rounded-2xl text-base font-bold transition-transform active:scale-95"
           disabled={phase !== "play" || exiting !== null}
           onClick={() => commit("red")}
-          style={{ background: "color-mix(in oklab, var(--flag-red) 14%, var(--card))", color: "var(--flag-red)", border: "2px solid color-mix(in oklab, var(--flag-red) 35%, transparent)" }}
+          style={{ background: "color-mix(in oklab, var(--prx-flag-red) 14%, var(--card))", color: "var(--prx-flag-red)", border: "2px solid color-mix(in oklab, var(--prx-flag-red) 35%, transparent)" }}
         >
           <Flag className="size-5" aria-hidden /> {L.left}
         </Button>
@@ -226,7 +226,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete, labels }:
           className="h-14 flex-1 gap-2 rounded-2xl text-base font-bold transition-transform active:scale-95"
           disabled={phase !== "play" || exiting !== null}
           onClick={() => commit("green")}
-          style={{ background: "color-mix(in oklab, var(--flag-green) 14%, var(--card))", color: "var(--flag-green)", border: "2px solid color-mix(in oklab, var(--flag-green) 35%, transparent)" }}
+          style={{ background: "color-mix(in oklab, var(--prx-flag-green) 14%, var(--card))", color: "var(--prx-flag-green)", border: "2px solid color-mix(in oklab, var(--prx-flag-green) 35%, transparent)" }}
         >
           <Check className="size-5" aria-hidden /> {L.right}
         </Button>
@@ -236,7 +236,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete, labels }:
 }
 
 function ScoredReveal({ card, correct, points, onNext }: { card: GameCard; correct: boolean; points: number; onNext: () => void }) {
-  const color = correct ? "var(--flag-green)" : "var(--flag-red)";
+  const color = correct ? "var(--prx-flag-green)" : "var(--prx-flag-red)";
   return (
     <>
       <span className="absolute inset-x-0 top-0 h-1.5" style={{ background: color }} aria-hidden />

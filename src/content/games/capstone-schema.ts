@@ -9,7 +9,11 @@
 // A "victory lap" — one chapter truth replayed through one mechanic, no score, no fail, ending in `celebrate`.
 export type CapGalleryLap = { id: string; from: string; type: "gallery"; frame: string; stickers: string[]; celebrate: string };
 export type CapMatchLap = { id: string; from: string; type: "match"; frame: string; pairs: { left: string; right: string }[]; celebrate: string };
-export type CapSortLap = { id: string; from: string; type: "sort"; frame: string; items: { id: string; text: string }[]; bins: { id: string; label: string }[]; key: Record<string, string>; celebrate: string };
+// Bin valence is the SHARED contract with v2-schema — a bin declares its meaning so the engine never
+// infers it from the label. Same type, one definition.
+import type { BinValence } from "@/content/games/v2-schema";
+
+export type CapSortLap = { id: string; from: string; type: "sort"; frame: string; items: { id: string; text: string }[]; bins: { id: string; label: string; valence?: BinValence }[]; key: Record<string, string>; celebrate: string };
 export type CapBuildLap = { id: string; from: string; type: "build"; frame: string; pieces: string[]; mode: "assemble" | "sequence"; celebrate: string };
 // spot — tap the on-theme items (every `trick:true` is a happy/correct answer; there may be several). A
 // `trick:false` is a gentle distractor (no fail). `why` is spoken once all on-theme items are found.

@@ -19,25 +19,14 @@ import { shuffle, byCat, type Scenario, type V2GameConfig } from "@/content/game
 // never a binary tap. No hard fail (a wrong move gets a warm nudge); audio-first; Calm Mode drives
 // prefersReducedMotion; a help route on every screen; optional grown-up co-play. Used by g01, g02, …
 
-// Tint a sort/bin label by meaning (colour is NEVER the only signal — every bin shows its word + an emoji).
-// Valence labels (safe/unsafe, kind/unkind, helps/makes-it-bigger) get green/red; neutral two-category
-// labels (e.g. "a feeling" vs "a thing you do") get two distinct non-valence tints by position, so we never
-// imply one category is "bad".
-function binStyle(label: string, idx = 0): { emoji: string; tint: string } {
-  const o = label.toLowerCase();
-  if (/uh-oh|uhoh/.test(o)) return { emoji: "😬", tint: "#F0A93B" };
-  // safe NEGATIONS first — "not a red flag" / "not a trap" are the SAFE side, so green before the NEG check
-  // below catches the "red flag" / "trap" substring inside them.
-  if (/not a red flag|not a trap|not a violation|not manipulation/.test(o)) return { emoji: "💚", tint: "#62B84B" };
-  // genuinely unsafe / false / not-okay (checked before "tell" so "unsafe secret, tell!" reads unsafe)
-  if (/unsafe|not safe|not okay|not the right|unkind|not kind|not a good|makes it bigger|not allowed|not-so-happy|uncomfy|hurts|\bmyth\b|shame|bad secret|not a family|not love|leaves someone out|not helping|not my circle|not healthy|not clean|spreads germs|gets stinky|silly rule|not so good|not fair|leaves out|silly old|not good|not true|too-tight|tight box|not respectful|breaks it|tricky|risky|frenemy|makes it worse|\bfuels\b|not empathic|unfair|hogging|blocks it|one gender|not really fair|mean teasing|put-down|not an ally|not a real check|not so great|hard on me|pushy trick|unhelpful|harmful|neglected|\bfalse\b|adds stress|harsh|unhealthy|revs up|hard on your mind|not real|muddled|not a boundary|not consent|crosses|not helpful|long loss|going along|dodging|only-now|regret later|rushes you|stereotype|made-up rule|repeats it|\bharms\b|disrespect|\bfails\b|ranks a group higher|\bharm\b|silent bystander|\bweak|not reliable|harming|pressuring|toxic|keeps you down|avoidant|chips at|unreliable|made up|rumour|spreads stigma|stigmatis|ignores|pseudo|harassment|escalates|red flag|a trap|grows your risk|leaves you exposed|grift|manipulation|not trusted|pressures|violation|undermines|^stigma|coercion|victim-blam|widens it|holds them down|undercuts|hardens them|shaming call|bystander|too vague|over-reach|stalls it|just noise|risks it|violates|makes it harder|isolates you|avoids it|poor basis|strains|leaves you open|distortion|erodes it|disposable|draining|keeps stuck|keeps you stuck|keeps it lopsided|one-sided|keeps it running|keeps them on edge|passes it on|smothering|wrecker|\btrap\b|shrinks it|just optics|fades you out|drains it|exploitation|dead end|hinders/.test(o)) return { emoji: "🛑", tint: "#E05C52" };
-  // a telling / speak-up action bin — distinct from good/bad, not a "danger" colour
-  if (/tell a grown|tell someone|speak up|tell right|tell!|^tell\b/.test(o)) return { emoji: "🗣️", tint: "#F0A93B" };
-  // affirming / true / okay / safe / belonging / clean-healthy / fair-inclusive
-  if (/^safe|safe touch|mine|my choice|happy|keep|respects|trusted|surprise|\bokay\b|consent|calms|\bhelps\b|kind|good way|comfy|happy-ish|\btrue\b|fact|real family|real, loving|family love|everyone belongs|\bbelong|my circle|makes them family|holds family|helping|healthy|clean habit|good for teeth|stops germs|stays fresh|good washing|wash now|anyone can|for anyone|yes, anyone|\bfair\b|includes everyone|good body|respectful|builds respect|real friend|good friend|friendly|\brepair\b|empathic|fun teasing|fine fun|ally move|good check|great choice|good for me|trustworthy|reliable|cared-for mind|eases stress|really needed|real path|correct|good move|real option|good long-term|owning it|thinking ahead|wise choice|\banyone\b|real reason|caring reason|real change|\bpasses\b|treats all equally|fun for all|just fine|upstander|harmless|good defence|real health|caring for|real resilience|real coping|builds it|helpful|stops spread|reduces stigma|healthier|honest|\bsafe\b|green flag|the truth|real strength|genuine|respected|dignity|lifts others|active allyship|closes a gap|strong example|real impact|actionable|good partner|lawful & ethical|real protection|builds support|strengthens|good basis|emotional intelligence|protects it|enthusiastic|looking out|survivor-centred|real route|capacity present|sensible/.test(o)) return { emoji: "💚", tint: "#62B84B" };
-  // neutral categorisation (feeling vs action, private vs not-private) — distinct tints, no valence
-  return idx === 0 ? { emoji: "🔵", tint: "#5B9BD5" } : { emoji: "🟣", tint: "#7C5CFC" };
-}
+// Bin tinting. Colour is NEVER the only signal — every bin shows its word plus a symbol cue.
+//
+// A bin's meaning comes from its DECLARED `valence`, never from its prose. This previously fell back to a
+// ~152-alternative English regex over the label, which meant a bin's colour — and therefore the visual
+// answer key — was a function of author wording, and silently wrong in any non-English locale. All 8,676
+// bins in the catalog now declare a valence, so that regex is deleted rather than kept as a fallback:
+// an undeclared bin gets a NEUTRAL position colour and asserts nothing, instead of being guessed at.
+// See knowledge/architecture/creator-identity.md.
 const NEUTRAL_BINS = [{ emoji: "🔵", tint: "#5B9BD5" }, { emoji: "🟣", tint: "#7C5CFC" }, { emoji: "🟢", tint: "#62B84B" }, { emoji: "🟠", tint: "#F0A93B" }];
 // Explicit-valence palette — used when a bin DECLARES its meaning (new content), so the engine never guesses.
 const VALENCE_STYLE: Record<string, { emoji: string; tint: string }> = {
@@ -47,10 +36,10 @@ const VALENCE_STYLE: Record<string, { emoji: string; tint: string }> = {
 // Guarantee the bins of one sort are visually distinct: if two would share a tint, fall back to a
 // position-based neutral palette so a non-reader always has a per-bin colour + emoji cue.
 // exported so the shared rich-capstone engine renders its sort dropzones with the SAME valence tinting.
-// A bin's explicit `valence` wins (pos/neg/tell/uhoh, or neutral→position colour); a bin without one falls
-// back to the label-regex binStyle() (legacy/un-migrated content).
+// A bin's explicit `valence` wins (pos/neg/tell/uhoh, or neutral→position colour); a bin WITHOUT one gets a
+// neutral position colour — the engine never infers meaning from the label.
 export function binStyles(bins: { label: string; valence?: string }[]): { emoji: string; tint: string }[] {
-  const s = bins.map((b, i) => (b.valence === "neutral" ? NEUTRAL_BINS[i % NEUTRAL_BINS.length] : b.valence ? (VALENCE_STYLE[b.valence] ?? binStyle(b.label, i)) : binStyle(b.label, i)));
+  const s = bins.map((b, i) => (b.valence && b.valence !== "neutral" ? (VALENCE_STYLE[b.valence] ?? NEUTRAL_BINS[i % NEUTRAL_BINS.length]) : NEUTRAL_BINS[i % NEUTRAL_BINS.length]));
   return new Set(s.map((x) => x.tint)).size < bins.length ? bins.map((_, i) => NEUTRAL_BINS[i % NEUTRAL_BINS.length]) : s;
 }
 const vibrate = (ms: number | number[]) => { try { navigator.vibrate?.(ms); } catch { /* unsupported */ } };
