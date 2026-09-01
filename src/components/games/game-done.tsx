@@ -35,8 +35,12 @@ export function GameDone({
   const { finishDeck, unlockTool } = useProfile();
   const router = useRouter();
   const exit = onExit ?? (() => router.push("/path"));
-  // Capstones close a chapter with a Thread-C reflection ("skills you've grown"); c5 is the final look-back.
+  // Capstones close a chapter with a Thread-C reflection ("skills you've grown"). c8 is the final
+  // look-back — the catalog runs to Ch.8 (parenthood); it ended at c5 back when it stopped at 18.
+  // The toolkit is deliberately a 5-level model (Thread-C games span Ch.1–5), so capstones 6–8 show
+  // the fully-grown level-5 toolkit: that clamp is correct, only the finale flag was left behind.
   const capstoneLevel = gameId.startsWith("capstone-") ? Number(gameId.slice("capstone-".length)) : 0;
+  const FINAL_CAPSTONE = 8;
 
   useEffect(() => {
     finishDeck(gameId, stars, coins, bestStreak);
@@ -95,7 +99,7 @@ export function GameDone({
   if (capstoneLevel) {
     return (
       <div className="flex w-full max-w-sm flex-col items-center gap-4">
-        <ToolkitReflection chapterLevel={capstoneLevel} final={capstoneLevel === 5} />
+        <ToolkitReflection chapterLevel={capstoneLevel} final={capstoneLevel === FINAL_CAPSTONE} />
         {card}
       </div>
     );
