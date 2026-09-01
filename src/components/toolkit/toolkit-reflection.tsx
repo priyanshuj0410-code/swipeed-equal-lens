@@ -1,6 +1,6 @@
 "use client";
 
-import { TOOLS } from "@/lib/toolkit";
+import { TOOLS, MAX_LEVEL } from "@/lib/toolkit";
 import { TOOL_GUIDE } from "@/content/toolkit";
 
 // The capstone Thread-C reflection — a short "look at the skills you've grown" beat shown at a chapter
@@ -8,7 +8,9 @@ import { TOOL_GUIDE } from "@/content/toolkit";
 // a child sees their emotional & life-skills growth, not just topic knowledge. The final capstone looks
 // back across the whole toolkit a young person carries into adulthood — the emotional bookend.
 export function ToolkitReflection({ chapterLevel, final }: { chapterLevel: number; final?: boolean }) {
-  const idx = Math.max(0, Math.min(chapterLevel, 5) - 1);
+  // The toolkit is a 5-level model (one Thread-C game per chapter 1–5), so the adult chapters (6–8)
+  // clamp to level 5 — the fully-grown toolkit — which is the intended display, not a truncation.
+  const idx = Math.max(0, Math.min(chapterLevel, MAX_LEVEL) - 1);
   return (
     <div className="glass-card w-full max-w-xs rounded-2xl px-5 py-4 backdrop-blur-[12px] backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
       <p className="mb-3 text-center font-display text-base font-bold">🧰 Skills you've grown</p>
@@ -25,7 +27,7 @@ export function ToolkitReflection({ chapterLevel, final }: { chapterLevel: numbe
       </div>
       {final && (
         <p className="mt-3 text-center text-xs font-semibold text-foreground/80">
-          Four skills — carried for fifteen years, and yours for life. 💛
+          Four skills — grown across the whole journey, and yours for life. 💛
         </p>
       )}
     </div>
