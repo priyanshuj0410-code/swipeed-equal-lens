@@ -1,9 +1,14 @@
 // The shared v2 "mechanic-embodying" scenario schema — the typed content format the GDD-rework v2 standard
 // runs on (build bible · transition plan · per-game GDD §09 "shared templates"). Every scenario carries a
-// `type` (one of seven play actions) + a typed payload, so the lesson IS the verb (no binary "tap the right
-// card"). One shared engine (components/games/v2-engine.tsx) renders all seven; each game ships its own
-// researched typed library + config. Reused by Feelings Friends (g01), My Body My Rules (g02), and the rest
-// of the chapter as they retrofit to v2.
+// `type` (one of ten play actions) + a typed payload, so the lesson IS the verb (no binary "tap the right
+// card"). One shared engine (components/games/v2-engine.tsx) renders all ten; each game ships its own
+// researched typed library + config. Used by every game in the catalog (g01–g69) and the 8 capstones.
+//
+// ADDING AN 11TH MECHANIC: this union is only the first of ~14 places that enumerate the mechanic set.
+// The others live in v2-engine.tsx (the Play switch — now exhaustiveness-guarded) and scripts/forge/
+// (common.py ALL_MECHANICS / REQUIRED_PAYLOAD / visible_fields / must_be_true_texts / shape_errors,
+// forge_dedup.py struct_sig, gen_workflow.js SHAPES + the reviewer list, check_msg_len.py SC_PLAIN).
+// The first three now fail closed rather than silently pass; the rest still need doing by hand.
 
 export type V2Mechanic = "reflect" | "role-play" | "strike-rewrite" | "branch" | "sort" | "match" | "build" | "explore-label" | "spot" | "swipe";
 

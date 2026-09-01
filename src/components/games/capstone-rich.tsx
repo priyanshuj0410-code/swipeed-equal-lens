@@ -459,6 +459,9 @@ function LapView({ lap, recap, say, onSolved, reduceMotion }: { lap: CapLap; rec
     case "branch": return <BranchLap lap={lap} say={say} onSolved={onSolved} />;
     case "strike-rewrite": return <StrikeLap lap={lap} say={say} onSolved={onSolved} reduceMotion={reduceMotion} />;
     case "role-play": return <RolePlayLap lap={lap} say={say} onSolved={onSolved} />;
+    // Exhaustiveness guard — same hole as v2-engine's Play(): a new CapLap type with no case here
+    // would render nothing and never call onSolved, stranding the player mid-capstone. Compile error now.
+    default: { const _exhaustive: never = lap; return _exhaustive; }
   }
 }
 

@@ -47,7 +47,13 @@ def struct_sig(o):
         return ("build", frozenset(nz(p) for p in o.get("pieces", [])))
     if t == "explore-label":
         return ("explore", nz(o.get("find")), nz(o.get("answer")))
-    return (t,)
+    # FAIL CLOSED. This used to `return (t,)`, giving every scenario of an unregistered mechanic the
+    # SAME signature — so N genuinely-distinct scenarios collapse into N-choose-2 false STRUCT
+    # collisions and the merge gate becomes un-passable for reasons that look nothing like the cause.
+    raise ValueError(
+        f"struct_sig: unhandled scenario type {t!r} (id={o.get('id')!r}). Add a signature for it — "
+        f"it must capture what makes two scenarios of this mechanic structurally the same."
+    )
 
 
 def load_all():
@@ -74,7 +80,11 @@ def find_collisions(recs, focus=None):
     for r in recs:
         by_sig.setdefault(r["sig"], []).append(r)
     for sig, group in by_sig.items():
-        if len(group) < 2 or sig[0] in ("reflect",) and len(sig) < 2:
+        # Was: `len(group) < 2 or sig[0] in ("reflect",) and len(sig) < 2`. The second clause was
+        # unreachable — `and` binds tighter than `or`, and struct_sig returns a 3-tuple for reflect, so
+        # `len(sig) < 2` was never true. It was guarding against the bare `(t,)` fallthrough, which
+        # struct_sig no longer produces (it raises instead), so the clause is now genuinely redundant.
+        if len(group) < 2:
             continue
         for i in range(len(group)):
             for j in range(i + 1, len(group)):

@@ -120,6 +120,16 @@ def visible_fields(o):
         yield "cue", o.get("cue", "")
         yield "left", o.get("left", "")
         yield "right", o.get("right", "")
+    else:
+        # FAIL CLOSED. This is the sole feed for the ≤160 field cap (field_len_errors), the US-framing
+        # denylist + helpline name↔number binding (helpline_errors), and the dedup prose fingerprint
+        # (norm_scenario). Falling through silently — as this used to — yields only hook+relearn, so a
+        # new mechanic's entire payload goes unread and every one of those gates reports green while
+        # blind. Adding a mechanic MUST include an arm here.
+        raise ValueError(
+            f"visible_fields: unhandled scenario type {t!r} (id={o.get('id')!r}). Add an arm for it — "
+            f"the length, helpline and dedup gates all read this function."
+        )
 
 def must_be_true_texts(o):
     """The fields that assert canonical truth (fact gate enforces here, NOT in deliberate-myth fields)."""
@@ -151,6 +161,20 @@ def must_be_true_texts(o):
             out += [p.get("left", ""), p.get("right", "")]
     elif t == "sort":
         out += [it.get("text", "") for it in o.get("items", []) or []]
+    elif t in ("role-play", "build"):
+        # Deliberate no-op, made explicit so the else below can fail closed. These two contribute only
+        # the base `relearn` (appended above): role-play's yourLine options are in-character player
+        # lines rather than the app asserting fact, and build's pieces are fragments judged by `key`.
+        # If that call is ever revisited, add the fields here rather than removing the arm.
+        pass
+    else:
+        # FAIL CLOSED. This feeds claim_flags — the law/statute/statistic sniffer that forces web
+        # verification before a scenario may ship. Silent fallthrough (the old behaviour) means a new
+        # mechanic can assert an unverified legal or medical claim and never be flagged.
+        raise ValueError(
+            f"must_be_true_texts: unhandled scenario type {t!r} (id={o.get('id')!r}). Add an arm — "
+            f"name the fields where the app speaks in its own voice, or `pass` if genuinely none."
+        )
     return [x for x in out if x]
 
 # ── parsing (parse-or-die) ──────────────────────────────────────────────────────────────────────────────────

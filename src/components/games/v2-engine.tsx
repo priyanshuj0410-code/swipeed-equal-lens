@@ -294,7 +294,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   );
 }
 
-// ============================ the seven mechanic renderers ============================
+// ============================ the ten mechanic renderers ============================
 function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string) => void; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string } }) {
   switch (sc.type) {
     case "reflect": return <ReflectPlay sc={sc} onSolved={onSolved} />;
@@ -307,6 +307,10 @@ function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; 
     case "explore-label": return <ExploreLabelPlay sc={sc} onSolved={onSolved} say={say} />;
     case "spot": return <SpotPlay sc={sc} onSolved={onSolved} say={say} />;
     case "swipe": return <SwipePlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
+    // Exhaustiveness guard — adding an 11th V2Mechanic without a case here used to compile clean
+    // (strict is on, but noImplicitReturns is not), render nothing, and never call onSolved: the beat
+    // had no fail state, so the player was simply stuck. Now it is a compile error at the point of change.
+    default: { const _exhaustive: never = sc; return _exhaustive; }
   }
 }
 
