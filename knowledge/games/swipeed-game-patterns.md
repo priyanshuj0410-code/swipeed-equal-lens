@@ -9,6 +9,7 @@ timestamp: 2026-06-19T19:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
 ---
 
 # SwipeEd - Reusable Game Patterns
@@ -277,8 +278,9 @@ a **living doc** - see [keeping it current](#keeping-this-current).
     card, drag a chip into a bin, draw a cord plug→socket, scrub a myth out - on **shared primitives built
     once** (`components/games/interactions.tsx`: `usePointerDrag` mouse+touch+pen with an 8px **tap-fallback**
     threshold, `hitTestZone`, `ConnectorOverlay`). **Hard rule: the native-button tap path is kept as the
-    keyboard / screen-reader / ages-3-6 floor** (the gesture is additive) - the sole exception is **swipe**,
-    which uses drag + ←/→ arrow keys and **no buttons** (its identity is the gesture). Plus the engine-wide a11y
+    keyboard / screen-reader / ages-3-6 floor** (the gesture is additive) - the sole exception was **swipe**,
+    which used drag + ←/→ arrow keys and **no buttons** (its identity is the gesture); since 2026-09-15 it has one
+    button per side too ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543)). Plus the engine-wide a11y
     win: the **Lensy bubble is now `aria-live`**, so every `say()` reaches non-hearing/SR users in one place; and
     **pinch-zoom is restored** (WCAG). No-fail, colour-never-the-only-signal, and reduced-motion-to-instant all
     still hold. This pass also fixed real correctness bugs the tap veneer hid (build always-wins + min(3)

@@ -10,6 +10,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
 ---
 
 # SwipeEd design system
@@ -228,6 +229,7 @@ more.
 | Cards | Brand `.card` (24px radius) reimplemented locally as `.glass-card` (20px radius, `globals.css:246-252`); shadcn `Card` (`src/components/ui/card.tsx`) is a third, generic sticker-free surface used outside gameplay | `globals.css:246-252`; `src/components/ui/card.tsx` |
 | Chips / status pills | Brand `.note__chip` is extended (not replaced) for the myth-card truth/myth stamp (`globals.css:384`) | `globals.css` (myth-card family) |
 | Answer cards | `AnswerCard`: a `.glass-card` button with a `data-state` of `idle`, `selected` (armed: brand border, brand hard shadow, brand wash at `--prx-wash-hover`), `target` (a drag is over it: brand border and wash) or `done` (a correct match, a placed chip, a found or picked card: `--cell-tint` border and wash, default `--prx-pos`). A state never changes border width, shadow offset or size, and there is no pulse. `CornerBadge` pins a 24px round marker to the top-right corner: the pair number in its cord colour on matched cells, the zone emoji on placed chips, ✓ on a picked card, ⤵ on zones while a chip is armed. Placed sort chips stay in their slot and zones never collect tokens, marks that appear later ("Caught!", a gallery check) keep their space reserved, and the sort hint line is a fixed two lines. Used by match, sort, spot, explore-label and the capstone gallery, spot, branch, role-play and reflect steps ([SWED-67](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956)) | `src/components/games/answer-cells.tsx`; `.glass-card[data-state]` in `src/app/globals.css` |
+| Swipe card | `SwipeCard`: the full-width cue card that tints toward the side being dragged and shows a word-plus-emoji badge, with one `.glass-pill` button per side under it (side word and valence emoji), so a player who cannot drag or cannot see the card can still answer. Arrow keys work on the focused card, and it ignores input once answered ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543)) | `src/components/games/swipe-card.tsx` |
 | Game shell chrome | `GameShell`: fixed glass-pill top bar (back button, title, progress "n/m"), opaque `--app-bg` overlay so the path is hidden behind an open game, `align="center"` vs `"fill"` for content that must pin its own top/bottom rows | `src/components/game-shell.tsx` |
 | Lensy's question card | `LensyQuestion`: Lensy plus an `h2.popover` question card in `font-hand`, the feedback line (the play area's one live region) and `RevealGate`. See How Lensy speaks | `src/components/games/lensy-question.tsx` |
 | Feedback banners | No hard-fail red banner anywhere. A wrong move gets a warm nudge from `say(...)`, shown on the question card's feedback line and spoken; mechanics no longer render their own inline nudge lines under the answers (removed in SWED-66, they duplicated the spoken line and shifted the layout when they mounted). A non-best branch pick keeps its 💛 consequence card with a retry button | `src/components/games/lensy-question.tsx`; `say()` in `v2-engine.tsx` and `capstone-rich.tsx` |
@@ -250,9 +252,13 @@ design:
 - **The interaction is the verb.** A relationship read is a swipe, sorting is dragging into a bin,
   matching is drawing a cord, erasing a myth is scrubbing it away. `usePointerDrag` is the one
   pointer-events primitive behind all of it (`src/components/games/interactions.tsx`).
-- **Tap is the accessibility floor**, never removed, on every mechanic except `swipe` (which uses
-  drag plus arrow-key commit, deliberately no buttons). The floor is what makes ages 3 to 6 and
-  keyboard/screen-reader use the same code path as everyone else, not a separate mode.
+- **Tap is the accessibility floor**, never removed, on every mechanic. `swipe` was the exception (drag
+  and arrow keys, deliberately no buttons) until the 2026-09-15 plan: `SwipeCard` now puts one button per
+  side under the card, labelled with the side's word and emoji, and the capstone's swipe-up lap has a
+  "tap to cheer it on" button ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543)).
+  The swipe stays the invitation; the buttons are for players who cannot drag or cannot see the card. The
+  floor is what makes ages 3 to 6 and keyboard/screen-reader use the same code path as everyone else, not a
+  separate mode.
 - **No-fail, always.** A wrong drop, swipe or connection springs back with a warm nudge, never a
   buzzer, never a blocking modal. This is a considered departure from the category norm (see
   References): most swipe-card learning apps show a dedicated "here's why that's wrong" screen;

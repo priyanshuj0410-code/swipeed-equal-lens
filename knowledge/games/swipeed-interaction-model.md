@@ -10,6 +10,8 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
 ---
 
 # SwipeEd - The Interaction Model (direct manipulation)
@@ -26,8 +28,9 @@ mechanic composes, turning each interaction into the verb it teaches.
 1. **The interaction IS the verb.** Reading a relationship flag is a *swipe*; sorting is *dragging into a
    bin*; matching is *drawing a cord*; erasing a myth is *scrubbing it out*. Direct manipulation, not a tap
    proxy.
-2. **The tap path is the accessibility floor, never removed** (the one exception: `swipe`, which per product
-   decision uses drag + arrow keys and **no buttons**). For sort / match / build, the original
+2. **The tap path is the accessibility floor, never removed.** `swipe` was the one exception (drag + arrow keys
+   and **no buttons**) until 2026-09-15, when the shared `SwipeCard` added one button per side under the card
+   (SWED-70). For sort / match / build, the original
    tap-to-arm-then-tap-target on **native `<button>`s** is kept - that single decision *is* the keyboard,
    screen-reader, and **ages-3-6** path. The gesture is an **additive layer on top**, not a replacement.
 3. **No-fail, always.** A wrong drop / swipe / connection springs back with a warm nudge; never a buzzer.
@@ -60,11 +63,11 @@ mechanic composes, turning each interaction into the verb it teaches.
 
 | Mechanic | Gesture (primary) | Fallback (keyboard / 3-6) | Notes |
 |---|---|---|---|
-| **swipe** | drag the full-width hero cue card L/R (tints + edge badge appear *during* the drag; fly-off; spring back) | **←/→ arrow keys** on the focusable card - **no buttons** | no hook card, no static side columns (breathable); Lensy also speaks the cue |
+| **swipe** | drag the full-width hero cue card L/R (tints + edge badge appear *during* the drag; fly-off; spring back) | **←/→ arrow keys** on the focusable card, or one button per side under the card (2026-09-15) | no hook card, no static side columns (breathable); ignores input once answered; Lensy also speaks the cue |
 | **sort** | drag a chip into its bin (bin highlights, snaps) | tap-to-arm chip → tap bin; fixed-height "carrying …" hint | a placed chip stays in its slot with the bin's emoji badge; bins never grow (2026-09-15) |
 | **match** | draw a cord plug→socket; locks and pins a shared numbered corner badge on both cells | tap a left cell → tap a right cell | cells keep their size in every state; no pair ever sits straight across (2026-09-15) |
 | **build** | drag a piece onto the slate | tap a piece | assemble checks the key; needs ALL key pieces |
-| **strike-rewrite** | scrub the (now visible) myth away → truth resolves | Enter/Space erases in one go | back-and-forth scrub = toddler-easy |
+| **strike-rewrite** | scrub the (now visible) myth away → truth resolves | Enter/Space erases in one go | back-and-forth scrub = toddler-easy; progress adds up across strokes (2026-09-15) |
 | **role-play** | tap an equal-weight, **shuffled** speech card (read & choose the assertive line) | same (native buttons) | press-and-hold-to-speak deferred (optional) |
 | **branch** | tap a (now **shuffled**) option → see its consequence → best advances | same | tap *is* the verb (committing to a course) |
 | **spot** | tap the suspicious card → the flag PLANTS on the catch | same | tap *is* the verb (pointing) |

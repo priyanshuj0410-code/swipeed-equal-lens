@@ -223,3 +223,19 @@ Checked in the browser: five-pair boards across repeated Choosing & Building run
 and at most one neighbouring pair, sort zones appeared in both orders, and capstone 3 ran start to finish. It
 also finished with the original `c3-p8` content restored, proving the engine fix on its own. `tsc`, `eslint`,
 the unit test, `check_msg_len.py` and `npm run build` pass.
+
+### Phase 1d, swipe foundations (engine half): built on 2026-09-15 (SWED-70)
+
+- `SwipeCard` (`src/components/games/swipe-card.tsx`) is the two-way swipe core: drag or flick, ←/→ on the
+  focused card, or one button per side under the card, labelled with the side's word and emoji. It ignores
+  input once the right side is chosen, so a second swipe or key press during the fly-off can't solve twice.
+  Green Light / Red Light and Reality Check play their swipes on it, ready for myth cards in Phase 3.
+- The swipe nudge no longer assumes a flag: "Look again. Read the card, then swipe it the other way."
+- The capstone swipe-up lap has a "tap to cheer it on" button in place of its hint line.
+- Scrubbing a myth adds each stroke to the last in both engines, so lifting a finger no longer resets it. A
+  click with `detail === 0` (from a keyboard or screen reader) erases the myth card too.
+
+Checked in the browser: the wrong side button nudged and the right one resolved; a real pointer swipe resolved,
+with an extra arrow press during the fly-off; a myth scrubbed in two separate 120px strokes stayed half-erased
+after the first and resolved on the second; capstone 1's swipe lap finished from its button. `tsc`, `eslint`
+and `npm run build` pass.

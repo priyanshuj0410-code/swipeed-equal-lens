@@ -8,6 +8,7 @@ import { GameDone } from "@/components/games/game-done";
 import { LensyQuestion, RevealGate, cleanLine, joinQuestion, revealDelayMs } from "@/components/games/lensy-question";
 import { AnswerCard, CornerBadge } from "@/components/games/answer-cells";
 import { MatchBoard } from "@/components/games/match-board";
+import { SwipeCard, type SideStyle } from "@/components/games/swipe-card";
 import { UnReBeat } from "@/components/games/un-re";
 import { useProfile } from "@/lib/store";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
@@ -352,86 +353,25 @@ function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; 
   }
 }
 
-// swipe — the teen flagship's signature verb: physically SWIPE the breathable cue card to a side (drag it, or
-// ←/→ keys). NO buttons (the gesture/keys ARE the input). The red/green signal lives IN the swipe: as you drag,
-// the card tints toward that side and an edge badge (word + flag emoji, so colour is never the only signal)
-// fades in — no static side columns eating the width, no redundant instruction card (Sam + the slim hint cover
-// it). Drag past a forgiving threshold (or flick) commits; a short drag springs back (a no-fail "not yet"); a
-// wrong side springs back + a warm nudge. Keyboard: the card is the focusable control — ArrowLeft = left,
-// ArrowRight = right. Reduced motion degrades the fly-off/spring/tint to instant. Side tint comes from the
-// scenario's DECLARED leftValence/rightValence — never inferred from the label.
+// swipe: the teen flagship's verb, on the shared SwipeCard (drag, flick, ←/→, or the two side buttons).
 // Side styling comes from the DECLARED valence, never from the label. (This replaced a regex that read the
-// label prose and mis-classified 16 shipped scenarios — see v2-schema.ts.) Undeclared sides get
+// label prose and mis-classified 16 shipped scenarios; see v2-schema.ts.) Undeclared sides get
 // side-distinct neutral slots; if both sides would resolve to the same tint they fall back to neutral slots
 // so the two sides can never collapse into one colour.
-function swipeStyles(sc: Extract<Scenario, { type: "swipe" }>): [{ emoji: string; tint: string }, { emoji: string; tint: string }] {
+function swipeStyles(sc: Extract<Scenario, { type: "swipe" }>): [SideStyle, SideStyle] {
   const NEUTRAL_L = { emoji: "👈", tint: "var(--prx-slot-1)" };
   const NEUTRAL_R = { emoji: "👉", tint: "var(--prx-slot-2)" };
-  const one = (v: string | undefined, fallback: { emoji: string; tint: string }) =>
+  const one = (v: string | undefined, fallback: SideStyle) =>
     v && v !== "neutral" ? (VALENCE_STYLE[v] ?? fallback) : fallback;
   const L = one(sc.leftValence, NEUTRAL_L);
   const R = one(sc.rightValence, NEUTRAL_R);
   return L.tint === R.tint ? [NEUTRAL_L, NEUTRAL_R] : [L, R];
 }
 function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "swipe" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [dx, setDx] = useState(0);
-  const [flyTo, setFlyTo] = useState<0 | 1 | -1>(0); // committing fly-off direction
-  const [L, R] = swipeStyles(sc);
-  const threshold = () => Math.max(72, (cardRef.current?.offsetWidth ?? 300) * 0.25);
-
-  const commit = (side: "left" | "right") => {
-    if (side === sc.answer) {
-      if (reduceMotion) { vibrate(12); onSolved(); }
-      else { setFlyTo(side === "left" ? -1 : 1); setTimeout(() => { vibrate(12); onSolved(); }, 250); }
-    } else { setDx(0); say("Look again. Read the flag, then swipe it the right way."); }
-  };
-  const drag = usePointerDrag({
-    onMove: (s) => setDx(s.dx),
-    onEnd: (s) => {
-      const t = threshold();
-      if (s.dx > t || s.vx > 0.5) commit("right");
-      else if (s.dx < -t || s.vx < -0.5) commit("left");
-      else setDx(0); // spring back
-    },
-    onTap: () => setDx(0),
-  });
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowLeft") { e.preventDefault(); commit("left"); }
-    else if (e.key === "ArrowRight") { e.preventDefault(); commit("right"); }
-  };
-  const dir = dx < -8 ? "left" : dx > 8 ? "right" : null;
-  const edge = dir === "left" ? L : dir === "right" ? R : null;
-  const tx = flyTo !== 0 ? flyTo * 700 : dx;
   return (
-    <div className="flex flex-1 flex-col gap-3">
-      <div
-        ref={cardRef} tabIndex={0} role="group"
-        aria-roledescription="card you swipe left or right"
-        aria-label={`${sc.cue}. Press Left arrow for ${sc.left}, or Right arrow for ${sc.right}.`}
-        onKeyDown={onKeyDown}
-        {...drag.handlers}
-        className="glass-card relative flex min-h-72 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[20px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
-        style={{ transform: `translateX(${tx}px) rotate(${tx * 0.035}deg)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.25s ease-out", touchAction: "pan-y", boxShadow: edge ? `6px 6px 0 0 ${edge.tint}` : undefined }}
-      >
-        {/* while swiping, the chosen side fills the card with its colour + a big watermark flag + a clear badge */}
-        {edge && (
-          <>
-            <div className="pointer-events-none absolute inset-0" style={{ background: edge.tint, opacity: 0.16 }} aria-hidden />
-            <span className={`pointer-events-none absolute top-1/2 -translate-y-1/2 text-8xl ${dir === "left" ? "left-3" : "right-3"}`} style={{ opacity: 0.18 }} aria-hidden>{edge.emoji}</span>
-            <span className={`absolute top-3 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-extrabold text-[var(--prx-on-fill)] shadow-md ${dir === "left" ? "left-3" : "right-3"}`} style={{ background: edge.tint }} aria-hidden>
-              {dir === "left" ? <>{edge.emoji} {sc.left}</> : <>{sc.right} {edge.emoji}</>}
-            </span>
-          </>
-        )}
-        <span className="relative z-10">{sc.cue}</span>
-      </div>
-      <div className="flex items-center justify-between px-1 text-xs font-bold text-foreground/55">
-        <span className="flex items-center gap-1">👈 {sc.left}</span>
-        <span className="text-foreground/40">← → keys</span>
-        <span className="flex items-center gap-1">{sc.right} 👉</span>
-      </div>
-    </div>
+    <SwipeCard cue={sc.cue} left={sc.left} right={sc.right} answer={sc.answer} styles={swipeStyles(sc)} reduceMotion={reduceMotion}
+      onCorrect={() => { vibrate(12); onSolved(); }}
+      onMiss={() => say("Look again. Read the card, then swipe it the other way.")} />
   );
 }
 
@@ -475,16 +415,20 @@ function RolePlayPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "ro
 function StrikePlay({ sc, onSolved, reduceMotion }: { sc: Extract<Scenario, { type: "strike-rewrite" }>; onSolved: () => void; reduceMotion: boolean }) {
   const [progress, setProgress] = useState(0);
   const doneRef = useRef(false);
+  const scrubbed = useRef(0); // distance from earlier strokes: lifting a finger never un-erases the myth
   const THRESH = 240; // px of scrubbing to fully erase (forgiving)
   const finish = () => { if (doneRef.current) return; doneRef.current = true; vibrate(12); onSolved(); };
   const drag = usePointerDrag({
     tapThreshold: 4,
-    onMove: (s) => { const p = Math.min(1, s.distance / THRESH); setProgress(p); if (p >= 1) finish(); },
+    onMove: (s) => { const p = Math.min(1, (scrubbed.current + s.distance) / THRESH); setProgress(p); if (p >= 1) finish(); },
+    onEnd: (s) => { scrubbed.current += s.distance; },
   });
-  const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setProgress(1); finish(); } };
+  const eraseNow = () => { setProgress(1); finish(); };
+  const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); eraseNow(); } };
   return (
     <div className="flex flex-1 flex-col gap-2.5">
-      <div tabIndex={0} role="button" aria-label={`Rub out the myth: ${sc.myth.un}`} onKeyDown={onKeyDown} {...drag.handlers}
+      {/* a click with detail 0 comes from a keyboard or screen reader, never from a finger scrubbing the card */}
+      <div tabIndex={0} role="button" aria-label={`Rub out the myth: ${sc.myth.un}`} onKeyDown={onKeyDown} onClick={(e) => { if (e.detail === 0) eraseNow(); }} {...drag.handlers}
         className="glass-card relative flex min-h-48 flex-1 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
         <p className="text-[19px] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? (progress >= 1 ? 0.12 : 1) : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{sc.myth.un}</p>
         <span className="pointer-events-none absolute bottom-2 right-3 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>

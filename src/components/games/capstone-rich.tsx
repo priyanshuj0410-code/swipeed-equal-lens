@@ -294,7 +294,11 @@ function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
         )}
         <span className="relative z-10">{lap.cue}</span>
       </div>
-      <p className="text-center text-xs font-bold text-foreground/55">👆 swipe up to cheer it on · ↑ key</p>
+      {/* the tap and screen-reader floor for a gesture a young child or a screen-reader user may not manage */}
+      <button type="button" onClick={commit} disabled={flew}
+        className="glass-pill flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-sm font-bold text-foreground transition-transform active:scale-95 disabled:opacity-100">
+        <ChevronUp className="size-4" aria-hidden /> Swipe up, or tap to cheer it on
+      </button>
     </div>
   );
 }
@@ -336,15 +340,18 @@ function StrikeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapStrikeLap>)
   const [progress, setProgress] = useState(0);
   const [solved, setSolved] = useState(false);
   const doneRef = useRef(false);
+  const scrubbed = useRef(0); // distance from earlier strokes: lifting a finger never un-erases the myth
   const THRESH = 240;
   useEffect(() => { say(`${lap.frame} ${lap.myth.un}`, lap.frame); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const finish = () => { if (doneRef.current) return; doneRef.current = true; setSolved(true); vibrate(12); celebrate("big"); say(`${lap.myth.re} ${lap.myth.why} ${lap.celebrate}`, lap.celebrate); onSolved(); };
   const drag = usePointerDrag({
     tapThreshold: 4,
-    onMove: (s) => { const p = Math.min(1, s.distance / THRESH); setProgress(p); if (p >= 1) finish(); },
+    onMove: (s) => { const p = Math.min(1, (scrubbed.current + s.distance) / THRESH); setProgress(p); if (p >= 1) finish(); },
+    onEnd: (s) => { scrubbed.current += s.distance; },
   });
-  const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setProgress(1); finish(); } };
+  const eraseNow = () => { setProgress(1); finish(); };
+  const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); eraseNow(); } };
   // Once the myth is rubbed out, the reveal is the SHARED UN/RE card (UN eraser → RE pencil), exactly like the
   // lesson engine's strike resolve — not plain text.
   if (solved) {
@@ -356,7 +363,8 @@ function StrikeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapStrikeLap>)
   }
   return (
     <div className="flex flex-1 flex-col gap-2.5">
-      <div tabIndex={0} role="button" aria-label={`Rub out the myth: ${lap.myth.un}`} onKeyDown={onKeyDown} {...drag.handlers}
+      {/* a click with detail 0 comes from a keyboard or screen reader, never from a finger scrubbing the card */}
+      <div tabIndex={0} role="button" aria-label={`Rub out the myth: ${lap.myth.un}`} onKeyDown={onKeyDown} onClick={(e) => { if (e.detail === 0) eraseNow(); }} {...drag.handlers}
         className="glass-card relative flex min-h-48 flex-1 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
         <p className="text-[19px] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? 1 : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{lap.myth.un}</p>
         <span className="pointer-events-none absolute bottom-2 right-3 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>
