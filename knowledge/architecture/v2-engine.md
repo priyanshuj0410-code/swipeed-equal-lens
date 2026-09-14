@@ -9,6 +9,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
 ---
 
 # SwipeEd v2 engine
@@ -140,8 +141,8 @@ attempt is a spoken nudge and a retry, and the renderer's only way to finish is 
 | **role-play** | Taps one of two shuffled "say it" speech cards; only the assertive line advances | Tap only, native buttons | Passive pick: spoken nudge, card set stays up for a re-pick; no UN/RE beat | `RolePlayPlay`, `v2-engine.tsx:419-436` |
 | **strike-rewrite** | Scrubs back-and-forth across the myth card to erase it | Drag/scrub (`usePointerDrag`, distance-based), or Enter/Space on the focusable card | The one verb with a dedicated UN/RE moment: resolve renders the shared `UnReBeat` card (`un-re.tsx`) | `StrikePlay`, `v2-engine.tsx:442-462` |
 | **branch** | Taps one of several shuffled choices and sees its consequence; only the `best` choice (or any, if none is marked best) advances | Tap only, native buttons | Consequence spoken on pick; advancing pick shows a 💚/💛 emoji-prefixed consequence (see SWED-57); no UN/RE beat | `BranchPlay`, `v2-engine.tsx:466-496` |
-| **sort** | Drags a chip into its labelled bin | Drag (`usePointerDrag` + `hitTestZone`), or tap-to-arm chip then tap bin | Spoken confirmation per correct placement; wrong bin springs back with a nudge; no UN/RE beat | `SortPlay`, `v2-engine.tsx:502-587` |
-| **match** | Draws a cord from a left card to its right card | Drag (`usePointerDrag` + `hitTestZone` + `ConnectorOverlay`), or tap-left then tap-right | Spoken confirmation per correct pair; wrong pair springs back with a nudge; no UN/RE beat; see SWED-56 | `MatchPlay`, `v2-engine.tsx:597-678` |
+| **sort** | Drags a chip into its labelled bin | Drag (`usePointerDrag` + `hitTestZone`), or tap-to-arm chip then tap bin | Spoken confirmation per correct placement; wrong bin springs back with a nudge; items and zones are both shuffled; no UN/RE beat | `SortPlay`, `v2-engine.tsx` |
+| **match** | Draws a cord from a left card to its right card | Drag (`usePointerDrag` + `hitTestZone` + `ConnectorOverlay`), or tap-left then tap-right | Spoken confirmation per correct pair; wrong pair springs back with a nudge; no pair sits straight across; no UN/RE beat | `MatchPlay` wraps the shared `MatchBoard`, `src/components/games/match-board.tsx` |
 | **build** | Drags (or taps) pieces onto a "slate", then confirms | Drag (`usePointerDrag` + `hitTestZone`) with a tap fallback; explicit confirm button | Spoken nudge on a wrong/out-of-order piece; no UN/RE beat | `BuildPlay`, `v2-engine.tsx:684-729` |
 | **explore-label** | Taps the body part on a figure (anatomy content) or the correct "which is true" card (abstract content) matching a clue | Tap only, native buttons (anatomy variant positions them over an `aria-hidden` SVG figure) | Wrong tap re-asks with a nudge; resolve speaks a `reveal` fact; no UN/RE beat | `ExploreLabelPlay`, `v2-engine.tsx:768-812` |
 | **spot** | Taps every "trick" (red-flag) item in a scene; a scene can hide more than one | Tap only, native buttons | Spoken progress ("Caught one, N more"); wrong tap gets a warm nudge; resolve speaks `why`; no UN/RE beat | `SpotPlay`, `v2-engine.tsx:816-851` |
@@ -271,11 +272,23 @@ flag ("Found 1 of 2", "That one's okay. Keep looking.").
 `MatchPlay`, `SortPlay`, `SpotPlay` and `ExploreLabelPlay`, and the capstone's `MatchLap`, `SortLap`, gallery,
 spot, branch, role-play and reflect steps, render their options as `AnswerCard`
 (`src/components/games/answer-cells.tsx`) with a `state` prop instead of inline `boxShadow` rings, `ring-*`
-classes or `animate-pulse`. Match badges come from `pairBadge(left)`: the connect order gives the number and
-the cord colour (`MATCH_TINTS`), replacing the old ①②③ text prefix that re-wrapped cells. Sort renders every item
-in its original slot: an unplaced item is an armable chip, a placed one a disabled `done` card tinted and badged
-with its zone's `binStyles()` colour and emoji, so neither the chip area nor the zones change size as items land.
-Match and sort cells also dropped their now-unused `reduceMotion` props.
+classes or `animate-pulse`. A match badge's number and colour come from the connection order (`MATCH_TINTS`),
+replacing the old ①②③ text prefix that re-wrapped cells. Sort renders every item in its original slot: an
+unplaced item is an armable chip, a placed one a disabled `done` card tinted and badged with its zone's
+`binStyles()` colour and emoji, so neither the chip area nor the zones change size as items land. Match and sort
+cells also dropped their now-unused `reduceMotion` props.
+
+**Match and sort challenge ([SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62)).**
+Playtesters solved match boards at a glance: `MatchPlay` zipped two independent shuffles row by row, so 63% of
+five-pair boards put at least one correct pair straight across, and `MatchLap` never shuffled its left column.
+Both engines now render the shared `MatchBoard` (`src/components/games/match-board.tsx`), whose rows come from
+`matchBoard(n)` in `v2-schema.ts`: the left column is shuffled and the right column follows `derange(n)`, a random
+permutation with no item on its own row and, from four pairs up, at most one in a neighbouring row (two and three
+pairs cannot avoid neighbours). `scripts/tests/match-board.test.mjs` checks this over 10,000 draws per size and
+that five-pair layouts are drawn evenly (`node --test scripts/tests/match-board.test.mjs`). Cells are identified by
+their pair index, and a connection is correct when some unused pair has exactly those two labels, so repeated
+labels can never strand a board (SWED-56). Sort shuffles its zones in both engines, and `SortLap` now shuffles
+its items too.
 
 **Verification harness.** Headless Chrome scripts drove every mechanic and every capstone lap type at 360, 390
 and 412px, in both themes and with reduced motion, and checked that each beat starts gated with focus on the
@@ -382,8 +395,11 @@ treated all five as one fail-closed pass over the same risk.
 
 Checked against the current code, one by one.
 
-**SWED-56: match soft-locks tap/keyboard input when two pairs share a right-hand label.** Confirmed as a real
-mechanism in the engine. `MatchPlay` keys both its right-column element refs and its "is this pair done" check
+**SWED-56: match soft-locks tap/keyboard input when two pairs share a right-hand label. Fixed by SWED-68
+(2026-09-15):** `MatchBoard` keys cells by pair index and accepts any unused pair with matching labels. The one
+shipped case, capstone 3's `c3-p8` ("Helps everyone" twice), was confirmed live in a headless playthrough, completes
+with the fix, and was also rewritten with three distinct answers. The history below is kept for context.
+Confirmed as a real mechanism in the engine. `MatchPlay` keys both its right-column element refs and its "is this pair done" check
 by the right-hand **string value**, not by a unique pair id: `rightEls` is `useRef<Record<string,
 HTMLElement | null>>({})` (`v2-engine.tsx:608`), and `rightDone(r)` is
 `sc.pairs.some((p) => p.right === r && matched.includes(p.left))` (`v2-engine.tsx:647`). If two pairs in one
@@ -427,7 +443,9 @@ ring. Nothing currently ships that this ticket would replace or conflict with.
 [Capstones and how they differ](#capstones-and-how-they-differ) for the specifics. Nine `v2-engine.tsx` renderers
 have an independent reimplementation in `capstone-rich.tsx` (eight as lap types, plus `reflect` as a separate
 step); only small helpers and UI atoms are actually shared via import. SWED-56's soft-lock, present verbatim in
-both copies, is a concrete cost of the duplication: the same fix will need to land twice.
+both copies, was a concrete cost of the duplication. Since 2026-09-15 match is one shared component
+(`MatchBoard`, SWED-68), and both engines render answer cards and Lensy's question card from shared modules
+(`answer-cells.tsx`, `lensy-question.tsx`); the other verbs are still duplicated.
 
 ## Relationship to Owhile
 
