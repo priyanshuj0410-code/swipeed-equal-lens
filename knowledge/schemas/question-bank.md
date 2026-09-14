@@ -7,6 +7,7 @@ tags: [swipeed, question-bank, schema, content, forge]
 timestamp: 2026-09-14T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # SwipeEd question bank
@@ -74,7 +75,7 @@ Capstones (`src/content/games/capstone-1.ts` ... `capstone-8.ts`) are **not** pa
 
 ### Base fields, every scenario (`v2-schema.ts:15`)
 
-`type Base = { id: string; cat: string; persona: string; source: string; relearn: string; hook: string }`. All six, plus `type`, are required on every scenario regardless of mechanic (`common.py:265`, `REQUIRED_BASE`); a scenario missing any of them would compile clean but is caught by the gate rather than left to fail at `tsc` (common.py:263-264).
+`type Base = { id: string; cat: string; persona: string; source: string; relearn: string; hook: string }`. All six, plus `type`, are required on every scenario regardless of mechanic (`common.py:270`, `REQUIRED_BASE`); a scenario missing any of them would compile clean but is caught by the gate rather than left to fail at `tsc` (common.py:268-269).
 
 ### Per-mechanic field tables
 
@@ -85,7 +86,7 @@ Each row cites `v2-schema.ts` for the type, `common.py` for the required-payload
 | Field | Type | Constraint |
 |---|---|---|
 | `prompt` | `string` | required |
-| `options` | `string[]` | required, non-empty (common.py:356-357); never carries `best`/`key`/`trick`/`answer` |
+| `options` | `string[]` | required, non-empty (common.py:361-362); never carries `best`/`key`/`trick`/`answer` |
 | `affirm` | `string` | required; spoken on any tap |
 
 Example (`feelings-friends.ts`, ff-004): `prompt: "Point to your feeling."`, `options: ["Happy","Calm","A little wobbly","Excited"]`, `affirm: "Thank you for noticing your feeling. That's a real skill."`.
@@ -103,7 +104,7 @@ Example (`feelings-friends.ts`, ff-002): `yourLine: [{"text":"\"I feel ___.\"","
 
 | Field | Type | Constraint |
 |---|---|---|
-| `myth` | `{un: string; re: string; why: string}` | all three required (common.py:292-293); `un` is the deliberate myth text and is excluded from the fact-claim sniffer, `re`/`why` must be true (`must_be_true_texts`, common.py:141-143) |
+| `myth` | `{un: string; re: string; why: string}` | all three required (common.py:297-298); `un` is the deliberate myth text and is excluded from the fact-claim sniffer, `re`/`why` must be true (`must_be_true_texts`, common.py:146-148) |
 
 Example (`be-the-safe-adult.ts` source, sa-900): `myth: {"un":"If something was really wrong, my child would just blurt it out at dinner.","re":"Children often hold the hardest things back the longest...","why":"Telling follows safety, not the other way round."}`.
 
@@ -111,7 +112,7 @@ Example (`be-the-safe-adult.ts` source, sa-900): `myth: {"un":"If something was 
 
 | Field | Type | Constraint |
 |---|---|---|
-| `options` | `{text, consequence, outcome?, best?}[]` | required; **exactly one** `best: true` (common.py:346-348); every non-`best` option must carry a `consequence` (common.py:349-351) |
+| `options` | `{text, consequence, outcome?, best?}[]` | required; **exactly one** `best: true` (common.py:351-353); every non-`best` option must carry a `consequence` (common.py:354-356) |
 | `debrief` | `string` | required |
 
 Example (`feelings-friends.ts`, ff-016): the `best` option is "Say 'I'm angry!' and take big breaths"; the non-best option "Hit the other kid" carries its own consequence.
@@ -120,9 +121,9 @@ Example (`feelings-friends.ts`, ff-016): the `best` option is "Say 'I'm angry!' 
 
 | Field | Type | Constraint |
 |---|---|---|
-| `items` | `{id, text}[]` | required; **exactly 6** for new content (`SORT_ITEMS`, common.py:305-306); unique item ids |
-| `bins` | `{id, label, valence?}[]` | required; every bin must be used by at least one `key` entry (common.py:316-318); every bin must declare an explicit `valence` for new content (common.py:319-320) |
-| `key` | `Record<string,string>` | required; maps every item id to a real bin id (common.py:310-314) |
+| `items` | `{id, text}[]` | required; **exactly 6** for new content (`SORT_ITEMS`, common.py:310-311); unique item ids |
+| `bins` | `{id, label, valence?}[]` | required; every bin must be used by at least one `key` entry (common.py:321-323); every bin must declare an explicit `valence` for new content (common.py:324-325) |
+| `key` | `Record<string,string>` | required; maps every item id to a real bin id (common.py:315-319) |
 
 `valence` is one of `pos` (good/true/safe), `neg` (bad/false/unsafe), `tell` (speak up), `uhoh` (be careful), `neutral` (non-valenced category) - so the engine colours a bin from data, never a label-regex guess (v2-schema.ts:26-29). Example (`be-the-safe-adult.ts`, sa-1394): a 6-item sort into `believe` (pos) / `calm` (tell) / `act` (uhoh) bins.
 
@@ -130,16 +131,16 @@ Example (`feelings-friends.ts`, ff-016): the `best` option is "Say 'I'm angry!' 
 
 | Field | Type | Constraint |
 |---|---|---|
-| `pairs` | `{left, right}[]` | required; **exactly 5** for new content (`MATCH_PAIRS`, common.py:336-337); distinct lefts, distinct rights, and no left text may equal a right text (common.py:338-343) |
+| `pairs` | `{left, right}[]` | required; **exactly 5** for new content (`MATCH_PAIRS`, common.py:341-342); distinct lefts, distinct rights, and no left text may equal a right text (common.py:343-348) |
 
 **build** - assemble a team (order-free) or a plan (sequence) (v2-schema.ts:34-35)
 
 | Field | Type | Constraint |
 |---|---|---|
 | `prompt` | `string` | required |
-| `pieces` | `string[]` | required; no duplicate pieces (common.py:379-380) |
+| `pieces` | `string[]` | required; no duplicate pieces (common.py:384-385) |
 | `mode` | `"assemble" \| "sequence"` | required |
-| `key` | `string[]` | required; must be a subset of `pieces` (common.py:377-378) |
+| `key` | `string[]` | required; must be a subset of `pieces` (common.py:382-383) |
 
 No target count; `build` is not one of the three upgraded-shape mechanics.
 
@@ -149,7 +150,7 @@ No target count; `build` is not one of the three upgraded-shape mechanics.
 |---|---|---|
 | `parts` | `string[]` | required |
 | `find` | `string` | required, the clue |
-| `answer` | `string` | required; must be one of `parts` (common.py:382-383) |
+| `answer` | `string` | required; must be one of `parts` (common.py:387-388) |
 | `reveal` | `string` | required, the fun fact shown on a correct tap |
 
 A wrong tap warmly re-asks; no fail state. This is the signature verb of exactly one game, `body-lab.ts` (node g06) - no other bank in the fleet uses it.
@@ -158,19 +159,19 @@ A wrong tap warmly re-asks; no fail state. This is the signature verb of exactly
 
 | Field | Type | Constraint |
 |---|---|---|
-| `scene` | `{id, text, trick: boolean}[]` | required; **exactly 5** items for new content (`SPOT_SCENE`, common.py:324-325); **exactly 2** with `trick: true` (`SPOT_TRICKS`, common.py:326-327, "3 truths + 2 lies"); unique scene ids |
+| `scene` | `{id, text, trick: boolean}[]` | required; **exactly 5** items for new content (`SPOT_SCENE`, common.py:329-330); **exactly 2** with `trick: true` (`SPOT_TRICKS`, common.py:331-332, "3 truths + 2 lies"); unique scene ids |
 | `why` | `string` | required, explains the catch on resolve |
 
-**Polarity is the number-one spot bug** (gen_workflow.js:20-25): `trick: true` must be the unsafe/wrong/manipulative item, never the good one, because the engine only registers taps on `trick: true` items - inverting it silently teaches the wrong reflex (no fail state to catch it). Disallowed in Chapters 1-2 unless that game's GDD lists it in `leadMechanics` (`BAND_DISALLOW`, common.py:68).
+**Polarity is the number-one spot bug** (gen_workflow.js:20-25): `trick: true` must be the unsafe/wrong/manipulative item, never the good one, because the engine only registers taps on `trick: true` items - inverting it silently teaches the wrong reflex (no fail state to catch it). Disallowed in Chapters 1-2 unless that game's GDD lists it in `leadMechanics` (`BAND_DISALLOW`, common.py:73).
 
 **swipe** - read the cue, swipe the right way (v2-schema.ts:42-50)
 
 | Field | Type | Constraint |
 |---|---|---|
 | `cue` | `string` | required |
-| `left`, `right` | `string` | required; must differ (common.py:361-362) |
-| `answer` | `"left" \| "right"` | required (common.py:359-360) |
-| `leftValence?`, `rightValence?` | `BinValence` | required for new content (common.py:368-369); each must be a real `BinValence`; if both sides declare the same non-neutral valence the gate rejects it (they would render identically, common.py:372-374) |
+| `left`, `right` | `string` | required; must differ (common.py:366-367) |
+| `answer` | `"left" \| "right"` | required (common.py:364-365) |
+| `leftValence?`, `rightValence?` | `BinValence` | required for new content (common.py:373-374); each must be a real `BinValence`; if both sides declare the same non-neutral valence the gate rejects it (they would render identically, common.py:377-379) |
 
 Undeclared valence used to be inferred from the label text by regex and got it wrong on 16 shipped scenarios (`"Not consent"` matches `/consent/`, `"Unsafe step"` matches `/safe/`), painting the negative side green (v2-schema.ts:46-49). Disallowed in Chapters 1-2 unless `leadMechanics` lists it. The signature verb of the teen flagship, `glrl.ts` (node g24, Green Light / Red Light); live in exactly two banks fleet-wide (`glrl`, `reality-check`).
 
@@ -201,12 +202,12 @@ Every lap carries `id`, `from` (the source node id, or `"all"` for the gallery),
 | Variety floor | >= 8 per category for every mechanic the game actually uses | `forge_plan.py:16` (`VARIETY_FLOOR`), `bank_spec.py:108` |
 | Max single-mechanic share | 35% of a game's bank | `forge_check.py:21` (`MAX_MECH_SHARE`) |
 | Max "easy verb" share | 42% for `reflect` + `role-play` combined | `forge_check.py:22-23` (`EASY_VERBS`, `MAX_EASY_SHARE`) |
-| Band-disallowed mechanics | Chapters 1-2 (ages 3-9): no `spot`, no `swipe`, unless the game's own GDD lists it in `leadMechanics` | `common.py:66-68` (`BAND_DISALLOW`) |
+| Band-disallowed mechanics | Chapters 1-2 (ages 3-9): no `spot`, no `swipe`, unless the game's own GDD lists it in `leadMechanics` | `common.py:71-73` (`BAND_DISALLOW`) |
 | Band prose ceiling (per scenario) | Ch.1-2: 360 - Ch.3-4: 400 - Ch.5-6: 460 - Ch.7-8: 500 chars, summed across all narrated fields | `common.py:21`, `check_msg_len.py:25` (`BAND_CEIL`) |
 | Per-field cap | 160 real code points (emoji/curly quotes count as one) per player-visible bubble/pill/card | `common.py:20`, `check_msg_len.py:23` (`FIELD_MAX`) |
 | Prose near-dup threshold | 0.82 Jaccard over normalized 3-shingles | `forge_dedup.py:23` (`PROSE_JACCARD`) |
 
-Categories themselves are per-game (6 for `be-the-safe-adult`, 5 for `glrl`, 6 for `body-lab`; see Fleet numbers) and come from that game's Scenario Library JSON `categories` map - they are not standardized fleet-wide. The chapter band (1-8) is what drives ceilings and the mechanic allowlist, read off `path.ts` by `chapter_of()` (common.py:225-230), which resolves the file's **runtime** `gameId` rather than trusting the filename stem (the one game where they differ is `feelings-friends.ts`, whose `gameId` is `"feelings"`).
+Categories themselves are per-game (6 for `be-the-safe-adult`, 5 for `glrl`, 6 for `body-lab`; see Fleet numbers) and come from that game's Scenario Library JSON `categories` map - they are not standardized fleet-wide. The chapter band (1-8) is what drives ceilings and the mechanic allowlist, read off `path.ts` by `chapter_of()` (common.py:230-235), which resolves the file's **runtime** `gameId` rather than trusting the filename stem (the one game where they differ is `feelings-friends.ts`, whose `gameId` is `"feelings"`).
 
 ## Safety and quality gates
 
@@ -223,7 +224,7 @@ Categories themselves are per-game (6 for `be-the-safe-adult`, 5 for `glrl`, 6 f
 
 **Net effect:** committing a hand-edit to an existing scenario is only gated on message length, build-status consistency and (for a brand-new game) the read-first attestation. Shape correctness, mechanic-mix caps, duplicate ids and dedup are **not** re-checked at commit time - they run only inside the forge workflow or when a maintainer runs them by hand. [Extending SwipeEd](../games/extending-swipeed.md) flags the same gap.
 
-### The helpline allowlist (`common.py:37-47`)
+### The helpline allowlist (`common.py:37-50`)
 
 Byte-exact name-to-number binding, direct-binding only (a service name immediately followed by a number must be one of that service's own numbers; a bare number in prose is never flagged).
 
@@ -233,11 +234,10 @@ Byte-exact name-to-number binding, direct-binding only (a service name immediate
 | Women | 181, 1091 |
 | Emergency | 112, 100 |
 | Tele-MANAS | 14416, 1-800-891-4416, 18008914416 |
-| KIRAN | 1800-599-0019, 18005990019 |
 | Cyber | 1930 |
 | Legal aid (NALSA) | 15100 |
 
-Also enforced: a US-framing denylist (911, CPS, "grade 3", zip code, "$", and similar, `common.py:52-54`) and a law/statute sniffer (`common.py:56-61`) that force-flags any POCSO/POSH/BNS/PCMA/age-of-consent/statistic claim for web verification regardless of the generator's own tagging. The cross-check below compares this allowlist with current India guidance.
+Also enforced: a retired-helpline block that rejects any mention of KIRAN or its old number, merged into Tele-MANAS ([SWED-62](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb)); a US-framing denylist (911, CPS, "grade 3", zip code, "$", and similar, `common.py:57-59`) and a law/statute sniffer (`common.py:61-66`) that force-flags any POCSO/POSH/BNS/PCMA/age-of-consent/statistic claim for web verification regardless of the generator's own tagging. The cross-check below compares this allowlist with current India guidance.
 
 ### Helpline cross-check, 2026-09-14
 
@@ -245,7 +245,7 @@ The allowlist was last web-verified on 2026-06-24 (`common.py:37`). Compared wit
 
 | Finding | Detail |
 |---|---|
-| **KIRAN may no longer be a separate service** ([SWED-62](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb)) | The reference says KIRAN (1800-599-0019) was merged into Tele-MANAS (14416). `common.py` still allowlists KIRAN as its own service, and shipped content names it 163 times across 7 files: `src/content/games/find-your-feet.ts`, `src/content/games/life-ready.ts`, `src/content/games/looking-after-you.ts`, `src/content/games/mind-belonging.ts`, `src/content/games/raising-gender-diverse-kids.ts`, `src/content/games/spectrum.ts`, `src/content/help.ts`. Verify, and if the merger is confirmed, route that content to Tele-MANAS. |
+| **KIRAN retired (resolved)** ([SWED-62](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb)) | KIRAN (1800-599-0019) was merged into Tele-MANAS (14416), announced on 15 Feb 2024. On 2026-09-14 all 163 mentions across 7 files were routed to Tele-MANAS or another real route, KIRAN left the allowlist, and the gate now blocks any mention of it. |
 | **POCSO e-Box has no allowlist entry** ([SWED-64](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4b84c004-94c4-4487-9515-e467b32178ae)) | Shipped content names "POCSO e-Box" (a real NCPCR route) 14 times across 3 files, but `common.py` has no name pattern for it, so a number written next to it is never checked. |
 | **Legal aid routing** | `common.py` binds legal aid to the national NALSA line 15100; the reference routes a young person's legal matter to the local District Legal Services Authority. A routing difference, not a wrong number. |
 | **Women's helpline** | 181 and 1091 are allowlisted but absent from the child-focused reference; likely scope, not an error. |

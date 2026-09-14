@@ -9,6 +9,7 @@ tags: [games, swipeed, ages-12-15, mental-health, resilience, anti-stigma, help-
 timestamp: 2026-06-21T13:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # Bounce
@@ -67,7 +68,7 @@ model; the myth-busting reuses the shared **[UN & RE](swipeed-core-principle.md)
   coping that uses pain, physical discomfort, shock, restriction, or anything that could reinforce
   self-harm (enforced by a curated, no-author-in library).
 - **Crisis routing comes first** - any sign of self-harm, suicidal thoughts or serious distress is met
-  with warmth and an **immediate, clear route to help** - **Tele-MANAS 14416 · KIRAN 1800-599-0019 ·
+  with warmth and an **immediate, clear route to help** - **Tele-MANAS 14416 ·
   Childline 1098 · a trusted adult/counsellor** - never with safety-assessment questions, and without
   false promises about confidentiality.
 - **Never reinforces self-criticism or hopelessness** - models self-compassion; doesn't amplify negative

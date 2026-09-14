@@ -16,6 +16,27 @@ Newest first. Every change that affects a game, the path, the engine or the ques
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
 
+## 2026-09-14 - safety: KIRAN retired, every mention routed to Tele-MANAS ([SWED-62](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb))
+- **Why.** KIRAN (1800-599-0019), the mental-health rehabilitation line of the Department of Empowerment of Persons
+  with Disabilities, was merged into Tele-MANAS (14416). NITI Aayog's Dr V K Paul announced it at the National
+  Workshop on Mental Health on 15 Feb 2024, with KIRAN calls diverted for three months and the line then phased out
+  (reported by BioSpectrum India and Digital Health News). The Equal Lens child-safe-content helpline reference,
+  verified in August 2026, agrees. The department's own helpline page still lists KIRAN, undated, and was treated as
+  stale. SwipeEd still named KIRAN 163 times across 7 files.
+- **Content.** 47 scenarios in 6 games, their `helpLine`, `helpLabel` and `reassure` strings, and the shared Get Help
+  sheet (`src/content/help.ts`). Where KIRAN sat beside Tele-MANAS it was dropped. Where it had a role of its own,
+  the replacement is a real route that fits the audience: the cybercrime helpline 1930 for online harm in Spectrum
+  and Life Ready, emergency 112 for danger in Mind & Belonging and Find Your Feet, and a doctor, a counsellor or a
+  parents' support group in the Chapter 8 games. Two Spectrum scenarios that promised a helpline or counsellor
+  "stays private" were rewritten without that promise, because confidentiality has limits when someone is being hurt.
+- **Gate.** `scripts/forge/common.py` drops KIRAN from the allowlist and adds `RETIRED_HELPLINES`: naming KIRAN or its
+  old number is now an error in every scenario and config string (case-sensitive, so a character named Kiran is
+  fine), with fixtures in `test_gates.py`.
+- **Checks.** `test_gates.py`, `check_msg_len.py`, `forge_check.py` and `forge_dedup.py --verify` pass for all six
+  games, `swipeed_status.py --check` is consistent, and `npm run build` succeeds.
+- **Docs.** The helpline table and cross-check in the [question bank](../schemas/question-bank.md), and the KIRAN
+  mentions in 15 game and overview docs. Older log entries still name KIRAN; they are history.
+
 ## 2026-09-14 - docs: SwipeEd gets its own knowledge base (SWED-61)
 - **Why.** SwipeEd's docs lived only in owhile-engine, which a chat working in The Equal Lens's repos may not
   edit, so the rule that docs ship with code could not be followed. The repo also had no `plane.config.md` or

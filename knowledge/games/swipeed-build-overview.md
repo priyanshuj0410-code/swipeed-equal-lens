@@ -10,6 +10,7 @@ updated: 2026-06-29
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/96b2d905-cb66-4883-a846-9a897f7d8a03  # SWED-39
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # SwipeEd - what we built & why
@@ -122,10 +123,10 @@ skipped 16 malformed lines. Self-report is not verification.
 
 ### The safety boundary, in code (`common.py`)
 - **Verified India helpline allowlist** (name↔number), founder-signed-off: Childline 1098, Women
-  181/1091, Emergency 112, Tele-MANAS 14416, KIRAN 1800-599-0019, Cyber 1930, NALSA 15100; laws pinned
+  181/1091, Emergency 112, Tele-MANAS 14416, Cyber 1930, NALSA 15100; laws pinned
   (age of consent 18, POCSO, POSH, DV Act, PCMA, PCPNDT, RPwD, BNS). **Direct number-binding only**, so
-  a wrong or invented number is blocked. (A 2026-09-14 cross-check flagged KIRAN as possibly merged into
-  Tele-MANAS; see the [question bank](../schemas/question-bank.md#helpline-cross-check-2026-09-14).)
+  a wrong or invented number is blocked. (KIRAN 1800-599-0019 was on the original list; it was retired on 2026-09-14 as merged into
+  Tele-MANAS, [SWED-62](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb).)
 - **Age-band mechanic allowlist** - ages 3-6/6-9 get **no spot/swipe** (no "spot the predator" for
   toddlers).
 - **Required-field validation** - full Base + per-type fields, mirroring the TS Scenario union, so a

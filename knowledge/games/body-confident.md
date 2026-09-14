@@ -9,6 +9,7 @@ tags: [games, swipeed, body-image, puberty, media-literacy, ages-12-15]
 timestamp: 2026-06-20T18:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # Body Confident
@@ -59,7 +60,7 @@ calorie tracking** anywhere - with clear signposting to help for body-image or e
 4. **Self-Care Quests** - healthy, kind self-care that is **never about looks** (sleep, movement for joy
    not punishment, eating to fuel not shrink, rest, hygiene).
 5. **Ask Anything + Get Help** - a private, anonymous Q&A; **body-image/eating distress is signposted** to
-   a trusted adult/counsellor, **KIRAN 1800-599-0019**, or **Childline 1098** (no methods ever described).
+   a trusted adult/counsellor, **Tele-MANAS 14416**, or **Childline 1098** (no methods ever described).
 
 A 5-badge **Badge Book** finishes into the shared [`GameDone`](swipeed.md) card. Lensy returns with an older,
 teen look. Reuses the shared **`UnReBeat`** + the voice model.
@@ -69,10 +70,10 @@ teen look. Reuses the shared **`UnReBeat`** + the voice model.
 audio contract (#10), the UN & RE move ([core principle](swipeed-core-principle.md)),
 **empower-never-frighten (#16)** (body-neutral, never triggering, **no weight/calorie tracking**;
 distress signposted, not diagnosed), the **Ask-It / safe-helper box (#18)** matured into a central private
-Q&A, and **India framing (#14)** (anti-colourism; KIRAN / Tele-MANAS / Childline routes).
+Q&A, and **India framing (#14)** (anti-colourism; Tele-MANAS / Childline routes).
 
 ## Status & roadmap
 - **Built:** Fact or Filter (judge + UN & RE), My Body My Pace, The Comparison Trap, Self-Care Quests, Ask
-  Anything + Get Help (with the KIRAN/Childline route); the Badge Book; English narration.
+  Anything + Get Help (with the Tele-MANAS/Childline route); the Badge Book; English narration.
 - **Deferred (GDD Phase 2/3):** the working private on-device tracker, a fuller Fact-or-Filter image bank,
   crown levels, Classroom-Mode polish, reduced-stimulation calm mode, and **Hindi**.

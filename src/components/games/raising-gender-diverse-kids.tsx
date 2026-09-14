@@ -10,7 +10,7 @@
 // different things; busts phase/choice/illness myths), if they come out (first reaction matters; gratitude &
 // unconditional love; NEVER out the child), protect and affirm (safe harbour; name & pronouns; no pressure to
 // label/mask), your own journey (meet your fears with a supportive ADULT, not your child), support & India (NEVER
-// conversion 'cures'; KIRAN 1800-599-0019, Tele-MANAS 14416; NALSA & decriminalisation). Affirming, evidence-based,
+// conversion 'cures'; Tele-MANAS 14416; NALSA & decriminalisation). Affirming, evidence-based,
 // compassionate; child's safety & dignity non-negotiable; records no identity. Builds on g32 & g07. gameId
 // "raising-gender-diverse-kids".
 import { V2Game } from "@/components/games/v2-engine";

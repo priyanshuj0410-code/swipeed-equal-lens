@@ -8,7 +8,7 @@
 // Life Ready): know yourself, decide like an adult, handle the big stuff, people skills, build a support network.
 // Healthy strategies only; pressure-free decisions; help-seeking is a lifelong strength; NOT therapy. India:
 // board-exam pressure, family/career expectations, transition to college/work; routes distress to Tele-MANAS
-// 14416, KIRAN 1800-599-0019, Manodarpan, a trusted adult/mentor. Builds on g39; draws on g16; precedes g36.
+// 14416, Manodarpan, a trusted adult/mentor. Builds on g39; draws on g16; precedes g36.
 // gameId "life-ready".
 import { V2Game } from "@/components/games/v2-engine";
 import { LIFE_READY } from "@/content/games/life-ready";

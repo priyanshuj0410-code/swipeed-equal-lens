@@ -9,6 +9,7 @@ tags: [games, swipeed, ages-12-15, gender, media-literacy, online-misogyny, mano
 timestamp: 2026-06-21T16:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # The Rabbit Hole
@@ -62,7 +63,7 @@ the manosphere beat the developer hand-off had parked; now built.
 2. **Follow the Money** - the grift: **you're the product.** Gurus monetise insecurity (courses, subs, rage-bait); the one telling you you're "not enough" is selling the cure. *(The bluntest line is **School-Comfort-gated**.)*
 3. **Spot the Hook** *(the UN & RE beat)* - **unlearn** the claims ("you're not a real man unless…", blame women/feminism, "alpha/high-value male" pseudo-science, "us vs them", "this mentor will fix you") and **relearn** the truth - **without ever shaming** a teen for having found them convincing.
 4. **Real Strong** *(the heart)* - **positive masculinity**: strong AND kind, ambitious AND respectful, improve yourself without belittling anyone, real friends/purpose - *real strength lifts people; it never needs anyone else to be small. You're already enough.*
-5. **Have Each Other's Backs** - support a friend with the **call-in** (not call-out) approach (stay connected, be the belonging the funnel offered); for everyone, resist online misogyny; and **help for the loneliness underneath** (a Help-Map [tool moment](life-skills-toolkit.md) + Tele-MANAS 14416 · KIRAN).
+5. **Have Each Other's Backs** - support a friend with the **call-in** (not call-out) approach (stay connected, be the belonging the funnel offered); for everyone, resist online misogyny; and **help for the loneliness underneath** (a Help-Map [tool moment](life-skills-toolkit.md) + Tele-MANAS 14416).
 
 A **5-badge book** (💪 per mode) fills as each mode completes; the fifth finishes the node via `GameDone`
 (`gameId="rabbit-hole"`, 3★ / 30 coins). **Lensy** (teen) hosts; voice via `speak.ts`; the claim-busting
@@ -72,7 +73,7 @@ reuses the shared **[UN & RE](swipeed-core-principle.md)** duo.
 - **Never shames boys** - the funnel and the grift are the targets, never the boy; the unmet needs (belonging, identity, purpose) are met with compassion. **No "boys/men are bad," ever.**
 - **Never platforms the content** - no real influencers, names or actual misogynist material; synthetic/clearly-fictional examples only. Teaches recognition without spreading or amplifying.
 - **Evenhanded; no new us-vs-them** - it dismantles us-vs-them rather than flipping it.
-- **Addresses the root, routes to help** - treats the loneliness/insecurity it exploits with care and signposts real support (Tele-MANAS 14416 · KIRAN 1800-599-0019 · a trusted adult; online harassment → cybercrime 1930 · Childline 1098). Protects those targeted (girls/anyone).
+- **Addresses the root, routes to help** - treats the loneliness/insecurity it exploits with care and signposts real support (Tele-MANAS 14416 · a trusted adult; online harassment → cybercrime 1930 · Childline 1098). Protects those targeted (girls/anyone).
 - **School-Comfort-gated & expert-reviewed** (gender, online-radicalisation and adolescent specialists). The triaged anonymous **Ask-It** is GDD Phase 2 (deferred).
 
 ## Inherited & established patterns

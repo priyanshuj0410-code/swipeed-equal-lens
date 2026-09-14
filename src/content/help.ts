@@ -18,12 +18,6 @@ export const HELP = {
       cta: "Call 14416",
     },
     {
-      name: "KIRAN — 1800-599-0019",
-      detail: "Free, 24/7 mental-health helpline.",
-      href: "tel:18005990019",
-      cta: "Call KIRAN",
-    },
-    {
       name: "Cybercrime helpline — 1930",
       detail: "Report grooming, sextortion or image abuse. You won't be in trouble.",
       href: "tel:1930",
