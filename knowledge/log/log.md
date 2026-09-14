@@ -18,6 +18,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de  # SWED-77
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007  # SWED-71
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d  # SWED-75
 ---
 
 # SwipeEd project log
@@ -25,6 +26,19 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 - content: the Choosing & Building pilot ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4), [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007), [SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62), [SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d))
+- **Why.** Phase 3 of the [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md): the game the
+  playtesters played gets the new mechanics and the content fixes first.
+- **Reflects.** 48 lesson and values reflects are now choose questions (six options, two to four fit, a note each).
+  19 stay reflect: 12 personal picks, 5 safety lines and 2 identity affirmations, the last 7 with real options.
+- **Voice and giveaways.** 75 narrator prefixes, 6 speaker-name prefixes and 51 dashes removed; stacked and clipped
+  questions rewritten; 10 matches and 7 sorts reworded; 2 guesswork matches (cb-1270, cb-1277) rewritten.
+- **Review.** Writer agents drafted from a brief, every line was edited by hand, and independent reviewers solved
+  the questions blind with the new `scripts/forge/blind_review.py`. A second reviewer solved all 69 matches and 70 sorts blind: every sort agreed with its key, and 11 matches did not because their answers were near-synonyms, so those were rewritten. A second blind round on the 11 rewrites and the 8 choose questions edited after review agreed with every key.
+- **Result.** Zero lint findings; the game is the first on `lint_clean.json`. `forge_check.py --game`,
+  `forge_dedup.py --verify`, `npm run gates` and `npm run build` pass; choose and reflect beats were played in
+  headless Chrome in both palettes.
 
 ## 2026-09-15 - forge: the narrator lint also catches persona names ([SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007))
 - **Why.** Choosing & Building had hooks such as "Sneha: relatives push one match hard" that the "Lensy:"/"Sam:"

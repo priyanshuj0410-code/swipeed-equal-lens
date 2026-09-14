@@ -188,6 +188,32 @@ sessions of six strike-only beats (no run of three, myths and truths both shown,
 wrong button press that nudged without moving the card or changing its height, a resolve from the arrow key,
 both palettes at 360px, and no console errors beyond the headless WebGL and vibrate notices.
 
+**Phase 3: the Choosing & Building content pilot is done** ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4), [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007), [SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62)). Its 48 lesson
+reflects are choose questions and its 19 feelings, personal, safety and identity reflects stay reflect with real
+options; narrator and speaker prefixes, dashes and stacked questions are gone; 10 matches and 7 sorts lost their
+giveaways and 2 guesswork matches were rewritten. The game has zero lint findings and is on `lint_clean.json`.
+Details and the kept ids are in the [game doc](../games/choosing-building.md).
+
+How it ran, as the model for the Phase 4 waves:
+
+1. Classify the reflects and write `.forge/<gameId>/convert.json`; re-plan.
+2. Writer agents draft choose batches from a brief with a suggested angle per id, so near-duplicate lessons become
+   different questions; each self-checks with `forge_check.py --batch`.
+3. Edit every line by hand: names that clash with personas or other scenes, answer counts (three was becoming a
+   safe guess), tone giveaways, notes that overclaim, and lines that contradict the game's own lessons.
+4. Blind review with `blind_review.py` ([SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d)): a reviewer who has not seen the keys answers every choose,
+   match and sort, then runs a safety and voice checklist. A second reviewer solved all 69 matches and 70 sorts blind: every sort agreed with its key, and 11 matches did not because their answers were near-synonyms, so those were rewritten. A second blind round on the 11 rewrites and the 8 choose questions edited after review agreed with every key.
+5. Assemble once, run `lints.py`, `forge_check.py --game`, `forge_dedup.py --verify` and the content gate, play it in
+   the browser, and add the game to `lint_clean.json`.
+
+A reviewer asked to write 139 blind answers in one response ran out of output; ask for about ten lines per write.
+
+**Reflect order stays as written.** The plan suggested shuffling kept reflect options, but 19 reflects across the
+bank are ordered scales ("Tiny / Medium / Big / Really big" in Feelings Friends), so the engine does not shuffle
+them. A later wave can add an explicit flag if order bias shows up in the playtest.
+
+**Next:** the same pass on a Chapter 1 game (Feelings Friends), then the playtest with the original testers.
+
 **Before Phase 2:** the forge safety work this plan depends on is filed as [SWED-72](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b) (gates before every
 deploy), [SWED-73](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71) (safe regrowth), [SWED-74](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1de71970-d924-45d7-acb9-3c28e8a33126) (claim verification), [SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d) (independent
 safety review), [SWED-76](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/87cb9b6b-551a-4c34-a209-514be826753b) (validator gaps) and [SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de) (voice gate and mechanic coverage), from the

@@ -1,4 +1,6 @@
 {
   "about": "Games held at zero content lint findings by scripts/content_gate.py (see scripts/forge/lints.py). A cleaned game is added here and never removed.",
-  "games": []
+  "games": [
+    "choosing-building"
+  ]
 }

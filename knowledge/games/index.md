@@ -5,10 +5,11 @@ copied_from: owhile-engine@c182048:knowledge/games/index.md
 title: Games Catalog
 description: The catalog of individual games (learning experiences), grouped by the app they live in and the age band they teach.
 tags: [games, index, catalog]
-timestamp: 2026-06-19T12:00:00Z
+timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
 ---
 
 # Games Catalog
@@ -85,7 +86,7 @@ All live at https://swipeed.vercel.app (play in place over the 3D path). Listed 
 | **Find Your Feet** | 18-22 | Seven v2 mechanics · GDD 52 v2 (career/future anxiety · comparison trap · worth≠CV · JEE/NEET/UPSC · Tele-MANAS) | live | [doc](find-your-feet.md) |
 | **Equal & Confident** | 18-22 | Seven v2 mechanics · GDD 50 v2 (voice/leadership/allyship · everyday bias · bossy double-bind · POSH/181) | live | [doc](equal-confident.md) |
 | **Know Your Rights** | 18-22 | Seven v2 mechanics · GDD 51 v2 (work/POSH IC · tenancy/consumer · cyber/DPDP · redress · NALSA 15100) | live | [doc](know-your-rights.md) |
-| **Choosing & Building** | 22+ | Seven v2 mechanics · GDD 53 v2 (Ch.7 opener · choose on values not sparks · what it takes/repair · eyes-open commitment · love & arranged, consent always · equal day one · 181/1091/112/1098) | live | [doc](choosing-building.md) |
+| **Choosing & Building** | 22+ | Eight v2 mechanics (choose since 2026-09-15) · GDD 53 v2 (Ch.7 opener · choose on values not sparks · what it takes/repair · eyes-open commitment · love & arranged, consent always · equal day one · 181/1091/112/1098) | live | [doc](choosing-building.md) |
 | **Your Path, Your Call** | 22+ | Seven v2 mechanics · GDD 54 v2 (Ch.7 equity heart · counterpoint to g53 · marriage/kids one path not the measure · not-marrying & childfree dignified · bust "still unmarried?" stigma · hold your ground · worth ≠ status/looks · 181/1091/112/1098) | live | [doc](your-path-your-call.md) |
 | **Equal Partners** | 22+ | Seven v2 mechanics · GDD 55 v2 (Ch.7 equal-home heart · second shift & invisible mental load · "helping"→OWNING reframe · share fairly · dual careers · keep it equal · engages men, never shames · coercive control→g56/help) | live | [doc](equal-partners.md) |
 | **Respect at Home** | 22+ | Seven v2 mechanics · GDD 56 v2 (Ch.7's highest-safeguarding node · marriage ≠ standing consent · spot abuse & coercive control · safety-planning · survivor-centred, never victim-blaming · DV Act 2005 · 181/1091/112) | live | [doc](respect-at-home.md) |

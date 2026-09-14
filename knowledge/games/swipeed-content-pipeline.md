@@ -14,6 +14,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de  # SWED-77
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007  # SWED-71
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d  # SWED-75
 ---
 
 # SwipeEd content-growth pipeline (`forge`)
@@ -47,8 +48,9 @@ check → semantic reviewer, ≤1 bounce then drop) → ASSEMBLE + whole-bank DE
   parse-or-die, dedup normalization, per-mechanic structural validators.
 - `bank_spec.py` - coverage/gap report (the generator's input).
 - `forge_plan.py` - band-aware per-(category × mechanic) quota + legacy-reshape worklist + per-category id blocks
-  above the bank's highest id (SWED-73), a `lint` worklist of scenarios with content lint findings, and the
-  `convert` list of reflects chosen to become choose, from `.forge/<gameId>/convert.json` ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4)).
+  above the bank's highest id (SWED-73), a `lint` worklist of scenarios with content lint findings, review
+  worklists from `.forge/<gameId>/reshape.json`, and the `convert` list of reflects chosen to become choose, from
+  `.forge/<gameId>/convert.json` ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4)).
 - `forge_check.py` - the deterministic validator, used as **both** the per-batch lint and the blocking merge
   gate. Correctly blocks the un-upgraded bank (legacy 4-item sorts, missing valence, mix/count).
 - `forge_assemble.py` - merge a batch into `<game>.ts`, refusing overwrites of shipped scenarios that are not on the
@@ -56,6 +58,9 @@ check → semantic reviewer, ≤1 bounce then drop) → ASSEMBLE + whole-bank DE
   unless it is a listed reflect becoming a choose.
 - `lints.py` - content lints from the playtest plan ([SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de)): dashes, narrator prefixes (including the persona's own name, [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007)), stacked or
   clipped questions, match and sort giveaways, truths that need their myth. Blocking for new batches and for games on `lint_clean.json`.
+- `blind_review.py` - blind answer-key review ([SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d)): writes every choose, match and sort without its answers
+  for an independent reviewer, then diffs their answers with the keys. A disagreement means a second answer is
+  defensible, so the scenario is rewritten. First used on the Choosing & Building pilot.
 - `forge_dedup.py` - whole-bank structural + prose dedup, band-aware, helpline-masked. **Intra-band blocks,
   cross-band logs.** Surfaced 10 pre-existing intra-chapter twins (cross-game reflects) worth cleaning. (On 2026-09-14 the real `forge_dedup.py` reported none across all 69 games; an independent re-check flagged 2 candidate pairs for a human look; see the [question bank](../schemas/question-bank.md#known-issues).)
 
