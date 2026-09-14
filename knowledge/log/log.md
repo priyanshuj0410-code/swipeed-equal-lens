@@ -16,6 +16,24 @@ Newest first. Every change that affects a game, the path, the engine or the ques
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
 
+## 2026-09-14 - audit: the question bank and the forge pipeline ([SWED-65](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b))
+- **What.** A read-only pass over all 33,542 lesson scenarios, 70 capstone laps, every help string and the Get Help
+  sheet, plus the generator and every gate. Findings: [question bank audit](../audits/question-bank-audit-2026-09-14.md)
+  and [forge pipeline review](../audits/forge-pipeline-review-2026-09-14.md).
+- **Healthy.** Every answer key passed deterministic checks, no match can trigger SWED-56, categories and mechanic
+  caps are clean, reading level falls with age, disclosure responses and self-harm messaging are right, 40 legal and
+  factual claims were checked, and `forge_check.py` passes all 69 games.
+- **Content problems.** Two parent-facing scenarios present transgender self-identification as current law, which a
+  2026 amendment removed; `my-choices` tells 15-18-year-olds that mandatory reporting is a myth, and two games
+  promise confidential sexual-health care without its POCSO limit; `plan-it` models "just between us" as the right
+  thing to say to a trusted adult; the Get Help sheet calls Childline confidential with no exception; a few
+  statistics need attribution; 2,999 dashes in player text.
+- **Pipeline problems.** No gate runs by default or before deploy; claims were never verified and evidence is
+  discarded; a regrowth run could silently overwrite shipped scenarios; the review agent is not independent; the
+  commit-time checks miss scenario helplines, most field lengths and empty banks; `DESIGN.md` promises steps that
+  were never built.
+- **Next.** Follow-up tickets are proposed at the end of both audits, waiting for the owner.
+
 ## 2026-09-14 - safety: KIRAN retired, every mention routed to Tele-MANAS ([SWED-62](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb))
 - **Why.** KIRAN (1800-599-0019), the mental-health rehabilitation line of the Department of Empowerment of Persons
   with Disabilities, was merged into Tele-MANAS (14416). NITI Aayog's Dr V K Paul announced it at the National

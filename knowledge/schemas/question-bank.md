@@ -8,6 +8,7 @@ timestamp: 2026-09-14T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b  # SWED-65
 ---
 
 # SwipeEd question bank
@@ -475,4 +476,5 @@ git commit -m "[SWED-n] ..."   # pre-commit re-runs status + read-first-gate + m
 - [Reusable game patterns](../games/swipeed-game-patterns.md) - the engine and content patterns this schema assumes.
 - [Games catalog](../games/index.md) - all 69 games and 8 capstones by chapter.
 - [v2 engine](../architecture/v2-engine.md) · [design system](../design.md) · [knowledge base index](../README.md)
+- [Question bank audit, 2026-09-14](../audits/question-bank-audit-2026-09-14.md) and [forge pipeline review, 2026-09-14](../audits/forge-pipeline-review-2026-09-14.md).
 - Spot-checked against this doc: [Be the Safe Adult](../games/be-the-safe-adult.md), [Green Light / Red Light](../games/green-light-red-light.md), [Body Lab Juniors](../games/body-lab-juniors.md).
