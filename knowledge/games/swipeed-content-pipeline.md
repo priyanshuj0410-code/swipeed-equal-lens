@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71  # SWED-73
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de  # SWED-77
 ---
 
 # SwipeEd content-growth pipeline (`forge`)
@@ -49,6 +50,8 @@ check → semantic reviewer, ≤1 bounce then drop) → ASSEMBLE + whole-bank DE
   gate. Correctly blocks the un-upgraded bank (legacy 4-item sorts, missing valence, mix/count).
 - `forge_assemble.py` - merge a batch into `<game>.ts`, refusing overwrites of shipped scenarios that are not on the
   reshape worklist, and writing atomically after a parse and count round-trip (SWED-73).
+- `lints.py` - content lints from the playtest plan ([SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de)): dashes, narrator prefixes, stacked or clipped questions,
+  match and sort giveaways, truths that need their myth. Blocking for new batches and for games on `lint_clean.json`.
 - `forge_dedup.py` - whole-bank structural + prose dedup, band-aware, helpline-masked. **Intra-band blocks,
   cross-band logs.** Surfaced 10 pre-existing intra-chapter twins (cross-game reflects) worth cleaning. (On 2026-09-14 the real `forge_dedup.py` reported none across all 69 games; an independent re-check flagged 2 candidate pairs for a human look; see the [question bank](../schemas/question-bank.md#known-issues).)
 

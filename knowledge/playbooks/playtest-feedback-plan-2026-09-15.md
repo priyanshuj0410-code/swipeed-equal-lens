@@ -171,6 +171,13 @@ rules, generator shape and reviewer key, and fixtures. It was checked in headles
 (checkbox semantics, stable card heights while choosing, first-miss feedback, the reveal, a clean first-time run,
 both themes). Its first real content comes with the Choosing & Building pilot.
 
+The content lints landed under [SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de) (`scripts/forge/lints.py`). They block new forge batches, and any game on
+`lint_clean.json` once it is cleaned. The generator prompt now carries the voice rules, forbids narrator prefixes and
+describes the swipe and explore-label shapes. On 2026-09-15, Choosing & Building had 255 findings: 75 narrator
+prefixes, 54 stacked questions, 51 clipped tags, 51 dashes, 13 match giveaways, 9 sort giveaways and 2 truths that
+need their myth. Feelings Friends had 168: 76 narrator prefixes, 28 stacked questions, 21 sort giveaways, 20 clipped
+tags, 16 match giveaways, 5 dashes and 2 truths that need their myth.
+
 **Before Phase 2:** the forge safety work this plan depends on is filed as [SWED-72](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b) (gates before every
 deploy), [SWED-73](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71) (safe regrowth), [SWED-74](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1de71970-d924-45d7-acb9-3c28e8a33126) (claim verification), [SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d) (independent
 safety review), [SWED-76](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/87cb9b6b-551a-4c34-a209-514be826753b) (validator gaps) and [SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de) (voice gate and mechanic coverage), from the
