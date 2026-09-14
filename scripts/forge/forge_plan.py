@@ -8,7 +8,9 @@ the existing-id/fingerprint set so generation avoids collisions.
 
 Two more worklists feed a cleanup pass on a shipped game: reshape_legacy["lint"] lists scenarios with blocking content
 lints (a same-type rewrite may fix them), and convert["reflect:choose"] lists the reflects a classification step chose
-to become choose (SWED-69), read from .forge/<gameId>/convert.json ({"reflect:choose": [ids]}) when it exists.
+to become choose (SWED-69), read from .forge/<gameId>/convert.json ({"reflect:choose": [ids]}) when it exists. A
+review step can list more same-type rewrites in .forge/<gameId>/reshape.json ({"<reason>": [ids]}), for example the
+matches a blind review found ambiguous; they join reshape_legacy under their reason.
 
 Usage: python3 scripts/forge/forge_plan.py <gameId> [--write]
 """
@@ -98,6 +100,14 @@ def plan(game_id, lib_idx, g2ch):
             reshape["match"].append(o["id"])
 
     reshape["lint"] = [o["id"] for o in scns if L.content_lints(o)]
+    rf = os.path.join(C.REPO, ".forge", game_id, "reshape.json")
+    if os.path.exists(rf):
+        shipped = {o["id"] for o in scns}
+        for reason, ids in json.load(open(rf, encoding="utf8")).items():
+            unknown = [i for i in ids if i not in shipped]
+            if reason in reshape or unknown:
+                raise SystemExit(f"{rf}: reason {reason!r} clashes with a built-in worklist, or ids are not shipped {unknown[:5]}")
+            reshape[reason] = list(ids)
     convert = {}
     cf = os.path.join(C.REPO, ".forge", game_id, "convert.json")
     if os.path.exists(cf):
@@ -149,7 +159,8 @@ def main():
           f"(generate {p['to_generate']}) | ceil {p['band_ceiling']} | allowed {p['allowed_mechanics']} "
           f"| disallow-for-band {p['disallowed_for_band']}")
     print(f"  reshape: sort {len(p['reshape_legacy']['sort'])} | spot {len(p['reshape_legacy']['spot'])} | match {len(p['reshape_legacy']['match'])}"
-          f" | lint {len(p['reshape_legacy']['lint'])} | convert {({k: len(v) for k, v in p['convert'].items()})}")
+          f" | lint {len(p['reshape_legacy']['lint'])} | convert {({k: len(v) for k, v in p['convert'].items()})}"
+          f" | other {({k: len(v) for k, v in p['reshape_legacy'].items() if k not in ('sort', 'spot', 'match', 'lint')})}")
     for c, q in p["categories"].items():
         b = p["id_blocks"][c]
         print(f"    {c:<22} {q['current']:>3} -> {q['target']:<3}   ids {p['id_prefix']}-{b[0]}..{b[1]}   gen {q['generate_by_type']}")

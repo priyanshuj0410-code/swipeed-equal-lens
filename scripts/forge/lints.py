@@ -8,7 +8,8 @@ only: every new forge batch (forge_check.py --batch), and every game listed in l
 gate holds at zero findings once a game has been cleaned (a game is added to the list, never removed).
 
   dash            an em or en dash in any visible field (the brand voice uses hyphens, commas and colons)
-  narrator        a "Lensy:" or "Sam:" prefix (the question card is already Lensy speaking)
+  narrator        a "Lensy:" or "Sam:" prefix, or the scenario's own persona name as one ("Aditya: ..."), because the
+                  question card is already Lensy speaking
   two-questions   a reflect or choose hook plus prompt that asks more than one question
   clipped-tag     a hook ending in a short tag question ("Agree?", "Useful shift?") before its prompt
   match-giveaway  a left and its right share a content word, so the pair can be matched by wording alone
@@ -61,10 +62,12 @@ def content_lints(o):
     """Blocking findings for one scenario, as short strings."""
     out = []
     t = o.get("type")
+    persona = (o.get("persona") or "").strip()
+    speaker = re.compile(rf"(^|[.!?…]\s+){re.escape(persona)}\s*:") if persona and persona.lower() != "any" else None
     for label, txt in C.visible_fields(o):
         if DASH.search(txt or ""):
             out.append(f"dash: {label} uses an em or en dash")
-        if NARRATOR.search(txt or ""):
+        if NARRATOR.search(txt or "") or (speaker and speaker.search(txt or "")):
             out.append(f"narrator: {label} starts a line with a narrator prefix")
     if t in ("reflect", "choose"):
         if f"{o.get('hook', '')} {o.get('prompt', '')}".count("?") > 1:
