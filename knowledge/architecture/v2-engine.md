@@ -8,6 +8,7 @@ timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
 ---
 
 # SwipeEd v2 engine
@@ -265,6 +266,16 @@ Those lines and their `wrong`/`nudge` state are gone from `SwipePlay`, `RolePlay
 `ExploreLabelPlay`, `SpotPlay`, `MatchLap`, `SortLap` and `RolePlayLap`; the swipe legend (left label, keys,
 right label) now stays visible after a wrong swipe. `SpotPlay`'s copy no longer assumes every target is a red
 flag ("Found 1 of 2", "That one's okay. Keep looking.").
+
+**Answer cards ([SWED-67](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956)).**
+`MatchPlay`, `SortPlay`, `SpotPlay` and `ExploreLabelPlay`, and the capstone's `MatchLap`, `SortLap`, gallery,
+spot, branch, role-play and reflect steps, render their options as `AnswerCard`
+(`src/components/games/answer-cells.tsx`) with a `state` prop instead of inline `boxShadow` rings, `ring-*`
+classes or `animate-pulse`. Match badges come from `pairBadge(left)`: the connect order gives the number and
+the cord colour (`MATCH_TINTS`), replacing the old ①②③ text prefix that re-wrapped cells. Sort renders every item
+in its original slot: an unplaced item is an armable chip, a placed one a disabled `done` card tinted and badged
+with its zone's `binStyles()` colour and emoji, so neither the chip area nor the zones change size as items land.
+Match and sort cells also dropped their now-unused `reduceMotion` props.
 
 **Verification harness.** Headless Chrome scripts drove every mechanic and every capstone lap type at 360, 390
 and 412px, in both themes and with reduced motion, and checked that each beat starts gated with focus on the

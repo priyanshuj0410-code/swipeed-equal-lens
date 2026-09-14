@@ -9,6 +9,7 @@ timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
 ---
 
 # SwipeEd - The Interaction Model (direct manipulation)
@@ -60,8 +61,8 @@ mechanic composes, turning each interaction into the verb it teaches.
 | Mechanic | Gesture (primary) | Fallback (keyboard / 3-6) | Notes |
 |---|---|---|---|
 | **swipe** | drag the full-width hero cue card L/R (tints + edge badge appear *during* the drag; fly-off; spring back) | **←/→ arrow keys** on the focusable card - **no buttons** | no hook card, no static side columns (breathable); Lensy also speaks the cue |
-| **sort** | drag a chip into its bin (bin highlights, snaps) | tap-to-arm chip → tap bin; "carrying …" banner | |
-| **match** | draw a cord plug→socket; locks + stamps a shared ①②③ token on both ends | tap a left cell → tap a right cell | relabels both columns |
+| **sort** | drag a chip into its bin (bin highlights, snaps) | tap-to-arm chip → tap bin; fixed-height "carrying …" hint | a placed chip stays in its slot with the bin's emoji badge; bins never grow (2026-09-15) |
+| **match** | draw a cord plug→socket; locks and pins a shared numbered corner badge on both cells | tap a left cell → tap a right cell | cells keep their size in every state (2026-09-15) |
 | **build** | drag a piece onto the slate | tap a piece | assemble checks the key; needs ALL key pieces |
 | **strike-rewrite** | scrub the (now visible) myth away → truth resolves | Enter/Space erases in one go | back-and-forth scrub = toddler-easy |
 | **role-play** | tap an equal-weight, **shuffled** speech card (read & choose the assertive line) | same (native buttons) | press-and-hold-to-speak deferred (optional) |
@@ -150,6 +151,10 @@ visual spec in [design.md](../design.md#voice-and-copy), engine detail in the
   Mechanics no longer print their own nudge lines under the answers.
 - **Focus follows the beat.** The question card takes focus when a beat starts, the first answer after a keyboard
   reveal, and Next once the beat is solved.
+- **Options never move under the finger** ([SWED-67](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956)).
+  Answer cards change colour, not size: armed, drag-target and done states recolour the card and keep its hard
+  shadow, match numbers and zone emoji are corner badges, placed sort chips keep their slot, and marks that
+  appear later have their space reserved. See Answer cards in [design.md](../design.md#components).
 
 ## Status
 

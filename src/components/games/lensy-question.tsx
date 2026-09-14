@@ -44,12 +44,14 @@ export function revealDelayMs(text: string): number {
   return Math.min(4000, Math.max(1200, 1200 + words * 60));
 }
 
-export function LensyQuestion({ text, feedback = "", announce = "", focusKey, onTap }: {
+export function LensyQuestion({ text, feedback = "", announce = "", reserve, focusKey, onTap }: {
   text: string;
   /** a nudge or confirmation shown on the fixed line under the card (never replaces the question) */
   feedback?: string;
   /** screen-reader-only text for results shown elsewhere on screen */
   announce?: string;
+  /** lines the beat may show on the feedback line; it keeps the height of the longest, so the answers never move */
+  reserve?: string[];
   /** focus moves to the question whenever this changes (a new beat) */
   focusKey?: string;
   /** tapping the question skips the wait for answers */
@@ -74,9 +76,12 @@ export function LensyQuestion({ text, feedback = "", announce = "", focusKey, on
           </h2>
         </div>
       </div>
-      <p role="status" aria-live="polite" aria-atomic="true" className="flex min-h-10 items-center justify-center px-2 text-center text-sm font-semibold leading-tight text-foreground/80">
-        {feedback}
-        {announce && <span className="sr-only">{announce}</span>}
+      <p role="status" aria-live="polite" aria-atomic="true" className="grid min-h-10 place-items-center px-2 text-center text-sm font-semibold leading-tight text-foreground/80">
+        {reserve?.map((line, i) => <span key={i} className="invisible col-start-1 row-start-1">{line}</span>)}
+        <span className="col-start-1 row-start-1">
+          {feedback}
+          {announce && <span className="sr-only">{announce}</span>}
+        </span>
       </p>
     </div>
   );

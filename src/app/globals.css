@@ -250,6 +250,21 @@
   box-shadow: 4px 4px 0 0 var(--color-ink);
   border-radius: 20px;
 }
+/* Answer card states (match cells, sort chips; components/games/answer-cells.tsx). A state recolours the card and
+   never changes its border width, shadow offset or size, so options stay put while the player works. */
+.glass-card[data-state="selected"] {
+  border-color: var(--color-brand);
+  box-shadow: 4px 4px 0 0 var(--color-brand);
+  background: color-mix(in srgb, var(--color-brand) var(--prx-wash-hover), var(--color-surface));
+}
+.glass-card[data-state="target"] {
+  border-color: var(--color-brand);
+  background: color-mix(in srgb, var(--color-brand) var(--prx-wash), var(--color-surface));
+}
+.glass-card[data-state="done"] {
+  border-color: var(--cell-tint, var(--prx-pos));
+  background: color-mix(in srgb, var(--cell-tint, var(--prx-pos)) var(--prx-wash), var(--color-surface));
+}
 
 /* Branded loading splash — indeterminate bar slide. */
 @keyframes splash-bar {

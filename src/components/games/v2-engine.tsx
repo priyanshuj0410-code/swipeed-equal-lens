@@ -6,6 +6,7 @@ import { greetWithName } from "@/lib/personalize";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { LensyQuestion, RevealGate, cleanLine, joinQuestion, revealDelayMs } from "@/components/games/lensy-question";
+import { AnswerCard, CornerBadge } from "@/components/games/answer-cells";
 import { UnReBeat } from "@/components/games/un-re";
 import { useProfile } from "@/lib/store";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
@@ -51,6 +52,9 @@ export function binStyles(bins: { label: string; valence?: string }[]): { emoji:
   return new Set(s.map((x) => x.tint)).size < bins.length ? bins.map((_, i) => NEUTRAL_BINS[i % NEUTRAL_BINS.length]) : s;
 }
 const vibrate = (ms: number | number[]) => { try { navigator.vibrate?.(ms); } catch { /* unsupported */ } };
+
+// An explore-label `find` is either a noun phrase ("the part that pumps blood") or a full instruction ("Tap the part ...").
+const findLine = (find: string): string => { const f = find.trim(), line = /^[A-Z]/.test(f) ? f : `Find ${f}`; return /[.!?…]$/.test(line) ? line : `${line}.`; };
 
 // ---- anti-repeat rotation memory ----
 // shuffle() is memoryless, so with a shallow bank the same beats resurface session to session. We keep a small
@@ -119,7 +123,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     if (s.type === "reflect") return joinQuestion(s.hook, s.prompt);
     if (s.type === "role-play") return joinQuestion(s.hook, s.setup);
     if (s.type === "build") return joinQuestion(s.hook, s.prompt);
-    if (s.type === "explore-label") return joinQuestion(s.hook, `Find ${s.find}.`);
+    if (s.type === "explore-label") return joinQuestion(s.hook, findLine(s.find));
     return cleanLine(s.hook); // swipe: the card shows the instruction only; the cue lives on the swipe card (no redundancy)
   };
   const resolveLine = (s: Scenario): string =>
@@ -335,7 +339,7 @@ function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; 
     case "strike-rewrite": return <StrikePlay sc={sc} onSolved={onSolved} reduceMotion={reduceMotion} />;
     case "branch": return <BranchPlay sc={sc} onSolved={onSolved} say={say} />;
     case "sort": return <SortPlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
-    case "match": return <MatchPlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
+    case "match": return <MatchPlay sc={sc} onSolved={onSolved} say={say} />;
     case "build": return <BuildPlay sc={sc} onSolved={onSolved} say={say} labels={buildLabels} reduceMotion={reduceMotion} />;
     case "explore-label": return <ExploreLabelPlay sc={sc} onSolved={onSolved} say={say} />;
     case "spot": return <SpotPlay sc={sc} onSolved={onSolved} say={say} />;
@@ -564,29 +568,34 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
 
   // one dropzone: a single dashed border + translucent tint fill (no card double-border); flex-1 so two bins
   // stacked top/bottom each grow big. Tap to drop the armed chip, or release a dragged chip over it.
+  // A zone never grows: placed chips stay in their slot (marked with the zone's emoji) instead of moving in here.
   const renderBin = (b: { id: string; label: string }, bi: number) => {
     const st = styles[bi];
-    const inBin = sc.items.filter((it) => placed[it.id] === b.id);
     const armed = (!!sel && !drag) || hover === b.id;
     return (
       <button key={b.id} type="button" ref={(el) => { binEls.current[b.id] = el; }} onClick={() => { if (sel) place(sel, b.id); }}
-        className={`flex flex-1 flex-col items-center justify-center gap-1.5 rounded-2xl border-2 px-3 py-4 text-center transition-colors ${hover === b.id ? "border-solid" : "border-dashed"}`}
+        className={`relative flex flex-1 flex-col items-center justify-center gap-1.5 rounded-2xl border-2 px-3 py-4 text-center transition-colors ${armed ? "border-solid" : "border-dashed"}`}
         style={{ borderColor: st.tint, background: `color-mix(in srgb, ${st.tint} ${hover === b.id ? "24%" : "9%"}, transparent)` }}>
         <span className="text-3xl" aria-hidden>{st.emoji}</span>
-        <span className="text-sm font-extrabold text-foreground">{b.label}{armed ? " ⤵" : ""}</span>
-        {inBin.length > 0 && <div className="flex flex-wrap justify-center gap-1">{inBin.map((it) => <span key={it.id} className="rounded-full bg-[var(--color-sun)] px-2 py-0.5 text-[11px] font-bold text-slate-900">{it.text} ✓</span>)}</div>}
+        <span className="text-sm font-extrabold text-foreground">{b.label}</span>
+        {armed && <CornerBadge>⤵</CornerBadge>}
       </button>
     );
   };
   const chips = (
     <div className="flex flex-col gap-1.5">
-      {sel && !drag && <p className="text-center text-xs font-semibold text-foreground/70" aria-hidden>Carrying “{itemText(sel)}”: drop it in a zone</p>}
+      <p className="line-clamp-2 min-h-8 text-center text-xs font-semibold leading-4 text-foreground/70" aria-hidden>{sel ? `Carrying “${itemText(sel)}”: drop it in a zone` : "Tap a card, then its zone"}</p>
       <div className="flex flex-wrap justify-center gap-2">
-        {order.filter((it) => !placed[it.id]).map((it) => (
-          <button key={it.id} type="button" data-id={it.id} onClick={() => arm(it.id)} {...pointer.handlers}
-            className={`glass-card touch-none rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 ${sel === it.id && !drag && !reduceMotion ? "animate-pulse" : ""} ${drag?.id === it.id ? "opacity-30" : ""}`}
-            style={sel === it.id && !drag ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>{it.text}</button>
-        ))}
+        {order.map((it) => {
+          const bi = placed[it.id] ? sc.bins.findIndex((b) => b.id === placed[it.id]) : -1;
+          return bi >= 0 ? (
+            <AnswerCard key={it.id} disabled state="done" tint={styles[bi].tint} badge={styles[bi].emoji} aria-label={`${it.text}: ${sc.bins[bi].label}`}
+              className="rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] disabled:opacity-100">{it.text}</AnswerCard>
+          ) : (
+            <AnswerCard key={it.id} data-id={it.id} onClick={() => arm(it.id)} {...pointer.handlers} state={sel === it.id && !drag ? "selected" : "idle"} aria-pressed={sel === it.id}
+              className={`touch-none rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 ${drag?.id === it.id ? "opacity-30" : ""}`}>{it.text}</AnswerCard>
+          );
+        })}
       </div>
     </div>
   );
@@ -614,11 +623,10 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
 // cell locks a persistent cord and stamps a shared number-token on BOTH ends, so the bond is readable without
 // colour AND without the cord). Tap-a-left then tap-a-right is kept as the keyboard / screen-reader / ages-3–6
 // fallback (cells are native buttons). A wrong release retracts + a warm nudge (no fail).
-const MATCH_GLYPHS = ["①", "②", "③", "④", "⑤", "⑥"];
 // Pair identity only — asserts nothing. Shares the neutral wheel (and is exported so capstone-rich
 // imports it instead of keeping a verbatim clone that could silently diverge).
 export const MATCH_TINTS = ["var(--prx-slot-1)", "var(--prx-slot-2)", "var(--prx-slot-3)", "var(--prx-slot-4)", "var(--prx-slot-5)", "var(--prx-slot-6)"];
-function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "match" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
+function MatchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "match" }>; onSolved: () => void; say: (t: string) => void }) {
   const [pairsOrder] = useState(() => shuffle(sc.pairs)); // left-column display order — shuffle so the left list isn't fixed across replays (rights are shuffled independently below)
   const [rights] = useState(() => shuffle(sc.pairs.map((p) => p.right)));
   const [matched, setMatched] = useState<string[]>([]); // left texts in connect order (→ shared glyph index)
@@ -632,7 +640,6 @@ function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
   const dragLeft = useRef<string | null>(null);
 
   const rightOf = (left: string) => sc.pairs.find((p) => p.left === left)?.right;
-  const tokenOf = (left: string) => MATCH_GLYPHS[matched.indexOf(left) % MATCH_GLYPHS.length];
   const anchor = (el: HTMLElement | null, side: "l" | "r") => {
     const w = wrap.current; if (!el || !w) return null;
     const r = el.getBoundingClientRect(), c = w.getBoundingClientRect();
@@ -668,7 +675,11 @@ function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
     onTap: () => { dragLeft.current = null; setLive(null); setHover(null); }, // selLeft armed in onStart → tap a right cell
   });
   const rightDone = (r: string) => sc.pairs.some((p) => p.right === r && matched.includes(p.left));
-  const rightToken = (r: string) => { const left = sc.pairs.find((p) => p.right === r && matched.includes(p.left))?.left; return left ? tokenOf(left) : ""; };
+  // A matched pair shares a numbered corner badge in its cord's colour, readable without the colour or the cord.
+  const pairBadge = (left?: string) => {
+    const n = left ? matched.indexOf(left) : -1;
+    return n < 0 ? {} : { badge: n + 1, badgeTint: MATCH_TINTS[n % MATCH_TINTS.length] };
+  };
 
   return (
     <div className="flex flex-col gap-2.5">
@@ -677,18 +688,19 @@ function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
         <div className="grid grid-cols-2 gap-2.5" style={{ gridAutoRows: "1fr" }}>
           {pairsOrder.map((p, i) => {
             const r = rights[i];
+            const leftDone = matched.includes(p.left);
             return (
               <Fragment key={i}>
-                <button type="button" data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={matched.includes(p.left)} onClick={() => setSelLeft(p.left)} {...pointer.handlers}
-                  className={`glass-card flex touch-none items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !reduceMotion ? "animate-pulse" : ""}`}
-                  style={matched.includes(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--prx-pos)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
-                  {matched.includes(p.left) ? `${tokenOf(p.left)} ${p.left}` : p.left}
-                </button>
-                <button type="button" ref={(el) => { rightEls.current[r] = el; }} disabled={rightDone(r)} onClick={() => { if (selLeft) connect(selLeft, r); }}
-                  className="glass-card flex items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100"
-                  style={rightDone(r) ? { boxShadow: "inset 0 0 0 2.5px var(--prx-pos)" } : hover === r ? { boxShadow: "inset 0 0 0 3.5px var(--color-ink)" } : undefined}>
-                  {rightDone(r) ? `${rightToken(r)} ${r}` : r}
-                </button>
+                <AnswerCard data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={leftDone} onClick={() => setSelLeft(p.left)} {...pointer.handlers}
+                  state={leftDone ? "done" : selLeft === p.left ? "selected" : "idle"} aria-pressed={leftDone ? undefined : selLeft === p.left} {...pairBadge(leftDone ? p.left : undefined)}
+                  className="flex touch-none items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100">
+                  {p.left}
+                </AnswerCard>
+                <AnswerCard ref={(el) => { rightEls.current[r] = el; }} disabled={rightDone(r)} onClick={() => { if (selLeft) connect(selLeft, r); }}
+                  state={rightDone(r) ? "done" : hover === r ? "target" : "idle"} {...pairBadge(sc.pairs.find((q) => q.right === r && matched.includes(q.left))?.left)}
+                  className="flex items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100">
+                  {r}
+                </AnswerCard>
               </Fragment>
             );
           })}
@@ -820,9 +832,10 @@ function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type:
         {cards.map((p, i) => {
           const got = found === p;
           return (
-            <button key={p} type="button" disabled={!!found} onClick={() => choose(p)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] ${got ? "ring-2 ring-[var(--prx-pos)]" : ""}`}>
-              <span className="text-2xl" aria-hidden>{["💡", "🔆", "✨", "🌟"][i % 4]}</span><span className="flex-1">{p}</span>{got && <span aria-hidden>✓</span>}
-            </button>
+            <AnswerCard key={p} disabled={!!found} onClick={() => choose(p)} state={got ? "done" : "idle"} badge={got ? "✓" : undefined}
+              className="flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-100">
+              <span className="text-2xl" aria-hidden>{["💡", "🔆", "✨", "🌟"][i % 4]}</span><span className="flex-1">{p}</span>
+            </AnswerCard>
           );
         })}
       </div>
@@ -852,14 +865,17 @@ function SpotPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "spot" 
   };
   return (
     <div className="flex flex-col gap-2.5">
-      {plural && !done && <p className="text-center text-xs font-semibold text-foreground/60" aria-live="polite">Found {caught.size} of {tricks.length}</p>}
+      {plural && !done && <p className="text-center text-xs font-semibold text-foreground/60">Found {caught.size} of {tricks.length}</p>}
       <div className="grid grid-cols-1 gap-2.5">
         {items.map((it) => {
           const got = caught.has(it.id);
           return (
-            <button key={it.id} type="button" disabled={got || done} onClick={() => choose(it)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] ${got ? "ring-2 ring-[var(--prx-neg)]" : ""}`}>
-              <span className="text-2xl" aria-hidden>{got ? "🚩" : "🔎"}</span><span className="flex-1">{it.text}</span>{got && <span className="text-xs font-extrabold text-[var(--prx-neg)]">Caught!</span>}
-            </button>
+            <AnswerCard key={it.id} disabled={got || done} onClick={() => choose(it)} state={got ? "done" : "idle"} tint="var(--prx-neg)"
+              className="flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-100">
+              <span className="text-2xl" aria-hidden>{got ? "🚩" : "🔎"}</span><span className="flex-1">{it.text}</span>
+              {/* reserved even before it's caught, so the label appearing never re-wraps the line */}
+              <span className={`text-xs font-extrabold text-[var(--prx-neg)] ${got ? "" : "invisible"}`}>Caught!</span>
+            </AnswerCard>
           );
         })}
       </div>
