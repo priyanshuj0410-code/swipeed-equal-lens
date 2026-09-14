@@ -88,6 +88,7 @@ def main():
     fails += lint_fixtures()
     fails += content_gate_fixtures()
     fails += regrowth_fixtures()
+    fails += blind_review_fixtures()
     if fails:
         print(f"\n✗ {fails} gate test(s) failed"); sys.exit(1)
     print("\n✓ all gate fixtures pass — missing-Base-field content is rejected")
@@ -140,13 +141,16 @@ def lint_fixtures():
     tmp = tempfile.mkdtemp()
     path = os.path.join(tmp, "choosing-building.ts")
     shutil.copy(os.path.join(C.GAMES, "choosing-building.ts"), path)
+    clean = not any(" lint " in e for e in G.check_lesson(path, G.lead_mechanics(), lint=True)[1])
+    text = open(path, encoding="utf8").read()
+    open(path, "w", encoding="utf8").write(text.replace('"hook":"', '"hook":"Lensy: ', 1))
     quiet = not any(" lint " in e for e in G.check_lesson(path, G.lead_mechanics(), lint=False)[1])
     loud = any(" lint " in e for e in G.check_lesson(path, G.lead_mechanics(), lint=True)[1])
     shutil.rmtree(tmp)
-    if quiet and loud:
+    if clean and quiet and loud:
         print("  ✓ content gate applies the lints only to games on the clean list")
     else:
-        fails += 1; print(f"  ✗ content gate lint switch wrong (quiet {quiet}, loud {loud})")
+        fails += 1; print(f"  ✗ content gate lint switch wrong (clean game {clean}, quiet {quiet}, loud {loud})")
     return fails
 
 
@@ -255,6 +259,52 @@ def regrowth_fixtures():
     run("the same new id twice", [new_sort, dict(new_sort, hook="Another.")], False)
     run("a line that is not a scenario", [new_sort, "this is not json"], False)
     run("a merge whose round trip fails leaves the game untouched", [new_sort], False, fail_round_trip=True)
+    shutil.rmtree(tmp)
+    return fails
+
+
+def blind_review_fixtures():
+    """The blind review tool (blind_review.py) hides every answer, reports no disagreement for a reviewer who matches
+    the keys, and reports each choose, match and sort the reviewer answered differently."""
+    import json, shutil, tempfile
+    import blind_review as B
+
+    fails = 0
+    tmp = tempfile.mkdtemp()
+    game = os.path.join(tmp, "t.ts")
+    match = {"id": "t-004", "cat": "c", "type": "match", "persona": "any", "source": "s", "relearn": "r", "hook": "Match them.",
+             "pairs": [{"left": f"left {i}", "right": f"right {i}"} for i in range(5)]}
+    shipped = [dict(VALID_CHOOSE), match, dict(VALID_SORT)]
+    open(game, "w", encoding="utf8").write("import type { Scenario } from \"./v2-schema\";\n\nconst SCENARIOS: Scenario[] = [\n"
+                                           + "".join("  " + json.dumps(o) + ",\n" for o in shipped) + "];\n")
+
+    def result(name, ok):
+        nonlocal fails
+        if ok:
+            print(f"  ✓ blind review right on: {name}")
+        else:
+            fails += 1; print(f"  ✗ blind review wrong on: {name}")
+
+    B.make("t", tmp, [], game_path=game, seed=1)
+    blind = "".join(open(os.path.join(tmp, f"blind-{k}.ndjson"), encoding="utf8").read() for k in ("choose", "match", "sort"))
+    result("blind files carry no answers", '"fits"' not in blind and '"key"' not in blind and '"note"' not in blind and "right 0" in blind)
+
+    def write(choose_fits, pairs, key):
+        rows = {"choose": {"id": "t-003", "fits": choose_fits}, "match": {"id": "t-004", "pairs": pairs}, "sort": {"id": "t-001", "key": key}}
+        for k, row in rows.items():
+            open(os.path.join(tmp, f"review-{k}.ndjson"), "w", encoding="utf8").write(json.dumps(row) + "\n")
+
+    fits = [x["text"] for x in VALID_CHOOSE["options"] if x["fits"]]
+    labels = {b["id"]: b["label"] for b in VALID_SORT["bins"]}
+    key = {it["text"]: labels[VALID_SORT["key"][it["id"]]] for it in VALID_SORT["items"]}
+    write(fits, match["pairs"], key)
+    found, missing = B.diff("t", tmp, [], game_path=game)
+    result("a reviewer who matches every key", not found and not missing)
+    swapped = [dict(p) for p in match["pairs"]]
+    swapped[0]["right"], swapped[1]["right"] = swapped[1]["right"], swapped[0]["right"]
+    write(fits[:-1], swapped, dict(key, **{VALID_SORT["items"][0]["text"]: "Bad"}))
+    found, _ = B.diff("t", tmp, [], game_path=game)
+    result("a missed fit, a swapped pair and a misplaced item", sorted(k for k, _, _ in found) == ["choose", "match", "sort"])
     shutil.rmtree(tmp)
     return fails
 
