@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run gates",
     "build": "next build",
+    "gates": "python3 scripts/content_gate.py && python3 scripts/forge/test_gates.py && node --test 'scripts/tests/*.test.mjs'",
+    "prepare": "bash scripts/setup-hooks.sh",
     "start": "next start",
     "lint": "eslint",
     "status": "python3 scripts/swipeed_status.py",

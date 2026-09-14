@@ -5,9 +5,10 @@ title: Stack, build and deployment
 description: What SwipeEd is built with, how it builds, and how a merge to main reaches swipeed.vercel.app, verified against package.json and the Vercel API on 2026-09-14.
 resource: https://swipeed.vercel.app
 tags: [swipeed, stack, build, deployment, vercel, pwa]
-timestamp: 2026-09-14T00:00:00Z
+timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
 ---
 
 # Stack, build and deployment
@@ -31,12 +32,13 @@ plane_issues:
 | Command | What it runs |
 |---|---|
 | `npm run dev` | `next dev` |
-| `npm run build` | `next build`, which compiles and type-checks. Vercel runs the same build, so a type error fails the deploy. |
+| `npm run build` | `npm run gates` first (the `prebuild` script), then `next build`, which compiles and type-checks. Vercel runs the same build, so a content gate failure or a type error fails the deploy. |
+| `npm run gates` | `python3 scripts/content_gate.py` (the whole-bank content gate), `python3 scripts/forge/test_gates.py` (gate fixtures) and `node --test 'scripts/tests/*.test.mjs'` (engine unit tests) |
 | `npm run lint` | `eslint` (flat config) |
 | `npm run status` | `python3 scripts/swipeed_status.py`, build and registration status from `scripts/master-node-table.xlsx` |
 | `npm run read-first` | `python3 scripts/read_first.py`, the read-before-build attestation for new v2 games |
 
-The package manager is npm (`package-lock.json`). There is no automated test suite. Git hooks live in `scripts/githooks/` and are enabled with `scripts/setup-hooks.sh` (`core.hooksPath`); the pre-commit hook runs the status check, the read-first gate and the message-length check. The deeper shape and duplicate gates run only inside the forge workflow (see [question bank](../schemas/question-bank.md)).
+The package manager is npm (`package-lock.json`). Git hooks live in `scripts/githooks/` and are enabled by `scripts/setup-hooks.sh` (`core.hooksPath`), which `npm install` now runs through the `prepare` script (it does nothing outside a git work tree, such as a build container). The pre-commit hook runs the status check, the read-first gate and the content gate. Since [SWED-72](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b) the content gate and the tests also run before every build, so no deploy skips them; the Vercel build image has Python 3. Duplicate detection (`forge_dedup.py`) and the forge's count and persona checks still run only inside the forge workflow (see [question bank](../schemas/question-bank.md)).
 
 `@equal-lens/brand` is installed from `file:./vendor/equal-lens-brand-0.1.0.tgz`. It was vendored on 2026-09-01 (SWED-44) because cloud builds could not resolve the package from outside the repo.
 

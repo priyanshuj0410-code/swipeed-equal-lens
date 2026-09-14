@@ -13,6 +13,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
 ---
 
 # SwipeEd project log
@@ -20,6 +21,28 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 - gates: the content gate runs before every build ([SWED-72](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b))
+- **Why.** The forge pipeline review (SWED-65) found every gate opt-in: hooks needed `core.hooksPath` set by hand,
+  there was no CI, and Vercel ran a plain `next build`. The commit-time guard, `check_msg_len.py`, also missed
+  helplines in scenario prose, most fields, empty banks and unparseable lines (G2, G4, G5, G6, G18). This is the
+  first of the forge fixes the [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md)'s content
+  phases wait on.
+- **Gate.** New `scripts/content_gate.py` checks the whole bank in about 5 seconds:
+  - lesson games: parse errors, a bank under 300, duplicate ids, every `common.scenario_errors` check (with
+    band membership read from the committed scenario libraries), the mix caps, and config strings;
+  - every capstone and help-sheet string: length and helplines.
+  It replaces `check_msg_len.py`, which also applied no band ceiling to files whose name differs from their
+  gameId. The shipped bank passes.
+- **Wiring.** `npm run build` now runs `npm run gates` first (content gate, gate fixtures, engine unit tests), so a
+  Vercel preview or production build fails on bad content with no override. `npm install` turns the git hooks on
+  (`prepare`), and the pre-commit hook runs the content gate whenever `src/content/` or the gate scripts change.
+- **Checks.** New fixtures in `test_gates.py` plant each problem (a wrong helpline in a hook, an emptied bank, an
+  over-length reflect option, a broken line, wrong capstone and help-sheet numbers) and pass on real content. A
+  build with a planted "Childline 112" stopped before compiling; the clean build passes.
+- **Docs.** [question bank](../schemas/question-bank.md) (gates table, commands), [deployment](../architecture/deployment.md),
+  [extending SwipeEd](../games/extending-swipeed.md), [build overview](../games/swipeed-build-overview.md),
+  [game patterns](../games/swipeed-game-patterns.md), [v2 engine](../architecture/v2-engine.md).
 
 ## 2026-09-15 - engine: swipe cards get side buttons, scrubbing keeps its progress ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543))
 - **Why.** Swipe had no tap or screen-reader path and could solve twice if swiped again during its fly-off, and a

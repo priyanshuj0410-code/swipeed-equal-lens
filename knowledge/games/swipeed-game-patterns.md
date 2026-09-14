@@ -5,11 +5,12 @@ copied_from: owhile-engine@c182048:knowledge/games/swipeed-game-patterns.md
 title: SwipeEd - Reusable Game Patterns
 description: The cross-game design + engineering decisions proven in SwipeEd's games (especially Green Light / Red Light 2.0) that every new game and the future Engine SDK should inherit - so we don't re-derive them each time.
 tags: [swipeed, patterns, game-design, conventions, engine-sdk]
-timestamp: 2026-06-19T19:00:00Z
+timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
 ---
 
 # SwipeEd - Reusable Game Patterns
@@ -292,7 +293,7 @@ a **living doc** - see [keeping it current](#keeping-this-current).
 27. **Message hygiene (2026-06-24, from live design feedback).** Four reusable rules baked into the engine + content:
     - **≤160 characters per visible text block.** Every greet, `helpLine`, `reassure`, `badge.blurb`, and every
       scenario field rendered as a bubble/pill/card is capped at **160 real code points** (emoji & curly quotes
-      count as one). Enforce with **`scripts/check_msg_len.py`** (decodes TS strings via `json.loads`, NOT
+      count as one). Enforced by **`scripts/content_gate.py`** since SWED-72, originally `check_msg_len.py` (decodes TS strings via `json.loads`, NOT
       `unicode_escape` - the latter mojibakes UTF-8 and over-counts; it also counts strike `re`/`why` separately).
       When tightening safety copy, **keep every helpline number AND its label** and the safeguarding framing - cut
       prose, never a number. (A 12-agent workflow tightened all 60 lesson games this way; verified zero numbers
@@ -311,8 +312,8 @@ a **living doc** - see [keeping it current](#keeping-this-current).
       ~5% outlier scenarios** (275, mostly fat `branch` consequence/debrief stacks) and add a **second guard rule**.
       `check_msg_len.py` now enforces, beside the ≤160/field rule, a **per-scenario total-prose ceiling that rises
       by chapter band** (≈360 for ages 3-9 → 500 for adult chapters) - so the curve may rise with age but **can't
-      drift past the intended level**. Both rules are wired into the `scripts/githooks/pre-commit` gate (override
-      `SWIPEED_MSGLEN_OVERRIDE=1`). **Capstones are exempt from the per-scenario rule** (ceremonial surface; ≤160/field
+      drift past the intended level**. Both rules now live in `scripts/content_gate.py`, run by the
+      `scripts/githooks/pre-commit` gate and before every build (SWED-72). **Capstones are exempt from the per-scenario rule** (ceremonial surface; ≤160/field
       only). Trims preserve answer-logic (`best`/`outcome`/`key`/`answer`/`trick` untouched) + every helpline number,
       verified vs HEAD.
     - **Anti-repeat rotation + mechanic depth (2026-06-24).** Games "felt like wrappers" because beats served too

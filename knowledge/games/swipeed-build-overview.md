@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/96b2d905-cb66-4883-a846-9a897f7d8a03  # SWED-39
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
 ---
 
 # SwipeEd - what we built & why
@@ -199,8 +200,8 @@ workflow rolled back cleanly (it only writes after full validation), and we reco
   lint and blocking merge gate), `forge_assemble.py` (parse-or-die merge), `forge_dedup.py` (whole-bank
   MinHash/simhash dedup), `gen_workflow.js` (the per-game orchestration), `test_gates.py` (fixtures
   proving malformed content is rejected).
-- **Repo guardrails** (git hooks): `check_msg_len.py` (≤160/field + per-game band ceiling; override
-  `SWIPEED_MSGLEN_OVERRIDE=1` for staged partial-bank commits), the **read-first guard** (prints the
+- **Repo guardrails** (git hooks, and since SWED-72 every build): `content_gate.py` (every per-scenario check, ≤160/field,
+  band ceilings, helplines on every field, bank size; replaced `check_msg_len.py`), the **read-first guard** (prints the
   authoritative master-node-table on game-file commits so the next node is never mis-stated), and a
   **Plane-issue guard** (blocks app-code edits without an active `[SWED-n]` marker).
 - **Process discipline** (per `AGENTS.md`): branch per change, `--no-ff` merge before the next thing,
