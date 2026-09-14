@@ -4,9 +4,10 @@ owner: the-equal-lens
 title: SwipeEd design system
 description: How SwipeEd's shipped UI inherits the Equal Lens brand package and website design system, where it defines its own game tokens and patterns, and where the two have drifted apart.
 tags: [swipeed, design-system, brand, tokens, accessibility]
-timestamp: 2026-09-14T00:00:00Z
+timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
 ---
 
 # SwipeEd design system
@@ -152,8 +153,9 @@ chunky ink border, the "sticker" cut-out look: `border: 2.5px solid var(--color-
 4px 0 var(--color-ink);` (`.sticker` / `.card` / `.btn--primary`, `@equal-lens/brand/components.css`
 and `tailwind.css:88-90`). SwipeEd's `.glass-card` and `.glass-pill` (`globals.css:246-257`,
 `:280-288`) match this recipe at 4px/4px and 3px/3px respectively. Compact variants use a 3px offset;
-the brand's popover uses 5px/6px for one extra level of lift. There is no third elevation level,
-these two offsets are the entire system.
+the brand's `.popover` ("Lensy's chat card") uses 5px/6px for one extra level of lift, and SwipeEd uses it
+for exactly one surface, Lensy's question card (see How Lensy speaks), so the question sits one level
+above every answer card. There is no fourth elevation level: these three offsets are the entire system.
 
 ## Voice and copy
 
@@ -178,14 +180,43 @@ is deliberately kept as the **3 to 6 year old and keyboard/screen-reader floor**
 except `swipe`, so the youngest chapter is never asked to perform a gesture it cannot yet do
 precisely.
 
-**How Lensy speaks.** One shared chat-bubble surface across every mechanic
-(`src/components/games/v2-engine.tsx`, `say()` / the bubble at `v2-engine.tsx:194-195`): a
-speech-bubble shape (`border-bottom-left-radius` flattened for a tail, matching the brand's
-`.bubble`), `--color-mist` fill, `--color-ink` text, capped at `34vh` and scrollable so long copy
-never pushes the controls off-screen. The bubble is `role="status" aria-live="polite"
-aria-atomic="true"` (`v2-engine.tsx:195`) so it doubles as the sole accessible feedback channel; see
-Accessibility. UN and RE speak inside the same bubble family via `UnReBeat`
-(`src/components/games/un-re.tsx`), each with a one-line "why," never more.
+**How Lensy speaks: the question card.** One shared component, `LensyQuestion`
+(`src/components/games/lensy-question.tsx`), used by both the lesson engine and the capstone engine
+([SWED-66](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e)). Three parts, top to bottom:
+
+1. **The question card.** Lensy (48px) beside an `h2` styled with the brand's own `.popover` class
+   ("Lensy's chat card": surface fill, 2.5px ink border, 24px radius, 5px/6px hard shadow), text in
+   `font-hand` (Baloo 2, Lensy's voice) at 19px semibold, capped at `38vh` and scrollable. It is the
+   largest type and the highest elevation in the play area, so it outranks the answer cards
+   (`.glass-card`, 15px bold, 4px shadow). The card keeps the beat's question for the whole beat.
+2. **The feedback line.** A plain text line under the card (`text-sm`, semibold, `text-foreground/80`,
+   `min-h-10`), `role="status" aria-live="polite" aria-atomic="true"`. Nudges ("Not a match. Try
+   another.") and confirmations ("Kind words: builds trust. ✓") go here and never replace the question.
+   When a card on screen already shows a spoken line (a branch consequence, a capstone swipe cue or
+   solved truth), the line stays empty and the text is announced to screen readers through a
+   `sr-only` span in the same live region, so it is never shown twice.
+3. **The reveal gate.** Answers wait until the question has been read: `revealDelayMs()` is 1.2s plus
+   60ms a word, capped at 4s, on a timer rather than speech `onEnd` (muting cancels `onEnd`). In their
+   place sits a quiet "Ready to answer? Tap here" button; tapping it or the question card shows the
+   answers at once, and a keyboard reveal moves focus to the first answer. The answers fade and slide in
+   (`animate-in fade-in slide-in-from-bottom-2`); under reduced motion they appear with no animation after
+   the same wait.
+
+Copy rules the component enforces: `cleanLine()` strips "Lensy:" and "Sam:" narrator prefixes (the card is
+already Lensy speaking), and `joinQuestion()` joins a hook with its prompt or setup without asking twice,
+dropping a prompt the hook already ends with and a clipped tag question ("Agree?") before a real one.
+
+**Why it changed (playtest, 2026-09-15).** Players read the answer cards and skipped the question. The
+old surface was a brand `.bubble` (tail-flattened corner, `--color-mist` fill, no border, 15px) beside
+bordered sticker answer cards, the answers mounted in the same frame as the question, and the first
+nudge replaced the question. The brand's `.bubble` remains right for short tail lines; a question the
+player must answer now uses the brand's `.popover` chat card instead. Lazyweb references agree: Elevate
+and Couple Joy set the question as the largest type on screen with lighter answers below, while
+Sololearn's small-body question above bordered answer cards is the pattern that produced the playtest
+problem (see References).
+
+UN and RE speak through `UnReBeat` (`src/components/games/un-re.tsx`), each with a one-line "why," never
+more.
 
 ## Components
 
@@ -195,10 +226,11 @@ Accessibility. UN and RE speak inside the same bubble family via `UnReBeat`
 | Cards | Brand `.card` (24px radius) reimplemented locally as `.glass-card` (20px radius, `globals.css:246-252`); shadcn `Card` (`src/components/ui/card.tsx`) is a third, generic sticker-free surface used outside gameplay | `globals.css:246-252`; `src/components/ui/card.tsx` |
 | Chips / status pills | Brand `.note__chip` is extended (not replaced) for the myth-card truth/myth stamp (`globals.css:384`); one-off bin/sort "✓" chips are hand-rolled inline rather than reusing `.tag`/`.note__chip` | `globals.css:360-397` (myth-card family); `v2-engine.tsx:552` (sort chip) |
 | Game shell chrome | `GameShell`: fixed glass-pill top bar (back button, title, progress "n/m"), opaque `--app-bg` overlay so the path is hidden behind an open game, `align="center"` vs `"fill"` for content that must pin its own top/bottom rows | `src/components/game-shell.tsx` |
-| Feedback banners | No hard-fail red banner anywhere. A wrong move sets local `wrong` state and Lensy speaks a warm nudge (`say(...)`); the only persistent visual cue is a small `text-foreground/70` line under the interaction, not a banner | `src/components/games/v2-engine.tsx` (`wrong` state per mechanic, e.g. lines 339, 506, 602) |
+| Lensy's question card | `LensyQuestion`: Lensy plus an `h2.popover` question card in `font-hand`, the feedback line (the play area's one live region) and `RevealGate`. See How Lensy speaks | `src/components/games/lensy-question.tsx` |
+| Feedback banners | No hard-fail red banner anywhere. A wrong move gets a warm nudge from `say(...)`, shown on the question card's feedback line and spoken; mechanics no longer render their own inline nudge lines under the answers (removed in SWED-66, they duplicated the spoken line and shifted the layout when they mounted). A non-best branch pick keeps its 💛 consequence card with a retry button | `src/components/games/lensy-question.tsx`; `say()` in `v2-engine.tsx` and `capstone-rich.tsx` |
 | Completion card | `GameDone`: 🎉 emoji, title, optional blurb, 0 to 3 star rating (`--accent-amber` = `--color-sun`), coin count, confetti (`celebrate("big")`) on mount, "Play again" / "Back to the path." Capstones wrap it with a `ToolkitReflection` | `src/components/games/game-done.tsx` |
 | Path nodes | Two independent renderers: the realistic/canvas 3D world's sticker-textured billboard nodes (locked = dashed ring + faded, playable = solid ring + sketch-ring animation, completed = sun check badge, capstone = bigger + always sun) and a wholly separate 2D SVG "classic" fallback path with its own hand-drawn cobblestones and scenery | `src/components/path-scene.tsx` (`.node-locked`/`.sticker-soft` at e.g. line 1310); `src/components/learning-path.tsx` (2D fallback, own styling) |
-| Capstones | Share the v2 engine's interaction primitives and three-zone layout (progress + bubble, flexible middle, pinned Next), but re-derive their own verdict styling rather than reusing `v2-engine.tsx`'s emoji-plus-text pattern, see Accessibility, SWED-57 | `src/components/games/capstone-rich.tsx` |
+| Capstones | Share the v2 engine's interaction primitives, the `LensyQuestion` card and the three-zone layout (progress + question card, flexible middle, pinned Next), but re-derive their own verdict styling rather than reusing `v2-engine.tsx`'s emoji-plus-text pattern, see Accessibility | `src/components/games/capstone-rich.tsx` |
 
 Full mechanic-by-mechanic behaviour (props, state machine per interaction type) is out of scope for a
 design doc; see the [v2 engine](architecture/v2-engine.md) doc for that.
@@ -208,6 +240,10 @@ design doc; see the [v2 engine](architecture/v2-engine.md) doc for that.
 Full gesture and accessibility spec: [interaction model](games/swipeed-interaction-model.md). Summary relevant to
 design:
 
+- **Question first.** Every lesson beat and capstone lap opens on Lensy's question alone; the answers
+  arrive after a reading pause (1.2s plus 60ms a word, at most 4s) that one tap on the question or the
+  gate skips. Focus moves to the question card at the start of each beat and to Next when the beat is
+  solved. See How Lensy speaks.
 - **The interaction is the verb.** A relationship read is a swipe, sorting is dragging into a bin,
   matching is drawing a cord, erasing a myth is scrubbing it away. `usePointerDrag` is the one
   pointer-events primitive behind all of it (`src/components/games/interactions.tsx`).
@@ -284,10 +320,11 @@ mostly orphaned per `games/world-art-tokens.md`) and `skin="canvas"` (hand-drawn
   4.5:1 normal-text AA threshold, though it clears the 3.0:1 large-text/UI-component threshold. Every
   other `--prx-*` fill/on-fill pairing clears normal-text AA.
 
-**Focus.** No element in the interaction layer receives programmatic focus. `grep -n -iE
-"autoFocus|\.focus\(\)" src/components/games/v2-engine.tsx src/components/games/capstone-rich.tsx`
-returns zero matches; the only `tabIndex` usage is the swipe/strike-rewrite card's own `tabIndex={0}`
-for keyboard commit. This is SWED-58 below.
+**Focus** (SWED-66, closing SWED-58). At the start of each beat or lap, focus moves to the question card
+(`h2` with `tabIndex={-1}`, so a screen reader reads the question first; the capstone waits until the new
+lap's question is on the card). Tab from there reaches the reveal gate, then the answers; a keyboard reveal
+moves focus to the first answer. When the beat is solved, focus moves to Next. Focus moves use
+`preventScroll` so the layout never jumps.
 
 **Tap targets.** Most interactive controls are comfortably above the 24x24 CSS px WCAG AA minimum,
 game-done's primary actions are `h-11` (44px), the toolbar dock enforces `min-width: 2.5rem` (40px)
@@ -297,9 +334,10 @@ the chrome uses, worth a look given how much of the youngest chapter (ages 3 to 
 precisely.
 
 **Audio-first for ages 3 to 6.** Every Lensy line is spoken (`speak()`/`replay()`,
-`src/lib/speak.ts`, wired through `v2-engine.tsx`), the bubble is `aria-live="polite"` so the same
-line reaches screen readers and TTS-muted users from one call site rather than per-renderer plumbing
-(`swipeed-interaction-model.md`), and the tap path (never removed, see Interaction and motion) is
+`src/lib/speak.ts`, wired through `v2-engine.tsx` and `capstone-rich.tsx`); "Hear it again" replays the
+beat's question while the beat is in play. The question card's feedback line is `aria-live="polite"`, so
+the same lines reach screen readers and TTS-muted players from one call site rather than per-renderer
+plumbing (`swipeed-interaction-model.md`), and the tap path (never removed, see Interaction and motion) is
 what makes every mechanic playable before a child can read.
 
 **Colour is never the only signal, in principle** (see Interaction and motion); in practice this is
@@ -313,14 +351,11 @@ broken in exactly the two places named as known gaps below plus the UN/RE contra
   matching one disables both cells, so the last pair can never be completed by tap, keyboard or drag. The
   capstone `MatchLap` duplicates the same code (`capstone-rich.tsx:94,133`). Details in the
   [v2 engine](architecture/v2-engine.md#known-issues) doc.
-- **SWED-57, unannounced branch verdict.** In lesson games the verdict (a 💚 or 💛 before the consequence,
-  `v2-engine.tsx:258`) sits in a plain `<div>`, and `solve()` returns before updating the live bubble
-  (`v2-engine.tsx:155`), so screen-reader and muted players never learn whether their pick was the best one.
-  Capstone branch laps mark the pick with an amber ring and a trailing ✓ (`capstone-rich.tsx:383-385`), again
-  with no spoken or announced verdict.
-- **SWED-58, focus dropped on solve.** There are no `.focus()` calls anywhere in `src/`: nothing moves focus to the
-  Next/Reassure control when a mechanic resolves, so a keyboard or screen-reader user's focus can be
-  left on a control that just disabled itself or unmounted.
+- **SWED-57, unannounced branch verdict: fixed in SWED-66.** A lesson branch result is announced through the
+  feedback line's live region, prefixed "That's the best choice." when the pick was the best one. Capstone
+  branch laps only advance on the best pick, and that pick's consequence, debrief and celebration are
+  announced the same way.
+- **SWED-58, focus dropped on solve: fixed in SWED-66.** See Focus above.
 
 ## Divergences and debt
 
@@ -386,6 +421,18 @@ with similarity scores is in the [design audit](audits/design-audit-2026-09-14.m
   SwipeEd never leaves the card and relies on a warm spoken nudge instead. This tracks the "no-fail,
   always" principle in `games/swipeed-interaction-model.md` and should be treated as a considered
   choice, not a gap, unless product direction changes.
+
+For the question card (SWED-66, 2026-09-15), two Lazyweb searches, search only: "multiple choice lesson
+question screen" (strong coverage, top similarity 0.66) and "quiz question card mascot speech" (weak
+coverage, 0.42, mostly mascot reward screens, so not used as evidence). From the first:
+
+- **Elevate** ("Which word doesn't fit?"): the question is the largest type on the screen, centred, with the
+  answer bubbles and an "I don't know" option below it.
+- **Couple Joy** ("Who's most likely to win a ski competition"): a large headline question at the top, the
+  answer cards anchored at the bottom, well apart from it.
+- **Sololearn** (multi-select vibe-coding quiz): the question is small body text above bordered answer cards,
+  the same balance SwipeEd had before the playtest. Its "Not quite" feedback appears in a separate bottom
+  panel and leaves the question in place, which matches the feedback line.
 
 ## How to change this doc
 

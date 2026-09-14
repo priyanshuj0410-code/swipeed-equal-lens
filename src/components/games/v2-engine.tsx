@@ -5,7 +5,7 @@ import { Volume2, VolumeX, Home, RotateCcw, ShieldCheck, Phone } from "lucide-re
 import { greetWithName } from "@/lib/personalize";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
-import { Sam } from "@/components/games/sam";
+import { LensyQuestion, RevealGate, cleanLine, joinQuestion, revealDelayMs } from "@/components/games/lensy-question";
 import { UnReBeat } from "@/components/games/un-re";
 import { useProfile } from "@/lib/store";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
@@ -82,7 +82,13 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   // other mechanic — BranchPlay no longer renders its own inline Next.
   const [branchResolve, setBranchResolve] = useState<{ text: string; best: boolean } | null>(null);
   const [stickers, setStickers] = useState<Set<string>>(new Set()); // category ids earned
-  const [bubble, setBubble] = useState(greet);
+  const [bubble, setBubble] = useState(() => cleanLine(greet));
+  const [heard, setHeard] = useState(""); // a spoken line shown elsewhere on screen, announced but not repeated on the feedback line
+  // The current beat's question stays on the card for the whole beat; nudges and results go to the feedback line.
+  const [question, setQuestion] = useState("");
+  // Answers are held back until the question has had a moment to be read (or the player taps to see them).
+  const [revealed, setRevealed] = useState(true);
+  const nextRef = useRef<HTMLButtonElement>(null);
   const [muted, setMuted] = useState(false);
   // Calm Mode (reduce motion/confetti) is controlled in app Settings + auto-honoured from OS prefers-reduced-
   // motion via prefersReducedMotion() — no in-game toggle needed (it just cluttered the bar).
@@ -92,25 +98,29 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const reduceMotion = prefersReducedMotion(); // calm OR the OS prefers-reduced-motion setting — gates all motion
   const sc = queue[qi];
 
-  const say = useCallback((t: string, onEnd?: () => void) => { setBubble(t); speak(t, { muted, onEnd }); }, [muted]);
+  // say() speaks `t`; `shown` replaces what the feedback line displays ("" when a card already shows the line).
+  const say = useCallback((t: string, shown?: string) => {
+    const line = cleanLine(t), visible = shown === undefined ? line : cleanLine(shown);
+    setBubble(visible); setHeard(visible === line ? "" : line); speak(line, { muted });
+  }, [muted]);
 
   // greet once — but wait for the profile (name) to hydrate so the opener can be personalised
   const greetedRef = useRef(false);
   useEffect(() => {
     if (greetedRef.current || !ready) return;
     greetedRef.current = true;
-    setBubble(greeting);
-    speak(greeting, { muted });
+    setBubble(cleanLine(greeting));
+    speak(cleanLine(greeting), { muted });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ready, greeting]);
   useEffect(() => () => stopSpeaking(), []);
 
   const hookLine = (s: Scenario): string => {
-    if (s.type === "reflect") return `${s.hook} ${s.prompt}`;
-    if (s.type === "role-play") return `${s.hook} ${s.setup}`;
-    if (s.type === "build") return `${s.hook} ${s.prompt}`;
-    if (s.type === "explore-label") return `${s.hook} Find ${s.find}.`;
-    return s.hook; // swipe: bubble shows the instruction only; the cue lives on the card (no redundancy)
+    if (s.type === "reflect") return joinQuestion(s.hook, s.prompt);
+    if (s.type === "role-play") return joinQuestion(s.hook, s.setup);
+    if (s.type === "build") return joinQuestion(s.hook, s.prompt);
+    if (s.type === "explore-label") return joinQuestion(s.hook, `Find ${s.find}.`);
+    return cleanLine(s.hook); // swipe: the card shows the instruction only; the cue lives on the swipe card (no redundancy)
   };
   const resolveLine = (s: Scenario): string =>
     s.type === "reflect" ? s.affirm : s.type === "branch" ? s.debrief : s.type === "strike-rewrite" ? `${s.myth.re} ${s.myth.why}` : s.type === "explore-label" ? s.reveal : s.type === "spot" ? s.why : s.relearn;
@@ -120,7 +130,23 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const isSafetyBeat = (s: Scenario): boolean =>
     reassureCats.includes(s.cat) || (s.type === "branch" && s.options.some((o) => o.outcome === "safe"));
 
-  const present = useCallback((s: Scenario) => { setBranchResolve(null); setPhase("play"); say(hookLine(s)); }, [say]);
+  const present = useCallback((s: Scenario) => {
+    const q = hookLine(s);
+    setBranchResolve(null); setPhase("play"); setQuestion(q); setRevealed(false); say(q);
+  }, [say]);
+
+  // Hold the answers until the question has been read. A timer, not speech onEnd: muting mid-line cancels
+  // onEnd (lib/speak.ts), which would leave the answers hidden. Tapping the question or the gate skips the wait.
+  useEffect(() => {
+    if (view !== "play" || phase !== "play" || revealed || !question) return;
+    const t = window.setTimeout(() => setRevealed(true), revealDelayMs(question));
+    return () => window.clearTimeout(t);
+  }, [view, phase, revealed, question]);
+
+  // Keyboard and screen-reader users continue from the result without hunting for Next.
+  useEffect(() => {
+    if (view === "play" && phase === "resolve") nextRef.current?.focus({ preventScroll: true });
+  }, [view, phase, qi]);
 
   // Rotation: one beat per category, drawn UNSEEN-first (anti-repeat) — not just shuffled. Picking by natural
   // frequency (not forced mechanic variety) keeps beats representative of each category's real mix; the seen-ring
@@ -177,24 +203,30 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const tools = (
     <span className="flex items-center gap-2">
       {!muted && (
-        <button type="button" aria-label="Hear it again" onClick={() => replay()} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+        <button type="button" aria-label="Hear it again" onClick={() => (view === "play" && phase === "play" && question ? speak(question, { muted }) : replay())} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
           <RotateCcw className="size-4" aria-hidden />
         </button>
       )}
       {muteBtn}
     </span>
   );
-  // Lensy's voice is a CHAT BUBBLE (soft fill + a little tail toward Sam), not a card — content-width, wraps.
-  // aria-live: the bubble mirrors every say() — hook, nudge, result — so screen-reader / deaf / TTS-muted users
-  // get parity (fixes the prior say()-is-speech-only gap) without per-renderer plumbing.
+  // Lensy's question card leads every beat. While playing, the card keeps the question and the line beneath it
+  // carries nudges and confirmations; on a result, the result card shows the text and the line announces it to
+  // screen readers (including the branch verdict, which was otherwise only an emoji).
+  const playing = view === "play" && !!sc;
+  const cardText = playing ? question : bubble;
+  const feedbackText = playing && phase === "play" && bubble !== question ? bubble : "";
+  const announceText = !playing ? "" : phase === "resolve"
+    ? branchResolve ? `${branchResolve.best ? "That's the best choice. " : ""}${branchResolve.text}` : bubble
+    : heard;
   const SamSays = (
-    <div className="flex items-end gap-2">
-      <Sam size={52} />
-      <div className="relative min-w-0 flex-1">
-        <span className="absolute -left-1 bottom-2.5 size-3 rotate-45 rounded-[3px]" style={{ background: "var(--color-mist)" }} aria-hidden />
-        <span role="status" aria-live="polite" aria-atomic="true" className="relative inline-block max-h-[34vh] max-w-full overflow-y-auto rounded-2xl rounded-bl-md px-3.5 py-2.5 text-left text-[15px] font-semibold leading-snug" style={{ background: "var(--color-mist)", color: "var(--color-ink)" }}>{bubble}</span>
-      </div>
-    </div>
+    <LensyQuestion
+      text={cardText}
+      feedback={feedbackText}
+      announce={announceText}
+      focusKey={playing ? `${qi}:${sc?.id}` : undefined}
+      onTap={playing && phase === "play" && !revealed ? () => setRevealed(true) : undefined}
+    />
   );
   // Progress = a compact strip of category dots at the very top (small, not a card).
   const StickerBook = (
@@ -248,8 +280,12 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
             </div>
           )}
 
-          {/* PLAY — no hook card; Lensy's bubble carries the hook. */}
-          {view === "play" && sc && phase === "play" && <Play key={sc.id} sc={sc} onSolved={solve} say={say} reduceMotion={reduceMotion} buildLabels={buildLabels} />}
+          {/* PLAY: Lensy's question card carries the hook; the answers follow once it has been read. */}
+          {view === "play" && sc && phase === "play" && (revealed ? (
+            <div className={`flex flex-1 flex-col gap-4 ${reduceMotion ? "" : "animate-in fade-in slide-in-from-bottom-2 duration-300"}`}>
+              <Play key={sc.id} sc={sc} onSolved={solve} say={say} reduceMotion={reduceMotion} buildLabels={buildLabels} />
+            </div>
+          ) : <RevealGate onReveal={() => setRevealed(true)} />)}
           {view === "play" && sc && phase === "resolve" && (
             <>
               {sc.type === "strike-rewrite" ? (
@@ -278,7 +314,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
         {view === "play" && (
           <div className="flex flex-col items-stretch gap-1.5">
             {phase === "resolve" && (
-              <button type="button" onClick={next} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
+              <button ref={nextRef} type="button" onClick={next} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
                 {qi + 1 >= queue.length ? "Finish ⭐" : "Next →"}
               </button>
             )}
@@ -292,7 +328,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 }
 
 // ============================ the ten mechanic renderers ============================
-function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string) => void; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string } }) {
+function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string, shown?: string) => void; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string } }) {
   switch (sc.type) {
     case "reflect": return <ReflectPlay sc={sc} onSolved={onSolved} />;
     case "role-play": return <RolePlayPlay sc={sc} onSolved={onSolved} say={say} />;
@@ -336,16 +372,14 @@ function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
   const cardRef = useRef<HTMLDivElement>(null);
   const [dx, setDx] = useState(0);
   const [flyTo, setFlyTo] = useState<0 | 1 | -1>(0); // committing fly-off direction
-  const [wrong, setWrong] = useState(false);
   const [L, R] = swipeStyles(sc);
   const threshold = () => Math.max(72, (cardRef.current?.offsetWidth ?? 300) * 0.25);
 
   const commit = (side: "left" | "right") => {
     if (side === sc.answer) {
-      setWrong(false);
       if (reduceMotion) { vibrate(12); onSolved(); }
       else { setFlyTo(side === "left" ? -1 : 1); setTimeout(() => { vibrate(12); onSolved(); }, 250); }
-    } else { setWrong(true); setDx(0); say("Look again — read the flag, then swipe it the right way."); }
+    } else { setDx(0); say("Look again. Read the flag, then swipe it the right way."); }
   };
   const drag = usePointerDrag({
     onMove: (s) => setDx(s.dx),
@@ -387,15 +421,11 @@ function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
         )}
         <span className="relative z-10">{sc.cue}</span>
       </div>
-      {wrong ? (
-        <p className="text-center text-xs font-semibold text-foreground/60">Look again — is that healthy? 💛</p>
-      ) : (
-        <div className="flex items-center justify-between px-1 text-xs font-bold text-foreground/55">
-          <span className="flex items-center gap-1">👈 {sc.left}</span>
-          <span className="text-foreground/40">← → keys</span>
-          <span className="flex items-center gap-1">{sc.right} 👉</span>
-        </div>
-      )}
+      <div className="flex items-center justify-between px-1 text-xs font-bold text-foreground/55">
+        <span className="flex items-center gap-1">👈 {sc.left}</span>
+        <span className="text-foreground/40">← → keys</span>
+        <span className="flex items-center gap-1">{sc.right} 👉</span>
+      </div>
     </div>
   );
 }
@@ -418,10 +448,9 @@ function ReflectPlay({ sc, onSolved }: { sc: Extract<Scenario, { type: "reflect"
 // once (in solve()) — the renderer no longer double-buzzes. Every card carries 🗣️ so the "voice" motif holds.
 function RolePlayPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "role-play" }>; onSolved: () => void; say: (t: string) => void }) {
   const [lines] = useState(() => shuffle(sc.yourLine));
-  const [nudge, setNudge] = useState(false);
   const choose = (l: { text: string; best?: boolean }) => {
     if (l.best) onSolved();
-    else { setNudge(true); say("That's one way — now say the strong, brave line! 💪"); }
+    else say("That's one way. Now say the strong, brave line! 💪");
   };
   return (
     <div className="flex flex-col gap-2.5">
@@ -430,7 +459,6 @@ function RolePlayPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "ro
           <span className="text-2xl" aria-hidden>🗣️</span><span className="flex-1">{l.text}</span>
         </button>
       ))}
-      {nudge && <p className="text-center text-xs font-semibold text-foreground/70">Say it loud and brave — pick the strong line! 💪</p>}
     </div>
   );
 }
@@ -456,14 +484,14 @@ function StrikePlay({ sc, onSolved, reduceMotion }: { sc: Extract<Scenario, { ty
         <p className="text-[19px] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? (progress >= 1 ? 0.12 : 1) : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{sc.myth.un}</p>
         <span className="pointer-events-none absolute bottom-2 right-3 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>
       </div>
-      <p className="text-center text-xs font-semibold text-foreground/60">Scrub the myth away — or press Enter</p>
+      <p className="text-center text-xs font-semibold text-foreground/60">Scrub the myth away, or press Enter</p>
     </div>
   );
 }
 
 // branch — pick a choice; HEAR + see its consequence; the safe (best) choice leads on, others gently
 // redirect. If a scenario has no `best` at all, any pick advances (never a soft-lock).
-function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "branch" }>; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string) => void }) {
+function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "branch" }>; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string, shown?: string) => void }) {
   const [opts] = useState(() => shuffle(sc.options)); // best is authored at index 0 — shuffle so there's no "tap the top" tell
   // a non-advancing pick on a "find the best" branch shows the consequence + a re-pick (stays in play); an
   // advancing pick hands off to the engine so the consequence + Next render in the standard (bottom-pinned) resolve.
@@ -471,16 +499,14 @@ function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "bran
   const hasBest = opts.some((o) => o.best);
   const pick = (i: number) => {
     const o = opts[i];
-    say(o.consequence);
-    if (o.best || !hasBest) { if (o.best) vibrate(12); onSolved(undefined, { text: o.consequence, best: !!o.best }); }
-    else setRepick(i);
+    if (o.best || !hasBest) { say(o.consequence); if (o.best) vibrate(12); onSolved(undefined, { text: o.consequence, best: !!o.best }); }
+    else { say(o.consequence, ""); setRepick(i); }
   };
   if (repick !== null) {
-    const o = opts[repick];
     return (
       <div className="flex flex-col gap-2.5">
-        <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {o.consequence}</div>
-        <button type="button" onClick={() => setRepick(null)} className="glass-pill flex h-12 w-full items-center justify-center rounded-2xl text-base font-bold text-foreground backdrop-blur-md transition-transform active:scale-95">Let&apos;s find the safe way →</button>
+        <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {opts[repick].consequence}</div>
+        <button type="button" onClick={() => setRepick(null)} className="glass-pill flex h-12 w-full items-center justify-center rounded-2xl text-base font-bold text-foreground backdrop-blur-md transition-transform active:scale-95">Let&apos;s find a better way →</button>
       </div>
     );
   }
@@ -503,7 +529,6 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
   const [placed, setPlaced] = useState<Record<string, string>>({});
   const [order] = useState(() => shuffle(sc.items)); // display order — shuffle so the answer pattern (e.g. up/down/up/down) isn't memorisable across replays
   const [sel, setSel] = useState<string | null>(null);
-  const [wrong, setWrong] = useState(false);
   const [drag, setDrag] = useState<{ id: string; x: number; y: number } | null>(null);
   const [hover, setHover] = useState<string | null>(null);
   const binEls = useRef<Record<string, HTMLElement | null>>({});
@@ -514,13 +539,13 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
 
   const place = (itemId: string, binId: string) => {
     if (sc.key[itemId] === binId) {
-      const np = { ...placed, [itemId]: binId }; setPlaced(np); setSel(null); setWrong(false);
+      const np = { ...placed, [itemId]: binId }; setPlaced(np); setSel(null);
       const bin = sc.bins.find((b) => b.id === binId);
-      say(`${itemText(itemId)} — ${bin?.label}. ✓`);
+      say(`${itemText(itemId)}: ${bin?.label}. ✓`);
       if (Object.keys(np).length >= sc.items.length) onSolved();
-    } else { setWrong(true); say("Not there — try another bin."); }
+    } else say("Not there. Try another zone.");
   };
-  const arm = (id: string) => { setSel(id); setWrong(false); };
+  const arm = (id: string) => setSel(id);
   const pointer = usePointerDrag({
     onStart: (s, e) => { const id = (e.currentTarget as HTMLElement).dataset.id ?? null; dragId.current = id; if (id) { arm(id); setDrag({ id, x: s.x, y: s.y }); } },
     onMove: (s) => { const id = dragId.current; if (!id) return; setDrag({ id, x: s.x, y: s.y }); setHover(hitTestZone(s.x, s.y, zones(), 44)); },
@@ -555,7 +580,7 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
   };
   const chips = (
     <div className="flex flex-col gap-1.5">
-      {sel && !drag && <p className="text-center text-xs font-semibold text-foreground/70" aria-hidden>Carrying “{itemText(sel)}” — drop it in a zone</p>}
+      {sel && !drag && <p className="text-center text-xs font-semibold text-foreground/70" aria-hidden>Carrying “{itemText(sel)}”: drop it in a zone</p>}
       <div className="flex flex-wrap justify-center gap-2">
         {order.filter((it) => !placed[it.id]).map((it) => (
           <button key={it.id} type="button" data-id={it.id} onClick={() => arm(it.id)} {...pointer.handlers}
@@ -563,7 +588,6 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
             style={sel === it.id && !drag ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>{it.text}</button>
         ))}
       </div>
-      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Not there — try another zone. 💛</p>}
     </div>
   );
   const ghost = drag && !reduceMotion && (
@@ -599,7 +623,6 @@ function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
   const [rights] = useState(() => shuffle(sc.pairs.map((p) => p.right)));
   const [matched, setMatched] = useState<string[]>([]); // left texts in connect order (→ shared glyph index)
   const [selLeft, setSelLeft] = useState<string | null>(null);
-  const [wrong, setWrong] = useState(false);
   const [live, setLive] = useState<Cord | null>(null);
   const [locked, setLocked] = useState<Cord[]>([]);
   const [hover, setHover] = useState<string | null>(null);
@@ -629,17 +652,17 @@ function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
   const rightZones = () => rights.map((r) => ({ id: r, el: rightEls.current[r] }));
   const connect = (left: string, right: string) => {
     if (rightOf(left) === right) {
-      const nm = [...matched, left]; setMatched(nm); setSelLeft(null); setWrong(false);
-      say(`${left} — ${right}. ✓`);
+      const nm = [...matched, left]; setMatched(nm); setSelLeft(null);
+      say(`${left}: ${right}. ✓`);
       if (nm.length >= sc.pairs.length) onSolved();
-    } else { setWrong(true); say("Not a match — try another."); }
+    } else say("Not a match. Try another.");
   };
   const liveFrom = (left: string, x: number, y: number) => {
     const a = anchor(leftEls.current[left], "r"), w = wrap.current; if (!a || !w) return;
     const c = w.getBoundingClientRect(); setLive({ x1: a.x, y1: a.y, x2: x - c.left, y2: y - c.top, tint: "var(--color-ink)" });
   };
   const pointer = usePointerDrag({
-    onStart: (s, e) => { const left = (e.currentTarget as HTMLElement).dataset.left ?? null; dragLeft.current = left; if (left) { setSelLeft(left); setWrong(false); liveFrom(left, s.x, s.y); } },
+    onStart: (s, e) => { const left = (e.currentTarget as HTMLElement).dataset.left ?? null; dragLeft.current = left; if (left) { setSelLeft(left); liveFrom(left, s.x, s.y); } },
     onMove: (s) => { const left = dragLeft.current; if (!left) return; liveFrom(left, s.x, s.y); setHover(hitTestZone(s.x, s.y, rightZones(), 36)); },
     onEnd: (s) => { const left = dragLeft.current; dragLeft.current = null; const right = hitTestZone(s.x, s.y, rightZones(), 36); setLive(null); setHover(null); if (left && right) connect(left, right); },
     onTap: () => { dragLeft.current = null; setLive(null); setHover(null); }, // selLeft armed in onStart → tap a right cell
@@ -649,7 +672,6 @@ function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
 
   return (
     <div className="flex flex-col gap-2.5">
-      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Not a match — try another. 💛</p>}
       {/* one grid with auto-rows:1fr so every cell (left & right) is the SAME height — tidy, aligned cords */}
       <div ref={wrap} className="relative">
         <div className="grid grid-cols-2 gap-2.5" style={{ gridAutoRows: "1fr" }}>
@@ -657,7 +679,7 @@ function MatchPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
             const r = rights[i];
             return (
               <Fragment key={i}>
-                <button type="button" data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={matched.includes(p.left)} onClick={() => { setSelLeft(p.left); setWrong(false); }} {...pointer.handlers}
+                <button type="button" data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={matched.includes(p.left)} onClick={() => setSelLeft(p.left)} {...pointer.handlers}
                   className={`glass-card flex touch-none items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !reduceMotion ? "animate-pulse" : ""}`}
                   style={matched.includes(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--prx-pos)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
                   {matched.includes(p.left) ? `${tokenOf(p.left)} ${p.left}` : p.left}
@@ -695,7 +717,7 @@ function BuildPlay({ sc, onSolved, say, labels, reduceMotion }: { sc: Extract<Sc
       if (sc.key[chosen.length] === piece) setChosen((c) => [...c, piece]);
       else say("Hmm, which comes first?");
     } else if (sc.key.includes(piece)) setChosen((c) => [...c, piece]); // assemble: only real answer pieces seat
-    else say("That one doesn't belong — try another.");
+    else say("That one doesn't belong. Try another.");
   };
   const zones = () => [{ id: "slate", el: slate.current }];
   const pointer = usePointerDrag({
@@ -768,11 +790,10 @@ function BodyFigure() {
 function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "explore-label" }>; onSolved: () => void; say: (t: string) => void }) {
   const isAnatomy = sc.parts.every((p) => bodyRegion(p));
   const [cards] = useState(() => shuffle(sc.parts)); // abstract: shuffle so the answer slot varies
-  const [wrong, setWrong] = useState(false);
   const [found, setFound] = useState<string | null>(null);
   const choose = (p: string) => {
-    if (p === sc.answer) { setFound(p); setWrong(false); vibrate(12); setTimeout(onSolved, 450); }
-    else { setWrong(true); say(`Not quite — find ${sc.find}.`); }
+    if (p === sc.answer) { setFound(p); vibrate(12); setTimeout(onSolved, 450); }
+    else say(`Not quite. Find ${sc.find}.`);
   };
   if (isAnatomy) {
     return (
@@ -790,7 +811,6 @@ function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type:
             );
           })}
         </div>
-        {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Keep exploring — find {sc.find}. 💛</p>}
       </div>
     );
   }
@@ -806,7 +826,6 @@ function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type:
           );
         })}
       </div>
-      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Keep exploring — find {sc.find}. 💛</p>}
     </div>
   );
 }
@@ -815,7 +834,6 @@ function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type:
 // on resolve. A wrong tap warmly re-asks (no fail). The safety squad's signature spot-the-trick verb.
 function SpotPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "spot" }>; onSolved: () => void; say: (t: string) => void }) {
   const [items] = useState(() => shuffle(sc.scene)); // shuffle so the trick slots vary
-  const [wrong, setWrong] = useState(false);
   const [caught, setCaught] = useState<Set<string>>(new Set());
   const tricks = sc.scene.filter((s) => s.trick).map((s) => s.id); // a scene can hide MORE THAN ONE red flag
   const done = caught.size >= tricks.length;
@@ -826,15 +844,15 @@ function SpotPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "spot" 
   const choose = (it: { id: string; text: string; trick: boolean }) => {
     if (done || caught.has(it.id)) return;
     if (it.trick) {
-      const nc = new Set(caught).add(it.id); setCaught(nc); setWrong(false); vibrate(12);
+      const nc = new Set(caught).add(it.id); setCaught(nc); vibrate(12);
       const left = tricks.length - nc.size;
       if (left <= 0) setTimeout(onSolved, 450);
-      else say(left === 1 ? "Caught one! One more red flag to find." : `Caught one! ${left} more red flags to find.`);
-    } else { setWrong(true); say(plural ? "That one's okay. Which ones are the tricky red flags?" : "That one's okay. Which one is the tricky red flag?"); }
+      else say(left === 1 ? "Caught one! One more to find." : `Caught one! ${left} more to find.`);
+    } else say("That one's okay. Keep looking.");
   };
   return (
     <div className="flex flex-col gap-2.5">
-      {plural && !done && <p className="text-center text-xs font-semibold text-foreground/60" aria-live="polite">Spot all {tricks.length} red flags 🚩 — {caught.size}/{tricks.length} caught</p>}
+      {plural && !done && <p className="text-center text-xs font-semibold text-foreground/60" aria-live="polite">Found {caught.size} of {tricks.length}</p>}
       <div className="grid grid-cols-1 gap-2.5">
         {items.map((it) => {
           const got = caught.has(it.id);
@@ -845,7 +863,6 @@ function SpotPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "spot" 
           );
         })}
       </div>
-      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Keep looking — which {plural ? "ones are" : "one is"} the tricky red flag{plural ? "s" : ""}? 💛</p>}
     </div>
   );
 }

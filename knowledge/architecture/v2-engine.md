@@ -4,9 +4,10 @@ owner: the-equal-lens
 title: SwipeEd v2 engine
 description: How SwipeEd's shared v2 engine turns a typed scenario library into one of ten play verbs, from a tap on a path node through to a recorded GameDone completion.
 tags: [swipeed, engine, v2, mechanics, architecture]
-timestamp: 2026-09-14T00:00:00Z
+timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
 ---
 
 # SwipeEd v2 engine
@@ -214,6 +215,63 @@ into module-level flags in `src/lib/juice.ts` (`store.tsx:92-102`: `setJuiceMute
 a `calm` class on `<html>`), so any code that calls `prefersReducedMotion()` or checks mute from `juice.ts`
 directly sees the current profile setting without needing the store's React context.
 
+## Question card, reveal and focus
+
+Added by [SWED-66](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e)
+after a playtest where players answered without reading the question. The visual pattern is specified in
+[design.md, How Lensy speaks](../design.md#voice-and-copy); this section is the engine side. Both engines render
+`LensyQuestion` and `RevealGate` from `src/components/games/lensy-question.tsx`.
+
+**Building the question.** `hookLine(s)` in `V2Game` returns the text for the card: `joinQuestion(hook, prompt)`
+for `reflect` and `build`, `joinQuestion(hook, setup)` for `role-play`, `joinQuestion(hook, "Find <find>.")` for
+`explore-label`, and `cleanLine(hook)` for every other mechanic. `cleanLine()` strips "Lensy:"/"Sam:" narrator
+prefixes at the start of the line or of any sentence; `joinQuestion()` drops a prompt the hook already ends with
+and drops a clipped tag question of up to three words that is not itself a question ("Agree?", "Land right?")
+from the end of the hook when a real question follows. `say()` runs every spoken line through `cleanLine()` too.
+
+**One beat, in order (`V2Game`).**
+
+1. `present(s)` sets `question` to `hookLine(s)`, `revealed` to false and the phase to `"play"` in one batch
+   with the new `qi`, then speaks the question.
+2. `LensyQuestion` gets `focusKey = "<qi>:<scenario id>"`; its effect focuses the card `h2` (`tabIndex={-1}`,
+   `preventScroll`) whenever the key changes, so focus and the new text land in the same commit.
+3. While `revealed` is false the middle zone renders `RevealGate` instead of `Play`. An effect sets `revealed`
+   after `revealDelayMs(question)` (1,200ms plus 60ms a word, at most 4,000ms). It is a timer, not speech
+   `onEnd`, because `stopSpeaking()` cancels `onEnd` and muting mid-line would strand the answers. Tapping the
+   card (`onTap`) or the gate reveals at once; the gate hands focus to the first answer on the next frame.
+4. `Play` mounts inside an `animate-in` wrapper (no animation under reduced motion). Renderers call
+   `say(t, shown?)`: `t` is spoken; the feedback line shows `shown` when given, else `t`. When the two
+   differ (`shown` is `""` for a non-best branch pick, whose consequence card is already on screen) the
+   spoken line is kept in `heard` and passed as `announce`, a `sr-only` span in the same live region.
+5. On `solve()` the phase becomes `"resolve"`: the feedback line empties, `announce` carries the result
+   (`"That's the best choice. "` plus the consequence for a best branch pick, otherwise the resolve line) and
+   an effect focuses Next.
+
+Replay ("Hear it again") speaks `question` during play and the last line otherwise.
+
+**Capstones (`RichCapstone`).** Laps speak their own question from a mount effect, so the engine cannot set it
+up front. Instead `next()` raises `questionNext` and the first `say()` of the new step becomes the question
+(`setQuestion`, `questionSpeech` for replay, `setQuestionStep`); later lines go to the feedback line. `say(t,
+bubbleText?)` shows `bubbleText` where part of `t` is already on a card: a swipe lap shows only `lap.frame`
+on the question card (the cue is on the swipe card) and only `lap.celebrate` when solved, and a strike lap
+does the same with the myth and its UN/RE truth. Focus waits for `questionStep === step`, so the card is never
+focused while it still shows the previous step's text. Gated steps (`lap`, `reflect`) mount their view at once
+inside a `hidden` wrapper, which keeps the mount effects running while `RevealGate` stands in, and the reveal
+timer, tap-to-skip and Next focus work as in `V2Game`.
+
+**Inline nudges removed.** Before SWED-66 most renderers also printed their nudge as a conditional line under the
+answers ("Not a match. Try another. 💛"), duplicating the spoken line and pushing the grid down when it mounted.
+Those lines and their `wrong`/`nudge` state are gone from `SwipePlay`, `RolePlayPlay`, `SortPlay`, `MatchPlay`,
+`ExploreLabelPlay`, `SpotPlay`, `MatchLap`, `SortLap` and `RolePlayLap`; the swipe legend (left label, keys,
+right label) now stays visible after a wrong swipe. `SpotPlay`'s copy no longer assumes every target is a red
+flag ("Found 1 of 2", "That one's okay. Keep looking.").
+
+**Verification harness.** Headless Chrome scripts drove every mechanic and every capstone lap type at 360, 390
+and 412px, in both themes and with reduced motion, and checked that each beat starts gated with focus on the
+question, that nudges leave the question in place, that focus lands on Next when solved, and that the focused
+card already holds the new question. The scripts live in the session scratchpad, not the repo; the approach is
+recorded in the [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md).
+
 ## Audio, motion and juice
 
 **Voice.** `src/lib/speak.ts` wraps the browser `SpeechSynthesis` API (locale fixed to `en-IN`, `speak.ts:8`).
@@ -221,10 +279,11 @@ directly sees the current profile setting without needing the store's React cont
 so "😄" is never read as "smiling face"), and a generation counter (`speak.ts:25,33`) invalidates a stale
 utterance's `onEnd` callback if a newer line has already started. `onEnd` fires either from the browser or from
 a word-count-based fallback timer (`fallbackMs`, `speak.ts:21-23`), so pacing holds even when muted or when
-`SpeechSynthesis` is unavailable. `replay()` (`speak.ts:67-70`) re-speaks the last line. Both `V2Game` and
-`RichCapstone` mirror every `say()` call into a visible chat bubble marked `role="status" aria-live="polite"`
-(`v2-engine.tsx:195`, `capstone-rich.tsx:565`), so the same line reaches screen-reader and TTS-muted users as
-text, not only as audio.
+`SpeechSynthesis` is unavailable. `replay()` (`speak.ts:67-70`) re-speaks the last line; the engines' "Hear it
+again" button replays the beat's question instead while the beat is in play. Both `V2Game` and `RichCapstone`
+show every `say()` line on Lensy's question card or its live feedback line, so the same line reaches
+screen-reader and TTS-muted players as text, not only as audio; see
+[Question card, reveal and focus](#question-card-reveal-and-focus).
 
 **Juice.** `src/lib/juice.ts` synthesizes short Web Audio tones per event kind (`sfx()`, `juice.ts:63-84`:
 green, red, toxic, combo, win, shatter; no audio asset files), exposes `haptic()`/local `vibrate()` wrappers
@@ -262,21 +321,17 @@ traps a low-vision user at a fixed zoom level.
 - **Explicit keyboard paths for the two gesture-only cases.** `swipe`: `ArrowLeft`/`ArrowRight`
   (`v2-engine.tsx:360-363`). `strike-rewrite`: `Enter`/`Space` on a focusable `role="button"` card
   (`v2-engine.tsx:451,454`).
-- **Speech has a text parity path.** The Lensy bubble is `role="status" aria-live="polite"` and mirrors every
-  `say()` (`v2-engine.tsx:195`, `capstone-rich.tsx:565`).
+- **Speech has a text parity path.** The question card holds the beat's question, and the feedback line under
+  it (`role="status" aria-live="polite"`, in `lensy-question.tsx`) carries every later `say()`, visibly or, when
+  a card already shows the line, through a `sr-only` span.
+- **Focus follows the beat.** Focus moves to the question card when a beat or lap starts, to the first answer
+  after a keyboard reveal, and to Next when the beat is solved (SWED-66).
 - **Text scales.** `profile.textScale` sets the document root's `font-size` (`store.tsx:105-107`), so the whole
   UI scales with it (rem-based styling).
 - **Pinch-zoom is not blocked** (`layout.tsx:47-49`, above).
 
-Two gaps, both confirmed by a repo-wide search:
-- **No programmatic focus management anywhere.** `grep -rn "\.focus(" src/` returns zero matches in the whole
-  app. When a beat resolves, the DOM swaps in a new resolve view and a new "Next" button, but nothing moves
-  keyboard focus there or anywhere else; a keyboard or switch-device user must tab from wherever focus happened
-  to land (often nowhere, if the previous element unmounted). See SWED-58 below.
-- **A branch's verdict is not part of the announced text.** The 💚/💛 marker that distinguishes a "best" pick
-  from any other advancing pick lives only in a plain, non-live `<div>` (`v2-engine.tsx:258`); the aria-live
-  bubble is not updated for it (`solve()` returns early for a branch result before calling `say()` again,
-  `v2-engine.tsx:155`). See SWED-57 below.
+The two gaps recorded here on 2026-09-14, no focus management (SWED-58) and an unannounced branch verdict
+(SWED-57), were fixed by SWED-66; see [Known issues](#known-issues).
 
 ## Fail-closed guards
 
@@ -332,7 +387,10 @@ same pattern (`rightDone`, `capstone-rich.tsx:133`; `rightEls`, `capstone-rich.t
 identical `right` string is a content-bank question outside this doc's scope; the mechanism itself is confirmed
 in the engine code.
 
-**SWED-57: branch verdict is colour-only and not announced.** Confirmed, with one precision: it is not literally
+**SWED-57: branch verdict is colour-only and not announced. Fixed by SWED-66 (2026-09-15):** in the resolve phase
+`V2Game` passes the question card an `announce` line, "That's the best choice." plus the consequence for a best
+pick, which the feedback line's live region reads out. The history below is kept for context.
+Confirmed, with one precision: it is not literally
 colour-only (a 💚 or 💛 emoji prefixes the text, `v2-engine.tsx:258`), but it is visual-only. `solve()` returns
 immediately for a branch result (`v2-engine.tsx:155`, "the branch consequence was already spoken on pick"), so
 the aria-live bubble is never updated for the resolve view; the 💚/💛 marker lives only in a plain `<div>` with
@@ -341,7 +399,9 @@ their pick was the "best" one. Related, and not itself part of SWED-57's wording
 (meant to reinforce why the best choice is best) is defined (`v2-schema.ts:24`) but `solve()`'s early return
 means it is never spoken for a `branch` scenario in `V2Game`.
 
-**SWED-58: focus is dropped on solve in all ten verbs.** Confirmed, and broader than the ten verbs: a repo-wide
+**SWED-58: focus is dropped on solve in all ten verbs. Fixed by SWED-66 (2026-09-15):** both engines focus the
+question card at the start of each beat and Next when it is solved. The history below is kept for context.
+Confirmed, and broader than the ten verbs: a repo-wide
 `grep -rn "\.focus(" src/` returns zero matches anywhere in the app, including `capstone-rich.tsx`. There is no
 programmatic focus management at all, so every verb's resolve view and "Next" button are new DOM nodes that
 nothing directs keyboard focus to.

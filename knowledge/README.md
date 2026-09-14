@@ -4,9 +4,10 @@ owner: the-equal-lens
 title: SwipeEd knowledge base
 description: Start here - what SwipeEd is, where every doc lives, and the rules for keeping this knowledge base in step with the code.
 tags: [swipeed, index, knowledge-base]
-timestamp: 2026-09-14T00:00:00Z
+timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
 ---
 
 # SwipeEd knowledge base
@@ -32,6 +33,7 @@ knowledge/
   schemas/           question-bank.md (bank format, sources, gates, fleet numbers)
   games/             the catalog: one doc per game and capstone, plus the SwipeEd overview docs
   audits/            dated measurement passes (design-audit-2026-09-14.md)
+  playbooks/         approved plans and how-tos (playtest-feedback-plan-2026-09-15.md)
   log/               log.md, the dated project log, newest first
 ```
 
@@ -45,6 +47,7 @@ knowledge/
 | Content | [question bank](schemas/question-bank.md) · [content pipeline (forge)](games/swipeed-content-pipeline.md) · [game doc template](games/_game-template.md) |
 | Games | [games catalog](games/index.md): every game and capstone by chapter |
 | Design | [design system](design.md) · [design audit, 2026-09-14](audits/design-audit-2026-09-14.md) |
+| Plans | [playtest feedback plan, 2026-09-15](playbooks/playtest-feedback-plan-2026-09-15.md): question focus, match and sort, reflect, myth cards |
 | Tracking and history | [Plane configuration](plane.config.md) · [project log](log/log.md) |
 
 ## Keeping it in sync
