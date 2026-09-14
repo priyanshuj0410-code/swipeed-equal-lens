@@ -27,7 +27,7 @@ TARGET = 400                       # the per-game floor the founder set
 UPGRADED = {"sort": 6, "spot": 5, "match": 5}   # target option counts per mechanic
 SPOT_TRICKS = 2                    # exactly 2 lies per 5-item spot scene
 # mechanics we guarantee a minimum depth of per category (if the game uses them at all), for variety
-VARIETY_MECHANICS = ["sort", "spot", "match", "branch", "role-play", "strike-rewrite", "reflect"]
+VARIETY_MECHANICS = ["sort", "spot", "match", "branch", "role-play", "strike-rewrite", "reflect", "choose"]
 
 
 def game_to_chapter():

@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/c9d24ac9-e08c-4f28-a82f-a07331a0ec0c  # SWED-48
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
 ---
 
 # Extending SwipeEd
@@ -56,10 +57,13 @@ Real precedent: **g53 "Choosing & Building"** (`a7b4798`) - **6 files, +185/−1
 | **Ordering:** add the `gen-path.py` GAME entry **before** committing the content file | `read_first.py` does `if not node: continue` - it silently **skips** a new file whose gameId isn't in the GAME dict yet. The attestation gate passes without attesting. No override needed, no warning. |
 | Regenerate `path.ts` before running forge | Until then `chapter_of()` returns `None`, which switches **off** both the band length ceiling and the age-band mechanic allowlist. |
 
-## B. Adding a mechanic (an 11th play action)
+## B. Adding a mechanic
 
 Precedent sizes: each of the three historical additions shipped a schema type, a `Play` component, and
-the adopting game in one commit.
+the adopting game in one commit. The most recent, `choose` ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4), 2026-09-15), followed this checklist: the schema
+type, `ChoosePlay`, every `common.py` list, `forge_dedup.py` `struct_sig`, `bank_spec.py` `VARIETY_MECHANICS`, the
+generator's shapes and reviewer key list, and fixtures in `test_gates.py`, with its first content in a separate
+pilot change.
 
 ### The app (2 files)
 1. `src/content/games/v2-schema.ts` - add to the `V2Mechanic` union **and** add a payload type to the

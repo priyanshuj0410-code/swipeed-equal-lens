@@ -25,6 +25,13 @@ SORT_ITEMS = 6
 SPOT_SCENE = 5
 SPOT_TRICKS = 2
 MATCH_PAIRS = 5
+# choose (SWED-69): tap every option that fits, then Check. Six options, two to four of them fit, so neither
+# "tap everything" nor "tap one" works and the count itself is not a tell.
+CHOOSE_OPTIONS = 6
+CHOOSE_FITS = (2, 4)
+# an option that only agrees or disagrees tests nothing about the question
+ASSENT_ONLY = {"yes", "no", "maybe", "agree", "disagree", "i agree", "i disagree", "true", "false", "not sure",
+               "both", "neither", "all of these", "none of these", "all of the above", "none of the above"}
 
 # ── the safety boundary: India helpline name <-> number binding (verified) ──────────────────────────────────
 # Each service: canonical number (digits, no spaces) + accepted display forms + name regexes. A service NAME in
@@ -72,7 +79,7 @@ AGE_OF_CONSENT = "18"
 # they need older cognition and risk teaching fear to little kids — UNLESS that game's GDD leads with them.
 BAND_DISALLOW = {1: {"spot", "swipe"}, 2: {"spot", "swipe"}}
 BIN_VALENCES = {"pos", "neg", "tell", "uhoh", "neutral"}
-ALL_MECHANICS = {"reflect", "role-play", "strike-rewrite", "branch", "sort", "match", "build", "explore-label", "spot", "swipe"}
+ALL_MECHANICS = {"reflect", "choose", "role-play", "strike-rewrite", "branch", "sort", "match", "build", "explore-label", "spot", "swipe"}
 
 # ── field roles: where canonical facts MUST hold vs where deliberate myths/lies live ─────────────────────────
 # Visible (rendered) string fields per type — used for <=160, normalization, dedup.
@@ -87,6 +94,11 @@ def visible_fields(o):
         for i, s in enumerate(o.get("options", []) or []):
             yield f"option[{i}]", s
         yield "affirm", o.get("affirm", "")
+    elif t == "choose":
+        yield "prompt", o.get("prompt", "")
+        for i, op in enumerate(o.get("options", []) or []):
+            yield f"option[{i}].text", op.get("text", "")
+            yield f"option[{i}].note", op.get("note", "")
     elif t == "role-play":
         yield "setup", o.get("setup", "")
         for i, l in enumerate(o.get("yourLine", []) or []):
@@ -153,6 +165,13 @@ def must_be_true_texts(o):
                 out += [op.get("text", ""), op.get("consequence", "")]
     elif t == "reflect":
         out.append(o.get("affirm", ""))
+    elif t == "choose":
+        # an option that fits is asserted true; every note is the app explaining, in its own voice, why an
+        # option does or does not fit. The text of an option that does not fit is a deliberate wrong answer.
+        for op in o.get("options", []) or []:
+            if op.get("fits"):
+                out.append(op.get("text", ""))
+            out.append(op.get("note", ""))
     elif t == "spot":
         out.append(o.get("why", ""))
         for s in o.get("scene", []) or []:
@@ -313,6 +332,7 @@ def jaccard(a, b):
 REQUIRED_BASE = ["id", "cat", "type", "persona", "source", "relearn", "hook"]
 REQUIRED_PAYLOAD = {
     "reflect": ["prompt", "options", "affirm"],
+    "choose": ["prompt", "options"],
     "role-play": ["setup", "yourLine"],
     "strike-rewrite": ["myth"],
     "branch": ["options", "debrief"],
@@ -403,6 +423,31 @@ def shape_errors(o, strict_target=True):
                 pass  # checked at field level by callers; reflect must have no wrong answer
         if not o.get("options"):
             e.append("reflect missing options")
+    elif t == "choose":
+        opts = o.get("options") or []
+        if len(opts) != CHOOSE_OPTIONS:
+            e.append(f"choose options={len(opts)} (need {CHOOSE_OPTIONS})")
+        fits = [op for op in opts if isinstance(op, dict) and op.get("fits") is True]
+        if not CHOOSE_FITS[0] <= len(fits) <= CHOOSE_FITS[1]:
+            e.append(f"choose options that fit={len(fits)} (need {CHOOSE_FITS[0]} to {CHOOSE_FITS[1]})")
+        texts = []
+        for i, op in enumerate(opts):
+            if not isinstance(op, dict):
+                e.append(f"choose option[{i}] is not an object"); continue
+            if not isinstance(op.get("fits"), bool):
+                e.append(f"choose option[{i}] fits not boolean")
+            if not (isinstance(op.get("text"), str) and op["text"].strip()):
+                e.append(f"choose option[{i}] missing text")
+            if not (isinstance(op.get("note"), str) and op["note"].strip()):
+                e.append(f"choose option[{i}] missing note (it explains a wrong or a missed pick)")
+            t_norm = norm_text(op.get("text") or "")
+            texts.append(t_norm)
+            if t_norm in ASSENT_ONLY:
+                e.append(f"choose option[{i}] '{op.get('text')}' only agrees or disagrees")
+            if t_norm and t_norm in (norm_text(o.get("prompt") or ""), norm_text(o.get("hook") or "")):
+                e.append(f"choose option[{i}] repeats the question")
+        if len(set(texts)) != len(texts):
+            e.append("choose duplicate option texts")
     elif t == "swipe":
         if o.get("answer") not in ("left", "right"):
             e.append("swipe answer not in {left,right}")
@@ -478,7 +523,8 @@ def field_len_errors(o):
 
 # keys that are NOT narrated prose — excluded from the per-scenario band total (read by the forge gates and by
 # scripts/content_gate.py, which runs at commit and before every build).
-NON_PROSE = {"id", "cat", "type", "key", "persona", "source", "mode", "valence", "outcome", "leftValence", "rightValence"}
+# `note` (choose) is shown only for a wrong or missed pick, so it is capped per field but left out of the total.
+NON_PROSE = {"id", "cat", "type", "key", "persona", "source", "mode", "valence", "outcome", "leftValence", "rightValence", "note"}
 
 def prose_chars(o):
     def walk(v, k=None):

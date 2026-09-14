@@ -25,7 +25,13 @@ TARGET MECHANIC SHAPES (the gate REQUIRES these for new content — read scripts
   has no fail state), so double-check every spot: do the 2 trick:true items match the bad thing the hook asks for?
 - match: EXACTLY 5 pairs; distinct lefts; distinct rights; no left text equals a right text.
 - branch: exactly one option "best":true; every non-best option has a "consequence".
-- reflect: NO right answer — options:[…] + affirm:"…". Never put best/key/trick/answer on a reflect.
+- reflect: NO right answer — options:[…] + affirm:"…". Never put best/key/trick/answer on a reflect. Keep reflect for
+  feelings, personal choices and safety lines ("it's not your fault"), where every answer is acceptable.
+- choose: prompt + EXACTLY 6 options:[{"text","fits","note"}], 2 to 4 with "fits":true (vary the count). Use it for a
+  lesson or values question with a defensible answer. Wrong options must be genuinely tempting (a common belief or a
+  near miss), never silly, never "Yes"/"No"/"Both", never a copy of the question. Every note is one short sentence:
+  for a fitting option, why it fits (shown if missed); for the others, why it does not (shown if picked). Fitting
+  option texts and every note must be TRUE.
 - strike-rewrite: myth:{un, re, why}. "un" is the gentle myth; "re"+"why" MUST be true.
 - role-play: setup + yourLine:[{text,best?}] (exactly one best).
 - build: prompt + pieces:[…] + mode:"assemble"|"sequence" + key:[…] (key ⊆ pieces).
@@ -140,7 +146,7 @@ Return the schema object (ndjson_path, generated, reshaped, gate_clean, exhauste
 "${GID}", category "${c.cat}". The generated batch is at ${gen.ndjson_path}. Read it + ${REPO}/.forge/${GID}/GROUNDING.md.
 For EACH scenario, check (and FIX in the file if wrong):
 - SAFETY-KEY: independently re-derive the correct answer (sort item→bin, branch best, match pairing, spot tricks,
-  strike re). REJECT/FIX any INVERSION — e.g. trusting a stranger or keeping an unsafe secret marked "safe/best",
+  strike re, choose fits: decide which of the 6 options fit BEFORE reading the "fits" flags, then compare). REJECT/FIX any INVERSION — e.g. trusting a stranger or keeping an unsafe secret marked "safe/best",
   a green-flag binned as a red-flag, telling a trusted adult framed as wrong. (The engine has no fail state, so a
   wrong key silently teaches the unsafe reflex — this is the most important check.)
 - AGE-TONE: for this age band, nothing frightening, graphic, or more detail than the GDD introduces; gentlest
