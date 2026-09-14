@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
 ---
 
 # SwipeEd project log
@@ -18,6 +19,18 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 - engine: swipe cards get side buttons, scrubbing keeps its progress ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543))
+- **Why.** Swipe had no tap or screen-reader path and could solve twice if swiped again during its fly-off, and a
+  myth being scrubbed reset to zero on every new stroke. Phase 1d (engine half) of the
+  [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md), laying the ground for myth cards.
+- **Engine.** New shared `SwipeCard` (`src/components/games/swipe-card.tsx`) with one button per side and a
+  done-guard, used by the lesson swipe beats; a neutral nudge ("Read the card"); a tap button on the capstone
+  swipe-up lap; cumulative scrubbing in `StrikePlay` and `StrikeLap`, plus keyboard and screen-reader clicks.
+- **Checks.** Headless runs of button, pointer-swipe, double-commit and two-stroke scrub cases, and capstone 1's
+  swipe lap by tap. `tsc`, `eslint` and `npm run build` pass.
+- **Docs.** [design.md](../design.md) (Swipe card, tap floor), the [v2 engine](../architecture/v2-engine.md), the
+  [interaction model](../games/swipeed-interaction-model.md), [game patterns](../games/swipeed-game-patterns.md).
 
 ## 2026-09-15 - engine: match and sort stop giving the answer away ([SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62))
 - **Why.** Playtesters solved match boards at a glance: two independent shuffles zipped row by row put at least one

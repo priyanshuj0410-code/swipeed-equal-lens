@@ -10,6 +10,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
 ---
 
 # SwipeEd v2 engine
@@ -146,7 +147,7 @@ attempt is a spoken nudge and a retry, and the renderer's only way to finish is 
 | **build** | Drags (or taps) pieces onto a "slate", then confirms | Drag (`usePointerDrag` + `hitTestZone`) with a tap fallback; explicit confirm button | Spoken nudge on a wrong/out-of-order piece; no UN/RE beat | `BuildPlay`, `v2-engine.tsx:684-729` |
 | **explore-label** | Taps the body part on a figure (anatomy content) or the correct "which is true" card (abstract content) matching a clue | Tap only, native buttons (anatomy variant positions them over an `aria-hidden` SVG figure) | Wrong tap re-asks with a nudge; resolve speaks a `reveal` fact; no UN/RE beat | `ExploreLabelPlay`, `v2-engine.tsx:768-812` |
 | **spot** | Taps every "trick" (red-flag) item in a scene; a scene can hide more than one | Tap only, native buttons | Spoken progress ("Caught one, N more"); wrong tap gets a warm nudge; resolve speaks `why`; no UN/RE beat | `SpotPlay`, `v2-engine.tsx:816-851` |
-| **swipe** | Drags the cue card left or right past a threshold, or flicks it; the sole verb with no buttons at all | Drag, or Left/Right arrow keys on the focusable card | Card tints and shows an edge badge live, during the drag, toward the side being dragged; wrong side springs back with a nudge; resolve speaks `relearn`; no UN/RE beat | `SwipePlay`, `v2-engine.tsx:335-401` |
+| **swipe** | Drags the cue card left or right past a threshold, or flicks it | Drag, Left/Right arrow keys on the focusable card, or the two side buttons under it | Card tints and shows an edge badge live, during the drag, toward the side being dragged; wrong side springs back with a nudge; the card ignores input once the right side is chosen; resolve speaks `relearn`; no UN/RE beat | `SwipePlay` wraps the shared `SwipeCard`, `src/components/games/swipe-card.tsx` |
 
 Scoring is uniform across all ten verbs and is not per-answer: solving a beat calls `earn(sc.cat)`
 (`v2-engine.tsx:144,150`, marks that scenario's category as "earned" for the sticker strip) and
@@ -337,14 +338,15 @@ traps a low-vision user at a fixed zoom level.
   word (`VALENCE_STYLE`, `binStyles()`, `swipeStyles()`; `v2-engine.tsx:40-52,326-334`); an undeclared bin or
   side falls back to a neutral, assertion-free colour rather than a guess (see
   [Fail-closed guards](#fail-closed-guards)).
-- **Tap is the accessibility floor for nine of ten verbs.** Every renderer except `swipe` keeps a native
-  `<button>` tap path alongside its gesture, which doubles as the keyboard path (a focused button activates on
-  Enter/Space by default) and the young-child fallback. `swipe` is the deliberate exception: it is drag or
-  Left/Right arrow keys on a focusable `role="group"` card, with no buttons at all
-  (`v2-engine.tsx:314-321,360-363,370-372`).
-- **Explicit keyboard paths for the two gesture-only cases.** `swipe`: `ArrowLeft`/`ArrowRight`
-  (`v2-engine.tsx:360-363`). `strike-rewrite`: `Enter`/`Space` on a focusable `role="button"` card
-  (`v2-engine.tsx:451,454`).
+- **Tap is the accessibility floor for all ten verbs.** Every renderer keeps a native `<button>` tap path
+  alongside its gesture, which doubles as the keyboard path (a focused button activates on Enter/Space by
+  default) and the young-child fallback. `swipe` was the exception, drag or arrow keys with no buttons at all,
+  until `SwipeCard` added one button per side (SWED-70, 2026-09-15).
+- **Explicit keyboard paths for the gesture cards.** `swipe`: `ArrowLeft`/`ArrowRight` on the focused card.
+  `strike-rewrite`: `Enter`/`Space` on a focusable `role="button"` card, and a click with `detail === 0` (the
+  kind a screen reader or keyboard sends, never a finger scrubbing) erases it too.
+- **Scrubbing accumulates.** `StrikePlay` and `StrikeLap` add each stroke's distance to the ones before, so lifting
+  a finger never un-erases a half-rubbed myth (previously every new stroke started again from zero).
 - **Speech has a text parity path.** The question card holds the beat's question, and the feedback line under
   it (`role="status" aria-live="polite"`, in `lensy-question.tsx`) carries every later `say()`, visibly or, when
   a card already shows the line, through a `sr-only` span.
