@@ -8,6 +8,7 @@ timestamp: 2026-09-14T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b  # SWED-65
 ---
 
 # SwipeEd question bank
@@ -401,7 +402,7 @@ Each pair comes from two **different** category batches independently generating
 | Cross-band (logged, allowed by design) | 51 pairs | 7 pairs | 99 |
 | **Combined** | **53 pairs** | **7 pairs** | **103** |
 
-The audit's headline "52" lines up closely with the structural-signature pair count (53 here); an exact match would need a run of the real `forge_dedup.py`, which this audit did not do. The large majority are cross-band echoes tied to explicit spiral-curriculum links in `path.ts`'s `buildsOn` field - `my-body` <-> `safety-squad` (My Body, My Rules -> Safety Squad) alone accounts for 11 of the 53 structural pairs, which is exactly the "legitimate age re-teaching" case `forge_dedup.py`'s own design calls out as logged, not blocked. Only the 2 intra-band pairs are the class the merge gate is meant to catch:
+The audit's headline "52" lines up closely with the structural-signature pair count (53 here); an exact match would need a run of the real `forge_dedup.py`, which this audit did not do. The large majority are cross-band echoes tied to explicit spiral-curriculum links in `path.ts`'s `buildsOn` field - `my-body` <-> `safety-squad` (My Body, My Rules -> Safety Squad) alone accounts for 11 of the 53 structural pairs, which is exactly the "legitimate age re-teaching" case `forge_dedup.py`'s own design calls out as logged, not blocked. Only the 2 intra-band pairs are the class the merge gate is meant to catch: A run of the real `forge_dedup.py --verify` for all 69 games on 2026-09-14 reported 0 intra-band collisions, including the two pairs below, so they are candidates for a human look rather than gate failures; the reimplementation's normalisation evidently differs.
 
 - `feelings:ff-013` (strike-rewrite) and `same-same:ss-041`, both Ch.1: "Big boys don't cry."
 - `feelings:ff-083` (reflect) and `my-body:mb-082`, both Ch.1: near-identical "who would you tell" prompts.
@@ -475,4 +476,5 @@ git commit -m "[SWED-n] ..."   # pre-commit re-runs status + read-first-gate + m
 - [Reusable game patterns](../games/swipeed-game-patterns.md) - the engine and content patterns this schema assumes.
 - [Games catalog](../games/index.md) - all 69 games and 8 capstones by chapter.
 - [v2 engine](../architecture/v2-engine.md) · [design system](../design.md) · [knowledge base index](../README.md)
+- [Question bank audit, 2026-09-14](../audits/question-bank-audit-2026-09-14.md) and [forge pipeline review, 2026-09-14](../audits/forge-pipeline-review-2026-09-14.md).
 - Spot-checked against this doc: [Be the Safe Adult](../games/be-the-safe-adult.md), [Green Light / Red Light](../games/green-light-red-light.md), [Body Lab Juniors](../games/body-lab-juniors.md).

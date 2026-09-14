@@ -8,6 +8,7 @@ timestamp: 2026-09-15T00:00:00Z
 copied_from: owhile-engine@c182048:knowledge/log.md
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b  # SWED-65
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
@@ -87,6 +88,24 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - **Docs.** [design.md](../design.md) (How Lensy speaks, elevation, Components, Focus, References) and the
   [v2 engine](../architecture/v2-engine.md) (new section: Question card, reveal and focus; SWED-57 and SWED-58
   marked fixed).
+
+## 2026-09-14 - audit: the question bank and the forge pipeline ([SWED-65](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b))
+- **What.** A read-only pass over all 33,542 lesson scenarios, 70 capstone laps, every help string and the Get Help
+  sheet, plus the generator and every gate. Findings: [question bank audit](../audits/question-bank-audit-2026-09-14.md)
+  and [forge pipeline review](../audits/forge-pipeline-review-2026-09-14.md).
+- **Healthy.** Every answer key passed deterministic checks, no match can trigger SWED-56, categories and mechanic
+  caps are clean, reading level falls with age, disclosure responses and self-harm messaging are right, 40 legal and
+  factual claims were checked, and `forge_check.py` passes all 69 games.
+- **Content problems.** Two parent-facing scenarios present transgender self-identification as current law, which a
+  2026 amendment removed; `my-choices` tells 15-18-year-olds that mandatory reporting is a myth, and two games
+  promise confidential sexual-health care without its POCSO limit; `plan-it` models "just between us" as the right
+  thing to say to a trusted adult; the Get Help sheet calls Childline confidential with no exception; a few
+  statistics need attribution; 2,999 dashes in player text.
+- **Pipeline problems.** No gate runs by default or before deploy; claims were never verified and evidence is
+  discarded; a regrowth run could silently overwrite shipped scenarios; the review agent is not independent; the
+  commit-time checks miss scenario helplines, most field lengths and empty banks; `DESIGN.md` promises steps that
+  were never built.
+- **Next.** Follow-up tickets are proposed at the end of both audits; filed on 2026-09-15 (see the plan's Progress section).
 
 ## 2026-09-14 - safety: KIRAN retired, every mention routed to Tele-MANAS ([SWED-62](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb))
 - **Why.** KIRAN (1800-599-0019), the mental-health rehabilitation line of the Department of Empowerment of Persons

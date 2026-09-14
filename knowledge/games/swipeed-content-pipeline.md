@@ -47,7 +47,7 @@ check → semantic reviewer, ≤1 bounce then drop) → ASSEMBLE + whole-bank DE
   gate. Correctly blocks the un-upgraded bank (legacy 4-item sorts, missing valence, mix/count).
 - `forge_assemble.py` - merge a batch into `<game>.ts` with a parse-or-die round-trip.
 - `forge_dedup.py` - whole-bank structural + prose dedup, band-aware, helpline-masked. **Intra-band blocks,
-  cross-band logs.** Surfaced 10 pre-existing intra-chapter twins (cross-game reflects) worth cleaning. (A 2026-09-14 re-check found 2 intra-chapter pairs still present; see the [question bank](../schemas/question-bank.md#known-issues).)
+  cross-band logs.** Surfaced 10 pre-existing intra-chapter twins (cross-game reflects) worth cleaning. (On 2026-09-14 the real `forge_dedup.py` reported none across all 69 games; an independent re-check flagged 2 candidate pairs for a human look; see the [question bank](../schemas/question-bank.md#known-issues).)
 
 ## Verified allowlist (the safety boundary - founder-signed-off 2026-06-24)
 Childline **1098** · Women **181**/**1091** · Emergency/Police **112**/**100** · Tele-MANAS **14416** · Cyber **1930** · NALSA legal aid **15100**. Laws pinned: age of consent **18**, POCSO 2012,

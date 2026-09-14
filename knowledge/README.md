@@ -7,6 +7,7 @@ tags: [swipeed, index, knowledge-base]
 timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b  # SWED-65
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
 ---
 
@@ -32,7 +33,7 @@ knowledge/
   architecture/      v2-engine.md (how games run), deployment.md (stack, build, hosting)
   schemas/           question-bank.md (bank format, sources, gates, fleet numbers)
   games/             the catalog: one doc per game and capstone, plus the SwipeEd overview docs
-  audits/            dated measurement passes (design-audit-2026-09-14.md)
+  audits/            dated audits: design, question bank, forge pipeline
   playbooks/         approved plans and how-tos (playtest-feedback-plan-2026-09-15.md)
   log/               log.md, the dated project log, newest first
 ```
@@ -47,6 +48,7 @@ knowledge/
 | Content | [question bank](schemas/question-bank.md) · [content pipeline (forge)](games/swipeed-content-pipeline.md) · [game doc template](games/_game-template.md) |
 | Games | [games catalog](games/index.md): every game and capstone by chapter |
 | Design | [design system](design.md) · [design audit, 2026-09-14](audits/design-audit-2026-09-14.md) |
+| Audits | [design, 2026-09-14](audits/design-audit-2026-09-14.md) · [question bank, 2026-09-14](audits/question-bank-audit-2026-09-14.md) · [forge pipeline, 2026-09-14](audits/forge-pipeline-review-2026-09-14.md) |
 | Plans | [playtest feedback plan, 2026-09-15](playbooks/playtest-feedback-plan-2026-09-15.md): question focus, match and sort, reflect, myth cards |
 | Tracking and history | [Plane configuration](plane.config.md) · [project log](log/log.md) |
 
@@ -68,6 +70,7 @@ Owhile's own architecture, forge and business docs were deliberately not copied.
 
 ## Open questions
 
-- **Clinical content.** The Equal Lens canon says the organisation does no clinical content (no contraception, no STIs, no mental-health treatment) and refers instead, because it cannot staff it. SwipeEd includes sexual and reproductive health games: [Plan It](games/plan-it.md) and [Outbreak](games/outbreak.md) (ages 12-15), [Status: Know It](games/status-know-it.md) (15-18), [Own Your Health](games/own-your-health.md) (18-22) and [If, When & Whether](games/if-when-whether.md) (22+). Whether that rule applies to a self-paced app has not been decided.
+- **Clinical content.** The Equal Lens canon says the organisation does no clinical content (no contraception, no STIs, no mental-health treatment) and refers instead, because it cannot staff it. SwipeEd includes sexual and reproductive health games: [Plan It](games/plan-it.md) and [Outbreak](games/outbreak.md) (ages 12-15), [Status: Know It](games/status-know-it.md) (15-18), [Own Your Health](games/own-your-health.md) (18-22) and [If, When & Whether](games/if-when-whether.md) (22+). Whether that rule applies to a self-paced app has not been decided. The [question bank audit](audits/question-bank-audit-2026-09-14.md) counts about 1,400 such scenarios, from HIV facts at ages 9-12 to contraception at 15-18.
+- **Anatomical words.** The Chapter 1-3 body-safety games say only "private parts"; child-safety guidance recommends the correct words. A curriculum decision (audit finding A5).
 - **owhile-engine's copy.** owhile-engine's docs still describe themselves as SwipeEd's canonical knowledge base. [PRX-29](https://app.plane.so/claude-pri/projects/76bc2c6d-d7e2-4b88-8ce4-b9fa7e59f5b2/issues/6b3fe8df-f7df-44d2-a805-8e25aa4f67f2) asks an Owhile chat to point them here.
 - **Stale repo docs.** The repo's own `README.md` and several files in `docs/` predate the 77-node path (they describe 43 lessons and the old mascot name). This knowledge base supersedes them until they are updated or removed.
