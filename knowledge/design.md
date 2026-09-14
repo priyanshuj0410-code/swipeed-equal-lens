@@ -279,7 +279,7 @@ mostly orphaned per `games/world-art-tokens.md`) and `skin="canvas"` (hand-drawn
   This is the bold `UN:` and `RE:` label on every myth-bust in light mode (`src/components/games/un-re.tsx:12,15`; the rest of the line is ink), and was
   not previously measured or flagged in code. Fix by darkening the two accent values for text use, or
   by never setting them as a text colour directly and instead using them only as an icon/fill tint
-  next to ink text.
+  next to ink text. Tracked as [SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587).
 - `--prx-on-fill` on `--prx-neg` (the "incorrect" fill) measures 4.28:1 in light mode, just under the
   4.5:1 normal-text AA threshold, though it clears the 3.0:1 large-text/UI-component threshold. Every
   other `--prx-*` fill/on-fill pairing clears normal-text AA.
@@ -362,8 +362,8 @@ file and line where verifiable:
    fallback (`learning-path.tsx`) do not share a node-styling implementation; the 2D fallback draws
    its own organic grass/cobblestone scene independent of both 3D skins. Not necessarily wrong (they
    serve different fallback tiers) but undocumented as a deliberate two-track design before now.
-9. **UN/RE label contrast fails in light mode.** See Accessibility. Newly measured, not previously
-   tracked anywhere in code or docs.
+9. **UN/RE label contrast fails in light mode.** See Accessibility. Newly measured on 2026-09-14,
+   tracked as [SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587).
 10. **Voice rule violated at scale in shipped content.** See Voice and copy and the
     [design audit](audits/design-audit-2026-09-14.md) for counts. Not a code divergence, a content divergence, but the largest one
     in raw volume.

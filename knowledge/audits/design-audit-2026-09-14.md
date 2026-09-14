@@ -199,7 +199,7 @@ Cross-reference only, full explanation of each is in [design.md](../design.md), 
 7. Un-migrated raw hex: `src/lib/confetti.ts:4`, `src/components/scenery.tsx`.
 8. Two independent path visual languages: 3D canvas-skin (`path-scene.tsx`) vs. 2D SVG classic
    fallback (`learning-path.tsx`).
-9. UN/RE label contrast failure in light mode, `un-re.tsx:12,15` (see section 3 above).
+9. UN/RE label contrast failure in light mode, `un-re.tsx:12,15` (see section 3 above; [SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587)).
 10. Voice rule (no em/en dash) violated at scale in `src/content/games/*.ts` (see section 1 above).
 
 ## Not independently verified

@@ -34,12 +34,13 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   and 30); Body Lab's `curiosity` category holds 92 (not 10); six catalog rows overstated their mechanic
   counts; the fleet landed at 33,542 scenarios, roughly 27,700 net-new (not ~21,800); "Sam" restored where a
   blanket rename to "Lensy" had broken sentences, and "Lensy/Lensy" duplicates removed.
-- **New findings, not yet ticketed:** UN and RE label text fails WCAG AA contrast in light mode (1.86:1 and
-  2.56:1); KIRAN, named 163 times in 7 content files, may have been merged into Tele-MANAS; "POCSO e-Box" has
-  no helpline allowlist entry; every heading is set in Baloo 2, against the brand canon; `src/` holds 5,113 em
-  or en dashes, 4,260 of them in game content.
-- **Not touched:** nothing in owhile-engine changed. Its older copies of these docs are no longer maintained
-  from this side.
+- **New findings, ticketed:** UN and RE label text fails WCAG AA contrast in light mode, 1.86:1 and 2.56:1
+  ([SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587)); KIRAN, named 163 times in 7 content files, may have been merged into Tele-MANAS ([SWED-62](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb));
+  "POCSO e-Box" has no helpline allowlist entry ([SWED-64](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4b84c004-94c4-4487-9515-e467b32178ae)). Recorded but not ticketed: every heading is set in
+  Baloo 2 against the brand canon (a decision for the owner), and `src/` holds 5,113 em or en dashes, 4,260 of
+  them in game content.
+- **Not touched:** nothing in owhile-engine changed; [PRX-29](https://app.plane.so/claude-pri/projects/76bc2c6d-d7e2-4b88-8ce4-b9fa7e59f5b2/issues/6b3fe8df-f7df-44d2-a805-8e25aa4f67f2) asks an Owhile chat to point its older copies of
+  these docs here.
 
 ## 2026-09-01 - engine: a SHIPPED MIS-TEACH fixed - the negative swipe side was painted green
 - **The defect, in safeguarding content.** `flagSide()` was a *second* prose-guessing regex, reading the

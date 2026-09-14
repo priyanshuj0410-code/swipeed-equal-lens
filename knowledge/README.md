@@ -66,5 +66,5 @@ Owhile's own architecture, forge and business docs were deliberately not copied.
 ## Open questions
 
 - **Clinical content.** The Equal Lens canon says the organisation does no clinical content (no contraception, no STIs, no mental-health treatment) and refers instead, because it cannot staff it. SwipeEd includes sexual and reproductive health games: [Plan It](games/plan-it.md) and [Outbreak](games/outbreak.md) (ages 12-15), [Status: Know It](games/status-know-it.md) (15-18), [Own Your Health](games/own-your-health.md) (18-22) and [If, When & Whether](games/if-when-whether.md) (22+). Whether that rule applies to a self-paced app has not been decided.
-- **owhile-engine's copy.** owhile-engine's docs still describe themselves as SwipeEd's canonical knowledge base. Pointing them here needs a PRX ticket for an Owhile chat.
+- **owhile-engine's copy.** owhile-engine's docs still describe themselves as SwipeEd's canonical knowledge base. [PRX-29](https://app.plane.so/claude-pri/projects/76bc2c6d-d7e2-4b88-8ce4-b9fa7e59f5b2/issues/6b3fe8df-f7df-44d2-a805-8e25aa4f67f2) asks an Owhile chat to point them here.
 - **Stale repo docs.** The repo's own `README.md` and several files in `docs/` predate the 77-node path (they describe 43 lessons and the old mascot name). This knowledge base supersedes them until they are updated or removed.
