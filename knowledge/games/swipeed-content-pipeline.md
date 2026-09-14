@@ -12,6 +12,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71  # SWED-73
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de  # SWED-77
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
 ---
 
 # SwipeEd content-growth pipeline (`forge`)
@@ -45,11 +46,13 @@ check → semantic reviewer, ≤1 bounce then drop) → ASSEMBLE + whole-bank DE
   parse-or-die, dedup normalization, per-mechanic structural validators.
 - `bank_spec.py` - coverage/gap report (the generator's input).
 - `forge_plan.py` - band-aware per-(category × mechanic) quota + legacy-reshape worklist + per-category id blocks
-  above the bank's highest id (SWED-73).
+  above the bank's highest id (SWED-73), a `lint` worklist of scenarios with content lint findings, and the
+  `convert` list of reflects chosen to become choose, from `.forge/<gameId>/convert.json` ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4)).
 - `forge_check.py` - the deterministic validator, used as **both** the per-batch lint and the blocking merge
   gate. Correctly blocks the un-upgraded bank (legacy 4-item sorts, missing valence, mix/count).
 - `forge_assemble.py` - merge a batch into `<game>.ts`, refusing overwrites of shipped scenarios that are not on the
-  reshape worklist, and writing atomically after a parse and count round-trip (SWED-73).
+  reshape worklist, and writing atomically after a parse and count round-trip (SWED-73). A reshape keeps its type
+  unless it is a listed reflect becoming a choose.
 - `lints.py` - content lints from the playtest plan ([SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de)): dashes, narrator prefixes, stacked or clipped questions,
   match and sort giveaways, truths that need their myth. Blocking for new batches and for games on `lint_clean.json`.
 - `forge_dedup.py` - whole-bank structural + prose dedup, band-aware, helpline-masked. **Intra-band blocks,

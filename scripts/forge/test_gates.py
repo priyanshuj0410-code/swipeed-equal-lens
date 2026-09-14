@@ -20,6 +20,13 @@ VALID_STRIKE = {
     "myth": {"un": "A myth.", "re": "The truth.", "why": "Because reasons."},
 }
 
+VALID_REFLECT = {
+    "id": "t-003", "cat": "c", "type": "reflect", "persona": "any", "source": "s",
+    "relearn": "Every feeling is allowed.", "hook": "A new school year starts tomorrow.",
+    "prompt": "How do you feel about it?", "options": ["Excited", "Nervous", "A bit of both"],
+    "affirm": "Whatever you feel, it makes sense.",
+}
+
 VALID_CHOOSE = {
     "id": "t-003", "cat": "c", "type": "choose", "persona": "any", "source": "s",
     "relearn": "Respect shows in small, steady choices.", "hook": "Your new partner is getting to know you.",
@@ -185,7 +192,8 @@ def choose_fixtures():
 def regrowth_fixtures():
     """A regrowth batch can add scenarios in its category's id block and reshape worklist ids, and nothing else
     (SWED-73): the batch gate and assembly must refuse overwrites, type or category changes, out-of-block and
-    repeated ids, and non-scenario lines, and a failed assembly must leave the game file untouched."""
+    repeated ids, and non-scenario lines, and a failed assembly must leave the game file untouched. The one allowed
+    type change is a listed reflect becoming a choose (SWED-69)."""
     import io, json, shutil, tempfile
     from contextlib import redirect_stdout
     import forge_assemble as A
@@ -195,11 +203,12 @@ def regrowth_fixtures():
     tmp = tempfile.mkdtemp()
     game = os.path.join(tmp, "t.ts")
     batch = os.path.join(tmp, "batch.ndjson")
-    shipped = [dict(VALID_SORT, id="t-001"), dict(VALID_STRIKE, id="t-002")]
+    shipped = [dict(VALID_SORT, id="t-001"), dict(VALID_STRIKE, id="t-002"), dict(VALID_REFLECT, id="t-003"), dict(VALID_REFLECT, id="t-004")]
     body = ("import type { Scenario } from \"./v2-schema\";\n\nconst SCENARIOS: Scenario[] = [\n"
             + "".join("  " + json.dumps(o) + ",\n" for o in shipped) + "];\n\nexport const T = { scenarios: SCENARIOS };\n")
     plan = {"allowed_mechanics": sorted(C.ALL_MECHANICS), "band_ceiling": None, "chapter": 9, "id_prefix": "t",
-            "id_blocks": {"c": [100, 199]}, "reshape_legacy": {"sort": ["t-001"], "spot": [], "match": []}}
+            "id_blocks": {"c": [100, 199]}, "reshape_legacy": {"sort": ["t-001"], "spot": [], "match": [], "lint": ["t-004"]},
+            "convert": {"reflect:choose": ["t-003"]}}
     new_sort = dict(VALID_SORT, id="t-150")
 
     def run(name, lines, expect_ok, fail_round_trip=False):
@@ -236,6 +245,10 @@ def regrowth_fixtures():
     run("a shipped id that is not on the reshape worklist", [dict(VALID_STRIKE, id="t-002", hook="Overwritten.")], False)
     run("a reshape that changes the mechanic", [dict(VALID_STRIKE, id="t-001")], False)
     run("a reshape that moves category", [dict(VALID_SORT, id="t-001", cat="other")], False)
+    run("a reflect on the convert list becoming a choose", [dict(VALID_CHOOSE, id="t-003")], True)
+    run("a reflect on the lint worklist but not the convert list becoming a choose", [dict(VALID_CHOOSE, id="t-004")], False)
+    run("a reflect on the convert list becoming a sort", [dict(VALID_SORT, id="t-003")], False)
+    run("a conversion that moves category", [dict(VALID_CHOOSE, id="t-003", cat="other")], False)
     run("a new id outside the block", [dict(VALID_SORT, id="t-250")], False)
     run("the same new id twice", [new_sort, dict(new_sort, hook="Another.")], False)
     run("a line that is not a scenario", [new_sort, "this is not json"], False)
