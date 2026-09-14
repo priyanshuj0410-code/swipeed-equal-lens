@@ -69,6 +69,7 @@ mechanic composes, turning each interaction into the verb it teaches.
 | **match** | draw a cord plug→socket; locks and pins a shared numbered corner badge on both cells | tap a left cell → tap a right cell | cells keep their size in every state; no pair ever sits straight across (2026-09-15) |
 | **build** | drag a piece onto the slate | tap a piece | assemble checks the key; needs ALL key pieces |
 | **strike-rewrite** | scrub the (now visible) myth away → truth resolves | Enter/Space erases in one go | back-and-forth scrub = toddler-easy; progress adds up across strokes (2026-09-15) |
+| **myth card** (a strike-rewrite beat in a game with `mythCards`) | swipe the card showing a myth or its truth: Myth left, True right (2026-09-15) | ←/→ on the card, or the Myth and True buttons under it | the question card says only "Myth or true? Swipe the card."; a wrong side gets "Look again"; ends on the UN/RE card; never three scrubs or three cards in a row |
 | **choose** | tap every option that fits, then Check (2026-09-15) | same (checkbox buttons) | a miss gets a count and one more look; then every answer shows with its note; no-fail |
 | **role-play** | tap an equal-weight, **shuffled** speech card (read & choose the assertive line) | same (native buttons) | press-and-hold-to-speak deferred (optional) |
 | **branch** | tap a (now **shuffled**) option → see its consequence → best advances | same | tap *is* the verb (committing to a course) |
