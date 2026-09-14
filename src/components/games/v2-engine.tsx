@@ -53,6 +53,9 @@ export function binStyles(bins: { label: string; valence?: string }[]): { emoji:
 }
 const vibrate = (ms: number | number[]) => { try { navigator.vibrate?.(ms); } catch { /* unsupported */ } };
 
+// An explore-label `find` is either a noun phrase ("the part that pumps blood") or a full instruction ("Tap the part ...").
+const findLine = (find: string): string => { const f = find.trim(), line = /^[A-Z]/.test(f) ? f : `Find ${f}`; return /[.!?…]$/.test(line) ? line : `${line}.`; };
+
 // ---- anti-repeat rotation memory ----
 // shuffle() is memoryless, so with a shallow bank the same beats resurface session to session. We keep a small
 // per-game "recently served" id ring in localStorage and draw FRESH (unseen) beats first, falling back to seen
@@ -120,7 +123,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     if (s.type === "reflect") return joinQuestion(s.hook, s.prompt);
     if (s.type === "role-play") return joinQuestion(s.hook, s.setup);
     if (s.type === "build") return joinQuestion(s.hook, s.prompt);
-    if (s.type === "explore-label") return joinQuestion(s.hook, `Find ${s.find}.`);
+    if (s.type === "explore-label") return joinQuestion(s.hook, findLine(s.find));
     return cleanLine(s.hook); // swipe: the card shows the instruction only; the cue lives on the swipe card (no redundancy)
   };
   const resolveLine = (s: Scenario): string =>
@@ -862,7 +865,7 @@ function SpotPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "spot" 
   };
   return (
     <div className="flex flex-col gap-2.5">
-      {plural && !done && <p className="text-center text-xs font-semibold text-foreground/60" aria-live="polite">Found {caught.size} of {tricks.length}</p>}
+      {plural && !done && <p className="text-center text-xs font-semibold text-foreground/60">Found {caught.size} of {tricks.length}</p>}
       <div className="grid grid-cols-1 gap-2.5">
         {items.map((it) => {
           const got = caught.has(it.id);
