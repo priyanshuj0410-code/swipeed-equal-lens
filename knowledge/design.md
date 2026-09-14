@@ -8,6 +8,7 @@ timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
 ---
 
 # SwipeEd design system
@@ -224,7 +225,8 @@ more.
 |---|---|---|
 | Buttons | Brand `.btn .btn--{primary\|sun\|outline\|band\|solid\|ghost}` exists but SwipeEd's actual game CTAs mostly hand-roll Tailwind utility strings on top of `bg-[var(--color-sun)]` or `.glass-pill` instead of consuming `.btn--sun`/`buttonClass()` | Ad hoc across `src/components/games/v2-engine.tsx` (e.g. lines 274, 281, 552, 570, 712, 716, 724); generic shadcn `Button` at `src/components/ui/button.tsx` is a separate, mostly-unused-by-gameplay primitive |
 | Cards | Brand `.card` (24px radius) reimplemented locally as `.glass-card` (20px radius, `globals.css:246-252`); shadcn `Card` (`src/components/ui/card.tsx`) is a third, generic sticker-free surface used outside gameplay | `globals.css:246-252`; `src/components/ui/card.tsx` |
-| Chips / status pills | Brand `.note__chip` is extended (not replaced) for the myth-card truth/myth stamp (`globals.css:384`); one-off bin/sort "✓" chips are hand-rolled inline rather than reusing `.tag`/`.note__chip` | `globals.css:360-397` (myth-card family); `v2-engine.tsx:552` (sort chip) |
+| Chips / status pills | Brand `.note__chip` is extended (not replaced) for the myth-card truth/myth stamp (`globals.css:384`) | `globals.css` (myth-card family) |
+| Answer cards | `AnswerCard`: a `.glass-card` button with a `data-state` of `idle`, `selected` (armed: brand border, brand hard shadow, brand wash at `--prx-wash-hover`), `target` (a drag is over it: brand border and wash) or `done` (a correct match, a placed chip, a found or picked card: `--cell-tint` border and wash, default `--prx-pos`). A state never changes border width, shadow offset or size, and there is no pulse. `CornerBadge` pins a 24px round marker to the top-right corner: the pair number in its cord colour on matched cells, the zone emoji on placed chips, ✓ on a picked card, ⤵ on zones while a chip is armed. Placed sort chips stay in their slot and zones never collect tokens, marks that appear later ("Caught!", a gallery check) keep their space reserved, and the sort hint line is a fixed two lines. Used by match, sort, spot, explore-label and the capstone gallery, spot, branch, role-play and reflect steps ([SWED-67](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956)) | `src/components/games/answer-cells.tsx`; `.glass-card[data-state]` in `src/app/globals.css` |
 | Game shell chrome | `GameShell`: fixed glass-pill top bar (back button, title, progress "n/m"), opaque `--app-bg` overlay so the path is hidden behind an open game, `align="center"` vs `"fill"` for content that must pin its own top/bottom rows | `src/components/game-shell.tsx` |
 | Lensy's question card | `LensyQuestion`: Lensy plus an `h2.popover` question card in `font-hand`, the feedback line (the play area's one live region) and `RevealGate`. See How Lensy speaks | `src/components/games/lensy-question.tsx` |
 | Feedback banners | No hard-fail red banner anywhere. A wrong move gets a warm nudge from `say(...)`, shown on the question card's feedback line and spoken; mechanics no longer render their own inline nudge lines under the answers (removed in SWED-66, they duplicated the spoken line and shifted the layout when they mounted). A non-best branch pick keeps its 💛 consequence card with a retry button | `src/components/games/lensy-question.tsx`; `say()` in `v2-engine.tsx` and `capstone-rich.tsx` |
@@ -255,9 +257,14 @@ design:
   References): most swipe-card learning apps show a dedicated "here's why that's wrong" screen;
   SwipeEd keeps the same card on screen and lets the child try again.
 - **Colour is never the only signal.** Every declared-valence bin pairs its tint with an emoji and a
-  word; match stamps a shared numbered glyph (①②③) on both cord ends, readable without colour and
-  without the cord; swipe shows a word-plus-flag-emoji edge badge while dragging. See Accessibility
-  for where this rule is not actually followed.
+  word, and a chip placed in it carries that emoji as a corner badge; a matched pair shares a numbered
+  corner badge on both cells, readable without colour and without the cord; swipe shows a
+  word-plus-flag-emoji edge badge while dragging. See Accessibility for where this rule is not actually
+  followed.
+- **Options never move under the finger.** Within a beat, answer cards keep their size and position:
+  states recolour (see Answer cards), marks are corner badges or reserved space, and nudges live on the
+  question card's feedback line rather than in lines that mount under the answers. `ring-*` utilities
+  are not used for states because `.glass-card` is unlayered and its `box-shadow` always wins.
 - **Juice:** `celebrate()` (`src/lib/confetti.ts`) fires `canvas-confetti` plus a Web Audio chime on a
   correct/complete moment, small for a single correct answer, big for a game or capstone finish.
   `sfx()`/`haptic()`/`shake()` (`src/lib/juice.ts`) add short synthesized tones (no audio asset files)

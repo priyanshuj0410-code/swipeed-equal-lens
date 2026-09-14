@@ -9,6 +9,7 @@ copied_from: owhile-engine@c182048:knowledge/log.md
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
 ---
 
 # SwipeEd project log
@@ -16,6 +17,22 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 - engine: answer cards keep their size ([SWED-67](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956))
+- **Why.** Playtesters saw options change height within a question. Selected and matched cells swapped the card's
+  hard shadow for an inset ring, match numbers were text that re-wrapped, sort zones grew as chips landed, and
+  several "picked" states used `ring-*` classes that never render on `.glass-card`. Phase 1b of the
+  [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md).
+- **Engine.** New `AnswerCard` and `CornerBadge` (`src/components/games/answer-cells.tsx`) with
+  `.glass-card[data-state]` styles for selected, drag-target and done, used by match, sort, spot, explore-label and
+  the capstone gallery, spot, branch, role-play and reflect steps. Match numbers and zone emoji are corner badges,
+  placed sort chips stay in their slot, the sort hint has a fixed height, late marks reserve their space, and the
+  capstone gallery reserves its feedback line for its longest big truth.
+- **Checks.** Scripted playthroughs recording every answer card's height and position after each move at 360, 390
+  and 412px, light and dark, plus capstones 1 and 8: nothing moved within a beat. `tsc`, `eslint` and
+  `npm run build` pass.
+- **Docs.** [design.md](../design.md) (Answer cards, Interaction and motion), the [v2 engine](../architecture/v2-engine.md),
+  the [interaction model](../games/swipeed-interaction-model.md) and the plan's Progress section.
 
 ## 2026-09-15 - engine: Lensy's question leads every beat ([SWED-66](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e))
 - **Why.** Friends playtested Choosing & Building and answered without reading the question. The question was a

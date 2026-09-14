@@ -178,10 +178,30 @@ Found while checking, not fixed here:
 | Finding | Where it goes |
 |---|---|
 | Capstone 3's `c3-p8` match cannot be finished: two pairs share "Helps everyone", so matching one disables both | Confirmed live; [SWED-56](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a4b0bddb-0951-40ec-a66f-1c7bae11b823) with Phase 1c ([SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62)) |
-| Sort bins grow as chips land (124px to 228px within one question) | [SWED-67](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956) |
-| The capstone gallery's long `bigTruth` lines on the feedback line push the sticker grid down on each tap | [SWED-67](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956): reserve the line's height for a lap's longest mid-lap line |
+| Sort bins grow as chips land (124px to 228px within one question) | Fixed in Phase 1b ([SWED-67](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956)) |
+| The capstone gallery's long `bigTruth` lines on the feedback line push the sticker grid down on each tap | Fixed in Phase 1b: the line reserves the height of the lap's longest line |
 | `BuildLap` pieces respond only to pointer taps (`onTap`), so Enter or Space on a focused piece does nothing | Not ticketed yet |
 | At 360px a long capstone title pushes the sound button over the toolkit button | Not ticketed yet |
 | The swipe nudge "Read the flag" shows on non-flag swipes such as Reality Check's "Real, or reel?" | [SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543) |
 | Strike hooks that quote the myth repeat the myth card word for word | [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007) |
 | `cb-1292` (a friend being forced into marriage) resolves without the reassurance card or Get help pill: its category is not in `reassureCats` and its best option is `outcome: "routed"`, not `"safe"`. Its option text does carry 181, 1091 and 112 | Needs an owner decision on whether `routed` beats count as safety beats |
+
+### Phase 1b, stable heights: built on 2026-09-15 (SWED-67)
+
+- `AnswerCard` and `CornerBadge` (`src/components/games/answer-cells.tsx`) replace inline `boxShadow` rings,
+  `ring-*` classes and `animate-pulse` in match, sort, spot, explore-label and the capstone gallery, spot, branch,
+  role-play and reflect steps. `.glass-card[data-state]` rules in `globals.css` recolour a card for `selected`,
+  `target` and `done` and keep its border width and hard shadow offset. The plan's first idea, moving
+  `.glass-card` into `@layer components`, was dropped: `rounded-2xl` and `rounded-3xl` utilities would then
+  override its 20px radius across the app.
+- Match numbers are corner badges in the cord colour. Placed sort chips stay in their slot, tinted and badged
+  with their zone, so zones never grow. The zone arrow is a corner badge instead of text added to the label.
+- The sort hint is a fixed two-line line ("Tap a card, then its zone", then "Carrying ..."). The spot "Caught!"
+  label and the gallery check reserve their space before they appear.
+- `LensyQuestion` takes a `reserve` list; the capstone gallery passes its big truths, so the sticker grid holds
+  its position across taps.
+
+Checked the same way as 1a: scripted match, sort, spot and explore-label playthroughs at 360, 390 and 412px,
+light and dark, recording every answer card's height and position after each move, plus full runs of capstones
+1 and 8. No card changed height or position within a beat. The only change is at solve, when Next appears and
+the capstone sort zones share less space.

@@ -5,6 +5,7 @@ import { Volume2, VolumeX, RotateCcw, Check, ChevronUp, Home } from "lucide-reac
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { LensyQuestion, RevealGate, cleanLine, revealDelayMs } from "@/components/games/lensy-question";
+import { AnswerCard, CornerBadge } from "@/components/games/answer-cells";
 import { UnReBeat } from "@/components/games/un-re";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
@@ -32,7 +33,6 @@ import {
 
 const shuffle = <T,>(a: T[]): T[] => a.map((v) => [Math.random(), v] as const).sort((x, y) => x[0] - y[0]).map(([, v]) => v);
 const vibrate = (ms: number | number[]) => { try { navigator.vibrate?.(ms); } catch { /* unsupported */ } };
-const MATCH_GLYPHS = ["①", "②", "③", "④", "⑤", "⑥"];
 
 const card = "glass-card rounded-2xl backdrop-blur-[12px] backdrop-saturate-150";
 
@@ -68,11 +68,12 @@ function GalleryLap({ lap, recap, say, onSolved }: { lap: CapGalleryLap; recap: 
     <div className="flex flex-1 flex-col justify-start gap-2.5">
       <div className="grid grid-cols-2 gap-2.5">
         {flags.map((r) => (
-          <button key={r.glyph} type="button" onClick={() => tap(r)} className={`${card} flex flex-col items-center gap-1.5 px-3 py-4 text-center transition-transform active:scale-[0.97] ${lit.has(r.glyph) ? "ring-2 ring-[var(--accent-amber)]" : ""}`}>
+          <AnswerCard key={r.glyph} onClick={() => tap(r)} state={lit.has(r.glyph) ? "done" : "idle"} tint="var(--accent-amber)"
+            className="rounded-2xl backdrop-blur-[12px] backdrop-saturate-150 flex flex-col items-center gap-1.5 px-3 py-4 text-center transition-transform active:scale-[0.97]">
             <span className="text-4xl" aria-hidden>{glyphEmoji(r.glyph)}</span>
             <span className="text-xs font-bold text-foreground">{r.game}</span>
-            {lit.has(r.glyph) && <Check className="size-4 text-foreground" aria-hidden />}
-          </button>
+            <Check className={`size-4 text-foreground ${lit.has(r.glyph) ? "" : "invisible"}`} aria-hidden />
+          </AnswerCard>
         ))}
       </div>
       {lit.size < flags.length && <p className="text-center text-xs text-foreground/60">{lit.size} / {flags.length} · tap each flag</p>}
@@ -81,7 +82,7 @@ function GalleryLap({ lap, recap, say, onSolved }: { lap: CapGalleryLap; recap: 
 }
 
 // — Match: DRAW a cord from a left cell to its right cell (tap-a-left then tap-a-right is the fallback) —
-function MatchLap({ lap, say, onSolved, reduceMotion }: LapProps<CapMatchLap>) {
+function MatchLap({ lap, say, onSolved }: Omit<LapProps<CapMatchLap>, "reduceMotion">) {
   const [rights] = useState(() => shuffle(lap.pairs.map((p) => p.right)));
   const [matched, setMatched] = useState<string[]>([]);
   const [selLeft, setSelLeft] = useState<string | null>(null);
@@ -95,7 +96,6 @@ function MatchLap({ lap, say, onSolved, reduceMotion }: LapProps<CapMatchLap>) {
   useEffect(() => { say(lap.frame); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const rightOf = (left: string) => lap.pairs.find((p) => p.left === left)?.right;
-  const tokenOf = (left: string) => MATCH_GLYPHS[matched.indexOf(left) % MATCH_GLYPHS.length];
   const anchor = (el: HTMLElement | null, side: "l" | "r") => {
     const w = wrap.current; if (!el || !w) return null;
     const r = el.getBoundingClientRect(), c = w.getBoundingClientRect();
@@ -130,7 +130,11 @@ function MatchLap({ lap, say, onSolved, reduceMotion }: LapProps<CapMatchLap>) {
     onTap: () => { dragLeft.current = null; setLive(null); setHover(null); },
   });
   const rightDone = (r: string) => lap.pairs.some((p) => p.right === r && matched.includes(p.left));
-  const rightToken = (r: string) => { const left = lap.pairs.find((p) => p.right === r && matched.includes(p.left))?.left; return left ? tokenOf(left) : ""; };
+  // A matched pair shares a numbered corner badge in its cord's colour, readable without the colour or the cord.
+  const pairBadge = (left?: string) => {
+    const n = left ? matched.indexOf(left) : -1;
+    return n < 0 ? {} : { badge: n + 1, badgeTint: MATCH_TINTS[n % MATCH_TINTS.length] };
+  };
   return (
     <div className="flex flex-1 flex-col justify-start gap-2.5">
       <p className="text-center text-xs font-semibold text-foreground/60">draw a line from each card to its match</p>
@@ -139,18 +143,19 @@ function MatchLap({ lap, say, onSolved, reduceMotion }: LapProps<CapMatchLap>) {
         <div className="grid grid-cols-2 gap-2.5" style={{ gridAutoRows: "1fr" }}>
           {lap.pairs.map((p, i) => {
             const r = rights[i];
+            const leftDone = matched.includes(p.left);
             return (
               <Fragment key={i}>
-                <button type="button" data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={matched.includes(p.left)} onClick={() => setSelLeft(p.left)} {...pointer.handlers}
-                  className={`glass-card flex touch-none items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !reduceMotion ? "animate-pulse" : ""}`}
-                  style={matched.includes(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--prx-pos)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
-                  {matched.includes(p.left) ? `${tokenOf(p.left)} ${p.left}` : p.left}
-                </button>
-                <button type="button" ref={(el) => { rightEls.current[r] = el; }} disabled={rightDone(r)} onClick={() => { if (selLeft) connect(selLeft, r); }}
-                  className="glass-card flex items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100"
-                  style={rightDone(r) ? { boxShadow: "inset 0 0 0 2.5px var(--prx-pos)" } : hover === r ? { boxShadow: "inset 0 0 0 3.5px var(--color-ink)" } : undefined}>
-                  {rightDone(r) ? `${rightToken(r)} ${r}` : r}
-                </button>
+                <AnswerCard data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={leftDone} onClick={() => setSelLeft(p.left)} {...pointer.handlers}
+                  state={leftDone ? "done" : selLeft === p.left ? "selected" : "idle"} aria-pressed={leftDone ? undefined : selLeft === p.left} {...pairBadge(leftDone ? p.left : undefined)}
+                  className="flex touch-none items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100">
+                  {p.left}
+                </AnswerCard>
+                <AnswerCard ref={(el) => { rightEls.current[r] = el; }} disabled={rightDone(r)} onClick={() => { if (selLeft) connect(selLeft, r); }}
+                  state={rightDone(r) ? "done" : hover === r ? "target" : "idle"} {...pairBadge(lap.pairs.find((q) => q.right === r && matched.includes(q.left))?.left)}
+                  className="flex items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100">
+                  {r}
+                </AnswerCard>
               </Fragment>
             );
           })}
@@ -187,29 +192,34 @@ function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
     onEnd: (s) => { const id = dragId.current; dragId.current = null; const bin = hitTestZone(s.x, s.y, zones(), 44); setDrag(null); setHover(null); if (id && bin) place(id, bin); },
     onTap: () => { dragId.current = null; setDrag(null); setHover(null); },
   });
+  // A zone never grows: placed chips stay in their slot (marked with the zone's emoji) instead of moving in here.
   const renderBin = (b: { id: string; label: string }, bi: number) => {
     const st = styles[bi];
-    const inBin = lap.items.filter((it) => placed[it.id] === b.id);
     const armed = (!!sel && !drag) || hover === b.id;
     return (
       <button key={b.id} type="button" ref={(el) => { binEls.current[b.id] = el; }} onClick={() => { if (sel) place(sel, b.id); }}
-        className={`flex flex-1 flex-col items-center justify-center gap-1.5 rounded-2xl border-2 px-3 py-4 text-center transition-colors ${hover === b.id ? "border-solid" : "border-dashed"}`}
+        className={`relative flex flex-1 flex-col items-center justify-center gap-1.5 rounded-2xl border-2 px-3 py-4 text-center transition-colors ${armed ? "border-solid" : "border-dashed"}`}
         style={{ borderColor: st.tint, background: `color-mix(in srgb, ${st.tint} ${hover === b.id ? "24%" : "9%"}, transparent)` }}>
         <span className="text-3xl" aria-hidden>{st.emoji}</span>
-        <span className="text-sm font-extrabold text-foreground">{b.label}{armed ? " ⤵" : ""}</span>
-        {inBin.length > 0 && <div className="flex flex-wrap justify-center gap-1">{inBin.map((it) => <span key={it.id} className="rounded-full bg-[var(--color-sun)] px-2 py-0.5 text-[11px] font-bold text-slate-900">{it.text} ✓</span>)}</div>}
+        <span className="text-sm font-extrabold text-foreground">{b.label}</span>
+        {armed && <CornerBadge>⤵</CornerBadge>}
       </button>
     );
   };
   const chips = (
     <div className="flex flex-col gap-1.5">
-      {sel && !drag && <p className="text-center text-xs font-semibold text-foreground/70" aria-hidden>Carrying “{itemText(sel)}”: drop it in a zone</p>}
+      <p className="line-clamp-2 min-h-8 text-center text-xs font-semibold leading-4 text-foreground/70" aria-hidden>{sel ? `Carrying “${itemText(sel)}”: drop it in a zone` : "Tap a card, then its zone"}</p>
       <div className="flex flex-wrap justify-center gap-2">
-        {lap.items.filter((it) => !placed[it.id]).map((it) => (
-          <button key={it.id} type="button" data-id={it.id} onClick={() => arm(it.id)} {...pointer.handlers}
-            className={`glass-card touch-none rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 ${sel === it.id && !drag && !reduceMotion ? "animate-pulse" : ""} ${drag?.id === it.id ? "opacity-30" : ""}`}
-            style={sel === it.id && !drag ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>{it.text}</button>
-        ))}
+        {lap.items.map((it) => {
+          const bi = placed[it.id] ? lap.bins.findIndex((b) => b.id === placed[it.id]) : -1;
+          return bi >= 0 ? (
+            <AnswerCard key={it.id} disabled state="done" tint={styles[bi].tint} badge={styles[bi].emoji} aria-label={`${it.text}: ${lap.bins[bi].label}`}
+              className="rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] disabled:opacity-100">{it.text}</AnswerCard>
+          ) : (
+            <AnswerCard key={it.id} data-id={it.id} onClick={() => arm(it.id)} {...pointer.handlers} state={sel === it.id && !drag ? "selected" : "idle"} aria-pressed={sel === it.id}
+              className={`touch-none rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 ${drag?.id === it.id ? "opacity-30" : ""}`}>{it.text}</AnswerCard>
+          );
+        })}
       </div>
     </div>
   );
@@ -289,10 +299,11 @@ function SpotLap({ lap, say, onSolved }: Omit<LapProps<CapSpotLap>, "reduceMotio
     <div className="flex flex-1 flex-col justify-start gap-2">
       <div className="grid grid-cols-1 gap-2">
         {lap.scene.map((s, i) => (
-          <button key={i} type="button" onClick={() => tap(i)} className={`${card} flex items-center gap-3 px-4 py-3 text-left text-sm font-semibold text-foreground transition-transform active:scale-[0.98] ${found.has(i) ? "ring-2 ring-[var(--accent-amber)]" : ""}`}>
+          <AnswerCard key={i} onClick={() => tap(i)} state={found.has(i) ? "done" : "idle"} tint="var(--accent-amber)"
+            className="rounded-2xl backdrop-blur-[12px] backdrop-saturate-150 flex items-center gap-3 px-4 py-3 text-left text-sm font-semibold text-foreground transition-transform active:scale-[0.98]">
             <span className="text-xl" aria-hidden>{found.has(i) ? "🚩" : "🔎"}</span>
             <span className="flex-1">{s.text}</span>
-          </button>
+          </AnswerCard>
         ))}
       </div>
       {found.size < targets.length && <p className="text-center text-xs text-foreground/60">{found.size} / {targets.length} · tap the special ones</p>}
@@ -377,9 +388,10 @@ function BranchLap({ lap, say, onSolved }: Omit<LapProps<CapBranchLap>, "reduceM
   return (
     <div className="flex flex-1 flex-col justify-start gap-2.5">
       {opts.map((o, i) => (
-        <button key={i} type="button" disabled={solved} onClick={() => choose(i)} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] ${solved && picked === i ? "ring-2 ring-[var(--accent-amber)]" : ""}`}>
-          <span className="text-2xl" aria-hidden>🔀</span><span className="flex-1">{o.text}{solved && picked === i && " ✓"}</span>
-        </button>
+        <AnswerCard key={i} disabled={solved} onClick={() => choose(i)} state={solved && picked === i ? "done" : "idle"} tint="var(--accent-amber)" badge={solved && picked === i ? "✓" : undefined}
+          className="flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-100">
+          <span className="text-2xl" aria-hidden>🔀</span><span className="flex-1">{o.text}</span>
+        </AnswerCard>
       ))}
     </div>
   );
@@ -434,9 +446,10 @@ function RolePlayLap({ lap, say, onSolved }: Omit<LapProps<CapRolePlayLap>, "red
   return (
     <div className="flex flex-1 flex-col justify-start gap-2.5">
       {lines.map((o, i) => (
-        <button key={i} type="button" disabled={solved} onClick={() => choose(i)} aria-label={`Say: ${o.text}`} className={`glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] ${solved && chosen === i ? "ring-2 ring-[var(--accent-amber)]" : ""}`}>
-          <span className="text-2xl" aria-hidden>🗣️</span><span className="flex-1">{o.text}{solved && chosen === i && " ✓"}</span>
-        </button>
+        <AnswerCard key={i} disabled={solved} onClick={() => choose(i)} aria-label={`Say: ${o.text}`} state={solved && chosen === i ? "done" : "idle"} tint="var(--accent-amber)" badge={solved && chosen === i ? "✓" : undefined}
+          className="flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-100">
+          <span className="text-2xl" aria-hidden>🗣️</span><span className="flex-1">{o.text}</span>
+        </AnswerCard>
       ))}
     </div>
   );
@@ -445,7 +458,7 @@ function RolePlayLap({ lap, say, onSolved }: Omit<LapProps<CapRolePlayLap>, "red
 function LapView({ lap, recap, say, onSolved, reduceMotion }: { lap: CapLap; recap: CapRecap[] } & Omit<LapProps<CapLap>, "lap">) {
   switch (lap.type) {
     case "gallery": return <GalleryLap lap={lap} recap={recap} say={say} onSolved={onSolved} />;
-    case "match": return <MatchLap lap={lap} say={say} onSolved={onSolved} reduceMotion={reduceMotion} />;
+    case "match": return <MatchLap lap={lap} say={say} onSolved={onSolved} />;
     case "sort": return <SortLap lap={lap} say={say} onSolved={onSolved} reduceMotion={reduceMotion} />;
     case "build": return <BuildLap lap={lap} say={say} onSolved={onSolved} reduceMotion={reduceMotion} />;
     case "spot": return <SpotLap lap={lap} say={say} onSolved={onSolved} />;
@@ -469,7 +482,8 @@ function ReflectView({ reflect, say, onSolved }: { reflect: CapReflect; say: (t:
     <div className="flex flex-1 flex-col justify-start gap-2">
       <div className="grid grid-cols-1 gap-2">
         {reflect.options.map((o) => (
-          <button key={o} type="button" onClick={() => pick(o)} className={`${card} px-4 py-3 text-left text-sm font-semibold text-foreground transition-transform active:scale-[0.98] ${picked === o ? "ring-2 ring-[var(--accent-amber)]" : ""}`}>{o}</button>
+          <AnswerCard key={o} onClick={() => pick(o)} state={picked === o ? "done" : "idle"} tint="var(--accent-amber)"
+            className="rounded-2xl backdrop-blur-[12px] backdrop-saturate-150 px-4 py-3 text-left text-sm font-semibold text-foreground transition-transform active:scale-[0.98]">{o}</AnswerCard>
         ))}
       </div>
       {!picked && <p className="text-center text-xs text-foreground/60">{"there's no wrong answer 💛"}</p>}
@@ -587,11 +601,16 @@ export function RichCapstone({ config, onExit }: { config: CapstoneConfig; onExi
 
   // Lensy's question card, the same chrome as the v2 games: the step's question stays on the card and later
   // lines (nudges, a lap's celebration) go to the feedback line beneath it.
+  // The gallery reads out each chapter's big truth mid-lap; reserve the longest so tapping flags never shifts the grid.
+  const reserve = cur.kind === "lap" && cur.lap.type === "gallery"
+    ? cur.lap.stickers.flatMap((g) => { const r = config.recap.find((x) => x.glyph === g); return r ? [cleanLine(r.bigTruth)] : []; })
+    : undefined;
   const SamSays = (
     <LensyQuestion
       text={question}
       feedback={bubble !== question ? bubble : ""}
       announce={heard}
+      reserve={reserve}
       focusKey={gated && questionStep === step ? String(step) : undefined}
       onTap={gated && !revealed ? () => setRevealed(true) : undefined}
     />
