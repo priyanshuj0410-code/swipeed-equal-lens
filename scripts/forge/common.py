@@ -243,8 +243,16 @@ def id_number(i):
     m = re.match(r"^[a-z0-9]+-(\d+)", i or "")
     return int(m.group(1)) if m else None
 
+# The one type change a reshape may make is a planned conversion (SWED-69): a reflect with a right answer becomes a
+# choose. A classification step lists the ids under the plan's convert["reflect:choose"]; the generator never decides.
+CONVERSIONS = {("reflect", "choose")}
+
 def reshape_ids(plan):
-    return {i for ids in ((plan or {}).get("reshape_legacy") or {}).values() for i in ids}
+    plan = plan or {}
+    return {i for group in ("reshape_legacy", "convert") for ids in (plan.get(group) or {}).values() for i in ids}
+
+def converts(plan, i, old, new):
+    return (old, new) in CONVERSIONS and i in (((plan or {}).get("convert") or {}).get(f"{old}:{new}") or [])
 
 def regrowth_id_errors(o, shipped, reshapes, plan, seen):
     """Why a batch line's id is unsafe to assemble. `shipped` maps id -> shipped scenario; `seen` collects ids
@@ -259,7 +267,7 @@ def regrowth_id_errors(o, shipped, reshapes, plan, seen):
             e.append(f"id {i} is already in the bank and not on the reshape worklist (assembly would overwrite it)")
         else:
             for f in ("type", "cat"):
-                if o.get(f) != shipped[i].get(f):
+                if o.get(f) != shipped[i].get(f) and not (f == "type" and converts(plan, i, shipped[i].get(f), o.get(f))):
                     e.append(f"reshape {i} changes {f} from {shipped[i].get(f)!r} to {o.get(f)!r}")
         return e
     block = ((plan or {}).get("id_blocks") or {}).get(o.get("cat"))

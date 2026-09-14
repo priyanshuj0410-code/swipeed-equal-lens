@@ -6,12 +6,17 @@ sized toward the 400 target (quality-first: a target, not an inviolable floor), 
 (existing sorts/spots/matches to upgrade to 6 / 5-2 / 5), band ceiling, persona roster, intended_count, and
 the existing-id/fingerprint set so generation avoids collisions.
 
+Two more worklists feed a cleanup pass on a shipped game: reshape_legacy["lint"] lists scenarios with blocking content
+lints (a same-type rewrite may fix them), and convert["reflect:choose"] lists the reflects a classification step chose
+to become choose (SWED-69), read from .forge/<gameId>/convert.json ({"reflect:choose": [ids]}) when it exists.
+
 Usage: python3 scripts/forge/forge_plan.py <gameId> [--write]
 """
 import json, os, sys, glob, math, re
 from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common as C
+import lints as L
 
 TARGET = 400
 VARIETY_FLOOR = 8  # each allowed variety mechanic gets >= this per category (deep enough for fresh 6-beat sessions)
@@ -92,6 +97,18 @@ def plan(game_id, lib_idx, g2ch):
         elif t == "match" and len(o.get("pairs", [])) != C.MATCH_PAIRS:
             reshape["match"].append(o["id"])
 
+    reshape["lint"] = [o["id"] for o in scns if L.content_lints(o)]
+    convert = {}
+    cf = os.path.join(C.REPO, ".forge", game_id, "convert.json")
+    if os.path.exists(cf):
+        convert = json.load(open(cf, encoding="utf8"))
+        kinds = {tuple(k.split(":", 1)) for k in convert}
+        bad = [f"{a}:{b}" for a, b in kinds if (a, b) not in C.CONVERSIONS]
+        by_id = {o["id"]: o for o in scns}
+        wrong = [i for k, ids in convert.items() for i in ids if (by_id.get(i) or {}).get("type") != k.split(":", 1)[0]]
+        if bad or wrong:
+            raise SystemExit(f"{cf}: unsupported conversions {bad} or ids that are missing or not the source type {wrong[:5]}")
+
     total_generate = sum(sum(q["generate_by_type"].values()) for q in quota.values())
     # fresh ids for new scenarios: one block per category, above the highest number already in the bank (SWED-73)
     prefix = Counter(o["id"].rsplit("-", 1)[0] for o in scns).most_common(1)[0][0] if scns else game_id
@@ -108,6 +125,7 @@ def plan(game_id, lib_idx, g2ch):
         "per_category_target": per_cat_target, "ncats": ncats,
         "categories": quota,
         "reshape_legacy": reshape,
+        "convert": convert,
         "library_path": lib_path, "library_categories": lib.get("categories"),
         "existing_ids": [o["id"] for o in scns],
         "id_prefix": prefix,
@@ -130,7 +148,8 @@ def main():
     print(f"{gid} (Ch.{p['chapter']}) cur {p['current_total']} -> intended {p['intended_count']} "
           f"(generate {p['to_generate']}) | ceil {p['band_ceiling']} | allowed {p['allowed_mechanics']} "
           f"| disallow-for-band {p['disallowed_for_band']}")
-    print(f"  reshape: sort {len(p['reshape_legacy']['sort'])} | spot {len(p['reshape_legacy']['spot'])} | match {len(p['reshape_legacy']['match'])}")
+    print(f"  reshape: sort {len(p['reshape_legacy']['sort'])} | spot {len(p['reshape_legacy']['spot'])} | match {len(p['reshape_legacy']['match'])}"
+          f" | lint {len(p['reshape_legacy']['lint'])} | convert {({k: len(v) for k, v in p['convert'].items()})}")
     for c, q in p["categories"].items():
         b = p["id_blocks"][c]
         print(f"    {c:<22} {q['current']:>3} -> {q['target']:<3}   ids {p['id_prefix']}-{b[0]}..{b[1]}   gen {q['generate_by_type']}")

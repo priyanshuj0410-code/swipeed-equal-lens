@@ -25,6 +25,16 @@ Newest first. Every change that affects a game, the path, the engine or the ques
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
 
+## 2026-09-15 - forge: planned reflect-to-choose conversions ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4))
+- **Why.** The pilot turns Choosing & Building's lesson reflects into choose questions through the forge, and a
+  reshape could not change a scenario's type (SWED-73), which is right for everything except this conversion.
+- **Rule.** `common.py` `CONVERSIONS` allows one type change, reflect to choose, and only for ids on the plan's
+  `convert["reflect:choose"]` list. Category changes, other conversions and unlisted ids are still refused.
+- **Planner.** `forge_plan.py` adds `reshape_legacy.lint` (scenarios with blocking content lints, so a cleanup pass
+  can rewrite them) and reads `convert` from `.forge/<gameId>/convert.json`, refusing unsupported conversions and
+  ids that are not shipped reflects.
+- **Checks.** Four new regrowth fixtures in `test_gates.py`; `npm run gates` passes.
+
 ## 2026-09-15 - engine: myth cards, on for Choosing & Building ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543))
 - **Why.** Playtesters said swiping was a better way to bust a myth than scrubbing it out. Phase 3 of the
   [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md) plays strike-rewrite beats both ways.
