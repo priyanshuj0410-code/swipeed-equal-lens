@@ -12,6 +12,15 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007  # SWED-71
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71  # SWED-73
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1de71970-d924-45d7-acb9-3c28e8a33126  # SWED-74
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d  # SWED-75
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/87cb9b6b-551a-4c34-a209-514be826753b  # SWED-76
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de  # SWED-77
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e0437d36-ca6c-45e5-a252-a97f98540836  # SWED-86
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/baa41435-d56c-487b-ac9b-7557d49c85f5  # SWED-87
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8ed837-a59d-4d5b-9457-ba32b594c6fe  # SWED-88
 ---
 
 # Playtest feedback plan, 2026-09-15
@@ -152,6 +161,14 @@ The owner sets growth targets for the myth corpus before this phase. Flag-readin
 
 ## Progress
 
+**Phase 1 shipped on 2026-09-15:** the four branches were merged into `main` and deployed to production (`1f58f2b`).
+SWED-56, SWED-57, SWED-58, SWED-66 and SWED-67 are closed; SWED-68 and SWED-70 stay open for their content halves.
+
+**Before Phase 2:** the forge safety work this plan depends on is filed as [SWED-72](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b) (gates before every
+deploy), [SWED-73](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71) (safe regrowth), [SWED-74](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1de71970-d924-45d7-acb9-3c28e8a33126) (claim verification), [SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d) (independent
+safety review), [SWED-76](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/87cb9b6b-551a-4c34-a209-514be826753b) (validator gaps) and [SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de) (voice gate and mechanic coverage), from the
+[forge pipeline review](../audits/forge-pipeline-review-2026-09-14.md).
+
 ### Phase 1a, question first: built on 2026-09-15 (SWED-66)
 
 What shipped, beyond the plan above:
@@ -180,11 +197,11 @@ Found while checking, not fixed here:
 | Capstone 3's `c3-p8` match cannot be finished: two pairs share "Helps everyone", so matching one disables both | Fixed in Phase 1c ([SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62)), closing [SWED-56](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a4b0bddb-0951-40ec-a66f-1c7bae11b823) |
 | Sort bins grow as chips land (124px to 228px within one question) | Fixed in Phase 1b ([SWED-67](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956)) |
 | The capstone gallery's long `bigTruth` lines on the feedback line push the sticker grid down on each tap | Fixed in Phase 1b: the line reserves the height of the lap's longest line |
-| `BuildLap` pieces respond only to pointer taps (`onTap`), so Enter or Space on a focused piece does nothing | Not ticketed yet |
-| At 360px a long capstone title pushes the sound button over the toolkit button | Not ticketed yet |
+| `BuildLap` pieces respond only to pointer taps (`onTap`), so Enter or Space on a focused piece does nothing | [SWED-86](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e0437d36-ca6c-45e5-a252-a97f98540836) |
+| At 360px a long capstone title pushes the sound button over the toolkit button | [SWED-87](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/baa41435-d56c-487b-ac9b-7557d49c85f5) |
 | The swipe nudge "Read the flag" shows on non-flag swipes such as Reality Check's "Real, or reel?" | [SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543) |
 | Strike hooks that quote the myth repeat the myth card word for word | [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007) |
-| `cb-1292` (a friend being forced into marriage) resolves without the reassurance card or Get help pill: its category is not in `reassureCats` and its best option is `outcome: "routed"`, not `"safe"`. Its option text does carry 181, 1091 and 112 | Needs an owner decision on whether `routed` beats count as safety beats |
+| `cb-1292` (a friend being forced into marriage) resolves without the reassurance card or Get help pill: its category is not in `reassureCats` and its best option is `outcome: "routed"`, not `"safe"`. Its option text does carry 181, 1091 and 112 | Owner decision: [SWED-88](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8ed837-a59d-4d5b-9457-ba32b594c6fe) |
 
 ### Phase 1b, stable heights: built on 2026-09-15 (SWED-67)
 

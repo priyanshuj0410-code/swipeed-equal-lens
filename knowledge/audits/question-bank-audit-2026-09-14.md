@@ -4,9 +4,18 @@ owner: the-equal-lens
 title: SwipeEd question bank audit, 2026-09-14
 description: A full pass over all 33,542 lesson scenarios, 70 capstone laps, every game's help strings and the Get Help sheet, for child safety, factual and legal accuracy, answer-key integrity and quality, with severity-ranked findings and proposed fixes.
 tags: [swipeed, question-bank, audit, safety, accuracy, quality]
-timestamp: 2026-09-14T00:00:00Z
+timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b  # SWED-65
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1163d808-7f9b-4cc5-8571-c2e084e7221e  # SWED-79
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b  # SWED-80
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/346e8997-2ede-4e3b-a749-f8e7da185355  # SWED-81
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e2f01bdc-6e38-4eb0-8f87-b9c69e897cb5  # SWED-82
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5f63c3db-0db3-4bb1-ab29-2806c72782cb  # SWED-83
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/73023a9c-e912-4e59-ab0a-b4028cacc7e7  # SWED-84
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f4f2b093-af4a-4dc3-ba7e-ae11b7838c58  # SWED-85
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007  # SWED-71
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
 ---
 
 # SwipeEd question bank audit, 2026-09-14
@@ -153,16 +162,19 @@ A policy decision, recorded in the [knowledge base index](../README.md) as an op
 - The fact-check parsed 33,191 scenario lines with its own extractor, slightly fewer than the 33,542 in the bank.
 - Text only: rendering, audio and runtime behaviour were out of scope.
 
-## Proposed follow-up tickets
+## Follow-up tickets
+
+Proposed with this audit and filed on 2026-09-15. The last two were folded into tickets that already cover the same
+work.
 
 | Priority | Ticket | Covers |
 |---|---|---|
-| Urgent | Update transgender law content for the 2026 amendment | A1 |
-| Urgent | Name the POCSO reporting limit in sexual-health confidentiality content | A2, and `pl-1096` from A3 |
-| High | Replace the "just between us" model lines | A3 |
-| High | Reword the Get Help sheet's Childline confidentiality line | A4 |
-| Decision | Anatomical words in Chapter 1-3 body-safety games | A5 |
-| Decision | Clinical content policy for the app | A7 |
-| Medium | Attribute and qualify statistics; unify puberty ages | A6, A8 to A11 |
-| Medium | Voice cleanup: dashes, spelling, quotes, "bad feeling" | A13, A14, A17, A18 |
-| Medium | Disambiguate near-duplicate match rights | A12 |
+| Urgent | [SWED-79](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1163d808-7f9b-4cc5-8571-c2e084e7221e) Update transgender law content for the 2026 amendment | A1 |
+| Urgent | [SWED-80](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b) Name the POCSO reporting limit in sexual-health confidentiality content | A2, and `pl-1096` from A3 |
+| High | [SWED-81](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/346e8997-2ede-4e3b-a749-f8e7da185355) Replace the "just between us" model lines | A3 |
+| High | [SWED-82](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e2f01bdc-6e38-4eb0-8f87-b9c69e897cb5) Reword the Get Help sheet's Childline confidentiality line | A4 |
+| Decision | [SWED-83](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5f63c3db-0db3-4bb1-ab29-2806c72782cb) Anatomical words in Chapter 1-3 body-safety games | A5 |
+| Decision | [SWED-84](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/73023a9c-e912-4e59-ab0a-b4028cacc7e7) Clinical content policy for the app | A7 |
+| Medium | [SWED-85](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f4f2b093-af4a-4dc3-ba7e-ae11b7838c58) Attribute and qualify statistics; unify puberty ages | A6, A8 to A11 |
+| Medium | [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007) Voice cleanup (dashes, spelling, quotes, "bad feeling" added to it) | A13, A14, A17, A18 |
+| Medium | [SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62) Match and sort challenge (content half, near-duplicate rights added to it) | A12 |

@@ -4,9 +4,16 @@ owner: the-equal-lens
 title: SwipeEd forge pipeline review, 2026-09-14
 description: How the forge content pipeline and its gates actually work, where they fall short of their design, what runs at commit and deploy, and a prioritised plan for a safer next version.
 tags: [swipeed, forge, pipeline, gates, audit, safety]
-timestamp: 2026-09-14T00:00:00Z
+timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b  # SWED-65
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71  # SWED-73
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1de71970-d924-45d7-acb9-3c28e8a33126  # SWED-74
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d  # SWED-75
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/87cb9b6b-551a-4c34-a209-514be826753b  # SWED-76
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de  # SWED-77
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/34d7b4f6-4d2e-42ea-ada9-0f75a297bc52  # SWED-78
 ---
 
 # SwipeEd forge pipeline review, 2026-09-14
@@ -140,14 +147,16 @@ Checks that worked as documented: sort unused bins and missing keys, match dupli
 6. **Voice and coverage:** dash gate, swipe and explore-label shapes (P7, P8).
 7. **Hygiene:** fixes flow back through the NDJSON, TypeScript in assembly, repo path, run record, model pinning, planner errors, exhaustion metric, tests, and a `DESIGN.md` that matches the code (P5, P9 to P13, P16, P17, P18, test gaps).
 
-## Proposed follow-up tickets
+## Follow-up tickets
+
+Proposed with this review and filed on 2026-09-15.
 
 | Priority | Ticket | Covers |
 |---|---|---|
-| Urgent | Run content gates automatically before every deploy | G5, G4, G6, G2, G10 |
-| High | Make forge regrowth safe (ids, overwrite, assembly) | P2, P3, P14, P15 |
-| High | Verify claims: sniffer at commit, evidence ledger, helpline registry | G1, P1, P6, G7, G8, G16 |
-| High | Independent, checklist-driven safety review in the forge | P4 |
-| Medium | Close shape and matching validator gaps, with tests | G3, G9, G11 to G15, G17, G18, test gaps |
-| Medium | Voice gate and full mechanic coverage in the generator | P7, P8 |
-| Low | Forge hygiene and a truthful DESIGN.md | P5, P9 to P13, P16 to P18 |
+| Urgent | [SWED-72](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b) Run content gates automatically before every deploy | G5, G4, G6, G2, G10 |
+| High | [SWED-73](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71) Make forge regrowth safe (ids, overwrite, assembly) | P2, P3, P14, P15 |
+| High | [SWED-74](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1de71970-d924-45d7-acb9-3c28e8a33126) Verify claims: sniffer at commit, evidence ledger, helpline registry | G1, P1, P6, G7, G8, G16 |
+| High | [SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d) Independent, checklist-driven safety review in the forge | P4 |
+| Medium | [SWED-76](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/87cb9b6b-551a-4c34-a209-514be826753b) Close shape and matching validator gaps, with tests | G3, G9, G11 to G15, G17, G18, test gaps |
+| Medium | [SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de) Voice gate and full mechanic coverage in the generator | P7, P8 |
+| Low | [SWED-78](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/34d7b4f6-4d2e-42ea-ada9-0f75a297bc52) Forge hygiene and a truthful DESIGN.md | P5, P9 to P13, P16 to P18 |
