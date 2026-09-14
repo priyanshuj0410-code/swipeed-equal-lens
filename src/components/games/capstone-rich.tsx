@@ -1,17 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState, Fragment } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Volume2, VolumeX, RotateCcw, Check, ChevronUp, Home } from "lucide-react";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { LensyQuestion, RevealGate, cleanLine, revealDelayMs } from "@/components/games/lensy-question";
 import { AnswerCard, CornerBadge } from "@/components/games/answer-cells";
+import { MatchBoard } from "@/components/games/match-board";
 import { UnReBeat } from "@/components/games/un-re";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import { prefersReducedMotion } from "@/lib/juice";
-import { binStyles, MATCH_TINTS } from "@/components/games/v2-engine";
-import { usePointerDrag, hitTestZone, ConnectorOverlay, type Cord } from "@/components/games/interactions";
+import { binStyles } from "@/components/games/v2-engine";
+import { usePointerDrag, hitTestZone } from "@/components/games/interactions";
 import {
   type CapstoneConfig, type CapLap, type CapRecap, type CapReflect,
   type CapMatchLap, type CapSortLap, type CapBuildLap, type CapSpotLap, type CapSwipeLap, type CapGalleryLap, type CapBranchLap, type CapStrikeLap, type CapRolePlayLap,
@@ -81,87 +82,18 @@ function GalleryLap({ lap, recap, say, onSolved }: { lap: CapGalleryLap; recap: 
   );
 }
 
-// — Match: DRAW a cord from a left cell to its right cell (tap-a-left then tap-a-right is the fallback) —
+// — Match: DRAW a cord from each left card to its right card (MatchBoard, shared with the lesson engine) —
 function MatchLap({ lap, say, onSolved }: Omit<LapProps<CapMatchLap>, "reduceMotion">) {
-  const [rights] = useState(() => shuffle(lap.pairs.map((p) => p.right)));
-  const [matched, setMatched] = useState<string[]>([]);
-  const [selLeft, setSelLeft] = useState<string | null>(null);
-  const [live, setLive] = useState<Cord | null>(null);
-  const [locked, setLocked] = useState<Cord[]>([]);
-  const [hover, setHover] = useState<string | null>(null);
-  const wrap = useRef<HTMLDivElement>(null);
-  const leftEls = useRef<Record<string, HTMLElement | null>>({});
-  const rightEls = useRef<Record<string, HTMLElement | null>>({});
-  const dragLeft = useRef<string | null>(null);
   useEffect(() => { say(lap.frame); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const rightOf = (left: string) => lap.pairs.find((p) => p.left === left)?.right;
-  const anchor = (el: HTMLElement | null, side: "l" | "r") => {
-    const w = wrap.current; if (!el || !w) return null;
-    const r = el.getBoundingClientRect(), c = w.getBoundingClientRect();
-    return { x: (side === "r" ? r.right : r.left) - c.left, y: r.top + r.height / 2 - c.top };
-  };
-  const recompute = useCallback(() => {
-    const cords: Cord[] = [];
-    matched.forEach((left, i) => {
-      const r = rightOf(left); const a = anchor(leftEls.current[left], "r"); const b = r ? anchor(rightEls.current[r], "l") : null;
-      if (a && b) cords.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y, tint: MATCH_TINTS[i % MATCH_TINTS.length] });
-    });
-    setLocked(cords);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [matched]);
-  useEffect(() => { recompute(); const on = () => recompute(); window.addEventListener("resize", on); return () => window.removeEventListener("resize", on); }, [recompute]);
-  const rightZones = () => rights.map((r) => ({ id: r, el: rightEls.current[r] }));
-  const connect = (left: string, right: string) => {
-    if (rightOf(left) === right) {
-      const nm = [...matched, left]; setMatched(nm); setSelLeft(null); celebrate("small");
-      if (nm.length >= lap.pairs.length) { celebrate("big"); say(lap.celebrate); onSolved(); }
-      else say(`${left}: ${right}. ✓`);
-    } else say("Not a match. Try another.");
-  };
-  const liveFrom = (left: string, x: number, y: number) => {
-    const a = anchor(leftEls.current[left], "r"), w = wrap.current; if (!a || !w) return;
-    const c = w.getBoundingClientRect(); setLive({ x1: a.x, y1: a.y, x2: x - c.left, y2: y - c.top, tint: "var(--color-ink)" });
-  };
-  const pointer = usePointerDrag({
-    onStart: (s, e) => { const left = (e.currentTarget as HTMLElement).dataset.left ?? null; dragLeft.current = left; if (left) { setSelLeft(left); liveFrom(left, s.x, s.y); } },
-    onMove: (s) => { const left = dragLeft.current; if (!left) return; liveFrom(left, s.x, s.y); setHover(hitTestZone(s.x, s.y, rightZones(), 36)); },
-    onEnd: (s) => { const left = dragLeft.current; dragLeft.current = null; const right = hitTestZone(s.x, s.y, rightZones(), 36); setLive(null); setHover(null); if (left && right) connect(left, right); },
-    onTap: () => { dragLeft.current = null; setLive(null); setHover(null); },
-  });
-  const rightDone = (r: string) => lap.pairs.some((p) => p.right === r && matched.includes(p.left));
-  // A matched pair shares a numbered corner badge in its cord's colour, readable without the colour or the cord.
-  const pairBadge = (left?: string) => {
-    const n = left ? matched.indexOf(left) : -1;
-    return n < 0 ? {} : { badge: n + 1, badgeTint: MATCH_TINTS[n % MATCH_TINTS.length] };
-  };
   return (
     <div className="flex flex-1 flex-col justify-start gap-2.5">
       <p className="text-center text-xs font-semibold text-foreground/60">draw a line from each card to its match</p>
-      {/* one grid with auto-rows:1fr so every cell (left & right) is the SAME height — tidy cords */}
-      <div ref={wrap} className="relative">
-        <div className="grid grid-cols-2 gap-2.5" style={{ gridAutoRows: "1fr" }}>
-          {lap.pairs.map((p, i) => {
-            const r = rights[i];
-            const leftDone = matched.includes(p.left);
-            return (
-              <Fragment key={i}>
-                <AnswerCard data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={leftDone} onClick={() => setSelLeft(p.left)} {...pointer.handlers}
-                  state={leftDone ? "done" : selLeft === p.left ? "selected" : "idle"} aria-pressed={leftDone ? undefined : selLeft === p.left} {...pairBadge(leftDone ? p.left : undefined)}
-                  className="flex touch-none items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100">
-                  {p.left}
-                </AnswerCard>
-                <AnswerCard ref={(el) => { rightEls.current[r] = el; }} disabled={rightDone(r)} onClick={() => { if (selLeft) connect(selLeft, r); }}
-                  state={rightDone(r) ? "done" : hover === r ? "target" : "idle"} {...pairBadge(lap.pairs.find((q) => q.right === r && matched.includes(q.left))?.left)}
-                  className="flex items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100">
-                  {r}
-                </AnswerCard>
-              </Fragment>
-            );
-          })}
-        </div>
-        <ConnectorOverlay cords={locked} live={live} />
-      </div>
+      <MatchBoard
+        pairs={lap.pairs}
+        onMatch={(left, right, done) => { celebrate("small"); if (done) { celebrate("big"); say(lap.celebrate); onSolved(); } else say(`${left}: ${right}. ✓`); }}
+        onMiss={() => say("Not a match. Try another.")}
+      />
     </div>
   );
 }
@@ -169,6 +101,8 @@ function MatchLap({ lap, say, onSolved }: Omit<LapProps<CapMatchLap>, "reduceMot
 // — Sort: DRAG a chip into its bin (two bins → big dropzones top & bottom; tap-to-arm is the fallback) —
 function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
   const [placed, setPlaced] = useState<Record<string, string>>({});
+  const [order] = useState(() => shuffle(lap.items));
+  const [binOrder] = useState(() => shuffle(lap.bins)); // zones too, so a zone's place is never the answer
   const [sel, setSel] = useState<string | null>(null);
   const [drag, setDrag] = useState<{ id: string; x: number; y: number } | null>(null);
   const [hover, setHover] = useState<string | null>(null);
@@ -193,8 +127,8 @@ function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
     onTap: () => { dragId.current = null; setDrag(null); setHover(null); },
   });
   // A zone never grows: placed chips stay in their slot (marked with the zone's emoji) instead of moving in here.
-  const renderBin = (b: { id: string; label: string }, bi: number) => {
-    const st = styles[bi];
+  const renderBin = (b: { id: string; label: string }) => {
+    const st = styles[lap.bins.indexOf(b)];
     const armed = (!!sel && !drag) || hover === b.id;
     return (
       <button key={b.id} type="button" ref={(el) => { binEls.current[b.id] = el; }} onClick={() => { if (sel) place(sel, b.id); }}
@@ -210,7 +144,7 @@ function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
     <div className="flex flex-col gap-1.5">
       <p className="line-clamp-2 min-h-8 text-center text-xs font-semibold leading-4 text-foreground/70" aria-hidden>{sel ? `Carrying “${itemText(sel)}”: drop it in a zone` : "Tap a card, then its zone"}</p>
       <div className="flex flex-wrap justify-center gap-2">
-        {lap.items.map((it) => {
+        {order.map((it) => {
           const bi = placed[it.id] ? lap.bins.findIndex((b) => b.id === placed[it.id]) : -1;
           return bi >= 0 ? (
             <AnswerCard key={it.id} disabled state="done" tint={styles[bi].tint} badge={styles[bi].emoji} aria-label={`${it.text}: ${lap.bins[bi].label}`}
@@ -226,18 +160,18 @@ function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
   const ghost = drag && !reduceMotion && (
     <div className="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-[var(--color-sun)] px-3 py-2.5 text-sm font-bold text-slate-900 shadow-lg" style={{ left: drag.x, top: drag.y }}>{itemText(drag.id)}</div>
   );
-  return lap.bins.length === 2 ? (
+  return binOrder.length === 2 ? (
     <div className="flex flex-1 flex-col gap-3">
       {ghost}
-      {renderBin(lap.bins[0], 0)}
+      {renderBin(binOrder[0])}
       {chips}
-      {renderBin(lap.bins[1], 1)}
+      {renderBin(binOrder[1])}
     </div>
   ) : (
     <div className="flex flex-1 flex-col gap-3">
       {ghost}
       {chips}
-      <div className="grid flex-1 grid-cols-2 gap-2.5">{lap.bins.map(renderBin)}</div>
+      <div className="grid flex-1 grid-cols-2 gap-2.5">{binOrder.map((b) => renderBin(b))}</div>
     </div>
   );
 }

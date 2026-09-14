@@ -62,7 +62,7 @@ mechanic composes, turning each interaction into the verb it teaches.
 |---|---|---|---|
 | **swipe** | drag the full-width hero cue card L/R (tints + edge badge appear *during* the drag; fly-off; spring back) | **←/→ arrow keys** on the focusable card - **no buttons** | no hook card, no static side columns (breathable); Lensy also speaks the cue |
 | **sort** | drag a chip into its bin (bin highlights, snaps) | tap-to-arm chip → tap bin; fixed-height "carrying …" hint | a placed chip stays in its slot with the bin's emoji badge; bins never grow (2026-09-15) |
-| **match** | draw a cord plug→socket; locks and pins a shared numbered corner badge on both cells | tap a left cell → tap a right cell | cells keep their size in every state (2026-09-15) |
+| **match** | draw a cord plug→socket; locks and pins a shared numbered corner badge on both cells | tap a left cell → tap a right cell | cells keep their size in every state; no pair ever sits straight across (2026-09-15) |
 | **build** | drag a piece onto the slate | tap a piece | assemble checks the key; needs ALL key pieces |
 | **strike-rewrite** | scrub the (now visible) myth away → truth resolves | Enter/Space erases in one go | back-and-forth scrub = toddler-easy |
 | **role-play** | tap an equal-weight, **shuffled** speech card (read & choose the assertive line) | same (native buttons) | press-and-hold-to-speak deferred (optional) |

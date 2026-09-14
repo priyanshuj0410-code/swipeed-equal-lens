@@ -1,17 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState, Fragment } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Volume2, VolumeX, Home, RotateCcw, ShieldCheck, Phone } from "lucide-react";
 import { greetWithName } from "@/lib/personalize";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { LensyQuestion, RevealGate, cleanLine, joinQuestion, revealDelayMs } from "@/components/games/lensy-question";
 import { AnswerCard, CornerBadge } from "@/components/games/answer-cells";
+import { MatchBoard } from "@/components/games/match-board";
 import { UnReBeat } from "@/components/games/un-re";
 import { useProfile } from "@/lib/store";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
-import { usePointerDrag, hitTestZone, ConnectorOverlay, type Cord } from "@/components/games/interactions";
+import { usePointerDrag, hitTestZone } from "@/components/games/interactions";
 import { prefersReducedMotion } from "@/lib/juice";
 import { shuffle, byCat, type Scenario, type V2GameConfig } from "@/content/games/v2-schema";
 
@@ -532,6 +533,7 @@ function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "bran
 function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "sort" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
   const [placed, setPlaced] = useState<Record<string, string>>({});
   const [order] = useState(() => shuffle(sc.items)); // display order — shuffle so the answer pattern (e.g. up/down/up/down) isn't memorisable across replays
+  const [binOrder] = useState(() => shuffle(sc.bins)); // zones too, so a zone's place (good on top) is never the answer
   const [sel, setSel] = useState<string | null>(null);
   const [drag, setDrag] = useState<{ id: string; x: number; y: number } | null>(null);
   const [hover, setHover] = useState<string | null>(null);
@@ -569,8 +571,8 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
   // one dropzone: a single dashed border + translucent tint fill (no card double-border); flex-1 so two bins
   // stacked top/bottom each grow big. Tap to drop the armed chip, or release a dragged chip over it.
   // A zone never grows: placed chips stay in their slot (marked with the zone's emoji) instead of moving in here.
-  const renderBin = (b: { id: string; label: string }, bi: number) => {
-    const st = styles[bi];
+  const renderBin = (b: { id: string; label: string }) => {
+    const st = styles[sc.bins.indexOf(b)];
     const armed = (!!sel && !drag) || hover === b.id;
     return (
       <button key={b.id} type="button" ref={(el) => { binEls.current[b.id] = el; }} onClick={() => { if (sel) place(sel, b.id); }}
@@ -603,111 +605,30 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
     <div className="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-[var(--color-sun)] px-3 py-2.5 text-sm font-bold text-slate-900 shadow-lg" style={{ left: drag.x, top: drag.y }}>{itemText(drag.id)}</div>
   );
   // Two bins → big dropzones at top & bottom with the chips between them (Reigns-style); else a grid below.
-  return sc.bins.length === 2 ? (
+  return binOrder.length === 2 ? (
     <div className="flex flex-1 flex-col gap-3">
       {ghost}
-      {renderBin(sc.bins[0], 0)}
+      {renderBin(binOrder[0])}
       {chips}
-      {renderBin(sc.bins[1], 1)}
+      {renderBin(binOrder[1])}
     </div>
   ) : (
     <div className="flex flex-1 flex-col gap-3">
       {ghost}
       {chips}
-      <div className="grid flex-1 grid-cols-2 gap-2.5">{sc.bins.map(renderBin)}</div>
+      <div className="grid flex-1 grid-cols-2 gap-2.5">{binOrder.map((b) => renderBin(b))}</div>
     </div>
   );
 }
 
-// match — DRAW a cord from a left cell to its right cell (a live cord follows the finger; release on the right
-// cell locks a persistent cord and stamps a shared number-token on BOTH ends, so the bond is readable without
-// colour AND without the cord). Tap-a-left then tap-a-right is kept as the keyboard / screen-reader / ages-3–6
-// fallback (cells are native buttons). A wrong release retracts + a warm nudge (no fail).
-// Pair identity only — asserts nothing. Shares the neutral wheel (and is exported so capstone-rich
-// imports it instead of keeping a verbatim clone that could silently diverge).
-export const MATCH_TINTS = ["var(--prx-slot-1)", "var(--prx-slot-2)", "var(--prx-slot-3)", "var(--prx-slot-4)", "var(--prx-slot-5)", "var(--prx-slot-6)"];
+// match: draw a cord from each left card to its right card (MatchBoard, shared with the capstone engine).
 function MatchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "match" }>; onSolved: () => void; say: (t: string) => void }) {
-  const [pairsOrder] = useState(() => shuffle(sc.pairs)); // left-column display order — shuffle so the left list isn't fixed across replays (rights are shuffled independently below)
-  const [rights] = useState(() => shuffle(sc.pairs.map((p) => p.right)));
-  const [matched, setMatched] = useState<string[]>([]); // left texts in connect order (→ shared glyph index)
-  const [selLeft, setSelLeft] = useState<string | null>(null);
-  const [live, setLive] = useState<Cord | null>(null);
-  const [locked, setLocked] = useState<Cord[]>([]);
-  const [hover, setHover] = useState<string | null>(null);
-  const wrap = useRef<HTMLDivElement>(null);
-  const leftEls = useRef<Record<string, HTMLElement | null>>({});
-  const rightEls = useRef<Record<string, HTMLElement | null>>({});
-  const dragLeft = useRef<string | null>(null);
-
-  const rightOf = (left: string) => sc.pairs.find((p) => p.left === left)?.right;
-  const anchor = (el: HTMLElement | null, side: "l" | "r") => {
-    const w = wrap.current; if (!el || !w) return null;
-    const r = el.getBoundingClientRect(), c = w.getBoundingClientRect();
-    return { x: (side === "r" ? r.right : r.left) - c.left, y: r.top + r.height / 2 - c.top };
-  };
-  const recompute = useCallback(() => {
-    const cords: Cord[] = [];
-    matched.forEach((left, i) => {
-      const r = rightOf(left); const a = anchor(leftEls.current[left], "r"); const b = r ? anchor(rightEls.current[r], "l") : null;
-      if (a && b) cords.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y, tint: MATCH_TINTS[i % MATCH_TINTS.length] });
-    });
-    setLocked(cords);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [matched]);
-  useEffect(() => { recompute(); const on = () => recompute(); window.addEventListener("resize", on); return () => window.removeEventListener("resize", on); }, [recompute]);
-
-  const rightZones = () => rights.map((r) => ({ id: r, el: rightEls.current[r] }));
-  const connect = (left: string, right: string) => {
-    if (rightOf(left) === right) {
-      const nm = [...matched, left]; setMatched(nm); setSelLeft(null);
-      say(`${left}: ${right}. ✓`);
-      if (nm.length >= sc.pairs.length) onSolved();
-    } else say("Not a match. Try another.");
-  };
-  const liveFrom = (left: string, x: number, y: number) => {
-    const a = anchor(leftEls.current[left], "r"), w = wrap.current; if (!a || !w) return;
-    const c = w.getBoundingClientRect(); setLive({ x1: a.x, y1: a.y, x2: x - c.left, y2: y - c.top, tint: "var(--color-ink)" });
-  };
-  const pointer = usePointerDrag({
-    onStart: (s, e) => { const left = (e.currentTarget as HTMLElement).dataset.left ?? null; dragLeft.current = left; if (left) { setSelLeft(left); liveFrom(left, s.x, s.y); } },
-    onMove: (s) => { const left = dragLeft.current; if (!left) return; liveFrom(left, s.x, s.y); setHover(hitTestZone(s.x, s.y, rightZones(), 36)); },
-    onEnd: (s) => { const left = dragLeft.current; dragLeft.current = null; const right = hitTestZone(s.x, s.y, rightZones(), 36); setLive(null); setHover(null); if (left && right) connect(left, right); },
-    onTap: () => { dragLeft.current = null; setLive(null); setHover(null); }, // selLeft armed in onStart → tap a right cell
-  });
-  const rightDone = (r: string) => sc.pairs.some((p) => p.right === r && matched.includes(p.left));
-  // A matched pair shares a numbered corner badge in its cord's colour, readable without the colour or the cord.
-  const pairBadge = (left?: string) => {
-    const n = left ? matched.indexOf(left) : -1;
-    return n < 0 ? {} : { badge: n + 1, badgeTint: MATCH_TINTS[n % MATCH_TINTS.length] };
-  };
-
   return (
-    <div className="flex flex-col gap-2.5">
-      {/* one grid with auto-rows:1fr so every cell (left & right) is the SAME height — tidy, aligned cords */}
-      <div ref={wrap} className="relative">
-        <div className="grid grid-cols-2 gap-2.5" style={{ gridAutoRows: "1fr" }}>
-          {pairsOrder.map((p, i) => {
-            const r = rights[i];
-            const leftDone = matched.includes(p.left);
-            return (
-              <Fragment key={i}>
-                <AnswerCard data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={leftDone} onClick={() => setSelLeft(p.left)} {...pointer.handlers}
-                  state={leftDone ? "done" : selLeft === p.left ? "selected" : "idle"} aria-pressed={leftDone ? undefined : selLeft === p.left} {...pairBadge(leftDone ? p.left : undefined)}
-                  className="flex touch-none items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100">
-                  {p.left}
-                </AnswerCard>
-                <AnswerCard ref={(el) => { rightEls.current[r] = el; }} disabled={rightDone(r)} onClick={() => { if (selLeft) connect(selLeft, r); }}
-                  state={rightDone(r) ? "done" : hover === r ? "target" : "idle"} {...pairBadge(sc.pairs.find((q) => q.right === r && matched.includes(q.left))?.left)}
-                  className="flex items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100">
-                  {r}
-                </AnswerCard>
-              </Fragment>
-            );
-          })}
-        </div>
-        <ConnectorOverlay cords={locked} live={live} />
-      </div>
-    </div>
+    <MatchBoard
+      pairs={sc.pairs}
+      onMatch={(left, right, done) => { say(`${left}: ${right}. ✓`); if (done) onSolved(); }}
+      onMiss={() => say("Not a match. Try another.")}
+    />
   );
 }
 

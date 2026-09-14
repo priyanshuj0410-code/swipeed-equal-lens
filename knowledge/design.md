@@ -9,6 +9,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
 ---
 
 # SwipeEd design system
@@ -261,6 +262,9 @@ design:
   corner badge on both cells, readable without colour and without the cord; swipe shows a
   word-plus-flag-emoji edge badge while dragging. See Accessibility for where this rule is not actually
   followed.
+- **The layout never gives the answer away.** A match board never puts a pair straight across, and from four
+  pairs up at most one pair sits in a neighbouring row; sort shuffles both its items and its zones, so neither a
+  row nor a zone's place (the good zone on top) is a tell.
 - **Options never move under the finger.** Within a beat, answer cards keep their size and position:
   states recolour (see Answer cards), marks are corner badges or reserved space, and nudges live on the
   question card's feedback line rather than in lines that mount under the answers. `ring-*` utilities
@@ -350,13 +354,11 @@ what makes every mechanic playable before a child can read.
 **Colour is never the only signal, in principle** (see Interaction and motion); in practice this is
 broken in exactly the two places named as known gaps below plus the UN/RE contrast failure above.
 
-**Known gaps (filed, not yet fixed):**
+**Known gaps filed on 2026-09-14, and their status:**
 
-- **SWED-56, match soft-lock.** `MatchPlay` tracks right-hand cells by their label text, not by pair:
-  `rightDone(r)` (`v2-engine.tsx:647`) is true once any pair with that right-hand label is matched, and the
-  cell then renders `disabled` (`v2-engine.tsx:665`). If two pairs in one scenario share a right-hand label,
-  matching one disables both cells, so the last pair can never be completed by tap, keyboard or drag. The
-  capstone `MatchLap` duplicates the same code (`capstone-rich.tsx:94,133`). Details in the
+- **SWED-56, match soft-lock: fixed in SWED-68.** Match cells were tracked by label text, so two pairs sharing a
+  right-hand label disabled each other's cell and the board could never be finished. The shared `MatchBoard`
+  keys cells by position and accepts any unused pair with matching labels. Details in the
   [v2 engine](architecture/v2-engine.md#known-issues) doc.
 - **SWED-57, unannounced branch verdict: fixed in SWED-66.** A lesson branch result is announced through the
   feedback line's live region, prefixed "That's the best choice." when the pick was the best one. Capstone

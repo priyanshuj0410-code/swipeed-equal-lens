@@ -5,9 +5,10 @@ copied_from: owhile-engine@c182048:knowledge/games/capstones.md
 title: Capstones (chapter graduations)
 description: The eight gold capstone nodes on the SwipeEd path - warm, no-fail "graduation" milestones that close each age-band chapter by celebrating its big ideas. All eight (ages 3 → parenthood) are built - the path is complete.
 tags: [swipeed, capstone, milestone, path, graduation]
-timestamp: 2026-06-20T22:45:00Z
+timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
 ---
 
 # Capstones (chapter graduations)
@@ -110,6 +111,12 @@ then four reflections and the **Growing-Up constellation** (`growing-up-star`) c
 `capstone-rich.tsx` engine, faithful from the c3 Landing JSON. c3 introduced the **branch lap** (`CapBranchLap` -
 the decision-game victory lap from [Crossroads](crossroads.md)) and the ten Chapter-3 glyph emojis. The old
 simple eight-star build is retired. **Chapters 1-3 capstones are all rich now.**
+
+**2026-09-15 ([SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62)):**
+the Norm Storm match lap (`c3-p8`) could not be finished, because two of its three pairs had the same answer
+("Helps everyone") and matching one disabled both cells (SWED-56). The engine now handles repeated labels, and the
+lap was rewritten so each norm has its own answer: "Be kind to guests" → "Makes people feel welcome", "Girls eat
+last" → "Says some people matter less", "Wait your turn" → "Keeps things fair for all".
 
 ## Capstone 4 - Reading Relationships (rich, format v1)
 **Now reworked to the rich Capstone format v1** (2026-06-23, following the c1 template): the **eleven** chapter

@@ -73,6 +73,37 @@ export type V2GameConfig = {
 
 export const shuffle = <T,>(a: T[]): T[] =>
   a.map((v) => [Math.random(), v] as const).sort((x, y) => x[0] - y[0]).map(([, v]) => v);
+
+/**
+ * A random permutation `p` of 0..n-1 with `p[i] !== i` for every i and at most one `|p[i] - i| === 1`: moved off
+ * its own row and, for all but one item, off the rows either side. Two and three items cannot avoid neighbours,
+ * so those keep the derangement and take the fewest neighbours found. One item stays put.
+ */
+export const derange = (n: number): number[] => {
+  const ids = Array.from({ length: n }, (_, i) => i);
+  if (n < 2) return ids;
+  let best: number[] | null = null, bestNear = Infinity;
+  for (let t = 0; t < 400; t++) {
+    const p = shuffle(ids);
+    if (p.some((v, i) => v === i)) continue;
+    const near = p.filter((v, i) => Math.abs(v - i) === 1).length;
+    if (near <= 1) return p;
+    if (near < bestNear) { best = p; bestNear = near; }
+  }
+  return best ?? ids.map((i) => (i + 1) % n);
+};
+
+/**
+ * Row layout for a match board: `left[row]` and `right[row]` are the pair indices shown in that row. The left
+ * column is shuffled and the right column deranged against it, so no pair ever sits straight across.
+ */
+export const matchBoard = (n: number): { left: number[]; right: number[] } => {
+  const left = shuffle(Array.from({ length: n }, (_, i) => i));
+  const move = derange(n);
+  const right: number[] = new Array(n);
+  left.forEach((pair, row) => { right[move[row]] = pair; });
+  return { left, right };
+};
 export const byCat = (s: Scenario[], c: string) => s.filter((x) => x.cat === c);
 export const byType = (s: Scenario[], t: V2Mechanic) => s.filter((x) => x.type === t);
 export const MECHANIC_OF = (s: Scenario): V2Mechanic => s.type;

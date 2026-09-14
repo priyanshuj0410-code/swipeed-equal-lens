@@ -10,6 +10,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
 ---
 
 # SwipeEd project log
@@ -17,6 +18,22 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 - engine: match and sort stop giving the answer away ([SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62))
+- **Why.** Playtesters solved match boards at a glance: two independent shuffles zipped row by row put at least one
+  correct pair straight across on 63% of five-pair boards, and capstone match never shuffled its left column.
+  Sort always showed its zones in authored order. Phase 1c (engine half) of the
+  [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md); content rewrites follow in later waves.
+- **Engine.** `derange()` and `matchBoard()` in `src/content/games/v2-schema.ts` lay out boards with no pair on a
+  shared row and, from four pairs up, at most one in a neighbouring row. Both engines render a shared `MatchBoard`
+  (`src/components/games/match-board.tsx`) keyed by cell position, which also fixes the repeated-label soft-lock
+  ([SWED-56](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a4b0bddb-0951-40ec-a66f-1c7bae11b823)).
+  Sort shuffles its zones in both engines and its items in the capstone.
+- **Content.** Capstone 3's Norm Storm lap (`c3-p8`) had "Helps everyone" twice and could not be finished; it now has
+  three distinct answers ([capstones](../games/capstones.md)).
+- **Checks.** New `scripts/tests/match-board.test.mjs` (10,000 draws per size); browser runs showed no aligned pairs,
+  shuffled zones and a complete capstone 3, including with the old `c3-p8` restored. `tsc`, `eslint`,
+  `check_msg_len.py` and `npm run build` pass.
 
 ## 2026-09-15 - engine: answer cards keep their size ([SWED-67](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956))
 - **Why.** Playtesters saw options change height within a question. Selected and matched cells swapped the card's

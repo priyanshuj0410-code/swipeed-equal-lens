@@ -177,7 +177,7 @@ Found while checking, not fixed here:
 
 | Finding | Where it goes |
 |---|---|
-| Capstone 3's `c3-p8` match cannot be finished: two pairs share "Helps everyone", so matching one disables both | Confirmed live; [SWED-56](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a4b0bddb-0951-40ec-a66f-1c7bae11b823) with Phase 1c ([SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62)) |
+| Capstone 3's `c3-p8` match cannot be finished: two pairs share "Helps everyone", so matching one disables both | Fixed in Phase 1c ([SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62)), closing [SWED-56](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a4b0bddb-0951-40ec-a66f-1c7bae11b823) |
 | Sort bins grow as chips land (124px to 228px within one question) | Fixed in Phase 1b ([SWED-67](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956)) |
 | The capstone gallery's long `bigTruth` lines on the feedback line push the sticker grid down on each tap | Fixed in Phase 1b: the line reserves the height of the lap's longest line |
 | `BuildLap` pieces respond only to pointer taps (`onTap`), so Enter or Space on a focused piece does nothing | Not ticketed yet |
@@ -205,3 +205,21 @@ Checked the same way as 1a: scripted match, sort, spot and explore-label playthr
 light and dark, recording every answer card's height and position after each move, plus full runs of capstones
 1 and 8. No card changed height or position within a beat. The only change is at solve, when Next appears and
 the capstone sort zones share less space.
+
+### Phase 1c, match and sort layout (engine half): built on 2026-09-15 (SWED-68)
+
+- `derange(n)` and `matchBoard(n)` sit next to `shuffle` in `src/content/games/v2-schema.ts`, with a unit test
+  (`node --test scripts/tests/match-board.test.mjs`): 10,000 draws per size show no pair on a shared row, at
+  most one neighbouring pair from four pairs up, and all valid five-pair layouts drawn evenly. With five pairs,
+  74% of boards have exactly one pair in a neighbouring row; that one allowed neighbour keeps adjacent rows
+  plausible, so the rule itself does not become a tell.
+- Match is now one shared `MatchBoard` (`src/components/games/match-board.tsx`) in both engines, keyed by cell
+  position. A connection counts when any unused pair has those two labels, which closes SWED-56 for repeated
+  labels on either side.
+- Sort shuffles its zones in both engines, and the capstone sort shuffles its items.
+- `c3-p8` has three distinct answers now, chosen to share no words with their norms.
+
+Checked in the browser: five-pair boards across repeated Choosing & Building runs had no pair straight across
+and at most one neighbouring pair, sort zones appeared in both orders, and capstone 3 ran start to finish. It
+also finished with the original `c3-p8` content restored, proving the engine fix on its own. `tsc`, `eslint`,
+the unit test, `check_msg_len.py` and `npm run build` pass.
