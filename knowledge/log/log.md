@@ -17,6 +17,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71  # SWED-73
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de  # SWED-77
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007  # SWED-71
 ---
 
 # SwipeEd project log
@@ -24,6 +25,13 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 - forge: the narrator lint also catches persona names ([SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007))
+- **Why.** Choosing & Building had hooks such as "Sneha: relatives push one match hard" that the "Lensy:"/"Sam:"
+  rule missed. A general "Name:" rule would also hit labels like "Sort:", "Sound:" and "Spark:".
+- **Rule.** `lints.py` flags a line that opens with the scenario's own `persona` followed by a colon. It found 133
+  more lines across the bank (29 in Norm Storm, 20 in Plan It, 18 in Life Ready, 6 in Choosing & Building).
+- **Checks.** Two new lint fixtures (a prefix is caught; the name inside a sentence is not); `npm run gates` passes.
 
 ## 2026-09-15 - forge: planned reflect-to-choose conversions ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4))
 - **Why.** The pilot turns Choosing & Building's lesson reflects into choose questions through the forge, and a

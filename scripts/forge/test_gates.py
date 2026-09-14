@@ -122,6 +122,8 @@ def lint_fixtures():
     check("a clean reflect", reflect, "", False)
     check("an em dash in a hook", mod(reflect, hook="Your timeline \u2014 your call."), "dash", True)
     check("a Lensy: prefix", mod(reflect, hook="Lensy: your timeline is your own."), "narrator", True)
+    check("the persona's name as a prefix", mod(reflect, persona="Sneha", hook="Sneha: relatives keep asking."), "narrator", True)
+    check("the persona's name inside a sentence", mod(reflect, persona="Sneha", hook="Sneha's relatives keep asking."), "narrator", False)
     check("two questions", mod(reflect, hook="Is your timeline your own?"), "two-questions", True)
     check("a clipped tag question", mod(reflect, hook="Your timeline is your own. Useful shift?"), "clipped-tag", True)
     check("a match without shared words", match, "match-giveaway", False)
