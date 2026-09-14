@@ -109,7 +109,7 @@ Checks that worked as documented: sort unused bins and missing keys, match dupli
 
 - `forge_check.py --game` for all 69 games: 69 pass, 0 fail (0 parse errors, 0 shape, helpline, length, band, membership or mix failures; only the two logged sub-400 games).
 - `check_msg_len.py`: pass. `test_gates.py`: pass.
-- `forge_dedup.py --verify`: clean for the six games edited in SWED-62; the all-games run takes about 30 seconds per game and is recorded with the SWED-65 working files.
+- `forge_dedup.py --verify` for all 69 games: 69 pass, 0 intra-band collisions (about 30 seconds per game with the real CLI).
 
 ## DESIGN.md versus the code
 
