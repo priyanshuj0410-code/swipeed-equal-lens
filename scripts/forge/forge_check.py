@@ -18,6 +18,7 @@ import json, os, sys, glob
 from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common as C
+import lints as L
 
 TARGET = 400
 MAX_MECH_SHARE = 0.35          # no single mechanic > 35% of a game's bank
@@ -60,6 +61,7 @@ def check_batch(batch_file, gid, plan=None, game_path=None):
             print(f"  L{n} REJECT  unparseable: {e}"); bad += 1; continue
         errs = C.regrowth_id_errors(o, shipped, reshapes, plan, seen)
         errs += C.scenario_errors(o, chapter, allowed, ceil, strict_shape=True)
+        errs += L.content_lints(o)
         claims = C.claim_flags(o)
         needs_ev = claims or o.get("needsFact")
         if needs_ev and not o.get("_evidence"):

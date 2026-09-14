@@ -35,12 +35,22 @@ TARGET MECHANIC SHAPES (the gate REQUIRES these for new content — read scripts
 - strike-rewrite: myth:{un, re, why}. "un" is the gentle myth; "re"+"why" MUST be true.
 - role-play: setup + yourLine:[{text,best?}] (exactly one best).
 - build: prompt + pieces:[…] + mode:"assemble"|"sequence" + key:[…] (key ⊆ pieces).
+- swipe: cue (the card text) + left + right (short side labels) + answer:"left"|"right" + leftValence and rightValence
+  from {"pos","neg","tell","uhoh","neutral"} (declared, never inferred). The two sides differ. (ONLY if swipe is
+  allowed for this band.)
+- explore-label: parts:[…] + find (what to look for, a noun phrase such as "the part that pumps blood") + answer (one
+  of parts) + reveal (the fact shown after). Anatomy parts must be real body regions.
 Base fields on EVERY scenario: id, cat, type, persona, source, relearn, hook.
 HARD limits: every visible string ≤160 chars; whole-scenario prose total ≤ the band ceiling. Helpline numbers EXACT.
 No US framing (no 911/CPS/$/"grade 3"/zip). ids globally unique.
-NARRATOR: any guide/narrator lead-in (in a hook, affirm or prompt, e.g. "Lensy: ...") MUST be "Lensy:" — this is
-the Equal Lens re-skin. NEVER use "Sam:" (the stale original-GDD narrator); if the GROUNDING/GDD says "Sam", treat
-it as "Lensy". Keep it consistent with the rest of the bank (every other game uses Lensy).`
+NARRATOR: never start any line with "Lensy:" or "Sam:" (the app shows every hook on Lensy's question card, so a prefix
+repeats the speaker). If the GROUNDING or GDD writes lines as "Lensy: ..." or "Sam: ...", drop the prefix.
+VOICE (the gate rejects these, scripts/forge/lints.py): no em or en dashes anywhere (use a hyphen, comma, colon or full
+stop). A reflect or choose hook plus prompt asks ONE question: no second question and no tag question such as
+"Agree?", "Clear?" or "Useful shift?" at the end of the hook. A match left and its right share no word (so a pair
+cannot be matched by wording), and match rights are clearly different from each other, never near-synonyms. A sort
+item shares no word with its own zone's label. A strike-rewrite myth.re reads on its own (no "It", "They", "Both" or
+"This" pointing back at the myth), because it may be shown alone as a truth card.`
 
 const GROUND_SCHEMA = {
   type: 'object', additionalProperties: false,

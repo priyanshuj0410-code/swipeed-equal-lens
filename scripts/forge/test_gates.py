@@ -78,11 +78,67 @@ def main():
         else:
             fails += 1; print(f"  ✗ retired-helpline check wrong on {txt!r}")
     fails += choose_fixtures()
+    fails += lint_fixtures()
     fails += content_gate_fixtures()
     fails += regrowth_fixtures()
     if fails:
         print(f"\n✗ {fails} gate test(s) failed"); sys.exit(1)
     print("\n✓ all gate fixtures pass — missing-Base-field content is rejected")
+
+
+def lint_fixtures():
+    """Content lints (SWED-77): each rule fires on its problem and stays quiet on the clean version, and the content
+    gate enforces them for a game on the clean list."""
+    import copy, shutil, tempfile
+    import lints as L
+    fails = 0
+    reflect = {"id": "t-010", "cat": "c", "type": "reflect", "persona": "any", "source": "s", "relearn": "Choices are yours.",
+               "hook": "Your timeline is your own.", "prompt": "What feels true for you?", "options": ["Slow is fine", "I'm ready"], "affirm": "That's yours to decide."}
+    match = {"id": "t-011", "cat": "c", "type": "match", "persona": "any", "source": "s", "relearn": "r", "hook": "Match each worry to a steady truth.",
+             "pairs": [{"left": "Conflict means we're failing", "right": "Disagreeing well builds trust"},
+                       {"left": "A small hurt is festering", "right": "Name it early and gently"}]}
+    sort = {**copy.deepcopy(VALID_SORT), "bins": [{"id": "p", "label": "Builds trust", "valence": "pos"}, {"id": "n", "label": "Breaks it", "valence": "neg"}],
+            "items": [{"id": a, "text": t} for a, t in zip("abcdef", ["Keeping promises", "Snooping", "Owning mistakes", "Hiding debts", "Listening", "Mocking"])]}
+    strike = copy.deepcopy(VALID_STRIKE)
+
+    def check(name, o, needle, expect):
+        nonlocal fails
+        hit = any(f.startswith(needle) for f in L.content_lints(o))
+        if hit == expect:
+            print(f"  ✓ lint right on: {name}")
+        else:
+            fails += 1; print(f"  ✗ lint wrong on: {name} → {L.content_lints(o)}")
+
+    def mod(o, **kw):
+        x = copy.deepcopy(o); x.update(kw); return x
+
+    check("a clean reflect", reflect, "", False)
+    check("an em dash in a hook", mod(reflect, hook="Your timeline \u2014 your call."), "dash", True)
+    check("a Lensy: prefix", mod(reflect, hook="Lensy: your timeline is your own."), "narrator", True)
+    check("two questions", mod(reflect, hook="Is your timeline your own?"), "two-questions", True)
+    check("a clipped tag question", mod(reflect, hook="Your timeline is your own. Useful shift?"), "clipped-tag", True)
+    check("a match without shared words", match, "match-giveaway", False)
+    check("a match pair that shares a word", mod(match, pairs=[{"left": "Conflict means we're failing", "right": "Conflict is normal"}]), "match-giveaway", True)
+    check("a sort without giveaways", sort, "sort-giveaway", False)
+    giveaway = copy.deepcopy(sort); giveaway["items"][3]["text"] = "Breaking a promise"; giveaway["key"]["d"] = "n"
+    check("a sort item that shares its zone's word", giveaway, "sort-giveaway", True)
+    check("a truth that stands alone", strike, "myth-context", False)
+    check("a truth that opens with 'They'", mod(strike, myth={"un": "m", "re": "They may feel lonely.", "why": "w"}), "myth-context", True)
+    check("a truth that opens with the idiom 'It's okay'", mod(strike, myth={"un": "m", "re": "It's okay to feel sad.", "why": "w"}), "myth-context", False)
+
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+    import content_gate as G
+    tmp = tempfile.mkdtemp()
+    path = os.path.join(tmp, "choosing-building.ts")
+    shutil.copy(os.path.join(C.GAMES, "choosing-building.ts"), path)
+    quiet = not any(" lint " in e for e in G.check_lesson(path, G.lead_mechanics(), lint=False)[1])
+    loud = any(" lint " in e for e in G.check_lesson(path, G.lead_mechanics(), lint=True)[1])
+    shutil.rmtree(tmp)
+    if quiet and loud:
+        print("  ✓ content gate applies the lints only to games on the clean list")
+    else:
+        fails += 1; print(f"  ✗ content gate lint switch wrong (quiet {quiet}, loud {loud})")
+    return fails
 
 
 def choose_fixtures():

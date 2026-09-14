@@ -10,6 +10,7 @@ G2, G4, G5, G6, G18). This runs the deterministic checks over the whole bank in 
                  forge/common.py (required fields, strict shapes, helplines on every visible field, ≤160 per
                  field, the chapter band ceiling, band-mechanic membership with the library's lead mechanics)
                  · the mechanic-mix caps · config strings (greet, reassure, helpLine, helpLabel, badge blurb)
+                 · for games on scripts/forge/lint_clean.json, zero content lints (scripts/forge/lints.py)
   capstones      ≤160 and helplines on every string in the config
   help sheet     helplines in every string of src/content/help.ts
 
@@ -27,6 +28,7 @@ from collections import Counter
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "forge"))
 import common as C  # noqa: E402
+import lints as L  # noqa: E402
 
 MIN_BANK = 300            # every lesson bank holds 396+; far fewer means a truncated or emptied file
 MAX_MECH_SHARE = 0.35     # the same caps forge_check.py enforces at merge
@@ -59,7 +61,7 @@ def lead_mechanics():
     return out
 
 
-def check_lesson(path, leads):
+def check_lesson(path, leads, lint=False):
     base = os.path.basename(path)
     errs = []
     scns, perr = C.parse_file(path)
@@ -78,6 +80,8 @@ def check_lesson(path, leads):
     for o in scns:
         for e in C.scenario_errors(o, chapter, allowed, ceil, strict_shape=True):
             errs.append(f"{o['id']}: {e}")
+        if lint:
+            errs += [f"{o['id']}: lint {e}" for e in L.content_lints(o)]
     n = len(scns)
     mix = Counter(o["type"] for o in scns)
     for t, c in mix.items():
@@ -124,6 +128,7 @@ def check_help_sheet(path=HELP_TS):
 
 def main():
     leads = lead_mechanics()
+    clean = set(L.clean_games())
     failures, lessons, scenarios, capstones = {}, 0, 0, 0
     for path in sorted(glob.glob(os.path.join(C.GAMES, "*.ts"))):
         base = os.path.basename(path)
@@ -133,7 +138,7 @@ def main():
             errs = check_capstone(path)
             capstones += 1
         else:
-            n, errs = check_lesson(path, leads)
+            n, errs = check_lesson(path, leads, lint=base[:-3] in clean)
             lessons += 1
             scenarios += n
         if errs:
@@ -152,7 +157,7 @@ def main():
             if len(errs) > 12:
                 print(f"    … {len(errs) - 12} more")
         sys.exit(1)
-    print(f"✓ content gate: {lessons} lesson games ({scenarios} scenarios), {capstones} capstones and the help sheet pass")
+    print(f"✓ content gate: {lessons} lesson games ({scenarios} scenarios, {len(clean)} held lint-clean), {capstones} capstones and the help sheet pass")
 
 
 if __name__ == "__main__":

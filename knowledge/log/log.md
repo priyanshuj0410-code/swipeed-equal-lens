@@ -16,6 +16,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71  # SWED-73
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de  # SWED-77
 ---
 
 # SwipeEd project log
@@ -23,6 +24,21 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 - forge: content lints and the generator's voice rules ([SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de))
+- **Why.** Playtesters matched pairs by their wording and read two questions in one bubble. The generator prompt
+  required a "Lensy:" prefix, had no voice rules and described only 8 of 10 mechanics (forge pipeline review P7,
+  P8), so new content would keep making the same problems.
+- **Lints.** New `scripts/forge/lints.py`: dashes, narrator prefixes, reflect or choose hooks that ask two questions
+  or end in a clipped tag, match pairs and sort items that share their answer's words, and truths that open with a
+  pronoun. They block every new forge batch (`forge_check.py --batch`) and any game on
+  `scripts/forge/lint_clean.json` (enforced by the content gate; empty until the pilot cleans Choosing & Building).
+  `--review` lists match rights that share a word, for a human to judge.
+- **Generator.** The narrator rule is reversed (never prefix a line), the voice and giveaway rules are in the
+  prompt, and swipe and explore-label shapes are described.
+- **Baseline.** Choosing & Building has 255 findings and Feelings Friends 168, listed in the plan's Progress
+  section; the pilot clears them.
+- **Checks.** 13 new fixtures in `test_gates.py`; `npm run gates` passes.
 
 ## 2026-09-15 - engine: a new mechanic, choose ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4))
 - **Why.** Playtesters found reflect confusing because any tap wins. The owner chose "tap all that fit, then Check"
