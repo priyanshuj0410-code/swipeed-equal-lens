@@ -6,9 +6,10 @@ title: Choosing & Building
 description: Choosing a life partner and building a relationship for ages 22 → first child - values over sparks, what it actually takes (communication, trust, repair), eyes-open commitment, love and arranged marriage as two paths to the same skills, and starting a partnership equal from day one. Every path respected, including not marrying; consent always; forced/coerced marriage routed to help.
 resource: https://swipeed.vercel.app/game/choosing-building
 tags: [games, swipeed, relationships, marriage, consent, ages-22-plus, adult-journey, chapter-7]
-timestamp: 2026-06-24T00:00:00Z
+timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
 ---
 
 # Choosing & Building
@@ -60,6 +61,12 @@ from an app, a friend, or your family, the skills - and the consent - are the sa
   is built early or fought for later.
 - **Tools & help (12)** - the conversations to have *before* committing, and where to turn when a "match"
   becomes pressure (181 / 1091 / 112; Childline 1098).
+
+**Myth cards (2026-09-15, [SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543)).** The first game with `mythCards` on, as the pilot for the
+[playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md): about half of its 79 strike-rewrite
+beats play as a swipe card (Myth or True) instead of a scrub. Two truths that only made sense after their myth were
+reworded to stand alone: cb-032 ("Love and arranged marriages need the same foundations...") and cb-041 ("Early
+talks about money, roles and expectations are how you start strong...").
 
 **Safeguarding.** The game celebrates marriage as one good choice among several and **never pressures toward
 it** - staying single, waiting, or leaving a bad match are all framed as strong, valid choices. The bright line:

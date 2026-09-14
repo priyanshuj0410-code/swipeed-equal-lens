@@ -143,7 +143,7 @@ contract: no hard fail state, a wrong attempt is a spoken nudge and a retry, and
 | **reflect** | Taps any one of several options; every option is valid (no wrong answer) | Tap only, native buttons | Picked option echoed back by name, then the shared `affirm` line; no UN/RE beat | `ReflectPlay`, `v2-engine.tsx:405-413` |
 | **choose** | Taps every option that fits out of six (two to four fit), then Check | Tap only; options are checkbox buttons | A first Check that misses says how many fit and allows a retry; the next Check reveals every answer with notes for wrong and missed picks, then resolves (no-fail). `V2Game` keeps the renderer mounted through the resolve so the answers stay visible above the `relearn` pill ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4)) | `ChoosePlay`, `v2-engine.tsx` |
 | **role-play** | Taps one of two shuffled "say it" speech cards; only the assertive line advances | Tap only, native buttons | Passive pick: spoken nudge, card set stays up for a re-pick; no UN/RE beat | `RolePlayPlay`, `v2-engine.tsx:419-436` |
-| **strike-rewrite** | Scrubs back-and-forth across the myth card to erase it | Drag/scrub (`usePointerDrag`, distance-based), or Enter/Space on the focusable card | The one verb with a dedicated UN/RE moment: resolve renders the shared `UnReBeat` card (`un-re.tsx`) | `StrikePlay`, `v2-engine.tsx:442-462` |
+| **strike-rewrite** | Scrubs back-and-forth across the myth card to erase it | Drag/scrub (`usePointerDrag`, distance-based), or Enter/Space on the focusable card | The one verb with a dedicated UN/RE moment: resolve renders the shared `UnReBeat` card (`un-re.tsx`). In a game with `mythCards` on, `present()` plays about half the beats as a myth card instead: the card shows `myth.un` (swipe Myth) or `myth.re` (swipe True), a wrong side nudges, and the resolve is the same UN/RE card ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543)) | `StrikePlay`; `MythCardPlay` on the shared `SwipeCard` |
 | **branch** | Taps one of several shuffled choices and sees its consequence; only the `best` choice (or any, if none is marked best) advances | Tap only, native buttons | Consequence spoken on pick; advancing pick shows a 💚/💛 emoji-prefixed consequence (see SWED-57); no UN/RE beat | `BranchPlay`, `v2-engine.tsx:466-496` |
 | **sort** | Drags a chip into its labelled bin | Drag (`usePointerDrag` + `hitTestZone`), or tap-to-arm chip then tap bin | Spoken confirmation per correct placement; wrong bin springs back with a nudge; items and zones are both shuffled; no UN/RE beat | `SortPlay`, `v2-engine.tsx` |
 | **match** | Draws a cord from a left card to its right card | Drag (`usePointerDrag` + `hitTestZone` + `ConnectorOverlay`), or tap-left then tap-right | Spoken confirmation per correct pair; wrong pair springs back with a nudge; no pair sits straight across; no UN/RE beat | `MatchPlay` wraps the shared `MatchBoard`, `src/components/games/match-board.tsx` |
@@ -253,7 +253,15 @@ from the end of the hook when a real question follows. `say()` runs every spoken
    (`"That's the best choice. "` plus the consequence for a best branch pick, otherwise the resolve line) and
    an effect focuses Next.
 
-Replay ("Hear it again") speaks `question` during play and the last line otherwise.
+Replay ("Hear it again") speaks the question during play and the last line otherwise. The question's spoken
+form is kept in `questionSpeech`, because a myth card's question card reads only "Myth or true? Swipe the card."
+while Lensy also reads out the card.
+
+**Myth cards ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543)).** `present()` decides a strike-rewrite beat's shape when it starts. `alternate()` picks
+scrub or card at random unless the last two beats were the same, and a card picks myth or truth the same way,
+from per-session histories in `strikeRuns`. `mythCard` (`"myth" | "truth" | null`) goes to `Play`, which renders
+`MythCardPlay` in place of `StrikePlay`. A truth card shows the same scenario's `myth.re`, not another
+scenario's, so the UN/RE card that follows is about the card the player just swiped.
 
 **Capstones (`RichCapstone`).** Laps speak their own question from a mount effect, so the engine cannot set it
 up front. Instead `next()` raises `questionNext` and the first `say()` of the new step becomes the question

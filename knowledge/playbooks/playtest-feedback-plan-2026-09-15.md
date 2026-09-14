@@ -178,6 +178,16 @@ prefixes, 54 stacked questions, 51 clipped tags, 51 dashes, 13 match giveaways, 
 need their myth. Feelings Friends had 168: 76 narrator prefixes, 28 stacked questions, 21 sort giveaways, 20 clipped
 tags, 16 match giveaways, 5 dashes and 2 truths that need their myth.
 
+**Phase 3 started: myth cards** landed under [SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543) and are on for Choosing & Building. With `mythCards` on,
+a strike-rewrite beat is a scrub or a swipe card at random, never three of one kind in a row; a card shows the
+myth or its truth on the same rule, the question card says "Myth or true? Swipe the card.", and every card ends
+on the UN/RE card. **One change from the plan:** a truth card shows the same scenario's `myth.re`, not another
+scenario's, so the UN/RE card that follows matches what the player just swiped. The game's two pronoun-led
+truths (cb-032, cb-041) were reworded, so it has no myth-context findings left. Checked in headless Chrome: two
+sessions of six strike-only beats (no run of three, myths and truths both shown, every beat reached UN/RE), a
+wrong button press that nudged without moving the card or changing its height, a resolve from the arrow key,
+both palettes at 360px, and no console errors beyond the headless WebGL and vibrate notices.
+
 **Before Phase 2:** the forge safety work this plan depends on is filed as [SWED-72](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b) (gates before every
 deploy), [SWED-73](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71) (safe regrowth), [SWED-74](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1de71970-d924-45d7-acb9-3c28e8a33126) (claim verification), [SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d) (independent
 safety review), [SWED-76](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/87cb9b6b-551a-4c34-a209-514be826753b) (validator gaps) and [SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de) (voice gate and mechanic coverage), from the

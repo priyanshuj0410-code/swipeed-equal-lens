@@ -25,6 +25,20 @@ Newest first. Every change that affects a game, the path, the engine or the ques
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
 
+## 2026-09-15 - engine: myth cards, on for Choosing & Building ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543))
+- **Why.** Playtesters said swiping was a better way to bust a myth than scrubbing it out. Phase 3 of the
+  [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md) plays strike-rewrite beats both ways.
+- **Engine.** New `mythCards` game option. `present()` makes each strike-rewrite beat a scrub or a myth card
+  (`MythCardPlay` on the shared `SwipeCard`) at random, never three of one kind in a row. A card shows the myth or
+  its own truth on the same rule, the question card reads "Myth or true? Swipe the card.", Lensy reads the card
+  aloud (and again on replay), a wrong side nudges, and the resolve is the UN/RE card. A truth card uses its own
+  scenario's `re` rather than another scenario's, unlike the plan, so the UN/RE card matches it.
+- **Content.** On for Choosing & Building. cb-032 and cb-041 had truths that opened with "Both" and "Those" and
+  now stand alone.
+- **Docs.** design.md (Myth card), v2-engine.md, question-bank.md (`mythCards`, `re` must stand alone), the
+  interaction model, the game doc and the plan's Progress section.
+- **Checks.** Headless Chrome runs listed in the plan; `npm run gates`, `tsc`, `eslint` and `npm run build` pass.
+
 ## 2026-09-15 - forge: content lints and the generator's voice rules ([SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de))
 - **Why.** Playtesters matched pairs by their wording and read two questions in one bubble. The generator prompt
   required a "Lensy:" prefix, had no voice rules and described only 8 of 10 mechanics (forge pipeline review P7,

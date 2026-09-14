@@ -54,6 +54,12 @@ export function binStyles(bins: { label: string; valence?: string }[]): { emoji:
   return new Set(s.map((x) => x.tint)).size < bins.length ? bins.map((_, i) => NEUTRAL_BINS[i % NEUTRAL_BINS.length]) : s;
 }
 const vibrate = (ms: number | number[]) => { try { navigator.vibrate?.(ms); } catch { /* unsupported */ } };
+// a or b at random, except that a third of the same kind in a row is never allowed
+const alternate = <T,>(history: T[], a: T, b: T): T => {
+  const [x, y] = history.slice(-2);
+  if (history.length >= 2 && x === y) return x === a ? b : a;
+  return Math.random() < 0.5 ? a : b;
+};
 
 // An explore-label `find` is either a noun phrase ("the part that pumps blood") or a full instruction ("Tap the part ...").
 const findLine = (find: string): string => { const f = find.trim(), line = /^[A-Z]/.test(f) ? f : `Find ${f}`; return /[.!?…]$/.test(line) ? line : `${line}.`; };
@@ -79,7 +85,7 @@ const chooseFresh = (pool: Scenario[], n: number, seen: Set<string>): Scenario[]
 };
 
 export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () => void }) {
-  const { scenarios, gameId, title, greet, categories, badge, helpLine, helpLabel, reassureCats = [], reassure, buildLabels } = config;
+  const { scenarios, gameId, title, greet, categories, badge, helpLine, helpLabel, reassureCats = [], reassure, buildLabels, mythCards = false } = config;
   const [view, setView] = useState<"home" | "play" | "done">("home");
   const [queue, setQueue] = useState<Scenario[]>([]);
   const [qi, setQi] = useState(0);
@@ -136,10 +142,25 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const isSafetyBeat = (s: Scenario): boolean =>
     reassureCats.includes(s.cat) || (s.type === "branch" && s.options.some((o) => o.outcome === "safe"));
 
+  // Myth cards (SWED-70): with `mythCards` on, a strike-rewrite beat is a scrub or a swipe card about half the time,
+  // never three of a kind in a row, and a card shows the myth or its truth on the same rule. The question card then
+  // gives a neutral instruction instead of a hook that may quote the myth, and the card's words are spoken after it.
+  const [mythCard, setMythCard] = useState<"myth" | "truth" | null>(null);
+  const questionSpeech = useRef(""); // what "Hear it again" reads: the question, plus a myth card's words
+  const strikeRuns = useRef<{ shape: ("scrub" | "card")[]; side: ("myth" | "truth")[] }>({ shape: [], side: [] });
   const present = useCallback((s: Scenario) => {
-    const q = hookLine(s);
-    setBranchResolve(null); setPhase("play"); setQuestion(q); setRevealed(false); say(q);
-  }, [say]);
+    let card: "myth" | "truth" | null = null;
+    if (s.type === "strike-rewrite" && mythCards) {
+      const runs = strikeRuns.current;
+      const shape = alternate(runs.shape, "scrub", "card");
+      runs.shape.push(shape);
+      if (shape === "card") { card = alternate(runs.side, "myth", "truth"); runs.side.push(card); }
+    }
+    const q = card ? MYTH_CARD_QUESTION : hookLine(s);
+    setBranchResolve(null); setPhase("play"); setQuestion(q); setRevealed(false); setMythCard(card);
+    questionSpeech.current = card && s.type === "strike-rewrite" ? `${q} ${card === "myth" ? s.myth.un : s.myth.re}` : q;
+    say(questionSpeech.current, q);
+  }, [say, mythCards]);
 
   // Hold the answers until the question has been read. A timer, not speech onEnd: muting mid-line cancels
   // onEnd (lib/speak.ts), which would leave the answers hidden. Tapping the question or the gate skips the wait.
@@ -209,7 +230,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const tools = (
     <span className="flex items-center gap-2">
       {!muted && (
-        <button type="button" aria-label="Hear it again" onClick={() => (view === "play" && phase === "play" && question ? speak(question, { muted }) : replay())} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+        <button type="button" aria-label="Hear it again" onClick={() => (view === "play" && phase === "play" && question ? speak(questionSpeech.current, { muted }) : replay())} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
           <RotateCcw className="size-4" aria-hidden />
         </button>
       )}
@@ -289,7 +310,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
           {/* PLAY: Lensy's question card carries the hook; the answers follow once it has been read. */}
           {view === "play" && sc && (phase === "play" || sc.type === "choose") && (revealed ? (
             <div className={`flex flex-1 flex-col gap-4 ${reduceMotion ? "" : "animate-in fade-in slide-in-from-bottom-2 duration-300"}`}>
-              <Play key={sc.id} sc={sc} onSolved={solve} say={say} reduceMotion={reduceMotion} buildLabels={buildLabels} />
+              <Play key={sc.id} sc={sc} onSolved={solve} say={say} reduceMotion={reduceMotion} buildLabels={buildLabels} mythCard={mythCard} />
             </div>
           ) : <RevealGate onReveal={() => setRevealed(true)} />)}
           {view === "play" && sc && phase === "resolve" && (
@@ -334,12 +355,14 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 }
 
 // ============================ the mechanic renderers ============================
-function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string, shown?: string) => void; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string } }) {
+function Play({ sc, onSolved, say, reduceMotion, buildLabels, mythCard }: { sc: Scenario; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string, shown?: string) => void; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string }; mythCard?: "myth" | "truth" | null }) {
   switch (sc.type) {
     case "reflect": return <ReflectPlay sc={sc} onSolved={onSolved} />;
     case "choose": return <ChoosePlay sc={sc} onSolved={onSolved} say={say} />;
     case "role-play": return <RolePlayPlay sc={sc} onSolved={onSolved} say={say} />;
-    case "strike-rewrite": return <StrikePlay sc={sc} onSolved={onSolved} reduceMotion={reduceMotion} />;
+    case "strike-rewrite": return mythCard
+      ? <MythCardPlay sc={sc} side={mythCard} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />
+      : <StrikePlay sc={sc} onSolved={onSolved} reduceMotion={reduceMotion} />;
     case "branch": return <BranchPlay sc={sc} onSolved={onSolved} say={say} />;
     case "sort": return <SortPlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
     case "match": return <MatchPlay sc={sc} onSolved={onSolved} say={say} />;
@@ -492,6 +515,19 @@ function StrikePlay({ sc, onSolved, reduceMotion }: { sc: Extract<Scenario, { ty
       </div>
       <p className="text-center text-xs font-semibold text-foreground/60">Scrub the myth away, or press Enter</p>
     </div>
+  );
+}
+
+// myth card (SWED-70): the strike-rewrite beat as a swipe. The card shows the myth or its truth; Myth goes left, True
+// goes right, with the same drag, keys and side buttons as every swipe card. The resolve is the usual UN/RE beat.
+const MYTH_CARD_QUESTION = "Myth or true? Swipe the card.";
+const MYTH_CARD_SIDES: [SideStyle, SideStyle] = [VALENCE_STYLE.neg, VALENCE_STYLE.pos];
+function MythCardPlay({ sc, side, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "strike-rewrite" }>; side: "myth" | "truth"; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
+  return (
+    <SwipeCard cue={side === "myth" ? sc.myth.un : sc.myth.re} left="Myth" right="True" answer={side === "myth" ? "left" : "right"}
+      styles={MYTH_CARD_SIDES} reduceMotion={reduceMotion}
+      onCorrect={() => { vibrate(12); onSolved(); }}
+      onMiss={() => say(side === "myth" ? "Look again. Is that really true?" : "Look again. That one is true.")} />
   );
 }
 

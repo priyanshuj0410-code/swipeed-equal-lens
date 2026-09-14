@@ -13,6 +13,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71  # SWED-73
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de  # SWED-77
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
 ---
 
 # SwipeEd question bank
@@ -77,6 +78,7 @@ Capstones (`src/content/games/capstone-1.ts` ... `capstone-8.ts`) are **not** pa
 | `reassureCats?` | `string[]` | Categories whose beats end on a "never your fault" reassurance. |
 | `reassure?` | `string` | |
 | `buildLabels?` | `{assemble?, sequence?}` | The `build` mechanic's "done" button label, per game (a team / a garden / a kit / a plan). |
+| `mythCards?` | `boolean` | Plays about half the strike-rewrite beats as myth cards ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543)). Off by default; on for Choosing & Building from 2026-09-15. |
 
 ### Base fields, every scenario (`v2-schema.ts:15`)
 
@@ -119,6 +121,8 @@ Example (`feelings-friends.ts`, ff-002): `yourLine: [{"text":"\"I feel ___.\"","
 | Field | Type | Constraint |
 |---|---|---|
 | `myth` | `{un: string; re: string; why: string}` | all three required (common.py:297-298); `un` is the deliberate myth text and is excluded from the fact-claim sniffer, `re`/`why` must be true (`must_be_true_texts`, common.py:146-148) |
+
+**Myth cards ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543)).** The scenario shape does not change: in a game with `mythCards` on, a strike-rewrite beat can play as a swipe card that shows `myth.un` (the player swipes Myth) or `myth.re` (True), followed by the usual UN/RE card. So `re` has to make sense without its myth. The `myth-context` lint rejects a truth that opens with a pronoun ("Both need...", "Those early conversations..."), and `un` should read as a claim someone might believe.
 
 Example (`be-the-safe-adult.ts` source, sa-900): `myth: {"un":"If something was really wrong, my child would just blurt it out at dinner.","re":"Children often hold the hardest things back the longest...","why":"Telling follows safety, not the other way round."}`.
 

@@ -73,6 +73,9 @@ export type V2GameConfig = {
   reassure?: string;
   // the "done" button label for the build mechanic (per game — a team / a garden / a kit / a plan)
   buildLabels?: { assemble?: string; sequence?: string };
+  // play about half of the strike-rewrite beats as swipe myth cards: the card shows the myth or its truth and the
+  // player swipes Myth or True, then the usual UN/RE beat (SWED-70). Off unless a game turns it on.
+  mythCards?: boolean;
 };
 
 export const shuffle = <T,>(a: T[]): T[] =>
