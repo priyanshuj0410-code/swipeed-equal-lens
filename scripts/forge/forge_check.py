@@ -2,8 +2,10 @@
 """forge_check.py — the deterministic validator, used in two modes (one code path, no rubber-stamp):
 
   --batch <file.ndjson> --game <gid>   per-batch lint during generation: validate each candidate line
-                                       (parse, strict shape, helpline binding, <=160, band, band-mechanic
-                                       membership, claim-sniffer). Prints ACCEPT/REJECT + reasons per line.
+                                       (parse, id safety against the shipped bank and the plan's id blocks,
+                                       strict shape, helpline binding, <=160, band, band-mechanic membership,
+                                       claim-sniffer). Every non-empty line must be a scenario. Prints
+                                       ACCEPT/REJECT + reasons per line.
   --game <gid>                         the BLOCKING merge gate over the committed <gid>.ts: parse-or-die,
                                        every per-scenario check (strict shapes), unique ids, mechanic-mix +
                                        share caps, and count vs the planned target (quality-first: a logged
@@ -23,11 +25,6 @@ EASY_VERBS = {"reflect", "role-play"}
 MAX_EASY_SHARE = 0.42          # growth must come from harder verbs, not reflect/role-play padding
 
 
-def load_plan(gid):
-    p = os.path.join(C.REPO, ".forge", gid, "plan.json")
-    return json.loads(open(p, encoding="utf8").read()) if os.path.exists(p) else None
-
-
 def personas_from_plan(plan):
     if not plan:
         return None
@@ -41,23 +38,28 @@ def personas_from_plan(plan):
     return roster or None
 
 
-def check_batch(batch_file, gid):
-    plan = load_plan(gid)
+def check_batch(batch_file, gid, plan=None, game_path=None):
+    plan = plan or C.load_plan(gid)
     if not plan:
         raise SystemExit(f"no plan for {gid} — run forge_plan.py {gid} --write first")
     allowed = set(plan["allowed_mechanics"])
     ceil = plan.get("band_ceiling")
     chapter = plan.get("chapter")
+    shipped = {o["id"]: o for o in C.parse_file(game_path or os.path.join(C.GAMES, gid + ".ts"))[0]}
+    reshapes, seen = C.reshape_ids(plan), set()
     bad = 0
     for n, raw in enumerate(open(batch_file, encoding="utf8"), 1):
         raw = raw.strip().rstrip(",")
-        if not raw or not C.is_scenario_line(raw):
+        if not raw:
             continue
+        if not C.is_scenario_line(raw):
+            print(f"  L{n} REJECT  not a scenario line: {raw[:60]!r}"); bad += 1; continue
         try:
             o = json.loads(raw)
         except Exception as e:
             print(f"  L{n} REJECT  unparseable: {e}"); bad += 1; continue
-        errs = C.scenario_errors(o, chapter, allowed, ceil, strict_shape=True)
+        errs = C.regrowth_id_errors(o, shipped, reshapes, plan, seen)
+        errs += C.scenario_errors(o, chapter, allowed, ceil, strict_shape=True)
         claims = C.claim_flags(o)
         needs_ev = claims or o.get("needsFact")
         if needs_ev and not o.get("_evidence"):
@@ -76,7 +78,7 @@ def check_game(gid):
     path = os.path.join(C.GAMES, gid + ".ts")
     if not os.path.exists(path):
         raise SystemExit(f"no game file: {gid}")
-    plan = load_plan(gid)
+    plan = C.load_plan(gid)
     chapter = (plan or {}).get("chapter") or C.chapter_of(gid)
     ceil = (plan or {}).get("band_ceiling", C.BAND_CEIL.get(chapter))
     allowed = set(plan["allowed_mechanics"]) if plan else C.allowed_mechanics(chapter, [])

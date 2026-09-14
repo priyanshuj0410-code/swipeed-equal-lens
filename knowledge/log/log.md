@@ -14,6 +14,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71  # SWED-73
 ---
 
 # SwipeEd project log
@@ -21,6 +22,24 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 - forge: regrowth can no longer overwrite shipped scenarios ([SWED-73](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71))
+- **Why.** Ids were handed out as `900 + i*90` per category whatever the bank held, the batch gate never checked
+  ids, and assembly replaced any bank line whose id matched, so the next regrowth run could silently overwrite
+  live scenarios (every grown game already used ids 900 to 1439). Id blocks were not enforced either, which is how
+  SWED-54 happened. Assembly wrote the game file before parsing it, and unrecognised lines were skipped (forge
+  pipeline review P2, P3, P14, P15).
+- **Pipeline.** `forge_plan.py` gives each category a block of 100 id numbers above the bank's highest id.
+  `forge_check.py --batch` and `forge_assemble.py` share one id rule (`common.regrowth_id_errors`): a shipped id
+  may return only as a reshape on the worklist with the same type and category, a new id must sit in its block,
+  no id may repeat, and every non-empty line must be a scenario. Assembly refuses the whole batch on any problem,
+  writes to a temp file, checks the parse and count, and only then replaces the game file. `gen_workflow.js`
+  passes the planner's blocks to the generators instead of computing its own.
+- **Checks.** Nine new fixtures in `test_gates.py` (each refusal, a clean add, a clean reshape, and a failed round
+  trip that leaves the file untouched); with the id rule disabled, five of them fail. A dry regrowth against a
+  copy of Choosing & Building refused an overwrite of `cb-002` and, with only a new scenario, changed no shipped
+  scenario.
+- **Docs.** [question bank](../schemas/question-bank.md) (content chain, gates table), [content pipeline](../games/swipeed-content-pipeline.md).
 
 ## 2026-09-15 - gates: the content gate runs before every build ([SWED-72](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b))
 - **Why.** The forge pipeline review (SWED-65) found every gate opt-in: hooks needed `core.hooksPath` set by hand,

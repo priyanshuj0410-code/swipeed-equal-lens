@@ -209,6 +209,49 @@ def parse_file(path):
         scns.append(o)
     return scns, errors
 
+def load_plan(gid):
+    p = os.path.join(REPO, ".forge", gid, "plan.json")
+    return json.loads(open(p, encoding="utf8").read()) if os.path.exists(p) else None
+
+# ── regrowth id safety (SWED-73) ────────────────────────────────────────────────────────────────────────────
+# Assembly replaces a bank line whose id matches a batch line, so an id is the only thing standing between a
+# regrowth run and a silently overwritten shipped scenario. The planner allocates each category a block of fresh
+# numbers above the bank's highest id; a batch may reuse a shipped id only for a reshape on the plan's worklist.
+ID_BLOCK = 100
+_ID = re.compile(r"^(.+)-(\d+)$")
+
+def id_number(i):
+    m = re.match(r"^[a-z0-9]+-(\d+)", i or "")
+    return int(m.group(1)) if m else None
+
+def reshape_ids(plan):
+    return {i for ids in ((plan or {}).get("reshape_legacy") or {}).values() for i in ids}
+
+def regrowth_id_errors(o, shipped, reshapes, plan, seen):
+    """Why a batch line's id is unsafe to assemble. `shipped` maps id -> shipped scenario; `seen` collects ids
+    across the batch (pass the same set for every line)."""
+    e = []
+    i = o.get("id")
+    if i in seen:
+        e.append(f"id {i} appears more than once in the batch")
+    seen.add(i)
+    if i in shipped:
+        if i not in reshapes:
+            e.append(f"id {i} is already in the bank and not on the reshape worklist (assembly would overwrite it)")
+        else:
+            for f in ("type", "cat"):
+                if o.get(f) != shipped[i].get(f):
+                    e.append(f"reshape {i} changes {f} from {shipped[i].get(f)!r} to {o.get(f)!r}")
+        return e
+    block = ((plan or {}).get("id_blocks") or {}).get(o.get("cat"))
+    prefix = (plan or {}).get("id_prefix")
+    m = _ID.match(i or "")
+    if not block:
+        e.append(f"no id block for category {o.get('cat')!r} in the plan (re-run forge_plan.py --write)")
+    elif not m or m.group(1) != prefix or not block[0] <= int(m.group(2)) <= block[1]:
+        e.append(f"new id {i} is outside the {o.get('cat')} block {prefix}-{block[0]} to {prefix}-{block[1]}")
+    return e
+
 def game_to_chapter():
     m = {}
     if os.path.exists(PATH_TS):

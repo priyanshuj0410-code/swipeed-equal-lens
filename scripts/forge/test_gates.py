@@ -62,9 +62,72 @@ def main():
         else:
             fails += 1; print(f"  ✗ retired-helpline check wrong on {txt!r}")
     fails += content_gate_fixtures()
+    fails += regrowth_fixtures()
     if fails:
         print(f"\n✗ {fails} gate test(s) failed"); sys.exit(1)
     print("\n✓ all gate fixtures pass — missing-Base-field content is rejected")
+
+
+def regrowth_fixtures():
+    """A regrowth batch can add scenarios in its category's id block and reshape worklist ids, and nothing else
+    (SWED-73): the batch gate and assembly must refuse overwrites, type or category changes, out-of-block and
+    repeated ids, and non-scenario lines, and a failed assembly must leave the game file untouched."""
+    import io, json, shutil, tempfile
+    from contextlib import redirect_stdout
+    import forge_assemble as A
+    import forge_check as FC
+
+    fails = 0
+    tmp = tempfile.mkdtemp()
+    game = os.path.join(tmp, "t.ts")
+    batch = os.path.join(tmp, "batch.ndjson")
+    shipped = [dict(VALID_SORT, id="t-001"), dict(VALID_STRIKE, id="t-002")]
+    body = ("import type { Scenario } from \"./v2-schema\";\n\nconst SCENARIOS: Scenario[] = [\n"
+            + "".join("  " + json.dumps(o) + ",\n" for o in shipped) + "];\n\nexport const T = { scenarios: SCENARIOS };\n")
+    plan = {"allowed_mechanics": sorted(C.ALL_MECHANICS), "band_ceiling": None, "chapter": 9, "id_prefix": "t",
+            "id_blocks": {"c": [100, 199]}, "reshape_legacy": {"sort": ["t-001"], "spot": [], "match": []}}
+    new_sort = dict(VALID_SORT, id="t-150")
+
+    def run(name, lines, expect_ok, fail_round_trip=False):
+        nonlocal fails
+        open(game, "w", encoding="utf8").write(body)
+        open(batch, "w", encoding="utf8").write("\n".join(l if isinstance(l, str) else json.dumps(l) for l in lines) + "\n")
+        real_parse = A.C.parse_file
+        if fail_round_trip:
+            A.C.parse_file = lambda p: ([], [(1, "simulated parse failure")]) if p.endswith(".assemble-tmp") else real_parse(p)
+        with redirect_stdout(io.StringIO()):
+            gate_ok = FC.check_batch(batch, "t", plan=plan, game_path=game)
+            try:
+                A.assemble("t", batch, True, ts=game, plan=plan)
+                assembled = True
+            except SystemExit:
+                assembled = False
+        A.C.parse_file = real_parse
+        untouched = open(game, encoding="utf8").read() == body
+        no_temp = not os.path.exists(game + ".assemble-tmp")
+        if fail_round_trip:
+            ok = not assembled and untouched and no_temp
+        elif expect_ok:
+            ok = gate_ok and assembled and not untouched and no_temp
+        else:
+            ok = not gate_ok and not assembled and untouched
+        if ok:
+            print(f"  ✓ regrowth safety right on: {name}")
+        else:
+            fails += 1
+            print(f"  ✗ regrowth safety wrong on: {name} (gate {gate_ok}, assembled {assembled}, untouched {untouched})")
+
+    run("a new scenario in its category's block", [new_sort], True)
+    run("a reshape on the worklist that keeps its type and category", [dict(VALID_SORT, id="t-001", hook="Sort these six.")], True)
+    run("a shipped id that is not on the reshape worklist", [dict(VALID_STRIKE, id="t-002", hook="Overwritten.")], False)
+    run("a reshape that changes the mechanic", [dict(VALID_STRIKE, id="t-001")], False)
+    run("a reshape that moves category", [dict(VALID_SORT, id="t-001", cat="other")], False)
+    run("a new id outside the block", [dict(VALID_SORT, id="t-250")], False)
+    run("the same new id twice", [new_sort, dict(new_sort, hook="Another.")], False)
+    run("a line that is not a scenario", [new_sort, "this is not json"], False)
+    run("a merge whose round trip fails leaves the game untouched", [new_sort], False, fail_round_trip=True)
+    shutil.rmtree(tmp)
+    return fails
 
 
 def content_gate_fixtures():

@@ -38,18 +38,18 @@ it as "Lensy". Keep it consistent with the rest of the bank (every other game us
 
 const GROUND_SCHEMA = {
   type: 'object', additionalProperties: false,
-  required: ['grounding_path', 'band_ceiling', 'current_total', 'target_total', 'helpline', 'allowed_mechanics', 'categories'],
+  required: ['grounding_path', 'band_ceiling', 'current_total', 'target_total', 'helpline', 'allowed_mechanics', 'id_prefix', 'categories'],
   properties: {
-    grounding_path: { type: 'string' }, band_ceiling: { type: 'number' },
+    grounding_path: { type: 'string' }, band_ceiling: { type: 'number' }, id_prefix: { type: 'string' },
     current_total: { type: 'number' }, target_total: { type: 'number' },
     helpline: { type: 'string' }, allowed_mechanics: { type: 'array', items: { type: 'string' } },
     categories: {
       type: 'array',
       items: {
         type: 'object', additionalProperties: false,
-        required: ['cat', 'target', 'quota'],
+        required: ['cat', 'target', 'quota', 'idStart', 'idEnd'],
         properties: {
-          cat: { type: 'string' }, target: { type: 'number' },
+          cat: { type: 'string' }, target: { type: 'number' }, idStart: { type: 'number' }, idEnd: { type: 'number' },
           quota: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['type', 'count'], properties: { type: { type: 'string' }, count: { type: 'number' } } } },
         },
       },
@@ -99,12 +99,13 @@ its teaching intent + 6-10 GDD-cited "truth anchors" (statements new content mus
 voices/names available; the EXACT helpline string for this game; and banned framings (e.g. fear-based scare copy,
 any wrong-buzzer on a reflect, good/bad instead of safe/unsafe for young kids).
 Return the schema object: grounding_path, band_ceiling, current_total, target_total, helpline, allowed_mechanics,
-and categories[] with each cat's target and quota[] (convert plan.json's generate_by_type dict to {type,count} array).`,
+id_prefix (plan.json id_prefix), and categories[] with each cat's target, quota[] (convert plan.json's
+generate_by_type dict to {type,count} array), and idStart/idEnd (plan.json id_blocks[cat][0] and [1]).`,
   { label: `ground:${GID}${groundTry > 1 ? ` r${groundTry}` : ''}`, phase: 'Ground', schema: GROUND_SCHEMA, agentType: 'general-purpose' })
 }
 if (!ground || !ground.categories) throw new Error(`ground:${GID} failed after 3 attempts — server likely rate-limiting; relaunch this game alone when the field is clear`)
 
-const cats = (ground.categories).map((c, i) => ({ ...c, idStart: 900 + i * 90 }))
+const cats = ground.categories
 
 phase('Generate')
 const results = await pipeline(cats,
@@ -112,8 +113,9 @@ const results = await pipeline(cats,
     `You GENERATE new scenarios for ONE category of SwipeEd game "${GID}" and self-validate them against a
 deterministic gate until clean. Work in ${REPO}.
 CATEGORY: "${c.cat}". QUOTA (generate up to this many of each mechanic): ${JSON.stringify(c.quota)}.
-ID RANGE: use ids from this game's prefix with numbers ${c.idStart}–${c.idStart + 89} (e.g. if existing ids look
-like "mb-007", use "mb-${c.idStart}" upward). NEVER collide with existing ids.
+ID RANGE: every NEW scenario's id is ${ground.id_prefix}-N with N from ${c.idStart} to ${c.idEnd}, the block the planner
+allocated to this category above every id in the bank. The gate rejects any other id, any id used twice, and any
+shipped id that is not a reshape on the plan's worklist (assembly would otherwise overwrite a live scenario).
 
 1) GROUND: read ${REPO}/.forge/${GID}/GROUNDING.md (authoritative), ${REPO}/src/content/games/v2-schema.ts, and
    EVERY existing scenario with "cat":"${c.cat}" in ${REPO}/src/content/games/${GID}.ts (match voice; AVOID making
@@ -124,9 +126,9 @@ ${SHAPES}
    GDD-faithful ideas before hitting the quota, STOP and set exhausted=true with a note — do NOT pad with
    paraphrases (padding is the exact failure we're avoiding).
 3) RESHAPE: also find every existing "cat":"${c.cat}" scenario in ${GID}.ts whose shape is legacy (sort with ≠6
-   items, spot with ≠5 items or ≠2 tricks, match with ≠5 pairs) and rewrite it to the target shape KEEPING ITS
-   ID (add genuinely-fitting items/pairs + the required valence; never change a correct answer). Include these in
-   your output (they replace by id on assembly).
+   items, spot with ≠5 items or ≠2 tricks, match with ≠5 pairs) AND is on plan.json's reshape_legacy worklist,
+   and rewrite it to the target shape KEEPING ITS ID, TYPE AND CATEGORY (add genuinely-fitting items/pairs + the
+   required valence; never change a correct answer). Include these in your output (they replace by id on assembly).
 4) WRITE all of them as NDJSON (one JSON object per line, no array) to ${REPO}/.forge/${GID}/gen/${c.cat}.ndjson
 5) SELF-VALIDATE (Bash), repeat until it prints "batch: 0 rejected":
      cd ${REPO} && python3 scripts/forge/forge_check.py --batch .forge/${GID}/gen/${c.cat}.ndjson --game ${GID}

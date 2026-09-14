@@ -9,6 +9,7 @@ the existing-id/fingerprint set so generation avoids collisions.
 Usage: python3 scripts/forge/forge_plan.py <gameId> [--write]
 """
 import json, os, sys, glob, math, re
+from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common as C
 
@@ -92,6 +93,11 @@ def plan(game_id, lib_idx, g2ch):
             reshape["match"].append(o["id"])
 
     total_generate = sum(sum(q["generate_by_type"].values()) for q in quota.values())
+    # fresh ids for new scenarios: one block per category, above the highest number already in the bank (SWED-73)
+    prefix = Counter(o["id"].rsplit("-", 1)[0] for o in scns).most_common(1)[0][0] if scns else game_id
+    top = max((n for n in (C.id_number(o["id"]) for o in scns) if n is not None), default=0)
+    base = (top // C.ID_BLOCK + 1) * C.ID_BLOCK
+    id_blocks = {c: [base + i * C.ID_BLOCK, base + (i + 1) * C.ID_BLOCK - 1] for i, c in enumerate(sorted(cats))}
     return {
         "gameId": game_id, "chapter": chapter, "band_ceiling": ceil,
         "ages": lib.get("ages"), "thread": lib.get("thread"),
@@ -104,7 +110,8 @@ def plan(game_id, lib_idx, g2ch):
         "reshape_legacy": reshape,
         "library_path": lib_path, "library_categories": lib.get("categories"),
         "existing_ids": [o["id"] for o in scns],
-        "id_prefix": (scns[0]["id"].rsplit("-", 1)[0] if scns else game_id),
+        "id_prefix": prefix,
+        "id_blocks": id_blocks,
     }
 
 
@@ -125,7 +132,8 @@ def main():
           f"| disallow-for-band {p['disallowed_for_band']}")
     print(f"  reshape: sort {len(p['reshape_legacy']['sort'])} | spot {len(p['reshape_legacy']['spot'])} | match {len(p['reshape_legacy']['match'])}")
     for c, q in p["categories"].items():
-        print(f"    {c:<22} {q['current']:>3} -> {q['target']:<3}   gen {q['generate_by_type']}")
+        b = p["id_blocks"][c]
+        print(f"    {c:<22} {q['current']:>3} -> {q['target']:<3}   ids {p['id_prefix']}-{b[0]}..{b[1]}   gen {q['generate_by_type']}")
 
 
 if __name__ == "__main__":
