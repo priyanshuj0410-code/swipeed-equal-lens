@@ -1,0 +1,70 @@
+---
+type: index
+owner: the-equal-lens
+title: SwipeEd knowledge base
+description: Start here - what SwipeEd is, where every doc lives, and the rules for keeping this knowledge base in step with the code.
+tags: [swipeed, index, knowledge-base]
+timestamp: 2026-09-14T00:00:00Z
+plane_issues:
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+---
+
+# SwipeEd knowledge base
+
+SwipeEd is The Equal Lens's learning path app for ages 3 to parenthood: 77 nodes (69 lesson games and 8 capstones) across 8 age-band chapters, live at https://swipeed.vercel.app. This folder is its single source of truth. It follows the Open Knowledge Format: plain Markdown files with YAML frontmatter, reviewed as git diffs next to the code they describe.
+
+## Start here
+
+1. **[SwipeEd - what we built and why](games/swipeed-build-overview.md)** - the product, the engine, the content pipeline and how the fleet was grown.
+2. **[SwipeEd, the app](games/swipeed.md)** - the path, the chapters, the audience.
+3. **[v2 engine](architecture/v2-engine.md)** - how a game runs, from path node to completion card.
+4. **[Question bank](schemas/question-bank.md)** - the scenario format, where content comes from, and the gates it must pass.
+5. **[Design system](design.md)** - tokens, type, components, motion and accessibility.
+
+## Structure
+
+```
+knowledge/
+  README.md          this index
+  design.md          design system
+  plane.config.md    Plane workspace, project and state ids; ticket rules
+  architecture/      v2-engine.md (how games run), deployment.md (stack, build, hosting)
+  schemas/           question-bank.md (bank format, sources, gates, fleet numbers)
+  games/             the catalog: one doc per game and capstone, plus the SwipeEd overview docs
+  audits/            dated measurement passes (design-audit-2026-09-14.md)
+  log/               log.md, the dated project log, newest first
+```
+
+## Docs by topic
+
+| Topic | Docs |
+|---|---|
+| The app and its world | [SwipeEd](games/swipeed.md) · [path world](games/swipeed-world.md) · [world and art tokens](games/world-art-tokens.md) · [capstones](games/capstones.md) · [life-skills toolkit](games/life-skills-toolkit.md) |
+| Learning design | [core principle: Unlearn, Relearn, Grow](games/swipeed-core-principle.md) · [reusable game patterns](games/swipeed-game-patterns.md) · [interaction model](games/swipeed-interaction-model.md) |
+| Engine and code | [v2 engine](architecture/v2-engine.md) · [stack, build and deployment](architecture/deployment.md) · [extending SwipeEd](games/extending-swipeed.md) |
+| Content | [question bank](schemas/question-bank.md) · [content pipeline (forge)](games/swipeed-content-pipeline.md) · [game doc template](games/_game-template.md) |
+| Games | [games catalog](games/index.md): every game and capstone by chapter |
+| Design | [design system](design.md) · [design audit, 2026-09-14](audits/design-audit-2026-09-14.md) |
+| Tracking and history | [Plane configuration](plane.config.md) · [project log](log/log.md) |
+
+## Keeping it in sync
+
+- **Docs ship with code.** Any change that affects a game, the path, the engine or the question bank updates the matching doc here on the same branch: the game doc under `games/`, an entry at the top of [the log](log/log.md), and any cross-links (see [AGENTS.md](../AGENTS.md)).
+- **New UI patterns update [design.md](design.md)** in the same change.
+- **Frontmatter on every doc:** `type`, `title` and `description`, plus `owner`, `tags`, `timestamp`, and `plane_issues` listing the Plane issue URLs that changed it. New game docs start from [the template](games/_game-template.md).
+- **Layout:** docs live in subfolders; only `README.md`, `design.md` and `plane.config.md` sit at the root. Link between docs with relative paths.
+- **Voice:** hyphens, never em or en dashes, and sentence case, as in the rest of The Equal Lens.
+
+## Where this came from
+
+Until 2026-09-14 SwipeEd's docs lived in the owhile-engine repo (the Owhile venture, formerly Praxis), which a chat working in The Equal Lens's repos is not allowed to edit, so docs could not ship with code. The game docs, the SwipeEd overview docs and SwipeEd's log entries were copied here from owhile-engine commit `c182048` under SWED-61, and each copied doc names its source in `copied_from:`.
+
+The copy was not verbatim: em and en dashes became hyphens, links were re-pointed (links to Owhile-only docs now open owhile-engine on GitHub), invalid frontmatter was repaired, and facts that had gone stale were corrected against the code. The [log entry for 2026-09-14](log/log.md) lists the corrections.
+
+Owhile's own architecture, forge and business docs were deliberately not copied. The ownership split recorded in owhile-engine `knowledge/partners/the-equal-lens/index.md` gives The Equal Lens the curriculum, content and brand, and Owhile the engine mechanism. The v2 engine, deployment, question bank and design docs here were written fresh from SwipeEd's own code. owhile-engine still holds its older copies of the SwipeEd docs; they are no longer maintained from this side.
+
+## Open questions
+
+- **Clinical content.** The Equal Lens canon says the organisation does no clinical content (no contraception, no STIs, no mental-health treatment) and refers instead, because it cannot staff it. SwipeEd includes sexual and reproductive health games: [Plan It](games/plan-it.md) and [Outbreak](games/outbreak.md) (ages 12-15), [Status: Know It](games/status-know-it.md) (15-18), [Own Your Health](games/own-your-health.md) (18-22) and [If, When & Whether](games/if-when-whether.md) (22+). Whether that rule applies to a self-paced app has not been decided.
+- **owhile-engine's copy.** owhile-engine's docs still describe themselves as SwipeEd's canonical knowledge base. Pointing them here needs a PRX ticket for an Owhile chat.
+- **Stale repo docs.** The repo's own `README.md` and several files in `docs/` predate the 77-node path (they describe 43 lessons and the old mascot name). This knowledge base supersedes them until they are updated or removed.

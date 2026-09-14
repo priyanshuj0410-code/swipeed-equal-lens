@@ -1,0 +1,67 @@
+---
+type: Architecture
+owner: the-equal-lens
+title: Stack, build and deployment
+description: What SwipeEd is built with, how it builds, and how a merge to main reaches swipeed.vercel.app, verified against package.json and the Vercel API on 2026-09-14.
+resource: https://swipeed.vercel.app
+tags: [swipeed, stack, build, deployment, vercel, pwa]
+timestamp: 2026-09-14T00:00:00Z
+plane_issues:
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+---
+
+# Stack, build and deployment
+
+## Stack
+
+| Layer | Choice | Where |
+|---|---|---|
+| Framework | Next.js 16.2.9 (App Router), React 19.2.4, TypeScript 5 | `package.json`, `src/app/` |
+| Styling | Tailwind CSS v4, shadcn config, The Equal Lens brand tokens | `src/app/globals.css`, `components.json`, [design system](../design.md) |
+| Brand package | `@equal-lens/brand` 0.1.0, vendored as a tarball | `vendor/equal-lens-brand-0.1.0.tgz` |
+| 3D path | three 0.171, @react-three/fiber 9, @react-three/drei 10 | `src/components/path-scene.tsx` |
+| Games | one shared v2 engine and typed scenario banks | [v2 engine](v2-engine.md), [question bank](../schemas/question-bank.md) |
+| Installable app | web manifest and service worker | `src/app/manifest.ts`, `public/sw.js` |
+| Content tooling | Python 3 scripts (status, path generation, forge gates) | `scripts/` |
+
+`AGENTS.md` warns that this Next.js version has breaking changes from older releases: read the guide in `node_modules/next/dist/docs/` before writing framework code.
+
+## Build and checks
+
+| Command | What it runs |
+|---|---|
+| `npm run dev` | `next dev` |
+| `npm run build` | `next build`, which compiles and type-checks. Vercel runs the same build, so a type error fails the deploy. |
+| `npm run lint` | `eslint` (flat config) |
+| `npm run status` | `python3 scripts/swipeed_status.py`, build and registration status from `scripts/master-node-table.xlsx` |
+| `npm run read-first` | `python3 scripts/read_first.py`, the read-before-build attestation for new v2 games |
+
+The package manager is npm (`package-lock.json`). There is no automated test suite. Git hooks live in `scripts/githooks/` and are enabled with `scripts/setup-hooks.sh` (`core.hooksPath`); the pre-commit hook runs the status check, the read-first gate and the message-length check. The deeper shape and duplicate gates run only inside the forge workflow (see [question bank](../schemas/question-bank.md)).
+
+`@equal-lens/brand` is installed from `file:./vendor/equal-lens-brand-0.1.0.tgz`. It was vendored on 2026-09-01 (SWED-44) because cloud builds could not resolve the package from outside the repo.
+
+## Hosting
+
+| Field | Value |
+|---|---|
+| Host | Vercel, project `swipeed` (`prj_BYLrgKs8JH2BLHe4xNwtThViNJMj`) |
+| Git connection | `priyanshuj0410-code/swipeed-equal-lens`, production branch `main` |
+| Production domains | `swipeed.vercel.app` (plus two generated `*.vercel.app` aliases) |
+| Node on Vercel | 24.x |
+| Local link | `.vercel/project.json` in this repo (gitignored) |
+
+**A push or merge to `main` on GitHub deploys to production.** Every production deploy since 2026-09-01 has come from a git push to `main` (seven that day, the last for commit `e4953e2`). Run `npm run build` locally before pushing.
+
+### History
+
+- **June 2026:** production deploys were made from the CLI (`vercel build --prod`, then `vercel deploy --prebuilt --prod`) because the Vercel git connection pointed at the older `priyanshuj0410-code/SwipeEd` repo. Older docs and log entries describe this flow and say `main` is never pushed; that is no longer true.
+- **2026-09-01:** the app repo was backed up to GitHub (SWED-42), the Vercel git connection was found pointing at the wrong repo (SWED-43), and the brand package was vendored so git builds could succeed (SWED-44). From then on deploys come from git.
+- **2026-09-14:** verified through the Vercel API that the project links to `swipeed-equal-lens` and that the latest production deploys have `source: git`. An archived local clone of the old repo, which was also linked to this Vercel project, was unlinked and renamed. No preview deployments appeared in the last 40 deploys.
+
+### Vercel CLI caution
+
+When a folder is not linked, `vercel --yes` links it to any existing project whose name matches the folder name, then deploys. Only this repo should be linked to `swipeed`; never run the CLI in another folder named `swipeed`.
+
+## Related
+
+- [v2 engine](v2-engine.md) · [question bank](../schemas/question-bank.md) · [design system](../design.md) · [SwipeEd (app)](../games/swipeed.md) · [Plane configuration](../plane.config.md)
