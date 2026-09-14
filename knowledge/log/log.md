@@ -4,10 +4,11 @@ owner: the-equal-lens
 title: SwipeEd project log
 description: Dated record of SwipeEd work, newest first. Entries up to 2026-09-01 were carried over from the owhile-engine knowledge log.
 tags: [swipeed, log, history]
-timestamp: 2026-09-14T00:00:00Z
+timestamp: 2026-09-15T00:00:00Z
 copied_from: owhile-engine@c182048:knowledge/log.md
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
 ---
 
 # SwipeEd project log
@@ -15,6 +16,30 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 - engine: Lensy's question leads every beat ([SWED-66](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e))
+- **Why.** Friends playtested Choosing & Building and answered without reading the question. The question was a
+  15px borderless bubble beside bold sticker answer cards, the answers appeared in the same frame, and the first
+  nudge replaced the question. This is Phase 1a of the [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md).
+- **Engine.** New shared `LensyQuestion` and `RevealGate` (`src/components/games/lensy-question.tsx`), used by
+  `V2Game` and `RichCapstone`. The question sits on the brand's `.popover` chat card in 19px Baloo 2 and stays for
+  the whole beat. Nudges and confirmations go to a live feedback line under it. Answers wait 1.2s plus 60ms a
+  word (at most 4s), and a tap on the question or the gate shows them at once. Narrator prefixes ("Lensy:") are
+  stripped, and a hook and its prompt are joined without asking twice or ending on a clipped tag. Focus moves to
+  the question at the start of each beat and to Next when solved, and branch verdicts are announced, which closes
+  [SWED-57](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/04be0c5a-f6b0-4372-b2bc-79b26f3fcd6c)
+  and [SWED-58](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4e86866f-408c-4033-9056-5eed8edfa912).
+- **Also.** Mechanics lost their inline nudge lines, which repeated the spoken nudge. Capstone swipe and strike
+  laps no longer print the cue or truth twice. A non-best branch pick keeps its consequence card. Spot copy no
+  longer calls every target a red flag. 27 engine strings lost their em dashes.
+- **Checks.** Headless Chrome playthroughs of four lesson games and capstones 1, 3 and 8 at 360, 390 and 412px,
+  light and dark, reduced motion on and off, covering every mechanic and lap type. `tsc`, `eslint` and
+  `npm run build` pass. Findings for later tickets are in the plan's Progress section. They include capstone 3's
+  live `c3-p8` soft-lock (SWED-56), and a Choosing & Building forced-marriage beat that resolves without a help
+  pill, which needs an owner decision.
+- **Docs.** [design.md](../design.md) (How Lensy speaks, elevation, Components, Focus, References) and the
+  [v2 engine](../architecture/v2-engine.md) (new section: Question card, reveal and focus; SWED-57 and SWED-58
+  marked fixed).
 
 ## 2026-09-14 - safety: KIRAN retired, every mention routed to Tele-MANAS ([SWED-62](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb))
 - **Why.** KIRAN (1800-599-0019), the mental-health rehabilitation line of the Department of Empowerment of Persons

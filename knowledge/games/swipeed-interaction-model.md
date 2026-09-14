@@ -5,9 +5,10 @@ copied_from: owhile-engine@c182048:knowledge/games/swipeed-interaction-model.md
 title: SwipeEd - The Interaction Model (direct manipulation)
 description: How the shared v2 mini-game engine handles input - the move from "tap a thing, tap another thing" to real direct-manipulation gestures (swipe a card, drag a chip into a bin, draw a cord) built on shared primitives, with the tap path kept as the accessibility / young-child fallback. The living spec every game inherits.
 tags: [games, swipeed, engine, interaction, accessibility, gestures, v2]
-timestamp: 2026-06-23T13:00:00Z
+timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
 ---
 
 # SwipeEd - The Interaction Model (direct manipulation)
@@ -46,9 +47,10 @@ mechanic composes, turning each interaction into the verb it teaches.
   (survives scroll / reflow / wrap).
 - **`ConnectorOverlay`** - an absolutely-positioned SVG layer (`pointer-events:none`) that draws match's live
   drag-cord and the locked cords.
-- **Engine-wide a11y fix:** the **Lensy speech bubble is an `aria-live="polite"` region.** Because the bubble
-  already mirrors every `say()` (hook, nudge, result), this gives screen-reader / deaf / TTS-muted users full
-  parity in **one place, no per-renderer plumbing** - closing the prior speech-only gap.
+- **Engine-wide a11y fix:** every `say()` line reaches screen-reader, deaf and TTS-muted players as text from
+  **one place, no per-renderer plumbing** - closing the prior speech-only gap. Originally the Lensy speech bubble
+  was the `aria-live="polite"` region; since 2026-09-15 the question card holds the beat's question and the
+  feedback line beneath it is the live region (see [Question first](#question-first-2026-09-15)).
 - **Pinch-zoom restored** (`app/layout.tsx`: `maximumScale` 1 → 5, `userScalable: true`) - WCAG 1.4.4/1.4.10.
   Drag elements scope their own `touch-action` (swipe card = `pan-y` so vertical scroll still works; drag
   chips = `none`) so gestures and page scroll/zoom coexist.
@@ -95,7 +97,8 @@ one cohesive branch over the shared engine; tsc + lint + build green; **no conte
 ## Shared chrome (the frame around every mechanic)
 
 From on-device review, the shared game chrome was tightened (one place, every game): **Lensy speaks in a chat
-bubble** (soft fill + a tail toward Lensy, content-width, **no shadow** - not a card); **progress is a compact
+bubble** (soft fill + a tail toward Lensy, content-width, **no shadow** - not a card; replaced on 2026-09-15 by
+the question card, see [Question first](#question-first-2026-09-15)); **progress is a compact
 dot strip at the very top** (tiny when unearned); **Home is a quiet tertiary text button** (not a card); the
 **swipe red/green signal lives in the drag** (colour wash + watermark flag + badge); and the **path/scene is
 hidden behind a game** (an opaque app-bg layer in GameShell) so the game is the calm focus.
@@ -130,8 +133,27 @@ fixed in **both** engines; the capstone **Next** dropped its duplicate arrow; an
 **chat bubble caps at 34vh and scrolls** (both engines) and the **graduation certificate shows a short bubble**
 (the full cert stays in its card and is still spoken).
 
+## Question first (2026-09-15)
+
+A playtest of Choosing & Building showed players answering without reading Lensy's question: the soft bubble lost
+to the bold answer cards, the answers appeared with the question, and the first nudge replaced it. Both engines
+now open every beat and lap the same way ([SWED-66](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e);
+visual spec in [design.md](../design.md#voice-and-copy), engine detail in the
+[v2 engine](../architecture/v2-engine.md#question-card-reveal-and-focus)):
+
+- **The question is the card.** Lensy's question sits on the brand's `.popover` chat card, the largest type in the
+  play area, and stays there for the whole beat. The rule above ("not a card") no longer applies to questions.
+- **Answers wait to be asked.** They appear after a short reading pause (1.2s plus 60ms a word, at most 4s). One
+  tap on the question or on "Ready to answer? Tap here" shows them at once, so no one waits who does not need to.
+  Reduced motion drops the fade, not the pause.
+- **Nudges never replace the question.** They go to a feedback line under the card, which is the live region.
+  Mechanics no longer print their own nudge lines under the answers.
+- **Focus follows the beat.** The question card takes focus when a beat starts, the first answer after a keyboard
+  reveal, and Next once the beat is solved.
+
 ## Status
 
+- **Question first** (question card, reading pause, feedback line, focus) in both engines, 2026-09-15.
 - **All 10 mechanics now embody their verb** (explore-label landed last: a body figure for the 7 anatomy
   beats, honest "which is true?" cards for the 5 abstract beats - split content-detected, no schema change).
 - **Capstone laps now share the interaction model** (gestures + chat bubble + three-zone shell), 2026-06-23.

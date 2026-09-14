@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, Fragment } from "rea
 import { Volume2, VolumeX, RotateCcw, Check, ChevronUp, Home } from "lucide-react";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
-import { Sam } from "@/components/games/sam";
+import { LensyQuestion, RevealGate, cleanLine, revealDelayMs } from "@/components/games/lensy-question";
 import { UnReBeat } from "@/components/games/un-re";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
@@ -36,7 +36,7 @@ const MATCH_GLYPHS = ["①", "②", "③", "④", "⑤", "⑥"];
 
 const card = "glass-card rounded-2xl backdrop-blur-[12px] backdrop-saturate-150";
 
-type LapProps<L> = { lap: L; say: (t: string) => void; onSolved: () => void; reduceMotion: boolean };
+type LapProps<L> = { lap: L; say: (t: string, shown?: string) => void; onSolved: () => void; reduceMotion: boolean };
 
 // — Arrival — (the bottom Next carries the CTA, so this is just the canvas-bloom card)
 function ArrivalView({ config, say }: { config: CapstoneConfig; say: (t: string) => void }) {
@@ -85,7 +85,6 @@ function MatchLap({ lap, say, onSolved, reduceMotion }: LapProps<CapMatchLap>) {
   const [rights] = useState(() => shuffle(lap.pairs.map((p) => p.right)));
   const [matched, setMatched] = useState<string[]>([]);
   const [selLeft, setSelLeft] = useState<string | null>(null);
-  const [wrong, setWrong] = useState(false);
   const [live, setLive] = useState<Cord | null>(null);
   const [locked, setLocked] = useState<Cord[]>([]);
   const [hover, setHover] = useState<string | null>(null);
@@ -115,17 +114,17 @@ function MatchLap({ lap, say, onSolved, reduceMotion }: LapProps<CapMatchLap>) {
   const rightZones = () => rights.map((r) => ({ id: r, el: rightEls.current[r] }));
   const connect = (left: string, right: string) => {
     if (rightOf(left) === right) {
-      const nm = [...matched, left]; setMatched(nm); setSelLeft(null); setWrong(false); celebrate("small");
+      const nm = [...matched, left]; setMatched(nm); setSelLeft(null); celebrate("small");
       if (nm.length >= lap.pairs.length) { celebrate("big"); say(lap.celebrate); onSolved(); }
-      else say(`${left} — ${right}. ✓`);
-    } else { setWrong(true); setTimeout(() => setWrong(false), 700); }
+      else say(`${left}: ${right}. ✓`);
+    } else say("Not a match. Try another.");
   };
   const liveFrom = (left: string, x: number, y: number) => {
     const a = anchor(leftEls.current[left], "r"), w = wrap.current; if (!a || !w) return;
     const c = w.getBoundingClientRect(); setLive({ x1: a.x, y1: a.y, x2: x - c.left, y2: y - c.top, tint: "var(--color-ink)" });
   };
   const pointer = usePointerDrag({
-    onStart: (s, e) => { const left = (e.currentTarget as HTMLElement).dataset.left ?? null; dragLeft.current = left; if (left) { setSelLeft(left); setWrong(false); liveFrom(left, s.x, s.y); } },
+    onStart: (s, e) => { const left = (e.currentTarget as HTMLElement).dataset.left ?? null; dragLeft.current = left; if (left) { setSelLeft(left); liveFrom(left, s.x, s.y); } },
     onMove: (s) => { const left = dragLeft.current; if (!left) return; liveFrom(left, s.x, s.y); setHover(hitTestZone(s.x, s.y, rightZones(), 36)); },
     onEnd: (s) => { const left = dragLeft.current; dragLeft.current = null; const right = hitTestZone(s.x, s.y, rightZones(), 36); setLive(null); setHover(null); if (left && right) connect(left, right); },
     onTap: () => { dragLeft.current = null; setLive(null); setHover(null); },
@@ -134,7 +133,7 @@ function MatchLap({ lap, say, onSolved, reduceMotion }: LapProps<CapMatchLap>) {
   const rightToken = (r: string) => { const left = lap.pairs.find((p) => p.right === r && matched.includes(p.left))?.left; return left ? tokenOf(left) : ""; };
   return (
     <div className="flex flex-1 flex-col justify-start gap-2.5">
-      <p className="text-center text-xs font-semibold text-foreground/60">{wrong ? "Not a match — try another. 💛" : "draw a line from each card to its match"}</p>
+      <p className="text-center text-xs font-semibold text-foreground/60">draw a line from each card to its match</p>
       {/* one grid with auto-rows:1fr so every cell (left & right) is the SAME height — tidy cords */}
       <div ref={wrap} className="relative">
         <div className="grid grid-cols-2 gap-2.5" style={{ gridAutoRows: "1fr" }}>
@@ -142,7 +141,7 @@ function MatchLap({ lap, say, onSolved, reduceMotion }: LapProps<CapMatchLap>) {
             const r = rights[i];
             return (
               <Fragment key={i}>
-                <button type="button" data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={matched.includes(p.left)} onClick={() => { setSelLeft(p.left); setWrong(false); }} {...pointer.handlers}
+                <button type="button" data-left={p.left} ref={(el) => { leftEls.current[p.left] = el; }} disabled={matched.includes(p.left)} onClick={() => setSelLeft(p.left)} {...pointer.handlers}
                   className={`glass-card flex touch-none items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-100 ${selLeft === p.left && !reduceMotion ? "animate-pulse" : ""}`}
                   style={matched.includes(p.left) ? { boxShadow: "inset 0 0 0 2.5px var(--prx-pos)" } : selLeft === p.left ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
                   {matched.includes(p.left) ? `${tokenOf(p.left)} ${p.left}` : p.left}
@@ -166,7 +165,6 @@ function MatchLap({ lap, say, onSolved, reduceMotion }: LapProps<CapMatchLap>) {
 function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
   const [placed, setPlaced] = useState<Record<string, string>>({});
   const [sel, setSel] = useState<string | null>(null);
-  const [wrong, setWrong] = useState(false);
   const [drag, setDrag] = useState<{ id: string; x: number; y: number } | null>(null);
   const [hover, setHover] = useState<string | null>(null);
   const binEls = useRef<Record<string, HTMLElement | null>>({});
@@ -178,11 +176,11 @@ function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
   const zones = () => lap.bins.map((b) => ({ id: b.id, el: binEls.current[b.id] }));
   const place = (itemId: string, binId: string) => {
     if (lap.key[itemId] === binId) {
-      const np = { ...placed, [itemId]: binId }; setPlaced(np); setSel(null); setWrong(false); celebrate("small");
+      const np = { ...placed, [itemId]: binId }; setPlaced(np); setSel(null); celebrate("small");
       if (Object.keys(np).length >= lap.items.length) { celebrate("big"); say(lap.celebrate); onSolved(); }
-    } else { setWrong(true); say("Try the other spot!"); }
+    } else say("Try the other spot!");
   };
-  const arm = (id: string) => { setSel(id); setWrong(false); };
+  const arm = (id: string) => setSel(id);
   const pointer = usePointerDrag({
     onStart: (s, e) => { const id = (e.currentTarget as HTMLElement).dataset.id ?? null; dragId.current = id; if (id) { arm(id); setDrag({ id, x: s.x, y: s.y }); } },
     onMove: (s) => { const id = dragId.current; if (!id) return; setDrag({ id, x: s.x, y: s.y }); setHover(hitTestZone(s.x, s.y, zones(), 44)); },
@@ -205,7 +203,7 @@ function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
   };
   const chips = (
     <div className="flex flex-col gap-1.5">
-      {sel && !drag && <p className="text-center text-xs font-semibold text-foreground/70" aria-hidden>Carrying “{itemText(sel)}” — drop it in a zone</p>}
+      {sel && !drag && <p className="text-center text-xs font-semibold text-foreground/70" aria-hidden>Carrying “{itemText(sel)}”: drop it in a zone</p>}
       <div className="flex flex-wrap justify-center gap-2">
         {lap.items.filter((it) => !placed[it.id]).map((it) => (
           <button key={it.id} type="button" data-id={it.id} onClick={() => arm(it.id)} {...pointer.handlers}
@@ -213,7 +211,6 @@ function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
             style={sel === it.id && !drag ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>{it.text}</button>
         ))}
       </div>
-      {wrong && <p className="text-center text-xs font-semibold text-foreground/70">Not there — try another zone. 💛</p>}
     </div>
   );
   const ghost = drag && !reduceMotion && (
@@ -283,7 +280,7 @@ function SpotLap({ lap, say, onSolved }: Omit<LapProps<CapSpotLap>, "reduceMotio
   useEffect(() => { say(lap.frame); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const tap = (i: number) => {
-    if (!lap.scene[i].trick) { say("That's lovely too — but find the special ones!"); return; }
+    if (!lap.scene[i].trick) { say("That's lovely too, but find the special ones!"); return; }
     if (found.has(i)) return;
     const nx = new Set(found); nx.add(i); setFound(nx); celebrate("small");
     if (nx.size >= targets.length) { celebrate("big"); say(`${lap.why} ${lap.celebrate}`); onSolved(); }
@@ -312,11 +309,11 @@ function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
   const [flew, setFlew] = useState(false);
   const [solved, setSolved] = useState(false);
   const doneRef = useRef(false);
-  useEffect(() => { say(`${lap.frame} ${lap.cue}`); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { say(`${lap.frame} ${lap.cue}`, lap.frame); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const THRESH = 96; // a real upward swipe, not a nudge
   const commit = () => {
-    if (doneRef.current) return; doneRef.current = true; vibrate(12); celebrate("big"); say(`${lap.up} ${lap.celebrate}`); onSolved();
+    if (doneRef.current) return; doneRef.current = true; vibrate(12); celebrate("big"); say(`${lap.up} ${lap.celebrate}`, lap.celebrate); onSolved();
     if (reduceMotion) { setSolved(true); }
     else { setFlew(true); setTimeout(() => setSolved(true), 320); } // fly the card off the top, THEN reveal the done card
   };
@@ -367,7 +364,7 @@ function BranchLap({ lap, say, onSolved }: Omit<LapProps<CapBranchLap>, "reduceM
   const choose = (i: number) => {
     const o = opts[i]; setPicked(i);
     if (o.best) { setSolved(true); celebrate("big"); say(`${o.consequence} ${lap.debrief} ${lap.celebrate}`); onSolved(); }
-    else { say(o.consequence); }
+    else say(o.consequence, "");
   };
   if (picked !== null && !solved) {
     return (
@@ -394,9 +391,9 @@ function StrikeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapStrikeLap>)
   const [solved, setSolved] = useState(false);
   const doneRef = useRef(false);
   const THRESH = 240;
-  useEffect(() => { say(`${lap.frame} ${lap.myth.un}`); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { say(`${lap.frame} ${lap.myth.un}`, lap.frame); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const finish = () => { if (doneRef.current) return; doneRef.current = true; setSolved(true); vibrate(12); celebrate("big"); say(`${lap.myth.re} ${lap.myth.why} ${lap.celebrate}`); onSolved(); };
+  const finish = () => { if (doneRef.current) return; doneRef.current = true; setSolved(true); vibrate(12); celebrate("big"); say(`${lap.myth.re} ${lap.myth.why} ${lap.celebrate}`, lap.celebrate); onSolved(); };
   const drag = usePointerDrag({
     tapThreshold: 4,
     onMove: (s) => { const p = Math.min(1, s.distance / THRESH); setProgress(p); if (p >= 1) finish(); },
@@ -418,7 +415,7 @@ function StrikeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapStrikeLap>)
         <p className="text-[19px] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? 1 : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{lap.myth.un}</p>
         <span className="pointer-events-none absolute bottom-2 right-3 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>
       </div>
-      <p className="text-center text-xs font-semibold text-foreground/60">Scrub the myth away — or press Enter</p>
+      <p className="text-center text-xs font-semibold text-foreground/60">Scrub the myth away, or press Enter</p>
     </div>
   );
 }
@@ -428,12 +425,11 @@ function RolePlayLap({ lap, say, onSolved }: Omit<LapProps<CapRolePlayLap>, "red
   const [lines] = useState(() => shuffle(lap.yourLine));
   const [solved, setSolved] = useState(false);
   const [chosen, setChosen] = useState<number | null>(null);
-  const [nudge, setNudge] = useState(false);
   useEffect(() => { say(`${lap.frame} ${lap.setup}`); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const choose = (i: number) => {
     if (lines[i].best) { setChosen(i); setSolved(true); celebrate("big"); say(lap.celebrate); onSolved(); }
-    else { setNudge(true); say("That's okay — now say the bolder line, the one that speaks up. 💪"); }
+    else say("That's okay. Now say the bolder line, the one that speaks up. 💪");
   };
   return (
     <div className="flex flex-1 flex-col justify-start gap-2.5">
@@ -442,7 +438,6 @@ function RolePlayLap({ lap, say, onSolved }: Omit<LapProps<CapRolePlayLap>, "red
           <span className="text-2xl" aria-hidden>🗣️</span><span className="flex-1">{o.text}{solved && chosen === i && " ✓"}</span>
         </button>
       ))}
-      {nudge && !solved && <p className="text-center text-xs font-semibold text-foreground/70">Say it loud and brave — pick the strong line! 💪</p>}
     </div>
   );
 }
@@ -485,7 +480,7 @@ function ReflectView({ reflect, say, onSolved }: { reflect: CapReflect; say: (t:
 // — Celebration: certificate + graduation glyph (terminal; its own graduate CTA) —
 function CelebrationView({ config, say, onGraduate }: { config: CapstoneConfig; say: (t: string, bubbleText?: string) => void; onGraduate: () => void }) {
   // speak the full certificate, but keep the bubble short (the certificate is shown in full in its card below).
-  useEffect(() => { say(config.celebration.certificate, "🎓 You did it! Your certificate's ready — stand tall, you've earned it."); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { say(config.celebration.certificate, "🎓 You did it! Your certificate's ready. Stand tall, you've earned it."); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="flex flex-1 flex-col justify-start gap-3">
@@ -518,26 +513,61 @@ export function RichCapstone({ config, onExit }: { config: CapstoneConfig; onExi
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [muted, setMuted] = useState(false);
-  const [bubble, setBubble] = useState(config.arrival);
+  const [bubble, setBubble] = useState(() => cleanLine(config.arrival));
+  const [heard, setHeard] = useState(""); // a spoken line shown elsewhere on screen, announced but not repeated on the feedback line
+  // The first line a step speaks is its question and stays on the card; later lines go to the feedback line.
+  const [question, setQuestion] = useState(() => cleanLine(config.arrival));
+  // The step the card's question belongs to. A lap sets its question from its mount effect, a render after the
+  // step changes, so focus waits until the new step's question is on the card.
+  const stepRef = useRef(0);
+  const [questionStep, setQuestionStep] = useState(0);
+  const questionNext = useRef(true);
+  const questionSpeech = useRef(cleanLine(config.arrival));
+  const [revealed, setRevealed] = useState(true);
+  const nextRef = useRef<HTMLButtonElement>(null);
   const [canNext, setCanNext] = useState(true); // arrival can advance immediately
 
-  // say() speaks `t` (and mirrors it to the aria-live bubble). An optional `bubbleText` lets a long spoken line
-  // (e.g. the graduation certificate) show a SHORT bubble while the full text is still spoken + shown in its card.
-  const say = useCallback((t: string, bubbleText?: string) => { setBubble(bubbleText ?? t); speak(t, { muted }); }, [muted]);
+  // say() speaks `t` and shows it on the card or the feedback line. An optional `bubbleText` shows a shorter line
+  // when part of `t` is already on screen in a card (a swipe cue, a myth, the certificate) while all of `t` is spoken.
+  const say = useCallback((t: string, bubbleText?: string) => {
+    const line = cleanLine(t), shown = bubbleText === undefined ? line : cleanLine(bubbleText);
+    if (questionNext.current) { questionNext.current = false; questionSpeech.current = line; setQuestion(shown); setQuestionStep(stepRef.current); setHeard(""); }
+    else setHeard(shown === line ? "" : line);
+    setBubble(shown);
+    speak(line, { muted });
+  }, [muted]);
   useEffect(() => () => stopSpeaking(), []);
 
   const cur = seq[step];
+  const gated = cur.kind === "lap" || cur.kind === "reflect";
 
   // arrival is always ready; laps/reflect gate Next until solved. canNext is set when the step changes (in
   // next()/reset()) rather than in an effect, so there's no setState-in-effect cascade.
-  const next = () => { stopSpeaking(); const ns = Math.min(step + 1, seq.length - 1); setStep(ns); setCanNext(seq[ns].kind === "arrival"); };
-  const reset = () => { stopSpeaking(); setStep(0); setDone(false); setCanNext(true); setBubble(config.arrival); say(config.arrival); };
+  const next = () => {
+    stopSpeaking(); const ns = Math.min(step + 1, seq.length - 1);
+    questionNext.current = true; stepRef.current = ns;
+    setRevealed(!(seq[ns].kind === "lap" || seq[ns].kind === "reflect"));
+    setStep(ns); setCanNext(seq[ns].kind === "arrival");
+  };
+  const reset = () => { stopSpeaking(); questionNext.current = true; stepRef.current = 0; setRevealed(true); setStep(0); setDone(false); setCanNext(true); say(config.arrival); };
   const onSolved = useCallback(() => setCanNext(true), []);
+
+  // Hold a lap's answers until its question has been read (a timer, so muting mid-line can't strand them).
+  useEffect(() => {
+    if (!gated || revealed) return;
+    const t = window.setTimeout(() => setRevealed(true), revealDelayMs(question));
+    return () => window.clearTimeout(t);
+  }, [gated, revealed, question]);
+
+  // Keyboard and screen-reader users continue without hunting for Next once a lap is done.
+  useEffect(() => {
+    if (gated && canNext) nextRef.current?.focus({ preventScroll: true });
+  }, [gated, canNext, step]);
 
   const tools = (
     <span className="flex items-center gap-2">
       {!muted && (
-        <button type="button" aria-label="Hear it again" onClick={() => replay()} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+        <button type="button" aria-label="Hear it again" onClick={() => (gated && !canNext ? speak(questionSpeech.current, { muted }) : replay())} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
           <RotateCcw className="size-4" aria-hidden />
         </button>
       )}
@@ -555,16 +585,16 @@ export function RichCapstone({ config, onExit }: { config: CapstoneConfig; onExi
     );
   }
 
-  // Lensy's voice is a CHAT BUBBLE (soft mist fill + a little tail toward Sam), mirroring every say() with
-  // aria-live for screen-reader / TTS-muted parity — exactly the v2 game chrome.
+  // Lensy's question card, the same chrome as the v2 games: the step's question stays on the card and later
+  // lines (nudges, a lap's celebration) go to the feedback line beneath it.
   const SamSays = (
-    <div className="flex items-end gap-2">
-      <Sam size={52} />
-      <div className="relative min-w-0 flex-1">
-        <span className="absolute -left-1 bottom-2.5 size-3 rotate-45 rounded-[3px]" style={{ background: "var(--color-mist)" }} aria-hidden />
-        <span role="status" aria-live="polite" aria-atomic="true" className="relative inline-block max-h-[34vh] max-w-full overflow-y-auto rounded-2xl rounded-bl-md px-3.5 py-2.5 text-left text-[15px] font-semibold leading-snug" style={{ background: "var(--color-mist)", color: "var(--color-ink)" }}>{bubble}</span>
-      </div>
-    </div>
+    <LensyQuestion
+      text={question}
+      feedback={bubble !== question ? bubble : ""}
+      announce={heard}
+      focusKey={gated && questionStep === step ? String(step) : undefined}
+      onTap={gated && !revealed ? () => setRevealed(true) : undefined}
+    />
   );
   // Progress = a compact strip of step dots at the very top (small, not a card).
   const Progress = (
@@ -592,8 +622,14 @@ export function RichCapstone({ config, onExit }: { config: CapstoneConfig; onExi
         {/* ---- MIDDLE (grows; holds the current beat) ---- */}
         <div className="flex flex-1 flex-col justify-start gap-4 py-1">
           {cur.kind === "arrival" && <ArrivalView config={config} say={say} />}
-          {cur.kind === "lap" && <LapView key={cur.lap.id} lap={cur.lap} recap={config.recap} say={say} onSolved={onSolved} reduceMotion={reduceMotion} />}
-          {cur.kind === "reflect" && <ReflectView key={cur.reflect.id} reflect={cur.reflect} say={say} onSolved={onSolved} />}
+          {/* A lap mounts at once (it speaks its question) but stays hidden until the question has been read. */}
+          {gated && !revealed && <RevealGate onReveal={() => setRevealed(true)} />}
+          {gated && (
+            <div hidden={!revealed} className={`flex flex-1 flex-col gap-4 ${reduceMotion ? "" : "animate-in fade-in slide-in-from-bottom-2 duration-300"}`}>
+              {cur.kind === "lap" && <LapView key={cur.lap.id} lap={cur.lap} recap={config.recap} say={say} onSolved={onSolved} reduceMotion={reduceMotion} />}
+              {cur.kind === "reflect" && <ReflectView key={cur.reflect.id} reflect={cur.reflect} say={say} onSolved={onSolved} />}
+            </div>
+          )}
           {cur.kind === "celebration" && <CelebrationView config={config} say={say} onGraduate={() => setDone(true)} />}
         </div>
 
@@ -601,7 +637,7 @@ export function RichCapstone({ config, onExit }: { config: CapstoneConfig; onExi
         {cur.kind !== "celebration" && (
           <div className="flex flex-col items-stretch gap-1.5">
             {canNext && (
-              <button type="button" onClick={next} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
+              <button ref={nextRef} type="button" onClick={next} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
                 {nextLabel}
               </button>
             )}
