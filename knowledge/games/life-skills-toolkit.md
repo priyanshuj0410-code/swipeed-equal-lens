@@ -9,6 +9,7 @@ tags: [swipeed, thread-c, life-skills, sel, wellbeing, toolkit, safeguarding, sy
 timestamp: 2026-06-21T15:30:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # The Life-Skills Toolkit - Thread C Spine
@@ -42,7 +43,7 @@ This is the **design-of-record**; the spine is being **built in phases** (see [B
 | **Cool-Down** | Notice & handle feelings with healthy strategies | notice the feeling · breathe slowly · ground (5 things you can see) · move / take space · talk to someone · rest or create | 5.6 Emotions & wellbeing |
 | **Decision Steps** | A repeatable way to make a good choice | stop & think · list options · weigh values & consequences · choose · own it | 5.2 Decision-making |
 | **Talk-It-Out** | Say it and sort it | listen · use "I" statements · stay calm · repair / negotiate / set a boundary | 5.3 Communication & conflict |
-| **Help Map** | Who to turn to and how | a trusted adult · a counsellor / doctor · helplines (Childline 1098, Tele-MANAS 14416, KIRAN 1800-599-0019, cybercrime 1930) · your support network | 5.5 Finding help & support |
+| **Help Map** | Who to turn to and how | a trusted adult · a counsellor / doctor · helplines (Childline 1098, Tele-MANAS 14416, cybercrime 1930) · your support network | 5.5 Finding help & support |
 
 **Only healthy, safe strategies are ever included** - the Cool-Down library is a curated healthy-only set;
 no strategy using pain, physical discomfort, shock or restriction can be authored in. This is a hard rule
@@ -133,7 +134,7 @@ the myths that block these skills - "big kids don't cry", "asking for help is fa
   grounding, talking, movement, rest, creativity). No pain/shock/discomfort/restriction strategy can be
   authored in - enforced by the typed content set.
 - **Routes to real help.** The Help Map and mood check-in route any sign of crisis to real services (a
-  trusted adult, Childline 1098, Tele-MANAS 14416, KIRAN 1800-599-0019, cybercrime 1930). The spine
+  trusted adult, Childline 1098, Tele-MANAS 14416, cybercrime 1930). The spine
   **signposts and supports - it never claims to be therapy.**
 - **Privacy is paramount (DPDP-aligned).** The toolkit, mood check-ins and any notes are **on-device, never
   tied to an identity or uploaded** - wellbeing data is the most sensitive in the app. (No mood *values* are
@@ -154,7 +155,7 @@ reflection**. Phased branches (this doc is updated as each lands):
   until the first tool unlocks), a generic **tool player** (`tool-player.tsx`), the **breathing space**
   (`breathing-space.tsx`, reduced-motion aware). Thread-C completions grow the toolkit via
   `toolsUnlockedBy` → `unlockTool` in `game-done.tsx` (Cool-Down + Help Map first). Enriched `help.ts`
-  (Tele-MANAS 14416 · KIRAN 1800-599-0019 · cybercrime 1930) so both Get Help and the Help Map carry the
+  (Tele-MANAS 14416 · cybercrime 1930) so both Get Help and the Help Map carry the
   national set.
 - **Phase 3 - Decision Steps + Talk-It-Out** - ✅ shipped. Thread-C completions now grow the **whole**
   toolkit to the chapter level (all four tools present from Ch.1 per the grow-table), so Decision Steps +

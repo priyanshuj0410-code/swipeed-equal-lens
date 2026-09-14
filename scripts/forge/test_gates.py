@@ -53,6 +53,14 @@ def main():
             print(f"  ✓ caught: {label} → {errs[0]}")
         else:
             fails += 1; print(f"  ✗ MISSED: {label} (gate passed malformed content!)")
+    # a retired helpline is caught wherever it appears; a character named Kiran is not
+    for txt, want in (("Call KIRAN 1800-599-0019 tonight.", True), ("Try 18005990019 any time.", True),
+                      ("Tele-MANAS 14416 is free, any time.", False), ("Kiran from class says hi.", False)):
+        got = any("retired helpline" in m for m in C.helpline_errors_text("t", txt))
+        if got == want:
+            print(f"  ✓ retired-helpline check right on {txt!r}")
+        else:
+            fails += 1; print(f"  ✗ retired-helpline check wrong on {txt!r}")
     if fails:
         print(f"\n✗ {fails} gate test(s) failed"); sys.exit(1)
     print("\n✓ all gate fixtures pass — missing-Base-field content is rejected")

@@ -9,6 +9,7 @@ tags: [games, swipeed, identity, diversity, dignity, ages-15-18, safeguarding]
 timestamp: 2026-06-20T22:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # Spectrum
@@ -25,7 +26,7 @@ plane_issues:
 > anyone**; sharing is always the person's own choice. Non-explicit. India: consensual same-sex relations
 > **decriminalised (2018)**, **NALSA** recognised transgender persons, dignity & equality are constitutional
 > values; framed around settled values, not contested policy. Routes distress / family-conflict to a trusted
-> adult / counsellor, **Tele-MANAS 14416, KIRAN 1800-599-0019, Childline 1098** (`reassureCats` [being-you ·
+> adult / counsellor, **Tele-MANAS 14416, Childline 1098** (`reassureCats` [being-you ·
 > stand-against-bullying · support-and-rights] + `reassure` + helpLine). `gameId "spectrum"` (matches registry).
 > Engine: no new mechanic; `binStyle` unchanged (all 10 sort bins emulated clean - good side green/neutral, bad
 > side red/neutral, no collisions). Spot ids injected (4). Builds on [What Makes Me, Me](what-makes-me-me.md)
@@ -60,7 +61,7 @@ most carefully triaged in the app.
 4. **Being You** - for anyone questioning: it's okay to be unsure, **no pressure to label**, no rush, you're
    not alone, and **sharing anything is always your own choice.**
 5. **Support & Ask Anything** - a carefully triaged private Q&A; bullying or distress routes to a trusted
-   adult/counsellor, **KIRAN / Tele-MANAS 1800-599-0019**, or **Childline 1098**.
+   adult/counsellor, **Tele-MANAS 14416**, or **Childline 1098**.
 
 A 5-badge **Badge Book** finishes into the shared [`GameDone`](swipeed.md) card. Lensy returns as a calm,
 accepting young-adult guide. Reuses the shared **`UnReBeat`** + the voice model.
@@ -70,11 +71,11 @@ accepting young-adult guide. Reuses the shared **`UnReBeat`** + the voice model.
 audio contract (#10), **myth-bust-by-choosing-the-truth (#19)**, **empower-never-frighten (#16)** (never
 outs; supportive for questioning youth; careful triage), **don't-villainise (#15)** (dignity for everyone,
 including across disagreement), the **Ask-It / safe-helper box (#18)** (most carefully triaged), and
-**Made-for-India (#14)** (India's own history; NALSA / Transgender Act; KIRAN / Childline).
+**Made-for-India (#14)** (India's own history; NALSA / Transgender Act; Tele-MANAS / Childline).
 
 ## Status & roadmap
 - **Built:** The Spectrum, Myths & Respect (UN & RE incl. a boss), Dignity for All (respect/anti-bullying
-  scenes), Being You (support for questioning), Support & Ask Anything (with the KIRAN/Childline route);
+  scenes), Being You (support for questioning), Support & Ask Anything (with the Tele-MANAS/Childline route);
   the Badge Book; English narration.
 - **Deferred (GDD Phase 2/3):** a fuller scenario/term glossary, crown levels, facilitator-led Classroom
   Mode, the most careful live Ask-It triage, calm mode, and **Hindi**.

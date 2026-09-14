@@ -39,9 +39,14 @@ HELPLINES = [
     {"service": "Women",      "forms": ["181", "1091"],                            "names": [r"women['’]?s? (?:helpline|help ?line)", r"domestic (?:abuse|violence) helpline", r"women in distress"]},
     {"service": "Emergency",  "forms": ["112", "100"],                             "names": [r"\bemergency (?:number|helpline|line|services?)\b", r"\bERSS\b", r"\bpolice\b"]},
     {"service": "TeleMANAS",  "forms": ["14416", "1-800-891-4416", "18008914416"], "names": [r"tele[-\s]?manas"]},
-    {"service": "KIRAN",      "forms": ["1800-599-0019", "18005990019"],           "names": [r"\bKIRAN\b"]},
     {"service": "Cyber",      "forms": ["1930"],                                   "names": [r"cyber\s?crime helpline", r"cyber\s?crime number", r"report cyber\s?crime"]},
     {"service": "LegalAid",   "forms": ["15100"],                                  "names": [r"legal aid (?:helpline|number)", r"\bNALSA\b"]},
+]
+# Retired services: naming one is an error whatever number follows. KIRAN (1800-599-0019) was merged into
+# Tele-MANAS: announced 15 Feb 2024, calls diverted, then phased out (SWED-62). Case-sensitive, so a character
+# named Kiran never trips it.
+RETIRED_HELPLINES = [
+    {"service": "KIRAN", "use": "Tele-MANAS 14416", "pattern": re.compile(r"\bKIRAN\b|1800[\s-]?599[\s-]?0019")},
 ]
 # every legit helpline digit-form (normalized, dashes stripped) — for the "dialed number must be allowlisted" check
 HELPLINE_FORMS = {f.replace("-", "") for h in HELPLINES for f in h["forms"]}
@@ -405,6 +410,9 @@ def helpline_errors_text(label, txt):
         return e
     if US_DENYLIST.search(txt):
         e.append(f"{label}: US-framing token in '{txt[:50]}'")
+    for r in RETIRED_HELPLINES:
+        if r["pattern"].search(txt):
+            e.append(f"{label}: retired helpline {r['service']} named (use {r['use']})")
     for h in HELPLINES:
         canon = {f.replace("-", "") for f in h["forms"]}
         for nm in h["names"]:

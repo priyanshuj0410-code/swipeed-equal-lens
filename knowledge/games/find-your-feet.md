@@ -9,6 +9,7 @@ tags: [games, swipeed, wellbeing, ages-18-22, adult-journey]
 timestamp: 2026-06-22T13:10:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # Find Your Feet
@@ -24,8 +25,8 @@ plane_issues:
 > routing. Reframes the comparison spiral, the pressure to have life figured out, the placement/exam cooker and
 > fear of failure: **no one has it sorted, setbacks are information not verdicts, failure is a comma not a full
 > stop, your worth is not your CV.** Wellbeing-sensitive: healthy coping only, never reinforces hopelessness or
-> 'you've failed', worth-beyond-CV throughout, crisis routing with warmth (**Tele-MANAS 14416, KIRAN
-> 1800-599-0019**, a counsellor); **NOT careers-counselling or therapy**, signposts both. India: placement
+> 'you've failed', worth-beyond-CV throughout, crisis routing with warmth (**Tele-MANAS 14416**,
+> a counsellor); **NOT careers-counselling or therapy**, signposts both. India: placement
 > seasons, competitive exams (**JEE/NEET/UPSC**), the 'settled job' ideal, family expectations and intense peer
 > comparison, validated then gently loosened (`reassureCats` [comparison-trap · not-all-sorted ·
 > bounce-from-setbacks · worth-beyond-cv] + `reassure` + helpLine). `gameId "find-your-feet"` (matches registry).
@@ -45,7 +46,7 @@ of these years in India (the comparison spiral, the placement/exam cooker, worth
 2. **Not All Sorted** - uncertainty is normal; you need the next step, not the whole map (list).
 3. **Bounce From Setbacks** - a setback is information, not a verdict (scenes; Cool-Down ToolMoment).
 4. **Your Path** - values-based next steps; worth beyond your CV (scenes).
-5. **Tools & Ask-It** - a next-step tool + private Q&A with **crisis routing** (Tele-MANAS 14416, KIRAN, iCall).
+5. **Tools & Ask-It** - a next-step tool + private Q&A with **crisis routing** (Tele-MANAS 14416, iCall).
 
 ## Related
 - [Reusable Game Patterns](swipeed-game-patterns.md) · [Mind & Belonging](mind-belonging.md) · [Life Ready](life-ready.md) · [Games catalog](index.md)

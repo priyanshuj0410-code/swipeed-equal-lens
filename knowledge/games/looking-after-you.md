@@ -9,6 +9,7 @@ tags: [games, swipeed, parenthood, mental-health, postpartum-depression, burnout
 timestamp: 2026-06-24T03:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # Looking After You
@@ -32,7 +33,7 @@ plane_issues:
 > with warmth and an immediate route to help (concern + resources); healthy coping only and explicitly *not*
 > therapy - always signposting professional care; includes fathers and addresses joint-family pressure & stigma**
 > (`reassureCats` [empty-cup · baby-blues-and-beyond · reach-out] + `reassure` + `helpLine` → **Tele-MANAS 14416,
-> KIRAN 1800-599-0019, a doctor, and emergency 112**). **gameId:** library, GDD and engine-host registry all agree
+> a doctor, and emergency 112**). **gameId:** library, GDD and engine-host registry all agree
 > on **`looking-after-you`** (no trap). Engine: **no new mechanic and no `binStyle` change** - verbatim-engine
 > emulation over all 12 sort pairs found no mis-colours (*Healthy* / *Healthy coping*, *Quietly harmful* /
 > *Harmful*, *Helps long-term* coloured by existing tokens; the rest neutral). Spot ids injected (8); one spot
@@ -64,7 +65,7 @@ thoughts are a symptom, not a verdict; and reaching out is a strength - for moth
 - **Tools & help (14)** - a breathing space, a help-finder, and crisis routing.
 
 **Safeguarding (high-care).** Non-shaming throughout; any sign of postnatal depression/anxiety or crisis is met
-with warmth and an **immediate route to help** - Tele-MANAS 14416, KIRAN 1800-599-0019, a doctor, emergency 112.
+with warmth and an **immediate route to help** - Tele-MANAS 14416, a doctor, emergency 112.
 It offers **healthy coping only and is explicitly not therapy**, always signposting professional care; it includes
 fathers and names joint-family pressure and stigma. India: **postpartum depression affects ~1 in 5 (≈22%) Indian
 mothers** - nearly double the global average and badly under-recognised - and fathers can be affected too (~1 in 10).

@@ -8,6 +8,7 @@ tags: [swipeed, patterns, game-design, conventions, engine-sdk]
 timestamp: 2026-06-19T19:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # SwipeEd - Reusable Game Patterns
@@ -142,7 +143,7 @@ a **living doc** - see [keeping it current](#keeping-this-current).
     self-kindness - and the system **cannot author in** anything using pain, shock, restriction or a
     self-destructive habit. It **never reinforces self-criticism** (models self-compassion; no negative
     self-talk amplification; no ranking of feelings), **routes any sign of serious distress straight to
-    real help** with warmth + resources (Tele-MANAS 14416 · KIRAN 1800-599-0019 · Childline 1098), **not**
+    real help** with warmth + resources (Tele-MANAS 14416 · Childline 1098), **not**
     safety-assessment questions, and is honest that it is **skills & signposting, not therapy**. The
     reusable mechanic is **"pick the kind AND true thought"**: present a real setback + candidate
     self-talk, let the player choose the self-compassionate, true one (no-fail; a harsh pick nudges back).

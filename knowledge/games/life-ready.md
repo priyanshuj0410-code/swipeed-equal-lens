@@ -9,6 +9,7 @@ tags: [games, swipeed, ages-15-18, life-skills, decision-making, self-awareness,
 timestamp: 2026-06-21T14:45:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # Life Ready
@@ -25,7 +26,7 @@ plane_issues:
 > **Healthy strategies only** (never pain/shock/self-destructive); **pressure-free decisions** (no single 'right'
 > life path beyond safety & law); **help-seeking is a lifelong strength, not a failure; NOT therapy.** India:
 > board-exam pressure, family/career expectations, the transition to college/work; routes distress to **Tele-MANAS
-> 14416, KIRAN 1800-599-0019, Manodarpan**, a trusted adult/mentor (`reassureCats` [handle-the-big-stuff ·
+> 14416, Manodarpan**, a trusted adult/mentor (`reassureCats` [handle-the-big-stuff ·
 > support-network] + `reassure` + helpLine). `gameId "life-ready"` (matches registry). Engine: no new mechanic;
 > `binStyle` added `makes it harder`/`isolates you`/`avoids it`/`poor basis`/`strains`→red + `builds support`/
 > `strengthens`/`good basis`/`emotional intelligence`→green (regression-clean - also fixed [My Choices](my-choices-my-future.md)'s
@@ -65,7 +66,7 @@ A **5-skill badge book** (🧭 per mode) fills as each mode completes; the fifth
 ## Inherited & established patterns
 Inherits the [reusable patterns](swipeed-game-patterns.md) - and anchors the senior end of the
 **wellbeing register** (pattern #20): **healthy strategies only**, **pressure-free** (no prescribed life
-path), **routes distress to real help** (Tele-MANAS 14416 · KIRAN 1800-599-0019), and is honest that it
+path), **routes distress to real help** (Tele-MANAS 14416), and is honest that it
 is **skills & signposting, not therapy**. It uses the 5-mode grid on `GameShell` with a Lensy header +
 badge row, the **choose-the-mature-approach** mechanic (shared with Mind Matters/Bounce's "pick the kind
 thought"), and **UN & RE on the key unlearn** (the self-blame "asking for help is failure" life-myth).

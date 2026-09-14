@@ -9,6 +9,7 @@ tags: [swipeed, content, pipeline, validation, gender-games]
 updated: 2026-06-29
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # SwipeEd content-growth pipeline (`forge`)
@@ -49,9 +50,9 @@ check → semantic reviewer, ≤1 bounce then drop) → ASSEMBLE + whole-bank DE
   cross-band logs.** Surfaced 10 pre-existing intra-chapter twins (cross-game reflects) worth cleaning. (A 2026-09-14 re-check found 2 intra-chapter pairs still present; see the [question bank](../schemas/question-bank.md#known-issues).)
 
 ## Verified allowlist (the safety boundary - founder-signed-off 2026-06-24)
-Childline **1098** · Women **181**/**1091** · Emergency/Police **112**/**100** · Tele-MANAS **14416** · KIRAN
-**1800-599-0019** · Cyber **1930** · NALSA legal aid **15100**. Laws pinned: age of consent **18**, POCSO 2012,
-POSH 2013, DV Act 2005, BNS 2023, PCMA 2006. Web-verified vs india.gov.in + childlineindia.org.
+Childline **1098** · Women **181**/**1091** · Emergency/Police **112**/**100** · Tele-MANAS **14416** · Cyber **1930** · NALSA legal aid **15100**. Laws pinned: age of consent **18**, POCSO 2012,
+POSH 2013, DV Act 2005, BNS 2023, PCMA 2006. Web-verified vs india.gov.in + childlineindia.org. KIRAN 1800-599-0019
+was on this list until 2026-09-14, when it was retired as merged into Tele-MANAS ([SWED-62](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb)).
 
 ## Locked decisions
 - **Floor = quality-first** (founder): target 400/game, but a genuinely idea-thin game may land **under 400 with

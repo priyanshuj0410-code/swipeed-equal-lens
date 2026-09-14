@@ -10,7 +10,7 @@
 // strength), healthy coping (rest/breathe/move/connect/accept help; never a pain technique), tools/help (breathing
 // space, help-finder, crisis routing). HIGH-CARE & non-shaming; healthy coping only and explicitly NOT therapy —
 // signposts professional care; includes fathers; addresses joint-family stigma. India: PPD ~1 in 5 mothers
-// (fathers ~1 in 10); routes Tele-MANAS 14416, KIRAN 1800-599-0019, a doctor, emergency 112. Builds on g49 & g39;
+// (fathers ~1 in 10); routes Tele-MANAS 14416, a doctor, emergency 112. Builds on g49 & g39;
 // protects the parent for the rest of Chapter 8. gameId "looking-after-you".
 import { V2Game } from "@/components/games/v2-engine";
 import { LOOKING_AFTER_YOU } from "@/content/games/looking-after-you";

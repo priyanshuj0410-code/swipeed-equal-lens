@@ -7,8 +7,8 @@
 // lonely and hard: settling in (homesickness normalised), find your people (belonging is built), cope well
 // (healthy coping ONLY, body image & self-worth), reach out (help = strength), tools & crisis routing. HIGH-CARE:
 // distress met with warmth + immediate help route, never assessment questions; healthy coping only; anti-stigma,
-// not therapy. India: hostel isolation, academic pressure, stigma (esp. young men); Tele-MANAS 14416, KIRAN
-// 1800-599-0019, campus counsellors. Builds on g39, continues g42; pairs g48/g52. gameId "mind-belonging".
+// not therapy. India: hostel isolation, academic pressure, stigma (esp. young men); Tele-MANAS 14416,
+// campus counsellors. Builds on g39, continues g42; pairs g48/g52. gameId "mind-belonging".
 import { V2Game } from "@/components/games/v2-engine";
 import { MIND_BELONGING } from "@/content/games/mind-belonging";
 

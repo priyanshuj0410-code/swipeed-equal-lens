@@ -7,7 +7,7 @@
 // understanding without disparaging anyone’s family or beliefs; separates honest belief-differences (respected)
 // from the dignity floor (upheld). Supports anyone questioning, no pressure to label, complete confidentiality;
 // never outs anyone. Non-explicit. India: 2018 decriminalisation, NALSA, constitutional dignity; routes distress/
-// family-conflict to a trusted adult, Tele-MANAS 14416, KIRAN 1800-599-0019, Childline 1098. Builds on g7 & g25;
+// family-conflict to a trusted adult, Tele-MANAS 14416, Childline 1098. Builds on g7 & g25;
 // links g27 & g31. gameId "spectrum".
 import { V2Game } from "@/components/games/v2-engine";
 import { SPECTRUM } from "@/content/games/spectrum";

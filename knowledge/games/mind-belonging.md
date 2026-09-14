@@ -9,6 +9,7 @@ tags: [games, swipeed, wellbeing, mental-health, ages-18-22, adult-journey]
 timestamp: 2026-06-22T13:05:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # Mind & Belonging
@@ -25,7 +26,7 @@ plane_issues:
 > assessment questions; only healthy coping (nothing using pain, restriction or shock; nothing reinforcing
 > self-harm); anti-stigma, **NOT therapy**; persistent or serious distress is pointed to professionals.
 > Even-handed; stigma is especially heavy on young men. India: academic pressure, hostel isolation, far from
-> home, family expectations; **Tele-MANAS 14416 (primary), KIRAN 1800-599-0019**, campus counsellors, a trusted
+> home, family expectations; **Tele-MANAS 14416 (primary)**, campus counsellors, a trusted
 > person (`reassureCats` [settling-in · cope-well · mind-and-self-worth · reach-out] + `reassure` + helpLine).
 > `gameId "mind-belonging"` (matches registry). Engine: no new mechanic; `binStyle` unchanged - no mis-colors,
 > and a generic `deepens` token was **deliberately avoided** (it's good in mb-083 "Deepens [a friendship]" but
@@ -44,7 +45,7 @@ On the [ModesEngine](swipeed-game-patterns.md).
 2. **Find Your People** - building belonging by reaching out first (scenes).
 3. **Cope Well** - healthy coping + a **Cool-Down ToolMoment**; body image & self-worth (list).
 4. **Reach Out** - the **UN → RE** beat busting "asking for help means failing".
-5. **Tools & Ask-It** - breathing space + private Q&A with **urgent crisis routing** (Tele-MANAS 14416, KIRAN 1800-599-0019, iCall).
+5. **Tools & Ask-It** - breathing space + private Q&A with **urgent crisis routing** (Tele-MANAS 14416, iCall).
 
 ## Related
 - [Reusable Game Patterns](swipeed-game-patterns.md) · [Mind Matters](mind-matters.md) · [Bounce](bounce.md) · [Find Your Feet](find-your-feet.md) · [Games catalog](index.md)

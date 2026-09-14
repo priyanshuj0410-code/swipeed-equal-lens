@@ -9,6 +9,7 @@ tags: [games, swipeed, ages-9-12, mental-health, wellbeing, resilience, anti-sti
 timestamp: 2026-06-21T12:30:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # Mind Matters
@@ -78,7 +79,7 @@ signposting, not therapy*.
 - **Never reinforces self-criticism** - models self-compassion; no negative-self-talk amplification; no
   ranking/comparing of feelings.
 - **Routes distress to real help** - warmth + a clear nudge to a trusted adult and **Childline 1098 ·
-  Tele-MANAS 14416 · KIRAN 1800-599-0019 · a school counsellor**, not assessment questions. **Not a
+  Tele-MANAS 14416 · a school counsellor**, not assessment questions. **Not a
   therapist**; serious or lasting struggles are always pointed toward a person and professional help.
 - The anonymous **Ask-It** Q&A with urgent distress/crisis triage is **GDD Phase 2** - deferred here; the
   Reach Out mode carries the help-seeking learning and helplines without an un-triaged question box.

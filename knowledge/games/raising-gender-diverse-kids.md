@@ -9,6 +9,7 @@ tags: [games, swipeed, parenting, lgbtq, gender-diversity, child-safeguarding, c
 timestamp: 2026-06-24T03:45:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
 ---
 
 # Raising Gender-Diverse Kids
@@ -35,7 +36,7 @@ plane_issues:
 > same-sex relations**). **Affirming and evidence-based, yet compassionate: it meets parents wherever they start,
 > without shaming them or their beliefs, while keeping the child's safety & dignity non-negotiable; it never
 > encourages outing a child and records no identity** (`reassureCats` [acceptance-is-protection · if-they-come-out
-> · your-own-journey] + `reassure` + `helpLine` → **KIRAN 1800-599-0019, Tele-MANAS 14416**, affirming counsellors;
+> · your-own-journey] + `reassure` + `helpLine` → **Tele-MANAS 14416**, affirming counsellors;
 > crisis 112). **gameId:** library, GDD and engine-host registry all agree on **`raising-gender-diverse-kids`** (no
 > trap). Engine: **no new mechanic, but one `binStyle` token added** - verbatim-engine emulation caught a real
 > mis-colour: POS's bare `keep` token wrongly greened the bad bin **"Keeps you stuck"** (gd-043) - NEG had `keeps
@@ -72,6 +73,6 @@ harmful, never the answer.**
 **Safeguarding (sensitive, affirming).** Handled with Spectrum's care - dignity-first, never-out, records no
 identity. It meets parents wherever they start without shaming them or their beliefs, but the **child's safety and
 dignity are non-negotiable**, and **conversion "therapy" / "cures" are named harmful and never endorsed**. Crisis
-or distress routes to KIRAN 1800-599-0019, Tele-MANAS 14416, an affirming counsellor, or emergency 112. India:
+or distress routes to Tele-MANAS 14416, an affirming counsellor, or emergency 112. India:
 families navigate real cultural and legal complexity, so the node leads with the settled value (every child
 deserves a safe, loving home) and meets fear with facts, not blame.

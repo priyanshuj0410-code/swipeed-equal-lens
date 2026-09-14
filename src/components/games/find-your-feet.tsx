@@ -6,7 +6,7 @@
 // strike-rewrite · sort · reflect · role-play · match · spot), led by branch + strike-rewrite + sort. No one has
 // it figured out: the comparison trap, you don't need it all sorted, bounce from setbacks (failure is
 // information), your path (worth beyond CV), tools & crisis routing. Wellbeing-sensitive: healthy coping only,
-// never reinforces hopelessness; crisis routing with warmth (Tele-MANAS 14416, KIRAN 1800-599-0019); not
+// never reinforces hopelessness; crisis routing with warmth (Tele-MANAS 14416); not
 // careers-counselling or therapy. India: placement seasons, JEE/NEET/UPSC, 'settled job' ideal, peer comparison.
 // Builds on g42 & g39; pairs g48/g49. gameId "find-your-feet".
 import { V2Game } from "@/components/games/v2-engine";
