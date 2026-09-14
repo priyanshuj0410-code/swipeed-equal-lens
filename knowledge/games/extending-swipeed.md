@@ -6,10 +6,11 @@ title: Extending SwipeEd - adding a game, adding a mechanic
 description: The complete, evidence-based checklists for the two ways SwipeEd grows - a new lesson node and an 11th play action - including the ungated steps that are easy to miss and the fail-closed guards that now catch a half-finished mechanic.
 resource: https://github.com/priyanshuj0410-code/swipeed-equal-lens
 tags: [swipeed, playbook, extension, mechanics, forge, engine]
-timestamp: 2026-09-01T00:00:00Z
+timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/c9d24ac9-e08c-4f28-a82f-a07331a0ec0c  # SWED-48
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
 ---
 
 # Extending SwipeEd
@@ -70,7 +71,7 @@ the adopting game in one commit.
 `common.py`: `ALL_MECHANICS` · `REQUIRED_PAYLOAD` · `visible_fields` · `must_be_true_texts` ·
 `shape_errors` · `BAND_DISALLOW` (the age-band allowlist) - plus `forge_dedup.py: struct_sig`,
 `gen_workflow.js` `SHAPES` **and** the adversarial reviewer's answer-key list, `forge_check.py`
-`EASY_VERBS`, `bank_spec.py`, `forge_plan.py`, `check_msg_len.py` `SC_PLAIN`.
+`EASY_VERBS`, `bank_spec.py`, `forge_plan.py`. (`scripts/content_gate.py` reads fields through `visible_fields`, so it needs no list of its own.)
 
 ### The three guards that now catch a half-finished addition (SWED-48)
 These used to fail **silently**. All three now raise:
@@ -93,8 +94,9 @@ omission.
   a new verb ships with no semantic review unless you extend it.
 - **`shape_errors` has no arm for `role-play` or `strike-rewrite`**, and the `reflect` guard's body is
   literally `pass`. Don't copy the nearest precedent - it may be a hole.
-- **`check_msg_len.py` is weaker than `forge_check`** on the per-field cap for 7 of 10 mechanics, and
-  `forge_check`/`forge_dedup` are **not** in the pre-commit hook - they're advisory unless run.
+- **Dedup is not in the pre-commit hook or the build.** `scripts/content_gate.py` (commit and every build,
+  SWED-72) runs every per-scenario check, but `forge_dedup.py` and `forge_check.py`'s count and persona checks
+  are advisory unless run.
 
 ## The honest prerequisite
 

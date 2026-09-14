@@ -30,19 +30,22 @@ if git diff --cached --name-only | grep -qE '^src/(content|components)/games/'; 
     echo "   Deliberate bypass once with:  READ_FIRST_OVERRIDE=1 git commit ..."
     exit 1
   fi
+fi
 
-  # Message-length guard: every visible field ≤160 chars (readability) AND no scenario over its chapter
-  # band ceiling (anti content-drift). Keeps copy from creeping back past the intended age-curve. See
-  # scripts/check_msg_len.py.
+# Content gate (SWED-72): the same checks every build runs, caught here before the commit instead of at deploy.
+# Shapes, helplines on every field, lengths, band ceilings, bank size and mix over the whole bank, plus the gate's
+# own fixtures. See scripts/content_gate.py. There is no build-time override: a commit that skips this still
+# fails on Vercel.
+if git diff --cached --name-only | grep -qE '^(src/content/|scripts/content_gate\.py|scripts/forge/)'; then
   echo
-  if [ "${SWIPEED_MSGLEN_OVERRIDE:-}" = "1" ]; then
-    echo "▸ message-length guard: SKIPPED (SWIPEED_MSGLEN_OVERRIDE=1)"
-  elif python3 "$ROOT/scripts/check_msg_len.py"; then
+  if [ "${SWIPEED_CONTENT_GATE_OVERRIDE:-}" = "1" ]; then
+    echo "▸ content gate: SKIPPED for this commit (SWIPEED_CONTENT_GATE_OVERRIDE=1); the build will still run it"
+  elif python3 "$ROOT/scripts/content_gate.py" && python3 "$ROOT/scripts/forge/test_gates.py" >/dev/null; then
     :
   else
     echo
-    echo "⛔ Commit blocked: copy is over the length limits (see above)."
-    echo "   Tighten it, or bypass once with:  SWIPEED_MSGLEN_OVERRIDE=1 git commit ..."
+    echo "⛔ Commit blocked: the content gate failed (see above, or run: python3 scripts/forge/test_gates.py)."
+    echo "   Fix the content, or bypass this commit only with:  SWIPEED_CONTENT_GATE_OVERRIDE=1 git commit ..."
     exit 1
   fi
 fi

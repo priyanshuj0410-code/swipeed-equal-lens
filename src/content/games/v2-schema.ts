@@ -7,7 +7,7 @@
 // ADDING AN 11TH MECHANIC: this union is only the first of ~14 places that enumerate the mechanic set.
 // The others live in v2-engine.tsx (the Play switch — now exhaustiveness-guarded) and scripts/forge/
 // (common.py ALL_MECHANICS / REQUIRED_PAYLOAD / visible_fields / must_be_true_texts / shape_errors,
-// forge_dedup.py struct_sig, gen_workflow.js SHAPES + the reviewer list, check_msg_len.py SC_PLAIN).
+// forge_dedup.py struct_sig, gen_workflow.js SHAPES + the reviewer list).
 // The first three now fail closed rather than silently pass; the rest still need doing by hand.
 
 export type V2Mechanic = "reflect" | "role-play" | "strike-rewrite" | "branch" | "sort" | "match" | "build" | "explore-label" | "spot" | "swipe";

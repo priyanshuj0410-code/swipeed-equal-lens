@@ -36,7 +36,7 @@ trust the generator's `needsFact` self-classification.
 5. **ASSEMBLE + DEDUP**: `forge_assemble.py` writes the `.ts` (preserving the 84 + config), round-trips
    through the parser asserting count match; `forge_dedup.py` runs the whole-bank pass.
 6. **MERGE GATE** (pre-commit chain, all Python): `forge_parse_or_die` → `read_first --gate-expansion` →
-   `forge_helpline` → `check_msg_len` → `forge_shape` → `forge_mix` → `forge_dedup --verify` →
+   `forge_helpline` → `content_gate` → `forge_shape` → `forge_mix` → `forge_dedup --verify` →
    `forge_evidence`. Green → `--no-ff` merge + KB update in the SAME branch. Red → re-enter at the failing
    stage, truth re-derived from the `.ts`.
 

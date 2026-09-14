@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956  # SWED-67
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
 ---
 
 # SwipeEd v2 engine
@@ -382,7 +383,7 @@ half-added mechanic or an undeclared colour meaning fails loudly instead of ship
 4. **Helpline strings are gated like content.** A game's `helpLine`/`helpLabel` (spoken aloud, with authority, by
    `v2-engine.tsx:213-217`'s `HelpPill`) is validated against the same verified-helpline allowlist as scenario
    prose, via a shared `helpline_errors_text()` check, so a wrong or hallucinated number cannot ship. This guard
-   lives in the forge content pipeline (`scripts/check_msg_len.py`, `scripts/forge/common.py`), not in the app's
+   lives in the content gate (`scripts/content_gate.py`, `scripts/forge/common.py`), not in the app's
    runtime engine code.
 5. **Three pipeline validators now raise instead of silently passing.** `scripts/forge/common.py`'s
    `visible_fields` and `must_be_true_texts`, and `scripts/forge/forge_dedup.py`'s `struct_sig`, used to no-op

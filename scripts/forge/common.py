@@ -433,9 +433,8 @@ def allowed_mechanics(chapter, lead_mechanics):
 def field_len_errors(o):
     return [f"{label} >{FIELD_MAX} ({len(txt)})" for label, txt in visible_fields(o) if len(txt) > FIELD_MAX]
 
-# keys that are NOT narrated prose — excluded from the per-scenario band total. MUST match check_msg_len.py's
-# NON_PROSE so the forge gate is at least as strict as the pre-commit length guard (else the gate passes a
-# scenario the commit hook then blocks).
+# keys that are NOT narrated prose — excluded from the per-scenario band total (read by the forge gates and by
+# scripts/content_gate.py, which runs at commit and before every build).
 NON_PROSE = {"id", "cat", "type", "key", "persona", "source", "mode", "valence", "outcome", "leftValence", "rightValence"}
 
 def prose_chars(o):

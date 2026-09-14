@@ -4,11 +4,12 @@ owner: the-equal-lens
 title: SwipeEd question bank
 description: How SwipeEd's 69 lesson banks and 8 capstones are shaped, sourced, generated, gated and counted, as of 2026-09-14.
 tags: [swipeed, question-bank, schema, content, forge]
-timestamp: 2026-09-14T00:00:00Z
+timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b  # SWED-65
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
 ---
 
 # SwipeEd question bank
@@ -204,8 +205,8 @@ Every lap carries `id`, `from` (the source node id, or `"all"` for the gallery),
 | Max single-mechanic share | 35% of a game's bank | `forge_check.py:21` (`MAX_MECH_SHARE`) |
 | Max "easy verb" share | 42% for `reflect` + `role-play` combined | `forge_check.py:22-23` (`EASY_VERBS`, `MAX_EASY_SHARE`) |
 | Band-disallowed mechanics | Chapters 1-2 (ages 3-9): no `spot`, no `swipe`, unless the game's own GDD lists it in `leadMechanics` | `common.py:71-73` (`BAND_DISALLOW`) |
-| Band prose ceiling (per scenario) | Ch.1-2: 360 - Ch.3-4: 400 - Ch.5-6: 460 - Ch.7-8: 500 chars, summed across all narrated fields | `common.py:21`, `check_msg_len.py:25` (`BAND_CEIL`) |
-| Per-field cap | 160 real code points (emoji/curly quotes count as one) per player-visible bubble/pill/card | `common.py:20`, `check_msg_len.py:23` (`FIELD_MAX`) |
+| Band prose ceiling (per scenario) | Ch.1-2: 360 - Ch.3-4: 400 - Ch.5-6: 460 - Ch.7-8: 500 chars, summed across all narrated fields | `common.py:21` (`BAND_CEIL`) |
+| Per-field cap | 160 real code points (emoji/curly quotes count as one) per player-visible bubble/pill/card | `common.py:20` (`FIELD_MAX`) |
 | Prose near-dup threshold | 0.82 Jaccard over normalized 3-shingles | `forge_dedup.py:23` (`PROSE_JACCARD`) |
 
 Categories themselves are per-game (6 for `be-the-safe-adult`, 5 for `glrl`, 6 for `body-lab`; see Fleet numbers) and come from that game's Scenario Library JSON `categories` map - they are not standardized fleet-wide. The chapter band (1-8) is what drives ceilings and the mechanic allowlist, read off `path.ts` by `chapter_of()` (common.py:230-235), which resolves the file's **runtime** `gameId` rather than trusting the filename stem (the one game where they differ is `feelings-friends.ts`, whose `gameId` is `"feelings"`).
@@ -216,12 +217,12 @@ Categories themselves are per-game (6 for `be-the-safe-adult`, 5 for `glrl`, 6 f
 |---|---|---|---|
 | `swipeed_status.py --check` | Build-status inconsistency between the xlsx, the `GAME` map and the actual content files; a v2 game built but not registered in `engine-host` | Yes (`githooks/pre-commit:10`) | - |
 | `read_first.py --gate` | A **new** v2 build committed without a hash-pinned attestation that its 5 source docs were read | Yes (`githooks/pre-commit:23`), but only fires when a content file newly becomes v2 | - |
-| `check_msg_len.py` | Rule 1: any visible field over 160 chars. Rule 2: a lesson scenario's total narrated prose over its chapter band ceiling. Rule 3: a config-level helpline string that fails the name-number binding | Yes (`githooks/pre-commit:40`), override `SWIPEED_MSGLEN_OVERRIDE=1` | Also runnable standalone |
-| `forge_check.py --game <gid>` | Parse errors; duplicate ids within the file; every per-scenario required-field/shape/helpline/length/band/band-membership check (`scenario_errors`); mechanic-share caps (35% / 42%); count under 400 without a logged `exhaustion.json` | **No** | Yes - the merge-gate step of `gen_workflow.js`; advisory unless run by hand |
+| `content_gate.py` | Over the whole bank: parse errors, a lesson bank under 300 scenarios, duplicate ids within a game, every per-scenario check in `common.scenario_errors` (required fields, strict shapes, helplines on every visible field, 160 characters per field, the chapter band ceiling, band-mechanic membership using the committed scenario libraries' `leadMechanics`), the 35% and 42% mix caps, config strings (length and helplines), and every capstone and help-sheet string (length and helplines). About 5 seconds | Yes, when `src/content/` or the gate scripts are staged; override for one commit with `SWIPEED_CONTENT_GATE_OVERRIDE=1` | Also `npm run gates`, and before every build (`prebuild`), so a Vercel preview or production deploy fails on it with no override |
+| `forge_check.py --game <gid>` | The content gate's lesson checks for one game, plus the forge plan's persona roster and a count under 400 without a logged `exhaustion.json` (both read the gitignored `.forge/`, so they stay forge-only) | **No** | Yes - the merge-gate step of `gen_workflow.js` |
 | `forge_check.py --batch <file> --game <gid>` | The same per-scenario checks, run over one NDJSON batch during generation | **No** | Yes - the self-validation loop each generation/review agent runs |
 | `forge_dedup.py --verify --game <gid>` | INTRA-band (same chapter) structural or >=0.82 Jaccard prose near-duplicates. Cross-band echoes are logged, not blocked (legitimate age re-teaching) | **No** | Yes - the assemble step |
 | `forge_assemble.py --apply` | A malformed merge - re-parses the written `.ts` and asserts the scenario count, aborting the write on any parse error | **No** (it *is* the write step) | Yes |
-| `test_gates.py` | Nothing at commit time - a fixture suite proving `required_field_errors` actually rejects malformed content (run manually / in CI-style checks) | **No** | Yes |
+| `test_gates.py` | A fixture suite proving the gates reject malformed content: missing required fields, retired helplines, and the content gate's planted problems (a wrong helpline in a hook, an emptied bank, an over-length reflect option, a broken line, bad capstone and help-sheet numbers) | Yes, with the content gate | Also before every build (`npm run gates`) |
 
 **Net effect:** committing a hand-edit to an existing scenario is only gated on message length, build-status consistency and (for a brand-new game) the read-first attestation. Shape correctness, mechanic-mix caps, duplicate ids and dedup are **not** re-checked at commit time - they run only inside the forge workflow or when a maintainer runs them by hand. [Extending SwipeEd](../games/extending-swipeed.md) flags the same gap.
 
@@ -422,7 +423,7 @@ Both pairs sit in the original ~84-scenario hand-authored libraries of two *diff
 **Hand edit** (a typo, a wrong answer key, one scenario needs a rewrite): edit the scenario's single-line JSON object directly inside `src/content/games/<gameId>.ts`, keeping it valid JSON and respecting that mechanic's required fields and shape from the tables above. Then, before committing:
 
 ```
-python3 scripts/check_msg_len.py                                  # length + band ceiling + config helpline (also runs at pre-commit)
+python3 scripts/content_gate.py                                   # the whole-bank gate (also runs at pre-commit and before every build)
 python3 scripts/forge/forge_check.py --game <gameId>               # shape/mix/count/helpline - NOT run at pre-commit, run it anyway
 python3 scripts/forge/forge_dedup.py --verify --game <gameId>      # intra-band dedup - NOT run at pre-commit, run it anyway
 python3 scripts/swipeed_status.py --check                          # build-status consistency (also runs at pre-commit)
@@ -445,9 +446,9 @@ python3 scripts/forge/forge_assemble.py --game <gameId> --batch .forge/<gameId>/
 python3 scripts/forge/forge_check.py --game <gameId>                # the blocking merge gate; fix failures directly in the .ts and re-run
 python3 scripts/forge/forge_dedup.py --verify --game <gameId>       # resolve any INTRA-band collision, then re-run
 # if the final count is under 400, write .forge/<gameId>/exhaustion.json = {"count", "target": 400, "reason"}
-python3 scripts/check_msg_len.py
+python3 scripts/content_gate.py
 python3 scripts/swipeed_status.py --check
-git commit -m "[SWED-n] ..."   # pre-commit re-runs status + read-first-gate + msglen automatically
+git commit -m "[SWED-n] ..."   # pre-commit re-runs status, the read-first gate and the content gate automatically
 ```
 
 **A standing caution**, given SWED-53 and SWED-54 above: whichever path you take, a fix made by hand directly in the `.ts` (as the merge gate's own failure-recovery instructions require) is never carried back into `.forge/<gameId>/`. Treat `.forge/` as a historical log of one generation run, not a live mirror of the shipped bank - never diff against it to decide whether the shipped content is correct.

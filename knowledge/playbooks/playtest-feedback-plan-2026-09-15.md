@@ -85,7 +85,7 @@ Converting about 3,300 reflects, rewriting about 1,250 matches and sorts, and gr
 
 - **New mechanic `choose`** (reflect's right/wrong successor) in `v2-schema.ts`: `prompt`, `options` (exactly 6 of `{text, fits, note}`, 2 to 4 with `fits: true`), `relearn`. `note` explains a wrong or missed pick and is shown only for that option. Plain `reflect` stays and keeps "no wrong answer".
 - **Myth cards:** no schema change. Any strike-rewrite scenario can play as a scrub or as a myth card. New lint: `myth.re` must stand alone (264 open with "It", "They", "Both").
-- **Gates** (`scripts/forge/common.py`, `check_msg_len.py`, fixtures in `test_gates.py`):
+- **Gates** (`scripts/forge/common.py`, `scripts/content_gate.py`, fixtures in `test_gates.py`):
   - `choose` shape rules, fact-checking of `fits: true` options, and no echo or assent-only options.
   - Reflect rules: the dead "no key" check made real, one question per bubble, no clipped tags.
   - No "Lensy:" prefix anywhere.
@@ -149,7 +149,7 @@ The owner sets growth targets for the myth corpus before this phase. Flag-readin
 ## Verification
 
 - `derange` unit test: 10,000 draws with no correct pair on a shared row and a sane adjacency rate.
-- Gate fixtures pass and fail for every new rule; `forge_check.py` and `forge_dedup.py --verify` 69/69; `check_msg_len.py`, `npm run lint`, `npm run build`.
+- Gate fixtures pass and fail for every new rule; `forge_check.py` and `forge_dedup.py --verify` 69/69; `content_gate.py`, `npm run lint`, `npm run build`.
 - Headless Chrome on the dev server at 360, 390 and 412px widths, light and dark themes, reduced motion on and off, for:
   - Choosing & Building (match, sort, reflect or `choose`, strike and myth card);
   - a Chapter 1 game;
