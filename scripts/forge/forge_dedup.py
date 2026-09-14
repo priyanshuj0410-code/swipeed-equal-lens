@@ -38,6 +38,8 @@ def struct_sig(o):
         return ("swipe", nz(o.get("cue")), o.get("answer"))
     if t == "reflect":
         return ("reflect", nz(o.get("prompt")), frozenset(nz(x) for x in o.get("options", [])))
+    if t == "choose":
+        return ("choose", nz(o.get("prompt")), frozenset((nz(op.get("text")), bool(op.get("fits"))) for op in o.get("options", [])))
     if t == "role-play":
         return ("role-play", frozenset(nz(l.get("text")) for l in o.get("yourLine", [])))
     if t == "strike-rewrite":

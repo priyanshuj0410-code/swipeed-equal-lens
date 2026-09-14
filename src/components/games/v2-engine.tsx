@@ -122,7 +122,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   useEffect(() => () => stopSpeaking(), []);
 
   const hookLine = (s: Scenario): string => {
-    if (s.type === "reflect") return joinQuestion(s.hook, s.prompt);
+    if (s.type === "reflect" || s.type === "choose") return joinQuestion(s.hook, s.prompt);
     if (s.type === "role-play") return joinQuestion(s.hook, s.setup);
     if (s.type === "build") return joinQuestion(s.hook, s.prompt);
     if (s.type === "explore-label") return joinQuestion(s.hook, findLine(s.find));
@@ -287,7 +287,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
           )}
 
           {/* PLAY: Lensy's question card carries the hook; the answers follow once it has been read. */}
-          {view === "play" && sc && phase === "play" && (revealed ? (
+          {view === "play" && sc && (phase === "play" || sc.type === "choose") && (revealed ? (
             <div className={`flex flex-1 flex-col gap-4 ${reduceMotion ? "" : "animate-in fade-in slide-in-from-bottom-2 duration-300"}`}>
               <Play key={sc.id} sc={sc} onSolved={solve} say={say} reduceMotion={reduceMotion} buildLabels={buildLabels} />
             </div>
@@ -333,10 +333,11 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   );
 }
 
-// ============================ the ten mechanic renderers ============================
+// ============================ the mechanic renderers ============================
 function Play({ sc, onSolved, say, reduceMotion, buildLabels }: { sc: Scenario; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string, shown?: string) => void; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string } }) {
   switch (sc.type) {
     case "reflect": return <ReflectPlay sc={sc} onSolved={onSolved} />;
+    case "choose": return <ChoosePlay sc={sc} onSolved={onSolved} say={say} />;
     case "role-play": return <RolePlayPlay sc={sc} onSolved={onSolved} say={say} />;
     case "strike-rewrite": return <StrikePlay sc={sc} onSolved={onSolved} reduceMotion={reduceMotion} />;
     case "branch": return <BranchPlay sc={sc} onSolved={onSolved} say={say} />;
@@ -383,6 +384,62 @@ function ReflectPlay({ sc, onSolved }: { sc: Extract<Scenario, { type: "reflect"
       {sc.options.map((o) => (
         <button key={o} type="button" onClick={() => onSolved(o)} className="glass-card flex items-center justify-center rounded-2xl px-3 py-4 text-center text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.96]">{o}</button>
       ))}
+    </div>
+  );
+}
+
+// choose: tap every option that fits, then Check (SWED-69, the right/wrong successor to reflect). Six options, two to
+// four fit, and the count is not shown until a Check misses, so neither tapping everything nor tapping one works. A
+// first Check that misses says how many fit and lets the player look again; the next one shows every answer, with
+// the note for each wrong pick and each missed one. No-fail: the beat always resolves. The options stay on screen
+// through the result (V2Game keeps this renderer mounted on resolve) and read as checkboxes to assistive tech.
+function ChoosePlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "choose" }>; onSolved: () => void; say: (t: string) => void }) {
+  const [order] = useState(() => shuffle(sc.options.map((_, i) => i)));
+  const [picked, setPicked] = useState<number[]>([]);
+  const [missed, setMissed] = useState(false);
+  const [shown, setShown] = useState(false);
+  const total = sc.options.filter((o) => o.fits).length;
+  const toggle = (i: number) => setPicked((p) => (p.includes(i) ? p.filter((x) => x !== i) : [...p, i]));
+  const check = () => {
+    const found = picked.filter((i) => sc.options[i].fits).length;
+    const extra = picked.length - found;
+    if (found === total && extra === 0) { vibrate(12); setShown(true); onSolved(); return; }
+    if (!missed) {
+      setMissed(true);
+      say(`Not quite. You found ${found} of the ${total} that fit${extra ? `, and picked ${extra === 1 ? "one that doesn't" : `${extra} that don't`}` : ""}. Look again.`);
+      return;
+    }
+    setShown(true);
+    onSolved();
+  };
+  return (
+    <div className="flex flex-col gap-2.5">
+      <p className="min-h-4 text-center text-xs font-semibold leading-4 text-foreground/60" aria-hidden>{shown ? "" : "Tap every one that fits, then Check"}</p>
+      <div className="grid grid-cols-1 gap-2">
+        {order.map((i) => {
+          const o = sc.options[i], on = picked.includes(i);
+          const result = !shown ? null : o.fits ? (on ? "found" : "missed") : on ? "wrong" : null;
+          return (
+            <AnswerCard key={i} role="checkbox" aria-checked={on} disabled={shown} onClick={() => toggle(i)}
+              state={result ? "done" : on && !shown ? "selected" : "idle"}
+              tint={result === "wrong" ? "var(--prx-neg)" : undefined}
+              badge={result === "wrong" ? "✕" : result ? "✓" : undefined}
+              badgeTint={result === "found" ? "var(--prx-pos)" : result === "wrong" ? "var(--prx-neg)" : undefined}
+              className="flex flex-col items-start gap-1 rounded-2xl px-4 py-3 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98] disabled:opacity-100">
+              <span>{o.text}</span>
+              {(result === "missed" || result === "wrong") && (
+                <span className="text-xs font-semibold leading-snug text-foreground/80">{result === "missed" ? "This one fits too. " : "This one doesn't fit. "}{o.note}</span>
+              )}
+            </AnswerCard>
+          );
+        })}
+      </div>
+      {!shown && (
+        <button type="button" onClick={check} disabled={picked.length === 0}
+          className="flex h-12 w-full items-center justify-center rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
+          {missed ? "Check again" : "Check"}
+        </button>
+      )}
     </div>
   );
 }

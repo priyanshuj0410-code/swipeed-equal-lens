@@ -15,6 +15,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71  # SWED-73
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
 ---
 
 # SwipeEd project log
@@ -22,6 +23,25 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 - engine: a new mechanic, choose ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4))
+- **Why.** Playtesters found reflect confusing because any tap wins. The owner chose "tap all that fit, then Check"
+  with six options, two to four of them right, for lesson and values questions; feelings, personal choices and
+  safety lines keep reflect. Phase 2 of the [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md).
+- **Engine.** `ChooseScenario` in `v2-schema.ts` (`prompt`, six `{text, fits, note}` options) and `ChoosePlay` in
+  `v2-engine.tsx`: options are checkbox cards; a first Check that misses says how many fit and allows a retry; the
+  next Check reveals every answer, with notes on wrong and missed picks, and resolves. `V2Game` keeps the
+  renderer on screen through the resolve.
+- **Pipeline.** `common.py` knows the mechanic everywhere it lists them, with shape rules (six options, two to four
+  fit, a note on each, no duplicates, no "Yes"/"No"/"Both", no option that repeats the question). Fitting texts
+  and notes are must-be-true fields, and notes are left out of the band ceiling. `forge_dedup.py`, `bank_spec.py`
+  and the generator's shapes and reviewer key list cover it too. No shipped content uses it yet.
+- **Checks.** New choose fixtures in `test_gates.py`. A temporary Choosing & Building scenario (removed before
+  commit) checked the flow in headless Chrome in both themes at 360 and 390px: checkbox semantics, card heights
+  unchanged while picking, the first-miss count, the reveal with ✓, ✕ and notes, a clean first-time run, and
+  focus on Next. `npm run gates`, `tsc` and `eslint` pass.
+- **Docs.** [design.md](../design.md) (Choose card set), [v2 engine](../architecture/v2-engine.md), [question bank](../schemas/question-bank.md),
+  [interaction model](../games/swipeed-interaction-model.md), [extending SwipeEd](../games/extending-swipeed.md).
 
 ## 2026-09-15 - forge: regrowth can no longer overwrite shipped scenarios ([SWED-73](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71))
 - **Why.** Ids were handed out as `900 + i*90` per category whatever the bank held, the batch gate never checked

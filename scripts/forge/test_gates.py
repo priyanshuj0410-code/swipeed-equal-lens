@@ -20,6 +20,20 @@ VALID_STRIKE = {
     "myth": {"un": "A myth.", "re": "The truth.", "why": "Because reasons."},
 }
 
+VALID_CHOOSE = {
+    "id": "t-003", "cat": "c", "type": "choose", "persona": "any", "source": "s",
+    "relearn": "Respect shows in small, steady choices.", "hook": "Your new partner is getting to know you.",
+    "prompt": "Which of these show respect? Tap all that fit.",
+    "options": [
+        {"text": "Asks before sharing your photo", "fits": True, "note": "Asking first treats your image as yours."},
+        {"text": "Listens when you disagree", "fits": True, "note": "Hearing a different view is respect."},
+        {"text": "Makes plans with your friends too", "fits": True, "note": "Your friendships matter to them."},
+        {"text": "Reads your messages to feel close", "fits": False, "note": "Closeness never needs your private messages."},
+        {"text": "Decides what you wear on dates", "fits": False, "note": "Your clothes are your choice."},
+        {"text": "Sulks until you cancel plans", "fits": False, "note": "Sulking to change your plans is pressure."},
+    ],
+}
+
 FAILING = [
     ("match missing base fields (relearn/persona/source/hook)",
      {"id": "x", "cat": "c", "type": "match", "pairs": [{"left": f"l{i}", "right": f"r{i}"} for i in range(5)]}),
@@ -33,6 +47,8 @@ FAILING = [
      {**VALID_SORT, "persona": None}),
     ("strike-rewrite missing myth.why",
      {**VALID_STRIKE, "myth": {"un": "m", "re": "t", "why": ""}}),
+    ("choose missing prompt",
+     {**VALID_CHOOSE, "prompt": ""}),
     ("reflect missing affirm/options",
      {"id": "x", "cat": "c", "type": "reflect", "persona": "any", "source": "s", "relearn": "r", "hook": "h", "prompt": "p"}),
 ]
@@ -40,7 +56,7 @@ FAILING = [
 def main():
     fails = 0
     # valid scenarios must produce NO required-field errors
-    for o in (VALID_SORT, VALID_STRIKE):
+    for o in (VALID_SORT, VALID_STRIKE, VALID_CHOOSE):
         errs = C.required_field_errors(o)
         if errs:
             fails += 1; print(f"  ✗ valid {o['type']} wrongly flagged: {errs}")
@@ -61,11 +77,53 @@ def main():
             print(f"  ✓ retired-helpline check right on {txt!r}")
         else:
             fails += 1; print(f"  ✗ retired-helpline check wrong on {txt!r}")
+    fails += choose_fixtures()
     fails += content_gate_fixtures()
     fails += regrowth_fixtures()
     if fails:
         print(f"\n✗ {fails} gate test(s) failed"); sys.exit(1)
     print("\n✓ all gate fixtures pass — missing-Base-field content is rejected")
+
+
+def choose_fixtures():
+    """choose (SWED-69): six options, two to four that fit, a note on every option, no option that only agrees or
+    repeats the question, no duplicates."""
+    import copy
+    fails = 0
+    if C.shape_errors(VALID_CHOOSE):
+        fails += 1; print(f"  ✗ valid choose wrongly flagged: {C.shape_errors(VALID_CHOOSE)}")
+    else:
+        print("  ✓ valid choose passes its shape check")
+
+    def variant(mutate):
+        o = copy.deepcopy(VALID_CHOOSE); mutate(o); return o
+
+    def set_opt(i, **kw):
+        return lambda o: o["options"][i].update(kw)
+
+    cases = [
+        ("five options", lambda o: o["options"].pop(), "need 6"),
+        ("one option that fits", lambda o: [op.update(fits=False) for op in o["options"][1:3]], "that fit=1"),
+        ("five options that fit", lambda o: [op.update(fits=True) for op in o["options"][3:5]], "that fit=5"),
+        ("an option without a note", set_opt(4, note=""), "missing note"),
+        ("a fits flag that is not boolean", set_opt(0, fits="yes"), "fits not boolean"),
+        ("an option that only says Yes", set_opt(5, text="Yes"), "only agrees"),
+        ("an option that repeats the question", set_opt(5, text="Which of these show respect? Tap all that fit."), "repeats the question"),
+        ("two options with the same text", set_opt(5, text="Listens when you disagree"), "duplicate option texts"),
+    ]
+    for name, mutate, needle in cases:
+        errs = C.shape_errors(variant(mutate))
+        if any(needle in e for e in errs):
+            print(f"  ✓ choose check caught: {name}")
+        else:
+            fails += 1; print(f"  ✗ choose check MISSED: {name} → {errs}")
+    notes_ok = all(op["note"] in C.must_be_true_texts(VALID_CHOOSE) for op in VALID_CHOOSE["options"])
+    wrong_text_ok = VALID_CHOOSE["options"][3]["text"] not in C.must_be_true_texts(VALID_CHOOSE)
+    if notes_ok and wrong_text_ok:
+        print("  ✓ choose notes and fitting options are fact-checked; wrong options are not")
+    else:
+        fails += 1; print("  ✗ choose must-be-true fields wrong")
+    return fails
 
 
 def regrowth_fixtures():

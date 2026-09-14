@@ -10,12 +10,16 @@
 // forge_dedup.py struct_sig, gen_workflow.js SHAPES + the reviewer list).
 // The first three now fail closed rather than silently pass; the rest still need doing by hand.
 
-export type V2Mechanic = "reflect" | "role-play" | "strike-rewrite" | "branch" | "sort" | "match" | "build" | "explore-label" | "spot" | "swipe";
+export type V2Mechanic = "reflect" | "choose" | "role-play" | "strike-rewrite" | "branch" | "sort" | "match" | "build" | "explore-label" | "spot" | "swipe";
 
 type Base = { id: string; cat: string; persona: string; source: string; relearn: string; hook: string };
 
 // reflect — affirm autonomy / a body-cue; EVERY option is acceptable (no wrong answer). Tap any → `affirm`.
 export type ReflectScenario = Base & { type: "reflect"; prompt: string; options: string[]; affirm: string };
+// choose: tap every option that fits, then Check (SWED-69). Exactly 6 options, 2 to 4 with `fits: true`. Every option
+// has a `note`: why it fits (shown if the player missed it) or why it does not (shown if they picked it). Feelings,
+// personal choices and safety lines stay `reflect`, where no answer is wrong.
+export type ChooseScenario = Base & { type: "choose"; prompt: string; options: { text: string; fits: boolean; note: string }[] };
 // role-play (voice) — say the words. Exactly one line is `best` (the assertive script); the other is passive.
 export type RolePlayScenario = Base & { type: "role-play"; setup: string; yourLine: { text: string; best?: boolean }[] };
 // strike-rewrite — UN erases a myth, RE writes the truth with a reason.
@@ -50,7 +54,7 @@ export type SpotScenario = Base & { type: "spot"; scene: { id: string; text: str
 export type SwipeScenario = Base & { type: "swipe"; cue: string; left: string; right: string; answer: "left" | "right"; leftValence?: BinValence; rightValence?: BinValence };
 
 export type Scenario =
-  | ReflectScenario | RolePlayScenario | StrikeRewriteScenario | BranchScenario | SortScenario | MatchScenario | BuildScenario | ExploreLabelScenario | SpotScenario | SwipeScenario;
+  | ReflectScenario | ChooseScenario | RolePlayScenario | StrikeRewriteScenario | BranchScenario | SortScenario | MatchScenario | BuildScenario | ExploreLabelScenario | SpotScenario | SwipeScenario;
 
 // A game's home categories (theme tiles + the sticker book).
 export type GameCategory = { id: string; emoji: string; label: string };

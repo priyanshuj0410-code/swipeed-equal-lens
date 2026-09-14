@@ -12,6 +12,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
 ---
 
 # SwipeEd v2 engine
@@ -130,16 +131,17 @@ registry. See [Fail-closed guards](#fail-closed-guards) below for what now catch
 [Extending SwipeEd](../games/extending-swipeed.md) for the full multi-file checklist (content schema, forge
 pipeline, workflow scripts) beyond the two app files this doc covers.
 
-## The ten verbs
+## The verbs
 
 Every verb renderer lives in `src/components/games/v2-engine.tsx` and is reached only through the `Play()`
 switch (`v2-engine.tsx:295-312`), which the compiler now enforces is exhaustive (see
-[Fail-closed guards](#fail-closed-guards)). All ten share the same outer contract: no hard fail state, a wrong
-attempt is a spoken nudge and a retry, and the renderer's only way to finish is calling `onSolved`.
+[Fail-closed guards](#fail-closed-guards)). There are eleven since `choose` joined on 2026-09-15. All share the same outer
+contract: no hard fail state, a wrong attempt is a spoken nudge and a retry, and the renderer's only way to finish is calling `onSolved`.
 
 | Verb | What the child does | Input modes | Feedback / UN-RE | Renderer (file:line) |
 |---|---|---|---|---|
 | **reflect** | Taps any one of several options; every option is valid (no wrong answer) | Tap only, native buttons | Picked option echoed back by name, then the shared `affirm` line; no UN/RE beat | `ReflectPlay`, `v2-engine.tsx:405-413` |
+| **choose** | Taps every option that fits out of six (two to four fit), then Check | Tap only; options are checkbox buttons | A first Check that misses says how many fit and allows a retry; the next Check reveals every answer with notes for wrong and missed picks, then resolves (no-fail). `V2Game` keeps the renderer mounted through the resolve so the answers stay visible above the `relearn` pill ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4)) | `ChoosePlay`, `v2-engine.tsx` |
 | **role-play** | Taps one of two shuffled "say it" speech cards; only the assertive line advances | Tap only, native buttons | Passive pick: spoken nudge, card set stays up for a re-pick; no UN/RE beat | `RolePlayPlay`, `v2-engine.tsx:419-436` |
 | **strike-rewrite** | Scrubs back-and-forth across the myth card to erase it | Drag/scrub (`usePointerDrag`, distance-based), or Enter/Space on the focusable card | The one verb with a dedicated UN/RE moment: resolve renders the shared `UnReBeat` card (`un-re.tsx`) | `StrikePlay`, `v2-engine.tsx:442-462` |
 | **branch** | Taps one of several shuffled choices and sees its consequence; only the `best` choice (or any, if none is marked best) advances | Tap only, native buttons | Consequence spoken on pick; advancing pick shows a 💚/💛 emoji-prefixed consequence (see SWED-57); no UN/RE beat | `BranchPlay`, `v2-engine.tsx:466-496` |

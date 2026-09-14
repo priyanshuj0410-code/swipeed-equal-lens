@@ -164,6 +164,13 @@ The owner sets growth targets for the myth corpus before this phase. Flag-readin
 **Phase 1 shipped on 2026-09-15:** the four branches were merged into `main` and deployed to production (`1f58f2b`).
 SWED-56, SWED-57, SWED-58, SWED-66 and SWED-67 are closed; SWED-68 and SWED-70 stay open for their content halves.
 
+**Phase 2 started:** SWED-72 (the content gate runs before every build) and SWED-73 (regrowth can no longer
+overwrite shipped scenarios) are done. The `choose` mechanic's engine and pipeline landed under [SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4): the
+schema type, `ChoosePlay` (a miss gets a count and one retry, then every answer shows with its note), the shape
+rules, generator shape and reviewer key, and fixtures. It was checked in headless Chrome with a temporary scenario
+(checkbox semantics, stable card heights while choosing, first-miss feedback, the reveal, a clean first-time run,
+both themes). Its first real content comes with the Choosing & Building pilot.
+
 **Before Phase 2:** the forge safety work this plan depends on is filed as [SWED-72](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b) (gates before every
 deploy), [SWED-73](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71) (safe regrowth), [SWED-74](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1de71970-d924-45d7-acb9-3c28e8a33126) (claim verification), [SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d) (independent
 safety review), [SWED-76](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/87cb9b6b-551a-4c34-a209-514be826753b) (validator gaps) and [SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de) (voice gate and mechanic coverage), from the

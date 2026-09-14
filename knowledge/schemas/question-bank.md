@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b  # SWED-65
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71  # SWED-73
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
 ---
 
 # SwipeEd question bank
@@ -93,6 +94,15 @@ Each row cites `v2-schema.ts` for the type, `common.py` for the required-payload
 | `affirm` | `string` | required; spoken on any tap |
 
 Example (`feelings-friends.ts`, ff-004): `prompt: "Point to your feeling."`, `options: ["Happy","Calm","A little wobbly","Excited"]`, `affirm: "Thank you for noticing your feeling. That's a real skill."`.
+
+**choose** - tap every option that fits, then Check ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4), 2026-09-15). The right/wrong successor to reflect for lesson and values questions; feelings, personal choices and safety lines stay reflect
+
+| Field | Type | Constraint |
+|---|---|---|
+| `prompt` | `string` | required |
+| `options` | `{text: string; fits: boolean; note: string}[]` | exactly 6 (`CHOOSE_OPTIONS`); 2 to 4 with `fits: true` (`CHOOSE_FITS`); every option has a non-empty `note`; no duplicate texts; no option that only agrees or disagrees (`ASSENT_ONLY`: "Yes", "No", "Both" and similar) or repeats the prompt or hook |
+
+`note` explains a pick: for a fitting option why it fits (shown if the player missed it), for the others why it does not (shown if they picked it). Fitting option texts and every note are must-be-true fields for the claim sniffer; the texts of options that do not fit are deliberate wrong answers. Notes count toward the 160-character field cap but not toward the band ceiling, because a player sees only the ones for their mistakes.
 
 **role-play** - say the words; exactly one line is the assertive script (v2-schema.ts:19)
 
