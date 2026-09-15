@@ -78,10 +78,14 @@ role-play: {"id","cat","type":"role-play","persona","source","hook","setup","ste
 ## Other fields
 
 - `hook`: the situation in one or two short sentences, with a named person where natural. No question mark.
+- **The player is always "you".** Never give the player's own character a name or "she" or "he" in the hook while the
+  prompts say "you" ("A friend tells Razia..." then "What do you say?"). Other people get names.
+- **Keep the source's life stage.** Don't add children, a wedding, a pregnancy or a job the source doesn't imply
+  (Chapter 7 is before a first child, so no school forms for a couple's own kids).
 - `setup` (role-play only): one sentence placing the conversation ("Tonight he looks up from his phone."). No question.
 - The card shows `hook`, `setup` and step 1's `prompt` together, so none of them may repeat another's information.
 - `prompt`, branch: what is happening now plus one question, for example "He texts to plan a fifth date. What do you
-  do?" Exactly one question mark.
+  do?" Exactly one question mark, at the end: the gate rejects a branch prompt with none or two.
 - `prompt`, role-play: the other person's words, attributed with a verb: `Your mother asks: "When will you two start
   a family?"`. Never a bare name and colon ("Aunty: ..."): the gate treats that as a speaker prefix and rejects it.
 - `why`: one sentence on why the best option is best, warm and plain, at most 120 characters.

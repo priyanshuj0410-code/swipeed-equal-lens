@@ -19,7 +19,7 @@ gate holds at zero findings once a game has been cleaned (a game is added to the
                   3 to 5 steps with 4 or 5 options each and the answers revealed at the end (SWED-96)
   then-verdict    a step's `then` that grades the pick ("Good choice", "That was wrong"), which gives the answer away
                   before the end reveal
-  step-questions  a branch step prompt that asks more than one question
+  step-questions  a branch step prompt that does not ask exactly one question
   best-longest    a multi-step scenario whose best option is clearly the longest (6 or more characters longer than every
                   other option) in more than half its steps, which players learn to spot
   follow-up       a reflect `ask` or `deeper` that is not exactly one question (SWED-97)
@@ -115,8 +115,8 @@ def content_lints(o):
         for i, st in enumerate(o.get("steps") or []):
             if not isinstance(st, dict):
                 continue
-            if t == "branch" and (st.get("prompt") or "").count("?") > 1:
-                out.append(f"step-questions: step[{i}] prompt asks more than one question")
+            if t == "branch" and (st.get("prompt") or "").count("?") != 1:
+                out.append(f"step-questions: step[{i}] prompt must ask exactly one question")
             for j, op in enumerate(st.get("options") or []):
                 m = VERDICT.search((op or {}).get("then") or "")
                 if m:

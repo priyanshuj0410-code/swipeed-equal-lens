@@ -48,6 +48,9 @@ Also note, briefly:
 - a `then` that grades the pick ("Good choice");
 - an option that is silly, a cartoon villain, or says the same thing as another option in the step;
 - a `hook`, `setup` and first prompt that repeat each other;
+- the player named or called "she" or "he" in the hook while the prompts say "you";
+- a detail the situation doesn't support, such as children or a wedding the story never had;
+- a best option that only makes sense on one earlier path (for example, claiming a change the player may not have made);
 - anything that breaks a safety rule: control or abuse framed as a shared problem, blame on the person under pressure,
   a risky confrontation offered as best, or "good touch" and "bad touch".
 

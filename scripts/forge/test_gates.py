@@ -433,6 +433,10 @@ def story_fixtures():
     result("a legacy branch still passes its shape check", not C.shape_errors(legacy))
     result("the single-step lint fires on a legacy branch", any(f.startswith("single-step") for f in L.content_lints(legacy)))
     result("no lint on a clean multi-step branch", not L.content_lints(VALID_STORY), L.content_lints(VALID_STORY))
+    for name, prompt in (("no question", "Moment 2."), ("two questions", "Moment 2? What now?")):
+        asks = json.loads(json.dumps(VALID_STORY))
+        asks["steps"][1]["prompt"] = prompt
+        result(f"the step-questions lint fires on a branch prompt with {name}", any(f.startswith("step-questions") for f in L.content_lints(asks)))
     verdict = variant(lambda o: o["steps"][0]["options"][1].update(then="Good choice. Kabir smiles."))
     result("the then-verdict lint fires on a graded then", any(f.startswith("then-verdict") for f in L.content_lints(verdict)))
     long_best = variant(lambda o: [st["options"][1].update(text=st["options"][1]["text"] + " and a long reason") for st in o["steps"][:2]])
