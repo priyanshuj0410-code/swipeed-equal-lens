@@ -474,6 +474,20 @@ def story_fixtures():
     counts = B.make("t", sub, [], game_path=game, seed=1, only={"t-999"})
     found, missing = B.diff("t", sub, [], game_path=game, only={"t-999"})
     result("a make limited to other ids writes no story and reports nothing missing", counts["story"] == 0 and not found and not missing, (counts, missing))
+    import steps_audit as A
+    batch = os.path.join(tmp, "batch.ndjson")
+    open(batch, "w", encoding="utf8").write(json.dumps(VALID_STORY) + "\n")
+    aud = os.path.join(tmp, "audit")
+    A.make(aud, batch)
+    row = json.loads(open(os.path.join(aud, "audit.ndjson"), encoding="utf8").read())
+    n = len(row["transitions"])
+    result("the audit row numbers every option of every step before a later prompt", n == sum(len(st["options"]) for st in VALID_STORY["steps"][:-1]), n)
+    open(os.path.join(aud, "review-audit.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "transitions": ["ok"] * (n - 1)}) + "\n")
+    problems, _, _ = A.check(aud, batch)
+    result("the audit check reports a verdict missing", len(problems) == 1 and "verdicts" in problems[0], problems)
+    open(os.path.join(aud, "review-audit.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "transitions": ["ok"] * (n - 1) + ["break: never met"], "notes": ["safety: x"]}) + "\n")
+    problems, breaks, notes = A.check(aud, batch)
+    result("the audit check passes full coverage and lists the break and note", not problems and len(breaks) == 1 and len(notes) == 1, (problems, breaks, notes))
     shutil.rmtree(tmp)
     return fails
 

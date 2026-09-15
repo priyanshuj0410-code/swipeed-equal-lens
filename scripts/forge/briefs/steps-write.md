@@ -127,6 +127,14 @@ Some sources are about pressure, coercion, control, violence, abuse or an unsafe
 - When the player supports someone else who is being harmed, the best option believes them, says it is not their fault,
   respects their pace and their choices (never "You have to leave right now"), and offers a way to get help. Pushing,
   judging or taking over is a tempting wrong option, not the best one.
+- **When the player is the one being pressured or harmed, their survival responses are never wrong options.**
+  Freezing, staying silent, going along, giving in, pretending to be asleep and avoiding the person are how people
+  get through danger, not mistakes, so never offer them as options to be marked short of best, and never write a
+  `then` in which sex or harm happens because of the player's pick. Make the tempting options beliefs and myths
+  ("Maybe marriage means I can't refuse"), self-blame ("Maybe I'm overreacting"), keeping it secret, or poor advice
+  from others. Among the best moves over the story, include reaching support (a trusted person, and the game's
+  helpline where the source has one), not only standing up to the person. Every such scenario says, in a `why` or the
+  `debrief`, that it is never their fault.
 - A `then` for an unsafe option shows the risk plainly, without graphic detail, and never blames the person under
   pressure.
 - Keep "not your fault" in a `why` or the `debrief`. Never present control, surveillance, violence or forced marriage

@@ -1,19 +1,31 @@
-# Fixer brief: resolve the review of one multi-step batch
+# Fixer brief: resolve the reviews of one multi-step batch
 
 Used by the multi-step rollout ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4)).
-Your prompt names the game (`<game>`, its file stem), its audience, the batch `.forge/<game>/steps/batch-NN.ndjson`
-and its review folder `<dir>`. Read `scripts/forge/briefs/steps-write.md` first: every rule there still holds after
-your edits. Background on the game: `.forge/<game>/GROUNDING.md`.
+Your prompt names the game (`<game>`, its file stem), its audience and the batch number `NN`. The batch is
+`.forge/<game>/steps/batch-NN.ndjson`. Read `scripts/forge/briefs/steps-write.md` first: every rule there still holds
+after your edits. Background on the game: `.forge/<game>/GROUNDING.md`.
 
 ## Start
 
 1. Keep a copy of the batch before you touch it, unless the copy already exists:
    `cp -n .forge/<game>/steps/batch-NN.ndjson .forge/<game>/steps/batch-NN.before-fixes.ndjson`
-2. List the blind disagreements:
-   `python3 scripts/forge/blind_review.py diff <game> <dir> .forge/<game>/steps/batch-NN.ndjson --batch-only`
-   Each line gives the id, then `(step, key, reviewer)` for every step where the reviewer picked a different option
-   (step numbers there are 0-based), and the reviewer's note.
-3. Read `<dir>/review-continuity.ndjson` (breaks use 1-based step numbers) and the voice notes in it.
+2. Collect the findings. Skip any command whose folder does not exist.
+   - Blind disagreements, where a reviewer who had not seen the answers picked a different option (step numbers are
+     0-based): `python3 scripts/forge/blind_review.py diff <game> .forge/<game>/steps/review-NN .forge/<game>/steps/batch-NN.ndjson --batch-only`
+   - Audit breaks and notes (steps are 1-based):
+     `python3 scripts/forge/steps_audit.py check <game> .forge/<game>/steps/audit-NN .forge/<game>/steps/batch-NN.ndjson`
+   - Older continuity notes, if `.forge/<game>/steps/review-NN/review-continuity.ndjson` exists.
+   - Gate rejects: `python3 scripts/forge/forge_check.py --batch .forge/<game>/steps/batch-NN.ndjson --game <game>`
+3. Work through them in this order: safety notes, disagreements, breaks, the other notes, gate rejects.
+
+## Safety notes
+
+Handle every note that starts with `safety:` first, following the Safety scenarios section of steps-write.md. Where the
+player is the one being pressured or harmed, replace each survival-response option (freezing, staying silent, going
+along, giving in, pretending to be asleep, avoiding them) with a belief, myth, self-blame thought, secrecy or poor
+advice from someone else; rewrite any `then` in which sex or harm happens because of the player's pick; make sure a
+`why` or the `debrief` says it is never their fault; and make reaching support (a trusted person, the helpline where
+the source has one) the best move in at least one step. Then re-read the scenario for continuity.
 
 ## Disagreements
 
@@ -29,17 +41,18 @@ enough. Decide which it is:
 
 Never resolve a disagreement by just moving `best` without re-reading the whole step.
 
-## Continuity breaks
+## Breaks
 
-Rewrite the next prompt so it follows from every option's `then` in the step before, usually by moving time forward or
-bringing in the other person's next point. If one `then` closes the situation (you left, refused, blocked), you may
-instead rewrite that `then` so the story can continue. Re-read the whole scenario afterwards: a fix can break a later
-step.
+A break names the option picked in the step before, its `then`, and the prompt that does not follow. Rewrite the next
+prompt so it follows from every option's `then` in the step before, usually by moving time forward or bringing in the
+other person's next point. If one `then` closes the situation (you left, refused, blocked), you may instead rewrite
+that `then` so the story can continue. A best option that fits only one earlier path gets rewritten so it fits them
+all. Re-read the whole scenario afterwards: a fix can break a later step.
 
-## Voice notes
+## Other notes and gate rejects
 
-Fix every comma splice, graded `then`, silly or duplicate option, repeated hook or setup, and safety problem the
-reviewer noted. While you are in a scenario, fix any other splice you see.
+Fix every comma splice, graded `then`, point-of-view slip, unsupported detail, silly or duplicate option and repeated
+hook or setup noted. While you are in a scenario, fix any other problem of those kinds you see.
 
 ## Edit safely
 
@@ -51,8 +64,10 @@ keeping order and ids. Never retype the whole file by hand.
 1. `python3 scripts/forge/forge_check.py --batch .forge/<game>/steps/batch-NN.ndjson --game <game>` prints
    `batch: 0 rejected`.
 2. `python3 scripts/forge/steps_batch.py .forge/<game>/steps/source-NN.ndjson .forge/<game>/steps/batch-NN.ndjson` prints `✓`.
-3. Write the ids of every scenario where you changed any option text, which option is best, or a prompt, one per line,
-   to `<dir>/changed.txt` (create it empty if there are none).
-4. If `changed.txt` is not empty, write the re-check files:
-   `python3 scripts/forge/blind_review.py make <game> <dir>/recheck .forge/<game>/steps/batch-NN.ndjson --batch-only --ids <comma-separated ids from changed.txt>`
+3. Make the folder `.forge/<game>/steps/recheck-NN` and write to `changed.txt` in it the id of every scenario where you
+   changed a prompt, an option's text, which option is best, or a `then`, one per line (not scenarios where you only
+   fixed punctuation, a comma splice or a `why`). Create it empty if there are none.
+4. If `changed.txt` is not empty, write the re-check files, with `<ids>` the comma-separated ids from `changed.txt`:
+   `python3 scripts/forge/blind_review.py make <game> .forge/<game>/steps/recheck-NN .forge/<game>/steps/batch-NN.ndjson --batch-only --ids <ids>`
+   `python3 scripts/forge/steps_audit.py make <game> .forge/<game>/steps/recheck-NN .forge/<game>/steps/batch-NN.ndjson --ids <ids>`
 5. Reply with the counts asked for. Do not paste scenarios into the reply.
