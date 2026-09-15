@@ -49,6 +49,16 @@ other person's next point. If one `then` closes the situation (you left, refused
 that `then` so the story can continue. A best option that fits only one earlier path gets rewritten so it fits them
 all. Re-read the whole scenario afterwards: a fix can break a later step.
 
+Role-plays break most, and a first round of fixes left most of their breaks in place. Fixes that hold:
+
+- Write the next prompt as the other person raising their next point in their own words, never answering one
+  particular line: `Naina asks: "Can we look at weekends too?"`, not `Naina says: "So a monthly check, then?"`.
+- Never let a later prompt treat a proposal as made, agreed or refused. If the player may not have raised it, the
+  other person raises it.
+- When an option's reply ends the talk (the player changes the subject, says it's fine, walks off), rewrite that
+  option's `then` so the other person brings it back: `He pauses. "I still want to sort this out."`
+- Read each next prompt once after every `then` of the step before, one by one, before you move on.
+
 ## Other notes and gate rejects
 
 Fix every comma splice, graded `then`, point-of-view slip, unsupported detail, silly or duplicate option and repeated

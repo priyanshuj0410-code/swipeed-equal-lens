@@ -12,6 +12,7 @@ disagreement means the intended answer is not the only defensible one, so the sc
 
   --batch-only   only the scenarios in the given batches (a rollout reviews one batch at a time, SWED-100)
   --ids a,b,c    only these ids (a re-check of the steps a fixer rewrote)
+  --ids-from f   only the ids in f: one per line, or the "id" of each row of an .ndjson file
 
 The reviewer writes, one JSON object per line:
   review-choose.ndjson  {"id", "fits": [option texts], "unsure": [option texts], "why"}
@@ -94,6 +95,12 @@ def make(gid, out, batches, game_path=None, seed=None, only=None):
     return counts
 
 
+def read_ids(path):
+    """Ids from a file: one per line, or the "id" of each row of an .ndjson file."""
+    lines = [l.strip() for l in open(path, encoding="utf8") if l.strip()]
+    return [json.loads(l)["id"] for l in lines] if path.endswith(".ndjson") else lines
+
+
 def _rows(path):
     return [json.loads(l) for l in open(path, encoding="utf8") if l.strip()] if os.path.exists(path) else []
 
@@ -141,7 +148,10 @@ def main():
         raise SystemExit(__doc__)
     cmd, gid, d, rest = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4:]
     ids = rest[rest.index("--ids") + 1] if "--ids" in rest else None
-    batches = [a for a in rest if not a.startswith("--") and a != ids]
+    ids_from = rest[rest.index("--ids-from") + 1] if "--ids-from" in rest else None
+    if ids_from:
+        ids = ",".join(read_ids(ids_from))
+    batches = [a for a in rest if not a.startswith("--") and a not in (ids, ids_from)]
     only = None
     if "--batch-only" in rest:
         only = {json.loads(l)["id"] for b in batches for l in open(b, encoding="utf8") if l.strip()}

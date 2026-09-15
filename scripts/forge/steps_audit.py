@@ -3,6 +3,7 @@
 
   steps_audit.py make  <gameId> <dir> <batch.ndjson> [--ids a,b]   write <dir>/audit.ndjson, one row per multi-step
                                                                     scenario (only these ids with --ids)
+  (both also take --ids-from <file>: one id per line, or the "id" of each row of an .ndjson file)
   steps_audit.py check <gameId> <dir> <batch.ndjson> [--ids a,b]   check <dir>/review-audit.ndjson covers every
                                                                     transition, then print the breaks and notes; exit 1
                                                                     when coverage is incomplete
@@ -87,6 +88,12 @@ def main():
     if "--ids" in args:
         k = args.index("--ids")
         only = {i.strip() for i in args[k + 1].split(",") if i.strip()}
+        args = args[:k] + args[k + 2:]
+    if "--ids-from" in args:
+        k = args.index("--ids-from")
+        path = args[k + 1]
+        lines = [l.strip() for l in open(path, encoding="utf8") if l.strip()]
+        only = {json.loads(l)["id"] for l in lines} if path.endswith(".ndjson") else set(lines)
         args = args[:k] + args[k + 2:]
     if len(args) != 4 or args[0] not in ("make", "check"):
         raise SystemExit(__doc__)
