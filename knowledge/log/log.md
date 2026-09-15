@@ -21,6 +21,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d  # SWED-75
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5  # SWED-89
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22  # SWED-92
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb  # SWED-95
 ---
 
 # SwipeEd project log
@@ -28,6 +29,16 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 · engine: tidy confirmation lines and one explore-label question ([SWED-95](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb))
+- **Why.** The question types gallery showed "Cheering when they try: Helps 💚 . ✓" on a correct sort, zones that
+  showed their emoji twice, and explore-label cards that asked twice ("Tap why. Find why your heart beats faster
+  when you run.") with a wrong-tap nudge of "Find Which part ...".
+- **Change.** `pairLine()` builds sort and match confirmations in both engines without the answer's trailing emoji
+  and ends them on ✔, which speech skips; `plainLabel()` drops a zone label's own emoji; explore-label shows the
+  hook alone and `clueLine()` turns `find` into a grammatical hint on a wrong tap.
+- **Checked.** Headless on Fair Play World and Money & Independence sorts, Feelings Friends and Choosing & Building matches,
+  and two Body Lab Juniors explore-label beats.
 
 ## 2026-09-15 · voice: no em or en dashes, anywhere ([SWED-92](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22))
 - **Why.** The owner saw a dash in the Us, After Kids greeting: The Equal Lens never uses them, and the app held

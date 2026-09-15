@@ -38,6 +38,33 @@ export function joinQuestion(hook: string, follow?: string): string {
   return `${h} ${f}`;
 }
 
+// Emoji at the end of a label, with their skin-tone and presentation modifiers and joiners.
+const TRAILING_EMOJI = /[\s\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}\u{FE0F}\u{200D}\u{20E3}]+$/u;
+
+/** A zone label without the emoji it ends with ("Helps 💚" → "Helps"): the zone already shows its own symbol. */
+export function plainLabel(label: string): string {
+  return label.replace(TRAILING_EMOJI, "") || label;
+}
+
+/**
+ * The feedback line for a correct placement or match: "Cheering when they try: Helps ✔". The heavy tick is an
+ * emoji, so speech drops it and the line is spoken as plain words.
+ */
+export function pairLine(item: string, answer: string): string {
+  const a = plainLabel(item.trim()), b = plainLabel(answer.trim());
+  return `${a}${/[.!?…:]$/.test(a) ? " " : ": "}${b} ✔`;
+}
+
+/**
+ * A clue to look again with, from an explore-label `find`, which is a noun phrase ("the part that fills with air"),
+ * a question clause ("why you puff after running") or a full sentence ("Which part lets you hear music?").
+ */
+export function clueLine(find: string): string {
+  const f = find.trim().replace(/[.]$/, "");
+  const line = /^[A-Z]/.test(f) ? f : /^(why|how|what|where|when|who)\b/.test(f) ? `Think about ${f}` : `Look for ${f}`;
+  return /[.!?…]$/.test(line) ? line : `${line}.`;
+}
+
 /** How long answers wait after the question appears: reading time, capped so play never drags. */
 export function revealDelayMs(text: string): number {
   const words = text.split(/\s+/).filter(Boolean).length;
