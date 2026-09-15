@@ -1,13 +1,13 @@
 # SwipeEd
 
 **A Duolingo-style learning-path app for relationships, sexuality & life-skills education (RSE/CSE),
-ages 3–18.** Live at **https://swipeed.vercel.app**.
+ages 3-18.** Live at **https://swipeed.vercel.app**.
 
-> Warm, no-fail games a child grows up with — from naming their first feeling at age 3 to decoding the
-> internet at 18 — all built on one principle: **Unlearn → Relearn → Grow.**
+> Warm, no-fail games a child grows up with: from naming their first feeling at age 3 to decoding the
+> internet at 18: all built on one principle: **Unlearn → Relearn → Grow.**
 
 SwipeEd is the flagship app on the [Praxis](https://github.com/priyanshuj0410-code/praxis-engine) engine.
-The **canonical knowledge base** (vision, architecture, and a doc for every game) lives in that repo —
+The **canonical knowledge base** (vision, architecture, and a doc for every game) lives in that repo
 this repo is the app itself. *(The repo/deployment keep the historical `swipeed` name.)*
 
 ## What it is
@@ -15,50 +15,50 @@ this repo is the app itself. *(The repo/deployment keep the historical `swipeed`
 A single 3D **learning path** of **43 lesson nodes + 5 capstone "graduations"**, grouped into five
 age-band chapters. Each node is a short, self-contained game hosted by **Sam**, a companion who grows up
 alongside the player. Topics span feelings & life-skills, bodies & growing up, safety & consent,
-relationships, gender & respect, sexual & reproductive health, and values / rights / media — all
+relationships, gender & respect, sexual & reproductive health, and values / rights / media: all
 behaviour- and evidence-based, safeguarding-first, and (where sensitive) gated by a **School-Comfort**
 toggle. Every node is **live**.
 
 | Chapter | Ages | Nodes |
 |---|---|---|
-| **1** | 3–6 | Feelings Friends · My Body, My Rules · My Family Garden · Same Same, Different · Can-Do Kids · **Capstone: My First Friends** |
-| **2** | 6–9 | Body Lab Juniors · What Makes Me, Me · Safety Squad · Friend or Frenemy? · Fair Play World · Not Fair, Not Funny · Smart Screen Heroes · **Capstone: Fair & Safe Explorer** |
-| **3** | 9–12 | Puberty Quest · The Amazing Journey · Boundary Bot · Crossroads · Flip the Script · Norm Storm · Speak Up · Defenders of the Body · **Capstone: Growing Up Smart** |
-| **4** | 12–15 | Body Confident · Plan It · Outbreak: Stop the Spread · Green Light / Red Light · MythBuster: Gender · Equalize · Stand Up · Reality Check · **Capstone: Reading Relationships** |
-| **5** | 15–18 | My Choices, My Future · Status: Know It · Mutual · Spectrum · Lead the Way · Change Makers · Justice League: Rights · Decoded · **Capstone: Ready for the World** |
+| **1** | 3-6 | Feelings Friends · My Body, My Rules · My Family Garden · Same Same, Different · Can-Do Kids · **Capstone: My First Friends** |
+| **2** | 6-9 | Body Lab Juniors · What Makes Me, Me · Safety Squad · Friend or Frenemy? · Fair Play World · Not Fair, Not Funny · Smart Screen Heroes · **Capstone: Fair & Safe Explorer** |
+| **3** | 9-12 | Puberty Quest · The Amazing Journey · Boundary Bot · Crossroads · Flip the Script · Norm Storm · Speak Up · Defenders of the Body · **Capstone: Growing Up Smart** |
+| **4** | 12-15 | Body Confident · Plan It · Outbreak: Stop the Spread · Green Light / Red Light · MythBuster: Gender · Equalize · Stand Up · Reality Check · **Capstone: Reading Relationships** |
+| **5** | 15-18 | My Choices, My Future · Status: Know It · Mutual · Spectrum · Lead the Way · Change Makers · Justice League: Rights · Decoded · **Capstone: Ready for the World** |
 
 ## Architecture
 
-- **Engine-games** — most lessons are pure-DOM overlay games: a component in
+- **Engine-games**: most lessons are pure-DOM overlay games: a component in
   `src/components/games/<id>.tsx` + typed content in `src/content/games/<id>.ts`, registered in
   `engine-host.tsx`, launched **in place** over the path or at `/game/<id>`. Most follow a shared shape:
   a Sam header, a home grid of **five modes**, a badge book, an `UnReBeat` myth-bust, and a `GameDone`
   completion.
-- **Green Light / Red Light** (#24) is the flagship **educational roguelike** — short runs, a Clarity
-  meter, equippable perks, branching forks and a boss — in `src/lib/use-run-game.ts` +
+- **Green Light / Red Light** (#24) is the flagship **educational roguelike**: short runs, a Clarity
+  meter, equippable perks, branching forks and a boss: in `src/lib/use-run-game.ts` +
   `src/components/glrl/`. **MythBuster** also keeps its original **swipe deck** at `/play/mythbuster`
   alongside its 5-mode lab.
-- **Shared building blocks** — `Sam` (the companion avatar), `UnReBeat` (the Unlearn→Relearn beat), the
+- **Shared building blocks**: `Sam` (the companion avatar), `UnReBeat` (the Unlearn→Relearn beat), the
   voice model (`src/lib/speak.ts`: narration + replay + emoji-stripping), and one juice layer
   (`src/lib/juice.ts` / `confetti.ts`: Web-Audio SFX, haptics, confetti).
-- **The path** — a 3D React-Three-Fiber world (`src/app/path/`) with seasons, weather, day/night and a
+- **The path**: a 3D React-Three-Fiber world (`src/app/path/`) with seasons, weather, day/night and a
   walking companion; node→game wiring is generated by `scripts/gen-path.py` → `src/content/path.ts`.
 
 ## Stack
 
 - **Next.js 16 (App Router)** · React 19 · TypeScript · **Tailwind v4** · **React-Three-Fiber**
-- **PWA** — installable, offline via service worker; design tokens in `src/app/globals.css`
-- Anonymous, **on-device** state (`src/lib/store.tsx`) — no accounts, no public leaderboards
+- **PWA**: installable, offline via service worker; design tokens in `src/app/globals.css`
+- Anonymous, **on-device** state (`src/lib/store.tsx`): no accounts, no public leaderboards
 
 ## Design rules (requirements, not polish)
 
-- **No fail-state**; never reward speed or guessing — gentle nudges and retries.
+- **No fail-state**; never reward speed or guessing: gentle nudges and retries.
 - **Unlearn → Relearn → Grow** at every genuine misconception (the shared `UnReBeat`).
 - **Safeguarding is never scored**; sensitive topics route to real help (Childline 1098, KIRAN, the
   POCSO e-Box, women's helplines) and never frighten.
-- **School-Comfort** gates the most sensitive content; **accessibility** — colour is never the only
+- **School-Comfort** gates the most sensitive content; **accessibility**: colour is never the only
   signal, every action has a button equivalent, audio-first for early readers.
-- **Content is data, never hard-coded** — every game's scenarios/facts live in `src/content/`.
+- **Content is data, never hard-coded**: every game's scenarios/facts live in `src/content/`.
 
 ## Develop & deploy
 
@@ -73,7 +73,7 @@ Deployed to Vercel (`vercel deploy --prod`).
 
 ## Docs
 
-The single source of truth is the **[Praxis knowledge base](https://github.com/priyanshuj0410-code/praxis-engine/tree/main/knowledge)** —
+The single source of truth is the **[Praxis knowledge base](https://github.com/priyanshuj0410-code/praxis-engine/tree/main/knowledge)**
 start at [`knowledge/index.md`](https://github.com/priyanshuj0410-code/praxis-engine/blob/main/knowledge/index.md):
 
 - the **[games catalog](https://github.com/priyanshuj0410-code/praxis-engine/blob/main/knowledge/games/index.md)** with a doc per game,

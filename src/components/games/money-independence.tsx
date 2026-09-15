@@ -1,6 +1,6 @@
 "use client";
 
-// Money & Independence (node g48, ages 18–22, Chapter 6) — NEW v2 build to GDD 48 (mechanic-embodying), the
+// Money & Independence (node g48, ages 18-22, Chapter 6): NEW v2 build to GDD 48 (mechanic-embodying), the
 // College stand-on-your-own-feet node (Thread C, Work & Money), reworking the old ModesEngine build onto the
 // shared v2 engine: its researched typed library + config (content/games/money-independence.ts) render the play
 // actions (branch · sort · strike-rewrite · reflect · match · role-play · spot), led by branch + sort +

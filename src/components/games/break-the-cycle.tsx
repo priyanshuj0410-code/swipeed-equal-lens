@@ -1,8 +1,8 @@
 "use client";
 
-// Break the Cycle (node g65, Parent Layer, Chapter 8) — NEW v2 build to GDD 65 (mechanic-embodying), the EMOTIONAL
+// Break the Cycle (node g65, Parent Layer, Chapter 8): NEW v2 build to GDD 65 (mechanic-embodying), the EMOTIONAL
 // CORE of the Parent Layer and the deepest Unlearn->Relearn beat in the app: we parent the way we were parented,
-// until we choose not to. FIRMLY NON-SHAMING — busts the practice, never the parent. Runs on the shared v2 engine:
+// until we choose not to. FIRMLY NON-SHAMING: busts the practice, never the parent. Runs on the shared v2 engine:
 // its researched typed library + config (content/games/break-the-cycle.ts) render the play actions (strike-rewrite
 // · branch · reflect · role-play · sort · match · spot), led by strike-rewrite + branch + reflect. Six modes: how
 // you were raised (keep the good, leave the harmful; inheritance isn't destiny), discipline differently (firm AND

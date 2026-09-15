@@ -73,7 +73,7 @@ export function Loadout({
 
   const card = (
     <div className="glass-card w-full max-w-sm p-5 backdrop-blur-[14px] backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
-        {/* Step 1 — Mode */}
+        {/* Step 1: Mode */}
         {step === 1 && (
           <>
             {head("Play")}
@@ -98,7 +98,7 @@ export function Loadout({
           </>
         )}
 
-        {/* Step 2 — pick a story */}
+        {/* Step 2: pick a story */}
         {step === 2 && (
           <>
             {head("Story", () => setStep(1))}
@@ -131,7 +131,7 @@ export function Loadout({
           </>
         )}
 
-        {/* Step 3 — pick powers */}
+        {/* Step 3: pick powers */}
         {step === 3 && (
           <>
             {head(`Powers ${perks.length}/${LOADOUT.max}`, () => setStep(2))}
@@ -146,7 +146,7 @@ export function Loadout({
                     type="button"
                     onClick={() => unlocked && togglePerk(p.id)}
                     disabled={full || !unlocked}
-                    title={unlocked ? p.effect : `Locked — ${p.unlock}`}
+                    title={unlocked ? p.effect : `Locked: ${p.unlock}`}
                     className="glass-pill flex items-center gap-2 rounded-2xl px-3 py-3 text-left backdrop-blur-md transition-transform active:scale-[0.97] disabled:opacity-40"
                     style={on ? { borderColor: "var(--color-brand)", boxShadow: "inset 0 0 0 1px var(--color-brand)" } : undefined}
                     aria-pressed={on}

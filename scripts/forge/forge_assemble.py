@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""forge_assemble.py — merge a validated NDJSON batch into <game>.ts, atomically.
+"""forge_assemble.py: merge a validated NDJSON batch into <game>.ts, atomically.
 
 New scenarios are inserted before the SCENARIOS array's closing `];`; a legacy RESHAPE (an id on the plan's reshape
 worklist) replaces that line in place, keeping its type and category. Pipeline sidecar keys (_evidence, _anchor,

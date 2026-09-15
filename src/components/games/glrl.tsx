@@ -1,9 +1,9 @@
 "use client";
 
-// Green Light / Red Light (node g24, ages 12–15, Chapter 4) — NEW v2 build to GDD 24 (mechanic-embodying). THE
+// Green Light / Red Light (node g24, ages 12-15, Chapter 4): NEW v2 build to GDD 24 (mechanic-embodying). THE
 // TEEN FLAGSHIP and namesake swipe game (relationships & consent), run on the shared v2 engine: its researched
-// typed library + config (content/games/glrl.ts) render the play actions — LED BY THE SIGNATURE SWIPE verb
-// (read a relationship cue, swipe it green-flag / red-flag) — plus branch · strike-rewrite · role-play · sort ·
+// typed library + config (content/games/glrl.ts) render the play actions: LED BY THE SIGNATURE SWIPE verb
+// (read a relationship cue, swipe it green-flag / red-flag): plus branch · strike-rewrite · role-play · sort ·
 // reflect · spot. Green/red flag reading (One Love) + the FRIES consent model across friendships, family and
 // romantic. Safeguarding: a crossed line is NEVER your fault; serious red flags / coercion route to a trusted
 // adult or Childline 1098/112; leaving what harms you is strength. School-comfort, non-explicit. GATED at the

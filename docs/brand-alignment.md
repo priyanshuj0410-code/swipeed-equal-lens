@@ -1,36 +1,36 @@
-# SwipeEd × The Equal Lens — Brand-Alignment Design-of-Record
+# SwipeEd × The Equal Lens: Brand-Alignment Design-of-Record
 
 > **This repo is the isolated re-skin.** It is a clone of the live SwipeEd game (`/Users/priyanshu/swipeed`),
 > set up so the brand re-skin can be built **without touching the live game**. The clone's git remote was
 > renamed `origin` → `upstream`, so nothing here can accidentally push to live SwipeEd. When a phase is
 > proven, it can be cherry-picked / merged back upstream deliberately.
 >
-> Source brand spec: *The Equal Lens — Brand & Product Guidelines v2.1* (June 2026).
+> Source brand spec: *The Equal Lens, Brand & Product Guidelines v2.1* (June 2026).
 > Companion inventory: the live repo's `knowledge/games/world-art-tokens.md` (every artefact that defines
-> the world's look). Scoping only at this stage — see the build order for what ships when.
+> the world's look). Scoping only at this stage: see the build order for what ships when.
 
 ## 1. The idea (why this is mostly execution, not invention)
-SwipeEd is **already The Equal Lens in concept** — the brand thesis *is* our pedagogy:
+SwipeEd is **already The Equal Lens in concept**: the brand thesis *is* our pedagogy:
 - **"Unlearn. Relearn. Grow."** = our `swipeed-core-principle`. ✅
 - **UN (eraser) + RE (pencil)**, traits Aware/Curious/Brave + Empathy/Creative/Hopeful = our `un-re.tsx`
   (already an eraser + pencil). ✅
 - *"Bias is learned, so it can be unlearned" through play* = our whole catalogue. ✅
-- The brand even states **"Tokens live in `src/app/globals.css`"** and references `/public/` art — it was
+- The brand even states **"Tokens live in `src/app/globals.css`"** and references `/public/` art: it was
   written for this stack.
 
 So the gap is **visual execution + the mascot**, not concept.
 
 ## 2. Decisions taken
-- **Mascot — re-skin Sam toward Lensy (not replace).** Keep Sam's role (the companion who *grows up with
+- **Mascot: re-skin Sam toward Lensy (not replace).** Keep Sam's role (the companion who *grows up with
   the player*, small → grown), but **redraw Sam in Lensy's visual language**: purple alien, **eyes built
   from the eQ mark**, sticker outline, childlike proportions. Same family as Lensy without being literally
   Lensy. UN & RE restyle to **Insight-teal (UN) / Grow-coral (RE)** character forms.
-- **Aesthetic — full sticker re-skin.** Replace **glassmorphism** with the brand's **sticker/cut-out**
+- **Aesthetic: full sticker re-skin.** Replace **glassmorphism** with the brand's **sticker/cut-out**
   surface language (chunky Ink outline + hard offset shadow, flat fills), the **doodle set**, and
   **dotted-paper** texture, across all games. The 3D world is **kept and tinted** to the brand palette (the
   sticker language is the 2D/UI layer; the world adopts brand colour + the Lensy-family companion).
 
-## 3. The token map (Phase 1 — the foundation)
+## 3. The token map (Phase 1: the foundation)
 Brand ships as **named CSS tokens** in `src/app/globals.css`; dark values under `[data-audience="adult"]`.
 Re-map our tokens to the brand's exact names + hexes, **keeping back-compat aliases** so existing component
 classes keep working during the transition.
@@ -38,22 +38,22 @@ classes keep working during the transition.
 | Brand token | Light (Kids) | Dark (Adult) | Role | Replaces (current) |
 |---|---|---|---|---|
 | `--color-brand` | `#553286` | `#C9B8E6` | Primary violet | `--brand-500` / `--primary` |
-| `--color-brandsoft` | `#7F65A4` | `#B3A4D6` | Muted violet | — |
+| `--color-brandsoft` | `#7F65A4` | `#B3A4D6` | Muted violet | none |
 | `--color-paper` | `#FBF9FF` | `#15101F` | Page background | `--background` / `--app-bg` |
 | `--color-surface` | `#FFFFFF` | `#221A30` | Cards / notes | `--card` |
 | `--color-mist` | `#E7E0F1` | `#3A2E4D` | Lines / hover | `--border` / hover |
 | `--color-ink` | `#221436` | `#F1ECFA` | Text & outlines | `--foreground` |
-| `--color-band` | `#553286` | `#241B38` | Footer / CTA band | — |
-| `--dot` | `#ECE6F6` | `#2A2140` | Dotted-paper texture | — |
+| `--color-band` | `#553286` | `#241B38` | Footer / CTA band | none |
+| `--dot` | `#ECE6F6` | `#2A2140` | Dotted-paper texture | none |
 | `--color-insight` | `#2DD4BF` | (same) | Teal · **Unlearn** | `--flag-green` (see §6) |
 | `--color-grow` | `#FF7A5C` | (same) | Coral · **Relearn** | `--flag-red` (see §6) |
 | `--color-sun` | `#FFC94D` | (same) | Yellow · **CTA / highlight** | `--accent-amber` / `--flame` |
-| `--color-sky` | `#4FB0E8` | (same) | Blue · support | — (new) |
-| Violet scale | `50 #F3F0F6 … 600 #553286 … 900 #221436` | — | tints/shades | — |
+| `--color-sky` | `#4FB0E8` | (same) | Blue · support |: (new) |
+| Violet scale | `50 #F3F0F6 … 600 #553286 … 900 #221436` | none | tints/shades | none |
 
 **Type:** **Baloo 2** → `--font-hand` (headlines, mascots, Lensy speech; 600/700/800) · **Poppins** →
 `--font-display` (wordmark + UI labels; 500/600) · **Nunito Sans** → `--font-body` (400/600/700). All free
-on Google Fonts. *(Today: Fredoka display + Nunito body — swap Fredoka→Baloo 2, add Poppins, Nunito→Nunito
+on Google Fonts. *(Today: Fredoka display + Nunito body, swap Fredoka→Baloo 2, add Poppins, Nunito→Nunito
 Sans.)*
 
 **Dark theme:** move from the `.dark` class to **`[data-audience="adult"]`** (brand mechanism). Sun CTA
@@ -67,37 +67,37 @@ metaphor survives; theme changes cross-fade **320ms**.
   routes through these two classes, so this flips the whole app centrally), then sweep inline glass styles.
 - **CTA:** Sun yellow fill + Ink text.
 - **Doodle set:** 8 hand-drawn marks (squiggle, sparkle, arrow, heart, star, spiral, zigzag, swirl) in
-  accent colours — **easter-egg texture, never functional icons**.
+  accent colours: **easter-egg texture, never functional icons**.
 - **Dotted-paper** background via `--dot`.
 
 ## 5. Motion tokens (Phase 3)
 `anim-float` (9px rise/fall, 5s · doodles/hero) · `anim-wobble` (±4°, 4.5s · stars/badges) · `anim-bob`
 (bob+tilt, 5.5s · mascots) · `anim-pop` (spring scale-in, 0.5s · notes & Lensy appearing) · `hover-pop`
 (lift + 1.5° tilt · cards/buttons). 320ms theme cross-fade. **All disabled under `prefers-reduced-motion`**
-(we already honour it) — motion is seasoning, never load-bearing.
+(we already honour it): motion is seasoning, never load-bearing.
 
-## 6. Open decisions (settle before Phases 4–6)
-1. **GLRL green/red flags** — keep as **gameplay-semantic** (healthy/unhealthy), or fold into
+## 6. Open decisions (settle before Phases 4-6)
+1. **GLRL green/red flags**: keep as **gameplay-semantic** (healthy/unhealthy), or fold into
    Insight-teal / Grow-coral? *Recommend: keep semantic; just ensure they harmonise.* (Brand's teal/coral
    carry the Unlearn/Relearn meaning, which is a *different* axis from GLRL's flag judgement.)
-2. **Thread colours (7: A–G)** — keep as a distinct functional taxonomy, or re-tune into the 4-accent brand
+2. **Thread colours (7: A, G)**, keep as a distinct functional taxonomy, or re-tune into the 4-accent brand
    family? *Recommend: keep, re-tuned to sit in-family with the violet.*
-3. **Product naming** — "SwipeEd", "The Equal Lens", or *SwipeEd by The Equal Lens*? Drives the wordmark,
+3. **Product naming**: "SwipeEd", "The Equal Lens", or *SwipeEd by The Equal Lens*? Drives the wordmark,
    app icon, and browser-tab title.
-4. **Adult/dark mode** — the game is ages 3–18 (all "Kids mode"); the brand's Adult-dark + "How do you
+4. **Adult/dark mode**: the game is ages 3-18 (all "Kids mode"); the brand's Adult-dark + "How do you
    identify today?" modal reads as **website scope**. *Recommend: the game stays Kids-light by default and
    only adopts the `[data-audience]` **mechanism**; full Adult mode is the marketing site, not the game.*
-5. **3D world** — confirmed **kept + tinted**, not flattened.
+5. **3D world**: confirmed **kept + tinted**, not flattened.
 
 ## 7. Build order (phased; one branch per phase in THIS repo)
 | Phase | Scope | Effort |
 |---|---|---|
-| **0 — design-of-record** *(this doc)* | the map, decisions, token spec, build order | 🟢 done |
-| **1 — token + type foundation** | re-map `globals.css` to brand tokens (back-compat aliases) + fonts (Baloo 2 / Poppins / Nunito Sans) + `[data-audience]` dark | ✅ **shipped** |
-| **2 — sticker UI kit** | redefine `.glass-card`/`.glass-pill` as sticker surfaces + dotted paper; sweep glass text/CTA/pip colours | ✅ **shipped** (doodle set + CTA cut-out outline deferred to a polish pass) |
-| **3 — motion tokens** | `anim-*` + `hover-pop` + 320ms cross-fade | ✅ **shipped** (Sam→`anim-bob`, pills→`hover-pop`; `anim-float/wobble/pop` available, wired broadly with doodles/Lensy later) |
-| **4 — logo / icon / wordmark** | eQ mark; lockup "SwipeEd by The Equal Lens"; `manifest.ts`, icons, splash | ✅ **shipped** — official eQ mark wired (`/brand/logo/primary.svg`); PNG icons regenerated from the official `icon.svg`; no shadow on the mark |
-| **5 — Sam → Lensy (2D)** | `sam.tsx` renders **Lensy** (official poses, `pose` prop, size ramp + `anim-bob`, no shadow); **UN & RE** now use the official `/brand/un.svg` (Insight-teal) + `/brand/re.svg` (Grow-coral) characters with teal/coral labels (shared `UnReBeat`, so every game's myth-bust updates) | ✅ **shipped** |
+| **0: design-of-record** *(this doc)* | the map, decisions, token spec, build order | 🟢 done |
+| **1: token + type foundation** | re-map `globals.css` to brand tokens (back-compat aliases) + fonts (Baloo 2 / Poppins / Nunito Sans) + `[data-audience]` dark | ✅ **shipped** |
+| **2: sticker UI kit** | redefine `.glass-card`/`.glass-pill` as sticker surfaces + dotted paper; sweep glass text/CTA/pip colours | ✅ **shipped** (doodle set + CTA cut-out outline deferred to a polish pass) |
+| **3: motion tokens** | `anim-*` + `hover-pop` + 320ms cross-fade | ✅ **shipped** (Sam→`anim-bob`, pills→`hover-pop`; `anim-float/wobble/pop` available, wired broadly with doodles/Lensy later) |
+| **4: logo / icon / wordmark** | eQ mark; lockup "SwipeEd by The Equal Lens"; `manifest.ts`, icons, splash | ✅ **shipped**, official eQ mark wired (`/brand/logo/primary.svg`); PNG icons regenerated from the official `icon.svg`; no shadow on the mark |
+| **5: Sam → Lensy (2D)** | `sam.tsx` renders **Lensy** (official poses, `pose` prop, size ramp + `anim-bob`, no shadow); **UN & RE** now use the official `/brand/un.svg` (Insight-teal) + `/brand/re.svg` (Grow-coral) characters with teal/coral labels (shared `UnReBeat`, so every game's myth-bust updates) | ✅ **shipped** |
 
 ### Brand assets (organized)
 Official Equal Lens art lives under **`public/brand/`**: `logo/` (primary · reversed · mono-black ·
@@ -105,14 +105,14 @@ avatar-violet · avatar-light · icon · source), `lensy/lensy-{wave,stand,think
 `ship/ship-{front,diagonal}.svg`, and `un.svg` / `re.svg`. The `Logo` uses `logo/primary.svg`; PNG
 app-icons are rendered from `logo/icon.svg`; `Sam` renders `lensy/lensy-<pose>.svg`. Ship + un/re are
 available for hero moments and the UN & RE character restyle.
-| **6 — the world → canvas-skinned 3D** | **keep the R3F 3D world** (camera travel, path, seasons, nodes, Sam) and **re-skin every surface hand-drawn on paper**: canvas ground with tree doodles, canvas sky with cloud doodles, the path inked onto the ground. Runtime `CanvasTexture`s; behind `?world=canvas`, realistic stays default. *(The earlier "flat 2.5D DOM canvas that replaces 3D" idea was scrapped.)* **Design-of-record: `docs/world-canvas.md`.** | 🛠️ v1 built (behind flag) |
-| **7 — interactive canvas** | a drawable trail + UN/RE-erasable "myth" stickers in the world — the brand's "whole site is a canvas" move (the world teaches, not just decorates) | 🔭 future |
+| **6: the world → canvas-skinned 3D** | **keep the R3F 3D world** (camera travel, path, seasons, nodes, Sam) and **re-skin every surface hand-drawn on paper**: canvas ground with tree doodles, canvas sky with cloud doodles, the path inked onto the ground. Runtime `CanvasTexture`s; behind `?world=canvas`, realistic stays default. *(The earlier "flat 2.5D DOM canvas that replaces 3D" idea was scrapped.)* **Design-of-record: `docs/world-canvas.md`.** | 🛠️ v1 built (behind flag) |
+| **7: interactive canvas** | a drawable trail + UN/RE-erasable "myth" stickers in the world, the brand's "whole site is a canvas" move (the world teaches, not just decorates) | 🔭 future |
 
 **Cheapest, do-first:** Phase 1 (central, low-risk, makes the whole app *read* as Equal Lens at once).
-**Expensive tail:** Phases 5–6 (Sam art + the 3D model swap).
+**Expensive tail:** Phases 5-6 (Sam art + the 3D model swap).
 
 ## 8. How this rejoins live SwipeEd
 Each phase is a branch here; when proven (build clean + visually right), it's cherry-picked or merged
-**upstream** into the live repo deliberately, phase by phase — so the live game only changes when a phase is
+**upstream** into the live repo deliberately, phase by phase: so the live game only changes when a phase is
 ready. Nothing here auto-propagates. Keep the live repo's `knowledge/` KB updated when a phase lands
 upstream (per `AGENTS.md`).

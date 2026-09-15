@@ -1,6 +1,6 @@
 // Warmly thread the learner's name (captured at onboarding) into mascot copy. A name + "!" is a safe
 // vocative before any sentence, so "Aanya! Welcome to the Body Lab!" reads naturally regardless of how the
-// line starts. An empty/missing name leaves the copy untouched — nothing is ever "Hi !".
+// line starts. An empty/missing name leaves the copy untouched: nothing is ever "Hi !".
 
 // First name, capitalised (handles a lowercase or multi-word entry like "aanya rao" → "Aanya").
 export function firstName(name: string | undefined): string {

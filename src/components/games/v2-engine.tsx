@@ -17,29 +17,29 @@ import { usePointerDrag, hitTestZone } from "@/components/games/interactions";
 import { prefersReducedMotion } from "@/lib/juice";
 import { shuffle, byCat, type Scenario, type V2GameConfig } from "@/content/games/v2-schema";
 
-// The shared v2 "mechanic-embodying" engine — renders any game's typed scenario library as the micro-loop
+// The shared v2 "mechanic-embodying" engine: renders any game's typed scenario library as the micro-loop
 // (Hook → Play → Reassure → Sticker), with one bespoke interaction per mechanic so the lesson IS the verb,
 // never a binary tap. No hard fail (a wrong move gets a warm nudge); audio-first; Calm Mode drives
 // prefersReducedMotion; a help route on every screen; optional grown-up co-play. Used by g01, g02, …
 
-// Bin tinting. Colour is NEVER the only signal — every bin shows its word plus a symbol cue.
+// Bin tinting. Colour is NEVER the only signal: every bin shows its word plus a symbol cue.
 //
 // A bin's meaning comes from its DECLARED `valence`, never from its prose. This previously fell back to a
-// ~152-alternative English regex over the label, which meant a bin's colour — and therefore the visual
-// answer key — was a function of author wording, and silently wrong in any non-English locale. All 8,676
+// ~152-alternative English regex over the label, which meant a bin's colour: and therefore the visual
+// answer key: was a function of author wording, and silently wrong in any non-English locale. All 8,676
 // bins in the catalog now declare a valence, so that regex is deleted rather than kept as a fallback:
 // an undeclared bin gets a NEUTRAL position colour and asserts nothing, instead of being guessed at.
 // See knowledge/architecture/creator-identity.md.
 // Non-semantic position wheel. SIX slots, because six sorts in the catalog have 5-6 bins and the old
 // 4-slot ring made bins 5-6 render identically to 1-2. None of these is the pos/neg/tell/uhoh hue, so an
-// undeclared bin can never be mistaken for a declared one — the old slots 3 and 4 were byte-identical to
+// undeclared bin can never be mistaken for a declared one: the old slots 3 and 4 were byte-identical to
 // VALENCE_STYLE.pos and .tell, which made "neutral asserts nothing" false as implemented.
 const NEUTRAL_BINS = [
   { emoji: "🔵", tint: "var(--prx-slot-1)" }, { emoji: "🟣", tint: "var(--prx-slot-2)" },
   { emoji: "🟠", tint: "var(--prx-slot-3)" }, { emoji: "🔶", tint: "var(--prx-slot-4)" },
   { emoji: "🟤", tint: "var(--prx-slot-5)" }, { emoji: "⬛", tint: "var(--prx-slot-6)" },
 ];
-// Explicit-valence palette — used when a bin DECLARES its meaning (new content), so the engine never guesses.
+// Explicit-valence palette: used when a bin DECLARES its meaning (new content), so the engine never guesses.
 const VALENCE_STYLE: Record<string, { emoji: string; tint: string }> = {
   pos: { emoji: "💚", tint: "var(--prx-pos)" }, neg: { emoji: "🛑", tint: "var(--prx-neg)" },
   tell: { emoji: "🗣️", tint: "var(--prx-tell)" }, uhoh: { emoji: "😬", tint: "var(--prx-uhoh)" },
@@ -48,7 +48,7 @@ const VALENCE_STYLE: Record<string, { emoji: string; tint: string }> = {
 // position-based neutral palette so a non-reader always has a per-bin colour + emoji cue.
 // exported so the shared rich-capstone engine renders its sort dropzones with the SAME valence tinting.
 // A bin's explicit `valence` wins (pos/neg/tell/uhoh, or neutral→position colour); a bin WITHOUT one gets a
-// neutral position colour — the engine never infers meaning from the label.
+// neutral position colour: the engine never infers meaning from the label.
 export function binStyles(bins: { label: string; valence?: string }[]): { emoji: string; tint: string }[] {
   const s = bins.map((b, i) => (b.valence && b.valence !== "neutral" ? (VALENCE_STYLE[b.valence] ?? NEUTRAL_BINS[i % NEUTRAL_BINS.length]) : NEUTRAL_BINS[i % NEUTRAL_BINS.length]));
   return new Set(s.map((x) => x.tint)).size < bins.length ? bins.map((_, i) => NEUTRAL_BINS[i % NEUTRAL_BINS.length]) : s;
@@ -68,7 +68,7 @@ const findLine = (find: string): string => { const f = find.trim(), line = /^[A-
 // shuffle() is memoryless, so with a shallow bank the same beats resurface session to session. We keep a small
 // per-game "recently served" id ring in localStorage and draw FRESH (unseen) beats first, falling back to seen
 // ones only once the unseen pool is exhausted. The ring caps at ~60% of the bank, so a beat won't recur until
-// you've moved well past it — replays feel new without ever starving a category.
+// you've moved well past it: replays feel new without ever starving a category.
 const SEEN_KEY = (gid: string) => `swipeed:seen:${gid}`;
 const loadSeen = (gid: string): string[] => { try { return JSON.parse(localStorage.getItem(SEEN_KEY(gid)) || "[]"); } catch { return []; } };
 const recordSeen = (gid: string, served: Scenario[], bank: number) => {
@@ -91,7 +91,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const [qi, setQi] = useState(0);
   const [phase, setPhase] = useState<"play" | "resolve">("play");
   // a branch resolve (the picked option's consequence) shown by the engine so its Next is bottom-pinned like every
-  // other mechanic — BranchPlay no longer renders its own inline Next.
+  // other mechanic: BranchPlay no longer renders its own inline Next.
   const [branchResolve, setBranchResolve] = useState<{ text: string; best: boolean } | null>(null);
   const [stickers, setStickers] = useState<Set<string>>(new Set()); // category ids earned
   const [bubble, setBubble] = useState(() => cleanLine(greet));
@@ -103,11 +103,11 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const nextRef = useRef<HTMLButtonElement>(null);
   const [muted, setMuted] = useState(false);
   // Calm Mode (reduce motion/confetti) is controlled in app Settings + auto-honoured from OS prefers-reduced-
-  // motion via prefersReducedMotion() — no in-game toggle needed (it just cluttered the bar).
+  // motion via prefersReducedMotion(): no in-game toggle needed (it just cluttered the bar).
   const { profile, ready } = useProfile();
-  // warm, personalised opener — "Aanya! <greet>" once the name has hydrated (empty name → unchanged)
+  // warm, personalised opener: "Aanya! <greet>" once the name has hydrated (empty name → unchanged)
   const greeting = useMemo(() => greetWithName(greet, profile.name), [greet, profile.name]);
-  const reduceMotion = prefersReducedMotion(); // calm OR the OS prefers-reduced-motion setting — gates all motion
+  const reduceMotion = prefersReducedMotion(); // calm OR the OS prefers-reduced-motion setting: gates all motion
   const sc = queue[qi];
 
   // say() speaks `t`; `shown` replaces what the feedback line displays ("" when a card already shows the line).
@@ -116,7 +116,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     setBubble(visible); setHeard(visible === line ? "" : line); speak(line, { muted });
   }, [muted]);
 
-  // greet once — but wait for the profile (name) to hydrate so the opener can be personalised
+  // greet once: but wait for the profile (name) to hydrate so the opener can be personalised
   const greetedRef = useRef(false);
   useEffect(() => {
     if (greetedRef.current || !ready) return;
@@ -137,7 +137,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const resolveLine = (s: Scenario): string =>
     s.type === "reflect" ? s.affirm : s.type === "branch" ? s.debrief : s.type === "strike-rewrite" ? `${s.myth.re} ${s.myth.why}` : s.type === "explore-label" ? s.reveal : s.type === "spot" ? s.why : s.relearn;
   // A beat is a "safety" beat (gets the "never your fault" reassurance + the help pill) if its category is
-  // listed OR it's a branch with an escape-and-tell best choice (outcome:"safe") — so grooming/unsafe-touch
+  // listed OR it's a branch with an escape-and-tell best choice (outcome:"safe"), so grooming/unsafe-touch
   // beats that live in other categories (e.g. consent-stop) still surface the reassurance.
   const isSafetyBeat = (s: Scenario): boolean =>
     reassureCats.includes(s.cat) || (s.type === "branch" && s.options.some((o) => o.outcome === "safe"));
@@ -175,7 +175,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     if (view === "play" && phase === "resolve") nextRef.current?.focus({ preventScroll: true });
   }, [view, phase, qi]);
 
-  // Rotation: one beat per category, drawn UNSEEN-first (anti-repeat) — not just shuffled. Picking by natural
+  // Rotation: one beat per category, drawn UNSEEN-first (anti-repeat), not just shuffled. Picking by natural
   // frequency (not forced mechanic variety) keeps beats representative of each category's real mix; the seen-ring
   // keeps them from recurring until you've moved well past them.
   const startRotate = () => {
@@ -184,7 +184,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     recordSeen(gameId, q, scenarios.length);
     setQueue(q); setQi(0); setView("play"); present(q[0]);
   };
-  // One category, SIX beats — six distinct scenarios drawn unseen-first from the category (no forced mechanic
+  // One category, SIX beats: six distinct scenarios drawn unseen-first from the category (no forced mechanic
   // variety, so beats reflect the category's real mix). Six gives a substantial sub-topic session and, with the
   // deepened bank, a fresh set most replays.
   const startCat = (catId: string) => {
@@ -213,8 +213,8 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const next = () => {
     const ni = qi + 1;
     if (ni < queue.length) { setQi(ni); present(queue[ni]); return; }
-    // Transition immediately — do NOT gate the only path to "done" on a speech onEnd callback (which a
-    // muted/3–6-y/o tap could swallow). GameDone mounts on the done screen and the badge narrates there.
+    // Transition immediately: do NOT gate the only path to "done" on a speech onEnd callback (which a
+    // muted/3-6-y/o tap could swallow). GameDone mounts on the done screen and the badge narrates there.
     if (stickers.size >= categories.length) { setView("done"); celebrate("big"); say(badge.blurb); }
     else { setView("home"); say("What shall we play?"); }
   };
@@ -263,7 +263,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
       ))}
     </div>
   );
-  // Home is a quiet, tertiary text button — not a card.
+  // Home is a quiet, tertiary text button: not a card.
   const HomeBtn = (
     <button type="button" onClick={() => { setView("home"); say("What shall we play?"); }} className="mx-auto mt-1 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-foreground/50 transition-colors hover:text-foreground active:scale-95">
       <Home className="size-3.5" aria-hidden /> Home
@@ -294,7 +294,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 
         {/* ---- MIDDLE (grows; holds the view, top-aligned right under Lensy) ---- */}
         <div className="flex flex-1 flex-col justify-start gap-4 py-1">
-          {/* HOME — pick a topic (the "Play with Lensy" CTA is pinned at the bottom) */}
+          {/* HOME: pick a topic (the "Play with Lensy" CTA is pinned at the bottom) */}
           {view === "home" && (
             <div className="grid grid-cols-2 gap-2.5">
               {categories.map((c) => (
@@ -370,7 +370,7 @@ function Play({ sc, onSolved, say, reduceMotion, buildLabels, mythCard }: { sc: 
     case "explore-label": return <ExploreLabelPlay sc={sc} onSolved={onSolved} say={say} />;
     case "spot": return <SpotPlay sc={sc} onSolved={onSolved} say={say} />;
     case "swipe": return <SwipePlay sc={sc} onSolved={onSolved} say={say} reduceMotion={reduceMotion} />;
-    // Exhaustiveness guard — adding an 11th V2Mechanic without a case here used to compile clean
+    // Exhaustiveness guard: adding an 11th V2Mechanic without a case here used to compile clean
     // (strict is on, but noImplicitReturns is not), render nothing, and never call onSolved: the beat
     // had no fail state, so the player was simply stuck. Now it is a compile error at the point of change.
     default: { const _exhaustive: never = sc; return _exhaustive; }
@@ -399,8 +399,8 @@ function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
   );
 }
 
-// reflect — every option is affirming; tap any (no wrong answer). The chosen option is echoed back by name on
-// resolve (affect-labelling). Tap IS the right verb here — a drag would add ceremony and hurt the 3–6 band.
+// reflect: every option is affirming; tap any (no wrong answer). The chosen option is echoed back by name on
+// resolve (affect-labelling). Tap IS the right verb here: a drag would add ceremony and hurt the 3-6 band.
 function ReflectPlay({ sc, onSolved }: { sc: Extract<Scenario, { type: "reflect" }>; onSolved: (picked?: string) => void }) {
   return (
     <div className="grid grid-cols-1 gap-2.5">
@@ -467,10 +467,10 @@ function ChoosePlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "choo
   );
 }
 
-// role-play (voice) — equal-weight, SHUFFLED speech cards: the child must read and choose the assertive line
-// (no more "tap the biggest green shape" tell — that was a binary tap the schema forbids). Tap a card = say it;
+// role-play (voice): equal-weight, SHUFFLED speech cards: the child must read and choose the assertive line
+// (no more "tap the biggest green shape" tell: that was a binary tap the schema forbids). Tap a card = say it;
 // the assertive line advances, a passive line speaks and warmly re-opens (no fail). The success haptic now fires
-// once (in solve()) — the renderer no longer double-buzzes. Every card carries 🗣️ so the "voice" motif holds.
+// once (in solve()): the renderer no longer double-buzzes. Every card carries 🗣️ so the "voice" motif holds.
 function RolePlayPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "role-play" }>; onSolved: () => void; say: (t: string) => void }) {
   const [lines] = useState(() => shuffle(sc.yourLine));
   const choose = (l: { text: string; best?: boolean }) => {
@@ -488,10 +488,10 @@ function RolePlayPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "ro
   );
 }
 
-// strike-rewrite — the myth is now VISIBLE and physically erasable (it used to act on nothing). Scrub a finger
+// strike-rewrite: the myth is now VISIBLE and physically erasable (it used to act on nothing). Scrub a finger
 // back-and-forth across the myth card; it fades/blurs as you scrub, and past a forgiving threshold the UN→RE
 // truth resolves. Back-and-forth scrub is one of the easiest gestures for tiny hands (finger-painting). Keyboard
-// / screen-reader: the card is a focusable button — Enter/Space rubs it out in one go. Reduced motion → instant.
+// / screen-reader: the card is a focusable button, Enter/Space rubs it out in one go. Reduced motion → instant.
 function StrikePlay({ sc, onSolved, reduceMotion }: { sc: Extract<Scenario, { type: "strike-rewrite" }>; onSolved: () => void; reduceMotion: boolean }) {
   const [progress, setProgress] = useState(0);
   const doneRef = useRef(false);
@@ -531,10 +531,10 @@ function MythCardPlay({ sc, side, onSolved, say, reduceMotion }: { sc: Extract<S
   );
 }
 
-// branch — pick a choice; HEAR + see its consequence; the safe (best) choice leads on, others gently
+// branch: pick a choice; HEAR + see its consequence; the safe (best) choice leads on, others gently
 // redirect. If a scenario has no `best` at all, any pick advances (never a soft-lock).
 function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "branch" }>; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string, shown?: string) => void }) {
-  const [opts] = useState(() => shuffle(sc.options)); // best is authored at index 0 — shuffle so there's no "tap the top" tell
+  const [opts] = useState(() => shuffle(sc.options)); // best is authored at index 0: shuffle so there's no "tap the top" tell
   // a non-advancing pick on a "find the best" branch shows the consequence + a re-pick (stays in play); an
   // advancing pick hands off to the engine so the consequence + Next render in the standard (bottom-pinned) resolve.
   const [repick, setRepick] = useState<number | null>(null);
@@ -563,13 +563,13 @@ function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "bran
   );
 }
 
-// sort — DRAG a chip into its bin (the bin under the finger highlights; release snaps it in). Tap-to-arm then
-// tap-a-bin is kept verbatim as the fallback — it IS the keyboard / screen-reader / ages-3–6 path (chips & bins
+// sort: DRAG a chip into its bin (the bin under the finger highlights; release snaps it in). Tap-to-arm then
+// tap-a-bin is kept verbatim as the fallback: it IS the keyboard / screen-reader / ages-3-6 path (chips & bins
 // are native buttons). A wrong bin springs back + a warm nudge (no fail); colour is never the only signal (each
 // bin keeps its emoji + word). Reduced motion drops the lift/pulse animation, not the function.
 function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, { type: "sort" }>; onSolved: () => void; say: (t: string) => void; reduceMotion: boolean }) {
   const [placed, setPlaced] = useState<Record<string, string>>({});
-  const [order] = useState(() => shuffle(sc.items)); // display order — shuffle so the answer pattern (e.g. up/down/up/down) isn't memorisable across replays
+  const [order] = useState(() => shuffle(sc.items)); // display order: shuffle so the answer pattern (e.g. up/down/up/down) isn't memorisable across replays
   const [binOrder] = useState(() => shuffle(sc.bins)); // zones too, so a zone's place (good on top) is never the answer
   const [sel, setSel] = useState<string | null>(null);
   const [drag, setDrag] = useState<{ id: string; x: number; y: number } | null>(null);
@@ -596,7 +596,7 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
     onTap: () => { dragId.current = null; setDrag(null); setHover(null); }, // arming already happened in onStart
   });
   // Safety net: a pointerup/cancel ANYWHERE clears the floating ghost, even if the chip's own pointerup was missed
-  // (pointer-capture loss, a fast release off-element, or a mid-drag re-render) — otherwise a dragged chip could
+  // (pointer-capture loss, a fast release off-element, or a mid-drag re-render): otherwise a dragged chip could
   // "stick" to the cursor. The chip's own onEnd still runs first (so a valid drop still places), then this clears.
   useEffect(() => {
     const clear = () => { dragId.current = null; setDrag(null); setHover(null); };
@@ -669,10 +669,10 @@ function MatchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "match
   );
 }
 
-// build — DRAG a piece onto the slate (or tap it) to add it. ASSEMBLE: order-free — a key piece seats, a
-// distractor bounces back + a warm nudge (the key is ACTUALLY checked — fixes the old always-wins bug).
+// build (DRAG a piece onto the slate (or tap it) to add it. ASSEMBLE: order-free) a key piece seats, a
+// distractor bounces back + a warm nudge (the key is ACTUALLY checked: fixes the old always-wins bug).
 // SEQUENCE: add in the right order. The "done" confirm needs ALL key pieces (fixes the old min(3) truncation
-// that silently accepted 3 of a 4-piece answer). Tap is the keyboard / ages-3–6 fallback. No-fail throughout.
+// that silently accepted 3 of a 4-piece answer). Tap is the keyboard / ages-3-6 fallback. No-fail throughout.
 function BuildPlay({ sc, onSolved, say, labels, reduceMotion }: { sc: Extract<Scenario, { type: "build" }>; onSolved: () => void; say: (t: string) => void; labels?: { assemble?: string; sequence?: string }; reduceMotion: boolean }) {
   const [chosen, setChosen] = useState<string[]>([]);
   const [display] = useState(() => (sc.mode === "sequence" ? shuffle(sc.pieces) : sc.pieces));
@@ -680,7 +680,7 @@ function BuildPlay({ sc, onSolved, say, labels, reduceMotion }: { sc: Extract<Sc
   const [over, setOver] = useState(false);
   const slate = useRef<HTMLDivElement>(null);
   const dragP = useRef<string | null>(null);
-  const target = sc.key.length; // ALL key pieces (both modes) — no truncation
+  const target = sc.key.length; // ALL key pieces (both modes): no truncation
   const add = (piece: string) => {
     if (chosen.includes(piece)) return;
     if (sc.mode === "sequence") {
@@ -720,8 +720,8 @@ function BuildPlay({ sc, onSolved, say, labels, reduceMotion }: { sc: Extract<Sc
   );
 }
 
-// explore-label — split by payload. ANATOMY beats (the parts are locatable body parts) render a friendly body
-// figure and you tap the part ON the body — the real "find the part" discovery verb; it lights up on the figure.
+// explore-label: split by payload. ANATOMY beats (the parts are locatable body parts) render a friendly body
+// figure and you tap the part ON the body: the real "find the part" discovery verb; it lights up on the figure.
 // ABSTRACT beats (the answer is a concept, not a body part) drop the explore masquerade and become honest
 // "which is true?" option cards (each with a distinct neutral icon). A wrong tap warmly re-asks (no fail). The
 // anatomy/abstract split is detected from content (every part maps to a body region → anatomy), so no schema
@@ -801,7 +801,7 @@ function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type:
   );
 }
 
-// spot — tap the "trick"/red-flag in the scene; the item with trick:true is the answer, and `why` explains it
+// spot: tap the "trick"/red-flag in the scene; the item with trick:true is the answer, and `why` explains it
 // on resolve. A wrong tap warmly re-asks (no fail). The safety squad's signature spot-the-trick verb.
 function SpotPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "spot" }>; onSolved: () => void; say: (t: string) => void }) {
   const [items] = useState(() => shuffle(sc.scene)); // shuffle so the trick slots vary
@@ -809,7 +809,7 @@ function SpotPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "spot" 
   const tricks = sc.scene.filter((s) => s.trick).map((s) => s.id); // a scene can hide MORE THAN ONE red flag
   const done = caught.size >= tricks.length;
   const plural = tricks.length > 1;
-  // Cards start NEUTRAL (🔎) — the flag is the reveal, planted only on a card you catch. When a scene hides
+  // Cards start NEUTRAL (🔎): the flag is the reveal, planted only on a card you catch. When a scene hides
   // several red flags (e.g. 3 truths + 2 lies) you must catch them ALL before the beat resolves (the old engine
   // resolved on the FIRST trick, so extra tricks were unreachable). Wrong tap = warm nudge (no fail).
   const choose = (it: { id: string; text: string; trick: boolean }) => {

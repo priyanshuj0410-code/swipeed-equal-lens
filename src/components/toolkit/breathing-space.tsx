@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
-// Breathing space — a calm full-screen reset, part of Cool-Down and reachable on its own from the Toolkit
+// Breathing space: a calm full-screen reset, part of Cool-Down and reachable on its own from the Toolkit
 // drawer. Paced breathing taught with the classic kid-friendly metaphor: SMELL THE FLOWERS (breathe in, the
 // bloom grows) → BLOW THE CANDLE (breathe out, it shrinks). Light in-game backdrop (matches the rest of the
 // app). Reduced-motion gets a still bloom + the same text cue. No fail, no timer.
@@ -62,7 +62,7 @@ export function BreathingSpace({ onClose }: { onClose: () => void }) {
       </div>
 
       <p className="max-w-xs text-center text-sm text-foreground/70">
-        {big ? "Breathe in slowly through your nose — like smelling a flower." : "Now breathe out slowly — like gently blowing out a candle."}
+        {big ? "Breathe in slowly through your nose, like smelling a flower." : "Now breathe out slowly, like gently blowing out a candle."}
       </p>
     </div>
   );

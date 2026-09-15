@@ -3,7 +3,7 @@
 
 BYTE-SAFE BY CONSTRUCTION. Key order is not uniform across the bank (some lines start {"id",...} and
 others {"type",...}), so a json.loads -> json.dumps round-trip would reorder keys and re-escape strings
-on all 201 lines — burying a changed `answer` in the diff. Instead we splice two keys in textually at a
+on all 201 lines: burying a changed `answer` in the diff. Instead we splice two keys in textually at a
 single anchor and prove the edit was additive by stripping them again and comparing bytes.
 
   --apply    write the change
@@ -36,7 +36,7 @@ def apply():
             if '"type":"swipe"' not in line or '"leftValence"' in line:
                 out.append(line); continue
             # CapSwipeLap ({type:"swipe"; frame; cue; up; celebrate}) shares the type name but has no
-            # left/right/answer — a different shape, correctly out of scope. Skip explicitly and count it,
+            # left/right/answer: a different shape, correctly out of scope. Skip explicitly and count it,
             # so a genuinely malformed v2 swipe can never hide in the same bucket.
             lv, rv = sides(line)
             if lv is None and '"answer"' not in line:
@@ -55,16 +55,16 @@ def apply():
         if dirty:
             open(path, "w", encoding="utf8").write("\n".join(out))
     if missing:
-        print(f"✗ REFUSING — {len(missing)} unmapped/invalid swipe pair(s). Add them to swipe_valence_map.json:")
+        print(f"✗ REFUSING: {len(missing)} unmapped/invalid swipe pair(s). Add them to swipe_valence_map.json:")
         for f, k in missing[:20]:
             print(f"    {f}: {k}")
         sys.exit(1)
     print(f"✓ {changed}/{total} swipe scenarios given a declared side valence"
-          f" ({skipped} capstone swipe-lap lines skipped — different type)")
+          f" ({skipped} capstone swipe-lap lines skipped: different type)")
 
 
 def verify():
-    """Strip the added keys and compare against HEAD — proves the edit added nothing but those two keys."""
+    """Strip the added keys and compare against HEAD: proves the edit added nothing but those two keys."""
     bad = 0
     for path in sorted(glob.glob(os.path.join(GAMES, "*.ts"))):
         # schema files are hand-edited alongside the migration; only the CONTENT banks are asserted
@@ -81,7 +81,7 @@ def verify():
             print(f"    ✗ {rel}: stripping the added keys does NOT reproduce HEAD")
             bad += 1
     if bad:
-        print(f"✗ {bad} file(s) changed beyond the two added keys — an answer key may have moved."); sys.exit(1)
+        print(f"✗ {bad} file(s) changed beyond the two added keys: an answer key may have moved."); sys.exit(1)
     print("✓ inverse-splice byte identity: every file reduces exactly to HEAD; no answer key moved")
 
 

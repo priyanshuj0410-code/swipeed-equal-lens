@@ -1,6 +1,6 @@
 "use client";
 
-// Money, Together (node g58, ages 22+, Chapter 7) — NEW v2 build to GDD 58 (mechanic-embodying), carrying the Work
+// Money, Together (node g58, ages 22+, Chapter 7): NEW v2 build to GDD 58 (mechanic-embodying), carrying the Work
 // & Money domain from Money & Independence (g48) into shared adult life: two incomes, one life. Runs on the shared
 // v2 engine: its researched typed library + config (content/games/money-together.ts) render the play actions
 // (branch · strike-rewrite · sort · reflect · match · spot · role-play), led by branch + strike-rewrite + sort.

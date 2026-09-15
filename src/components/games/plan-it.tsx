@@ -1,6 +1,6 @@
 "use client";
 
-// Plan It (node g22, ages 12–15, Chapter 4) — NEW v2 build to GDD 22 (mechanic-embodying). The fertility +
+// Plan It (node g22, ages 12-15, Chapter 4): NEW v2 build to GDD 22 (mechanic-embodying). The fertility +
 // pregnancy + contraception node (Thread F · SRH), run on the shared v2 engine: its researched typed library +
 // config (content/games/plan-it.ts) render the play actions (strike-rewrite · sort · branch · build · reflect ·
 // role-play · match), led by strike-rewrite (bust the dangerous myth), sort (fact vs myth) and branch (your own

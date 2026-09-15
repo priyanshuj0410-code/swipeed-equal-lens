@@ -333,7 +333,7 @@ function NodeRow({
   return (
     <div className="relative z-10 flex justify-center py-3" style={{ transform: `translateX(${offset}px)` }}>
       {isActive && node.href ? (
-        <Link href={node.href} className="group" aria-label={`${node.title} — start`}>
+        <Link href={node.href} className="group" aria-label={`${node.title}, start`}>
           {bubble}
         </Link>
       ) : (

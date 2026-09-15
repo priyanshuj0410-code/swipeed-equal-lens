@@ -27,7 +27,7 @@ type GState = {
   last: number;
   missed: Card[];
   revealAt: number;
-  done: boolean; // deck finished — show the shared completion card
+  done: boolean; // deck finished: show the shared completion card
 };
 
 const fresh = (deckId: DeckId, cards: Card[], labels: GameLabels): GState => ({
@@ -97,7 +97,7 @@ export function useSwipeGame() {
           sfx("red");
           haptic("tap");
         }
-        // confetti only here — the chime above already played (avoid double via { sound: false })
+        // confetti only here: the chime above already played (avoid double via { sound: false })
         if (isCorrect && !card.is_safeguarding && (card.is_disguised || streak === 5 || streak === 10)) celebrate("small", { sound: false });
         if (timer.current) clearTimeout(timer.current);
         timer.current = setTimeout(() => setG((p) => (p ? { ...p, exiting: null, phase: "reveal", revealAt: Date.now() } : p)), EXIT_MS);
@@ -148,7 +148,7 @@ export function useSwipeGame() {
         }
       : null;
 
-  // completion summary — drives the shared GameDone card when a deck is finished
+  // completion summary: drives the shared GameDone card when a deck is finished
   const result =
     g && g.done
       ? (() => {

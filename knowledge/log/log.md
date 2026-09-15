@@ -20,6 +20,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007  # SWED-71
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d  # SWED-75
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5  # SWED-89
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22  # SWED-92
 ---
 
 # SwipeEd project log
@@ -28,7 +29,23 @@ Newest first. Every change that affects a game, the path, the engine or the ques
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
 
-## 2026-09-15 - design: press, don't float ([SWED-93](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/7c73c697-ebd9-49fe-862f-210febf8f2df))
+## 2026-09-15 · voice: no em or en dashes, anywhere ([SWED-92](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22))
+- **Why.** The owner saw a dash in the Us, After Kids greeting: The Equal Lens never uses them, and the app held
+  5,113. A spaced hyphen is not an acceptable swap.
+- **Content.** 3,056 visible strings in 85 files rewritten by what the dash was doing (two sentences, a comma, a
+  colon, "like", a hyphen for ranges). About 540 first drafts had become comma splices and were redone by hand,
+  including the 69 greetings. 81 chapter-canvas myths and truths and the app's own UI strings rewritten too.
+  Safeguarding lines kept every number and "never your fault"; one peer line that promised privacy while bringing
+  in an adult now just brings in the adult.
+- **Everything else.** Comments, scripts and docs rebuilt with colons, brackets and commas; ranges take a hyphen;
+  code that must match a dash uses an escape (the helpline regex in `common.py`, the node table reader).
+  Log headings now use a middle dot instead of a spaced hyphen.
+- **Gate.** `scripts/no_dashes.py` fails `npm run gates` (so every build) and the pre-commit hook on any em or en
+  dash in a tracked text file, with fixtures in `test_gates.py`. `.read-first/` attestations are skipped.
+- **Docs.** New [writing without dashes](../playbooks/writing-without-dashes.md) playbook; design.md Voice and copy
+  and debt item 10; the question-bank gates table. Content gate, forge_check 69/69, dedup, tsc and build pass.
+
+## 2026-09-15 · design: press, don't float ([SWED-93](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/7c73c697-ebd9-49fe-862f-210febf8f2df))
 - **Why.** The owner, on a game start screen: "The hard shadow is getting too much... everything doesn't need it.
   Rethink!" Every pill, card and panel had a 3 to 6px diagonal ink shadow, which in dark mode became a light lavender
   offset, and the one sun button had none.
@@ -39,7 +56,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   buttons tagged `cta`, inline offset shadows removed from onboarding, the swipe deck and the capstone swipe lap.
 - **Docs.** design.md elevation table, question card and answer card rows. Checked in headless Chrome, both themes.
 
-## 2026-09-15 - research: visual answer options on a zero budget ([SWED-90](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/49cf4efd-6622-4ac8-907c-7c01ccfd0754))
+## 2026-09-15 · research: visual answer options on a zero budget ([SWED-90](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/49cf4efd-6622-4ac8-907c-7c01ccfd0754))
 - **Why.** The owner set the budget for pictures to zero.
 - **Route.** Fluent Emoji (MIT) for feelings and people; FLUX.1 [schnell] (Apache 2.0) run free on the Mac with a
   style model trained on the brand art for actions and scenes; vtracer for SVG; Humaaans and Open Peeps (CC0);
@@ -49,7 +66,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   ARASAAC needs owner sign-off (non-commercial, share-alike, clinical look).
 - **Doc.** A zero-budget section in [research/visual-answer-options-2026-09-15.md](../research/visual-answer-options-2026-09-15.md).
 
-## 2026-09-15 - research: visual answer options for pre-readers ([SWED-89](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5))
+## 2026-09-15 · research: visual answer options for pre-readers ([SWED-89](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5))
 - **Why.** The owner wants options to be visual for children who cannot read yet, so pictures help them read and
   make the games more interesting, for older players too; Runway was suggested.
 - **Findings.** Pictures help understanding but can pull attention away from the printed word, so the word must
@@ -60,7 +77,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - **Doc.** [research/visual-answer-options-2026-09-15.md](../research/visual-answer-options-2026-09-15.md), with a
   proposed picture card, rules for pictures, a pilot plan and owner decisions. Nothing is built yet.
 
-## 2026-09-15 - content: the Choosing & Building pilot ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4), [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007), [SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62), [SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d))
+## 2026-09-15 · content: the Choosing & Building pilot ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4), [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007), [SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62), [SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d))
 - **Why.** Phase 3 of the [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md): the game the
   playtesters played gets the new mechanics and the content fixes first.
 - **Reflects.** 48 lesson and values reflects are now choose questions (six options, two to four fit, a note each).
@@ -73,14 +90,14 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   `forge_dedup.py --verify`, `npm run gates` and `npm run build` pass; choose and reflect beats were played in
   headless Chrome in both palettes.
 
-## 2026-09-15 - forge: the narrator lint also catches persona names ([SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007))
+## 2026-09-15 · forge: the narrator lint also catches persona names ([SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007))
 - **Why.** Choosing & Building had hooks such as "Sneha: relatives push one match hard" that the "Lensy:"/"Sam:"
   rule missed. A general "Name:" rule would also hit labels like "Sort:", "Sound:" and "Spark:".
 - **Rule.** `lints.py` flags a line that opens with the scenario's own `persona` followed by a colon. It found 133
   more lines across the bank (29 in Norm Storm, 20 in Plan It, 18 in Life Ready, 6 in Choosing & Building).
 - **Checks.** Two new lint fixtures (a prefix is caught; the name inside a sentence is not); `npm run gates` passes.
 
-## 2026-09-15 - forge: planned reflect-to-choose conversions ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4))
+## 2026-09-15 · forge: planned reflect-to-choose conversions ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4))
 - **Why.** The pilot turns Choosing & Building's lesson reflects into choose questions through the forge, and a
   reshape could not change a scenario's type (SWED-73), which is right for everything except this conversion.
 - **Rule.** `common.py` `CONVERSIONS` allows one type change, reflect to choose, and only for ids on the plan's
@@ -90,7 +107,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   ids that are not shipped reflects.
 - **Checks.** Four new regrowth fixtures in `test_gates.py`; `npm run gates` passes.
 
-## 2026-09-15 - engine: myth cards, on for Choosing & Building ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543))
+## 2026-09-15 · engine: myth cards, on for Choosing & Building ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543))
 - **Why.** Playtesters said swiping was a better way to bust a myth than scrubbing it out. Phase 3 of the
   [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md) plays strike-rewrite beats both ways.
 - **Engine.** New `mythCards` game option. `present()` makes each strike-rewrite beat a scrub or a myth card
@@ -104,7 +121,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   interaction model, the game doc and the plan's Progress section.
 - **Checks.** Headless Chrome runs listed in the plan; `npm run gates`, `tsc`, `eslint` and `npm run build` pass.
 
-## 2026-09-15 - forge: content lints and the generator's voice rules ([SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de))
+## 2026-09-15 · forge: content lints and the generator's voice rules ([SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de))
 - **Why.** Playtesters matched pairs by their wording and read two questions in one bubble. The generator prompt
   required a "Lensy:" prefix, had no voice rules and described only 8 of 10 mechanics (forge pipeline review P7,
   P8), so new content would keep making the same problems.
@@ -119,7 +136,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   section; the pilot clears them.
 - **Checks.** 13 new fixtures in `test_gates.py`; `npm run gates` passes.
 
-## 2026-09-15 - engine: a new mechanic, choose ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4))
+## 2026-09-15 · engine: a new mechanic, choose ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4))
 - **Why.** Playtesters found reflect confusing because any tap wins. The owner chose "tap all that fit, then Check"
   with six options, two to four of them right, for lesson and values questions; feelings, personal choices and
   safety lines keep reflect. Phase 2 of the [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md).
@@ -138,7 +155,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - **Docs.** [design.md](../design.md) (Choose card set), [v2 engine](../architecture/v2-engine.md), [question bank](../schemas/question-bank.md),
   [interaction model](../games/swipeed-interaction-model.md), [extending SwipeEd](../games/extending-swipeed.md).
 
-## 2026-09-15 - forge: regrowth can no longer overwrite shipped scenarios ([SWED-73](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71))
+## 2026-09-15 · forge: regrowth can no longer overwrite shipped scenarios ([SWED-73](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71))
 - **Why.** Ids were handed out as `900 + i*90` per category whatever the bank held, the batch gate never checked
   ids, and assembly replaced any bank line whose id matched, so the next regrowth run could silently overwrite
   live scenarios (every grown game already used ids 900 to 1439). Id blocks were not enforced either, which is how
@@ -156,7 +173,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   scenario.
 - **Docs.** [question bank](../schemas/question-bank.md) (content chain, gates table), [content pipeline](../games/swipeed-content-pipeline.md).
 
-## 2026-09-15 - gates: the content gate runs before every build ([SWED-72](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b))
+## 2026-09-15 · gates: the content gate runs before every build ([SWED-72](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b))
 - **Why.** The forge pipeline review (SWED-65) found every gate opt-in: hooks needed `core.hooksPath` set by hand,
   there was no CI, and Vercel ran a plain `next build`. The commit-time guard, `check_msg_len.py`, also missed
   helplines in scenario prose, most fields, empty banks and unparseable lines (G2, G4, G5, G6, G18). This is the
@@ -178,7 +195,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   [extending SwipeEd](../games/extending-swipeed.md), [build overview](../games/swipeed-build-overview.md),
   [game patterns](../games/swipeed-game-patterns.md), [v2 engine](../architecture/v2-engine.md).
 
-## 2026-09-15 - engine: swipe cards get side buttons, scrubbing keeps its progress ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543))
+## 2026-09-15 · engine: swipe cards get side buttons, scrubbing keeps its progress ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543))
 - **Why.** Swipe had no tap or screen-reader path and could solve twice if swiped again during its fly-off, and a
   myth being scrubbed reset to zero on every new stroke. Phase 1d (engine half) of the
   [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md), laying the ground for myth cards.
@@ -190,7 +207,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - **Docs.** [design.md](../design.md) (Swipe card, tap floor), the [v2 engine](../architecture/v2-engine.md), the
   [interaction model](../games/swipeed-interaction-model.md), [game patterns](../games/swipeed-game-patterns.md).
 
-## 2026-09-15 - engine: match and sort stop giving the answer away ([SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62))
+## 2026-09-15 · engine: match and sort stop giving the answer away ([SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62))
 - **Why.** Playtesters solved match boards at a glance: two independent shuffles zipped row by row put at least one
   correct pair straight across on 63% of five-pair boards, and capstone match never shuffled its left column.
   Sort always showed its zones in authored order. Phase 1c (engine half) of the
@@ -206,7 +223,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   shuffled zones and a complete capstone 3, including with the old `c3-p8` restored. `tsc`, `eslint`,
   `check_msg_len.py` and `npm run build` pass.
 
-## 2026-09-15 - engine: answer cards keep their size ([SWED-67](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956))
+## 2026-09-15 · engine: answer cards keep their size ([SWED-67](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a6537a7e-3bcf-418f-9ae7-da53e0241956))
 - **Why.** Playtesters saw options change height within a question. Selected and matched cells swapped the card's
   hard shadow for an inset ring, match numbers were text that re-wrapped, sort zones grew as chips landed, and
   several "picked" states used `ring-*` classes that never render on `.glass-card`. Phase 1b of the
@@ -222,7 +239,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - **Docs.** [design.md](../design.md) (Answer cards, Interaction and motion), the [v2 engine](../architecture/v2-engine.md),
   the [interaction model](../games/swipeed-interaction-model.md) and the plan's Progress section.
 
-## 2026-09-15 - engine: Lensy's question leads every beat ([SWED-66](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e))
+## 2026-09-15 · engine: Lensy's question leads every beat ([SWED-66](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e))
 - **Why.** Friends playtested Choosing & Building and answered without reading the question. The question was a
   15px borderless bubble beside bold sticker answer cards, the answers appeared in the same frame, and the first
   nudge replaced the question. This is Phase 1a of the [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md).
@@ -246,7 +263,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   [v2 engine](../architecture/v2-engine.md) (new section: Question card, reveal and focus; SWED-57 and SWED-58
   marked fixed).
 
-## 2026-09-14 - audit: the question bank and the forge pipeline ([SWED-65](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b))
+## 2026-09-14 · audit: the question bank and the forge pipeline ([SWED-65](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b))
 - **What.** A read-only pass over all 33,542 lesson scenarios, 70 capstone laps, every help string and the Get Help
   sheet, plus the generator and every gate. Findings: [question bank audit](../audits/question-bank-audit-2026-09-14.md)
   and [forge pipeline review](../audits/forge-pipeline-review-2026-09-14.md).
@@ -264,7 +281,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   were never built.
 - **Next.** Follow-up tickets are proposed at the end of both audits; filed on 2026-09-15 (see the plan's Progress section).
 
-## 2026-09-14 - safety: KIRAN retired, every mention routed to Tele-MANAS ([SWED-62](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb))
+## 2026-09-14 · safety: KIRAN retired, every mention routed to Tele-MANAS ([SWED-62](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb))
 - **Why.** KIRAN (1800-599-0019), the mental-health rehabilitation line of the Department of Empowerment of Persons
   with Disabilities, was merged into Tele-MANAS (14416). NITI Aayog's Dr V K Paul announced it at the National
   Workshop on Mental Health on 15 Feb 2024, with KIRAN calls diverted for three months and the line then phased out
@@ -285,7 +302,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - **Docs.** The helpline table and cross-check in the [question bank](../schemas/question-bank.md), and the KIRAN
   mentions in 15 game and overview docs. Older log entries still name KIRAN; they are history.
 
-## 2026-09-14 - docs: SwipeEd gets its own knowledge base (SWED-61)
+## 2026-09-14 · docs: SwipeEd gets its own knowledge base (SWED-61)
 - **Why.** SwipeEd's docs lived only in owhile-engine, which a chat working in The Equal Lens's repos may not
   edit, so the rule that docs ship with code could not be followed. The repo also had no `plane.config.md` or
   `design.md`, which the Plane and design guard hooks require before edits.
@@ -311,7 +328,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - **Not touched:** nothing in owhile-engine changed; [PRX-29](https://app.plane.so/claude-pri/projects/76bc2c6d-d7e2-4b88-8ce4-b9fa7e59f5b2/issues/6b3fe8df-f7df-44d2-a805-8e25aa4f67f2) asks an Owhile chat to point its older copies of
   these docs here.
 
-## 2026-09-01 - engine: a SHIPPED MIS-TEACH fixed - the negative swipe side was painted green
+## 2026-09-01 · engine: a SHIPPED MIS-TEACH fixed - the negative swipe side was painted green
 - **The defect, in safeguarding content.** `flagSide()` was a *second* prose-guessing regex, reading the
   swipe side labels. `"Not consent"` matches `/consent/` and `"Unsafe step"` matches `/safe/`, so **both
   sides classified positive: the two sides rendered the same green and the NEGATIVE side carried the
@@ -350,7 +367,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   platform-drawn SVG symbol set is designed but unbuilt - an improvement rather than a shipped defect, and
   one mark (the "careful" cue) needs a printed 22px test rather than an assertion.
 
-## 2026-09-01 - engine: semantic colour reserved, the prose-guessing regex deleted, helpLine gated
+## 2026-09-01 · engine: semantic colour reserved, the prose-guessing regex deleted, helpLine gated
 - Three boundary holes closed in the shipped engine (`swipeed-equal-lens` `d22dc1b`). PRX-2 - the first
   engine work filed to Praxis's own project.
 - **A · Semantic colour was creator-addressable.** `--flag-green`/`--flag-red` sat in the *same override
@@ -383,7 +400,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   and the **non-colour redundancy channel is still emoji**, rendered by the viewer's OS font - worst on the
   cheap Android tablets the accessibility case targets.
 
-## 2026-09-01 - engine/forge: adding a mechanic now fails loudly; extension playbook written
+## 2026-09-01 · engine/forge: adding a mechanic now fails loudly; extension playbook written
 - **Question behind it:** what actually blocks building more games or extending the mechanic set? Answer:
   nothing structural - but three likely mistakes failed **silently**. New doc:
   [games/extending-swipeed.md](../games/extending-swipeed.md), linked from the root index. SWED-48.
@@ -418,7 +435,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   semantic review. `shape_errors` has no arm for `role-play`/`strike-rewrite` and the `reflect` guard's
   body is literally `pass`. And the standing prerequisite: **still no test runner, script or test files.**
 
-## 2026-09-01 - engine: state assessed, finale bug fixed, dead code removed, roadmap written
+## 2026-09-01 · engine: state assessed, finale bug fixed, dead code removed, roadmap written
 - **New doc: [architecture/engine-current-state.md](../architecture/v2-engine.md)** (SWED-47) - the
   architecture docs describe the *intended* engine; nothing recorded what exists. Now it does, verified
   against code and linked from both indexes.
@@ -454,7 +471,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   gates cover *content* correctness thoroughly; nothing covers *engine* correctness. That is the
   prerequisite, not the follow-up.
 
-## 2026-09-01 - chore: vendored `@equal-lens/brand` - cloud builds now work; old repo cleared for archive
+## 2026-09-01 · chore: vendored `@equal-lens/brand` - cloud builds now work; old repo cleared for archive
 - **The blocker, removed (SWED-44).** `@equal-lens/brand` was declared as
   `file:../The Equal Lens/brand/design-system/equal-lens-brand-0.1.0.tgz` - a path **outside** the repo and
   untracked - so any Vercel cloud build died at `npm install`. That is the whole reason deploys were
@@ -484,7 +501,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   build-side blocker is gone, so git auto-deploy will work once repointed. Also worth removing the now-
   pointless `upstream` remote from the Equal Lens repo. SWED-44, follows SWED-43.
 
-## 2026-09-01 - CORRECTION to SWED-42: Vercel *does* have a git integration - pointed at the wrong repo
+## 2026-09-01 · CORRECTION to SWED-42: Vercel *does* have a git integration - pointed at the wrong repo
 - **What SWED-42 got wrong.** It recorded that Vercel had no git integration and that the GitHub app was
   never authorized. Both false. The founder's dashboard screenshot shows the `swipeed` project **has** a
   Connected Git Repository: **`priyanshuj0410-code/SwipeEd`, connected Jun 20** - the *frozen ancestor*,
@@ -503,7 +520,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - SWED-41's separate finding stands and is fixed: the app repo now has a private GitHub remote. Note the
   two are independent - the backup gap and the deploy path are different problems. SWED-43.
 
-## 2026-09-01 - infra: the live app repo is now backed up to a private GitHub remote
+## 2026-09-01 · infra: the live app repo is now backed up to a private GitHub remote
 - **The gap SWED-41 surfaced:** `swipeed-equal-lens` - the canonical app, the v2 engine, and all 33,542
   scenarios - had **no git remote at all**. Being live on Vercel was not a backup: `.vercel/project.json`
   links a *directory*, and `.vercel/output/` holds Build Output API artifacts from a local `vercel build`,
@@ -521,7 +538,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   auto-deploy. Until then **push and deploy are two separate actions** - pushing does not deploy, and
   deploying does not push. Noted in [README](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/README.md) and [AGENTS.md](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/AGENTS.md). SWED-42.
 
-## 2026-09-01 - docs: KB staleness sweep - corrected 181 verified stale facts across 81 files
+## 2026-09-01 · docs: KB staleness sweep - corrected 181 verified stale facts across 81 files
 - **Why:** the SWED-40 refresh fixed the app-level counts but a full audit (every KB doc cross-checked
   against the live `swipeed-equal-lens` code, each finding independently re-verified) found the drift was
   much wider - **181 confirmed stale facts in 81 files**. SWED-41.
@@ -569,13 +586,13 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   exact tie). That phrase reads as *design* lead rather than a histogram claim, so it was not auto-rewritten.
 - Dated `log.md` history left untouched throughout (correct as-of its time).
 
-## 2026-06-29 - docs: refreshed stale app-level docs to the current 69-game/8-chapter state
+## 2026-06-29 · docs: refreshed stale app-level docs to the current 69-game/8-chapter state
 - Post-fleet-complete KB audit found pre-session app docs still on the "ages 3-18 / 43-node / 5-chapter" era. Corrected the live-state facts: [swipeed.md](../games/swipeed.md) (69 games + 8 capstones, ages 3→parenthood, all grown ≥400), [games/index.md](../games/index.md) (removed the contradictory Chapter-7/8 "under construction" narration - both are complete - and scoped the old "whole path / 43 nodes" summary to "the child journey, Ch.1-5"), [capstones.md](../games/capstones.md) frontmatter (5→8), and [green-light-red-light.md](../games/green-light-red-light.md) ("43 nodes"→69). Dated `log.md` history left as-is (correct as-of its time). **Open item (not fixed):** `swipeed-world.md` still says "five chapter regions" for the 3D per-region *styling* (seasons/weather) - unverified whether Ch.6-8 got region styling; the content path itself spans all 8 chapters. SWED-40.
 
-## 2026-06-29 - docs: SwipeEd build overview ("what we built & why")
+## 2026-06-29 · docs: SwipeEd build overview ("what we built & why")
 - Wrote [games/swipeed-build-overview.md](../games/swipeed-build-overview.md) - an end-to-end synthesis tying together the product, the v2 mechanic-embodying engine, the forge content pipeline, the deterministic-gate + adversarial-reviewer safety design (and why it's load-bearing), the 14→69 run, the three hardenings, tooling/guardrails, repo topology/deploy, and outcomes/next. Linked from [index.md](../README.md) and [games/index.md](../games/index.md); refreshed the stale root project-status line (43 nodes/ages 3-18 → 69 games/ages 3→parenthood, fleet complete). SWED-39.
 
-## 2026-06-29 - 🎉 FORGE FLEET COMPLETE: all 69 games grown to ≥400 and live
+## 2026-06-29 · 🎉 FORGE FLEET COMPLETE: all 69 games grown to ≥400 and live
 - **Wave 31 (final): navigating-addictions 84→435, be-the-safe-adult (g69) 84→406** - both safety-critical and 0 review fixes; merged `--no-ff`, deployed. swipeed.vercel.app → `dpl_8DQXJFUvVBidKnTSnD3psb5572XZ` (200). Tracked as SWED-38.
 - **THE ENTIRE 69-GAME CATALOG IS NOW GROWN.** Every node g01-g69, **Chapters 1-8 (ages 3 → parenthood)**, is at ≥400 scenarios (67 at ≥400; 2 logged quality-first dips: looking-after-you 397, raising-neurodiverse-kids 396, each with `exhaustion.json`). All live.
 - **The run, end to end (started this session at 14/69):** 27 waves (5-31) grew **55 games** from ~84 → 400+; every game independently verified (forge_check --game + forge_dedup + check_msg_len + tsc + narrator==Lensy), committed on its own branch, `--no-ff` merged, and deployed per wave. Cadence: waves of 2; staggered single-game relaunch on throttle/post-reset.
@@ -583,139 +600,139 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - **Why the adversarial reviewer mattered (the load-bearing safety layer the deterministic gate is blind to):** caught + fixed **2 full sort/spot key-inversion clusters** (bounce ×7 exam-stress boards, speak-up ×8 + glrl ×7 + others "spot" scenes - all structurally valid), plus a grooming "meet-to-verify-identity" trap, an under-18 safeguarding misroute (181→Childline 1098), a DV live-danger ordering (112 first), a "secret-keeping=loyalty" reflex, depicted disordered-eating/self-harm methods removed, a transphobic slur removed from a 9-12 hook, a shaken-baby-safe-down keyed correctly, and CSA-disclosure handling (believe / never-promise-total-secrecy / report). Zero answer-key inversions shipped.
 - **Tracking:** 38 SWED issues opened across the project, all closed; every commit `[SWED-n]`-tagged. KB (log + pipeline doc + patterns) and fleet memory current. Both repos clean on `main`.
 
-## 2026-06-29 - Forge wave 30: Chapter 8 to 7/9 (67/69)
+## 2026-06-29 · Forge wave 30: Chapter 8 to 7/9 (67/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each), Ch.8 (parenthood, ceiling 500), narrator all Lensy - both inclusion-heavy parenting games:
   - **raising-gender-diverse-kids** (Ch.8 - accepting/affirming LGBTQ+ children): **84 → 437**. 0 review fixes. Acceptance halves suicide-attempt odds; conversion "cures" always harmful; never-out the child; refuse-cure/repair-possible/love-first; parent's fear framed protective-not-hate; KIRAN 1800-599-0019 / Tele-MANAS 14416 / 112.
   - **raising-neurodiverse-kids** (Ch.8 - parenting neurodivergent children): **87 → 396** (second quality-first floor dip, `exhaustion.json` logged - no filler). Difference-not-deficiency; meltdowns = overwhelm not naughtiness; cure-sellers/quacks flagged; accommodations = fair access (like glasses); RPwD Act 2016 rights; burnout → Tele-MANAS 14416. Review fixed 2 ungrammatical labels.
 - **Cumulative 67/69; Chapter 8 at 7/9** - only navigating-addictions + be-the-safe-adult (g69, the final node) left. Deployed - swipeed.vercel.app → `dpl_DJLfb5supk9xbLz5jfEzG8SgRZLa` (200). Tracked as SWED-37.
 
-## 2026-06-29 - Forge wave 29: Chapter 8 to 5/9 (65/69)
+## 2026-06-29 · Forge wave 29: Chapter 8 to 5/9 (65/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each), Ch.8 (parenthood, ceiling 500), both 0 review fixes + narrator all Lensy - two of the most safety-sensitive games in the catalog:
   - **break-the-cycle** (Ch.8 - ending harsh intergenerational patterns): **84 → 416**. Shaken-baby risk keyed to "lay baby down safely, step out"; fear-of-harming-child → Childline 1098/112; parent's load/flashbacks → Tele-MANAS 14416; harsh discipline always negative; firm-and-kind, fear != respect; busts the practice, never shames the parent.
   - **the-talks** (Ch.8 - age-by-age conversations with kids): **84 → 441**. Correct body-part names = protection; "don't tell your parents" = unsafe; disclosure → stay calm/believe → Childline 1098/112; secret-games flagged; no-body-secrets; consent-at-four; explicit detail age-appropriately deferred.
 - **Cumulative 65/69; Chapter 8 at 5/9** - 4 games left (raising-gender-diverse-kids, raising-neurodiverse-kids, navigating-addictions, be-the-safe-adult). Deployed - swipeed.vercel.app → `dpl_CPsGvtVgAd6Pn1pMWV9U8o3JKfwg` (200). Tracked as SWED-36.
 
-## 2026-06-29 - Forge wave 28: Chapter 8 to 3/9 (63/69); first quality-first floor dip
+## 2026-06-29 · Forge wave 28: Chapter 8 to 3/9 (63/69); first quality-first floor dip
 - **2 games grown, verified, merged, deployed** (~1M tokens each), Ch.8 (parenthood, ceiling 500), narrator all Lensy:
   - **equal-parents** (Ch.8 - shared parenting, involved dads, parental mental load): **84 → 446**. Pro-men/never father-shaming; "helper/babysitting" only ever myths-to-erase; only breastfeeding mother-specific; burnout → Looking After You / Tele-MANAS 14416. Review caught + fixed a garbled inverted best-option consequence (ep2-927).
   - **looking-after-you** (Ch.8 - parental wellbeing/burnout, PPD): **84 → 397** - **first quality-first floor dip** (just under the 400 target; the assemble agent logged `exhaustion.json` rather than padding with filler - exactly the founder's locked decision). PPD = treatable symptom not verdict; intrusive thoughts named as symptom+cue, never elaborated → Tele-MANAS 14416 / KIRAN / 112; fathers (~1/10) included; self-harm always negative.
 - **Cumulative 63/69; Chapter 8 at 3/9.** Deployed - swipeed.vercel.app → `dpl_6naUiwAssCkUn6zpiFYU21zbBgjy` (200). Tracked as SWED-35.
 - **Operational:** Wave 28's first attempt hit the account session limit mid-generation (both rolled back clean); recovered after the 17:10 IST reset via staggered single-game relaunch. 6 games left, all Ch.8.
 
-## 2026-06-29 - Forge wave 27: CHAPTER 7 COMPLETE (8/8); Chapter 8 opened (61/69)
+## 2026-06-29 · Forge wave 27: CHAPTER 7 COMPLETE (8/8); Chapter 8 opened (61/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each), narrator all Lensy:
   - **many-ways-to-family** (Ch.7, ages 22→first child - adoption/IVF/surrogacy/diverse family forms): **84 → 441** - **completes Chapter 7 (8/8)**. Indian legal facts accurate + dated (CARA 2022, Surrogacy/ART Acts 2021 altruistic-only, Supriyo 2023); dignity-first (no family form lesser, bio not disparaged); off-book "fixers" flagged risky; official routes (CARA/licensed clinic/NALSA 15100); not legal advice. Review shifted safe/unsafe→risky/sound (adult register).
   - **us-after-kids** (Ch.8, parenthood - the couple after a baby): **84 → 438** - **opens Chapter 8 (the final chapter)**. 0 review fixes. Perinatal depression real + treatable → Tele-MANAS 14416; abuse-vs-normal-strain line crisp; father-isn't-babysitting; no intimacy-owed/clock framing; doom thoughts deferred-not-invalidated.
 - **CHAPTER 7 COMPLETE (8/8).** **61/69 games** at ≥400, all live. Only Chapter 8 (parenthood, 8 games left) remains. swipeed.vercel.app → `dpl_HjrCmdnFc4CYf6q8E6kxM9TiFdhN` (200). Tracked as SWED-34.
 
-## 2026-06-29 - Forge wave 26: Chapter 7 to 7/8 (59/69)
+## 2026-06-29 · Forge wave 26: Chapter 7 to 7/8 (59/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each), Ch.7 (ages 22→first child, ceiling 500), narrator all Lensy:
   - **if-when-whether** (Ch.7 - whether/when to have children, fertility, spacing): **84 → 434**. 0 review fixes. Childfree always valid; son-preference always flagged as pressure; sex-selection illegal (PCPNDT); male-factor infertility named common; no fertility-clock scare; IVF never guaranteed; not medical advice.
   - **money-together** (Ch.7 - joint finances, fair-not-gendered, control-is-abuse): **84 → 453**. Economic control = abuse under PWDVA 2005 (181/1091/112/NALSA 15100); even-handed (husband protected too); stridhan + joint+personal accounts honoured; lower-earner never shamed; childcare/eldercare = real work. Review fixed 1 garbled hook.
 - **Cumulative 59/69; Chapter 7 at 7/8** - only many-ways-to-family left to complete Ch.7, then only Chapter 8 (parenthood) remains. Deployed - swipeed.vercel.app → `dpl_7Jsg8prFTBErpZj5zKgfGtJugKwb` (200). Tracked as SWED-33.
 
-## 2026-06-29 - Forge wave 25: Chapter 7 to 5/8 (57/69)
+## 2026-06-29 · Forge wave 25: Chapter 7 to 5/8 (57/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each), Ch.7 (ages 22→first child, ceiling 500), narrator all Lensy:
   - **respect-at-home** (Ch.7 - domestic respect & safety, consent inside, spotting abuse/coercive control): **84 → 518**. Safety-critical and handled carefully: abuse 100% on the abuser, even-handed (male survivors incl.), leaving always the survivor's choice (no leave-pressure), helpline allowlist only (181/1091/112/NALSA 15100/trusted person; wrong-number trap on 1098/100), DV Act educational. Review fixed 1 malformed hook.
   - **family-map** (Ch.7 - in-laws/extended family, couple-as-team, kind boundaries, respect both ways): **84 → 447**. Respect != obedience; estrangement-by-default never the good answer; control/dowry/threats = abuse (not friction) → counsellor/181/112; dowry illegal (1961 Act). Review fixed 6 dropped-word clarity issues + trimmed 2 over-ceiling.
 - **Cumulative 57/69; Chapter 7 at 5/8.** Deployed - swipeed.vercel.app → `dpl_7VDxDhkYLxtqcprUvFpuhys4hGop` (200). Tracked as SWED-32.
 
-## 2026-06-29 - Forge wave 24: Chapter 7 to 3/8 (55/69)
+## 2026-06-29 · Forge wave 24: Chapter 7 to 3/8 (55/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each), Ch.7 (ages 22→first child, ceiling 500), both 0 review fixes + narrator all Lensy:
   - **equal-partners** (Ch.7) - sharing housework/childcare fairly, seeing the mental load, owning vs helping, two careers: **84 → 468**. "Owning vs helping" (not helping=sharing); even-handed (men as equal owners, no man-bashing); control/coercion → 181/1091/112 + Respect at Home.
   - **your-path-your-call** (Ch.7) - whether/when/whom to marry, childfree-as-complete, holding your ground, worth beyond marital status: **84 → 456**. Strongly even-handed (marriage-by-choice AND childfree both affirmed, no pressure either way); forced/coerced marriage → 181/1091/112/1098 with a deliberate "call 100" wrong-route trap.
 - **Cumulative 55/69; Chapter 7 at 3/8.** Deployed - swipeed.vercel.app → `dpl_3bfCvvoZG2Zx8bBjJkJQ5pdaJiJo` (200). Tracked as SWED-31.
 
-## 2026-06-29 - Forge wave 23: CHAPTER 6 COMPLETE (9/9); Chapter 7 opened (53/69)
+## 2026-06-29 · Forge wave 23: CHAPTER 6 COMPLETE (9/9); Chapter 7 opened (53/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each), both 0/low review fixes + narrator all Lensy:
   - **know-your-rights** (Adult, Ch.6, ages 18-22 - POSH, cyber/data, renting/consumer, rights at work): **84 → 451** - **completes Chapter 6 (9/9)**. 0 review fixes. Verified helplines (NALSA 15100, 181/1091/112/1930/1098); POSH facts accurate; image-abuse on the perpetrator; no false-outcome guarantees.
   - **choosing-building** (Choosing & Building, Ch.7, ages 22→first child, band ceiling 500): **84 → 498** - **opens Chapter 7**. Review replaced an off-grounding helpline; free "no"/"not yet" always best; even-handed love-vs-arranged; queer partnerships affirmed; no pressure toward/against marriage.
 - **CHAPTER 6 COMPLETE (9/9).** With Ch.1-5 already done, the **entire ages 3→22 span (Chapters 1-6) is now fully grown** - **53/69 games** at ≥400, all live. swipeed.vercel.app → `dpl_Ft2sZDoWtLYo5mhvqt9jcaGiCYdc` (200). Tracked as SWED-30.
 - Chapter 7 (partnership/family-formation, 22→first child) now 1/8. Next: rest of Ch.7, then Ch.8 (parenthood). 16 games left.
 
-## 2026-06-29 - Forge wave 22: Chapter 6 to 8/9 (51/69)
+## 2026-06-29 · Forge wave 22: Chapter 6 to 8/9 (51/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each), Ch.6 (ages 18-22), both 0 review fixes + narrator all Lensy:
   - **find-your-feet** (Ch.6) - early-career pressure, comparison trap, worth-beyond-CV, your own path: **84 → 451**. "You've failed / too late / just think positive" appear only as named fear-distractors the content negates; distress → Tele-MANAS 14416 / KIRAN.
   - **equal-confident** (Ch.6) - workplace voice, allyship, spotting/countering bias, leading the room: **84 → 462**. Evenhanded (men-as-allies, never anti-boy/zero-sum); "bossy" double-standard rejected; never-out LGBTQ+ colleagues; call-in alongside call-out; harassment → POSH IC / 181.
 - **Cumulative 51/69; Chapter 6 at 8/9** - only know-your-rights left to complete Ch.6. Deployed - swipeed.vercel.app → `dpl_9ZENaLs7n5vsovst7ViGbTbCrnd2` (200). Tracked as SWED-29.
 
-## 2026-06-29 - Forge wave 21: Chapter 6 to 6/9 (49/69); narrator-pin validated
+## 2026-06-29 · Forge wave 21: Chapter 6 to 6/9 (49/69); narrator-pin validated
 - **2 games grown, verified, merged, deployed** (~1M tokens each), Ch.6 (ages 18-22), **first wave on the narrator-pinned generator (SWED-27)** - both came out 0 "Sam" (hardening validated):
   - **money-independence** (Ch.6) - budgeting/earning/money-&-love/scams/independence: **84 → 456**. Financial control named as DV-Act abuse (181/1091); scam mechanics accurate (UPI-request/OTP/advance-fee → cybercrime 1930); supporting family without shaming. Review fixed a hook/myth + a payslip-line.
   - **mind-belonging** (Ch.6) - mental health/belonging/coping/self-worth: **84 → 490**. Review **removed depicted disordered-eating methods from 4 scenarios** (restriction reframed to event-avoidance / self-critical beliefs per the no-method ban); crisis beats route to Tele-MANAS 14416 + trusted adult; help-seeking as strength across genders.
 - **Cumulative 49/69; Chapter 6 at 6/9.** Deployed - swipeed.vercel.app → `dpl_B5KnB6njiGdXKeV4KGUWtxGZdWi5` (200). Tracked as SWED-28.
 - **Session paused here at the founder's request** (after 17 waves this session, 5→21 = 34 games grown + deployed, plus 3 pipeline hardenings). Remaining: 20 games - rest of Ch.6 (find-your-feet, equal-confident, know-your-rights) + all of Ch.7-8.
 
-## 2026-06-29 - Forge wave 20: Chapter 6 to 4/9 (47/69); narrator-leak caught
+## 2026-06-29 · Forge wave 20: Chapter 6 to 4/9 (47/69); narrator-leak caught
 - **2 games grown, verified, merged, deployed** (~1M tokens each), Ch.6 (ages 18-22):
   - **real-relationships** (Ch.6) - healthy vs abusive relationships, fighting fair (Gottman four-wreckers), red flags, leaving safely: **84 → 503**. Review fixed rr-1134 (image-based threats route to cybercrime 1930, not 112). Control/abuse named plainly; "leaving can be dangerous - plan, tell someone"; even-handed across genders + queer.
   - **own-your-health** (Ch.6) - sexual/reproductive health, confidential access, U=U, pleasure-positive (non-explicit): **84 → 502**. Routes NACO ICTC / RKSK / clinic, 181 / 1098; queer-inclusive; no marital-status gating.
 - **Narrator-leak caught + fixed:** own-your-health's GROUNDING (derived from the original pre-re-skin GDD) leaked the old narrator **"Sam:"** into 47 lines, and one category reviewer wrongly "corrected" toward it. The **bank-wide convention is "Lensy:"** (the Equal Lens re-skin mascot - 3964 hooks; only own-your-health had any "Sam"). Standardized own-your-health to Lensy. **Risk for remaining Ch.6-8 games** (same GDD lineage) → hardening the generator prompt next (SWED-27).
 - **Cumulative 47/69; Chapter 6 at 4/9.** Deployed - swipeed.vercel.app → `dpl_5P8rrYbac6rJ6JtN41e8HM27D6Wc` (200). Tracked as SWED-26.
 
-## 2026-06-29 - Forge wave 19: CHAPTER 5 COMPLETE (9/9); Chapter 6 opened (45/69)
+## 2026-06-29 · Forge wave 19: CHAPTER 5 COMPLETE (9/9); Chapter 6 opened (45/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each):
   - **decoded** (Ch.5, ages 15-18 - media/porn/algorithm literacy, non-explicit): **84 → 489** - **completes Chapter 5 (9/9)**. Review fixed a spot hook/key inversion (dc-1010: doomscroll/auto-play wrongly tagged as the "on-purpose" items the player taps) and tightened 2 safety overclaims. Critical-not-cynical; verify-the-source > spot-a-fake-by-looking.
   - **swipe-right** (Ch.6, ages 18-22 - Dating & Apps): **84 → 503** - **opens Chapter 6**. 0 review fixes. Adult dating-safety: meet-in-public/video-verify/own-way-home; romance-scams + image abuse → cybercrime 1930 / 181 / 1098; deceit on the deceiver (no victim-blaming); pace/number-of-matches never shamed.
 - **CHAPTER 5 COMPLETE (9/9).** With Ch.1-4 already done, the **entire ages 3→18 span (Chapters 1-5) is now fully grown** - **45/69 games** at ≥400, all live. swipeed.vercel.app → `dpl_81xv7nATEuQ5GgwomsWiMJEUFMTm` (200). Tracked as SWED-25.
 - Chapter 6 (young-adult, ages 18-22) now 2/9 (consent-real pilot + swipe-right). Next: the rest of Ch.6, then Ch.7-8.
 
-## 2026-06-29 - Forge wave 18: Chapter 5 to 8/9 (43/69)
+## 2026-06-29 · Forge wave 18: Chapter 5 to 8/9 (43/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each), Ch.5 (ages 15-18, ceiling 460):
   - **life-ready** (Ch.5) - life skills (decisions/coping/people-skills/support): **85 → 509**. 0 review fixes across all 6 categories. Distress routed warmly to Tele-MANAS 14416 / KIRAN / Manodarpan ("life-skills, not therapy"); help-seeking as strength; no marks=worth.
   - **justice-league** (Justice League: Rights Edition, Ch.5) - legal rights & justice: **84 → 492**. Review fixed an important **live-danger routing** issue (ongoing DV at home now routes emergency 112 + trusted adult FIRST, before the legal-process step), a teacher→trusted-adult narrowing, and an item-vs-bin id collision. Verified helplines (NALSA 15100, 1098/181/1091/112/1930); revenge/doxxing always non-best; DV not "private".
 - **Cumulative 43/69; Chapter 5 at 8/9** - only decoded left to complete Ch.5. Deployed - swipeed.vercel.app → `dpl_APMxHuX3mza2Z6dYoBWbxm8JkvKf` (200). Tracked as SWED-24.
 
-## 2026-06-29 - Forge wave 17: Chapter 5 to 6/9 (41/69)
+## 2026-06-29 · Forge wave 17: Chapter 5 to 6/9 (41/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each), Ch.5 (ages 15-18, ceiling 460):
   - **change-makers** (Ch.5) - youth activism / advocacy: **84 → 512**. Review fixed 2 safeguarding-route narrowings (a minor disclosing abuse at home routed to women's helpline 181 → corrected to Childline 1098, the under-18 line). Activism framed safe/lawful/adult-backed (no vigilante/doxx/lone-confrontation); laws cited correctly.
   - **lead-the-way** (Ch.5) - allyship & leadership: **84 → 531**. Review fixed 2 "trusted teacher"→"trusted adult" narrowings. Male-allyship-as-strength (never betrayal); call-in over call-out; unsafe confrontation deferred to a trusted adult / 181 / 112 / 1098.
 - **Cumulative 41/69; Chapter 5 at 6/9.** Deployed - swipeed.vercel.app → `dpl_8veFBko1BHSNoSX2qvzi2P7KHRMY` (200). Tracked as SWED-23.
 - Recurring reviewer value this wave: under-18 safeguarding-route correctness (Childline 1098 vs 181) and "any trusted adult" breadth - both invisible to the shape-only gate.
 
-## 2026-06-29 - Forge wave 16: Chapter 5 to 4/9 (39/69); recovered from session-limit + throttle
+## 2026-06-29 · Forge wave 16: Chapter 5 to 4/9 (39/69); recovered from session-limit + throttle
 - **2 games grown, verified, merged, deployed** (~1M tokens each), Ch.5 (ages 15-18, ceiling 460):
   - **mutual** (Ch.5) - consent / FRIES standard: **84 → 510**. 0 key inversions across all 6 categories. Freeze isn't yes, earlier-yes isn't ongoing, incapacitated/coerced yes is void; survivor never at fault; even-handed (no gendered aggressor/victim defaulting).
   - **spectrum** (Ch.5) - LGBTQ+ dignity & inclusion: **84 → 508**. 0 review fixes across all 6 categories. "Never out someone" confidentiality rule held; conversion practices framed as discredited/harmful; no label-pressure; slurs abstract (never spelled).
 - **Cumulative 39/69; Chapter 5 at 4/9.** Deployed - swipeed.vercel.app → `dpl_DqqUjVZMojuTEWwPzdmZYUaZ5fuH` (200). Tracked as SWED-22.
 - **Operational:** Wave 16's first attempt hit the **account session limit** mid-generation (both rolled back clean, untouched at 84); an immediate paired retry then tripped a **transient server throttle** (too many rapid launches - the Ground-retry hardening caught it cleanly). Recovered by **backing off ~4 min, then relaunching one game at a time staggered ~2.5 min apart**. Lesson: on a throttle, stagger single-game relaunches rather than re-bursting the pair.
 
-## 2026-06-28 - Forge wave 15: Chapter 5 opened (37/69)
+## 2026-06-28 · Forge wave 15: Chapter 5 opened (37/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each), first Ch.5 games (ages 15-18, band ceiling 460, adult register):
   - **status-know-it** (Status: Know It, Ch.5): **84 → 506** - HIV/STI status, testing, U=U, anti-stigma. Review fixed a soft safety inversion (avoidant "skip the protection talk" wrongly affirmed as a clear "no"), a degenerate two-identical-bin sort, and a loose "guards against STIs" bin label. Outing someone's status framed as a stigma trick; NACO ICTC / Childline 1098 routes.
   - **my-choices** (My Choices My Future, Ch.5): **84 → 545** - contraception / reproductive choice. POCSO-clean (older-person pressure framed as exploitation, never the young person's fault); comprehensive-never-explicit; "not ready"/"wait"/"unsure" affirmed throughout. 0 spot inversions.
 - **Cumulative 37/69; Chapter 5 at 2/9.** Deployed - swipeed.vercel.app → `dpl_cYUgLYeYbbS86V5aQYiVBypnNZYh` (200). Tracked as SWED-21.
 - Adult-chapter content (consent/contraception/STI/rights) handled cleanly under the same gates + adversarial review; spot-polarity hardening holding (0 spot inversions).
 
-## 2026-06-28 - Forge wave 14: CHAPTER 4 COMPLETE (11/11); ages 3-15 fully grown (35/69)
+## 2026-06-28 · Forge wave 14: CHAPTER 4 COMPLETE (11/11); ages 3-15 fully grown (35/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each):
   - **rabbit-hole** (The Rabbit Hole, Ch.4, ages 12-15 - manosphere/incel-funnel media literacy): **84 → 519**. 0 review fixes across all 6 categories. Pseudo-science (alpha/sigma/"high-value") only ever as quoted grift the scenario busts; "the funnel is the target, never the boy"; loneliness/self-harm cues route to Tele-MANAS 14416.
   - **reality-check** (Ch.4, ages 12-15 - deepfakes/porn-vs-reality/sextortion): **85 → 566**. 0 review fixes. **Critical check passed:** CSAM/leaked-nude content binned "never store, report" (not "keep as evidence"); fakes never the victim's fault; verify-the-source > visual tells; allowlisted routes only.
 - **CHAPTER 4 COMPLETE (11/11).** With Chapters 1-3 already done, the **entire ages 3→15 span (Chapters 1-4) is now fully grown** - **35/69 games** at ≥400, all live. swipeed.vercel.app → `dpl_8LrPG8AL4UpzWNWRJ1AFpJeU7M6Y` (200). Tracked as SWED-20.
 - Spot-polarity hardening still holding (0 spot inversions across both games; rabbit-hole + reality-check needed 0 review fixes total). Next: Chapters 5-8 (ages 15→parenthood), 34 games, starting with Ch.5 (my-choices, status-know-it, …).
 
-## 2026-06-28 - Forge wave 13: Chapter 4 to 9/11 (33/69)
+## 2026-06-28 · Forge wave 13: Chapter 4 to 9/11 (33/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each), both safeguarding-heavy:
   - **stand-up** (Ch.4, ages 12-15): **84 → 538**. Review fixed an ID collision (3 reused ids → free range), two "teacher"→"trusted adult" narrowings, a "who is responsible" sort valence mis-signal (so the harasser's action isn't coloured green), and a five-Ds wording that risked endorsing shouting at a harasser. Survivor-centred; helplines 181/112/1098 verbatim.
   - **firewall** (Ch.4, ages 12-15, online safety/sextortion/grooming): **84 → 538**. Review caught a subtle grooming-unsafe inversion (fw-1159 framed *meeting* an online contact as identity verification) → "vouched for by people you trust offline", and added "tell a trusted adult" to a sextortion plan. Allowlisted routes only (cybercrime.gov.in/1930, Childline 1098); "you're the victim, not in trouble". 0 spot inversions.
 - **Cumulative 33/69; Chapter 4 at 9/11** - only rabbit-hole + reality-check left to complete Ch.4. Deployed - swipeed.vercel.app → `dpl_32kdS8DUUwvnrLqYvEAcibdYYDHN` (200). Tracked as SWED-19.
 - Spot-polarity hardening still holding (0 spot inversions across both games). stand-up used `SWIPEED_MSGLEN_OVERRIDE=1` (firewall mid-assembly tripped the whole-bank guard; firewall's own gate then trimmed its 2 over-ceiling scenarios, final bank clean).
 
-## 2026-06-28 - Forge wave 12: Chapter 4 to 7/11 (31/69); spot-polarity hardening validated
+## 2026-06-28 · Forge wave 12: Chapter 4 to 7/11 (31/69); spot-polarity hardening validated
 - **2 games grown, verified, merged, deployed** (~1M tokens each), **first wave on the spot-polarity-hardened generator (SWED-17)**:
   - **mythbuster-lab** (MythBuster: Gender, Ch.4): **90 → 524**. **0 review fixes across all 6 categories, incl. every spot scenario** - vs 7-8 spot inversions in the two prior waves. Evidence-based, evenhanded/never-anti-boy; India role-model facts verified.
   - **equalize** (Ch.4, ages 12-15): **84 → 520**. 0 key inversions; minor fixes only (broadened a "talk to a teacher"→"teacher or trusted adult" route, fixed a sort-bin valence colour). Never-zero-sum (men inside the win); child-marriage beats hope-not-fear, PCMA 18/21 accurate.
 - **Cumulative 31/69; Chapter 4 at 7/11.** Deployed - swipeed.vercel.app → `dpl_5zmaLRS3XgRqegcTDVkZdKzRKa3T` (200). Tracked as SWED-18.
 - **SWED-17 spot-polarity prompt hardening validated:** the wave that immediately followed it produced **zero spot inversions** across both games, where every wave 8-11 game had multiple. The adversarial reviewer remains the load-bearing catch; the generator prompt now cuts the input error rate.
 
-## 2026-06-28 - Forge wave 11: Chapter 4 to 5/11 (29/69); spot-hook inversions now a clear pattern
+## 2026-06-28 · Forge wave 11: Chapter 4 to 5/11 (29/69); spot-hook inversions now a clear pattern
 - **2 games grown, verified, merged, deployed** (~1M tokens each):
   - **outbreak** (Ch.4, ages 12-15): **84 → 522**. Review un-narrowed a "condoms are the only prevention" overclaim and fixed a medically-loose "silent STIs clear on their own" line (could teach skipping treatment); STI facts CDC-aligned; stigma words only as struck myths.
   - **glrl** (Green Light / Red Light, Ch.4): **84 → 517**. Review caught **7 more spot hook/key mismatches** (gl-955 + gl-1139..1145) - hooks told the player to tap the *good* lines while `trick:true` (the items the engine accepts taps on) sat on the *bad* lines. Rewrote each hook to name the manipulative lines; re-verified two directly.
 - **Cumulative 29/69; Chapter 4 at 5/11.** Deployed - swipeed.vercel.app → `dpl_3ErzokLb4SkycJuGAX1mWkY4G7NZ` (200). Tracked as SWED-16.
 - **The spot-hook inversion is now a confirmed systematic generator failure mode** (speak-up ×8, body-confident ×1, glrl ×7 = 16 spot inversions, plus bounce ×7 sort). Every one structurally valid → shape-gate blind; every one caught by the different-context reviewer. Next: harden the generator prompt so fewer are produced inverted in the first place (SWED-17).
 
-## 2026-06-28 - Forge wave 10: Chapter 4 to 3/11 (27/69); biggest answer-key catch yet
+## 2026-06-28 · Forge wave 10: Chapter 4 to 3/11 (27/69); biggest answer-key catch yet
 - **2 games grown, verified, merged, deployed** (~1M tokens each):
   - **bounce** (Ch.4, ages 12-15): **84 → 518**. **Biggest catch of the fleet:** **7 exam-pressure SORT scenarios** (bn-1023..1027, 1029, 1030) had **fully inverted keys** - every item binned to the opposite (breakfast/slow-breathing/arriving-early keyed "stress-spiking"; self-compassion keyed "harsh"). Shape-only gate passed all 7; reviewer flipped them, and I independently re-derived two of the fixes before merging. Also fixed crisis helpline anchors (1098→1098/112).
   - **plan-it** (Ch.4, ages 12-15): **85 → 504**. Review removed off-band lactational-contraception detail and a wet-dream/pregnancy-risk confusion; no "safe day"/withdrawal/douching framed as reliable; help-routing kept broad.
@@ -723,7 +740,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - **Independently verified each:** forge_check PASS, forge_dedup 0 intra-band, check_msg_len clean (whole-bank), tsc 0. Merged `--no-ff`; deployed via prebuilt flow - swipeed.vercel.app → `dpl_HL6rKPpPUEsbhABpj5T3iNptATL8` (200). Tracked as SWED-15.
 - **Operational note:** bounce was committed with `SWIPEED_MSGLEN_OVERRIDE=1` because plan-it (mid-assembly sibling) momentarily tripped the whole-bank length guard; plan-it's own assemble gate then trimmed its 2 over-ceiling scenarios before returning, and the final whole-bank check is clean. **Running tally: 3 spot/sort key inversions caught across waves 8-10** - the deterministic gate is structurally blind to them; the different-context reviewer is the only thing that catches them.
 
-## 2026-06-28 - Forge wave 9: Chapter 3 COMPLETE (9/9), Chapter 4 opened (25/69)
+## 2026-06-28 · Forge wave 9: Chapter 3 COMPLETE (9/9), Chapter 4 opened (25/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each):
   - **defenders** (Ch.3, ages 9-12): **84 → 514** - **completes Chapter 3 (9/9)**. HIV-transmission facts verified vs CDC/NIH anchors; softened a graphic blood-route item for the band; anti-stigma "kindness-not-fear" framing intact ("punishment / bad people get sick" only ever as struck myths).
   - **body-confident** (Ch.4, ages 12-15): **84 → 509** - **opens Chapter 4**. Another **spot-key inversion caught** (bc-1320: ordinary off-days tagged as the warning-sign red flags, real ones as distractors) - re-tagged + independently re-verified. Colourism always flipped as harmful; body-neutral not forced-positive; diet-culture phrases only as named/rejected.
@@ -731,7 +748,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - **Independently verified each** (incl. a direct re-check of the fixed spot scene): forge_check PASS, forge_dedup 0 intra-band, check_msg_len clean, tsc 0. Merged `--no-ff`; deployed via prebuilt flow - swipeed.vercel.app → `dpl_FqzAtigcis7RVDD6uwUYhjAGLfrY` (200). Tracked as SWED-14.
 - **Second spot-key inversion in two waves** - confirms the [pattern note](../games/swipeed-game-patterns.md) and the load-bearing role of the different-context reviewer.
 
-## 2026-06-28 - Forge wave 8: Chapter 3 to 8/9 (23/69); critical spot-key inversion caught
+## 2026-06-28 · Forge wave 8: Chapter 3 to 8/9 (23/69); critical spot-key inversion caught
 - **2 games grown, verified, merged, deployed** (~1M tokens each):
   - **norm-storm** (Ch.3, ages 9-12): **84 → 512**. Review renumbered 8 re-emitted IDs to free slots (would have tripped the dup-id merge gate) and fixed a garbled item; heavy topics (dowry, caste, period stigma) framed as norms-to-question, non-graphic.
   - **speak-up** (Ch.3, ages 9-12): **85 → 558**. **Critical catch:** 8 of 13 `be-the-upstander` **spot** scenes had an **inverted answer key** - the good/upstander items were marked `trick:true` (the red flag the engine asks the child to catch). As generated, the engine would brand "fetch a teacher" a red flag and praise "films the teasing", teaching the unsafe reflex. Structurally valid (gate passes), so only the adversarial re-derivation caught it. All 8 fixed and **independently re-verified** (harmful/unsafe items now the tricks; unsafe "jump in / challenge the bully" heroics correctly flagged too).
@@ -739,14 +756,14 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - **Independently verified each:** forge_check PASS, forge_dedup 0 intra-band, check_msg_len clean, tsc 0. Merged `--no-ff`; deployed via prebuilt flow - swipeed.vercel.app → `dpl_4EMHXn2CPTTNXvgg21VuTK5mMWdt` (200). Tracked as SWED-13.
 - **Pattern recorded:** the spot/sort/branch/match key-inversion hazard is now a load-bearing rule in [swipeed-game-patterns.md](../games/swipeed-game-patterns.md) - a script can't verify an answer key; the different-context reviewer must re-derive every one.
 
-## 2026-06-28 - Forge wave 7: Chapter 3 to 6/9 (21/69)
+## 2026-06-28 · Forge wave 7: Chapter 3 to 6/9 (21/69)
 - **2 games grown, verified, merged, deployed** (~1M tokens each):
   - **crossroads** (Ch.3, ages 9-12): **84 → 518**. Review replaced a "secret-keeping = loyalty" exemplar (unsafe-secret reflex), un-narrowed several "any trusted adult" anchors, and routed a self-harm dilemma to trusted-adult-first (not Childline-only).
   - **flip-script** (Ch.3, ages 9-12): **84 → 536**. Review removed a verbatim transphobic slur from a 9-12 hook (lesson kept), fixed an arbitrary two-synonym sort key, and fixed a "Mum drives the truck → home/care" narrowing.
 - **Cumulative 21/69; Chapter 3 now 6/9** (puberty-quest, mind-matters, amazing-journey, boundary-bot, crossroads, flip-script). 3 Ch.3 games left: norm-storm, speak-up, defenders.
 - **Independently verified each:** forge_check --game PASS, forge_dedup 0 intra-band, check_msg_len clean, tsc 0. Each merged `--no-ff`; deployed via prebuilt flow - swipeed.vercel.app → `dpl_Csoh9YGYAZbXLb1NPY6qjtPsE2NA` (200). Tracked as SWED-12.
 
-## 2026-06-28 - Forge wave 6: Chapter 3 to 4/9 (19/69); first waves-of-2 run
+## 2026-06-28 · Forge wave 6: Chapter 3 to 4/9 (19/69); first waves-of-2 run
 - **2 games grown, verified, merged, deployed** (full per-game workflow, ~1M tokens each):
   - **amazing-journey** (Ch.3, ages 9-12): **84 → 502**. Review fixed truth-anchor narrowings - baby's sex "from the father's side" → "from the sperm, by chance" (no-fault anchor), tightened "look it up safely" → "ask a trusted adult", and corrected an unattended-birth normalization (trained helpers WITH a hospital/clinic).
   - **boundary-bot** (Ch.3, ages 9-12): **85 → 486**. Review softened a metro-groping line to the 9-12 register and swapped an out-of-scope disordered-eating sort item for an in-theme risky dare. Zero key inversions across 72/71/67/71/66 reviewed.
@@ -754,7 +771,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - **Independently verified each:** forge_check --game PASS, forge_dedup 0 intra-band (cross-band echoes logged, allowed), check_msg_len clean, tsc 0. Each merged `--no-ff`; wave deployed via prebuilt flow - swipeed.vercel.app → `dpl_7PVqZdo4AESd2A9rJRxKuPxPpdeL` (Ready, 200).
 - **First wave run at the new cadence of 2** (post-SWED-10): no rate-limit failures. Tracked as SWED-11.
 
-## 2026-06-28 - Forge wave 5: Chapter 2 complete, Chapter 3 started (17/69); pipeline hardened; Plane tracking live
+## 2026-06-28 · Forge wave 5: Chapter 2 complete, Chapter 3 started (17/69); pipeline hardened; Plane tracking live
 - **3 games grown, verified, merged, deployed** (each: ground → generate + adversarial-review/category → assemble + gate; ~1M tokens):
   - **smart-screen** (Ch.2, ages 6-9): **84 → 436**. Review softened "gory"→"creepy", tightened "an older person"→"a trusted grown-up", removed an actionable eye-harm sort item.
   - **puberty-quest** (Ch.3, ages 9-12): **85 → 446**. Review softened self-harm-ideation sort tiles to the GDD "lasting low mood" ceiling (answer key unchanged); boys/girls puberty bands kept exact.
@@ -764,7 +781,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 - **Pipeline hardened (SWED-10):** the Ground stage now retries 3× on a transient server rate-limit - mind-matters' first attempt died exactly there and rolled back clean, untouched. Adopted **waves of 2** to stop over-saturating the API (3-at-once was the trigger).
 - **Plane tracking live:** created the **SwipeEd (SWED)** project + fleet issues; every change now carries a `[SWED-n]` commit tag. Config at [plane.config.md](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/plane.config.md); pipeline design at [games/swipeed-content-pipeline.md](../games/swipeed-content-pipeline.md).
 
-## 2026-06-24 - Forge 2-game pilot complete + deployed; fleet started
+## 2026-06-24 · Forge 2-game pilot complete + deployed; fleet started
 - **The content pipeline is proven end-to-end on two opposite games and live.** Each ran through the full
   per-game workflow (ground → generate + adversarial-review per category → assemble → merge gate; 14 agents,
   ~1M tokens, ~21 min/game):
@@ -784,7 +801,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   genuine variety, no padding). Fleet = 67 remaining games run in **waves of 3**, each verified + committed
   independently as it lands. **Wave 1 launched:** feelings-friends, clean-crew, family-garden.
 
-## 2026-06-24 - Content-growth pipeline (`forge`): tooling built + generation loop proven
+## 2026-06-24 · Content-growth pipeline (`forge`): tooling built + generation loop proven
 - **The deeper fix for "games feel like wrappers."** The mechanic-count asks (sort 6 / spot 5 / match 5) and the
   shallowness are fundamentally a **content-bank** problem: ~84/game, ~14/category can't sustain fresh sessions.
   Founder confirmed scope **≥400/game, full fleet** (~21,800 new scenarios). Designed via a 9-agent adversarial
@@ -807,7 +824,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   Tooling + the `valence` engine change merged `--no-ff` + deployed (routes 200). **Next:** finish the 2-game
   sample through the merge gate + deploy, then the fleet in waves.
 
-## 2026-06-24 - Engine depth pass: anti-repeat rotation, 6-beat sub-topics, shuffled sort, multi-catch spot
+## 2026-06-24 · Engine depth pass: anti-repeat rotation, 6-beat sub-topics, shuffled sort, multi-catch spot
 - **Founder flagged that games "still feel like wrappers"** (`swipeed-equal-lens`): sort showed the same 4 options
   in the same up/down order, spot had only 3, match only 3-3, and sub-games only 3 questions at a time. Audited the
   engine: the root cause is shallow, predictably-served beats - the bank is ~84/game (~14/category) and `shuffle()`
@@ -834,7 +851,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   writing generator code; self-validating on a 1-2 game sample, then running the fleet in waves. See
   [swipeed-game-patterns #27](../games/swipeed-game-patterns.md).
 
-## 2026-06-24 - Content-drift fix: trim outlier scenarios + banded length guardrail
+## 2026-06-24 · Content-drift fix: trim outlier scenarios + banded length guardrail
 - **Founder flagged a felt "content drift"** (`swipeed-equal-lens`): per-game character count climbs steadily by
   chapter. Audited it before touching anything. **Verdict: mostly NOT bloat.** Scenario count is flat (~84/game);
   **0 player-visible field ever exceeded the 160-char bubble cap**; the growth is per-scenario prose scaling with
@@ -859,7 +876,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   real bloat to cut; the durable win is the guardrail, which lets copy keep scaling with reader age but pins each
   band so the drift can't silently resume.
 
-## 2026-06-24 - UI polish round 2: capstone ≤160 + sort "stuck chip" drag fix
+## 2026-06-24 · UI polish round 2: capstone ≤160 + sort "stuck chip" drag fix
 - **Two more live-feedback fixes (`swipeed-equal-lens`)**:
   - **Capstone ≤160.** The 160-char cap now covers the **rich capstones** too (round 1 only reached the lesson
     games). An 8-agent pass tightened **52 ceremonial fields** across c1-c8 - arrival, canvasPayoff, every recap
@@ -877,7 +894,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   capstone narration) is **fixed**. Totals: **~1.78M fixed chars** (lessons 1.74M + capstones 37k) one-time, and
   the greets (~9.7k) are the personalised surface - recurring is ~free if the name is spliced as one clip/user.
 
-## 2026-06-24 - UI polish from live feedback: ≤160-char messages, Lensy (not Sam), bottom-pinned branch Next
+## 2026-06-24 · UI polish from live feedback: ≤160-char messages, Lensy (not Sam), bottom-pinned branch Next
 - **Three live-app fixes (`swipeed-equal-lens`)** from the founder's screenshots:
   - **Max message length 160.** Every player-visible message/text block is now **≤160 characters** (real code
     points - emoji & curly quotes count as one). A **12-agent workflow** tightened greet/helpLine/reassure/
@@ -898,7 +915,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   `--no-ff`; deployed. KB: this entry + patterns-doc note (the 160-cap rule, Lensy-not-Sam, engine-rendered branch
   resolve, split strike resolve are now reusable decisions). **The whole catalog stays 77/77 live and consistent.**
 
-## 2026-06-24 - 🎉 c8 capstone "Full Circle" - the WHOLE 3→parenthood catalog is complete (77/77)
+## 2026-06-24 · 🎉 c8 capstone "Full Circle" - the WHOLE 3→parenthood catalog is complete (77/77)
 - **c8 capstone (`swipeed-equal-lens`)** - built the **Chapter-8 graduation "Full Circle", the FINAL capstone of
   the entire catalog**, to the rich [Capstone format v1](../games/capstones.md), matching c1-c7 on the shared rich
   engine (`capstone-rich.tsx`). Driven by the c8 Landing: arrive → look back (the "Full Circle" constellation
@@ -919,7 +936,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   child the journey began with ([My Body, My Rules](../games/my-body-my-rules.md) g02) is now the parent who teaches
   it ([The Talks](../games/the-talks.md) g64; [Be the Safe Adult](../games/be-the-safe-adult.md) g69).
 
-## 2026-06-24 - g69 Be the Safe Adult - the safeguarding keystone (all 69 lesson nodes now v2)
+## 2026-06-24 · g69 Be the Safe Adult - the safeguarding keystone (all 69 lesson nodes now v2)
 - **g69 Be the Safe Adult (`swipeed-equal-lens`)** - built the **ninth and final Chapter-8 lesson node, the
   safeguarding keystone**, to the [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md): it
   **closes the Parent Layer and underwrites the entire kids' journey** - from [My Body, My Rules](../games/my-body-my-rules.md)
@@ -945,7 +962,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   are v2." Only the c8 capstone remains to close the whole 3 → parenthood catalog.** **Next:** c8 capstone (Full
   Circle / Raising the Next Generation).
 
-## 2026-06-24 - g68 Navigating Addictions - a high-care Parent-Layer pillar (Chapter 8)
+## 2026-06-24 · g68 Navigating Addictions - a high-care Parent-Layer pillar (Chapter 8)
 - **g68 Navigating Addictions (`swipeed-equal-lens`)** - built the **eighth Chapter-8 node, a high-care
   Parent-Layer pillar**, to the [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md). Core
   insight: *shame and punishment drive addiction underground, while calm, connection and the right help bring it
@@ -971,7 +988,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   [Decoded](../games/decoded.md) (g36). **Next:** g69 Be the Safe Adult - the last Chapter-8 lesson node before
   capstone c8.
 
-## 2026-06-24 - g67 Raising Neurodiverse Kids - difference not deficiency (Chapter 8)
+## 2026-06-24 · g67 Raising Neurodiverse Kids - difference not deficiency (Chapter 8)
 - **g67 Raising Neurodiverse Kids (`swipeed-equal-lens`)** - built the **seventh Chapter-8 node, a Parent-Layer
   pillar and a warm callback to [Same Same, Different](../games/same-same-different.md) (g04)**, to the
   [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md): reframes neurodivergence as
@@ -997,7 +1014,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   [Same Same, Different](../games/same-same-different.md) (g04); a pillar alongside g65 & g66. **Next:** g68 Navigating
   Addictions.
 
-## 2026-06-24 - g66 Raising Gender-Diverse Kids - affirming an LGBTQ+ child (Chapter 8)
+## 2026-06-24 · g66 Raising Gender-Diverse Kids - affirming an LGBTQ+ child (Chapter 8)
 - **g66 Raising Gender-Diverse Kids (`swipeed-equal-lens`)** - built the **sixth Chapter-8 node, a sensitive
   Parent-Layer node handled with the care of [Spectrum](../games/spectrum.md) (g32)** - dignity-first, never-out,
   child-safety-centred - to the [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md). *The
@@ -1022,7 +1039,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   on [Spectrum](../games/spectrum.md) (g32) and [What Makes Me, Me](../games/what-makes-me-me.md) (g07). **Next:** g67
   Raising Neurodiverse Kids.
 
-## 2026-06-24 - g65 Break the Cycle - the emotional core of the Parent Layer (Chapter 8)
+## 2026-06-24 · g65 Break the Cycle - the emotional core of the Parent Layer (Chapter 8)
 - **g65 Break the Cycle (`swipeed-equal-lens`)** - built the **fifth Chapter-8 node, the emotional core of the
   Parent Layer and the deepest Unlearn→Relearn beat in the app**, to the
   [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md): *we parent the way we were parented,
@@ -1048,7 +1065,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   [Mind Matters](../games/mind-matters.md) (g38) and [Bounce](../games/bounce.md) (g39) + the UN→RE core. **Next:** g66
   Raising Gender-Diverse Kids.
 
-## 2026-06-24 - g64 The Talks, Age by Age - the Parent-Layer keystone (Chapter 8)
+## 2026-06-24 · g64 The Talks, Age by Age - the Parent-Layer keystone (Chapter 8)
 - **g64 The Talks, Age by Age (`swipeed-equal-lens`)** - built the **fourth Chapter-8 node, the keystone of the
   Parent Layer and the hinge of the generational loop**, to the
   [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md): a parent guided here becomes the trusted
@@ -1073,7 +1090,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   [My Body, My Rules](../games/my-body-my-rules.md) (g02) - closing the generational loop; around it sit g65-g69.
   **Next:** g65 Break the Cycle.
 
-## 2026-06-24 - g63 Looking After You - parental wellbeing (Chapter 8, high-care)
+## 2026-06-24 · g63 Looking After You - parental wellbeing (Chapter 8, high-care)
 - **g63 Looking After You (`swipeed-equal-lens`)** - built the **third Chapter-8 node, the parent's-own-wellbeing
   node and a high-care one** (the node g61/g62 route parental burnout to), to the
   [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md): *you can't pour from an empty cup.*
@@ -1096,7 +1113,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   [Mind & Belonging](../games/mind-belonging.md) (g49) and [Bounce](../games/bounce.md) (g39). **Next:** g64 The Talks
   (Age by Age).
 
-## 2026-06-24 - g62 Equal Parents - co-parenting as equals (Chapter 8)
+## 2026-06-24 · g62 Equal Parents - co-parenting as equals (Chapter 8)
 - **g62 Equal Parents (`swipeed-equal-lens`)** - built the **second Chapter-8 node** to the
   [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md): takes the equal-home work of
   [Equal Partners](../games/equal-partners.md) (g55) into **raising children** - the stage where gendered defaults
@@ -1120,7 +1137,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   deployed. KB: new doc [games/equal-parents.md](../games/equal-parents.md) + index row + this entry. Builds on g55 &
   g26; beside g61; links g63. **Next:** g63 Looking After You.
 
-## 2026-06-24 - Chapter 8 opens: g61 Us, After Kids (the final chapter begins)
+## 2026-06-24 · Chapter 8 opens: g61 Us, After Kids (the final chapter begins)
 - **g61 Us, After Kids (`swipeed-equal-lens`)** - built the **opener of Chapter 8 (Parenthood), the final
   chapter**, to the [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md): it starts where
   parenting strains most - **the couple's own relationship, and the self within it.** *A baby changes everything,
@@ -1143,7 +1160,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   entry. Builds on [Choosing & Building](../games/choosing-building.md) (g53) and
   [Real Relationships](../games/real-relationships.md) (g46); links g62/g63/g57/g56. **Next:** g62 Equal Parents.
 
-## 2026-06-24 - c7 capstone "A Life, Built" - Chapter 7 complete (the whole 3→first-child journey is built)
+## 2026-06-24 · c7 capstone "A Life, Built" - Chapter 7 complete (the whole 3→first-child journey is built)
 - **c7 capstone (`swipeed-equal-lens`)** - built the **Chapter-7 graduation "A Life, Built"** to the rich
   [Capstone format v1](../games/capstones.md), matching c1-c6 on the shared rich engine (`capstone-rich.tsx`). Driven
   by the c7 Landing: arrive → look back (the "A Life, Built" constellation gallery, eight Chapter-7 stickers) →
@@ -1163,7 +1180,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   (Chapters 1-7, 67 nodes) is now built to the v2/rich standard.** Only Chapter 8 (Parenthood, g61-g69 + c8)
   remains. **Next (new chapter, future):** g61 Us, After Kids.
 
-## 2026-06-24 - g60 Many Ways to Family - equity node closing Chapter 7's lessons
+## 2026-06-24 · g60 Many Ways to Family - equity node closing Chapter 7's lessons
 - **g60 Many Ways to Family (`swipeed-equal-lens`)** - built the **eighth and final Chapter-7 *lesson* node** (the
   c7 capstone still remains) to the [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md): the
   equity bookend and counterpart to [If, When & Whether](../games/if-when-whether.md) (g59), for everyone whose route
@@ -1188,7 +1205,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   (g54). **All eight Chapter-7 lesson nodes (g53-g60) are now live; only the c7 capstone (Building Together)
   remains.** **Next:** c7 capstone (rich).
 
-## 2026-06-24 - g59 If, When & Whether - reproductive decisions (Chapter 7)
+## 2026-06-24 · g59 If, When & Whether - reproductive decisions (Chapter 7)
 - **g59 If, When & Whether (`swipeed-equal-lens`)** - built the **seventh Chapter-7 node** to the
   [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md): the reproductive-decision heart and the
   **adult version of [My Choices, My Future](../games/my-choices-my-future.md) (g29)** - whether to have children,
@@ -1211,7 +1228,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   doc [games/if-when-whether.md](../games/if-when-whether.md) + index row + this entry. Builds on g29; pairs with g60.
   **Next:** g60 Many Ways to Family (the last Chapter-7 lesson node before capstone c7).
 
-## 2026-06-24 - g58 Money, Together - work & money in partnership (Chapter 7)
+## 2026-06-24 · g58 Money, Together - work & money in partnership (Chapter 7)
 - **g58 Money, Together (`swipeed-equal-lens`)** - built the **sixth Chapter-7 node** to the
   [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md): carries the Work & Money domain from
   [Money & Independence](../games/money-independence.md) (g48) into shared adult life - *two incomes, one life.*
@@ -1232,7 +1249,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   tsc/eslint/build green; merged `--no-ff`; deployed. KB: new doc [games/money-together.md](../games/money-together.md)
   + index row + this entry. Builds on g48; pairs with g55; guards g56. **Next:** g59 If, When & Whether.
 
-## 2026-06-24 - g57 The Family Map - in-laws & joint family (Chapter 7)
+## 2026-06-24 · g57 The Family Map - in-laws & joint family (Chapter 7)
 - **g57 The Family Map (`swipeed-equal-lens`)** - built the **fifth Chapter-7 node** to the
   [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md): the **full-circle callback to
   [My Family Garden](../games/my-family-garden.md) (g03)** - in India you don't just marry a person, you join a
@@ -1253,7 +1270,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   deployed. KB: new doc [games/family-map.md](../games/family-map.md) + index row + this entry. Builds on
   [My Family Garden](../games/my-family-garden.md) (g03); links g55 & g56. **Next:** g58 Money, Together.
 
-## 2026-06-24 - g56 Respect at Home - Chapter 7's highest-safeguarding node
+## 2026-06-24 · g56 Respect at Home - Chapter 7's highest-safeguarding node
 - **g56 Respect at Home (`swipeed-equal-lens`)** - built the **fourth Chapter-7 node and the chapter's protective
   backbone** to the [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md): it carries the
   **consent thread into marriage** - the place consent is most often assumed away. *Marriage doesn't cancel
@@ -1277,7 +1294,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   Builds on [Mutual](../games/mutual.md) (g31) and [Consent, For Real](../games/consent-for-real.md) (g44); g55 routes
   coercive control here. **Next:** g57 The Family Map.
 
-## 2026-06-24 - g55 Equal Partners - the equal-home heart of Chapter 7
+## 2026-06-24 · g55 Equal Partners - the equal-home heart of Chapter 7
 - **g55 Equal Partners (`swipeed-equal-lens`)** - built the **third Chapter-7 node** to the
   [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md): *the most unequal place in most lives is
   the home.* **84-scenario typed library** (gameId `equal-partners`): see-the-load 17 · helping-vs-owning 16 ·
@@ -1298,7 +1315,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   + index row + this entry. Builds on [Equalize](../games/equalize.md) (g26); sets up Equal Parents (g62). **Next:**
   g56 Respect at Home.
 
-## 2026-06-24 - g54 Your Path, Your Call - the equity heart of Chapter 7
+## 2026-06-24 · g54 Your Path, Your Call - the equity heart of Chapter 7
 - **g54 Your Path, Your Call (`swipeed-equal-lens`)** - built the **second Chapter-7 node** to the
   [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md), the **deliberate counterpoint to
   [Choosing & Building](../games/choosing-building.md) (g53)**: g53 equips the person who chooses a partnership; g54
@@ -1321,7 +1338,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   [Equal & Confident](../games/equal-confident.md) (g50) and [Equalize](../games/equalize.md) (g26). **Next:** g55 Equal
   Partners.
 
-## 2026-06-24 - Chapter 7 opens: Choosing & Building (g53), the first genuinely-new node
+## 2026-06-24 · Chapter 7 opens: Choosing & Building (g53), the first genuinely-new node
 - **g53 Choosing & Building (`swipeed-equal-lens`)** - built the **opener of Chapter 7 (Building a Life,
   22 → first child)** to the [GDD v2 mechanic-embodying standard](../games/swipeed-game-patterns.md). This is the
   **first genuinely-new node** built after the Ch.1-6 retrofit, so it needed **fresh wiring** (not just content):
@@ -1341,7 +1358,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   Builds on [Real Relationships](../games/real-relationships.md) (g46) and [Mutual](../games/mutual.md) (g31); sets up
   Equal Partners (g55) and The Family Map (g57). **Next:** g54 Your Path, Your Call.
 
-## 2026-06-23 - Reverted all the voice/TTS exploration - back to plain Web Speech
+## 2026-06-23 · Reverted all the voice/TTS exploration - back to plain Web Speech
 - **Voice (`swipeed-equal-lens`)** - at the founder's call, **reverted the entire 2026-06-23 voice exploration**
   (opt-in Kokoro neural voice, the `/voice` tuning lab, per-chapter voices, app-wide `BUILTIN` defaults, and the
   pre-generated-clips pipeline + Chapter-1 pilot). `speak.ts` + `engine-host.tsx` restored to their pre-voice
@@ -1353,7 +1370,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   drag gestures, UN/RE reveal, etc.) was NOT reverted - only the voice work. If revisited, pre-generated clips
   were the most promising path. See [pattern #10](../games/swipeed-game-patterns.md).
 
-## 2026-06-23 - Pre-generated narration clips pipeline (option C) + Chapter-1 pilot
+## 2026-06-23 · Pre-generated narration clips pipeline (option C) + Chapter-1 pilot
 - **Pre-gen audio (`swipeed-equal-lens`: `audio-key.ts` + `speak.ts` + `scripts/collect-narration.py` +
   `scripts/gen-audio.mts`)** - the production answer for **one consistent narration voice, instant, offline, no
   per-user model download**. `collect-narration.py` extracts the EXACT strings the v2 engine speaks (mirrors
@@ -1367,7 +1384,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   bucket/CDN (not the repo). `scripts/` excluded from the app typecheck. tsc/build green; deployed (`/game/feelings`
   + `/audio/manifest.json` + clips all 200). See [pattern #10](../games/swipeed-game-patterns.md).
 
-## 2026-06-23 - App-wide per-chapter voice defaults (not just per-device localStorage)
+## 2026-06-23 · App-wide per-chapter voice defaults (not just per-device localStorage)
 - **Voice defaults (`swipeed-equal-lens`: `chapters.ts` `BUILTIN` + `speak.ts` `pickWebVoice` + `/voice`)** - the
   `/voice` lab only wrote **localStorage (per-device)**, so tuned voices never reached other users/devices.
   Added a **code-level default layer** that ships to everyone: `BUILTIN` per-chapter defaults (age-tuned rate/
@@ -1378,7 +1395,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   voices vary per device, so a device voice can't be a universal default - **only Kokoro (or pre-generated clips)
   gives the same voice on every device.** tsc/lint/build green; deployed. See [pattern #10](../games/swipeed-game-patterns.md).
 
-## 2026-06-23 - Per-chapter narration voices (8 personas, a voice each)
+## 2026-06-23 · Per-chapter narration voices (8 personas, a voice each)
 - **Per-chapter voice (`swipeed-equal-lens`: `src/lib/chapters.ts` + `speak.ts` + `engine-host.tsx` + `/voice`)** -
   each of the 8 chapters targets a different persona/age band, so the narration voice is now set **per
   chapter**. `chapters.ts` maps runtime gameId→chapter (from the canonical path table), defines the 8 persona
@@ -1390,7 +1407,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   chapters", Save writes all. No game code changed. tsc/lint/build green; deployed (`/voice` + `/game/*` 200).
   See [pattern #10](../games/swipeed-game-patterns.md).
 
-## 2026-06-23 - Voice lab (/voice) + tunable device voice
+## 2026-06-23 · Voice lab (/voice) + tunable device voice
 - **Voice tuning (`swipeed-equal-lens`: `src/app/voice/page.tsx` + `speak.ts` + `tts-kokoro.ts`)** - added a
   **`/voice` lab** to audition and tune the narration voice live: pick the engine (device Web Speech vs neural
   Kokoro), choose a specific voice, tune rate/pitch (web) or speed (kokoro), preview against real Lensy sample
@@ -1401,7 +1418,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   model download. No game code changed. tsc/lint/build green; deployed (`/voice` 200). See
   [pattern #10](../games/swipeed-game-patterns.md).
 
-## 2026-06-23 - Opt-in in-browser neural TTS (Kokoro-82M) behind speak()
+## 2026-06-23 · Opt-in in-browser neural TTS (Kokoro-82M) behind speak()
 - **Voice engine (`swipeed-equal-lens`: `src/lib/tts-kokoro.ts` + `src/lib/speak.ts`)** - added an **opt-in**
   alternative to the device Web Speech voice: **Kokoro-82M run on-device via onnxruntime-web** (WebGPU when
   available, else WASM/CPU). One consistent warm "Lensy" voice on every device, fully offline after a one-time
@@ -1415,7 +1432,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   **pre-generated clips remain the low-latency production path** (render the static authored lines at build time,
   serve cached audio behind the same `speak()` interface). Documented in [pattern #10](../games/swipeed-game-patterns.md).
 
-## 2026-06-23 - Capstone+game UI follow-ups from on-device review (UN/RE reveal, swipe, match cells, text)
+## 2026-06-23 · Capstone+game UI follow-ups from on-device review (UN/RE reveal, swipe, match cells, text)
 - **Engine UX (`capstone-rich.tsx` + `v2-engine.tsx`)** - five fixes from a device review of the capstones, **no
   content/data changes**: (1) strike-rewrite reveal now uses the **shared `UnReBeat` UN/RE card** (UN eraser teal
   → RE pencil coral, brand icons) like the lesson engine, not plain inline text; (2) the **swipe lap** no longer
@@ -1427,7 +1444,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   `fix/capstone-ui-followups` → `--no-ff` merged; deployed (capstone routes + lesson routes 200). See
   [interaction model](../games/swipeed-interaction-model.md#capstones-share-the-model-2026-06-23).
 
-## 2026-06-23 - Capstone laps brought to v2 design parity (gestures + chat bubble + three-zone shell)
+## 2026-06-23 · Capstone laps brought to v2 design parity (gestures + chat bubble + three-zone shell)
 - **[Rich capstone engine](../games/capstones.md) (`capstone-rich.tsx`, all six capstones c1-c6)** - the victory
   laps had reimplemented each mechanic with the **old tap-button UI** and a separate shell, so the post-Green-Light/
   Red-Light overhaul (which landed only in `v2-engine.tsx`) never reached the chapter graduations. The capstone
@@ -1443,7 +1460,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   `--no-ff` merged. (Reported by the founder: "a lot of the design fixes after Green Light Red Light are not
   applied to the capstone questions.")
 
-## 2026-06-23 - c6 Capstone "Standing on My Own" reworked to rich format v1 - Chapter 6 fully v2/rich
+## 2026-06-23 · c6 Capstone "Standing on My Own" reworked to rich format v1 - Chapter 6 fully v2/rich
 - **[Capstone: Standing on My Own](../games/capstones.md#capstone-6---standing-on-my-own-rich-format-v1---the-college-graduation) (c6, gameId
   `capstone-6`, Ch.6 College graduation)** - replaced the old nine-star tap build (the simple `capstone-engine.tsx`)
   with the shared **rich capstone engine**, matching c1-c5. Landing config (`content/games/capstone-6.ts`) drives
@@ -1459,7 +1476,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   `feat/c6-capstone-rich` → `--no-ff` merged. **Chapter 6 (g44-g52 + c6, ages 18-22) is now fully built to the
   v2/rich standard** - the entire 3-22 journey (Chapters 1-6) is done. Remaining: Chapters 7-8 (g53-g69, unbuilt).
 
-## 2026-06-23 - #g51 Know Your Rights (Adult) reworked to GDD 51 v2 - all 9 Chapter-6 lessons now v2
+## 2026-06-23 · #g51 Know Your Rights (Adult) reworked to GDD 51 v2 - all 9 Chapter-6 lessons now v2
 - **[Know Your Rights (Adult)](../games/know-your-rights.md) (#g51, gameId `know-your-rights`, Ch.6, Thread G)** -
   the Chapter-6 closer moved **off the ModesEngine onto the shared v2 engine**. **84-scenario typed library**
   (rights-at-work 15 · harassment-and-posh 15 · renting-and-consumer 13 · cyber-and-data 14 · claim-it 15 ·
@@ -1475,7 +1492,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   merged. **All nine Chapter-6 lessons (g44-g52) are now v2** - only the c6 capstone remains. Builds on g35;
   pairs g50. Next: rich rework of capstone c6 (Standing on My Own).
 
-## 2026-06-23 - #g50 Equal & Confident reworked to GDD 50 v2 (voice/leadership/allyship; everyday bias)
+## 2026-06-23 · #g50 Equal & Confident reworked to GDD 50 v2 (voice/leadership/allyship; everyday bias)
 - **[Equal & Confident](../games/equal-confident.md) (#g50, gameId `equal-confident`, Ch.6, Thread E)** - the
   voice/leadership/allyship node moved **off the ModesEngine onto the shared v2 engine**. **84-scenario typed
   library** (claim-your-voice 19 · lead-the-room 14 · spot-counter-bias 15 · be-the-ally 16 ·
@@ -1489,7 +1506,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   ->red (g50-only). Spot ids injected (5). Read-first attested; tsc/lint/build/status green.
   `feat/g50-equal-confident-v2` → `--no-ff` merged. Builds on g33/g26; pairs g51; feeds g55/g62. Next: g51 Know Your Rights.
 
-## 2026-06-23 - #g52 Find Your Feet reworked to GDD 52 v2 (career/future anxiety; comparison trap)
+## 2026-06-23 · #g52 Find Your Feet reworked to GDD 52 v2 (career/future anxiety; comparison trap)
 - **[Find Your Feet](../games/find-your-feet.md) (#g52, gameId `find-your-feet`, Ch.6, Thread C)** - the
   career/future-anxiety node (completing the College wellbeing cluster g48/g49/g52) moved **off the ModesEngine
   onto the shared v2 engine**. **84-scenario typed library** (comparison-trap 15 · not-all-sorted 14 ·
@@ -1504,7 +1521,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   bins left neutral). Spot ids injected (7). Read-first attested; tsc/lint/build/status green.
   `feat/g52-find-your-feet-v2` → `--no-ff` merged. Builds on g42/g39; pairs g48/g49. Next: g50 Equal & Confident.
 
-## 2026-06-23 - #g49 Mind & Belonging reworked to GDD 49 v2 (college mental health; help=strength)
+## 2026-06-23 · #g49 Mind & Belonging reworked to GDD 49 v2 (college mental health; help=strength)
 - **[Mind & Belonging](../games/mind-belonging.md) (#g49, gameId `mind-belonging`, Ch.6, Thread C)** - the College
   wellbeing anchor moved **off the ModesEngine onto the shared v2 engine**. **84-scenario typed library**
   (settling-in 13 · find-your-people 15 · cope-well 14 · mind-and-self-worth 14 · reach-out 15 · tools-and-help
@@ -1519,7 +1536,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   'deepens' token - good in mb-083, bad in mb-008). Spot ids injected (7). Read-first attested; tsc/lint/build/
   status green. `feat/g49-mind-belonging-v2` → `--no-ff` merged. Builds on g39; continues g42. Next: g52 Find Your Feet.
 
-## 2026-06-23 - #g48 Money & Independence reworked to GDD 48 v2 (financial literacy; fair money in love)
+## 2026-06-23 · #g48 Money & Independence reworked to GDD 48 v2 (financial literacy; fair money in love)
 - **[Money & Independence](../games/money-independence.md) (#g48, gameId `money-independence`, Ch.6, Thread C)** -
   the College stand-on-your-own-feet node moved **off the ModesEngine onto the shared v2 engine**. **84-scenario
   typed library** (budget-it 15 · save-and-traps 16 · earn-and-ask 15 · money-and-love 16 · money-is-freedom 12 ·
@@ -1533,7 +1550,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   status green. `feat/g48-money-independence-v2` → `--no-ff` merged. Builds on g42; pairs g49/g52; continues into
   g58. Next: g49 Mind & Belonging.
 
-## 2026-06-23 - #g47 Own Your Health reworked to GDD 47 v2 (adult SRH ownership; shame-free; confidential)
+## 2026-06-23 · #g47 Own Your Health reworked to GDD 47 v2 (adult SRH ownership; shame-free; confidential)
 - **[Own Your Health](../games/own-your-health.md) (#g47, gameId `own-your-health`, Ch.6, Thread F)** - the College
   SRH-ownership node moved **off the ModesEngine onto the shared v2 engine**. **84-scenario typed library**
   (protection-sorted 16 · know-your-status 15 · pleasure-and-wellbeing 14 · the-health-talk 13 ·
@@ -1547,7 +1564,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   change needed (bins emulated clean). Spot ids injected (7). Read-first attested; tsc/lint/build/status green.
   `feat/g47-own-your-health-v2` → `--no-ff` merged. Builds on g30/g29/g22; pairs g44. Next: g48 Money & Independence.
 
-## 2026-06-23 - #g46 Real Relationships reworked to GDD 46 v2 (healthy vs coercive; leaving safely)
+## 2026-06-23 · #g46 Real Relationships reworked to GDD 46 v2 (healthy vs coercive; leaving safely)
 - **[Real Relationships](../games/real-relationships.md) (#g46, gameId `real-relationships`, Ch.6, Thread D)** - the
   relationship heart of College moved **off the ModesEngine onto the shared v2 engine**. **84-scenario typed
   library** (what-healthy-looks-like 15 · fight-right 16 · red-flags-grown-up 16 · leaving-safely 14 · breakups
@@ -1562,7 +1579,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   smothering/wrecker→red. Spot ids injected (6). Read-first attested; tsc/lint/build/status green.
   `feat/g46-real-relationships-v2` → `--no-ff` merged. Builds on g24/g31/g09. Next: g47 Own Your Health.
 
-## 2026-06-23 - #g45 Swipe Right? reworked to GDD 45 v2 (modern dating & app safety)
+## 2026-06-23 · #g45 Swipe Right? reworked to GDD 45 v2 (modern dating & app safety)
 - **[Swipe Right? - Dating & Apps](../games/swipe-right.md) (#g45, gameId `swipe-right`, Ch.6, Thread D)** - the
   College dating node moved **off the ModesEngine onto the shared v2 engine**. **84-scenario typed library**
   (dating-now 14 · meeting-safely 16 · fakes-and-ghosts 16 · date-with-respect 16 · profiles-are-people 12 ·
@@ -1576,7 +1593,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   Screen Heroes' 'Not a real check'). Spot ids injected (8). Read-first attested; tsc/lint/build/status green.
   `feat/g45-swipe-right-v2` → `--no-ff` merged. Builds on g24/g40/g44. Next: g46 Real Relationships.
 
-## 2026-06-23 - #g44 Consent, For Real reworked to GDD 44 v2 - Chapter 6 (adult) rework begins
+## 2026-06-23 · #g44 Consent, For Real reworked to GDD 44 v2 - Chapter 6 (adult) rework begins
 - **[Consent, For Real](../games/consent-for-real.md) (#g44, gameId `consent-real`, Ch.6, Thread B)** - the FIRST
   Chapter-6 (adult, ages 18-22) node moved **off the ModesEngine onto the shared v2 mechanic engine**, opening
   the rework of the adult journey to the same standard as the child journey. **84-scenario typed library**
@@ -1593,7 +1610,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   bins). Spot ids injected (6). Read-first attested; tsc/lint/build/status green. `feat/g44-consent-real-v2` →
   `--no-ff` merged. Builds on g31 (Mutual). Next: g45 Swipe Right? - Dating & Apps.
 
-## 2026-06-23 - c5 Capstone "Ready for the World" reworked to rich Capstone format v1 - closes the whole path
+## 2026-06-23 · c5 Capstone "Ready for the World" reworked to rich Capstone format v1 - closes the whole path
 - **[Capstone: Ready for the World](../games/capstones.md#capstone-5---ready-for-the-world-rich-format-v1---the-final-graduation) (c5,
   gameId `capstone-5`, Ch.5 graduation + the close of the whole 4-18 journey)** - replaced the old nine-star tap
   build with the shared **rich capstone engine** (`capstone-rich.tsx`), matching c1-c4. Landing config
@@ -1608,7 +1625,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   → `--no-ff` merged. **All 43 lesson nodes + all 5 child-journey capstones (ages 3-18) are now built to the
   v2/rich standard.** Next: Chapter 6 (g44 Consent, For Real onward).
 
-## 2026-06-23 - #g36 Decoded built to GDD 36 v2 (media-literacy finale; decode anything) - Chapter 5 lessons all v2
+## 2026-06-23 · #g36 Decoded built to GDD 36 v2 (media-literacy finale; decode anything) - Chapter 5 lessons all v2
 - **[Decoded](../games/decoded.md) (#g36, gameId `decoded`, Ch.5, Thread G)** - the media-literacy **finale and
   summit of the 3-18 journey**, reworked onto the shared v2 engine as an **84-scenario typed library**
   (decode-the-algorithm 14 · decode-the-influence 16 · decode-pornography 14 · decode-yourself 14 · the-decoder 12
@@ -1624,7 +1641,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   Read-first attested; tsc/lint/build/status green. `feat/g36-decoded-v2` → `--no-ff` merged. **All Chapter 5
   lessons (g29-g36, g42) are now v2.** Next: rich rework of capstone c5 (Ready for the World).
 
-## 2026-06-23 - #g42 Life Ready built to GDD 42 v2 (adult life-skills; culminates the feelings thread)
+## 2026-06-23 · #g42 Life Ready built to GDD 42 v2 (adult life-skills; culminates the feelings thread)
 - **[Life Ready](../games/life-ready.md) (#g42, gameId `life-ready`, Ch.5, Thread C)** - the adult life-skills node
   (Chapter 5's penultimate lesson), reworked onto the shared v2 engine as an **85-scenario typed library**
   (know-yourself 14 · decide-like-an-adult 15 · handle-the-big-stuff 17 · people-skills 15 · support-network 13 ·
@@ -1640,7 +1657,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   attested; tsc/lint/build/status green. `feat/g42-life-ready-v2` → `--no-ff` merged. Next: g36 Decoded (last Ch.5
   lesson), then capstone c5.
 
-## 2026-06-23 - #g35 Justice League: Rights built to GDD 35 v2 (rights & redress; educational-not-advice)
+## 2026-06-23 · #g35 Justice League: Rights built to GDD 35 v2 (rights & redress; educational-not-advice)
 - **[Justice League: Rights](../games/justice-league-rights.md) (#g35, gameId `justice-league`, Ch.5, Thread G)** -
   the rights-&-redress node, reworked onto the shared v2 engine as an **84-scenario typed library** (know-your-rights
   14 · know-the-law 14 · get-justice 18 · rights-in-action 16 · educational-not-advice 10 · your-rights-toolkit 12).
@@ -1655,7 +1672,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   (4). All law content flagged for expert review/localisation. Read-first attested; tsc/lint/build/status green.
   `feat/g35-justice-league-v2` → `--no-ff` merged. Chapter 5 lessons complete (g29-g35, g42 next). Next: g42 Life Ready.
 
-## 2026-06-23 - #g34 Change Makers built to GDD 34 v2 (campaign/collective change; the law as a tool)
+## 2026-06-23 · #g34 Change Makers built to GDD 34 v2 (campaign/collective change; the law as a tool)
 - **[Change Makers](../games/change-makers.md) (#g34, gameId `change-makers`, Ch.5, Thread E)** - the campaign /
   collective-change node, reworked onto the shared v2 engine as an **84-scenario typed library** (find-your-cause
   14 · make-the-plan 14 · build-the-movement 16 · the-law-as-a-tool 14 · make-it-stick 14 · launch-it 12). Seven
@@ -1670,7 +1687,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   Spot ids injected (4). Read-first attested; tsc/lint/build/status green. `feat/g34-change-makers-v2` → `--no-ff`
   merged. Next: g35 Justice League: Rights.
 
-## 2026-06-23 - #g33 Lead the Way built to GDD 33 v2 (structural equality → everyday leadership; allyship)
+## 2026-06-23 · #g33 Lead the Way built to GDD 33 v2 (structural equality → everyday leadership; allyship)
 - **[Lead the Way](../games/lead-the-way.md) (#g33, gameId `lead-the-way`, Ch.5, Thread E)** - the structural-
   equality→leadership node, reworked onto the shared v2 engine as an **84-scenario typed library** (the-gaps 15 ·
   what-allyship-is 14 · lead-by-example 14 · lift-as-you-climb 16 · call-in-not-out 13 · your-leadership-style 12).
@@ -1685,7 +1702,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   'Widens it' and Stand Up/Speak Up 'Bystander'). Spot ids injected (3). Read-first attested; tsc/lint/build/status
   green. `feat/g33-lead-the-way-v2` → `--no-ff` merged. Next: g34 Change Makers.
 
-## 2026-06-23 - #g32 Spectrum built to GDD 32 v2 (identity, orientation, respect-not-a-debate)
+## 2026-06-23 · #g32 Spectrum built to GDD 32 v2 (identity, orientation, respect-not-a-debate)
 - **[Spectrum](../games/spectrum.md) (#g32, gameId `spectrum`, Ch.5, Thread D)** - the identity/orientation/respect
   node, reworked onto the shared v2 engine as an **84-scenario typed library** (the-spectrum 15 · myths-and-respect
   15 · dignity-for-all 16 · being-you 14 · stand-against-bullying 12 · support-and-rights 12). Seven play actions
@@ -1698,7 +1715,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   unchanged (all bins emulated clean). Spot ids injected (4). Read-first attested; tsc/lint/build/status green.
   `feat/g32-spectrum-v2` → `--no-ff` merged. Next: g33 Lead the Way.
 
-## 2026-06-23 - #g31 Mutual built to GDD 31 v2 (sexual consent; FRIES; legal age; even-handed)
+## 2026-06-23 · #g31 Mutual built to GDD 31 v2 (sexual consent; FRIES; legal age; even-handed)
 - **[Mutual](../games/mutual.md) (#g31, gameId `mutual`, Ch.5, Thread B)** - the consent/relationships node **at
   its adult peak**, reworked onto the shared v2 engine as an **84-scenario typed library** (what-consent-is 15 ·
   reading-respecting 14 · pressure-coercion 17 · the-mutual-zone 14 · rights-and-law 12 · mutual-respect-equal
@@ -1711,7 +1728,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   `coercion`→red (regression-clean). Spot ids injected (6). Read-first attested; tsc/lint/build/status green.
   `feat/g31-mutual-v2` → `--no-ff` merged. Next: g32 Spectrum.
 
-## 2026-06-23 - #g30 Status: Know It built to GDD 30 v2 (HIV/STI testing; treatment works; zero stigma)
+## 2026-06-23 · #g30 Status: Know It built to GDD 30 v2 (HIV/STI testing; treatment works; zero stigma)
 - **[Status: Know It](../games/status-know-it.md) (#g30, gameId `status-know-it`, Ch.5, Thread F)** - STI/HIV
   testing-&-treatment, reworked onto the shared v2 engine as an **84-scenario typed library** (know-your-status
   16 · prevention-stack 14 · talk-about-it 13 · treat-and-thrive 16 · dignity-no-stigma 13 · own-it-decide 12).
@@ -1722,7 +1739,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   `^stigma`→red (anchored; "reduces stigma" stays green). Spot ids injected (4). Read-first attested;
   tsc/lint/build green. `feat/g30-status-v2` → `--no-ff` merged. Next: g31 Mutual.
 
-## 2026-06-23 - #g29 My Choices, My Future built to GDD 29 v2 (Chapter 5 opener; contraception & rights; autonomy-first)
+## 2026-06-23 · #g29 My Choices, My Future built to GDD 29 v2 (Chapter 5 opener; contraception & rights; autonomy-first)
 - **[My Choices, My Future](../games/my-choices-my-future.md) (#g29, gameId `my-choices`, Ch.5, Thread F)** - the
   contraception / family-planning / services node and the **Chapter 5 opener** (ages 15-18), reworked onto the
   **shared v2 engine** as an **84-scenario typed library**: the-full-picture 16 · if-when-whether 13 · decide-it
@@ -1742,7 +1759,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   green. `feat/g29-mychoices-v2` → `--no-ff` merged (`f9a2166` → merge). **Chapter 5 begun.** Next: g30 Status:
   Know It.
 
-## 2026-06-23 - #c4 Capstone "Reading Relationships" reworked to rich format v1 - Chapter 4 complete
+## 2026-06-23 · #c4 Capstone "Reading Relationships" reworked to rich format v1 - Chapter 4 complete
 - **[Capstone 4 - Reading Relationships](../games/capstones.md#capstone-4---reading-relationships-rich-format-v1)
   (`capstone-4`, Ch.4 graduation, ages 12-15)** - reworked off the old eight-star tap build onto the shared rich
   capstone engine (the c1/c2/c3 precedent), driven by the c4 Landing JSON. Five beats: arrive & bloom → look
@@ -1758,7 +1775,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   (`5f38285` → merge). **Chapter 4 is fully complete** (all games + capstone v2/rich). c1-c4 are now rich;
   c5-c6 still on the simple star format. Next: Chapter 5 (g29 My Choices, My Future on).
 
-## 2026-06-23 - #g28 Reality Check built to GDD 28 v2 (teen media literacy; gated non-explicit; fakes & rights) - Chapter 4 games complete
+## 2026-06-23 · #g28 Reality Check built to GDD 28 v2 (teen media literacy; gated non-explicit; fakes & rights) - Chapter 4 games complete
 - **[Reality Check](../games/reality-check.md) (#g28, gameId `reality-check`, Ch.4, Thread G)** - the teen
   media-literacy peak and the **last Chapter 4 game**, reworked onto the **shared v2 engine** as an
   **85-scenario typed library**: real-vs-reel 15 · manipulation-files 16 · media-love-sex 15 · fakes-and-rights
@@ -1778,7 +1795,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   **All Chapter 4 GAMES are now v2** (g21-g28, g39, g40, g43) - only **capstone c4** remains to close the
   chapter. Next: capstone c4 (rich-format rework), then Chapter 5 (g29 My Choices, My Future on).
 
-## 2026-06-23 - #g43 The Rabbit Hole built to GDD 43 v2 (manosphere → positive masculinity; never shame the boy)
+## 2026-06-23 · #g43 The Rabbit Hole built to GDD 43 v2 (manosphere → positive masculinity; never shame the boy)
 - **[The Rabbit Hole](../games/rabbit-hole.md) (#g43, gameId `rabbit-hole`, Ch.4, Thread E/G)** - the
   online-misogyny / manosphere node, reworked onto the **shared v2 engine** as an **84-scenario typed library**:
   the-funnel 14 · follow-the-money 13 · spot-the-hook 15 · real-strong 16 · have-each-others-backs 14 ·
@@ -1796,7 +1813,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   `feat/g43-rabbithole-v2` → `--no-ff` merged (`b8a910b` → merge). **Chapter 4 games are all v2** (g21-g28, g39,
   g40, g43). Next: g28 Reality Check, then capstone c4.
 
-## 2026-06-23 - #g40 Firewall built to GDD 40 v2 (teen online safety; the sextortion plan; never victim-blaming)
+## 2026-06-23 · #g40 Firewall built to GDD 40 v2 (teen online safety; the sextortion plan; never victim-blaming)
 - **[Firewall](../games/firewall.md) (#g40, gameId `firewall`, Ch.4, Thread B)** - the teen online-safety node
   (high-stakes safeguarding, calm not fear-mongering), reworked onto the **shared v2 engine** as an
   **84-scenario typed library**: spot-grooming 15 · think-before-share 14 · sextortion-plan 17 · myths-busted 12
@@ -1814,7 +1831,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   sextortion + find-help scenarios verbatim); `--attest g40`; gate validated; tsc/lint/build green.
   `feat/g40-firewall-v2` → `--no-ff` merged (`bd04a92` → merge). Next: g43 The Rabbit Hole.
 
-## 2026-06-23 - #g27 Stand Up built to GDD 27 v2 (teen bystander → upstander; the 5 Ds; safety-first)
+## 2026-06-23 · #g27 Stand Up built to GDD 27 v2 (teen bystander → upstander; the 5 Ds; safety-first)
 - **[Stand Up](../games/stand-up.md) (#g27, gameId `stand-up`, Ch.4, Thread B)** - the teen bystander-to-upstander
   node and the gender thread's call to action on GBV & harassment, reworked off the old 5-mode build onto the
   **shared v2 engine** as an **84-scenario typed library** (`content/games/stand-up.ts`): gbv-and-rights 15 ·
@@ -1832,7 +1849,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   validated; tsc/lint/build green. `feat/g27-standup-v2` → `--no-ff` merged (`6490cd5` → merge). Next: g40
   Firewall.
 
-## 2026-06-23 - #g26 Equalize built to GDD 26 v2 (balancing-sim; equality pays off; child marriage as a rights issue)
+## 2026-06-23 · #g26 Equalize built to GDD 26 v2 (balancing-sim; equality pays off; child marriage as a rights issue)
 - **[Equalize](../games/equalize.md) (#g26, gameId `equalize`, Ch.4)** - the gender-equality balancing-sim node
   (Thread E, ages 12-15), reworked off the old balancing-sim onto the **shared v2 engine** as an **84-scenario
   typed library** (`content/games/equalize.ts`, faithful from GDD 26 JSON): belief-vs-practice 14 · unpaid-load
@@ -1849,7 +1866,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   library incl. all child-marriage scenarios verbatim); `--attest g26`; pre-commit gate validated;
   tsc/lint/build green. `feat/g26-equalize-v2` → `--no-ff` merged (`f1dac3c` → merge). Next: g27 Stand Up.
 
-## 2026-06-23 - #g25 MythBuster: Gender built to GDD 25 v2 (gender myths · pseudo-science inoculation)
+## 2026-06-23 · #g25 MythBuster: Gender built to GDD 25 v2 (gender myths · pseudo-science inoculation)
 - **[MythBuster: Gender](../games/mythbuster-gender.md) (#g25, gameId `mythbuster-lab`, Ch.4)** - the
   gender-myth-busting node (Thread E, ages 12-15) and a flagship of the strike-and-rewrite signature, reworked
   off the old 5-mode build onto the **shared v2 engine** as a **90-scenario typed library**
@@ -1867,7 +1884,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   + equality scenarios); `--attest g25`; pre-commit gate validated; tsc/lint/build green. `feat/g25-mythbuster-v2`
   → `--no-ff` merged (`34d1d9f` → merge). Next: g26 Equalize.
 
-## 2026-06-23 - Toolkit/engine/splash fixes (freeze world under toolkit, fill strike cards, splash creep)
+## 2026-06-23 · Toolkit/engine/splash fixes (freeze world under toolkit, fill strike cards, splash creep)
 - **Freeze the path world under the toolkit:** the drawer sets a `data-overlay` flag; path-scene's
   wheel/pointer handlers bail on it (the world was scrolling behind the open toolkit). Toolkit sheet now floats
   with a real gap above the bottom edge (was flush). **Help Map tool:** removed the duplicated helpline numbers
@@ -1877,7 +1894,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   progress overrides and snaps to 100. `feat/ui-batch-4` → `--no-ff` merged (`7364eef` → merge); tsc + build
   green; changed files lint-clean (path-scene has pre-existing lint debt, untouched).
 
-## 2026-06-23 - Engine + Toolkit UI round (MCQ rows, pinned Next, flower/candle breathing, Get Help folded into Toolkit)
+## 2026-06-23 · Engine + Toolkit UI round (MCQ rows, pinned Next, flower/candle breathing, Get Help folded into Toolkit)
 - **Engine (v2-engine):** reflect/MCQ options one per row; Next/Finish pinned to the bottom row (was floating);
   strike-rewrite "unlearn" card tall but BOUNDED (min-h-56, no flex-1 → no dramatic shrink on resolve); progress
   emojis lose the golden fill.
@@ -1892,7 +1909,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   false-positive (aliased the store's `useTool`). Two branches (`feat/ui-batch-3`, `feat/toolkit-toolbar`)
   `--no-ff` merged; tsc + lint + build green.
 
-## 2026-06-23 - Engine: big sort zones, fresher rotation, layout tweaks
+## 2026-06-23 · Engine: big sort zones, fresher rotation, layout tweaks
 - **Sort dropzones** - 2-bin sorts now stack as **big top & bottom zones** (Reigns-style) with the chips
   between them; each zone is full-width and grows (flex-1). Drag up/down or tap. (>2 bins keep the grid.)
 - **strike-rewrite "unlearn" card** grows tall (flex-1, min-h-48, bigger text), like the swipe card.
@@ -1903,7 +1920,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   session, so the same sort kept recurring. The library isn't shallow - the rotation was over-surfacing rare
   beats. `feat/sort-bigzones-rotation` → `--no-ff` merged (`767bc54` → merge); tsc + lint + build green.
 
-## 2026-06-23 - Engine: pin the bottom row + strip chrome (co-play · home help pill · calm toggle)
+## 2026-06-23 · Engine: pin the bottom row + strip chrome (co-play · home help pill · calm toggle)
 - **Bottom row now pins to the edge** - the fill layout uses a column flex (GameShell) and the game column is
   `flex-1` (the prior `h-full` resolved against an auto-height parent and collapsed to content height, so the
   footer floated up). Removed: the in-game **Calm-Mode sparkle** (duplicated app Settings; OS reduce-motion is
@@ -1911,7 +1928,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   pill** (the top-bar help icon covers it; the pill still surfaces on safety-beat resolves). Calmer home, stable
   frame. `feat/declutter-2` → `--no-ff` merged (`a4baca9` → merge); tsc + lint + build green.
 
-## 2026-06-23 - Engine: stable three-zone game layout (stop the "dancing")
+## 2026-06-23 · Engine: stable three-zone game layout (stop the "dancing")
 - Content was vertically centred, so each beat's different height made the screen jump. Replaced with a
   full-height **top-anchored** layout (GameShell gains `align="fill"`): **top** zone pinned under the bar
   (progress strip + Lensy bubble), a **flexible middle** holding the mechanic (only it reflows), and a **bottom**
@@ -1919,7 +1936,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   dropzones taller (min-h-32). Other games keep the centred layout (`align` default). `feat/engine-stable-layout`
   → `--no-ff` merged (`23f9634` → merge); tsc + lint + build green.
 
-## 2026-06-23 - Engine: declutter (one border per card · no redundant messaging · hide path · mixed swipe answers)
+## 2026-06-23 · Engine: declutter (one border per card · no redundant messaging · hide path · mixed swipe answers)
 - **Shared chrome + GLRL**, on-device feedback. **One border per element** - the `.glass-card` already has a
   heavy border, so highlights stopped adding a second: **hook card removed** (the chat bubble already says the
   hook; a separate card just repeated it - fixes "redundant messaging" in swipe AND sort); **swipe card recolours
@@ -1930,7 +1947,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   ("Green or red?")** category so each swipe is a real judgment (separate tiles telegraphed the answer); home now
   5 tiles. `feat/engine-declutter` → `--no-ff` merged (`f209965` → merge); tsc + lint + build green; status OK.
 
-## 2026-06-23 - Engine: shared chrome polish (chat bubble · top progress strip · tertiary Home · stronger swipe highlight)
+## 2026-06-23 · Engine: shared chrome polish (chat bubble · top progress strip · tertiary Home · stronger swipe highlight)
 - **[Shared chrome](../games/swipeed-interaction-model.md#shared-chrome-the-frame-around-every-mechanic)** (one
   place, every game), from on-device review: **Lensy → chat bubble** (soft mist fill + tail toward Sam,
   content-width - not a card); **progress → a compact dot strip at the very top** (was a big card between the
@@ -1939,7 +1956,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   (wash + thicker ring + glow), a large watermark flag appears, and the badge is bigger. `feat/engine-chrome-polish`
   → `--no-ff` merged (`cd6e414` → merge); tsc + lint + build green.
 
-## 2026-06-23 - Engine: breathable swipe layout (drop the redundant hook card + static side columns)
+## 2026-06-23 · Engine: breathable swipe layout (drop the redundant hook card + static side columns)
 - **[swipe](../games/swipeed-interaction-model.md)** - on-device feedback: the screen repeated "Swipe: green flag
   or red?" three times (Sam's bubble, a hook card, the hint) and static Red/Green flag columns ate the width.
   Now the **hook card is skipped for swipe** (Sam + the slim hint cover the instruction - and Sam now **speaks
@@ -1949,7 +1966,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   no-fail unchanged; reduced-motion → instant. `feat/swipe-breathable` → `--no-ff` merged (`4d5a412` → merge);
   tsc + lint + build green.
 
-## 2026-06-23 - Engine: explore-label gesture - interaction model complete (all 10 mechanics)
+## 2026-06-23 · Engine: explore-label gesture - interaction model complete (all 10 mechanics)
 - **[explore-label](../games/swipeed-interaction-model.md)** - the last mechanic still on a flat tap list,
   upgraded. Split by payload, **content-detected (no schema change)**: ANATOMY beats (every part maps to a body
   region) render a friendly body figure and you tap the part ON the body (lights up where it lives) - the real
@@ -1960,7 +1977,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   mechanics now embody their verb.** `feat/explore-label-gesture` → `--no-ff` merged (`9dd4695` → merge); tsc +
   lint + build green; no content/schema changes. Pattern #27 + the interaction-model spec updated.
 
-## 2026-06-23 - Engine: direct-manipulation interaction model (real gestures across the v2 mechanics)
+## 2026-06-23 · Engine: direct-manipulation interaction model (real gestures across the v2 mechanics)
 - **[The Interaction Model](../games/swipeed-interaction-model.md) (NEW doc) + [pattern #27](../games/swipeed-game-patterns.md).**
   Replaced the v2 engine's "tap a thing, tap another thing" input with **direct manipulation**, on shared
   primitives built once (`components/games/interactions.tsx`: `usePointerDrag` mouse+touch+pen with an 8px
@@ -1982,7 +1999,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   lint + build green. `feat/interaction-model-v2` → `--no-ff` merged (`21b047b` → merge). **Pending:**
   `explore-label` gesture (needs a schema change + a body SVG) and real-device gesture QA after deploy.
 
-## 2026-06-23 - #g24 Green Light / Red Light built to GDD 24 v2 - teen flagship; adds the 10th mechanic (swipe)
+## 2026-06-23 · #g24 Green Light / Red Light built to GDD 24 v2 - teen flagship; adds the 10th mechanic (swipe)
 - **[Green Light / Red Light](../games/green-light-red-light.md) (#g24, gameId `glrl`, Ch.4)** - the **teen
   flagship** and namesake swipe game (relationships & consent, ages 12-15), reworked onto the **shared v2 engine**
   as an **84-scenario typed library** (`content/games/glrl.ts`, faithful from GDD 24 JSON): what-is-consent 14 ·
@@ -2001,7 +2018,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   validated; tsc/lint/build green. `feat/g24-glrl-v2` → `--no-ff` merged (`dbd8f60` → merge). Next: g25
   MythBuster: Gender.
 
-## 2026-06-23 - #g23 Outbreak: Stop the Spread built to GDD 23 v2 (STIs · public health · anti-stigma)
+## 2026-06-23 · #g23 Outbreak: Stop the Spread built to GDD 23 v2 (STIs · public health · anti-stigma)
 - **[Outbreak: Stop the Spread](../games/outbreak.md) (#g23, gameId `outbreak`, Ch.4)** - the STI + HIV public-health
   + anti-stigma node (Thread F · SRH, ages 12-15), reworked off the old containment-sim build onto the **shared
   v2 engine** as an **84-scenario typed library** (`content/games/outbreak.ts`, faithful from GDD 23 JSON):
@@ -2021,7 +2038,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   end-stigma scenarios); `--attest g23`; pre-commit gate validated; tsc/lint/build green. `feat/g23-outbreak-v2`
   → `--no-ff` merged (`40afdfe` → merge). Next: g24 Green Light / Red Light (the #24 swipe roguelike).
 
-## 2026-06-23 - #g22 Plan It built to GDD 22 v2 (fertility · pregnancy · contraception; school-comfort)
+## 2026-06-23 · #g22 Plan It built to GDD 22 v2 (fertility · pregnancy · contraception; school-comfort)
 - **[Plan It](../games/plan-it.md) (#g22, gameId `plan-it`, Ch.4)** - the fertility + pregnancy + contraception
   node (Thread F · SRH, ages 12-15), reworked off the old life-sim build onto the **shared v2 engine** as an
   **85-scenario typed library** (`content/games/plan-it.ts`, faithful from GDD 22 JSON): how-it-happens 13 ·
@@ -2041,7 +2058,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   myth-busting verbatim); `--attest g22`; pre-commit gate validated; tsc/lint/build green. `feat/g22-plan-it-v2`
   → `--no-ff` merged (`7faf1f8` → merge). Next: g23 Outbreak: Stop the Spread (STIs · anti-stigma).
 
-## 2026-06-23 - #g39 Bounce built to GDD 39 v2 (resilience · stress · teen mental health)
+## 2026-06-23 · #g39 Bounce built to GDD 39 v2 (resilience · stress · teen mental health)
 - **[Bounce](../games/bounce.md) (#g39, gameId `bounce`, Ch.4)** - the resilience + stress + teen-mental-health
   node (Thread C, ages 12-15), reworked off the old 5-mode (UN & RE) build onto the **shared v2 engine** as an
   **84-scenario typed library** (`content/games/bounce.ts`, faithful from GDD 39 JSON): what-resilience 12 ·
@@ -2059,7 +2076,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   `--attest g39`; pre-commit gate validated; tsc/lint/build green. `feat/g39-bounce-v2` → `--no-ff` merged
   (`7b98361` → merge). Next: g22 Plan It (SRH life-sim).
 
-## 2026-06-23 - #g21 Body Confident built to GDD 21 v2 (body image · media literacy) - opens Chapter 4
+## 2026-06-23 · #g21 Body Confident built to GDD 21 v2 (body image · media literacy) - opens Chapter 4
 - **[Body Confident](../games/body-confident.md) (#g21, gameId `body-confident`, Ch.4)** - the puberty-depth +
   body-image + media-literacy node (Thread A) and the game that **opens Chapter 4** (ages 12-15), reworked off
   the old 5-mode (Fact-or-Filter) build onto the **shared v2 engine** as an **84-scenario typed library**
@@ -2078,7 +2095,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   when-heavy + colourism scenarios verbatim); `--attest g21`; pre-commit gate validated; tsc/lint/build green.
   `feat/g21-body-confident-v2` → `--no-ff` merged (`0505a81` → merge). Next: g39 Bounce (resilience).
 
-## 2026-06-23 - #c3 Capstone Growing Up Smart reworked to rich format v1 - Chapter 3 graduation complete
+## 2026-06-23 · #c3 Capstone Growing Up Smart reworked to rich format v1 - Chapter 3 graduation complete
 - **[Capstone: Growing Up Smart](../games/capstones.md#capstone-3---growing-up-smart-built) (#c3, gameId
   `capstone-3`, Ch.3)** - reworked off the old eight-star tap build onto the **shared rich capstone engine**
   (`components/games/capstone-rich.tsx`), following the c1 reference. `capstone-3.ts` is now a typed
@@ -2094,7 +2111,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   build green. `feat/c3-growing-up-smart-rich` → `--no-ff` merged (`fae107d` → merge). **Chapters 1-3 capstones
   are all rich now; Chapter 3 fully complete.** Next: Chapter 4 (#g21 Body Confident, ages 12-15).
 
-## 2026-06-23 - #g20 Defenders of the Body built to GDD 20 v2 (immune system · HIV anti-stigma) - Chapter 3 complete
+## 2026-06-23 · #g20 Defenders of the Body built to GDD 20 v2 (immune system · HIV anti-stigma) - Chapter 3 complete
 - **[Defenders of the Body](../games/defenders-of-the-body.md) (#g20, gameId `defenders`, Ch.3)** - the
   immune-system + infection-myth-busting + HIV anti-stigma node (Thread F · SRH) and the **last Chapter 3
   game**, reworked off the old tower-defence build onto the **shared v2 engine** as an **84-scenario typed
@@ -2115,7 +2132,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   **Chapter 3 games (#g13-g20) are all v2.** Next: capstone c3 (rich-format rework) closes the chapter, then
   Chapter 4 (#g21 Body Confident on).
 
-## 2026-06-23 - #g19 Speak Up built to GDD 19 v2 (bystander → upstander; the 5 Ds)
+## 2026-06-23 · #g19 Speak Up built to GDD 19 v2 (bystander → upstander; the 5 Ds)
 - **[Speak Up](../games/speak-up.md) (#g19, gameId `speak-up`, Ch.3)** - the bystander-to-upstander node, reworked
   onto the **shared v2 engine** as an **85-scenario typed library** (`content/games/speak-up.ts`, faithful from
   GDD 19 JSON): name-the-harm 14 · why-speak-up 12 · five-moves 17 · find-the-words 12 · get-help 14 ·
@@ -2131,7 +2148,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   green. `feat/g19-speak-up-v2` → `--no-ff` merged (`42bbaae` → merge). Next: g20 Defenders of the Body (the
   last Chapter 3 game; then capstone c3).
 
-## 2026-06-23 - #g18 Norm Storm built to GDD 18 v2 (social norms; help/harm sort; good-norm test)
+## 2026-06-23 · #g18 Norm Storm built to GDD 18 v2 (social norms; help/harm sort; good-norm test)
 - **[Norm Storm](../games/norm-storm.md) (#g18, gameId `norm-storm`, Ch.3)** - the social-norms node, reworked onto
   the **shared v2 engine** as an **84-scenario typed library** (`content/games/norm-storm.ts`, faithful from GDD
   18 JSON): what-is-a-norm 13 · helpful-norms 10 · harmful-norms 16 · where-from 12 · good-norm-test 14 ·
@@ -2148,7 +2165,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   full library); `--attest g18`; pre-commit gate validated; build/lint/tsc green. `feat/g18-norm-storm-v2` →
   `--no-ff` merged (`1091532` → merge). Next: g19 Speak Up.
 
-## 2026-06-23 - #g17 Flip the Script built to GDD 17 v2 (gender stereotypes; strike-rewrite flagship)
+## 2026-06-23 · #g17 Flip the Script built to GDD 17 v2 (gender stereotypes; strike-rewrite flagship)
 - **[Flip the Script](../games/flip-the-script.md) (#g17, gameId `flip-script`, Ch.3)** - the gender-stereotype node
   and the **strike-and-rewrite (UN/RE) flagship**, reworked onto the **shared v2 engine** as an **84-scenario
   typed library** (`content/games/flip-script.ts`, faithful from GDD 17 JSON): spot-it 16 · jobs-roles 14 ·
@@ -2166,7 +2183,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   pre-commit gate validated; build/lint/tsc green. `feat/g17-flip-script-v2` → `--no-ff` merged (`25e602c` →
   merge). Next: g18 Norm Storm.
 
-## 2026-06-23 - #g16 Crossroads built to GDD 16 v2 (decision-making; the branching-dilemma flagship)
+## 2026-06-23 · #g16 Crossroads built to GDD 16 v2 (decision-making; the branching-dilemma flagship)
 - **[Crossroads](../games/crossroads.md) (#g16, gameId `crossroads`, Ch.3)** - the decision-making node and the
   **branching-dilemma flagship**, reworked onto the **shared v2 engine** as an **84-scenario typed library**
   (`content/games/crossroads.ts`, faithful from GDD 16 JSON): stop-think 13 · see-options 11 · weigh-consequences
@@ -2182,7 +2199,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   Read-first (GDD 16 + full library); `--attest g16`; pre-commit gate validated; build/lint/tsc green.
   `feat/g16-crossroads-v2` → `--no-ff` merged (`45fb1ad` → merge). Next: g17 Flip the Script.
 
-## 2026-06-23 - #g15 Boundary Bot built to GDD 15 v2 (consent & boundaries; empower never frighten)
+## 2026-06-23 · #g15 Boundary Bot built to GDD 15 v2 (consent & boundaries; empower never frighten)
 - **[Boundary Bot](../games/boundary-bot.md) (#g15, gameId `boundary-bot`, Ch.3)** - the consent-and-boundaries
   node (Thread B), reworked onto the **shared v2 engine** as an **85-scenario typed library**
   (`content/games/boundary-bot.ts`, faithful from GDD 15 JSON): my-boundaries 15 · consent-mutual 14 ·
@@ -2199,7 +2216,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   library); `--attest g15`; pre-commit gate validated; build/lint/tsc green. `feat/g15-boundary-bot-v2` →
   `--no-ff` merged (`e4a975c` → merge). Next: g16 Crossroads.
 
-## 2026-06-23 - #g14 The Amazing Journey built to GDD 14 v2 (reproduction; inclusive families)
+## 2026-06-23 · #g14 The Amazing Journey built to GDD 14 v2 (reproduction; inclusive families)
 - **[The Amazing Journey](../games/the-amazing-journey.md) (#g14, gameId `amazing-journey`, Ch.3)** - the
   reproduction node (Thread F · SRH), reworked onto the **shared v2 engine** as an **84-scenario typed library**
   (`content/games/amazing-journey.ts`, faithful from GDD 14 JSON): spark-of-life 16 · growing-a-baby 12 ·
@@ -2215,7 +2232,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   library); `--attest g14`; pre-commit gate validated; build/lint/tsc green. `feat/g14-amazing-journey-v2` →
   `--no-ff` merged (`9da933b` → merge). Next: g15 Boundary Bot.
 
-## 2026-06-23 - #g38 Mind Matters built to GDD 38 v2 (mental wellbeing; coping chooser; Childline 1098)
+## 2026-06-23 · #g38 Mind Matters built to GDD 38 v2 (mental wellbeing; coping chooser; Childline 1098)
 - **[Mind Matters](../games/mind-matters.md) (#g38, gameId `mind-matters`, Ch.3)** - the mental-wellbeing game,
   reworked onto the **shared v2 engine** as an **84-scenario typed library** (`content/games/mind-matters.ts`,
   faithful from GDD 38 JSON): mind-matters-too 12 · stress-and-pressure 14 · handling-rejection 14 ·
@@ -2232,7 +2249,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   pre-commit gate validated; build/lint/tsc green. `feat/g38-mind-matters-v2` → `--no-ff` merged (`2352341` →
   merge). Next: g14 The Amazing Journey.
 
-## 2026-06-23 - #g13 Puberty Quest built to GDD 13 v2 (opens Chapter 3; private/solo, taboo-busting)
+## 2026-06-23 · #g13 Puberty Quest built to GDD 13 v2 (opens Chapter 3; private/solo, taboo-busting)
 - **[Puberty Quest](../games/puberty-quest.md) (#g13, gameId `puberty-quest`, Ch.3)** - the puberty node and the
   **first Chapter 3 node** (register: matter-of-fact, near-peer, **private/solo**), reworked onto the **shared
   v2 engine** as an **85-scenario typed library** (`content/games/puberty-quest.ts`, faithful from GDD 13 JSON):
@@ -2248,7 +2265,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   normal-vs-reach-out stay neutral distinctions. Wrapper kept `PubertyQuestGame`. Pre-commit gate validated;
   build/lint/tsc green. `feat/g13-puberty-quest-v2` → `--no-ff` merged (`649665b` → merge). Next: g38 Mind Matters.
 
-## 2026-06-23 - Capstones c1 & c2 reworked to the rich "Capstone format v1" (new shared engine)
+## 2026-06-23 · Capstones c1 & c2 reworked to the rich "Capstone format v1" (new shared engine)
 - Built the richer chapter-graduation defined by GDD c1/c2: a five-beat, no-fail, no-score celebration -
   **arrive & bloom → look back** (sticker gallery) **→ play back** (one *victory lap* per chapter truth, each
   **re-cued through a different mechanic**: gallery · match · sort · build · spot · swipe - the variable-cue
@@ -2266,7 +2283,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   Build/lint/tsc green. `feat/capstones-rich-format` → `--no-ff` merged to equal-lens main (`7bb8b3c` → merge).
   Next: resume the game rework at Chapter 3 (g13 Puberty Quest).
 
-## 2026-06-23 - #g12 Smart Screen Heroes built to GDD 12 v2 (media literacy; ALL Chapter 2 games now v2)
+## 2026-06-23 · #g12 Smart Screen Heroes built to GDD 12 v2 (media literacy; ALL Chapter 2 games now v2)
 - **[Smart Screen Heroes](../games/smart-screen-heroes.md) (#g12, gameId `smart-screen`, Ch.2)** - the early
   media-literacy game (opens the Values, Rights & Media thread), reworked off the v1 mini-game set onto the
   **shared v2 engine** as an **84-scenario typed library** (`content/games/smart-screen.ts`, faithful from GDD
@@ -2286,7 +2303,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   Pre-commit gate validated; build/lint/tsc green. `feat/g12-smart-screen-v2` → `--no-ff` merged (`75cd1c1` →
   merge). Next: c2 Capstone: Fair & Safe Explorer (Ch.2), then Chapter 3 (g13 Puberty Quest).
 
-## 2026-06-23 - #g11 Not Fair, Not Funny built to GDD 11 v2 (gender teasing & ally; impact over intent)
+## 2026-06-23 · #g11 Not Fair, Not Funny built to GDD 11 v2 (gender teasing & ally; impact over intent)
 - **[Not Fair, Not Funny](../games/not-fair-not-funny.md) (#g11, gameId `not-funny`, Ch.2)** - the gender-teasing
   & ally game, reworked off the v1 5-mode game onto the **shared v2 engine** as an **84-scenario typed library**
   (`content/games/not-funny.ts`, faithful from GDD 11 JSON): fun-vs-mean 11 · just-a-joke 12 · gender-teasing 15
@@ -2304,7 +2321,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   Pre-commit gate validated; build/lint/tsc green. `feat/g11-not-funny-v2` → `--no-ff` merged (`ca338aa` → merge).
   Next: g12 Smart Screen Heroes (the last Ch.2 lesson).
 
-## 2026-06-23 - #g10 Fair Play World built to GDD 10 v2 (fairness as gender equality; India chore-gap)
+## 2026-06-23 · #g10 Fair Play World built to GDD 10 v2 (fairness as gender equality; India chore-gap)
 - **[Fair Play World](../games/fair-play-world.md) (#g10, gameId `fair-play`, Ch.2)** - the fairness game in the
   Gender & Respect thread, reworked off the v1 Fairness-Meter sort game onto the **shared v2 engine** as an
   **84-scenario typed library** (`content/games/fair-play.ts`, faithful from GDD 10 JSON): what-is-fair 14 ·
@@ -2322,7 +2339,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   (`.read-first/g10.json`). Pre-commit gate validated the attestation; build/lint/tsc green. `feat/g10-fair-play-v2`
   → `--no-ff` merged to equal-lens main (`9517448` → merge). Next: g11 Not Fair, Not Funny.
 
-## 2026-06-23 - #g41 Heart Smart built to GDD 41 v2 (emotional intelligence; completes Chapter 2 to v2)
+## 2026-06-23 · #g41 Heart Smart built to GDD 41 v2 (emotional intelligence; completes Chapter 2 to v2)
 - **[Heart Smart](../games/heart-smart.md) (#g41, gameId `heart-smart`, Ch.2)** - the deeper 6-9
   emotional-intelligence node, reworked off the old five-mode ModesEngine onto the **shared v2 engine** as an
   **84-scenario typed library** (`content/games/heart-smart.ts`, generated faithfully from the scorecard-passed
@@ -2342,7 +2359,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   `--check` OK and read-first `--gate` validated the attestation - and passed. Build/lint/tsc green. Tooling on
   `feat/g41-heart-smart-v2` → `--no-ff` merged to equal-lens main (`1189271` → merge). Next: g10 Fair Play World.
 
-## 2026-06-23 - Enforcement: read-first source-doc gate (no build without bible+transition+GDD+personas+library)
+## 2026-06-23 · Enforcement: read-first source-doc gate (no build without bible+transition+GDD+personas+library)
 - Mechanised the **other half** of the [read-first hard rule](../games/swipeed-game-patterns.md) (step 0, the
   master node table, was already enforced by `swipeed_status.py` + the pre-commit hook). New
   **`scripts/read_first.py`** (npm `read-first`) resolves a node's **five source docs** from `Strategy/` - build
@@ -2358,7 +2375,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   full cleanup (no false g41 attestation left). Tooling on `chore/read-first-source-gate` → `--no-ff` merged to
   equal-lens main (`8afd650`).
 
-## 2026-06-23 - #g09 Friend or Frenemy? built to GDD 09 v2 (healthy friendships; the real next Ch.2 node)
+## 2026-06-23 · #g09 Friend or Frenemy? built to GDD 09 v2 (healthy friendships; the real next Ch.2 node)
 - **[Friend or Frenemy?](../games/friend-or-frenemy.md) (#g09, gameId `friend-frenemy`, Ch.2)** - the
   healthy-friendship game (Thread D; UNESCO 1.2/5.1/5.3/5.6/7.1) - built to GDD 09 v2 on the shared
   [v2 engine](../games/swipeed-game-patterns.md): 82-scenario typed library generated **byte-identical** from the
@@ -2376,7 +2393,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   The master node table shows Ch.2 = g06-g12 + g41 + c2; the next nodes after g09 are **g41 Heart Smart, g10
   Fair Play World, g11 Not Fair Not Funny, g12 Smart Screen Heroes + capstone c2** (each has a v2 GDD+library).
 
-## 2026-06-23 - #g08 Safety Squad built to GDD 08 v2 (the ninth mechanic; Chapters 1 & 2 now complete)
+## 2026-06-23 · #g08 Safety Squad built to GDD 08 v2 (the ninth mechanic; Chapters 1 & 2 now complete)
 - **[Safety Squad](../games/safety-squad.md) (#g08, gameId `safety-squad`, Ch.2)** - the personal-safety /
   child-protection game (Thread B; UNESCO 4.1/4.2/4.3/3.3/5.5) - built to GDD 08 v2 on the shared
   [v2 engine](../games/swipeed-game-patterns.md): 84-scenario typed library generated **byte-identical** from the
@@ -2397,7 +2414,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   Heart Smart, g10 Fair Play World, g11 Not Fair Not Funny, g12 Smart Screen Heroes** (each has a v2 GDD +
   library) + capstone **c2** still need retrofit. By order/prereq the next node is **g09**.
 
-## 2026-06-23 - Fix: free scribbles stick to the paper (3D world ink, not a screen overlay)
+## 2026-06-23 · Fix: free scribbles stick to the paper (3D world ink, not a screen overlay)
 Reported: RE scribbles moved with the camera instead of staying on the canvas. Root cause: the free-draw was
 a screen-space overlay, so strokes were pinned to the viewport while the 3D paper scrolled under them. Reworked
 into `FreeInk` (inside the R3F scene): an invisible raycastable ground plane gives R3F the world hit point
@@ -2410,7 +2427,7 @@ note too). Deleted the screen-space `FreeScribble`. Compiles + mounts with no co
 drawing/erasing itself needs a real-browser check** (R3F raycasting + render loop can't run in the
 backgrounded automation tab). Deployed.
 
-## 2026-06-23 - Feature: Unlearn's eraser also rubs out free scribbles
+## 2026-06-23 · Feature: Unlearn's eraser also rubs out free scribbles
 Symmetry follow-up to the RE free-scribble pen. The free-draw layer (`FreeScribble`) is now active in **both**
 pen and eraser modes: pen lays coral ink (source-over), eraser rubs the free ink away (destination-out). Since
 the layer sits above the myth notes, UN over a **myth** forwards the gesture to that note's own ink canvas
@@ -2418,7 +2435,7 @@ the layer sits above the myth notes, UN over a **myth** forwards the gesture to 
 then restore + clean up the tracked pointer) - so UN erases free scribbles on the open paper AND still erases
 myths. Verified live (draw ~3.5k px with RE → rub with UN → 0 px). Deployed.
 
-## 2026-06-23 - Fix: free scribble works on desktop + two-finger trackpad scroll; myths reveal-on-erase
+## 2026-06-23 · Fix: free scribble works on desktop + two-finger trackpad scroll; myths reveal-on-erase
 Two desktop bugs (the free-scribble + trackpad scroll added the same day). (1) **Free scribble didn't work
 on desktop** - it was a drei `<Html fullscreen>` layer that projects with the camera and drifted off-screen
 (canvas at `top:-217/-351`, not covering the viewport), so real mouse events missed it (earlier "tests"
@@ -2432,7 +2449,7 @@ notes), myths now **reveal-on-erase**: UN rubs the myth out AND shows the truth 
 RE-draw-on-note). Verified the FreeScribble end-to-end; the in-`<Canvas>` note erase + camera scroll couldn't
 be re-verified in the backgrounded automation tab (R3F frame loop paused) but are minimal, sound changes. Deployed.
 
-## 2026-06-23 - Feature: free scribble on the canvas with RE (Relearn)
+## 2026-06-23 · Feature: free scribble on the canvas with RE (Relearn)
 The Relearn pen now also free-draws anywhere on the open paper, not only inside an erased myth. New
 `FreeDrawLayer` (full-viewport coral-ink layer, active only in pen mode) sits at a constant z **below** the
 interactive myths + nodes and **above** the 3D world, so the myth draw-to-reveal and node taps keep priority
@@ -2442,7 +2459,7 @@ the canvas's live rect (the fullscreen `<Html>` wrapper carries an offset → st
 at draw time). Verified live (free squiggle paints; two fingers don't draw; an erased myth still reveals its
 truth when drawn on; UN/Browse pass through). Deployed.
 
-## 2026-06-23 - Fix: the loose "written on canvas" myths are now erasable + drawable
+## 2026-06-23 · Fix: the loose "written on canvas" myths are now erasable + drawable
 Follow-up to the path housekeeping below. The interactive UN/RE ink layer had only been wired to the sticky-NOTE
 cards; the **loose myths scribbled on the paper** (`ChapterDoodles` - the prominent, in-view ones a user points
 at, and what "erase the struck out myths written on canvas" literally means) were `pointer-events: none`
@@ -2451,7 +2468,7 @@ decoration, so they couldn't be erased or drawn on (user-reported with a screens
 the truth scribble reveals; each loose myth carries its own truth. Verified live (erase "Some feelings are
 bad." → draw → "All feelings are okay."). Both myth surfaces are now interactive. Deployed.
 
-## 2026-06-22 - Path housekeeping: interactive UN/RE canvas, two-finger scroll, node gating, age onboarding, name personalization
+## 2026-06-22 · Path housekeeping: interactive UN/RE canvas, two-finger scroll, node gating, age onboarding, name personalization
 Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` repo), three branches:
 - **Real UN/RE drawing + two-finger scroll** ([path world](../games/swipeed-world.md)). The myth sticky-notes now
   use a real ink canvas (`MythInk`): **UN erases** the struck myth under your finger (paints the note's paper
@@ -2470,7 +2487,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   entry chapter + scroll motion couldn't be shown in the headless tab - R3F `useFrame`/RAF pauses when the
   tab is backgrounded - so those were verified by logic + deterministic tests rather than visually.)
 
-## 2026-06-22 - #g07 What Makes Me, Me built to GDD 07 v2 (the gender-thread root, sex vs gender)
+## 2026-06-22 · #g07 What Makes Me, Me built to GDD 07 v2 (the gender-thread root, sex vs gender)
 - **[What Makes Me, Me](../games/what-makes-me-me.md) (#g07, gameId `what-makes-me`, Ch.2)** - the **root of the
   Gender & Respect thread** (UNESCO 3.1, sex vs gender) - built to GDD 07 v2 on the shared
   [v2 engine](../games/swipeed-game-patterns.md): 82-scenario typed library generated **byte-identical** from the
@@ -2489,7 +2506,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   (build / neutral-sort / valence-sort / strike / role-play / reflect); merged `--no-ff`; deployed prebuilt.
   Chapter 2: g06, g07 done; **g08 Safety Squad remains**.
 
-## 2026-06-22 - #g06 Body Lab Juniors built to GDD 06 v2 (the eighth mechanic, Chapter 2 opens)
+## 2026-06-22 · #g06 Body Lab Juniors built to GDD 06 v2 (the eighth mechanic, Chapter 2 opens)
 - **[Body Lab Juniors](../games/body-lab-juniors.md) (#g06, gameId `body-lab`)** - the body-science game and
   **first Chapter-2 (ages 6-9) node** - built to GDD 06 v2 on the shared [v2 engine](../games/swipeed-game-patterns.md):
   82-scenario typed library generated from the GDD JSON, thin wrapper. Led by the **new signature
@@ -2505,7 +2522,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   reflect / role-play; a full category completed end-to-end). tsc + lint + prod build clean; merged `--no-ff`;
   deployed via the prebuilt flow. Chapter-1 v2 retrofit done (g01-g05, g37); **Chapter 2 begun** - g07, g08 remain.
 
-## 2026-06-22 - #g05 Can-Do Kids built to GDD 05 v2 (sixth game on the shared engine)
+## 2026-06-22 · #g05 Can-Do Kids built to GDD 05 v2 (sixth game on the shared engine)
 - **[Can-Do Kids](../games/can-do-kids.md) (#g05, gameId `can-do`)** - the aspirations/careers game -
   retrofitted to GDD 05 v2 on the shared [v2 engine](../games/swipeed-game-patterns.md): 82-scenario typed
   library generated from the GDD JSON, thin wrapper. Led by **erasing occupational gender myths**
@@ -2518,7 +2535,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   role-play / branch / match). tsc + lint + prod build clean; merged `--no-ff`. Chapter-1 v2 retrofit now:
   g01, g02, g03, g04, g05, g37 done; g06, g07 remain (+ g08 in Ch.2).
 
-## 2026-06-22 - #g04 Same Same, Different built to GDD 04 v2 (fifth game on the shared engine)
+## 2026-06-22 · #g04 Same Same, Different built to GDD 04 v2 (fifth game on the shared engine)
 - **[Same Same, Different](../games/same-same-different.md) (#g04, gameId `same-same`)** - the **gender-root**
   game - retrofitted to GDD 04 v2 on the shared [v2 engine](../games/swipeed-game-patterns.md): 82-scenario
   typed library generated from the GDD JSON, thin wrapper. Led by **erasing silly gender rules**
@@ -2530,7 +2547,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   with un.svg UN→RE + the fair/not-fair sort 💚/🛑 + reflect/match). tsc + lint + prod build clean; merged
   `--no-ff`. Chapter-1 v2 retrofit now: g01, g02, g03, g04, g37 done; g05, g06, g07 remain (+ g08 in Ch.2).
 
-## 2026-06-22 - #g37 Clean Crew built to GDD 37 v2 (fourth game on the shared engine)
+## 2026-06-22 · #g37 Clean Crew built to GDD 37 v2 (fourth game on the shared engine)
 - **[Clean Crew](../games/clean-crew.md) (#g37, gameId `clean-crew`)** retrofitted to GDD 37 v2 on the shared
   [v2 engine](../games/swipeed-game-patterns.md) - 82-scenario typed library generated from the GDD JSON, thin
   wrapper. The hygiene/healthy-habits game, led by the signature **step-sequencer build** (put the
@@ -2542,7 +2559,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   strike-rewrite UN→RE). tsc + lint + prod build clean; merged `--no-ff`. Chapter-1 v2 retrofit now: g01,
   g02, g03, g37 done.
 
-## 2026-06-22 - #g03 My Family Garden built to GDD 03 v2 (third game on the shared engine)
+## 2026-06-22 · #g03 My Family Garden built to GDD 03 v2 (third game on the shared engine)
 - **[My Family Garden](../games/my-family-garden.md) (#g03, gameId `family-garden`)** retrofitted to GDD 03 v2
   on the shared [v2 engine](../games/swipeed-game-patterns.md) - 82-scenario typed library generated from the
   GDD JSON, thin wrapper. The families/belonging game: affirms every family shape (joint, single-parent,
@@ -2554,7 +2571,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   distinct bins). Verified live (home + reflect/match/role-play + the garden build → relearn); tsc + lint +
   prod build clean; merged `--no-ff`. Chapter-1 v2 retrofit now: g01, g02, g03 done; g37 + g08 remain.
 
-## 2026-06-22 - GDD **v2** "mechanic-embodying" standard: shared engine + g02 & g01 retrofit
+## 2026-06-22 · GDD **v2** "mechanic-embodying" standard: shared engine + g02 & g01 retrofit
 - The founder updated the GDDs to **v2** (the v1 libraries were "100% binary taps"). v2 re-encodes the same
   researched content into a **typed scenario** - `type` + per-type payload - across **seven play actions**
   (reflect · role-play · strike-rewrite · branch · sort · match · build), **0% binary**. This established
@@ -2576,7 +2593,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   `finishDeck`); tsc + lint + prod build clean; merged `--no-ff` (Equal Lens repo, local-only). g03-g08
   follow on the same engine.
 
-## 2026-06-22 - GDD rework continues: My Body, My Rules (#g02) rebuilt to the standard
+## 2026-06-22 · GDD rework continues: My Body, My Rules (#g02) rebuilt to the standard
 - **[My Body, My Rules](../games/my-body-my-rules.md) (#g02) reworked to GDD 02** - the second build to the
   new standard, and the most safeguarding-sensitive in Chapter 1. Read-first, then built **bespoke** (the
   founder's hard rule: read strategy + personas + GDD + scenario library before building; never template
@@ -2598,7 +2615,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   branch `feat/g02-my-body-rework` merged `--no-ff` (Equal Lens repo, local-only). The 67 remaining games
   follow, one at a time, read-first.
 
-## 2026-06-22 - GDD rework begins: Feelings Friends (#g01) rebuilt to the new standard (pilot)
+## 2026-06-22 · GDD rework begins: Feelings Friends (#g01) rebuilt to the new standard (pilot)
 - The product's **Strategy/** rework (build bible · transition plan · reworked GDDs · scenario libraries
   · 8 chapters of personas) sets a new bar: every game = a distinct **verb** on a researched **80+
   scenario library**, "fun × learning, or neither counts" - moving the catalogue out of the
@@ -2613,14 +2630,14 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   first), and wire in-UI "Calm Mode" to the shared `prefersReducedMotion()` path. Built in the
   swipeed-equal-lens app; live.
 
-## 2026-06-22 - Chapter 6 adult games complete (#g44-g52)
+## 2026-06-22 · Chapter 6 adult games complete (#g44-g52)
 - Finished the College chapter on the [ModesEngine](../games/swipeed-game-patterns.md): **[Money & Independence](../games/money-independence.md)** (#g48),
   **[Mind & Belonging](../games/mind-belonging.md)** (#g49, wellbeing register - crisis routing Tele-MANAS 14416 / KIRAN),
   **[Find Your Feet](../games/find-your-feet.md)** (#g52, career anxiety), **[Equal & Confident](../games/equal-confident.md)** (#g50),
   **[Know Your Rights](../games/know-your-rights.md)** (#g51). **All of Chapter 6 (#g44-g52) is now live** - 57 built games.
 - Next: Chapter 7 (Building a Life, #g53-g60) and Chapter 8 (Parenthood + Parent Layer, #g61-g69), then the c6/c7/c8 capstones.
 
-## 2026-06-22 - Adult journey games begin: shared ModesEngine + Ch.6 #g44-g47
+## 2026-06-22 · Adult journey games begin: shared ModesEngine + Ch.6 #g44-g47
 - The lifelong path's **adult chapters (Ch.6-8)** were added to the node table + canvas, and the **adult
   (dark) theme** ships; now the **adult games are being built, one GDD at a time** (going through GDD 44-69).
 - **[Consent, For Real](../games/consent-for-real.md)** (#g44) built as the hand-built reference - the adult
@@ -2631,7 +2648,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
 - All inherit no-fail, safeguarding-never-scored + Get-Help routing, even-handed, non-explicit, India-aware.
   Implemented in the brand re-skin app (swipeed-equal-lens); catalog + patterns doc updated here in step.
 
-## 2026-06-21 - World/Art artefact inventory (re-vibe scope) - new reference doc
+## 2026-06-21 · World/Art artefact inventory (re-vibe scope) - new reference doc
 - Added **[world-art-tokens.md](../games/world-art-tokens.md)** - a holistic, living inventory of every
   artefact that defines SwipeEd's look-and-feel, so a future "change the vibe" pass can be scoped at a
   glance: 2D design tokens (`globals.css` + fonts), the thread colour system (xlsx `hex` → `path.ts`), the
@@ -2641,7 +2658,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   `globals.css` + `seasons.ts` + the colormap PNGs + thread hexes; the expensive part is swapping the GLTF
   kit. Cross-linked from [swipeed-world.md](../games/swipeed-world.md). (Scoping only - no re-vibe done.)
 
-## 2026-06-21 - Master Node Table → 43 lessons; The Rabbit Hole built (node #g43, ages 12-15) - online misogyny / the manosphere
+## 2026-06-21 · Master Node Table → 43 lessons; The Rabbit Hole built (node #g43, ages 12-15) - online misogyny / the manosphere
 - The **Master Node Table** added one node - **The Rabbit Hole (#g43)** - at **Chapter 4 order 36, between
   [Firewall](../games/firewall.md) (#g40) and [Reality Check](../games/reality-check.md) (#g28)**; g28's prereq
   re-stitched (g40→g43) → **43 lessons + 5 capstones (48 nodes)**. This is the **manosphere beat the dev
@@ -2664,7 +2681,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   Reconciled live node-counts (42→43 lessons / 47→48 nodes) across index, games catalog, swipeed, GLRL,
   capstones, swipeed-world and both READMEs. New engine id `rabbit-hole` → `/game/rabbit-hole`.
 
-## 2026-06-21 - Life-Skills Toolkit (Thread C spine) - fully built (Phases 1-6)
+## 2026-06-21 · Life-Skills Toolkit (Thread C spine) - fully built (Phases 1-6)
 - Built the whole **[Life-Skills Toolkit](../games/life-skills-toolkit.md)** spine across six phased branches
   (one per phase, KB updated each merge), making **Thread C the connective tissue of SwipeEd**:
   - **Phase 1 - model:** `Profile.toolkit` (optional, default-merged), `lib/toolkit.ts` registry +
@@ -2685,7 +2702,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   (no mood values stored), **never therapy**. Reuse-first: extended the existing Get Help, day/night
   wind-down, and reduced-motion handling rather than rebuilding. Added **pattern #21** (the skills spine).
 
-## 2026-06-21 - Life-Skills Toolkit (Thread C spine) - design-of-record (Phase 0)
+## 2026-06-21 · Life-Skills Toolkit (Thread C spine) - design-of-record (Phase 0)
 - Approved a phased build of the **[Life-Skills Toolkit](../games/life-skills-toolkit.md)** - the cross-cutting
   wellbeing system that makes **Thread C the spine of SwipeEd**: a persistent, on-device toolkit of **four
   tools** (Cool-Down · Decision Steps · Talk-It-Out · Help Map) a child builds & levels across all 15 years,
@@ -2704,7 +2721,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   drawer/breathing space → Phase 3 Decision Steps + Talk-It-Out → Phase 4 in-context tool moments → Phase 5
   wellbeing shell → Phase 6 capstone reflection. One branch per phase; KB updated each merge.
 
-## 2026-06-21 - Master Node Table → 42 lessons; Heart Smart (#g41) & Life Ready (#g42) - Thread C, end to end
+## 2026-06-21 · Master Node Table → 42 lessons; Heart Smart (#g41) & Life Ready (#g42) - Thread C, end to end
 - The **Master Node Table** added two **Thread C · Feelings & Life Skills** nodes - **Heart Smart (#g41,
   Ch.2)** and **Life Ready (#g42, Ch.5 penultimate)** - completing that thread **end to end across all
   five chapters** (Feelings Friends → Heart Smart → Mind Matters → Bounce → Life Ready). Dropped in the
@@ -2730,7 +2747,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   before Decoded). Reconciled live node-counts (40→42 lessons / 45→47 nodes) across index, games catalog,
   swipeed, GLRL, capstones, swipeed-world and both READMEs.
 
-## 2026-06-21 - Master Node Table → 40 lessons; Firewall built (node #g40, ages 12-15) - teen online safety
+## 2026-06-21 · Master Node Table → 40 lessons; Firewall built (node #g40, ages 12-15) - teen online safety
 - The **Master Node Table** added one node - **Firewall (#g40)** - at **Chapter 4 order 34, between
   [Stand Up](../games/stand-up.md) (#g27) and [Reality Check](../games/reality-check.md) (#g28)**; g28's prereq
   re-stitched (g27→g40) and the tail shifted by one → **40 lessons + 5 capstones (45 nodes)**. Dropped in
@@ -2753,7 +2770,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   swipeed, GLRL, capstones, swipeed-world and both READMEs; **extended pattern #16** with Firewall's teen
   online-safety register (rehearsable no-blame plan, no how-to-harm, minor-as-victim, urgent routing).
 
-## 2026-06-21 - Capstones recap the three new nodes (c1 · c3 · c4)
+## 2026-06-21 · Capstones recap the three new nodes (c1 · c3 · c4)
 - Each new life-skills node sits inside a chapter whose **capstone** recaps "one big idea per game", so
   the three affected graduations now light a star for the new node too (the star count is data-driven off
   each capstone's `RECAP`, so no component change was needed):
@@ -2765,7 +2782,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
     Confident → **9** ideas.
 - Inserted in path order; capstone comments + the [capstones doc](../games/capstones.md) updated to match.
 
-## 2026-06-21 - Bounce built (node #g39, ages 12-15) - Thread C complete; path back to 39 + 5 = 44 all live
+## 2026-06-21 · Bounce built (node #g39, ages 12-15) - Thread C complete; path back to 39 + 5 = 44 all live
 - Built **[Bounce](../games/bounce.md)** - node #g39 (play order 27, Chapter 4, Thread C · Feelings & Life
   Skills), the teen mental-health-and-resilience game and the **grown-up step from
   [Mind Matters](../games/mind-matters.md)** (#g38), sitting beside [Body Confident](../games/body-confident.md)
@@ -2784,7 +2801,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   capstones (44 nodes)** built and documented. Reconciled the live node-count statements across the KB
   (index, games catalog, swipeed, GLRL, capstones) from 36→39 lessons / 41→44 nodes.
 
-## 2026-06-21 - Mind Matters built (node #g38, ages 9-12) - the mental-wellbeing gap, closed
+## 2026-06-21 · Mind Matters built (node #g38, ages 9-12) - the mental-wellbeing gap, closed
 - Built **[Mind Matters](../games/mind-matters.md)** - node #g38 (play order 17, Chapter 3, Thread C ·
   Feelings & Life Skills), the emotional-and-mental-wellbeing game that **closes the curriculum's biggest
   gap** (UNESCO 5.6 emotions/resilience - *new* - + 5.5 finding help). Grows
@@ -2799,7 +2816,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   KIRAN 1800-599-0019) - *skills & signposting, not therapy*. The anonymous Ask-It Q&A with urgent triage
   is GDD Phase 2 (deferred). New engine id `mind-matters` → `/game/mind-matters`.
 
-## 2026-06-21 - Master Node Table grew to 39 lessons; Clean Crew built (node #g37, ages 3-6)
+## 2026-06-21 · Master Node Table grew to 39 lessons; Clean Crew built (node #g37, ages 3-6)
 - The **Master Node Table** was updated to **39 lessons + 5 capstones (44 nodes)**, adding three new
   life-skills nodes: **Clean Crew (#g37)** self-care at ages 3-6, and two mental-health/resilience nodes
   **Mind Matters (#g38)** and **Bounce (#g39)** (built next). Dropped in the new
@@ -2811,14 +2828,14 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   (Sam models the "germs wash away" reframe). New engine id `clean-crew` → `/game/clean-crew`. Follows
   [My Body, My Rules](../games/my-body-my-rules.md); feeds [Body Lab Juniors](../games/body-lab-juniors.md).
 
-## 2026-06-21 - GLRL Flag-pedia fixes (node #24) + GameShell tall-content scroll
+## 2026-06-21 · GLRL Flag-pedia fixes (node #24) + GameShell tall-content scroll
 - Flag-pedia inside GLRL: its back control now stays in-app (returns to the GLRL home) via a new optional
   `onBack` prop on `FlagpediaView` (the standalone `/flagpedia` page still links to `/decks`).
 - **GameShell** (shared chrome, all games): its body changed from a centered flex container to a scroll
   container + `min-h-full` centering wrapper, so short content still centres but **tall content (e.g.
   Flag-pedia) scrolls from the top instead of being clipped**. Verified live.
 
-## 2026-06-21 - GLRL home rebuilt natively to match the other games (node #24)
+## 2026-06-21 · GLRL home rebuilt natively to match the other games (node #24)
 - Follow-up to the shell-consistency change: the first pass just wrapped the bespoke Loadout card in
   GameShell, which still didn't match. Rebuilt the GLRL **home screen natively** in the exact shape every
   other node uses - **Sam header + greeting (audio-first) + a progress row + a 2-column mode grid** (Story ·
@@ -2828,7 +2845,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   + the swipe are the gameplay. Verified live: home column = Sam header → progress row → mode grid, identical
   structure to the other games. `components/games/glrl.tsx` fully rewritten.
 
-## 2026-06-21 - GLRL made a first-class engine game for shell consistency (node #24)
+## 2026-06-21 · GLRL made a first-class engine game for shell consistency (node #24)
 - **Deliberate deviation from GDD 24** (user-approved, for path coherence): Green Light / Red Light now
   launches at `/game/glrl` and in place on the path through the same `EngineGameHost` + shared `GameShell`
   chrome as every other node, fronted by the Loadout's 5-tile mode menu - instead of its own bespoke
@@ -2841,7 +2858,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   glrl state/mounting was removed. Recording (runDeckCleared/deckStars) unchanged → completion still tracks.
   `/decks` and `/play/mythbuster` remain reachable. Updated green-light-red-light.md accordingly.
 
-## 2026-06-21 - Reconciled Green Light / Red Light doc to GDD 24 (node #24)
+## 2026-06-21 · Reconciled Green Light / Red Light doc to GDD 24 (node #24)
 - A canonical numbered **GDD 24** ("standard node edition") surfaced for Green Light / Red Light, with the
   original v1 and the 2.0 roguelike-redesign GDDs named as its companion deep-dives. Verified the **live
   game is faithful to GDD 24** - Clarity run, Insight perks, story decks, the 20 signs and Flag-pedia are
@@ -2851,7 +2868,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   Quick Play)", referenced GDD 24 as the canonical node GDD, and changed the build-plan heading from
   "Building" to "Built & live". Docs-only; no code touched.
 
-## 2026-06-21 - MythBuster converted to a 5-mode lab (node #25) - live-game rebuilds complete
+## 2026-06-21 · MythBuster converted to a 5-mode lab (node #25) - live-game rebuilds complete
 - Converted MythBuster from a 12-card swipe deck to the full 5-mode myth-busting lab DOM game per GDD 25:
   The Myth Lab (judge Myth/Fact → BUSTED/CONFIRMED + central UN & RE), the Busted gallery, the "It's Just
   Biology" Files (real averages vs pseudo-science), the Double-Standard Detector, and the Myth-Buster's
@@ -2863,26 +2880,26 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   GLRL #24 was already faithful (the 2.0 roguelike). **Every one of the path's 36 lesson nodes + 5
   capstones now follows the established GDD pattern.** (GitHub push still pending auth restore - all local.)
 
-## 2026-06-21 - Justice League rebuilt to the GDD (node #35) - 5 modes
+## 2026-06-21 · Justice League rebuilt to the GDD (node #35) - 5 modes
 - Rebuilt to GDD 35: five modes - Know Your Rights (+ UN & RE: "rights aren't for someone like me"), Know
   the Law (POCSO/POSH/marriage age/cyber, plain language), Get Justice (FIR/committees/helplines/free legal
   aid), Rights in Action (spot the violation & respond), Your Rights Toolkit + Ask - + a 5-badge Badge Book
   → GameDone. Educational, not legal advice. Same engine id `justice-league`/node g35 (no path change).
 
-## 2026-06-20 - Change Makers rebuilt to the GDD (node #34) - 5 modes
+## 2026-06-20 · Change Makers rebuilt to the GDD (node #34) - 5 modes
 - Rebuilt to GDD 34: five modes - Find Your Cause (pick & sharpen + UN & RE: "too small to matter"), The
   Plan (goal/allies/tactics), **Build the Movement** (campaign sim with a Momentum meter), Make It Stick
   (measure/adapt/sustain/safe), Launch It + Ask - + a 5-badge Badge Book → GameDone. Start small & real,
   collective, safe/lawful. Same engine id `change-makers`/node g34 (no path change).
 
-## 2026-06-20 - Lead the Way rebuilt to the GDD (node #33) - 5 modes
+## 2026-06-20 · Lead the Way rebuilt to the GDD (node #33) - 5 modes
 - Rebuilt to GDD 33. The earlier build had drifted into a structural-equality dashboard sim (overlapping
   Equalize #26); the actual GDD is about **personal allyship & quiet leadership**. Five modes - What
   Allyship Really Is (+ UN & RE: allyship is everyone's, male allyship is strength), Lead by Example, Lift
   as You Climb, **Call In Not Just Out** (respectful persuasion over public call-out), Your Leadership Style
   + Ask - + a 5-badge Badge Book → GameDone. Same engine id `lead-the-way`/node g33 (no path change).
 
-## 2026-06-20 - Audit + rebuild of the pre-pattern live games begins (Stand Up #27)
+## 2026-06-20 · Audit + rebuild of the pre-pattern live games begins (Stand Up #27)
 - Audited the 6 already-live games against their now-available GDDs. **GLRL #24** is already faithful (the
   2.0 roguelike). The other five (MythBuster #25, Stand Up #27, Lead the Way #33, Change Makers #34,
   Justice League #35) were thin **pre-pattern stubs** (no UN&RE, no 5-mode/badge structure) - confirmed for
@@ -2892,7 +2909,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   + a 5-badge Badge Book → GameDone. Safety-first; centres the target. Same engine id `stand-up`/node g27
   (no path change). Now follows the Sam + UnReBeat + voice-model pattern.
 
-## 2026-06-20 - Capstone 5 built (node c5) - THE PATH IS COMPLETE
+## 2026-06-20 · Capstone 5 built (node c5) - THE PATH IS COMPLETE
 - New capstone **"Ready for the World"** - the Chapter 5 (ages 15-18) graduation **and the final
   graduation of the whole journey**. Sam (now fully grown) recaps the chapter's **eight big ideas**
   (My Choices → Decoded), the player lights a star for each, and Sam graduates them into the world with
@@ -2906,7 +2923,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   local `main` and production is fully deployed via Vercel; a `git push` of swipeed + Praxis is pending the
   user restoring GitHub credentials. Local commits ahead: see `git status` in each repo.
 
-## 2026-06-20 - Decoded built (node #36) - the finale lesson; digital citizenship
+## 2026-06-20 · Decoded built (node #36) - the finale lesson; digital citizenship
 - New game (ages 15-18), **the finale lesson node (36 of 36)**: a digital-citizenship capstone and summit
   of the media thread (#12/#17/#28). Five modes - Decode the Algorithm, **Decode the Influence** (UN & RE:
   "viral = true", "too smart to be manipulated", boss "a dark pattern is just design"), Decode Yourself
@@ -2917,7 +2934,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   Sam + UnReBeat + voice model. **This is the last LESSON node - only Capstone 5 remains.** Deferred per
   GDD: live "decode this feed" sandbox, crown levels, Hindi.
 
-## 2026-06-20 - Spectrum built (node #32) - diversity in identity, with dignity
+## 2026-06-20 · Spectrum built (node #32) - diversity in identity, with dignity
 - New game (ages 15-18), the diversity & respect step. Five modes - The Spectrum (orientation & gender
   identity; India's own history), Myths & Respect (UN & RE: "a choice", "an illness", "contagious", boss
   "a Western import"), **Dignity for All** (respect/anti-bullying scenes; never out someone; dignity across
@@ -2928,7 +2945,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   Sam + UnReBeat + voice model. Extends What Makes Me Me (#7) + MythBuster (#25). Deferred per GDD: fuller
   glossary, crown levels, careful live Ask-It triage, Hindi.
 
-## 2026-06-20 - Mutual built (node #31) - consent, communication & equal respect
+## 2026-06-20 · Mutual built (node #31) - consent, communication & equal respect
 - New game (ages 15-18), the consent step; the culmination of the consent journey (#2, #15, #24). Five
   modes - What Consent Really Is (the freely-given/reversible/enthusiastic/ongoing standard), Reading &
   Respecting (read cues, stop instantly), **Pressure & Coercion** (UN & RE on consent myths; boss
@@ -2939,7 +2956,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   + UnReBeat + voice model. Pairs with Status (#30). Deferred per GDD: branching communication sim, crown
   levels, Hindi.
 
-## 2026-06-20 - Status: Know It built (node #30) - owning your sexual health
+## 2026-06-20 · Status: Know It built (node #30) - owning your sexual health
 - New game (ages 15-18), the SRH ownership step. Five modes - Know Your Status (testing as self-care +
   UN & RE shame-bust), The Prevention Stack (choose & combine; condoms/PrEP School-Comfort-gated), Talk
   About It (partner communication), Treat & Thrive (U=U; diagnosis isn't the end), and Dignity & Ask
@@ -2949,7 +2966,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   path.ts). Reuses Sam + UnReBeat + voice + School-Comfort. Personal completion of Outbreak (#23); pairs
   with My Choices (#29). Deferred per GDD: build-your-own-routine tracker, crown levels, Hindi.
 
-## 2026-06-20 - My Choices, My Future built (node #29) - opens Chapter 5
+## 2026-06-20 · My Choices, My Future built (node #29) - opens Chapter 5
 - New game (ages 15-18), Chapter 5 opener: the mature completion of Plan It (#22). Five modes - The Full
   Picture (contraception factual & non-explicit; method specifics School-Comfort-gated + UN & RE on
   "contraception harms your health"), If/When/Whether (reproductive choices & rights), **Decide It**
@@ -2960,7 +2977,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   Reuses Sam + UnReBeat + voice + School-Comfort. Links to Status (#30), Mutual (#31). Deferred per GDD:
   deeper decision sim, method comparison, Hindi.
 
-## 2026-06-20 - Capstone 4 built (node c4) - Chapter 4 complete
+## 2026-06-20 · Capstone 4 built (node c4) - Chapter 4 complete
 - New capstone **"Reading Relationships"** (ages 12-15 graduation): Sam recaps the chapter's **eight big
   ideas** (Body Confident → Reality Check), the teen lights a star for each, and Sam graduates them
   ("Chapter Four complete! 🎓"). Mirrors Capstones 1-3. New engine id `capstone-4`/node c4 →
@@ -2971,7 +2988,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   local main in both repos and production is deployed via Vercel (which uploads local files). Pending a
   `git push` of both repos once auth is restored.
 
-## 2026-06-20 - Reality Check built (node #28) - what's real, staged, fake online
+## 2026-06-20 · Reality Check built (node #28) - what's real, staged, fake online
 - New game (ages 12-15), the media-literacy step. Five modes - Real vs Reel (judge genuine vs staged), The
   Manipulation Files (UN & RE: "if it's online it's real"; highlight reels; boss "you can't tell what's
   fake"), Love & Sex on Screen (media idealises love; porn-is-performance card hidden in School-Comfort),
@@ -2982,7 +2999,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   regenerated path.ts). Reuses Sam + UnReBeat + voice + School-Comfort. Culmination of #12 + #17; hands to
   Decoded (#36). Deferred per GDD: deepfake-detection mini-game, crown levels, Hindi.
 
-## 2026-06-20 - Equalize built (node #26) - closing the belief-vs-practice gap
+## 2026-06-20 · Equalize built (node #26) - closing the belief-vs-practice gap
 - New game (ages 12-15), the Gender & Respect step that closes the gap between believing in equality and
   living it. Five modes - The Equality Gap, **The Second Shift** (share-to-balance household sim),
   **Equalize!** (spot-and-fix class/workplace/community), Equality Lifts Everyone (UN & RE on the zero-sum
@@ -2992,7 +3009,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   path.ts). Reuses Sam + UnReBeat + voice model. Next step after MythBuster (#25); hands to Stand Up (#27).
   Deferred per GDD: drag-to-rebalance sim, crown levels, Ask-It, Hindi.
 
-## 2026-06-20 - Outbreak: Stop the Spread built (node #23) - STIs, knowledge-not-fear
+## 2026-06-20 · Outbreak: Stop the Spread built (node #23) - STIs, knowledge-not-fear
 - New game (ages 12-15), the SRH infection step. Five modes - **Outbreak!** (deploy education/condoms/
   testing/treatment/vaccine to drop a Spread meter to zero), How It Spreads (UN & RE myth-bust: casual
   contact doesn't spread it; "tell by looking"; boss "only certain people get STIs"), Your Defense Kit
@@ -3003,7 +3020,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   path.ts). Reuses Sam + UnReBeat + voice model + School-Comfort. Picks up condoms (#22) + body's defences
   (#20). Deferred per GDD: richer population sim, crown levels, Hindi.
 
-## 2026-06-20 - Plan It built (node #22) - pregnancy, prevention & planning
+## 2026-06-20 · Plan It built (node #22) - pregnancy, prevention & planning
 - New game (ages 12-15), the SRH planning step. Five modes - The Fertility Cycle, **Myths Busted** (UN & RE
   on dangerous pregnancy myths: "first time / standing up / during a period", boss "withdrawal +
   infertility"), Ways to Prevent (delaying respected & always shown; contraception basics School-Comfort-
@@ -3013,7 +3030,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   path.ts). Reuses Sam + UnReBeat + voice model + School-Comfort gating. Continues The Amazing Journey
   (#14); links to Outbreak (#23). Deferred per GDD: richer life-sim, crown levels, Hindi.
 
-## 2026-06-20 - Body Confident built (node #21) - opens Chapter 4
+## 2026-06-20 · Body Confident built (node #21) - opens Chapter 4
 - New game (ages 12-15), Chapter 4 opener: a body-image self-care app. Five modes - **Fact or Filter**
   (judge media real/filtered + UN & RE), My Body My Pace (puberty at your pace; menstrual health; private
   cycle/wellbeing tracker - never weight), The Comparison Trap (body-neutral truths), Self-Care Quests
@@ -3025,7 +3042,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   6 already-live Ch4/5 games - GLRL #24, MythBuster #25, Stand Up #27, and the three 15-18 sims #33-35 -
   are left as-is). Deferred per GDD: working private tracker, fuller bank, Hindi.
 
-## 2026-06-20 - Capstone 3 built (node c3) - Chapter 3 complete
+## 2026-06-20 · Capstone 3 built (node c3) - Chapter 3 complete
 - New capstone **"Growing Up Smart"** (ages 9-12 graduation): a warm, no-fail ceremony where Sam recaps
   the chapter's **eight big ideas** (Puberty Quest → Defenders of the Body), the child lights a star for
   each, and Sam graduates them ("Chapter Three complete! 🎓"). Mirrors Capstones 1 & 2. New engine id
@@ -3034,7 +3051,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   #1-20 plus three capstones. This completes the requested Chapter 3 batch (g13-g20 + c3). Next on the
   path: Chapter 4 (ages 12-15), starting with Body Confident (#21).
 
-## 2026-06-20 - Defenders of the Body built (node #20) - closes Chapter 3
+## 2026-06-20 · Defenders of the Body built (node #20) - closes Chapter 3
 - New game (ages 9-12), the SRH health step that **closes Chapter 3**: a gentle "defend the body's city"
   game. Five modes - Defend the Body (choose-the-defence waves), Stay Healthy (habits), **Fact Power-Ups**
   (UN & RE blast the myth-germs: "catch HIV from a hug", "death sentence", boss "tell by looking"),
@@ -3045,7 +3062,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   Chapter 3's lessons (#13-20) are now built** - only Capstone 3 remains in the chapter. Deferred per GDD:
   real place-and-defend interaction, Ask-It, crown levels, Hindi.
 
-## 2026-06-20 - Speak Up rebuilt to the GDD (node #19) - 5 modes
+## 2026-06-20 · Speak Up rebuilt to the GDD (node #19) - 5 modes
 - Rebuilt the gender-based-harm game from a single scenario screen to the full GDD. Safety-critical,
   never-victim-blaming. Five modes - Spot the Harm, The Safe Response (boundary/ally/tell/helpline), **It's
   Not Your Fault** (UN & RE: "she asked for it / boys will be boys / telling is snitching" → "no one asks
@@ -3054,7 +3071,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
 - Same engine id `speak-up`/node g19 (no path change). Reuses Sam + UnReBeat + voice model. Deferred per
   GDD: fuller scenario bank, crown levels, facilitator guides, Hindi.
 
-## 2026-06-20 - Norm Storm built (node #18) - keep the good, question the harm
+## 2026-06-20 · Norm Storm built (node #18) - keep the good, question the harm
 - New game (ages 9-12), the most culturally-sensitive - a **sort-and-reason** game where the *reason*
   matters as much as the bin. Five modes - Sort the Norm (Help/Depends/Harm; dowry School-Comfort-gated),
   **Keep the Good** (celebrates traditions worth keeping - the crucial balance), Rights Trump Harm (UN & RE
@@ -3064,7 +3081,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   path.ts). Reuses Sam + UnReBeat + voice model + School-Comfort gating. Deferred per GDD: draggable
   storm-to-bin, fuller deck, crown levels, facilitator guides, Hindi.
 
-## 2026-06-20 - Flip the Script rebuilt to the GDD (node #17) - 5 modes
+## 2026-06-20 · Flip the Script rebuilt to the GDD (node #17) - 5 modes
 - Rebuilt the media game from a single remix screen to the full GDD: five media-editor modes - Spot the
   Stereotype, **Flip It!** (before→after), **Bust the Media Myth** (UN & RE on colourism), **Real Stars**
   (diverse role models), and **Make a Fair Ad** (Flipped Gallery) - + a 5-badge editor Badge Book →
@@ -3072,7 +3089,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
 - Same engine id `flip-script`/node g17 (no path change). Reuses Sam + UnReBeat + voice model. Deferred per
   GDD: richer editor tools (swap image/role/recolour), crown levels, fuller bank, Hindi.
 
-## 2026-06-20 - Crossroads built (node #16) - a pre-teen's week of choices
+## 2026-06-20 · Crossroads built (node #16) - a pre-teen's week of choices
 - New game (ages 9-12), the Relationships step; grows Friend or Frenemy? into a **branching life-sim** of
   a pre-teen's week (Mon-Fri): peer-pressure dare, first crush, falling-out, family arguing, online
   teasing. Each choice moves a **Trust** meter and a **Wellbeing** meter; Crush Corner carries the UN & RE
@@ -3082,7 +3099,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   path.ts). Reuses Sam + UnReBeat + voice model. Introduces the **meter-driven life-sim + debrief** shape
   (template for the teen life-sims). Deferred per GDD: deeper branches, crown levels, Ask-It, Hindi.
 
-## 2026-06-20 - Boundary Bot built (node #15) - consent & online safety
+## 2026-06-20 · Boundary Bot built (node #15) - consent & online safety
 - New game (ages 9-12), the Safety & Consent step; advances Safety Squad (#8). Five modes - Ask First
   (consent sim), No Means No (UN & RE: "no just means try harder" → "no means no; anyone can change their
   mind"), My Boundaries (assertive words), Online Shields (privacy / cyberbullying / grooming red-flags →
@@ -3093,7 +3110,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   regenerated path.ts). Reuses Sam + UnReBeat + voice model; chatbot safe by construction (static vetted
   answers). Deferred per GDD: live guardrailed Bot + classifier, crown levels, Hindi.
 
-## 2026-06-20 - The Amazing Journey built (node #14) - opens the SRH thread
+## 2026-06-20 · The Amazing Journey built (node #14) - opens the SRH thread
 - New game (ages 9-12): a wonder-first, science-framed **"journey" explainer** of how a new life begins.
   Four museum exhibits (Where Life Begins, The Big Meeting/fertilisation, Nine Amazing Months, A New
   Person) - explore + a checkpoint stamps the Journey passport; the sensitive "how cells meet" line is
@@ -3104,7 +3121,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   regenerated path.ts). Reuses Sam + UnReBeat + voice model + School-Comfort. Deferred per GDD: cell-voyage
   animation, returning Ask-It, crown levels, Hindi.
 
-## 2026-06-20 - Puberty Quest built (node #13) - opens Chapter 3
+## 2026-06-20 · Puberty Quest built (node #13) - opens Chapter 3
 - New game (ages 9-12): a light **myth-busting quest** through Puberty Valley. Five areas - The Period
   Place (menstruation positive & practical), Changes All Over (all bodies), Moods & My Self (body image;
   masturbation card School-Comfort-gated), **Myth Monsters** (UN & RE: pick the true fact to bust the
@@ -3115,7 +3132,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   the patterns doc: #18 Ask-It box, #19 myth-bust-by-choosing-the-truth.** Deferred per GDD: crown levels,
   live Ask-It triage, class leagues, Hindi.
 
-## 2026-06-20 - Capstone 2 built (node c2) - Chapter 2 complete
+## 2026-06-20 · Capstone 2 built (node c2) - Chapter 2 complete
 - New capstone **"Fair & Safe Explorer"** (ages 6-9 graduation): a warm, no-fail ceremony where Sam
   recaps the chapter's **seven big ideas** (Body Lab Juniors → Smart Screen Heroes), the child lights a
   star for each, and Sam graduates them ("Chapter Two complete! 🎓"). Mirrors Capstone 1. New engine id
@@ -3123,7 +3140,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   Reuses Sam + voice model + juice. **Chapters 1 & 2 (ages 3-9) are now fully built.** Next: Chapter 3
   (ages 9-12), starting with Puberty Quest (#13).
 
-## 2026-06-20 - Smart Screen Heroes built (node #12) - closes Chapter 2
+## 2026-06-20 · Smart Screen Heroes built (node #12) - closes Chapter 2
 - New game (ages 6-9): a bright **set of four hero mini-games + a habits wrap** that opens the
   media-literacy and health threads. **Real or Pretend?** (sort screen things; UN & RE on the
   fairness-cream ad, tying back to Body Lab's anti-colourism), **Good Choice** (decision trees with
@@ -3134,7 +3151,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   (engine-host + gen-path GAME map + regenerated path.ts). Reuses Sam + UnReBeat + voice model. This is
   the last lesson before Capstone 2; deferred per GDD: "Make a True Ad", streak, Classroom polish, Hindi.
 
-## 2026-06-20 - Not Fair, Not Funny rebuilt to the GDD (node #11)
+## 2026-06-20 · Not Fair, Not Funny rebuilt to the GDD (node #11)
 - Rebuilt the ally game from a 3-choice single-scene to the full GDD: **five modes** - Not Fair, Not Funny
   (branching teasing scenes), **Just a Joke?** (bust "it's just a joke" with UN & RE), **Be an Ally** (the
   safe 3-step + a 6-phrase Comeback Kit), How Would You Feel? (empathy), and **Stand Tall** (protective
@@ -3144,7 +3161,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   UnReBeat + voice model. Same engine id `not-funny`/node g11. Deferred per GDD: fuller scene bank,
   illustrated characters, Classroom prompts, Hindi.
 
-## 2026-06-19 - Fair Play World rebuilt to the GDD (node #10)
+## 2026-06-19 · Fair Play World rebuilt to the GDD (node #10)
 - Rebuilt the fairness game from a single assign screen to the full GDD: **run-a-fair-world** with the
   **Fairness Meter** at the centre. Five modes - Share the Work, Fair Chances, Rights for Every Child
   (Rights Cards), **Swap Day** (empathy), and **Bust the 'Rule'** (UN & RE) - + a Fair Play Badge Book.
@@ -3152,7 +3169,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
 - Reuses Sam + UnReBeat + voice model. Same engine id `fair-play`/node g10. Deferred per GDD: draggable
   leaning-world scene, fuller banks, Classroom polish, Hindi.
 
-## 2026-06-19 - Friend or Frenemy? (node #9) - friendships, the GLRL seed
+## 2026-06-19 · Friend or Frenemy? (node #9) - friendships, the GLRL seed
 - Built **[Friend or Frenemy?](../games/friend-or-frenemy.md)** (node g09, ages 6-9): the child-level seed
   of Green Light / Red Light. Five modes - branching friend **stories** (choose → consequence; behaviours
   not labels), the **Words Toolbox** (I-statement / No / Sorry / Can I join), **Pressure Moments** (the
@@ -3162,7 +3179,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   Chapter 2 well underway) are built. Deferred per GDD: fuller story bank, friendship meter, Classroom
   polish, Hindi.
 
-## 2026-06-19 - Safety Squad (node #8) - safety thread onto screens
+## 2026-06-19 · Safety Squad (node #8) - safety thread onto screens
 - Built **[Safety Squad](../games/safety-squad.md)** (node g08, ages 6-9, safeguarding-critical): five
   missions - Spot the Unsafe (touch/online/bullying), the Safe Move (Say No · Get Away · Tell), Keep It
   Private (online vault), Good/Tell Secret (the **UN & RE** beat), and My Safety Squad (additive trusted
@@ -3171,7 +3188,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
 - Deferred per GDD: safe-move animation polish, fuller scenario bank, cyber-crime helpline, Classroom-Mode
   polish, disclosure-guide UI, daily streak, Hindi.
 
-## 2026-06-19 - What Makes Me, Me (node #7) - the gender-thread keystone
+## 2026-06-19 · What Makes Me, Me (node #7) - the gender-thread keystone
 - Built **[What Makes Me, Me](../games/what-makes-me-me.md)** (node g07, ages 6-9, sex vs gender): sort
   traits into **Body (born with)** vs **Learned (taught)**, **bust the unfair learned "rules" with UN &
   RE** (shared `UnReBeat`), see "It Can Change" + "Same Body, Many Ways", and build a **What-Makes-Me
@@ -3179,7 +3196,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
 - Reuses Sam + the shared UnReBeat + voice model. 18 of 41 nodes live.
 - Deferred per GDD: the song, drag-into-bins polish, fuller card bank, Classroom-Mode polish, Hindi.
 
-## 2026-06-19 - Body Lab Juniors (node #6) - Chapter 2 opens; UN & RE debut
+## 2026-06-19 · Body Lab Juniors (node #6) - Chapter 2 opens; UN & RE debut
 - Built **[Body Lab Juniors](../games/body-lab-juniors.md)** (node g06, ages 6-9): a reading-light science
   "body lab" with five stations (Label the Body, Super Senses, the Growing Machine slider, Where Babies
   Grow [School-Comfort-gated], All Bodies Are Good) + a Body Lab Badge Book. Builds on My Body, My Rules.
@@ -3188,14 +3205,14 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   doc status updated. 17 of 41 path nodes live.
 - Deferred per GDD: senses experiments polish, the timeline save, Classroom-Mode polish, daily streak, Hindi.
 
-## 2026-06-19 - Capstone 1 built; Chapter 1 (ages 3-6) complete
+## 2026-06-19 · Capstone 1 built; Chapter 1 (ages 3-6) complete
 - Built **[Capstone 1 - My First Friends](../games/capstones.md)** (node `c1`): the Chapter 1 graduation -
   a warm, no-fail ceremony where Sam helps the child light a star for each of the chapter's five big
   ideas (feelings, body-safety, family/kindness, same-same, can-do), then graduates them. Engine
   `capstone-1`; reuses Sam + voice model + juice. New `capstones.md` overview (c1 built; c2-c5 planned).
 - **The whole ages-3-6 chapter is now playable end-to-end** (5 games + capstone) - 16 of 41 path nodes live.
 
-## 2026-06-19 - Can-Do Kids rebuilt to the GDD (node #5)
+## 2026-06-19 · Can-Do Kids rebuilt to the GDD (node #5)
 - Rebuilt the anti-stereotype game to the full GDD: **Sam**, home + five modes (Be Anything role-wheel,
   **Bust the Myth Monster** - even-handed, lifts boys up too - Feelings for All, Toys & Chores,
   Make-a-Can-Do-Kid), the **Can-Do Badge Book**, the new voice model. The myth-pop is the ages-3-6 seed
@@ -3205,7 +3222,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   inclusion baked in (noted on pattern #17). Same engine id `can-do`/node g05. Deferred per GDD: the
   song, group mode, fuller banks, Hindi.
 
-## 2026-06-19 - Same Same, Different rebuilt to the GDD (node #4)
+## 2026-06-19 · Same Same, Different rebuilt to the GDD (node #4)
 - Rebuilt the gender-opener from a thin same/different tapper to the full GDD: **Sam**, **friendship
   threads + a "become friends" payoff**, the **Friendship Garden**, a gentle **myth-bubble pop** (the
   ages-3-6 seed of Unlearn → Relearn → Grow - no UN&RE characters, no "you were wrong"), three layers
@@ -3213,13 +3230,13 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   / hearing aid). Uses the new voice model (held transitions + replay). Same engine id `same-same`/node g04.
 - Deferred per GDD: the "Same Inside" song, group mode, fuller matrix, Hindi.
 
-## 2026-06-19 - Voice model improved (narration contract)
+## 2026-06-19 · Voice model improved (narration contract)
 - Upgraded the shared narration (`src/lib/speak.ts`): **strips emoji** before speaking (no more "smiling
   face"); fires **`onEnd`** when a line completes so games **hold mode/scene transitions until the audio
   finishes** (length-based fallback when muted, so pacing holds either way); added a **"hear it again"
   replay** button to the audio-first games (feelings, my-body, family-garden). Captured in patterns #10.
 
-## 2026-06-19 - Inclusive family builders (same-sex parents)
+## 2026-06-19 · Inclusive family builders (same-sex parents)
 - Fixed a real inclusivity gap: the family builder (My Family Garden) and the trusted-adults Safety Net
   (My Body, My Rules) used single-select, so a child with **two mums / two dads** couldn't build their
   family. Made both **additive (repeats allowed, tap-to-remove)** with an explicit "even two mums or two
@@ -3227,7 +3244,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
 - Recorded as patterns doc **#17 - "let every child build themselves in"** (additive identity/family
   builders, diverse cast, never make a child feel their family isn't an option).
 
-## 2026-06-19 - My Family Garden shipped (node #3, ages 3-6) - Relationships thread opens
+## 2026-06-19 · My Family Garden shipped (node #3, ages 3-6) - Relationships thread opens
 - Built **[My Family Garden](../games/my-family-garden.md)** - node #3, the start of the Relationships
   thread. Five no-fail modes: Make My Family (radically inclusive builder), Families Care, Friends
   Forever, the **Kindness Garden** (each caring act blooms a flower - the age-right progression + the
@@ -3236,7 +3253,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   (feelings → body-safety → belonging). Deferred per GDD: the song, persisted album/garden, group mode,
   festival packs, Hindi.
 
-## 2026-06-19 - My Body, My Rules shipped (node #2, ages 3-6) - body safety
+## 2026-06-19 · My Body, My Rules shipped (node #2, ages 3-6) - body safety
 - Built **[My Body, My Rules](../games/my-body-my-rules.md)** - node #2, the body-safety foundation
   (PANTS / good-touch-bad-touch; POCSO/NCERT). Five no-fail modes: My Body (+ underwear rule), My Rules,
   Safe/Unsafe/Not-Sure, the Big No (for touch), and the Safety Net (3-5 trusted grown-ups + Childline
@@ -3246,7 +3263,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   #16** - *sensitive topics: empower, never frighten*. Deferred per GDD: the song, caregiver disclosure
   guide UI, group mode, fuller scene bank, online-safety beat, Hindi.
 
-## 2026-06-19 - Feelings Friends shipped (node #1, ages 3-6) + Sam's debut
+## 2026-06-19 · Feelings Friends shipped (node #1, ages 3-6) + Sam's debut
 - Built **[Feelings Friends](../games/feelings-friends.md)** - the path's first game (Thread C · Feelings &
   Life Skills) and the **first non-gender-thread lesson**. Warm, audio-first, no-fail SEL: five modes
   (Meet · Match · Mirror Me pick-a-face · The Big No · Calm Corner) + a Feelings Family collection + a
@@ -3255,14 +3272,14 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   shared juice, no-fail; registered in `engine-host` and mapped to path node **g01** (gen-path.py →
   path.ts; now 13 playable nodes). Deferred per GDD: live camera, record/playback, the song, Hindi.
 
-## 2026-06-19 - GLRL 2.0 run polish: portrait, music, timer
+## 2026-06-19 · GLRL 2.0 run polish: portrait, music, timer
 - Completed the GDD juice + mastery spec for runs: **character-portrait reactions**, a subtle
   Clarity-driven **escalating music bed** (ducks on serious cards, mute-aware), a distinct **"shatter"**
   on a busted disguised card, and a **gentle, non-punitive reading timer** with a speed bonus that only
   counts once accuracy is high (Calm Mind removes it; Slow-Mo widens disguised cards). The music
   controller lives in the shared `src/lib/juice.ts`.
 
-## 2026-06-19 - Shared juice: consistent sound/feel across all games
+## 2026-06-19 · Shared juice: consistent sound/feel across all games
 - Made game feel consistent app-wide: the shared **`celebrate()`** now carries the chime (small →
   "green", big → "win"), so every game sounds alike with no per-game audio wiring; the swipe atom + run
   own their per-card sound (green / red / combo / **shatter** on a disguised bust) and silence their
@@ -3270,7 +3287,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
 - Strengthened patterns doc #11 (["one shared juice layer, consistent across games"](../games/swipeed-game-patterns.md)).
 - (GLRL run polish - portrait reaction, escalating music, timer/speed-bonus - follows on its own branch.)
 
-## 2026-06-19 - GLRL 2.0 powers to 8 (4 unlock by play)
+## 2026-06-19 · GLRL 2.0 powers to 8 (4 unlock by play)
 - Added 4 powers - **X-Ray** (reveal the first disguised card's sign), **Streak Shield** (first wrong
   costs no Clarity), **Combo Master** (faster Clarity on combos), **Boss Bane** (bonus on the boss) -
   taking the loadout to **8 powers**. The new four **unlock by play** (lifetime disguised-reads / runs /
@@ -3278,7 +3295,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   engine and locked tiles show their unlock hint in the loadout. (Instance of the white-hat
   "[aids earned by play, never bought](../games/swipeed-game-patterns.md)" pattern.)
 
-## 2026-06-19 - GLRL 2.0 matured: 6 story arcs, 85 cards
+## 2026-06-19 · GLRL 2.0 matured: 6 story arcs, 85 cards
 - Added 3 story arcs - **The Controlling Partner** (Kabir), **Family & Boundaries** (Anaya), **The Group
   Chat** (Veer) - taking GLRL to **6 arcs / 85 cards** (hits the GDD's ~80 MVP target); +2 cast; Boss
   Rush auto-grows from the new disguised cards.
@@ -3287,7 +3304,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   control-myth as the boss and safeguarding a separate calm beat.
 - (Powers → 8 follows on its own branch.)
 
-## 2026-06-19 - Reusable game patterns doc (living, cross-game)
+## 2026-06-19 · Reusable game patterns doc (living, cross-game)
 - Created **[reusable game patterns](../games/swipeed-game-patterns.md)** - the cross-game decisions proven
   in GLRL 2.0 + the gender games (content-as-data, one-engine-per-verb, no-fail + safeguarding-never-
   scored, white-hat, aids-never-auto-win, the Unlearn → Relearn → Grow beat, accessibility,
@@ -3298,7 +3315,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   doc; and added an `AGENTS.md` convention to **consult it when building a game and update it (same
   branch) when a new reusable decision is made**.
 
-## 2026-06-19 - Green Light / Red Light 2.0 planned (roguelike rebuild)
+## 2026-06-19 · Green Light / Red Light 2.0 planned (roguelike rebuild)
 - Adopted the **[GLRL 2.0](../games/green-light-red-light.md)** design: keep the swipe verb, rebuild around
   it as an **educational roguelike-lite** - short story **Runs**, a **Clarity** meter (no hard fail),
   **Insight-perk** loadouts, **branching forks**, **boss cards**, full **juice**, and white-hat
@@ -3312,7 +3329,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   l10n/a11y), each merged with its KB update. Deferred: Build-a-Flag UGC, Classroom, Spot Check, teacher
   dashboard, full perk catalogue.
 
-## 2026-06-19 - Core learning principle named: Unlearn → Relearn → Grow
+## 2026-06-19 · Core learning principle named: Unlearn → Relearn → Grow
 - Adopted **[Unlearn → Relearn → Grow](../games/swipeed-core-principle.md)** as SwipeEd's single core
   learning principle (from the design doc) - growth as gently un-learning half-truths and re-learning
   something truer; "replace, never just negate"; the **UN & RE** duo + a four-beat **Surface → Unlearn
@@ -3324,14 +3341,14 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
 - **Status:** the principle is already embodied by shipped myth-bust/reveal/disguised-card mechanics +
   the spiral path; the **UN & RE characters** and the formal **ritual UI** are designed, not yet built.
 
-## 2026-06-19 - Working conventions: branch-per-change + KB-with-every-merge
+## 2026-06-19 · Working conventions: branch-per-change + KB-with-every-merge
 - Adopted a standing workflow: **every change on its own branch**, merged (`--no-ff`) or archived
   **before** the next thing - no committing straight to `main`, no stacking on unmerged work.
 - **The knowledge base never lags the code:** each merge that touches a game or platform fact ships
   its `knowledge/…` update (concept doc + this log + cross-links) in the *same* branch.
 - Recorded in `AGENTS.md` (+ `CLAUDE.md` → `@AGENTS.md`) here and in the SwipeEd repo's `AGENTS.md`.
 
-## 2026-06-19 - SwipeEd path world: seasons, weather, day/night, companion
+## 2026-06-19 · SwipeEd path world: seasons, weather, day/night, companion
 - New doc: **[SwipeEd - The Path World (3D)](../games/swipeed-world.md)** - the full R3F world behind the
   learning path (kept as a SwipeEd-app concept, not core-engine architecture).
 - **Table-driven path:** the whole path (41 nodes, 5 chapter regions, thread tints, gold capstones,
@@ -3354,7 +3371,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
 - **Mobile-safe loading:** staged mount (sky/land/mountains → path → visible-only foliage) + windowed
   fixed-capacity instanced foliage + dpr cap, after the 3× world OOM'd WebGL on phones.
 
-## 2026-06-19 - SwipeEd becomes the app: 3D path + 10 gender games
+## 2026-06-19 · SwipeEd becomes the app: 3D path + 10 gender games
 - **Clarified the model:** **[SwipeEd](../games/swipeed.md) is the *app*** (the whole ages-3-18 RSE/CSE
   learning path), not a single game. [Green Light / Red Light](../games/green-light-red-light.md) is the
   *first game within it*. Reframed the docs and split each game into its own concept file - no "pack"
@@ -3374,7 +3391,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
 - **Still self-contained:** these engines/games live in the SwipeEd repo, not yet on a shared Praxis
   [Engine SDK](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/architecture/engine-sdk.md) - they are its seeds.
 
-## 2026-06-18 - First game built: Green Light / Red Light (MVP)
+## 2026-06-18 · First game built: Green Light / Red Light (MVP)
 - Built the real first game into the SwipeEd repo (the earlier scaffold was a placeholder):
   **[Green Light / Red Light](../games/green-light-red-light.md)** - a swipe game for spotting healthy vs unhealthy
   relationship behaviours (Next.js + vanilla shadcn + PWA), per the GDD's MVP. Live at
@@ -3383,7 +3400,7 @@ Five platform features on the SwipeEd path world (isolated `swipeed-equal-lens` 
   debrief + review, persistent Get Help, School-Comfort Mode, unscored safeguarding cards, and
   accessible swipe (button + icon + label, never colour alone).
 
-## 2026-06-18 - First game scaffolded & deployed (SwipeEd)
+## 2026-06-18 · First game scaffolded & deployed (SwipeEd)
 - [SwipeEd](../games/swipeed.md) scaffolded in its **own repo** (Next.js + vanilla shadcn + separate
   token system + PWA), pushed to GitHub, and deployed to **Vercel** - live at https://swipeed.vercel.app.
 - Added [deployment](../architecture/deployment.md) (Vercel hosting model). Vercel Git auto-deploy needs

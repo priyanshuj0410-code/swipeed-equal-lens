@@ -152,7 +152,7 @@ const GAMES: Record<string, EngineGame> = {
   "rabbit-hole": dynamic(() => import("@/components/games/rabbit-hole").then((m) => m.RabbitHoleGame), {
     ssr: false,
   }),
-  // Chapter 6 — adult journey (18–22)
+  // Chapter 6: adult journey (18-22)
   "consent-real": dynamic(() => import("@/components/games/consent-real").then((m) => m.ConsentRealGame), {
     ssr: false,
   }),
@@ -183,7 +183,7 @@ const GAMES: Record<string, EngineGame> = {
   "capstone-6": dynamic(() => import("@/components/games/capstone-6").then((m) => m.CapstoneSixGame), {
     ssr: false,
   }),
-  // Chapter 7 — Building a Life (22 → first child)
+  // Chapter 7: Building a Life (22 → first child)
   "choosing-building": dynamic(() => import("@/components/games/choosing-building").then((m) => m.ChoosingBuildingGame), {
     ssr: false,
   }),
@@ -211,7 +211,7 @@ const GAMES: Record<string, EngineGame> = {
   "capstone-7": dynamic(() => import("@/components/games/capstone-7").then((m) => m.CapstoneSevenGame), {
     ssr: false,
   }),
-  // Chapter 8 — Parenthood (first child on)
+  // Chapter 8: Parenthood (first child on)
   "us-after-kids": dynamic(() => import("@/components/games/us-after-kids").then((m) => m.UsAfterKidsGame), {
     ssr: false,
   }),

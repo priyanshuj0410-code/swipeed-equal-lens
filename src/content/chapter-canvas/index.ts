@@ -1,9 +1,9 @@
 // Per-chapter canvas content (myths / facts / doodles), authored from the GDD "myths vs truth"
-// banks — see "SwipeEd Canvas — Chapter N.json" + the "Chapter Canvas Theming" design doc.
+// banks (see "SwipeEd Canvas) Chapter N.json" + the "Chapter Canvas Theming" design doc.
 // The canvas world dresses each chapter's stretch of the path with that chapter's struck-through
-// myths (bias on the page) and the truth RE writes in their place. Light theme (kids ch.1–5);
-// dark/adult theme (ch.6–8: College, Building a Life, Parenthood + Parent Layer), authored from the
-// adult GDD myth banks (GDD 44–69) + the master node table.
+// myths (bias on the page) and the truth RE writes in their place. Light theme (kids ch.1-5);
+// dark/adult theme (ch.6-8: College, Building a Life, Parenthood + Parent Layer), authored from the
+// adult GDD myth banks (GDD 44-69) + the master node table.
 import ch1 from "./chapter-1.json";
 import ch2 from "./chapter-2.json";
 import ch3 from "./chapter-3.json";

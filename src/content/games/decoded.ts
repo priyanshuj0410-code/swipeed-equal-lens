@@ -1,9 +1,9 @@
-// Content for Decoded (node g36, ages 15–18, Chapter 5) — NEW v2 build to GDD 36 (mechanic-embodying), the
-// media-literacy FINALE and summit of the 3–18 journey (Thread G · Values, Rights & Media). "The feed is
-// engineered to use you — but you can learn to read it, and use it instead." 84 researched, India-grounded,
+// Content for Decoded (node g36, ages 15-18, Chapter 5): NEW v2 build to GDD 36 (mechanic-embodying), the
+// media-literacy FINALE and summit of the 3-18 journey (Thread G · Values, Rights & Media). "The feed is
+// engineered to use you: but you can learn to read it, and use it instead." 84 researched, India-grounded,
 // non-explicit scenarios across decode-the-algorithm → decode-the-influence → decode-pornography → decode-yourself
 // → the-decoder → grow-the-journey, each encoded as one of the shared v2 play actions (branch / strike-rewrite /
-// reflect / sort / spot / match / role-play) — no binary "tap the right card". Lead: strike-rewrite (bust the
+// reflect / sort / spot / match / role-play): no binary "tap the right card". Lead: strike-rewrite (bust the
 // myth), branch (your move), spot (catch the manipulation). Decode the MACHINE (algorithms, attention economy,
 // filter bubbles), the INFLUENCE (misinformation, AI fakes/deepfakes, propaganda, scams, dark patterns),
 // PORNOGRAPHY (gated, non-explicit, deeper than g28: staged performance, not real, not sex-ed, unrealistic, no
@@ -510,7 +510,7 @@ const SCENARIOS: Scenario[] = [
 export const DECODED: V2GameConfig = {
   gameId: "decoded",
   title: "Decoded",
-  greet: "Hey, I’m Lensy. 🧩 The feed is built to use you — but you can learn to read it and use it instead. Let’s decode the machine, the spin, even yourself. Ready?",
+  greet: "Hey, I’m Lensy. 🧩 The feed is built to use you, but you can learn to read it and use it instead. Let’s decode the machine, the spin, even yourself. Ready?",
   scenarios: SCENARIOS,
   categories: [
     { id: "decode-the-algorithm", emoji: "⚙️", label: "Decode the algorithm" },
@@ -522,7 +522,7 @@ export const DECODED: V2GameConfig = {
   ],
   badge: {
     title: "Decoded 🧩",
-    blurb: "You can read the algorithm, see through manipulation and AI fakes, decode unrealistic media, mind your digital wellbeing — critical, not cynical. 🌱",
+    blurb: "You can read the algorithm, see through manipulation and AI fakes, decode unrealistic media, mind your digital wellbeing: critical, not cynical. 🌱",
   },
   helpLine: "Report scams, deepfakes or harmful content: cybercrime 1930 / cybercrime.gov.in. If anything online distresses you, tell a trusted adult or call Childline 1098.",
   helpLabel: "Report / get help · cybercrime 1930 / 1098",

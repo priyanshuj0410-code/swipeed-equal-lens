@@ -15,6 +15,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007  # SWED-71
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d  # SWED-75
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22  # SWED-92
 ---
 
 # SwipeEd content-growth pipeline (`forge`)
@@ -58,6 +59,8 @@ check → semantic reviewer, ≤1 bounce then drop) → ASSEMBLE + whole-bank DE
   unless it is a listed reflect becoming a choose.
 - `lints.py` - content lints from the playtest plan ([SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de)): dashes, narrator prefixes (including the persona's own name, [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007)), stacked or
   clipped questions, match and sort giveaways, truths that need their myth. Blocking for new batches and for games on `lint_clean.json`.
+- `scripts/no_dashes.py`: the whole-repo dash gate ([SWED-92](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22)): any em or en dash in a tracked text file fails the
+  build and the commit. Writers follow [writing without dashes](../playbooks/writing-without-dashes.md).
 - `blind_review.py` - blind answer-key review ([SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d)): writes every choose, match and sort without its answers
   for an independent reviewer, then diffs their answers with the keys. A disagreement means a second answer is
   defensible, so the scenario is rewritten. First used on the Choosing & Building pilot.

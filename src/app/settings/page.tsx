@@ -56,7 +56,7 @@ export default function SettingsPage() {
         <div>
           <p className="text-sm font-medium">Calm Mode</p>
           <p className="text-xs text-muted-foreground">
-            A quieter, reduced-stimulation feel — gentler motion and no confetti across the whole app.
+            A quieter, reduced-stimulation feel, with gentler motion and no confetti across the whole app.
           </p>
         </div>
         <Switch
@@ -91,7 +91,7 @@ export default function SettingsPage() {
       <Card className="flex flex-col gap-2 p-4 text-xs text-muted-foreground">
         <p className="text-sm font-medium text-foreground">About</p>
         <p>
-          A game about reading relationships — green flags and red flags. Content is behaviour-only.
+          A game about reading relationships: green flags and red flags. Content is behaviour-only.
           The <span className="font-medium text-foreground">Get Help</span> button is always in the
           corner.
         </p>

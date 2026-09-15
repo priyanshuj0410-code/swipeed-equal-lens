@@ -1,6 +1,6 @@
 "use client";
 
-// Change Makers (node g34, ages 15–18, Chapter 5) — NEW v2 build to GDD 34 (mechanic-embodying). The campaign /
+// Change Makers (node g34, ages 15-18, Chapter 5): NEW v2 build to GDD 34 (mechanic-embodying). The campaign /
 // collective-change node (Thread E · Gender & Respect), run on the shared v2 engine: its researched typed library
 // + config (content/games/change-makers.ts) render the play actions (branch · reflect · sort · strike-rewrite ·
 // match · role-play · spot), led by branch + sort + strike-rewrite. Scales Lead the Way (g33) into organised

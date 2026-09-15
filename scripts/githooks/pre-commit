@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # SwipeEd read-first guard (the hard rule, enforced at commit time).
 # When a commit touches game content/components, this surfaces the AUTHORITATIVE build status + the next
-# node straight from the master node table (scripts/master-node-table.xlsx) and BLOCKS on inconsistency —
+# node straight from the master node table (scripts/master-node-table.xlsx) and BLOCKS on inconsistency,
 # so build progress / "the next node" can never be asserted from memory. See scripts/swipeed_status.py.
 ROOT="$(git rev-parse --show-toplevel)"
 if git diff --cached --name-only | grep -qE '^src/(content|components)/games/'; then
-  echo "▸ SwipeEd read-first guard — game files staged. Authoritative build status (master node table):"
+  echo "▸ SwipeEd read-first guard: game files staged. Authoritative build status (master node table):"
   echo
   if python3 "$ROOT/scripts/swipeed_status.py" --check; then
     echo
@@ -46,6 +46,15 @@ if git diff --cached --name-only | grep -qE '^(src/content/|scripts/content_gate
     echo
     echo "⛔ Commit blocked: the content gate failed (see above, or run: python3 scripts/forge/test_gates.py)."
     echo "   Fix the content, or bypass this commit only with:  SWIPEED_CONTENT_GATE_OVERRIDE=1 git commit ..."
+    exit 1
+  fi
+fi
+# Dash gate (SWED-92): The Equal Lens never uses em or en dashes, in copy, comments, scripts or docs.
+if [ -n "$(git diff --cached --name-only --diff-filter=ACMR)" ]; then
+  if ! git diff --cached --name-only --diff-filter=ACMR -z | (cd "$ROOT" && xargs -0 python3 scripts/no_dashes.py) >/dev/null; then
+    git diff --cached --name-only --diff-filter=ACMR -z | (cd "$ROOT" && xargs -0 python3 scripts/no_dashes.py)
+    echo
+    echo "⛔ Commit blocked: rewrite those lines without dashes (two sentences, a comma, a colon, or \"like\")."
     exit 1
   fi
 fi

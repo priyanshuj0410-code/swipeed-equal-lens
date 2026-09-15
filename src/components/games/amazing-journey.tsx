@@ -1,6 +1,6 @@
 "use client";
 
-// The Amazing Journey (node g14, ages 9–12, Chapter 3) — NEW v2 build to GDD 14 (mechanic-embodying). The
+// The Amazing Journey (node g14, ages 9-12, Chapter 3): NEW v2 build to GDD 14 (mechanic-embodying). The
 // reproduction node (Thread F · Sexual & Reproductive Health), run on the shared v2 engine: its researched
 // typed library + config (content/games/amazing-journey.ts) render the play actions (reflect · strike-rewrite ·
 // branch · match · sort · build · role-play), led by awe+facts (reflect), myth-busts (strike-rewrite), and the

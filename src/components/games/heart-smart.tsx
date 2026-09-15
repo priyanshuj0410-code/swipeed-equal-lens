@@ -1,6 +1,6 @@
 "use client";
 
-// Heart Smart (node g41, ages 6–9, Chapter 2) — NEW v2 build to GDD 41 (mechanic-embodying). The deeper 6–9
+// Heart Smart (node g41, ages 6-9, Chapter 2): NEW v2 build to GDD 41 (mechanic-embodying). The deeper 6-9
 // emotional-intelligence node that completes Chapter 2, run on the shared v2 engine: its researched typed
 // library + config (content/games/heart-smart.ts) render the play actions (reflect · branch · role-play ·
 // strike-rewrite · match · sort · build), led by feeling-moment dilemmas (branch), say-the-self-talk

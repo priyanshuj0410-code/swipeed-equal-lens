@@ -137,7 +137,7 @@ function makeCardTexture(card: GameCard, phase: "play" | "reveal", correct: bool
     ctx.fillStyle = C.text;
     ctx.font = font(38, 800);
     let y = pad + 56;
-    for (const ln of wrap(ctx, "This one is serious — and it's not your fault.", W - pad * 2)) {
+    for (const ln of wrap(ctx, "This one is serious, and it's not your fault.", W - pad * 2)) {
       ctx.fillText(ln, pad, y);
       y += 48;
     }
@@ -183,7 +183,7 @@ function makeCardTexture(card: GameCard, phase: "play" | "reveal", correct: bool
     if (card.is_disguised) {
       ctx.fillStyle = C.primary;
       ctx.font = font(20, 700);
-      ctx.fillText("Disguised — nice catch", pad, H - pad);
+      ctx.fillText("Disguised. Nice catch!", pad, H - pad);
     }
   }
 
@@ -368,7 +368,7 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
   const exitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => void (exitTimer.current && clearTimeout(exitTimer.current)), []);
 
-  // R3F doesn't always measure its container on first mount in prod — nudge a resize.
+  // R3F doesn't always measure its container on first mount in prod: nudge a resize.
   useEffect(() => {
     const fire = () => window.dispatchEvent(new Event("resize"));
     const raf = requestAnimationFrame(fire);

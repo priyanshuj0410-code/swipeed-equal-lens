@@ -1,6 +1,6 @@
 "use client";
 
-// Body Confident (node g21, ages 12–15, Chapter 4) — NEW v2 build to GDD 21 (mechanic-embodying). The
+// Body Confident (node g21, ages 12-15, Chapter 4): NEW v2 build to GDD 21 (mechanic-embodying). The
 // puberty-depth + body-image + media-literacy node (Thread A) that OPENS Chapter 4, run on the shared v2 engine:
 // its researched typed library + config (content/games/body-confident.ts) render the play actions (strike-rewrite ·
 // spot · sort · reflect · branch · role-play · build), led by strike-rewrite (bust the beauty myth), spot

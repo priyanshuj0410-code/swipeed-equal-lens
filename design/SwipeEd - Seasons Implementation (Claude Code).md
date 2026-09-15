@@ -1,16 +1,16 @@
-# SwipeEd — Seasons Implementation Guide (for Claude Code)
+# SwipeEd: Seasons Implementation Guide (for Claude Code)
 
-**Goal:** give each of the 5 chapters of the single learning path its own *season/biome* —
-**Summer → Rainy → Autumn → Winter → Spring** — using the Kenney Platformer Kit's
+**Goal:** give each of the 5 chapters of the single learning path its own *season/biome*
+**Summer → Rainy → Autumn → Winter → Spring**: using the Kenney Platformer Kit's
 recolouring system, plus weather particle effects (rain, snow, falling autumn leaves,
 and optional spring blossom petals). It also adds a **day/night layer** tied to the device
-clock — a calmer, warmer evening plus a gentle bedtime nudge (§7) — and uses the **Kenney
+clock (a calmer, warmer evening plus a gentle bedtime nudge (§7)) and uses the **Kenney
 Holiday Kit** for warm, cosy winter props (§2).
 
-> This is a reference guide. **Do not assume the codebase — confirm it first** (Step 0).
+> This is a reference guide. **Do not assume the codebase: confirm it first** (Step 0).
 > All code below targets **React Three Fiber (R3F) + Three.js + @react-three/drei**, the
 > most likely stack for a Next.js/Vercel 3D app using GLB models. If the project uses
-> **vanilla Three.js**, the `THREE.*` APIs are identical — just drop the JSX wrappers.
+> **vanilla Three.js**, the `THREE.*` APIs are identical: just drop the JSX wrappers.
 > If it uses Babylon/PlayCanvas/Unity-WebGL, keep the *concepts* and translate.
 
 ---
@@ -20,7 +20,7 @@ Holiday Kit** for warm, cosy winter props (§2).
 1. **Detect the renderer & model format.** Search the repo for `@react-three/fiber`,
    `three`, `.glb`/`.gltf`, `useGLTF`, `Canvas`. Report what you find.
 2. **Find the scene/environment code** (sky, fog, lights, ground) and the **path/node
-   renderer** (where nodes are laid out — this should be driven by the master node table,
+   renderer** (where nodes are laid out: this should be driven by the master node table,
    see `SwipeEd - Master Node Table.xlsx`, column `chapter`).
 3. **Find the Kenney models and their shared texture.** Kenney 3D models share **one
    palette texture** (commonly `colormap.png`) and one material. Locate it.
@@ -40,11 +40,11 @@ winter → spring), so it flows correctly and lands on spring for the final "gra
 
 | Chapter | Ages | Season | Mood to hit | Weather |
 |---|---|---|---|---|
-| Ch.1 | 3–6 | **Summer** | bright, warm, carefree | none (sunny) |
-| Ch.2 | 6–9 | **Rainy** (monsoon) | *joyful* monsoon — lush, splashy, rainbows (NOT gloomy) | **rain** |
-| Ch.3 | 9–12 | **Autumn** | golden, changing, cosy | **falling leaves** |
-| Ch.4 | 12–15 | **Winter** | *cosy & hopeful* — snow-as-wonder + warm **Holiday-Kit** props (NOT bleak; most tender content) | **snow** |
-| Ch.5 | 15–18 | **Spring** | blossoming, fresh, new beginnings | optional **blossom petals** |
+| Ch.1 | 3-6 | **Summer** | bright, warm, carefree | none (sunny) |
+| Ch.2 | 6-9 | **Rainy** (monsoon) | *joyful* monsoon: lush, splashy, rainbows (NOT gloomy) | **rain** |
+| Ch.3 | 9-12 | **Autumn** | golden, changing, cosy | **falling leaves** |
+| Ch.4 | 12-15 | **Winter** | *cosy & hopeful*: snow-as-wonder + warm **Holiday-Kit** props (NOT bleak; most tender content) | **snow** |
+| Ch.5 | 15-18 | **Spring** | blossoming, fresh, new beginnings | optional **blossom petals** |
 
 > Tone note for the designers: **Rainy and Winter must be executed warm**, not grey.
 > Winter = warm lights + snow wonder (lean on the **Holiday Kit** props, §2); Rainy = bright, lush, rainbows.
@@ -56,10 +56,10 @@ winter → spring), so it flows correctly and lands on spring for the final "gra
 Kenney (and KayKit) 3D models use a **single shared "colormap" palette texture**: a small
 image holding every colour in the pack. Each model's UVs point at specific coloured pixels.
 **Recolouring a swatch recolours everything that uses it.** Kenney's own packs ship colour
-*variations* by swapping colours at certain palette positions — and in Kenney's Hexagon Kit,
+*variations* by swapping colours at certain palette positions: and in Kenney's Hexagon Kit,
 **this is exactly how they produce seasons.** We do the same.
 
-### Recommended approach — 5 colormap variants (matches Kenney's own method)
+### Recommended approach: 5 colormap variants (matches Kenney's own method)
 
 Create five versions of the palette texture, changing only the **grass** and **leaf** (and
 optionally **ground/dirt**) swatches:
@@ -74,7 +74,7 @@ optionally **ground/dirt**) swatches:
 
 **To create them:** open the kit's `colormap.png`, identify the grass/leaf swatch pixels,
 recolour to the targets above, export each season as a PNG **at the same size, uncompressed
-/ "high quality"** (compression causes colour banding on palette atlases — Kenney's explicit
+/ "high quality"** (compression causes colour banding on palette atlases: Kenney's explicit
 warning). Keep the wood/path/character swatches unchanged.
 
 **Texture import settings in Three.js** (critical for crisp palette + no banding):
@@ -83,26 +83,26 @@ warning). Keep the wood/path/character swatches unchanged.
 tex.colorSpace = THREE.SRGBColorSpace;
 tex.flipY = false;          // GLTF/GLB convention
 tex.magFilter = THREE.NearestFilter;  // crisp palette, no blurring between swatches
-tex.minFilter = THREE.NearestFilter;  // (or LinearMipmapLinear if you must) — avoid bleed
+tex.minFilter = THREE.NearestFilter;  // (or LinearMipmapLinear if you must): avoid bleed
 tex.generateMipmaps = false;
 ```
 
 > Alternatives if you don't want to edit textures:
 > **(B)** If trees/grass have *separate* materials, tint at runtime via `material.color`
 > instead of swapping the map. (Often everything shares one material → limited.)
-> **(C)** The Platformer Kit ships "Variation(s)" — check whether it already includes
+> **(C)** The Platformer Kit ships "Variation(s)": check whether it already includes
 > autumn/snow leaf or grass variants you can reuse directly.
 
-### Winter props — use Kenney's Holiday Kit
+### Winter props: use Kenney's Holiday Kit
 
 For the winter chapter, drop in **Kenney's Holiday Kit** (CC0; ~100 low-poly models in
 GLTF/GLB; same low-poly art style as the Platformer Kit). It's full of the warm, cosy winter
-models you want — snow-covered trees, a snow fort, a cabin, a toy train, lanterns, string
-lights, gifts and festive objects (Christmas / Hanukkah / Kwanzaa) — perfect for selling
+models you want: snow-covered trees, a snow fort, a cabin, a toy train, lanterns, string
+lights, gifts and festive objects (Christmas / Hanukkah / Kwanzaa): perfect for selling
 *"cosy & hopeful winter"* instead of bleak. Use these props **as-is** (they're already warm
-and colourful — don't recolour them), scatter them along the winter region of the path, and
+and colourful: don't recolour them), scatter them along the winter region of the path, and
 give any light-emitting props (lanterns, string lights, fireplaces, candles) an **emissive**
-material so they glow — especially once the day/night layer (§7) goes dark.
+material so they glow: especially once the day/night layer (§7) goes dark.
 
 > Note: the Holiday Kit has its **own** colormap texture (separate kit), so the §2 seasonal
 > recolour applies to the Platformer-Kit foliage while the Holiday props stay festive.
@@ -134,7 +134,7 @@ export const SEASONS = {
 };
 ```
 
-> **Sky, fog and light sell the season as much as grass.** Don't skip them — a bright sky +
+> **Sky, fog and light sell the season as much as grass.** Don't skip them: a bright sky +
 > warm sun is "summer"; a low grey sky + soft cool light + short fog is "rainy"; etc.
 
 ---
@@ -191,7 +191,7 @@ export function SeasonEnvironment({ season, worldRoot }) {
 > If the kit uses **one shared material instance**, swapping its `.map` once recolours the
 > whole biome. If meshes have **cloned materials**, the `traverse` handles them all. Confirm
 > which, and (important) only swap the *world/foliage* meshes, not character/path meshes if
-> they share the atlas — or use the season palette that leaves those swatches unchanged
+> they share the atlas: or use the season palette that leaves those swatches unchanged
 > (recommended, per §2).
 
 ---
@@ -271,7 +271,7 @@ subtle looping rain sound, and a few ground "ripple" decals near the path.
 ### 5b. Snow (Winter chapter)
 
 Same field, but **slow fall + gentle sine drift**, soft round flakes, opaque white.
-"Snow on the ground" is handled by the **winter colormap** (§2) — no accumulation sim needed.
+"Snow on the ground" is handled by the **winter colormap** (§2): no accumulation sim needed.
 
 ```jsx
 export function Snow({ count = 500, area = [44, 30, 44], speed = 2.2, drift = 0.7, color = '#FFFFFF' }) {
@@ -365,7 +365,7 @@ export function FallingLeaves({ count = 130, area = [40, 26, 40], speed = 2.6,
 ### 5d. Spring blossom petals (optional, Spring chapter)
 
 Reuse `FallingLeaves` with pink petal colours/texture, smaller scale, slightly higher count
-— a lovely echo of autumn that reinforces "blossoming into adulthood."
+a lovely echo of autumn that reinforces "blossoming into adulthood."
 
 ```jsx
 <FallingLeaves count={170} speed={1.8} colors={['#F4B9D0','#F7C9DC','#FBD7E6']} />
@@ -400,7 +400,7 @@ const season  = CHAPTER_TO_SEASON[chapter];
 
 **Smooth the transition at chapter boundaries** (the "a new season has arrived" beat):
 instead of snapping, **lerp** `scene.fog.color`, `scene.background`, and the directional
-light's `color`/`intensity` from the old season to the new over ~1–1.5 s, and **ramp the
+light's `color`/`intensity` from the old season to the new over ~1-1.5 s, and **ramp the
 particle opacity/count** down then up. Swap the colormap at the midpoint of the crossfade (or
 crossfade two ground meshes if you want zero pop). Keep this logic in one place
 (`useSeasonTransition`).
@@ -409,26 +409,26 @@ crossfade two ground meshes if you want zero pop). Keep this logic in one place
 
 ## 7. Day / Night & Evening Wind-Down
 
-Day/night is **not** a Kenney feature — it's renderer-side, and it layers *on top of* the
+Day/night is **not** a Kenney feature: it's renderer-side, and it layers *on top of* the
 seasons as a lighting modifier (no new textures). Final look = **season × time of day**. The
 kid-friendly aim is a **calmer, warmer, dimmer evening** plus a gentle bedtime cue. Frame it
-honestly: this is a soothing evening experience + nudging away from screens near bedtime —
+honestly: this is a soothing evening experience + nudging away from screens near bedtime
 **not** a blue-light health claim (the melatonin evidence is mixed; warmth, dimming and
 winding down are the real, modest wins).
 
-### 7.1 The `timeOfDay` modifier (composes with SEASONS — does not replace it)
+### 7.1 The `timeOfDay` modifier (composes with SEASONS: does not replace it)
 
 ```js
-// timeOfDay.js — multiplies/overrides the active season's sky, fog and light.
+// timeOfDay.js: multiplies/overrides the active season's sky, fog and light.
 export const PHASES = {
   day:     { skyMul:1.00, fogMul:1.00, lightMul:1.00, warmth:0.00, lamps:false, sunElev: 55, moon:false },
   evening: { skyMul:0.85, fogMul:0.95, lightMul:0.80, warmth:0.45, lamps:true,  sunElev: 8,  moon:false, tint:'#FFB066' },
   night:   { skyMul:0.30, fogMul:0.80, lightMul:0.35, warmth:0.25, lamps:true,  sunElev:-12, moon:true,  tint:'#33406E' },
 };
 
-export function phaseForHour(h) {         // h = new Date().getHours() — local device time
-  if (h >= 19 || h < 6) return 'night';   // 7pm–6am
-  if (h >= 17)          return 'evening'; // 5–7pm golden hour
+export function phaseForHour(h) {         // h = new Date().getHours(): local device time
+  if (h >= 19 || h < 6) return 'night';   // 7pm, 6am
+  if (h >= 17)          return 'evening'; // 5-7pm golden hour
   return 'day';
 }
 ```
@@ -437,8 +437,8 @@ Apply the phase **after** the season (§4): scale the sky/fog brightness by `*Mu
 sky/fog colours toward `tint` by `warmth`, scale the directional light's `intensity` by
 `lightMul` and shift its `color` toward warm white by `warmth` (**lower colour temperature =
 the legit "less blue" lever**), drop the sun low or swap to a dim cool **moon** at night, and
-lower overall exposure. Crossfade between phases (~30–60 s, or on app open) reusing the season
-lerp from §6 — never snap.
+lower overall exposure. Crossfade between phases (~30-60 s, or on app open) reusing the season
+lerp from §6: never snap.
 
 ```jsx
 const phase = PHASES[phaseForHour(new Date().getHours())];
@@ -450,8 +450,8 @@ const phase = PHASES[phaseForHour(new Date().getHours())];
 
 ### 7.2 Lamps that glow at night (where the Holiday Kit shines)
 
-Give every light-emitting prop — lanterns, string lights, fireplaces, candles, windows, lamp
-posts (Platformer Kit, and especially the **Holiday Kit**, §2) — an emissive material toggled
+Give every light-emitting prop: lanterns, string lights, fireplaces, candles, windows, lamp
+posts (Platformer Kit, and especially the **Holiday Kit**, §2): an emissive material toggled
 by `phase.lamps`:
 
 ```jsx
@@ -465,15 +465,15 @@ worldRoot.traverse((o) => {
 });
 ```
 
-Warm pools of lamp light are what make a **cosy night** — and, with the Holiday Kit props, a
+Warm pools of lamp light are what make a **cosy night**: and, with the Holiday Kit props, a
 cosy *winter*.
 
 ### 7.3 Calmer at night + the wind-down nudge
 
 - **Dial down stimulation in the evening/night:** fewer particles, slower animation, softer
   music. (Also honour `prefers-reduced-motion`, §8.)
-- **Wind-down nudge:** in a parent-set quiet window (default ~8–9pm onward), have **Sam** give
-  a gentle, non-guilt cue — *"It's getting late — let's pick this up tomorrow 🌙"* — and offer
+- **Wind-down nudge:** in a parent-set quiet window (default ~8-9pm onward), have **Sam** give
+  a gentle, non-guilt cue (*"It's getting late) let's pick this up tomorrow 🌙"*: and offer
   an easy stop. Nudging away from screens near bedtime is the strongest kid-sleep win; the
   warm/dim visuals support it.
 - **Controls:** auto by device clock, with a **manual override**, respect for the **OS
@@ -482,7 +482,7 @@ cosy *winter*.
 
 > **Honest framing for the team:** lead with "calmer evening + bedtime cue," not "blocks
 > harmful blue light." Kids are more light-sensitive in the evening, so dimming plausibly
-> helps — but 2024–25 research finds blue-blocking often doesn't change melatonin (though it
+> helps: but 2024-25 research finds blue-blocking often doesn't change melatonin (though it
 > may advance sleep and reduce next-day irritability). Warmth + dimming + winding down are the
 > real, modest benefits.
 
@@ -490,12 +490,12 @@ cosy *winter*.
 
 ## 8. Performance & accessibility (don't skip)
 
-- **Counts by tier:** rain 400–800, snow 300–600, leaves 80–150, petals ≤180. Detect a
+- **Counts by tier:** rain 400-800, snow 300-600, leaves 80-150, petals ≤180. Detect a
   low/high tier (e.g., from `gl.capabilities`, device memory, or a quick FPS probe) and scale.
 - Cap `dpr` (e.g., `<Canvas dpr={[1, 1.75]}>`); particles use `depthWrite:false`.
 - **Pause when hidden:** stop the `useFrame` updates on `document.hidden`.
 - **`prefers-reduced-motion`:** if set, **disable particles entirely** and keep only the
-  static seasonal recolour + sky/fog. (Also offer an in-app "reduce effects" toggle — good for
+  static seasonal recolour + sky/fog. (Also offer an in-app "reduce effects" toggle: good for
   the youngest players.)
 - Only one emitter mounted at a time; reuse geometry/material; avoid per-frame allocations
   (the samples above mutate in place).
@@ -504,15 +504,15 @@ cosy *winter*.
 
 ## 9. Suggested phasing (low-risk first)
 
-- **Phase A — Static seasons (no particles):** create the 5 colormap variants; add the
+- **Phase A: Static seasons (no particles):** create the 5 colormap variants; add the
   `SEASONS` config + `SeasonEnvironment` (sky, fog, lights, colormap swap); drop the **Holiday
   Kit** props into the winter region (§2); drive season from the current chapter. This alone
   makes all 5 chapters look distinct. *Lowest risk.*
-- **Phase B — Weather:** add `Rain`, `Snow`, `FallingLeaves` (+ optional `petals`) via the
+- **Phase B: Weather:** add `Rain`, `Snow`, `FallingLeaves` (+ optional `petals`) via the
   `Weather` switcher.
-- **Phase C — Day/Night:** add the `timeOfDay` modifier (§7), lamp / Holiday-prop emissives,
+- **Phase C: Day/Night:** add the `timeOfDay` modifier (§7), lamp / Holiday-prop emissives,
   the moon + stars at night, and the parent-set evening wind-down nudge.
-- **Phase D — Polish:** crossfade transitions at boundaries, perf tiers, reduced-motion,
+- **Phase D: Polish:** crossfade transitions at boundaries, perf tiers, reduced-motion,
   optional sounds/ripples, per-leaf colour variety.
 
 ---
@@ -533,16 +533,16 @@ cosy *winter*.
 
 ## Sources
 
-- Kenney — **Platformer Kit** (3D, CC0, 150 assets, "Variation(s)"): https://kenney.nl/assets/platformer-kit
-- Kenney — **Holiday Kit** (3D, CC0, ~100 low-poly models — trees, snow fort, cabin, lanterns, lights, gifts; warm winter props): https://kenney.nl/assets/holiday-kit
-- Kenney — **How colours work in Kenney & KayKit 3D models** (shared colormap palette; variations swap palette colours; *Hexagon Kit uses this for seasons*): https://mastodon.gamedev.place/@kenney/112153581016142577
-- Kenney — **Importing 3D models into game engines** (don't compress the atlas; use High Quality; GLB recommended for web): https://kenney.nl/knowledge-base/game-assets-3d/importing-3d-models-into-game-engines
-- Codrops — **Creating an Immersive 3D Weather Visualization with React Three Fiber** (rain/snow via instancing in R3F): https://tympanus.net/codrops/2025/09/18/creating-an-immersive-3d-weather-visualization-with-react-three-fiber/
+- Kenney: **Platformer Kit** (3D, CC0, 150 assets, "Variation(s)"): https://kenney.nl/assets/platformer-kit
+- Kenney (**Holiday Kit** (3D, CC0, ~100 low-poly models) trees, snow fort, cabin, lanterns, lights, gifts; warm winter props): https://kenney.nl/assets/holiday-kit
+- Kenney: **How colours work in Kenney & KayKit 3D models** (shared colormap palette; variations swap palette colours; *Hexagon Kit uses this for seasons*): https://mastodon.gamedev.place/@kenney/112153581016142577
+- Kenney: **Importing 3D models into game engines** (don't compress the atlas; use High Quality; GLB recommended for web): https://kenney.nl/knowledge-base/game-assets-3d/importing-3d-models-into-game-engines
+- Codrops: **Creating an Immersive 3D Weather Visualization with React Three Fiber** (rain/snow via instancing in R3F): https://tympanus.net/codrops/2025/09/18/creating-an-immersive-3d-weather-visualization-with-react-three-fiber/
 - React Three Fiber docs: https://docs.pmnd.rs/react-three-fiber
-- Wawa Sensei — **R3F particles lesson** (snow/rain particle patterns): https://wawasensei.dev/courses/react-three-fiber/lessons/particles
+- Wawa Sensei: **R3F particles lesson** (snow/rain particle patterns): https://wawasensei.dev/courses/react-three-fiber/lessons/particles
 
 **Day/night & evening use (kids):**
 
-- Sleep Foundation — **How blue light affects kids' sleep** (children are more light-sensitive in the evening): https://www.sleepfoundation.org/children-and-sleep/how-blue-light-affects-kids-sleep
-- 2024–25 study — **blue-light-blocking glasses advanced sleep phase & reduced next-day irritability, but did *not* change melatonin**: https://pmc.ncbi.nlm.nih.gov/articles/PMC12574898/
+- Sleep Foundation: **How blue light affects kids' sleep** (children are more light-sensitive in the evening): https://www.sleepfoundation.org/children-and-sleep/how-blue-light-affects-kids-sleep
+- 2024-25 study: **blue-light-blocking glasses advanced sleep phase & reduced next-day irritability, but did *not* change melatonin**: https://pmc.ncbi.nlm.nih.gov/articles/PMC12574898/
 - **Sleep-friendly screen-behaviour recommendations** (reducing evening screen use near bedtime is the clearer win): https://pmc.ncbi.nlm.nih.gov/articles/PMC5839336/

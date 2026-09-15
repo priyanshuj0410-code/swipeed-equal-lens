@@ -1,9 +1,9 @@
-// Content for Capstone 4 — Reading Relationships (node c4, Chapter 4 graduation, ages 12–15). NEW rich build
+// Content for Capstone 4: Reading Relationships (node c4, Chapter 4 graduation, ages 12-15). NEW rich build
 // to GDD c4 ("Capstone format v1"), following the c1 reference. Not a lesson, never a test: a calm, near-peer,
 // no-fail celebration that consolidates the chapter's eleven big truths through spaced, VARIED retrieval (each
-// truth re-cued through a DIFFERENT mechanic — gallery · branch · swipe · sort · strike-rewrite · build · spot ·
+// truth re-cued through a DIFFERENT mechanic: gallery · branch · swipe · sort · strike-rewrite · build · spot ·
 // match), then lights up the Reading-Relationships constellation and awards a graduation star. Closes Chapter 4
-// (g21–g28, g39, g40, g43). Faithful from the Landing JSON, rendered by the shared rich engine
+// (g21, g28, g39, g40, g43). Faithful from the Landing JSON, rendered by the shared rich engine
 // (components/games/capstone-rich.tsx). gameId "capstone-4" (the Landing's "capstone-ch4" is design-doc only).
 // DO NOT RENAME.
 
@@ -15,8 +15,8 @@ export const CAPSTONE_4: CapstoneConfig = {
   node: "c4",
   chapter: 4,
   ages: "12-15",
-  arrival: "Lensy: look how you've grown this chapter. Relationships got more real — and you learned to read them: green lights, red flags, fact from myth, real from fake.",
-  canvasPayoff: "The Reading Relationships map lights up across a teen city at night — window by window, street by street — till your eleven stickers rise into a constellation.",
+  arrival: "Lensy: look how you've grown this chapter. Relationships got more real, and you learned to read them: green lights, red flags, fact from myth, real from fake.",
+  canvasPayoff: "The Reading Relationships map lights up across a teen city at night, window by window, street by street, till your eleven stickers rise into a constellation.",
   threadsRecapped: ["A", "B", "C", "E", "F", "G"],
   recap: [
     {"node":"g21","game":"Body Confident","thread":"A · Body & Growing Up","bigTruth":"Your changing body is yours; real confidence grows from facts and self-kindness, not from comparison to edited images.","glyph":"body-confident"},
@@ -27,7 +27,7 @@ export const CAPSTONE_4: CapstoneConfig = {
     {"node":"g25","game":"MythBuster: Gender","thread":"E · Gender & Respect","bigTruth":"The gender myths teens hear constantly aren't facts, and you can bust them on sight.","glyph":"mythbuster"},
     {"node":"g26","game":"Equalize","thread":"E · Gender & Respect","bigTruth":"Equality isn't a contest where someone loses, it lifts everyone, and child marriage is a rights issue you can help prevent.","glyph":"equalize"},
     {"node":"g27","game":"Stand Up","thread":"B · Safety, Consent & Boundaries","bigTruth":"You can go from bystander to upstander, safely, with the five Ds and the helplines behind you.","glyph":"stand-up"},
-    {"node":"g40","game":"Firewall","thread":"B · Safety, Consent & Boundaries","bigTruth":"You can stay safe online — spotting grooming, pressure and your footprint — and if you're ever targeted, it's not your fault, and you know where to get help.","glyph":"firewall"},
+    {"node":"g40","game":"Firewall","thread":"B · Safety, Consent & Boundaries","bigTruth":"You can stay safe online by spotting grooming, pressure and your footprint, and if you're ever targeted, it's not your fault, and you know where to get help.","glyph":"firewall"},
     {"node":"g43","game":"The Rabbit Hole","thread":"E/G · Gender & Media","bigTruth":"You can see the online-misogyny funnel and the grift for what they are, and choose real strength and respect over their hooks.","glyph":"rabbit-hole"},
     {"node":"g28","game":"Reality Check","thread":"G · Values, Rights & Media","bigTruth":"You can read the feed, real, staged, faked or false, and you know screen romance and sex are a performance, not real life.","glyph":"reality-check"},
   ],
@@ -51,7 +51,7 @@ export const CAPSTONE_4: CapstoneConfig = {
     {"id":"c4-r4","prompt":"Lensy: what will you carry into the years just ahead?","options":["I deserve respect","Read before I trust","Stand up safely","Keep growing"],"affirm":"Carry it forward, the next chapter's ready for you."},
   ],
   celebration: {"glyph":"reading-relationships-star","certificate":"This certifies you a Reading Relationships graduate. You read green lights and red flags, hold the facts on bodies and health, bust myths and see a faked feed.","stickerBook":"All eleven Chapter 4 stickers now shine in your Reading Relationships constellation, topped by a golden star, your Chapter 4 graduation sticker."},
-  preview: "Next, Chapter 5: Ready for the World (ages 15–18). You'll take fuller ownership of your health, consent, identity and rights — deeper, real, at your own pace.",
-  share: "This chapter is your own, so it's your call: if you like, share one thing you're proud of learning with a trusted grown-up. Or keep it for yourself — okay too.",
+  preview: "Next, Chapter 5: Ready for the World (ages 15-18). You'll take fuller ownership of your health, consent, identity and rights, deeper, real, at your own pace.",
+  share: "This chapter is your own, so it's your call: if you like, share one thing you're proud of learning with a trusted grown-up. Or keep it for yourself, okay too.",
   doneTitle: "🎓 Chapter Four complete!",
 };

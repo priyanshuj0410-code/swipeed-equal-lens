@@ -19,13 +19,13 @@ import {
   glyphEmoji,
 } from "@/content/games/capstone-schema";
 
-// Shared rich capstone engine ("Capstone format v1") — the chapter graduation as a joyful, no-fail, no-score
+// Shared rich capstone engine ("Capstone format v1"): the chapter graduation as a joyful, no-fail, no-score
 // celebration: arrive & bloom → look back (the sticker gallery) → play back (victory laps, each a chapter
 // truth re-cued through a different mechanic) → reflect (non-judged) → celebrate (certificate + graduation
-// glyph). Driven by a typed Landing config (content/games/capstone-N.ts). Used by c1–c6.
+// glyph). Driven by a typed Landing config (content/games/capstone-N.ts). Used by c1, c6.
 //
 // DESIGN PARITY (2026-06-23): the laps now inherit the post-Green-Light/Red-Light interaction model from the
-// shared v2 engine — Lensy speaks in a CHAT BUBBLE (not a card); a stable THREE-ZONE layout (top progress +
+// shared v2 engine: Lensy speaks in a CHAT BUBBLE (not a card); a stable THREE-ZONE layout (top progress +
 // bubble · flexible middle · bottom-pinned Next + counter + tertiary Home) stops the content "dancing"; and
 // the mechanics are DIRECT-MANIPULATION: swipe = drag the card up, sort = drag a chip into a big dropzone,
 // match = draw a cord, strike-rewrite = scrub the myth away, build = drag onto the slate. Tap stays the verb
@@ -39,7 +39,7 @@ const card = "glass-card rounded-2xl backdrop-blur-[12px] backdrop-saturate-150"
 
 type LapProps<L> = { lap: L; say: (t: string, shown?: string) => void; onSolved: () => void; reduceMotion: boolean };
 
-// — Arrival — (the bottom Next carries the CTA, so this is just the canvas-bloom card)
+// Arrival: (the bottom Next carries the CTA, so this is just the canvas-bloom card)
 function ArrivalView({ config, say }: { config: CapstoneConfig; say: (t: string) => void }) {
   useEffect(() => { say(config.arrival); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -53,7 +53,7 @@ function ArrivalView({ config, say }: { config: CapstoneConfig; say: (t: string)
   );
 }
 
-// — Gallery (look back): tap each chapter flag to hear its big truth —
+// Gallery (look back): tap each chapter flag to hear its big truth
 function GalleryLap({ lap, recap, say, onSolved }: { lap: CapGalleryLap; recap: CapRecap[] } & Omit<LapProps<CapGalleryLap>, "lap" | "reduceMotion">) {
   const flags = useMemo(() => lap.stickers.map((g) => recap.find((r) => r.glyph === g)).filter(Boolean) as CapRecap[], [lap, recap]);
   const [lit, setLit] = useState<Set<string>>(new Set());
@@ -82,7 +82,7 @@ function GalleryLap({ lap, recap, say, onSolved }: { lap: CapGalleryLap; recap: 
   );
 }
 
-// — Match: DRAW a cord from each left card to its right card (MatchBoard, shared with the lesson engine) —
+// Match: DRAW a cord from each left card to its right card (MatchBoard, shared with the lesson engine)
 function MatchLap({ lap, say, onSolved }: Omit<LapProps<CapMatchLap>, "reduceMotion">) {
   useEffect(() => { say(lap.frame); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -98,7 +98,7 @@ function MatchLap({ lap, say, onSolved }: Omit<LapProps<CapMatchLap>, "reduceMot
   );
 }
 
-// — Sort: DRAG a chip into its bin (two bins → big dropzones top & bottom; tap-to-arm is the fallback) —
+// Sort: DRAG a chip into its bin (two bins → big dropzones top & bottom; tap-to-arm is the fallback)
 function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
   const [placed, setPlaced] = useState<Record<string, string>>({});
   const [order] = useState(() => shuffle(lap.items));
@@ -176,7 +176,7 @@ function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
   );
 }
 
-// — Build: DRAG each piece onto the slate (all pieces belong); tap is the fallback —
+// Build: DRAG each piece onto the slate (all pieces belong); tap is the fallback
 function BuildLap({ lap, say, onSolved, reduceMotion }: LapProps<CapBuildLap>) {
   const [display] = useState(() => (lap.mode === "sequence" ? shuffle(lap.pieces) : lap.pieces));
   const [added, setAdded] = useState<string[]>([]);
@@ -217,7 +217,7 @@ function BuildLap({ lap, say, onSolved, reduceMotion }: LapProps<CapBuildLap>) {
   );
 }
 
-// — Spot: tap the on-theme items (every trick:true is a happy answer) —
+// Spot: tap the on-theme items (every trick:true is a happy answer)
 function SpotLap({ lap, say, onSolved }: Omit<LapProps<CapSpotLap>, "reduceMotion">) {
   const targets = useMemo(() => lap.scene.map((s, i) => (s.trick ? i : -1)).filter((i) => i >= 0), [lap]);
   const [found, setFound] = useState<Set<number>>(new Set());
@@ -245,7 +245,7 @@ function SpotLap({ lap, say, onSolved }: Omit<LapProps<CapSpotLap>, "reduceMotio
   );
 }
 
-// — Swipe: cheer it on by SWIPING the card UP — it follows your finger, then once you've pulled it up far
+// Swipe: cheer it on by SWIPING the card UP, it follows your finger, then once you've pulled it up far
 // enough (or flicked it) it swooshes off the top and the "cheered!" card slides in. ROBUST: it commits during
 // the drag (so a release can never leave it stuck), the commit animates a real fly-off (not an instant jump),
 // and the lap then renders its done state (never a stuck empty box). ↑/Enter is the keyboard path.
@@ -303,7 +303,7 @@ function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
   );
 }
 
-// — Branch: pick the values-led best option; SHUFFLED so there's no "tap the top" tell (no buzzer) —
+// Branch: pick the values-led best option; SHUFFLED so there's no "tap the top" tell (no buzzer)
 function BranchLap({ lap, say, onSolved }: Omit<LapProps<CapBranchLap>, "reduceMotion">) {
   const [opts] = useState(() => shuffle(lap.options));
   const [picked, setPicked] = useState<number | null>(null);
@@ -335,7 +335,7 @@ function BranchLap({ lap, say, onSolved }: Omit<LapProps<CapBranchLap>, "reduceM
   );
 }
 
-// — Strike-rewrite: SCRUB the myth away (drag back-and-forth, or Enter), then see the truth (no-fail) —
+// Strike-rewrite: SCRUB the myth away (drag back-and-forth, or Enter), then see the truth (no-fail)
 function StrikeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapStrikeLap>) {
   const [progress, setProgress] = useState(0);
   const [solved, setSolved] = useState(false);
@@ -353,7 +353,7 @@ function StrikeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapStrikeLap>)
   const eraseNow = () => { setProgress(1); finish(); };
   const onKeyDown = (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); eraseNow(); } };
   // Once the myth is rubbed out, the reveal is the SHARED UN/RE card (UN eraser → RE pencil), exactly like the
-  // lesson engine's strike resolve — not plain text.
+  // lesson engine's strike resolve: not plain text.
   if (solved) {
     return (
       <div className="flex flex-1 flex-col">
@@ -374,7 +374,7 @@ function StrikeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapStrikeLap>)
   );
 }
 
-// — Role-play: say the line you've grown into; SHUFFLED, the values-led line cheers you on (no-fail) —
+// Role-play: say the line you've grown into; SHUFFLED, the values-led line cheers you on (no-fail)
 function RolePlayLap({ lap, say, onSolved }: Omit<LapProps<CapRolePlayLap>, "reduceMotion">) {
   const [lines] = useState(() => shuffle(lap.yourLine));
   const [solved, setSolved] = useState(false);
@@ -408,13 +408,13 @@ function LapView({ lap, recap, say, onSolved, reduceMotion }: { lap: CapLap; rec
     case "branch": return <BranchLap lap={lap} say={say} onSolved={onSolved} />;
     case "strike-rewrite": return <StrikeLap lap={lap} say={say} onSolved={onSolved} reduceMotion={reduceMotion} />;
     case "role-play": return <RolePlayLap lap={lap} say={say} onSolved={onSolved} />;
-    // Exhaustiveness guard — same hole as v2-engine's Play(): a new CapLap type with no case here
+    // Exhaustiveness guard: same hole as v2-engine's Play(): a new CapLap type with no case here
     // would render nothing and never call onSolved, stranding the player mid-capstone. Compile error now.
     default: { const _exhaustive: never = lap; return _exhaustive; }
   }
 }
 
-// — Reflect: pick any (no wrong answer) —
+// Reflect: pick any (no wrong answer)
 function ReflectView({ reflect, say, onSolved }: { reflect: CapReflect; say: (t: string) => void; onSolved: () => void }) {
   const [picked, setPicked] = useState<string | null>(null);
   useEffect(() => { say(reflect.prompt); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -433,7 +433,7 @@ function ReflectView({ reflect, say, onSolved }: { reflect: CapReflect; say: (t:
   );
 }
 
-// — Celebration: certificate + graduation glyph (terminal; its own graduate CTA) —
+// Celebration: certificate + graduation glyph (terminal; its own graduate CTA)
 function CelebrationView({ config, say, onGraduate }: { config: CapstoneConfig; say: (t: string, bubbleText?: string) => void; onGraduate: () => void }) {
   // speak the full certificate, but keep the bubble short (the certificate is shown in full in its card below).
   useEffect(() => { say(config.celebration.certificate, "🎓 You did it! Your certificate's ready. Stand tall, you've earned it."); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -563,7 +563,7 @@ export function RichCapstone({ config, onExit }: { config: CapstoneConfig; onExi
       {seq.map((_, i) => (<span key={i} className={`rounded-full ${i === step ? "size-2.5 bg-[var(--accent-amber)]" : "size-2"} ${i < step ? "bg-foreground/55" : i === step ? "" : "bg-foreground/20"}`} aria-hidden />))}
     </div>
   );
-  // Home is a quiet, tertiary text button — leaves the capstone to the path.
+  // Home is a quiet, tertiary text button: leaves the capstone to the path.
   const HomeBtn = (
     <button type="button" onClick={onExit} className="mx-auto mt-1 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-foreground/50 transition-colors hover:text-foreground active:scale-95">
       <Home className="size-3.5" aria-hidden /> Home
@@ -574,7 +574,7 @@ export function RichCapstone({ config, onExit }: { config: CapstoneConfig; onExi
   return (
     <GameShell title={`Capstone: ${config.capstone}`} tools={tools} onExit={onExit} align="fill">
       {/* Three pinned zones (top progress + Lensy · flexible middle · bottom Next + counter + Home) so the
-          content stops "dancing" — the same stable shell as the v2 games. */}
+          content stops "dancing": the same stable shell as the v2 games. */}
       <div className="flex w-full max-w-sm flex-1 flex-col gap-3">
         {/* ---- TOP ---- */}
         {Progress}

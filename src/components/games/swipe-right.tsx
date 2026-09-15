@@ -1,6 +1,6 @@
 "use client";
 
-// Swipe Right? — Dating & Apps (node g45, ages 18–22, Chapter 6) — NEW v2 build to GDD 45 (mechanic-embodying),
+// Swipe Right? (Dating & Apps (node g45, ages 18-22, Chapter 6)) NEW v2 build to GDD 45 (mechanic-embodying),
 // the College dating node (Thread D), reworking the old ModesEngine build onto the shared v2 engine: its
 // researched typed library + config (content/games/swipe-right.ts) render the play actions (branch ·
 // strike-rewrite · sort · reflect · role-play · spot · match), led by branch + strike-rewrite + role-play.

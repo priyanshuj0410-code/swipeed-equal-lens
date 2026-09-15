@@ -1,22 +1,22 @@
-// Content for Looking After You (node g63, Parenthood, Chapter 8) — NEW v2 build to GDD 63 (mechanic-embodying),
+// Content for Looking After You (node g63, Parenthood, Chapter 8): NEW v2 build to GDD 63 (mechanic-embodying),
 // the parent's-OWN-wellbeing node and a HIGH-CARE one: you can't pour from an empty cup. 84 researched,
 // India-grounded scenarios across empty-cup → your-needs-count → baby-blues-and-beyond → reach-out →
 // healthy-coping → tools-and-help, each encoded as one of the shared v2 play actions (strike-rewrite / branch /
-// reflect / sort / match / role-play / spot) — no binary "tap the right card". Lead: strike-rewrite (bust the
+// reflect / sort / match / role-play / spot): no binary "tap the right card". Lead: strike-rewrite (bust the
 // myth), branch (your move), reflect. Six modes: the empty cup (spot burnout; busts "good parents sacrifice
-// everything" — self-care is part of childcare, not selfish; struggling is not failing), your needs count
+// everything": self-care is part of childcare, not selfish; struggling is not failing), your needs count
 // (protect your needs, identity & a little time of your own without guilt; you're still a whole person), baby
-// blues and beyond (normalise the common, passing baby blues AND recognise postpartum depression & anxiety — in
+// blues and beyond (normalise the common, passing baby blues AND recognise postpartum depression & anxiety: in
 // yourself, a partner, and in FATHERS too; frightening intrusive thoughts treated as a SYMPTOM and a cue to get
 // help, never a verdict), reach out (help-seeking is strength not weakness; build a support net; you needn't be in
-// crisis to deserve help), healthy coping (safe strategies under load — rest, breathe, move, connect, accept help;
+// crisis to deserve help), healthy coping (safe strategies under load: rest, breathe, move, connect, accept help;
 // unhealthy coping gently swapped out; NEVER any pain/discomfort technique), tools & help (a breathing space, a
 // help-finder and crisis routing). HIGH-CARE and non-shaming: any sign of postnatal depression/anxiety, or any
 // crisis, is met with warmth and an IMMEDIATE route to help (concern + resources); healthy coping only and
-// explicitly NOT therapy — always signposting professional care; includes fathers and addresses joint-family
+// explicitly NOT therapy: always signposting professional care; includes fathers and addresses joint-family
 // pressure & stigma. Builds on Mind & Belonging (g49) and Bounce (g39); protects the parent so they can do
-// everything else in Chapter 8. India: postpartum depression affects ~1 in 5 (about 22%) Indian mothers — nearly
-// double the global average and badly under-recognised amid heavy expectations and stigma — and fathers can be
+// everything else in Chapter 8. India: postpartum depression affects ~1 in 5 (about 22%) Indian mothers, nearly
+// double the global average and badly under-recognised amid heavy expectations and stigma: and fathers can be
 // affected too (~1 in 10); routes to Tele-MANAS 14416, a doctor, and emergency 112. gameId
 // "looking-after-you".
 import type { V2GameConfig, Scenario } from "./v2-schema";
@@ -424,7 +424,7 @@ const SCENARIOS: Scenario[] = [
 export const LOOKING_AFTER_YOU: V2GameConfig = {
   gameId: "looking-after-you",
   title: "Looking After You",
-  greet: "Hey — it’s Lensy. You can’t pour from an empty cup. Self-care IS part of caring for your child, and struggling is not failing. Reaching out is strength.",
+  greet: "Hey, it’s Lensy. You can’t pour from an empty cup. Self-care IS part of caring for your child, and struggling is not failing. Reaching out is strength.",
   scenarios: SCENARIOS,
   categories: [
     { id: "empty-cup", emoji: "☕", label: "The empty cup" },

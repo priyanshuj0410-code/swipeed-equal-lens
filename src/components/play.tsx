@@ -13,7 +13,7 @@ import { POINTS, starsFor } from "@/lib/scoring";
 import { GroundScenery } from "@/components/scenery";
 import type { DeckId, DeckSummary } from "@/lib/types";
 
-// The 3D card game is client-only (three.js) — lazy-loaded so it never touches the
+// The 3D card game is client-only (three.js): lazy-loaded so it never touches the
 // no-WebGL fallback bundle.
 const SwipeDeck3D = dynamic(() => import("@/components/swipe-deck-3d").then((m) => m.SwipeDeck3D), {
   ssr: false,

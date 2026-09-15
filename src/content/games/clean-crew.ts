@@ -1,7 +1,7 @@
-// Content for Clean Crew (node g37, ages 3–6) — reworked to GDD 37 v2 (mechanic-embodying). "Wash, brush,
+// Content for Clean Crew (node g37, ages 3-6): reworked to GDD 37 v2 (mechanic-embodying). "Wash, brush,
 // rest, repeat." The hygiene-and-healthy-habits game: 82 researched, India-aware scenarios across six
 // categories, each re-encoded to one of the seven shared v2 play actions (reflect / role-play /
-// strike-rewrite / branch / sort / match / build) — no binary "tap the right card", led by the signature
+// strike-rewrite / branch / sort / match / build): no binary "tap the right card", led by the signature
 // step-sequencer build (put the wash/brush/bath/bedtime steps in order). Handwashing with soap; brush twice
 // a day; bath & body; toilet hygiene; healthy daily habits; for every gender, never babyish, never "gross".
 // Empower never shame; resourceful for low-resource homes. Rendered by the shared engine
@@ -10,7 +10,7 @@
 import type { Scenario, V2GameConfig } from "./v2-schema";
 
 const SCENARIOS: Scenario[] = [
-  // — Washing hands —
+  // Washing hands
   {"id":"cc-001","cat":"hands","type":"build","hook":"Clean Crew, assemble! Put the handwashing steps in order.","prompt":"Drag the steps into the right order.","pieces":["wet hands","add soap","scrub all over (sing a little song!)","rinse","dry"],"mode":"sequence","key":["wet hands","add soap","scrub all over (sing a little song!)","rinse","dry"],"relearn":"Wet, soap, scrub, rinse, dry, that's how clean hands are done.","persona":"any","source":"handwashing steps"},
   {"id":"cc-002","cat":"hands","type":"strike-rewrite","hook":"\"If my hands LOOK clean, I don't need to wash.\"","myth":{"un":"If hands look clean, they don't need washing.","re":"Germs are too tiny to see; wash anyway.","why":"Clean-looking hands can still carry germs."},"relearn":"Germs are invisible; wash even when hands look clean.","persona":"Reyansh-ish","source":"germs / hygiene"},
   {"id":"cc-003","cat":"hands","type":"sort","hook":"Sort: a time to wash your hands, or not needed?","items":[{"id":"a","text":"Before eating"},{"id":"b","text":"After the toilet"},{"id":"c","text":"In the middle of sleeping"},{"id":"d","text":"After playing outside"},{"id":"e","text":"Before helping cook"},{"id":"f","text":"While quietly drawing"}],"bins":[{"id":"wash","label":"Wash now","valence":"pos"},{"id":"no","label":"Not needed","valence":"neutral"}],"key":{"a":"wash","b":"wash","c":"no","d":"wash","e":"wash","f":"no"},"relearn":"Wash before eating, after the toilet, and after playing outside.","persona":"any","source":"handwashing moments"},
@@ -24,7 +24,7 @@ const SCENARIOS: Scenario[] = [
   {"id":"cc-011","cat":"hands","type":"reflect","hook":"Lensy: washing hands is a tiny habit with a big job. Agree?","prompt":"What do you think?","options":["Yes","It keeps us well","Big job!"],"affirm":"Yes, this tiny habit is one of the best ways to stay healthy.","relearn":"Handwashing is a small habit that does a big job.","persona":"any","source":"hygiene"},
   {"id":"cc-012","cat":"hands","type":"sort","hook":"Sort: good handwashing, or not quite?","items":[{"id":"a","text":"Scrubbing with soap for a little song"},{"id":"b","text":"A one-second splash"},{"id":"c","text":"Drying properly after"},{"id":"d","text":"Wiping dirty hands on clothes"},{"id":"e","text":"Rinsing all the soap off"},{"id":"f","text":"Skipping the soap altogether"}],"bins":[{"id":"good","label":"Good washing","valence":"pos"},{"id":"no","label":"Not quite","valence":"neg"}],"key":{"a":"good","b":"no","c":"good","d":"no","e":"good","f":"no"},"relearn":"Good washing means soap, a proper scrub, and drying after.","persona":"any","source":"handwashing technique"},
 
-  // — Brushing teeth —
+  // Brushing teeth
   {"id":"cc-013","cat":"teeth","type":"build","hook":"Put the tooth-brushing steps in order.","prompt":"Drag the steps in order.","pieces":["wet the brush","add a pea of toothpaste","brush all teeth gently","spit","rinse the brush"],"mode":"sequence","key":["wet the brush","add a pea of toothpaste","brush all teeth gently","spit","rinse the brush"],"relearn":"Brush gently all over, top, bottom, front and back.","persona":"any","source":"toothbrushing steps"},
   {"id":"cc-014","cat":"teeth","type":"strike-rewrite","hook":"\"Brushing once a week is enough.\"","myth":{"un":"Brushing your teeth once in a while is enough.","re":"Brush twice a day, morning and night.","why":"Germs build up every day; daily brushing clears them."},"relearn":"Brush twice a day, every day.","persona":"any","source":"dental hygiene"},
   {"id":"cc-015","cat":"teeth","type":"match","hook":"Match each tooth helper to its job.","pairs":[{"left":"Toothbrush","right":"Cleans your teeth"},{"left":"Toothpaste","right":"Helps clean germs away"},{"left":"Water","right":"Rinses your mouth"},{"left":"A gentle hand","right":"Keeps gums happy"},{"left":"A clean cup","right":"Holds your rinse water"}],"relearn":"A brush and toothpaste keep your teeth strong.","persona":"any","source":"dental tools"},
@@ -35,7 +35,7 @@ const SCENARIOS: Scenario[] = [
   {"id":"cc-020","cat":"teeth","type":"strike-rewrite","hook":"\"Baby teeth don't matter because they fall out.\"","myth":{"un":"Baby teeth don't matter, they fall out anyway.","re":"Baby teeth matter; keep them healthy and clean.","why":"Healthy baby teeth help you eat, talk and grow."},"relearn":"Baby teeth matter too; brush them well.","persona":"any","source":"dental hygiene"},
   {"id":"cc-021","cat":"teeth","type":"build","hook":"Build your twice-a-day brushing plan.","prompt":"Add the two brushing times.","pieces":["after breakfast","before bed"],"mode":"assemble","key":["after breakfast","before bed"],"relearn":"Morning and night, the two times to brush.","persona":"any","source":"dental hygiene"},
 
-  // — Bath & body —
+  // Bath & body
   {"id":"cc-022","cat":"bath-body","type":"build","hook":"Bath time! Put the steps in order.","prompt":"Drag the steps in order.","pieces":["wet all over","soap up","scrub gently","rinse off","dry with a towel"],"mode":"sequence","key":["wet all over","soap up","scrub gently","rinse off","dry with a towel"],"relearn":"Wet, soap, scrub, rinse, dry, a happy clean body.","persona":"any","source":"bathing steps"},
   {"id":"cc-023","cat":"bath-body","type":"strike-rewrite","hook":"\"Washing your body is only for girls.\"","myth":{"un":"Washing and grooming are only for girls.","re":"Everyone washes and cares for their body.","why":"Clean bodies are for all kids, every gender."},"relearn":"Caring for your body is for everyone.","persona":"Vihaan","source":"hygiene for all"},
   {"id":"cc-024","cat":"bath-body","type":"match","hook":"Match the body part to how you keep it clean.","pairs":[{"left":"Hair","right":"Wash with water (and shampoo)"},{"left":"Body","right":"Soap and scrub all over"},{"left":"Feet","right":"Wash and dry between toes"},{"left":"Nails","right":"Trim them when they grow long"},{"left":"Face","right":"Splash and wash gently"}],"relearn":"Every part of you has a way to stay fresh and clean.","persona":"any","source":"body care"},
@@ -46,7 +46,7 @@ const SCENARIOS: Scenario[] = [
   {"id":"cc-029","cat":"bath-body","type":"match","hook":"Match the clean habit to when you do it.","pairs":[{"left":"Comb/brush hair","right":"After washing"},{"left":"Clean clothes","right":"Each day"},{"left":"Trim nails","right":"When they grow long"},{"left":"Wash your body","right":"After sweaty play"},{"left":"Dry between toes","right":"After every bath"}],"relearn":"Hair, clothes and nails are all part of body care.","persona":"any","source":"grooming"},
   {"id":"cc-030","cat":"bath-body","type":"build","hook":"Pack a 'staying fresh' kit.","prompt":"Add what helps you stay clean.","pieces":["soap","towel","comb","clean clothes","nail clipper"],"mode":"assemble","key":["soap","towel","comb","clean clothes","nail clipper"],"relearn":"Soap, towel, comb, clean clothes, your fresh-and-clean kit.","persona":"any","source":"grooming"},
 
-  // — Toilet time —
+  // Toilet time
   {"id":"cc-031","cat":"toilet","type":"build","hook":"After the toilet, what's the order?","prompt":"Put the steps in order.","pieces":["use the toilet","wipe / clean properly","flush","wash hands with soap"],"mode":"sequence","key":["use the toilet","wipe / clean properly","flush","wash hands with soap"],"relearn":"Use, clean, flush, wash, every single time.","persona":"any","source":"toilet hygiene"},
   {"id":"cc-032","cat":"toilet","type":"strike-rewrite","hook":"\"You don't have to wash hands after the toilet if you're quick.\"","myth":{"un":"If you're quick, you can skip washing after the toilet.","re":"Always wash with soap after the toilet, every time.","why":"This is when germs spread most."},"relearn":"Always wash after the toilet, no skipping.","persona":"any","source":"toilet hygiene"},
   {"id":"cc-033","cat":"toilet","type":"role-play","hook":"You need the toilet but feel shy to ask at school.","setup":"It's okay to ask. Say:","yourLine":[{"text":"\"May I use the toilet, please?\"","best":true},{"text":"Hold it and feel uncomfortable"}],"relearn":"Asking to use the toilet is normal and okay.","persona":"any","source":"body needs / voice"},
@@ -55,7 +55,7 @@ const SCENARIOS: Scenario[] = [
   {"id":"cc-036","cat":"toilet","type":"reflect","hook":"Lensy: everyone uses the toilet, it's just a body thing. Agree?","prompt":"What do you think?","options":["Yes","Everyone does","It's normal"],"affirm":"Yes, it's a normal thing every body does. Nothing to be ashamed of.","relearn":"Using the toilet is a normal part of having a body.","persona":"any","source":"body normalcy"},
   {"id":"cc-037","cat":"toilet","type":"branch","hook":"A friend laughs at someone for needing the toilet.","options":[{"text":"Say \"everyone uses the toilet, it's normal\"","consequence":"The teasing stops; nobody should feel ashamed.","outcome":"ally","best":true},{"text":"Laugh too","consequence":"Someone feels ashamed of a normal body need.","outcome":"unkind"}],"debrief":"Body needs are normal; teasing about them isn't kind.","relearn":"You can stand up when someone's teased about a body need.","persona":"ally seed","source":"bystander / body normalcy"},
 
-  // — Daily habits —
+  // Daily habits
   {"id":"cc-038","cat":"habits","type":"sort","hook":"Sort: healthy daily habit, or not?","items":[{"id":"a","text":"Good sleep"},{"id":"b","text":"Staying up all night"},{"id":"c","text":"Drinking water"},{"id":"d","text":"Never moving all day"},{"id":"e","text":"Playing and running"},{"id":"f","text":"Skipping every meal"}],"bins":[{"id":"good","label":"Healthy habit","valence":"pos"},{"id":"no","label":"Not healthy","valence":"neg"}],"key":{"a":"good","b":"no","c":"good","d":"no","e":"good","f":"no"},"relearn":"Sleep, water, play and meals are healthy daily habits.","persona":"any","source":"healthy habits"},
   {"id":"cc-039","cat":"habits","type":"build","hook":"Build a happy-and-healthy day.","prompt":"Add the daily habits.","pieces":["wash up","brush teeth","eat good food","drink water","play & move","good sleep"],"mode":"assemble","key":["wash up","brush teeth","eat good food","drink water","play & move","good sleep"],"relearn":"Washing, brushing, food, water, play and sleep make a healthy day.","persona":"any","source":"healthy habits"},
   {"id":"cc-040","cat":"habits","type":"strike-rewrite","hook":"\"Sleep is a waste of time.\"","myth":{"un":"Sleep is a waste of time.","re":"Sleep helps your body grow and your brain recharge.","why":"You grow and learn while you rest."},"relearn":"Good sleep helps you grow and feel great.","persona":"any","source":"sleep / health"},
@@ -68,7 +68,7 @@ const SCENARIOS: Scenario[] = [
   {"id":"cc-047","cat":"habits","type":"build","hook":"Build your bedtime wind-down.","prompt":"Order a calm bedtime.","pieces":["brush teeth","wash up","pyjamas on","story time","lights out"],"mode":"sequence","key":["brush teeth","wash up","pyjamas on","story time","lights out"],"relearn":"A calm bedtime routine helps good sleep.","persona":"any","source":"sleep routine"},
   {"id":"cc-048","cat":"habits","type":"reflect","hook":"Lensy: healthy habits are like caring for your amazing body. Agree?","prompt":"What do you think?","options":["Yes","It's self-care","Loving my body"],"affirm":"Yes, healthy habits are a way of caring for your amazing body.","relearn":"Healthy habits are how you care for your body.","persona":"any","source":"self-care (links g06)"},
 
-  // — For everyone —
+  // For everyone
   {"id":"cc-049","cat":"everyone","type":"strike-rewrite","hook":"\"Only some kids need to keep clean.\"","myth":{"un":"Only some kids need to wash and keep clean.","re":"Every kid, every gender, keeps clean.","why":"All bodies need care."},"relearn":"Hygiene is for everyone.","persona":"Vihaan","source":"hygiene for all"},
   {"id":"cc-050","cat":"everyone","type":"role-play","hook":"A friend feels embarrassed about a body-care question.","setup":"Make it okay. Say:","yourLine":[{"text":"\"It's normal, everyone looks after their body.\"","best":true},{"text":"\"Ew, don't ask that.\""}],"relearn":"Body-care questions are normal; no need to feel shy.","persona":"any","source":"body normalcy / voice"},
   {"id":"cc-051","cat":"everyone","type":"sort","hook":"Sort: a Clean Crew rule for everyone, or a silly 'only for some' rule?","items":[{"id":"a","text":"Everyone washes their hands"},{"id":"b","text":"Only girls brush their teeth"},{"id":"c","text":"Everyone takes a bath"},{"id":"d","text":"Only boys can stay messy"},{"id":"e","text":"Every kid keeps their nails clean"},{"id":"f","text":"Only some kids need to wash"}],"bins":[{"id":"all","label":"For everyone","valence":"pos"},{"id":"silly","label":"Silly rule","valence":"neg"}],"key":{"a":"all","b":"silly","c":"all","d":"silly","e":"all","f":"silly"},"relearn":"Clean habits are for every kid, whatever their gender.","persona":"Vihaan","source":"hygiene for all"},
@@ -78,82 +78,82 @@ const SCENARIOS: Scenario[] = [
   {"id":"cc-055","cat":"everyone","type":"strike-rewrite","hook":"\"Being a bit dirty is cool and washing is babyish.\"","myth":{"un":"Staying dirty is cool; washing is babyish.","re":"Looking after your body is a strong, grown-up thing.","why":"Healthy habits help you feel and do your best."},"relearn":"Caring for your body is a grown-up superpower, not babyish.","persona":"Vihaan","source":"hygiene / self-esteem"},
   {"id":"cc-056","cat":"everyone","type":"reflect","hook":"Lensy: you're a Clean Crew hero now. How does that feel?","prompt":"Pick one.","options":["Proud","Strong","Ready"],"affirm":"You've got the habits to keep yourself healthy. Hero status!","relearn":"You can keep your own body healthy and clean.","persona":"any","source":"empowerment"},
 
-  // — Washing hands —
+  // Washing hands
   {"id":"cc-057","cat":"hands","type":"branch","hook":"There's no soap at the tap, just water.","options":[{"text":"Wash well with water, and tell a grown-up there's no soap","consequence":"You do your best and help fix it for everyone.","outcome":"resourceful","best":true},{"text":"Skip washing entirely","consequence":"More germs stay on your hands.","outcome":"missed"}],"debrief":"Water helps; soap is better, so let a grown-up know it's out.","relearn":"Wash with what you have, and ask for soap to be refilled.","persona":"Kabir","source":"hygiene / resourcefulness"},
 
-  // — Brushing teeth —
+  // Brushing teeth
   {"id":"cc-058","cat":"teeth","type":"reflect","hook":"Lensy: who can remind your family it's brushing time?","prompt":"Maybe... you?","options":["Me!","I can remind us","I'm the brush hero"],"affirm":"You can be the one who keeps the whole family brushing. Hero!","relearn":"You can help your whole family keep healthy habits.","persona":"any","source":"agency"},
 
-  // — Bath & body —
+  // Bath & body
   {"id":"cc-059","cat":"bath-body","type":"strike-rewrite","hook":"\"You only need to wash when you're visibly dirty.\"","myth":{"un":"You only wash when you can see dirt.","re":"Regular washing keeps you fresh even without visible dirt.","why":"Sweat and germs build up unseen."},"relearn":"Wash regularly, not only when you look dirty.","persona":"any","source":"hygiene"},
 
-  // — Daily habits —
+  // Daily habits
   {"id":"cc-060","cat":"habits","type":"role-play","hook":"Your hands are dirty and a snack is right there.","setup":"Pause and say:","yourLine":[{"text":"\"Hands first, then snack!\"","best":true},{"text":"\"I'll just eat now.\""}],"relearn":"Hands-first is a habit worth keeping.","persona":"any","source":"voice / hygiene"},
 
-  // — Toilet time —
+  // Toilet time
   {"id":"cc-061","cat":"toilet","type":"build","hook":"Set up the toilet-clean routine for school.","prompt":"Order the steps.","pieces":["go when you need to","clean up","flush","wash hands"],"mode":"sequence","key":["go when you need to","clean up","flush","wash hands"],"relearn":"The same clean routine works at school too.","persona":"any","source":"toilet hygiene"},
 
-  // — For everyone —
+  // For everyone
   {"id":"cc-062","cat":"everyone","type":"sort","hook":"Sort: kind about hygiene, or unkind?","items":[{"id":"a","text":"\"Want to wash up together?\""},{"id":"b","text":"\"You smell, go away\""},{"id":"c","text":"Quietly offering a tissue"},{"id":"d","text":"Teasing someone's clothes"},{"id":"e","text":"\"Here, you can borrow my soap\""},{"id":"f","text":"Pointing and laughing at a friend"}],"bins":[{"id":"kind","label":"Kind","valence":"pos"},{"id":"unkind","label":"Unkind","valence":"neg"}],"key":{"a":"kind","b":"unkind","c":"kind","d":"unkind","e":"kind","f":"unkind"},"relearn":"Help kindly; never shame someone about hygiene.","persona":"any","source":"empathy"},
 
-  // — Washing hands —
+  // Washing hands
   {"id":"cc-063","cat":"hands","type":"match","hook":"Match the moment to 'wash now!'","pairs":[{"left":"Before eating","right":"Wash now"},{"left":"After the loo","right":"Wash right away"},{"left":"After playing outside","right":"Wash off the mud"},{"left":"After petting an animal","right":"Wash off animal germs"},{"left":"After a sneeze in your hands","right":"Wash away sneeze germs"}],"relearn":"Before eating, after the loo, after play, all wash times.","persona":"any","source":"handwashing moments"},
 
-  // — Brushing teeth —
+  // Brushing teeth
   {"id":"cc-064","cat":"teeth","type":"branch","hook":"You ran out of toothpaste this morning.","options":[{"text":"Brush with water and tell a grown-up to get more","consequence":"You still clean your teeth and solve the problem.","outcome":"resourceful","best":true},{"text":"Don't brush at all","consequence":"Germs stay on your teeth.","outcome":"missed"}],"debrief":"Brushing with water still helps; ask for more toothpaste.","relearn":"Do your best to brush, and ask for what's missing.","persona":"Kabir","source":"resourcefulness"},
 
-  // — Daily habits —
+  // Daily habits
   {"id":"cc-065","cat":"habits","type":"reflect","hook":"Lensy: a healthy body helps you play, learn and have fun. Worth it?","prompt":"What do you think?","options":["Yes","Totally","So worth it"],"affirm":"Your healthy habits power all the fun stuff you love.","relearn":"Healthy habits power the play and fun you love.","persona":"any","source":"motivation"},
 
-  // — Bath & body —
+  // Bath & body
   {"id":"cc-066","cat":"bath-body","type":"role-play","hook":"You finished a sweaty cricket game.","setup":"Plan your clean-up. Say:","yourLine":[{"text":"\"Time to wash up and put on clean clothes!\"","best":true},{"text":"\"I'll stay sweaty all day.\""}],"relearn":"Washing after sweaty play keeps you fresh.","persona":"any","source":"hygiene / voice"},
 
-  // — Washing hands —
+  // Washing hands
   {"id":"cc-067","cat":"hands","type":"strike-rewrite","hook":"\"Drying on your dirty shirt is the same as a towel.\"","myth":{"un":"Wiping wet hands on your clothes is fine.","re":"Dry on a clean towel; dirty clothes add germs back.","why":"A clean dry finish keeps hands clean."},"relearn":"Dry on a clean towel, not dirty clothes.","persona":"any","source":"handwashing technique"},
 
-  // — Brushing teeth —
+  // Brushing teeth
   {"id":"cc-068","cat":"teeth","type":"match","hook":"Match the food to what it does to teeth.","pairs":[{"left":"Water & fruit","right":"Kind to teeth"},{"left":"Lots of sweets","right":"Feeds germs"},{"left":"Brushing","right":"Cleans them"},{"left":"Plain milk","right":"Easy on teeth"},{"left":"Sipping water after","right":"Washes sugar away"}],"relearn":"Water and fruit are kind to teeth; sweets all day aren't.","persona":"any","source":"dental hygiene"},
 
-  // — Toilet time —
+  // Toilet time
   {"id":"cc-069","cat":"toilet","type":"reflect","hook":"Lensy: it's okay to tell a grown-up if a toilet isn't clean or safe. True?","prompt":"What do you think?","options":["Yes","I can tell someone","Definitely"],"affirm":"Yes, telling a trusted grown-up helps keep places clean and safe.","relearn":"You can tell a grown-up if a toilet isn't clean or safe.","persona":"any","source":"agency / safety"},
 
-  // — Daily habits —
+  // Daily habits
   {"id":"cc-070","cat":"habits","type":"sort","hook":"Sort: morning routine, or bedtime routine?","items":[{"id":"a","text":"Brush after breakfast"},{"id":"b","text":"Story then lights out"},{"id":"c","text":"Wash face to wake up"},{"id":"d","text":"Pyjamas on"},{"id":"e","text":"Eat a fresh breakfast"},{"id":"f","text":"Dim the lights to wind down"}],"bins":[{"id":"am","label":"Morning","valence":"neutral"},{"id":"pm","label":"Bedtime","valence":"neutral"}],"key":{"a":"am","b":"pm","c":"am","d":"pm","e":"am","f":"pm"},"relearn":"Routines top and tail your day, morning fresh-up and calm bedtime.","persona":"any","source":"routines"},
 
-  // — For everyone —
+  // For everyone
   {"id":"cc-071","cat":"everyone","type":"branch","hook":"A new kid doesn't know the class washing routine.","options":[{"text":"Show them kindly: \"we wash before snack, come on!\"","consequence":"They join in and feel welcome.","outcome":"kind","best":true},{"text":"Let them figure it out alone","consequence":"They feel lost and left out.","outcome":"missed"}],"debrief":"Sharing healthy habits kindly helps everyone belong.","relearn":"You can welcome someone into healthy habits.","persona":"Kabir","source":"inclusion"},
 
-  // — Bath & body —
+  // Bath & body
   {"id":"cc-072","cat":"bath-body","type":"reflect","hook":"Lensy: caring for your body shows you value it. Agree?","prompt":"What do you think?","options":["Yes","I value my body","It's kind to myself"],"affirm":"Caring for your body is a way of valuing the amazing you.","relearn":"Caring for your body shows you value it (links Body Lab).","persona":"any","source":"self-worth"},
 
-  // — Brushing teeth —
+  // Brushing teeth
   {"id":"cc-073","cat":"teeth","type":"reflect","hook":"Lensy: a healthy smile is something to be proud of. Yours?","prompt":"How's your smile?","options":["Big","Bright","Happy"],"affirm":"Keep brushing and your smile stays bright and strong.","relearn":"Brushing keeps your smile bright and healthy.","persona":"any","source":"dental hygiene"},
 
-  // — Washing hands —
+  // Washing hands
   {"id":"cc-074","cat":"hands","type":"build","hook":"Teach the handwash song-steps to the Clean Crew.","prompt":"Order them for the song.","pieces":["wet","soap","scrub-scrub-scrub","rinse","dry"],"mode":"sequence","key":["wet","soap","scrub-scrub-scrub","rinse","dry"],"relearn":"Wet, soap, scrub, rinse, dry, sing it and never forget!","persona":"Kabir","source":"handwashing steps"},
 
-  // — Daily habits —
+  // Daily habits
   {"id":"cc-075","cat":"habits","type":"strike-rewrite","hook":"\"Healthy food is boring; only treats are good.\"","myth":{"un":"Only treats taste good; healthy food is boring.","re":"Lots of healthy foods are yummy and give you energy.","why":"Fruits, dals, veggies can be delicious."},"relearn":"Healthy food can be tasty and gives you energy.","persona":"any","source":"nutrition"},
 
-  // — For everyone —
+  // For everyone
   {"id":"cc-076","cat":"everyone","type":"role-play","hook":"Time to rally the Clean Crew one last time.","setup":"Lead the team cheer. Say:","yourLine":[{"text":"\"Wash, brush, rest, repeat, go Clean Crew!\"","best":true},{"text":"\"Meh, skip it.\""}],"relearn":"Healthy habits, done every day, make you a Clean Crew hero.","persona":"any","source":"empowerment / voice"},
 
-  // — Bath & body —
+  // Bath & body
   {"id":"cc-077","cat":"bath-body","type":"sort","hook":"Sort: keeps hair & nails healthy, or not?","items":[{"id":"a","text":"Washing hair regularly"},{"id":"b","text":"Never combing for weeks"},{"id":"c","text":"Trimming long nails"},{"id":"d","text":"Letting nails get long and dirty"},{"id":"e","text":"Combing out tangles"},{"id":"f","text":"Leaving dirt under nails"}],"bins":[{"id":"good","label":"Healthy","valence":"pos"},{"id":"no","label":"Not healthy","valence":"neg"}],"key":{"a":"good","b":"no","c":"good","d":"no","e":"good","f":"no"},"relearn":"Clean hair and trimmed nails are part of body care.","persona":"any","source":"grooming"},
 
-  // — Daily habits —
+  // Daily habits
   {"id":"cc-078","cat":"habits","type":"branch","hook":"You feel like skipping ALL your healthy habits today.","options":[{"text":"Do at least the key ones: wash, brush, sleep","consequence":"You stay healthy even on a lazy day.","outcome":"healthy","best":true},{"text":"Skip everything","consequence":"You feel grotty and germs build up.","outcome":"missed"}],"debrief":"Even on lazy days, the key habits keep you well.","relearn":"Keep the key habits going, even on lazy days.","persona":"any","source":"consistency"},
 
-  // — Brushing teeth —
+  // Brushing teeth
   {"id":"cc-079","cat":"teeth","type":"strike-rewrite","hook":"\"Brushing harder cleans better.\"","myth":{"un":"The harder you brush, the cleaner your teeth.","re":"Brush gently; hard scrubbing can hurt your gums.","why":"Gentle, all-over brushing works best."},"relearn":"Brush gently all over, not hard.","persona":"any","source":"dental technique"},
 
-  // — For everyone —
+  // For everyone
   {"id":"cc-080","cat":"everyone","type":"reflect","hook":"Lensy: caring for your body is something to be proud of, whoever you are. Agree?","prompt":"What do you think?","options":["Yes","Proud","For everyone"],"affirm":"Yes, every kid can be proud of caring for their body.","relearn":"Caring for your body is for everyone, and worth being proud of.","persona":"any","source":"hygiene for all"},
 
-  // — Daily habits —
+  // Daily habits
   {"id":"cc-081","cat":"habits","type":"build","hook":"Capstone: build your very own Clean Crew daily plan.","prompt":"Pick your daily habits.","pieces":["wash hands","brush teeth twice","bath/wash","drink water","good sleep","cover coughs"],"mode":"assemble","key":["wash hands","brush teeth twice","bath/wash","drink water","good sleep","cover coughs"],"relearn":"Your own daily plan keeps the amazing you healthy.","persona":"any","source":"consolidation"},
 
-  // — For everyone —
+  // For everyone
   {"id":"cc-082","cat":"everyone","type":"reflect","hook":"Lensy: what's your Clean Crew motto?","prompt":"Pick one to carry.","options":["Wash, brush, rest, repeat","Healthy habits, every day","Caring for my body","Clean Crew hero!"],"affirm":"Carry that. You know how to keep yourself healthy and strong.","relearn":"Washing, brushing and healthy habits keep your body well, for everyone.","persona":"any","source":"consolidation"},
   {"id":"cc-900","cat":"bath-body","type":"build","hook":"Bucket-bath time! Order the steps.","prompt":"Drag the bucket-bath steps in order.","pieces":["pour mug of water all over","rub soap on","scrub arms, legs, back","pour water to rinse","pat dry with towel"],"mode":"sequence","key":["pour mug of water all over","rub soap on","scrub arms, legs, back","pour water to rinse","pat dry with towel"],"relearn":"Wet, soap, scrub, rinse, dry, even with a bucket and mug.","persona":"Kabir","source":"bathing steps"},
   {"id":"cc-901","cat":"bath-body","type":"build","hook":"Wash your hair the happy way.","prompt":"Put the hair-wash steps in order.","pieces":["wet your hair","rub in a little shampoo","scrub your scalp softly","rinse till no bubbles","squeeze and dry"],"mode":"sequence","key":["wet your hair","rub in a little shampoo","scrub your scalp softly","rinse till no bubbles","squeeze and dry"],"relearn":"Clean hair is part of caring for your whole body.","persona":"any","source":"hair care"},
@@ -526,7 +526,7 @@ export const CLEAN_CREW: V2GameConfig = {
   ],
   badge: {
     title: "Clean Crew Hero! 🦸",
-    blurb: "Germs are invisible — so wash anyway! Hygiene is a strong habit for everyone, and the key habits matter every day. 💪🫧",
+    blurb: "Germs are invisible, so wash anyway! Hygiene is a strong habit for everyone, and the key habits matter every day. 💪🫧",
   },
   buildLabels: { sequence: "That's the clean way! 🫧", assemble: "All set! ✨" },
 };

@@ -7,7 +7,7 @@ import { Sam } from "@/components/games/sam";
 import { BreathingSpace } from "@/components/toolkit/breathing-space";
 
 // A gentle, optional "how are you?" on entry (the wellbeing shell). Shown at most once a day, never
-// required, never judged, and — for privacy — the mood *value* is never stored, only that a check-in
+// required, never judged, and (for privacy) the mood *value* is never stored, only that a check-in
 // happened. A low day softly offers the breathing space and a reminder that help is in the corner.
 const MOODS = [
   { e: "😄", label: "Great", low: false },
@@ -82,12 +82,12 @@ export function MoodCheckIn() {
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3">
                 <Sam size={48} />
-                <p className="text-sm font-semibold">Thanks for telling me. Hard days happen — and they pass. Want a moment to just breathe?</p>
+                <p className="text-sm font-semibold">Thanks for telling me. Hard days happen, and they pass. Want a moment to just breathe?</p>
               </div>
               <button type="button" onClick={() => setBreathing(true)} className="cta flex h-11 items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-sm font-bold text-slate-900 transition-transform active:scale-95">
                 <Wind className="size-4" aria-hidden /> Breathing space
               </button>
-              <p className="text-center text-xs text-foreground/60">You can always talk to someone — the Get Help button is in the corner.</p>
+              <p className="text-center text-xs text-foreground/60">You can always talk to someone. The Get Help button is in the corner.</p>
               <button type="button" onClick={() => setShow(false)} className="text-xs font-semibold text-foreground/70">I'm okay for now</button>
             </div>
           )}

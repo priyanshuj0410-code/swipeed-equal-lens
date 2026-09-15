@@ -1,7 +1,7 @@
 "use client";
 
-// Equal Parents (node g62, Parenthood, Chapter 8) — NEW v2 build to GDD 62 (mechanic-embodying), taking the
-// equal-home work of Equal Partners (g55) into raising children — the stage where gendered defaults snap back
+// Equal Parents (node g62, Parenthood, Chapter 8): NEW v2 build to GDD 62 (mechanic-embodying), taking the
+// equal-home work of Equal Partners (g55) into raising children: the stage where gendered defaults snap back
 // hardest. Parenting isn't mum's job with dad 'helping'. Runs on the shared v2 engine: its researched typed
 // library + config (content/games/equal-parents.ts) render the play actions (strike-rewrite · branch · sort ·
 // reflect · match · role-play · spot), led by strike-rewrite + branch + sort. Six modes: share the care (owned

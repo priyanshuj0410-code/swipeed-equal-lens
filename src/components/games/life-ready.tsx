@@ -1,6 +1,6 @@
 "use client";
 
-// Life Ready (node g42, ages 15–18, Chapter 5) — NEW v2 build to GDD 42 (mechanic-embodying). The adult
+// Life Ready (node g42, ages 15-18, Chapter 5): NEW v2 build to GDD 42 (mechanic-embodying). The adult
 // life-skills node (Thread C · Feelings & Life Skills), Chapter 5's penultimate lesson, run on the shared v2
 // engine: its researched typed library + config (content/games/life-ready.ts) render the play actions (reflect ·
 // branch · strike-rewrite · sort · match · role-play · spot), led by branch + reflect + strike-rewrite. The

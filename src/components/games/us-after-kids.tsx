@@ -1,11 +1,11 @@
 "use client";
 
-// Us, After Kids (node g61, Parenthood, Chapter 8) — NEW v2 build to GDD 61 (mechanic-embodying), OPENING Chapter 8
+// Us, After Kids (node g61, Parenthood, Chapter 8): NEW v2 build to GDD 61 (mechanic-embodying), OPENING Chapter 8
 // (Parenthood) with the relationship parenting strains most: the couple's own, and the self within it. Runs on the
 // shared v2 engine: its researched typed library + config (content/games/us-after-kids.ts) render the play actions
 // (branch · strike-rewrite · role-play · sort · reflect · match · spot), led by branch + strike-rewrite +
 // role-play. Six modes: the big shift (~2 in 3 couples feel the dip; not a verdict), talk through the tired (name
-// the tiredness not each other), share don't resent (engages fathers — never 'babysitting' your own child; links
+// the tiredness not each other), share don't resent (engages fathers: never 'babysitting' your own child; links
 // g62), reconnecting (intimacy at both partners' pace, no deadline; postpartum discomfort → clinician), you still
 // matter (you're a whole person; persistent low mood → Looking After You g63), tools/help. Even-handed; engages
 // fathers as equal parents; no pressure on intimacy timing; NOT medical advice. Perinatal depression → Tele-MANAS

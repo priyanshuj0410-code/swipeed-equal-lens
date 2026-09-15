@@ -1,10 +1,10 @@
 // Node-level dependency gating for the path (master-node-table driven). A user picks an age band in
-// onboarding (entryAgeGate); we drop them at that chapter with its first node OPEN — no need to clear the
-// earlier chapters — and EARLIER chapters all stay open for revision. From the entry node onward, the
+// onboarding (entryAgeGate); we drop them at that chapter with its first node OPEN: no need to clear the
+// earlier chapters: and EARLIER chapters all stay open for revision. From the entry node onward, the
 // linear `prereq` chain gates the path forward: a node unlocks once its prerequisite is completed.
 //
-// Legacy/no-age users (entryAgeGate undefined) are UNGATED — every built node stays playable, exactly as
-// before — so adding this never locks anyone who onboarded before age bands existed.
+// Legacy/no-age users (entryAgeGate undefined) are UNGATED: every built node stays playable, exactly as
+// before: so adding this never locks anyone who onboarded before age bands existed.
 
 import { NODES, CHAPTERS, type GameNode } from "@/content/path";
 
@@ -20,7 +20,7 @@ export function entryStartOrder(entryAge: number | undefined): number {
   return below?.startOrder ?? 1;
 }
 
-// The array index (into NODES / a parallel SceneNode[]) of the entry chapter's first node — used to focus
+// The array index (into NODES / a parallel SceneNode[]) of the entry chapter's first node: used to focus
 // the path camera + the "play me next" glow on the user's age band rather than node #1.
 export function entryFocusIndex(entryAge: number | undefined): number {
   const start = entryStartOrder(entryAge);

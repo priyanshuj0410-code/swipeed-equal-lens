@@ -1,6 +1,6 @@
 "use client";
 
-// The Family Map (node g57, ages 22+, Chapter 7) — NEW v2 build to GDD 57 (mechanic-embodying), the full-circle
+// The Family Map (node g57, ages 22+, Chapter 7): NEW v2 build to GDD 57 (mechanic-embodying), the full-circle
 // callback to My Family Garden (g03): in India you don't just marry a person, you join a family. Runs on the
 // shared v2 engine: its researched typed library + config (content/games/family-map.ts) render the play actions
 // (branch · strike-rewrite · sort · reflect · match · spot · role-play), led by branch + strike-rewrite + sort.

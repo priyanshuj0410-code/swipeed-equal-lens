@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 
-// Shared Unlearn/Relearn tool state for the path world — read by the toolbar (page chrome) and the
+// Shared Unlearn/Relearn tool state for the path world: read by the toolbar (page chrome) and the
 // interactive myth notes (inside the R3F scene), without prop-drilling through PathScene.
 export type UnlearnToolName = "none" | "eraser" | "pen";
 

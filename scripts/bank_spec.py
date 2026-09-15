@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bank spec — per-game / per-category coverage + mechanic-shape audit, and the gap to the >=400 floor.
+"""Bank spec: per-game / per-category coverage + mechanic-shape audit, and the gap to the >=400 floor.
 
 This is the content-growth pipeline's INPUT. For each game it reports what exists and exactly what must be
 generated to reach the >=400/game floor with the UPGRADED mechanic shapes:
@@ -8,7 +8,7 @@ generated to reach the >=400/game floor with the UPGRADED mechanic shapes:
     match -> 5 pairs        (was 3)
 and a healthy per-sub-topic depth (>= TARGET/ncats per category so a 6-beat session stays fresh on replay).
 
-It is REPORTING-only (no writes) and deterministic — it parses the live .ts banks the same way the engine
+It is REPORTING-only (no writes) and deterministic: it parses the live .ts banks the same way the engine
 loads them (one JSON object per line). The generation step consumes its --json output per game.
 
 Usage:
@@ -145,7 +145,7 @@ def main():
         sa = spec["shape_audit"]
         print(f"■ {spec['gameId']}  (Ch.{spec['chapter']})   {spec['total']}/{TARGET}  gap {spec['gap']}   {spec['ncats']} categories")
         print(f"  type mix: {spec['type_mix']}")
-        print(f"  shape audit — sort@6 {sa['sort']['at_target']}/{sa['sort']['total']} (legacy {sa['sort']['legacy']}) | "
+        print(f"  shape audit: sort@6 {sa['sort']['at_target']}/{sa['sort']['total']} (legacy {sa['sort']['legacy']}) | "
               f"spot@5/2 {sa['spot']['at_target']}/{sa['spot']['total']} (legacy {sa['spot']['legacy']}, bad-tricks {sa['spot']['bad_tricks']}) | "
               f"match@5 {sa['match']['at_target']}/{sa['match']['total']} (legacy {sa['match']['legacy']})")
         print(f"  per-category target ~{math.ceil(TARGET / spec['ncats'])}:")
@@ -165,7 +165,7 @@ def main():
     leg_spot = sum(r["shape_audit"]["spot"]["legacy"] for r in rows)
     leg_match = sum(r["shape_audit"]["match"]["legacy"] for r in rows)
     print(f"FLEET: {len(rows)} games | current {sum(r['total'] for r in rows):,} | floor {TARGET}/game | NEW scenarios needed: {tot_gap:,}")
-    print(f"legacy shapes to reshape — sort(4->6): {leg_sort} | spot(3/1->5/2): {leg_spot} | match(3->5): {leg_match}")
+    print(f"legacy shapes to reshape: sort(4->6): {leg_sort} | spot(3/1->5/2): {leg_spot} | match(3->5): {leg_match}")
     print(f"{'game':<26}{'Ch':>3}{'cur':>5}{'gap':>6}{'cats':>5}")
     for r in sorted(rows, key=lambda x: (x["chapter"] or 0, x["gameId"])):
         print(f"{r['gameId']:<26}{r['chapter'] or 0:>3}{r['total']:>5}{r['gap']:>6}{r['ncats']:>5}")

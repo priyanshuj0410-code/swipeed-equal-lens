@@ -1,6 +1,6 @@
 "use client";
 
-// Fair Play World (node g10, ages 6–9, Chapter 2) — NEW v2 build to GDD 10 (mechanic-embodying). The fairness
+// Fair Play World (node g10, ages 6-9, Chapter 2): NEW v2 build to GDD 10 (mechanic-embodying). The fairness
 // game in the Gender & Respect thread, run on the shared v2 engine: its researched typed library + config
 // (content/games/fair-play.ts) render the play actions (branch · reflect · strike-rewrite · sort · role-play ·
 // match · build · spot), led by fairness dilemmas (branch), the fair-chore-chart builder (build), and

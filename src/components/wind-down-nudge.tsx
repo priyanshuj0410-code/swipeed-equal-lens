@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
 // A gentle, non-guilt bedtime cue shown once per session during a quiet window (default
-// 8pm–6am, device clock; `?tod=night` forces it for preview). Honest framing: winding down
+// 8pm, 6am, device clock; `?tod=night` forces it for preview). Honest framing: winding down
 // near bedtime, not a health claim. (Companion character comes with the Mini Characters Kit.)
 export function WindDownNudge() {
   const [show, setShow] = useState(false);
@@ -39,7 +39,7 @@ export function WindDownNudge() {
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/companion.png" alt="" aria-hidden className="size-10 shrink-0 rounded-xl bg-foreground/10" />
-      <span className="flex-1 text-sm font-medium leading-snug">It&apos;s getting late — let&apos;s pick this up tomorrow. 🌙</span>
+      <span className="flex-1 text-sm font-medium leading-snug">It&apos;s getting late. Let&apos;s pick this up tomorrow. 🌙</span>
       <button type="button" onClick={dismiss} aria-label="Dismiss" className="shrink-0 rounded-full p-1 transition-transform active:scale-90">
         <X className="size-4" aria-hidden />
       </button>

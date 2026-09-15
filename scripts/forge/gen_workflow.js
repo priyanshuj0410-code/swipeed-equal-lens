@@ -13,19 +13,19 @@ const GID = (typeof args === 'string' ? args : args.gameId)
 const REPO = '/Users/priyanshu/swipeed-equal-lens'
 
 const SHAPES = `
-TARGET MECHANIC SHAPES (the gate REQUIRES these for new content — read scripts/forge/common.py if unsure):
+TARGET MECHANIC SHAPES (the gate REQUIRES these for new content; read scripts/forge/common.py if unsure):
 - sort: EXACTLY 6 items; EVERY bin declares "valence" ∈ {"pos","neg","tell","uhoh","neutral"}; key maps every
   item id → a bin id; every bin used. e.g. bins:[{"id":"safe","label":"Safe","valence":"pos"},{"id":"unsafe","label":"Unsafe","valence":"neg"}].
 - spot: EXACTLY 5 scene items, EXACTLY 2 with "trick":true (3 truths + 2 lies). (ONLY if spot is allowed for this band.)
-  POLARITY (the #1 spot bug — get this right): the engine only registers taps on the "trick":true items and shows
+  POLARITY (the #1 spot bug, so get this right): the engine only registers taps on the "trick":true items and shows
   them as "🚩 Caught!". So "trick":true MUST be the UNSAFE / WRONG / MANIPULATIVE / red-flag item the player is meant
-  to CATCH — never the good/safe/healthy one. The "hook" MUST tell the player to find those bad items (e.g. "Spot the
-  two red flags", "Spot which lines assume a yes") — NEVER "spot the green flags / the kind ones / the good moves".
+  to CATCH, never the good/safe/healthy one. The "hook" MUST tell the player to find those bad items (e.g. "Spot the
+  two red flags", "Spot which lines assume a yes"), NEVER "spot the green flags / the kind ones / the good moves".
   "why" explains why the caught items are the red flags. Inverting this silently teaches the wrong reflex (the engine
   has no fail state), so double-check every spot: do the 2 trick:true items match the bad thing the hook asks for?
 - match: EXACTLY 5 pairs; distinct lefts; distinct rights; no left text equals a right text.
 - branch: exactly one option "best":true; every non-best option has a "consequence".
-- reflect: NO right answer — options:[…] + affirm:"…". Never put best/key/trick/answer on a reflect. Keep reflect for
+- reflect: NO right answer. options:[…] + affirm:"…". Never put best/key/trick/answer on a reflect. Keep reflect for
   feelings, personal choices and safety lines ("it's not your fault"), where every answer is acceptable.
 - choose: prompt + EXACTLY 6 options:[{"text","fits","note"}], 2 to 4 with "fits":true (vary the count). Use it for a
   lesson or values question with a defensible answer. Wrong options must be genuinely tempting (a common belief or a
@@ -104,7 +104,7 @@ const ASSEMBLE_SCHEMA = {
 phase('Ground')
 let ground = null
 for (let groundTry = 1; groundTry <= 3 && (!ground || !ground.categories); groundTry++) {
-if (groundTry > 1) log(`ground:${GID} retry ${groundTry}/3 — prior attempt returned null (likely transient server rate-limit)`)
+if (groundTry > 1) log(`ground:${GID} retry ${groundTry}/3: prior attempt returned null (likely transient server rate-limit)`)
 ground = await agent(
   `You are the GROUNDING agent for SwipeEd game "${GID}" (repo ${REPO}; work there).
 Read, in order: ${REPO}/.forge/${GID}/plan.json (categories, band ceiling, allowed mechanics, reshape worklist);
@@ -119,7 +119,7 @@ id_prefix (plan.json id_prefix), and categories[] with each cat's target, quota[
 generate_by_type dict to {type,count} array), and idStart/idEnd (plan.json id_blocks[cat][0] and [1]).`,
   { label: `ground:${GID}${groundTry > 1 ? ` r${groundTry}` : ''}`, phase: 'Ground', schema: GROUND_SCHEMA, agentType: 'general-purpose' })
 }
-if (!ground || !ground.categories) throw new Error(`ground:${GID} failed after 3 attempts — server likely rate-limiting; relaunch this game alone when the field is clear`)
+if (!ground || !ground.categories) throw new Error(`ground:${GID} failed after 3 attempts. The server is likely rate-limiting; relaunch this game alone when the field is clear`)
 
 const cats = ground.categories
 
@@ -139,7 +139,7 @@ shipped id that is not a reshape on the plan's worklist (assembly would otherwis
 ${SHAPES}
 2) GENERATE up to the quota, all cat:"${c.cat}", all at the TARGET shapes above, genuinely DISTINCT (different
    real situations, India-grounded, not reworded twins). QUALITY-FIRST: if you run out of genuinely distinct,
-   GDD-faithful ideas before hitting the quota, STOP and set exhausted=true with a note — do NOT pad with
+   GDD-faithful ideas before hitting the quota, STOP and set exhausted=true with a note. Do NOT pad with
    paraphrases (padding is the exact failure we're avoiding).
 3) RESHAPE: also find every existing "cat":"${c.cat}" scenario in ${GID}.ts whose shape is legacy (sort with ≠6
    items, spot with ≠5 items or ≠2 tricks, match with ≠5 pairs) AND is on plan.json's reshape_legacy worklist,
@@ -148,7 +148,7 @@ ${SHAPES}
 4) WRITE all of them as NDJSON (one JSON object per line, no array) to ${REPO}/.forge/${GID}/gen/${c.cat}.ndjson
 5) SELF-VALIDATE (Bash), repeat until it prints "batch: 0 rejected":
      cd ${REPO} && python3 scripts/forge/forge_check.py --batch .forge/${GID}/gen/${c.cat}.ndjson --game ${GID}
-   Read every REJECT, FIX that scenario, re-run. The Python gate is the arbiter — make IT pass.
+   Read every REJECT, FIX that scenario, re-run. The Python gate is the arbiter: make IT pass.
 Return the schema object (ndjson_path, generated, reshaped, gate_clean, exhausted, note).`,
     { label: `gen:${c.cat}`, phase: 'Generate', schema: GEN_SCHEMA, agentType: 'general-purpose' }),
   (gen, c) => agent(
@@ -156,9 +156,9 @@ Return the schema object (ndjson_path, generated, reshaped, gate_clean, exhauste
 "${GID}", category "${c.cat}". The generated batch is at ${gen.ndjson_path}. Read it + ${REPO}/.forge/${GID}/GROUNDING.md.
 For EACH scenario, check (and FIX in the file if wrong):
 - SAFETY-KEY: independently re-derive the correct answer (sort item→bin, branch best, match pairing, spot tricks,
-  strike re, choose fits: decide which of the 6 options fit BEFORE reading the "fits" flags, then compare). REJECT/FIX any INVERSION — e.g. trusting a stranger or keeping an unsafe secret marked "safe/best",
+  strike re, choose fits: decide which of the 6 options fit BEFORE reading the "fits" flags, then compare). REJECT/FIX any INVERSION, e.g. trusting a stranger or keeping an unsafe secret marked "safe/best",
   a green-flag binned as a red-flag, telling a trusted adult framed as wrong. (The engine has no fail state, so a
-  wrong key silently teaches the unsafe reflex — this is the most important check.)
+  wrong key silently teaches the unsafe reflex. This is the most important check.)
 - AGE-TONE: for this age band, nothing frightening, graphic, or more detail than the GDD introduces; gentlest
   GDD-faithful framing; safe/unsafe not good/bad for young kids.
 - AUTONOMY: no feeling or bodily "no" presented as a wrong answer; every reflect option genuinely acceptable.
@@ -179,7 +179,7 @@ const assembled = await agent(
      python3 scripts/forge/forge_check.py --game ${GID}
    If it FAILS, read the failures, FIX the offending scenarios directly in ${REPO}/src/content/games/${GID}.ts
    (every sort must be 6 items + valence, spot 5/2, match 5; ≤160/field; under band ceiling), and re-run until PASS.
-   Note: ALL legacy scenarios must now be at target shape too — if the gate flags an un-reshaped legacy sort/match,
+   Note: ALL legacy scenarios must now be at target shape too. If the gate flags an un-reshaped legacy sort/match,
    fix it in place.
 4) Whole-bank dedup: python3 scripts/forge/forge_dedup.py --verify --game ${GID}  (resolve any INTRA-band collision
    by editing the newer scenario to be genuinely distinct, then re-run).
@@ -189,7 +189,7 @@ const assembled = await agent(
 6) Confirm: python3 scripts/forge/forge_check.py --game ${GID} prints PASS, and tsc is unaffected (you changed only
    ${GID}.ts content).
 Return the schema object: total (final scenario count), gate_pass, dedup_intra (count of unresolved intra-band
-collisions, must be 0), under_target (true if <400), failures (any remaining issues — empty if clean).`,
+collisions, must be 0), under_target (true if <400), failures (any remaining issues; empty if clean).`,
   { label: `assemble:${GID}`, phase: 'Assemble', schema: ASSEMBLE_SCHEMA, agentType: 'general-purpose', effort: 'high' })
 
 return { game: GID, ground, perCategory: results, assembled }

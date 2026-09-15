@@ -3,11 +3,11 @@
 // Shared direct-manipulation primitives for the v2 mini-game engine. The interaction-model upgrade turns the
 // "tap a thing, tap another thing" mechanics into real gestures (swipe a card, drag a chip into a bin, draw a
 // cord plug→socket) WITHOUT losing accessibility: every gesture mechanic keeps its native <button> tap path as
-// the keyboard / screen-reader / young-child (ages 3–6) fallback, and the pointer gesture is an additive layer.
+// the keyboard / screen-reader / young-child (ages 3-6) fallback, and the pointer gesture is an additive layer.
 //
 // - usePointerDrag: ONE Pointer-Events hook (mouse + touch + pen, single code path). It captures the pointer
-//   so a drag survives the finger leaving the element, tracks dx/dy + total path distance + velocity, and — via
-//   an ~8px movement threshold — falls through to onTap when the press barely moved. That threshold is what
+//   so a drag survives the finger leaving the element, tracks dx/dy + total path distance + velocity, and: via
+//   an ~8px movement threshold: falls through to onTap when the press barely moved. That threshold is what
 //   preserves the tap fallback in every mechanic: a quick tap still "arms" a chip exactly as before.
 // - hitTestZone: maps a pointer x/y to the drop-zone under it (with a forgiving nearest-within-radius snap for
 //   small fingers). Zones pass live element refs, so rects are read fresh (survives scroll/reflow/wrap).

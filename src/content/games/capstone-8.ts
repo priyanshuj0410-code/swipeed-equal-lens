@@ -1,5 +1,5 @@
-// Capstone 8 — "Full Circle" (node c8, Chapter 8 graduation, Parenthood). NEW rich build to GDD c8 ("Capstone
-// format v1"), matching c1-c7, on the shared rich capstone engine (capstone-rich.tsx) — the FINAL capstone of the
+// Capstone 8: "Full Circle" (node c8, Chapter 8 graduation, Parenthood). NEW rich build to GDD c8 ("Capstone
+// format v1"), matching c1-c7, on the shared rich capstone engine (capstone-rich.tsx): the FINAL capstone of the
 // whole 3 -> parenthood catalog. Its Landing config drives arrive -> look back (the "Full Circle" constellation
 // gallery, nine Chapter-8 stickers) -> play back (eight victory laps: gallery -> strike-rewrite -> branch ->
 // role-play -> match -> swipe -> strike-rewrite -> sort) -> reflect (five prompts) -> celebrate (constellation +
@@ -42,7 +42,7 @@ export const CAPSTONE_8: CapstoneConfig = {
       "node": "g62",
       "game": "Equal Parents",
       "thread": "E · Gender & Respect",
-      "bigTruth": "Both are real parents; sharing the care and the invisible mental load — not just helping — protects the couple, and children learn equality by watching you.",
+      "bigTruth": "Both are real parents; sharing the care and the invisible mental load, not just helping, protects the couple, and children learn equality by watching you.",
       "glyph": "equal-parents"
     },
     {
@@ -124,7 +124,7 @@ export const CAPSTONE_8: CapstoneConfig = {
         "re": "It's just parenting; caring for his child is a father's own responsibility, not a favour.",
         "why": "A parent doesn't babysit their own child."
       },
-      "celebrate": "Owned, not 'helped' — that's an equal parent."
+      "celebrate": "Owned, not 'helped': that's an equal parent."
     },
     {
       "id": "c8-p4",
@@ -140,11 +140,11 @@ export const CAPSTONE_8: CapstoneConfig = {
         },
         {
           "text": "Run the inherited pattern on autopilot",
-          "consequence": "Pausing to choose firm warmth — and repairing when you slip — is how the cycle stops; autopilot passes it on."
+          "consequence": "Pausing to choose firm warmth, and repairing when you slip, is how the cycle stops; autopilot passes it on."
         }
       ],
       "celebrate": "You pause, you choose, you repair. The cycle stops with you.",
-      "debrief": "Pause, choose, repair — that's how the cycle stops with you."
+      "debrief": "Pause, choose, repair. That's how the cycle stops with you."
     },
     {
       "id": "c8-p5",
@@ -189,7 +189,7 @@ export const CAPSTONE_8: CapstoneConfig = {
       "from": "g68",
       "type": "swipe",
       "frame": "Remember the calm read? Swipe up for the truth about a struggling child.",
-      "cue": "Shame and crackdowns drive a struggle underground — calm connection and the right help bring it into the light.",
+      "cue": "Shame and crackdowns drive a struggle underground. Calm connection and the right help bring it into the light.",
       "celebrate": "You know it now: shame drives it underground; connection brings it to light.",
       "up": "Connection over shame."
     },
@@ -306,9 +306,9 @@ export const CAPSTONE_8: CapstoneConfig = {
   ],
   "celebration": {
     "glyph": "full-circle-star",
-    "certificate": "This certifies you have come Full Circle — graduate of Chapter 8 and the journey from age three. You are the safe adult now. Stand tall, you earned every star.",
-    "stickerBook": "All nine Chapter 8 stars shine in your Full Circle constellation, crowned by the golden finale. Every sticker since age three glows on — a whole life to give."
+    "certificate": "This certifies you have come Full Circle: graduate of Chapter 8 and the journey from age three. You are the safe adult now. Stand tall, you earned every star.",
+    "stickerBook": "All nine Chapter 8 stars shine in your Full Circle constellation, crowned by the golden finale. Every sticker since age three glows on, a whole life to give."
   },
-  "preview": "There's no Chapter 9 — the next one is written by the small person in front of you. A new three-year-old is about to start your journey, with you to guide it.",
+  "preview": "There's no Chapter 9: the next one is written by the small person in front of you. A new three-year-old is about to start your journey, with you to guide it.",
   "share": "Your call: tell someone you trust, or just tell yourself, one thing you want to give the next generation that you wished you'd had. You've come the whole way."
 };

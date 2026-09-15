@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""test_gates.py — fixtures proving the forge gate catches malformed content (esp. missing Base fields).
+"""test_gates.py: fixtures proving the forge gate catches malformed content (esp. missing Base fields).
 
 Run: python3 scripts/forge/test_gates.py   (exits non-zero if any assertion fails)
 """
@@ -89,9 +89,10 @@ def main():
     fails += content_gate_fixtures()
     fails += regrowth_fixtures()
     fails += blind_review_fixtures()
+    fails += no_dashes_fixtures()
     if fails:
         print(f"\n✗ {fails} gate test(s) failed"); sys.exit(1)
-    print("\n✓ all gate fixtures pass — missing-Base-field content is rejected")
+    print("\n✓ all gate fixtures pass: missing-Base-field content is rejected")
 
 
 def lint_fixtures():
@@ -372,6 +373,32 @@ def content_gate_fixtures():
             fails += 1
             print(f"  ✗ content gate wrong on: {name}")
     shutil.rmtree(tmp)
+    return fails
+
+
+def no_dashes_fixtures():
+    """The dash gate (scripts/no_dashes.py, SWED-92) must flag an em dash and an en dash in any text file, pass a
+    hyphenated range and a clean line, and skip files that are not text."""
+    import tempfile
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+    import no_dashes as D
+
+    fails = 0
+    tmp = tempfile.mkdtemp()
+    cases = (("an em dash in copy", "copy.ts", 'hook: "Your timeline \u2014 your call."', True),
+             ("an en dash in a range", "doc.md", "Ages 3\u20136", True),
+             ("a hyphenated range", "range.md", "Ages 3-6, then 6-9.", False),
+             ("a clean sentence", "clean.tsx", "Your timeline is your call.", False),
+             ("a dash in a file that is not text", "art.png", "\u2014", False))
+    for name, fname, body, want in cases:
+        path = os.path.join(tmp, fname)
+        open(path, "w", encoding="utf8").write(body)
+        got = bool(D.find([path])) if D.scannable(fname) else False
+        if got == want:
+            print(f"  ✓ dash gate right on: {name}")
+        else:
+            fails += 1
+            print(f"  ✗ dash gate wrong on: {name}")
     return fails
 
 

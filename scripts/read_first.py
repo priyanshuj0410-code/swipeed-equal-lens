@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-first gate — no SwipeEd build may START without its source docs:
+"""Read-first gate: no SwipeEd build may START without its source docs:
   build bible · transition plan · the node's GDD (reworked v2) · the chapter personas · the scenario library.
 It RESOLVES + verifies those five exist for a node, and records a hash-pinned attestation that they were read.
 The pre-commit hook calls --gate: committing a NEW v2 game without a valid attestation is BLOCKED.
@@ -11,7 +11,7 @@ Usage:
   python3 scripts/read_first.py --gate                  # (hook) verify every NEW v2 build staged in this commit
 
 Honest limit: this guarantees the docs EXIST and that a hash-pinned attestation naming each was produced
-before the build commit, and blocks a new build without it — it cannot verify I understood them. The point is
+before the build commit, and blocks a new build without it: it cannot verify I understood them. The point is
 to remove the excuse and force a deliberate, doc-pinned read-first step (you literally can't attest a missing doc).
 """
 import sys, os, re, glob, json, hashlib, datetime, pathlib, subprocess
@@ -50,7 +50,7 @@ def required_docs(node):
     docs = {
         "build_bible": _first("*build bible*.pdf"),
         "transition_plan": _first("*Transition Plan*.pdf"),
-        "gdd": _first(f"GDD {g} —*.pdf", f"GDD {g:02d} —*.pdf"),
+        "gdd": _first(f"GDD {g} \u2014*.pdf", f"GDD {g:02d} \u2014*.pdf"),
         "chapter_personas": _first(f"Personas/*Chapter {ch} *Persona*.pdf", f"Personas/*Chapter {ch}*Persona*.pdf") if ch else None,
         "scenario_library": _first(f"*GDD {g} *Scenario Library.json", f"*GDD {g:02d} *Scenario Library.json"),
     }
@@ -70,7 +70,7 @@ def cmd_require(node):
     print(f"Read-first docs for {node} · {n['label']} (Ch.{n['chapter_num']}, GDD {n['gdd_num']}, gameId {n['game']}):")
     for k in REQUIRED:
         v = docs[k]
-        print(f"  {'✓' if v else '✗ MISSING'}  {k:<18} {pathlib.Path(v).name if v else '— not found in Strategy/'}")
+        print(f"  {'✓' if v else '✗ MISSING'}  {k:<18} {pathlib.Path(v).name if v else 'not found in Strategy/'}")
     missing = [k for k in REQUIRED if not docs[k]]
     if missing:
         print(f"\n⛔ cannot build {node}: missing {', '.join(missing)}", file=sys.stderr)
@@ -114,7 +114,7 @@ def cmd_verify(node):
         elif not docs[k]:
             problems.append(f"{k} no longer found in Strategy/")
         elif _sha(docs[k]) != rk["sha256"]:
-            problems.append(f"{k} changed since attestation — re-read & re-attest")
+            problems.append(f"{k} changed since attestation: re-read & re-attest")
     if problems:
         print(f"⛔ read-first attestation for {node} invalid/stale:", file=sys.stderr)
         for p in problems:
@@ -156,11 +156,11 @@ def cmd_gate():
         return 0
     rc = 0
     for node, gid, f in new:
-        print(f"▸ NEW v2 build staged: {node} ({gid}) in {f} — read-first attestation required:")
+        print(f"▸ NEW v2 build staged: {node} ({gid}) in {f}, read-first attestation required:")
         if cmd_verify(node) != 0:
             rc = 1
     if rc and os.environ.get("READ_FIRST_OVERRIDE") == "1":
-        print("\n  (READ_FIRST_OVERRIDE=1 set — allowing despite missing/stale attestation)")
+        print("\n  (READ_FIRST_OVERRIDE=1 set: allowing despite missing/stale attestation)")
         return 0
     return rc
 

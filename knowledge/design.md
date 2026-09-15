@@ -13,6 +13,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/7c73c697-ebd9-49fe-862f-210febf8f2df  # SWED-93
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22  # SWED-92
 ---
 
 # SwipeEd design system
@@ -180,11 +181,11 @@ case throughout, curious and warm rather than instructional, never preachy. The 
 summary (`@equal-lens/brand/README.md`, final section): "Curious, warm, brave, playful not preachy.
 Sentence case, hyphens not em dashes."
 
-**This rule is currently violated at scale in SwipeEd's own game content**, not just in code
-comments. On 2026-09-14 `src/` held 5,113 em or en dash characters on 3,796 lines, 4,260 of them on
-3,072 lines of `src/content/games/` (examples in the [design audit](audits/design-audit-2026-09-14.md)). `src/content/games/*.ts` (79 files of scenario copy: hooks, myths, "why," "relearn" lines) is the
-single largest source of the violation, not an edge case. Any new content file must not add to this
-count. See Divergences and debt.
+**Enforced since 2026-09-15.** On 2026-09-14 `src/` held 5,113 em or en dash characters on 3,796 lines, most of them
+in scenario content. [SWED-92](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22) rewrote every one by what the dash was doing (two sentences, a comma, a colon, "like",
+a hyphen for ranges), redid the rewrites that had become comma splices, and added `scripts/no_dashes.py`, which fails
+the build and the commit on any em or en dash in a tracked text file. How to write around them, with before and after
+examples: [writing without dashes](playbooks/writing-without-dashes.md). A spaced hyphen is not a substitute.
 
 **Age-banded tone.** SwipeEd spans 8 chapters from ages 3 to parenthood; there is no single "kid
 voice." Content is written per chapter/persona (see the [question bank](schemas/question-bank.md) for the `persona`
@@ -427,9 +428,9 @@ file and line where verifiable:
    serve different fallback tiers) but undocumented as a deliberate two-track design before now.
 9. **UN/RE label contrast fails in light mode.** See Accessibility. Newly measured on 2026-09-14,
    tracked as [SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587).
-10. **Voice rule violated at scale in shipped content.** See Voice and copy and the
-    [design audit](audits/design-audit-2026-09-14.md) for counts. Not a code divergence, a content divergence, but the largest one
-    in raw volume.
+10. **Voice rule violated at scale in shipped content.** Resolved on 2026-09-15 under SWED-92: no em or en dashes
+    remain and a gate keeps it that way (see Voice and copy). About 2,000 spaced hyphens remain in older knowledge base
+    prose; app copy and content have none.
 
 ## References
 

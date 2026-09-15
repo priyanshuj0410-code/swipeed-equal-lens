@@ -1,6 +1,6 @@
 "use client";
 
-// Friend or Frenemy? (node g09, ages 6–9, Chapter 2) — reworked to GDD 09 v2 (mechanic-embodying). The
+// Friend or Frenemy? (node g09, ages 6-9, Chapter 2): reworked to GDD 09 v2 (mechanic-embodying). The
 // healthy-friendship game runs on the shared v2 engine: its researched typed library + config
 // (content/games/friend-frenemy.ts) render the play actions (reflect · role-play · strike-rewrite · branch ·
 // sort · match · build · spot), led by friendship dilemmas (branch), say-the-line comebacks (role-play), and

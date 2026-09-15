@@ -1,6 +1,6 @@
 "use client";
 
-// Mind & Belonging (node g49, ages 18–22, Chapter 6) — NEW v2 build to GDD 49 (mechanic-embodying), the College
+// Mind & Belonging (node g49, ages 18-22, Chapter 6): NEW v2 build to GDD 49 (mechanic-embodying), the College
 // wellbeing anchor (Thread C), reworking the old ModesEngine build onto the shared v2 engine: its researched
 // typed library + config (content/games/mind-belonging.ts) render the play actions (branch · strike-rewrite ·
 // sort · reflect · role-play · spot · match), led by branch + strike-rewrite + sort. Leaving home is exciting,

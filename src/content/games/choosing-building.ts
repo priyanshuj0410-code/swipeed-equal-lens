@@ -1,11 +1,11 @@
-// Content for Choosing & Building (node g53, ages 22+, Chapter 7) — NEW v2 build to GDD 53 (mechanic-embodying),
+// Content for Choosing & Building (node g53, ages 22+, Chapter 7): NEW v2 build to GDD 53 (mechanic-embodying),
 // the OPENER of Chapter 7 (Building a Life), where the story turns from 'me' to 'us' (Thread D · Relationships).
 // "A wedding is a day; a partnership is the work." 84 researched, India-grounded scenarios across choosing-well →
 // what-it-takes → commitment-clearly → love-and-arranged → starting-strong → tools-and-help, each encoded as one
-// of the shared v2 play actions (branch / strike-rewrite / sort / reflect / role-play / match / spot) — no binary
+// of the shared v2 play actions (branch / strike-rewrite / sort / reflect / role-play / match / spot): no binary
 // "tap the right card". Lead: branch (your move), strike-rewrite (bust the myth), sort. Five themes: choosing well
 // (values & compatibility over sparks and timeline), what it takes (communication, trust, repair, interdependence
-// — build 'us' without erasing 'me'), commitment clearly (thoughtful, eyes-open, not pressure; busts 'marriage
+// build 'us' without erasing 'me'), commitment clearly (thoughtful, eyes-open, not pressure; busts 'marriage
 // will fix/complete me'; UN&RE), love & arranged (BOTH paths, the same skills; CONSENT essential in any path;
 // family involvement respected but the couple's judgement leads; forced marriage routed to help), starting strong
 // (expectations, communication, equality from day one), tools/help. EVERY path respected, including not marrying
@@ -519,7 +519,7 @@ const SCENARIOS: Scenario[] = [
 export const CHOOSING_BUILDING: V2GameConfig = {
   gameId: "choosing-building",
   title: "Choosing & Building",
-  greet: "Hey — it’s Lensy. The story turns from ‘me’ to ‘us’. A wedding is a day; a partnership is the work. Love or arranged, every path respected — choosing is yours.",
+  greet: "Hey, it’s Lensy. The story turns from ‘me’ to ‘us’. A wedding is a day; a partnership is the work. Love or arranged, every path respected: choosing is yours.",
   scenarios: SCENARIOS,
   categories: [
     { id: "choosing-well", emoji: "🔍", label: "Choosing well" },
@@ -531,7 +531,7 @@ export const CHOOSING_BUILDING: V2GameConfig = {
   ],
   badge: {
     title: "Choosing & Building 💍",
-    blurb: "You choose a partner on values not sparks, know partnership is daily work, commit eyes-open, and start with equality — love or arranged, freely chosen. 🤝",
+    blurb: "You choose a partner on values not sparks, know partnership is daily work, commit eyes-open, and start with equality: love or arranged, freely chosen. 🤝",
   },
   helpLine: "Whether and whom to marry is yours. Being forced or coerced is not your fault: Women Helpline 181, women-in-distress 1091, emergency 112, or Childline 1098.",
   helpLabel: "Get help · 181 / 1091 / 112 / 1098",

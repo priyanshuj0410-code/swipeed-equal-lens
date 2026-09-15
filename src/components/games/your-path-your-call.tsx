@@ -1,6 +1,6 @@
 "use client";
 
-// Your Path, Your Call (node g54, ages 22+, Chapter 7) — NEW v2 build to GDD 54 (mechanic-embodying), the EQUITY
+// Your Path, Your Call (node g54, ages 22+, Chapter 7): NEW v2 build to GDD 54 (mechanic-embodying), the EQUITY
 // HEART of Chapter 7 and the counterpoint to Choosing & Building (g53): marriage and children are ONE valid path,
 // not the measure of a life. Runs on the shared v2 engine: its researched typed library + config
 // (content/games/your-path-your-call.ts) render the play actions (strike-rewrite · branch · role-play · sort ·

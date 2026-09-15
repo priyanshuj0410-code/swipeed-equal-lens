@@ -1,8 +1,8 @@
 "use client";
 
-// Firewall (node g40, ages 12–15, Chapter 4) — NEW v2 build to GDD 40 (mechanic-embodying). The teen
-// online-safety node (Thread B · Safety, Consent & Boundaries) — high-stakes safeguarding handled calm, never
-// fear-mongering — run on the shared v2 engine: its researched typed library + config (content/games/firewall.ts)
+// Firewall (node g40, ages 12-15, Chapter 4): NEW v2 build to GDD 40 (mechanic-embodying). The teen
+// online-safety node (Thread B · Safety, Consent & Boundaries): high-stakes safeguarding handled calm, never
+// fear-mongering: run on the shared v2 engine: its researched typed library + config (content/games/firewall.ts)
 // render the play actions (branch · strike-rewrite · spot · sort · role-play · reflect · match), led by the
 // safe-move chooser (branch), spot (grooming red flags) and role-play. Spot grooming & fakes, think before you
 // share, and the signature SEXTORTION PLAN: don't panic, don't pay, don't send more, it's NOT your fault, save

@@ -2,7 +2,7 @@
 
 import { Heart } from "lucide-react";
 
-// The character's Clarity meter — the run's stake (not player "lives"). Tints calm-teal when high,
+// The character's Clarity meter: the run's stake (not player "lives"). Tints calm-teal when high,
 // warm-amber as it dips, alarmed-red when low, so it reads as the story's mood-ring.
 function clarityColor(v: number): string {
   if (v >= 60) return "#62e08f"; // grounded

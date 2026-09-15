@@ -1,6 +1,6 @@
 "use client";
 
-// UN & RE — the unlearn–relearn duo behind the core principle (Unlearn → Relearn → Grow), now the
+// UN & RE: the unlearn, relearn duo behind the core principle (Unlearn → Relearn → Grow), now the
 // official Equal Lens characters: UN (the eraser, Insight teal) gently rubs out an old idea without
 // shame; RE (the pencil, Grow coral) redraws the truer one, with a reason. Shared so the duo looks the
 // same everywhere. (Art: /brand/un.svg, /brand/re.svg.)

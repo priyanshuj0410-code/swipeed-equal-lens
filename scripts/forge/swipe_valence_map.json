@@ -1,5 +1,5 @@
 {
-  "_doc": "Declared side valence for every swipe scenario, keyed by the exact left/right label pair. Replaces flagSide()'s prose regex, which mis-classified 16 shipped scenarios. PRINCIPLE: assert pos/neg ONLY where the content genuinely teaches safe-vs-unsafe (GLRL relationship safety, consent, scams). Media-literacy pairs (real vs staged/edited/ad) are FACTUAL discrimination, not moral judgement — they are neutral/neutral, because colouring 'Staged perfection' red would moralise about media instead of teaching how to tell the difference. An unmapped pair is a hard error, never a guess.",
+  "_doc": "Declared side valence for every swipe scenario, keyed by the exact left/right label pair. Replaces flagSide()'s prose regex, which mis-classified 16 shipped scenarios. PRINCIPLE: assert pos/neg ONLY where the content genuinely teaches safe-vs-unsafe (GLRL relationship safety, consent, scams). Media-literacy pairs (real vs staged/edited/ad) are FACTUAL discrimination, not moral judgement: they are neutral/neutral, because colouring 'Staged perfection' red would moralise about media instead of teaching how to tell the difference. An unmapped pair is a hard error, never a guess.",
 
   "Red flag|Green flag": ["neg", "pos"],
   "Safe move|Red flag": ["pos", "neg"],

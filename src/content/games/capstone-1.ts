@@ -1,7 +1,7 @@
-// Content for Capstone 1 — My First Friends (node c1, Chapter 1 graduation, ages 3–6). NEW rich build to
+// Content for Capstone 1: My First Friends (node c1, Chapter 1 graduation, ages 3-6). NEW rich build to
 // GDD c1 ("Capstone format v1"), the REFERENCE implementation the other capstones follow. Not a lesson,
 // never a test: a joyful, no-fail celebration that consolidates the chapter's six big truths through spaced,
-// VARIED retrieval (each truth re-cued through a different mechanic — gallery · match · sort · build · spot ·
+// VARIED retrieval (each truth re-cued through a different mechanic: gallery · match · sort · build · spot ·
 // swipe), then blooms the Friendship Garden and awards a graduation sticker. Faithful from the Landing JSON,
 // rendered by the shared rich engine (components/games/capstone-rich.tsx). gameId "capstone-1" (the Landing's
 // "capstone-ch1" is design-doc only). DO NOT RENAME.
@@ -15,7 +15,7 @@ export const CAPSTONE_1: CapstoneConfig = {
   chapter: 1,
   ages: "3-6",
   arrival: "Lensy: you did it! Look, every seed you planted in Chapter 1 is about to bloom. Let's take a happy walk back through everything you learned.",
-  canvasPayoff: "The whole Friendship Garden bursts into bloom — every flower you grew in Chapter 1 opens at once — and Lensy hangs your stickers in the sky like little suns.",
+  canvasPayoff: "The whole Friendship Garden bursts into bloom. Every flower you grew in Chapter 1 opens at once, and Lensy hangs your stickers in the sky like little suns.",
   threadsRecapped: ["C", "A", "D", "E"],
   recap: [
     {"node":"g01","game":"Feelings Friends","thread":"C · Feelings & Life Skills","bigTruth":"All your feelings are okay, you can name them, and you can say a big NO.","glyph":"feelings-faces"},

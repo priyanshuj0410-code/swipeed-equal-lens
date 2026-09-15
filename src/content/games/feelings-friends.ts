@@ -1,16 +1,16 @@
-// Content for Feelings Friends (node g01, ages 3–6) — reworked to GDD 01 v2 (mechanic-embodying). "Name
+// Content for Feelings Friends (node g01, ages 3-6): reworked to GDD 01 v2 (mechanic-embodying). "Name
 // it, and it gets smaller." The very first node and the base for everything: 84 researched scenarios across
 // six categories, each re-encoded to one of the seven shared v2 play actions (reflect / role-play /
-// strike-rewrite / branch / sort / match / build) — no binary "tap the right card". Affect labelling +
+// strike-rewrite / branch / sort / match / build): no binary "tap the right card". Affect labelling +
 // CASEL-aligned SEL; all feelings valid, feeling vs action; both directions (boys cry, girls get angry);
 // the big "no" + ask a trusted grown-up. Empower never frighten; no WRONG buzzer (reflects have no wrong
 // answer). Rendered by the shared engine (components/games/v2-engine.tsx).
-// gameId "feelings" — node.game === GameDone key === engine-host id. DO NOT RENAME.
+// gameId "feelings": node.game === GameDone key === engine-host id. DO NOT RENAME.
 
 import type { Scenario, V2GameConfig } from "./v2-schema";
 
 const SCENARIOS: Scenario[] = [
-  // — Name feelings —
+  // Name feelings
   {"id":"ff-001","cat":"name-feelings","type":"match","hook":"Lensy's Feelings Friends show their faces. Match the face to the feeling.","pairs":[{"left":"Big smile, bright eyes","right":"Happy"},{"left":"Tears, droopy mouth","right":"Sad"},{"left":"Scrunched, red face","right":"Angry"},{"left":"Wide eyes, still body","right":"Scared"},{"left":"Big yawn, slow blinks","right":"Tired"}],"relearn":"You can name feelings by looking at faces, happy, sad, angry, scared.","persona":"Aria","source":"affect labelling / CASEL"},
   {"id":"ff-002","cat":"name-feelings","type":"role-play","hook":"You feel something big inside.","setup":"Name it out loud (it helps!). Say:","yourLine":[{"text":"\"I feel ___.\"","best":true},{"text":"Keep it hidden"}],"relearn":"Naming a feeling out loud helps it feel smaller.","persona":"Aria","source":"affect labelling / voice"},
   {"id":"ff-003","cat":"name-feelings","type":"match","hook":"Match the moment to the feeling it might bring.","pairs":[{"left":"You won a game","right":"Happy / proud"},{"left":"Your toy broke","right":"Sad"},{"left":"Someone took your turn","right":"Angry"},{"left":"A big dog ran up","right":"Scared"},{"left":"You waited a long time","right":"Bored"}],"relearn":"Different moments bring different feelings, all with names.","persona":"any","source":"affect labelling"},
@@ -24,7 +24,7 @@ const SCENARIOS: Scenario[] = [
   {"id":"ff-011","cat":"name-feelings","type":"sort","hook":"Sort: a feeling, or a thing you DO?","items":[{"id":"a","text":"Angry"},{"id":"b","text":"Hitting"},{"id":"c","text":"Sad"},{"id":"d","text":"Shouting"},{"id":"e","text":"Scared"},{"id":"f","text":"Stomping"}],"bins":[{"id":"feel","label":"A feeling","valence":"neutral"},{"id":"do","label":"A thing you do","valence":"uhoh"}],"key":{"a":"feel","b":"do","c":"feel","d":"do","e":"feel","f":"do"},"relearn":"Feelings (angry, sad) are different from actions (hitting, shouting).","persona":"any","source":"feeling vs action"},
   {"id":"ff-012","cat":"name-feelings","type":"build","hook":"Build a feelings face for the Feelings Friend.","prompt":"Pick parts to show 'happy'.","pieces":["smiling mouth","bright eyes","raised cheeks","droopy mouth"],"mode":"assemble","key":["smiling mouth","bright eyes","raised cheeks"],"relearn":"Faces show feelings; you can read and make them.","persona":"any","source":"affect labelling"},
 
-  // — All feelings okay —
+  // All feelings okay
   {"id":"ff-013","cat":"all-okay","type":"strike-rewrite","hook":"\"Big boys don't cry.\"","myth":{"un":"Big boys don't cry.","re":"Everyone cries; crying lets big feelings out.","why":"Tears are for every kid, every gender."},"relearn":"It's okay for anyone to cry.","persona":"Vihaan","source":"emotional health (links g04)"},
   {"id":"ff-014","cat":"all-okay","type":"strike-rewrite","hook":"\"Good girls don't get angry.\"","myth":{"un":"Good girls don't get angry.","re":"Anger is okay for everyone; what matters is what you do with it.","why":"Every feeling, including anger, is allowed."},"relearn":"It's okay to feel angry; we choose kind actions.","persona":"Aria","source":"emotional health"},
   {"id":"ff-015","cat":"all-okay","type":"sort","hook":"Sort: a feeling (always okay to have), or an action (you choose)?","items":[{"id":"a","text":"Feeling sad"},{"id":"b","text":"Hitting someone"},{"id":"c","text":"Feeling angry"},{"id":"d","text":"Snatching a toy"},{"id":"e","text":"Feeling scared"},{"id":"f","text":"Pushing in line"}],"bins":[{"id":"ok","label":"A feeling (okay)","valence":"pos"},{"id":"do","label":"An action (you choose)","valence":"uhoh"}],"key":{"a":"ok","b":"do","c":"ok","d":"do","e":"ok","f":"do"},"relearn":"Every feeling is okay to have; the action is what we choose.","persona":"any","source":"emotion validation"},
@@ -38,7 +38,7 @@ const SCENARIOS: Scenario[] = [
   {"id":"ff-023","cat":"all-okay","type":"reflect","hook":"Lensy: even Lensy feels scared sometimes. Does everyone?","prompt":"What do you think?","options":["Yes, everyone","Even grown-ups","Me too sometimes"],"affirm":"Yes, every single person feels every kind of feeling sometimes.","relearn":"Everyone, even grown-ups, feels all the feelings sometimes.","persona":"any","source":"emotion validation"},
   {"id":"ff-024","cat":"all-okay","type":"match","hook":"Match the okay-feeling to a kind thing to do with it.","pairs":[{"left":"Angry","right":"Take big breaths"},{"left":"Sad","right":"Ask for a hug"},{"left":"Scared","right":"Tell a trusted grown-up"},{"left":"Jealous","right":"Say how you feel"},{"left":"Lonely","right":"Find someone to sit with"}],"relearn":"Every feeling has a kind, safe thing you can do with it.","persona":"any","source":"emotion regulation"},
 
-  // — Calm big feelings —
+  // Calm big feelings
   {"id":"ff-025","cat":"calm-down","type":"role-play","hook":"A big feeling is bubbling up. Let's calm it.","setup":"Breathe with Lensy. Say and do:","yourLine":[{"text":"\"Smell the flower... blow the candle...\" (slow breaths)","best":true},{"text":"Hold my breath and tense up"}],"relearn":"Slow breaths (smell the flower, blow the candle) calm big feelings.","persona":"any","source":"calming / breathing"},
   {"id":"ff-026","cat":"calm-down","type":"build","hook":"Build your calm-down kit.","prompt":"Add things that help you feel calm.","pieces":["slow breaths","a hug","counting to five","a quiet spot","a cuddly toy"],"mode":"assemble","key":["slow breaths","a hug","counting to five","a quiet spot","a cuddly toy"],"relearn":"Your calm-down kit: breaths, a hug, counting, a quiet spot.","persona":"any","source":"calming strategies"},
   {"id":"ff-027","cat":"calm-down","type":"branch","hook":"You're so angry you want to explode.","options":[{"text":"Take five big breaths first","consequence":"The big feeling shrinks enough to think.","outcome":"calm","best":true},{"text":"Shout and stomp at everyone","consequence":"The feeling stays big and others get upset.","outcome":"missed"}],"debrief":"Breaths first; they make the big feeling smaller.","relearn":"Big breaths help before you do anything else.","persona":"Vihaan","source":"emotion regulation"},
@@ -50,7 +50,7 @@ const SCENARIOS: Scenario[] = [
   {"id":"ff-033","cat":"calm-down","type":"branch","hook":"Your friend is having a big-feeling meltdown.","options":[{"text":"Stay calm and offer them a breath or space","consequence":"They start to settle; you helped.","outcome":"kind","best":true},{"text":"Yell at them to stop","consequence":"They get more upset.","outcome":"missed"}],"debrief":"Calm helps calm; offer a breath or some space.","relearn":"You can help a friend calm down by staying gentle.","persona":"any","source":"co-regulation"},
   {"id":"ff-034","cat":"calm-down","type":"reflect","hook":"Lensy: after you calm down, the feeling is still there but smaller. Notice that?","prompt":"What do you think?","options":["Yes","It gets smaller","I can think better"],"affirm":"Yes, calming doesn't erase the feeling; it makes it small enough to handle.","relearn":"Calming makes a big feeling small enough to handle.","persona":"any","source":"emotion regulation"},
 
-  // — How others feel —
+  // How others feel
   {"id":"ff-035","cat":"empathy","type":"branch","hook":"A friend is crying because they fell down.","options":[{"text":"Go over and ask \"are you okay?\"","consequence":"They feel cared for and calmer.","outcome":"kind","best":true},{"text":"Walk past","consequence":"They feel alone with the hurt.","outcome":"missed"}],"debrief":"Noticing and caring is what feelings friends do.","relearn":"When someone's sad, asking \"are you okay?\" helps a lot.","persona":"any","source":"empathy"},
   {"id":"ff-036","cat":"empathy","type":"match","hook":"Read your friends' faces. Match face to feeling.","pairs":[{"left":"Trembling lip","right":"About to cry"},{"left":"Stomping feet","right":"Frustrated"},{"left":"Hiding behind a parent","right":"Shy or scared"},{"left":"Big open smile","right":"Happy"},{"left":"Slumped shoulders","right":"Tired or low"}],"relearn":"Reading faces and bodies helps you know how a friend feels.","persona":"any","source":"empathy / emotion reading"},
   {"id":"ff-037","cat":"empathy","type":"branch","hook":"A new kid looks nervous and alone on the first day.","options":[{"text":"Smile and say \"want to play with me?\"","consequence":"They relax; you made the day better.","outcome":"kind","best":true},{"text":"Leave them be","consequence":"They stay nervous and lonely.","outcome":"missed"}],"debrief":"A small kindness can change how someone feels.","relearn":"You can help someone's nervous feeling with a friendly hello.","persona":"Kabir","source":"empathy / inclusion"},
@@ -61,7 +61,7 @@ const SCENARIOS: Scenario[] = [
   {"id":"ff-042","cat":"empathy","type":"match","hook":"Match the friend's feeling to a kind helper-action.","pairs":[{"left":"Sad","right":"A hug or a listen"},{"left":"Angry","right":"Give space, stay calm"},{"left":"Scared","right":"Stay close, get a grown-up"},{"left":"Left out","right":"Invite them to play"},{"left":"Proud","right":"Say \"that's wonderful!\""}],"relearn":"Each feeling a friend has, has a kind way you can help.","persona":"any","source":"empathy"},
   {"id":"ff-043","cat":"empathy","type":"reflect","hook":"Lensy: being a good feelings friend means noticing others. Can you?","prompt":"What do you think?","options":["Yes","I can notice","I'll try"],"affirm":"Noticing how others feel is a wonderful, kind skill.","relearn":"Noticing others' feelings is part of being a kind friend.","persona":"any","source":"empathy"},
 
-  // — No & ask for help —
+  // No & ask for help
   {"id":"ff-044","cat":"big-no-help","type":"role-play","hook":"Someone is doing something you don't like.","setup":"Use your big 'no'. Say:","yourLine":[{"text":"\"No! I don't like that.\"","best":true},{"text":"Stay quiet and feel bad"}],"relearn":"Your big 'no' is strong and okay to use (links My Body, My Rules).","persona":"Aria","source":"assertiveness / voice"},
   {"id":"ff-045","cat":"big-no-help","type":"branch","hook":"You feel scared and don't know what to do.","options":[{"text":"Go tell a trusted grown-up","consequence":"They help you feel safe.","outcome":"safe","best":true},{"text":"Keep it to yourself","consequence":"The scared feeling stays heavy and alone.","outcome":"missed"}],"debrief":"Telling a trusted grown-up is what to do with a scared feeling.","relearn":"When you're scared, tell a trusted grown-up.","persona":"any","source":"help-seeking (links g08)"},
   {"id":"ff-046","cat":"big-no-help","type":"strike-rewrite","hook":"\"Asking for help means you're weak.\"","myth":{"un":"Asking for help means you're weak.","re":"Asking for help is smart and brave.","why":"Everyone needs help sometimes."},"relearn":"Asking for help is a brave, smart thing to do.","persona":"any","source":"help-seeking"},
@@ -72,7 +72,7 @@ const SCENARIOS: Scenario[] = [
   {"id":"ff-051","cat":"big-no-help","type":"reflect","hook":"Lensy: it's brave to say 'no' and brave to ask for help. Agree?","prompt":"What do you think?","options":["Yes","Both are brave","I can do both"],"affirm":"Yes, saying no and asking for help are both brave and strong.","relearn":"Saying no and asking for help are both brave.","persona":"Aria","source":"assertiveness"},
   {"id":"ff-052","cat":"big-no-help","type":"role-play","hook":"A grown-up you trust asks how you're feeling.","setup":"Be honest with them. Say:","yourLine":[{"text":"\"Actually, I feel ___ today.\"","best":true},{"text":"\"Fine\" (when you're not)"}],"relearn":"Telling a trusted grown-up how you really feel helps.","persona":"any","source":"emotion expression / voice"},
 
-  // — My feelings —
+  // My feelings
   {"id":"ff-053","cat":"my-feelings","type":"reflect","hook":"Lensy: which Feelings Friend feels most like you today?","prompt":"Point to one.","options":["Happy one","Calm one","Excited one","Wobbly one"],"affirm":"Thanks for sharing. However you feel today, it's okay.","relearn":"Checking in on your own feeling is a daily superpower.","persona":"any","source":"emotional awareness"},
   {"id":"ff-054","cat":"my-feelings","type":"build","hook":"Build your own Feelings Friend.","prompt":"Give them a feeling and a calmer.","pieces":["a feeling face","a calming move","a kind helper","a big 'no'"],"mode":"assemble","key":["a feeling face","a calming move","a kind helper","a big 'no'"],"relearn":"Your Feelings Friend knows: name it, calm it, get help, say no.","persona":"any","source":"consolidation"},
   {"id":"ff-055","cat":"my-feelings","type":"strike-rewrite","hook":"\"Some feelings should never be shown.\"","myth":{"un":"Some feelings should never be shown.","re":"All feelings can be shown in kind, safe ways.","why":"Showing feelings safely is healthy."},"relearn":"All feelings can be shown safely and kindly.","persona":"any","source":"emotion expression"},
@@ -82,76 +82,76 @@ const SCENARIOS: Scenario[] = [
   {"id":"ff-059","cat":"my-feelings","type":"match","hook":"Match the feelings skill to what it does.","pairs":[{"left":"Name it","right":"Makes it smaller"},{"left":"Calm it","right":"Helps you think"},{"left":"Share it","right":"Makes it lighter"},{"left":"Breathe slow","right":"Settles your body"},{"left":"Wait a beat","right":"Stops a quick mistake"}],"relearn":"Name it, calm it, share it, breathe, and wait, your feelings skills.","persona":"any","source":"SEL skills"},
   {"id":"ff-060","cat":"my-feelings","type":"reflect","hook":"Lensy: you're a Feelings Friend now. What will you remember?","prompt":"Pick your motto.","options":["All feelings are okay","Name it to tame it","I can ask for help","I can say no"],"affirm":"Carry that. You know how to be a great friend to your feelings.","relearn":"Name feelings, all are okay, calm the big ones, say no, ask for help.","persona":"any","source":"consolidation"},
 
-  // — Name feelings —
+  // Name feelings
   {"id":"ff-061","cat":"name-feelings","type":"branch","hook":"You can't tell what you're feeling, it's just 'big'.","options":[{"text":"Try naming a few: \"mad? sad? worried?\"","consequence":"One name fits; the big feeling gets clearer.","outcome":"healthy","best":true},{"text":"Give up and stay upset","consequence":"The cloudy feeling stays confusing.","outcome":"missed"}],"debrief":"Trying out feeling-words helps you find the right one.","relearn":"If a feeling is fuzzy, try a few names until one fits.","persona":"any","source":"affect labelling"},
 
-  // — All feelings okay —
+  // All feelings okay
   {"id":"ff-062","cat":"all-okay","type":"role-play","hook":"A friend says \"don't cry, that's silly.\"","setup":"Stand up for feelings. Say:","yourLine":[{"text":"\"It's okay to cry. Crying helps.\"","best":true},{"text":"Agree and hold the tears in"}],"relearn":"You can remind a friend that crying is okay.","persona":"Vihaan","source":"emotion validation / voice"},
 
-  // — Calm big feelings —
+  // Calm big feelings
   {"id":"ff-063","cat":"calm-down","type":"build","hook":"Build a breathing pattern to use anytime.","prompt":"Order a calming breath.","pieces":["breathe in slow (smell the flower)","hold a tiny moment","breathe out slow (blow the candle)"],"mode":"sequence","key":["breathe in slow (smell the flower)","hold a tiny moment","breathe out slow (blow the candle)"],"relearn":"In slow, tiny hold, out slow, your calming breath.","persona":"any","source":"breathing"},
 
-  // — How others feel —
+  // How others feel
   {"id":"ff-064","cat":"empathy","type":"branch","hook":"You see someone left out and looking sad at the park.","options":[{"text":"Invite them: \"want to play?\"","consequence":"Their sad feeling lifts; you made a friend.","outcome":"kind","best":true},{"text":"Carry on without them","consequence":"They stay sad and alone.","outcome":"missed"}],"debrief":"Noticing a sad feeling and acting kindly is real empathy.","relearn":"You can lift someone's sad feeling by including them.","persona":"Kabir","source":"empathy / inclusion"},
 
-  // — No & ask for help —
+  // No & ask for help
   {"id":"ff-065","cat":"big-no-help","type":"strike-rewrite","hook":"\"You shouldn't bother grown-ups with your feelings.\"","myth":{"un":"You shouldn't bother grown-ups with your feelings.","re":"Trusted grown-ups want to help with your feelings.","why":"Helping you is their job and joy."},"relearn":"Trusted grown-ups are glad to help with your feelings.","persona":"any","source":"help-seeking"},
 
-  // — My feelings —
+  // My feelings
   {"id":"ff-066","cat":"my-feelings","type":"reflect","hook":"Lensy: being kind to yourself when you feel bad helps. Agree?","prompt":"What do you think?","options":["Yes","Be gentle with me","Self-kindness helps"],"affirm":"Yes, being gentle with yourself helps big feelings settle.","relearn":"Being kind to yourself helps you through hard feelings.","persona":"any","source":"self-compassion"},
 
-  // — Name feelings —
+  // Name feelings
   {"id":"ff-067","cat":"name-feelings","type":"sort","hook":"Sort the feelings into 'comfy' and 'uncomfy' (both okay!).","items":[{"id":"a","text":"Joy"},{"id":"b","text":"Worry"},{"id":"c","text":"Love"},{"id":"d","text":"Frustration"},{"id":"e","text":"Calm"},{"id":"f","text":"Jealousy"}],"bins":[{"id":"comfy","label":"Comfy feeling","valence":"pos"},{"id":"uncomfy","label":"Uncomfy feeling","valence":"uhoh"}],"key":{"a":"comfy","b":"uncomfy","c":"comfy","d":"uncomfy","e":"comfy","f":"uncomfy"},"relearn":"Comfy and uncomfy feelings are all okay to have.","persona":"any","source":"emotion validation"},
 
-  // — All feelings okay —
+  // All feelings okay
   {"id":"ff-068","cat":"all-okay","type":"branch","hook":"You feel embarrassed after a mistake in front of friends.","options":[{"text":"Tell yourself \"everyone makes mistakes, it's okay\"","consequence":"The embarrassment fades faster.","outcome":"healthy","best":true},{"text":"Decide everyone hates you","consequence":"You feel worse over a normal slip.","outcome":"missed"}],"debrief":"Embarrassment is okay and passes; mistakes are normal.","relearn":"Embarrassment is okay; everyone makes mistakes.","persona":"Aria","source":"self-compassion"},
 
-  // — Calm big feelings —
+  // Calm big feelings
   {"id":"ff-069","cat":"calm-down","type":"match","hook":"Match the calmer to where you might use it.","pairs":[{"left":"Breaths","right":"Anywhere, anytime"},{"left":"Quiet corner","right":"At home or school"},{"left":"Talk to a grown-up","right":"When it's really big"},{"left":"A cuddly toy","right":"At bedtime"},{"left":"Counting to five","right":"While you wait"}],"relearn":"You have calmers for every place and every size of feeling.","persona":"any","source":"calming strategies"},
 
-  // — How others feel —
+  // How others feel
   {"id":"ff-070","cat":"empathy","type":"role-play","hook":"Your friend is proud of something they made.","setup":"Share their happy feeling. Say:","yourLine":[{"text":"\"Wow, you must feel so proud!\"","best":true},{"text":"\"It's not that great.\""}],"relearn":"Naming a friend's happy feeling makes it even bigger.","persona":"any","source":"empathy / shared joy"},
 
-  // — No & ask for help —
+  // No & ask for help
   {"id":"ff-071","cat":"big-no-help","type":"branch","hook":"You feel a feeling so big it's scary.","options":[{"text":"Breathe, then tell a trusted grown-up","consequence":"You're not alone; together it feels manageable.","outcome":"safe","best":true},{"text":"Try to handle it all alone","consequence":"It stays overwhelming.","outcome":"missed"}],"debrief":"Really big feelings are easier with a grown-up's help.","relearn":"For very big feelings: breathe, then tell a trusted grown-up.","persona":"any","source":"co-regulation"},
 
-  // — My feelings —
+  // My feelings
   {"id":"ff-072","cat":"my-feelings","type":"reflect","hook":"Lensy: your feelings are like friends, even the tricky ones. Treat them kindly?","prompt":"What do you think?","options":["Yes","They're part of me","I'll be kind to them"],"affirm":"Your feelings are part of you; treating them kindly helps you thrive.","relearn":"All your feelings are part of you and deserve kindness.","persona":"any","source":"self-compassion"},
 
-  // — Name feelings —
+  // Name feelings
   {"id":"ff-073","cat":"name-feelings","type":"match","hook":"Last feelings to name. Match the face to the word.","pairs":[{"left":"Proud, tall, beaming","right":"Proud"},{"left":"Confused, head tilted","right":"Confused"},{"left":"Calm, soft, easy","right":"Calm"},{"left":"Surprised, mouth open","right":"Surprised"},{"left":"Shy, looking down","right":"Shy"}],"relearn":"Proud, confused, calm, more feelings you can name.","persona":"any","source":"affect labelling"},
 
-  // — All feelings okay —
+  // All feelings okay
   {"id":"ff-074","cat":"all-okay","type":"sort","hook":"Sort: the feeling, or the action? (Remember: feelings okay, some actions not.)","items":[{"id":"a","text":"Feeling furious"},{"id":"b","text":"Breaking a toy on purpose"},{"id":"c","text":"Feeling left out"},{"id":"d","text":"Pushing in line"},{"id":"e","text":"Feeling worried"},{"id":"f","text":"Grabbing a snack from someone"}],"bins":[{"id":"feel","label":"A feeling (okay)","valence":"pos"},{"id":"do","label":"An action (choose kind)","valence":"uhoh"}],"key":{"a":"feel","b":"do","c":"feel","d":"do","e":"feel","f":"do"},"relearn":"Feelings are always okay; we still choose kind actions.","persona":"any","source":"feeling vs action"},
 
-  // — Calm big feelings —
+  // Calm big feelings
   {"id":"ff-075","cat":"calm-down","type":"branch","hook":"You're frustrated with a puzzle that won't work.","options":[{"text":"Breathe, then try again or ask for help","consequence":"You calm down and often crack it.","outcome":"growth","best":true},{"text":"Throw the puzzle","consequence":"It's still not done and now you're crosser.","outcome":"missed"}],"debrief":"Frustration is okay; breathe and try again (links Can-Do Kids).","relearn":"When frustrated, breathe and try again or ask for help.","persona":"Vihaan","source":"emotion regulation"},
 
-  // — How others feel —
+  // How others feel
   {"id":"ff-076","cat":"empathy","type":"sort","hook":"Sort: a kind feelings-friend move, or not?","items":[{"id":"a","text":"Listening when someone's upset"},{"id":"b","text":"Teasing a crier"},{"id":"c","text":"Sharing a happy moment"},{"id":"d","text":"Ignoring a hurt friend"},{"id":"e","text":"Sharing your snack with them"},{"id":"f","text":"Copying their sad voice to mock"}],"bins":[{"id":"kind","label":"Kind move","valence":"pos"},{"id":"no","label":"Not kind","valence":"neg"}],"key":{"a":"kind","b":"no","c":"kind","d":"no","e":"kind","f":"no"},"relearn":"Listening, sharing and including are kind; teasing and ignoring aren't.","persona":"any","source":"empathy"},
 
-  // — No & ask for help —
+  // No & ask for help
   {"id":"ff-077","cat":"big-no-help","type":"role-play","hook":"Practise your big, clear 'no'.","setup":"Loud and proud (not shouting, just strong):","yourLine":[{"text":"\"No. I don't want to.\"","best":true},{"text":"A tiny whisper, then give in"}],"relearn":"A clear, calm 'no' is a feelings-and-safety superpower.","persona":"Aria","source":"assertiveness / voice"},
 
-  // — My feelings —
+  // My feelings
   {"id":"ff-078","cat":"my-feelings","type":"build","hook":"Build today's feelings check-in.","prompt":"Pick your feeling and one thing that helps.","pieces":["my feeling now","one calmer","one person I can tell"],"mode":"assemble","key":["my feeling now","one calmer","one person I can tell"],"relearn":"A check-in: name your feeling, a calmer, and who you can tell.","persona":"any","source":"SEL routine"},
 
-  // — Calm big feelings —
+  // Calm big feelings
   {"id":"ff-079","cat":"calm-down","type":"reflect","hook":"Lensy: which calmer will you try next time a feeling gets big?","prompt":"Pick one to remember.","options":["Slow breaths","A hug","Quiet spot","Tell a grown-up"],"affirm":"Great pick. Having a plan makes big feelings less scary.","relearn":"Having a go-to calmer makes big feelings easier.","persona":"any","source":"self-regulation"},
 
-  // — How others feel —
+  // How others feel
   {"id":"ff-080","cat":"empathy","type":"branch","hook":"Capstone: two friends both need you, one's sad, one's excited.","options":[{"text":"Comfort the sad one, then celebrate with the happy one","consequence":"Both feel seen; you're a great feelings friend.","outcome":"kind","best":true},{"text":"Only join the fun one","consequence":"The sad friend feels forgotten.","outcome":"missed"}],"debrief":"A good feelings friend makes room for everyone's feelings.","relearn":"You can care for different friends' feelings, one at a time.","persona":"any","source":"empathy / consolidation"},
 
-  // — All feelings okay —
+  // All feelings okay
   {"id":"ff-081","cat":"all-okay","type":"reflect","hook":"Lensy: say it with me, all feelings are...?","prompt":"Finish it.","options":["okay","allowed","part of being human"],"affirm":"All feelings are okay. It's what we do with them that we choose.","relearn":"All feelings are okay; we choose kind actions.","persona":"any","source":"consolidation"},
 
-  // — My feelings —
+  // My feelings
   {"id":"ff-082","cat":"my-feelings","type":"reflect","hook":"Lensy: you've met all the Feelings Friends. How do you feel?","prompt":"Pick one.","options":["Happy","Proud","Calm","Ready"],"affirm":"You're a true Feelings Friend now, to others and to yourself.","relearn":"You can name, calm and share feelings, and help others too.","persona":"any","source":"consolidation"},
 
-  // — No & ask for help —
+  // No & ask for help
   {"id":"ff-083","cat":"big-no-help","type":"reflect","hook":"Lensy: who is one grown-up you'd tell about a big feeling?","prompt":"Picture them.","options":["A parent","A grandparent","A teacher","Someone I trust"],"affirm":"Keep that person in mind, they're part of your feelings team.","relearn":"You have grown-ups on your feelings team; know who they are.","persona":"any","source":"trusted adults"},
 
-  // — Name feelings —
+  // Name feelings
   {"id":"ff-084","cat":"name-feelings","type":"role-play","hook":"Start your day the Feelings Friend way.","setup":"Greet your feeling. Say:","yourLine":[{"text":"\"Good morning feeling, I see you, you're okay.\"","best":true},{"text":"Pretend I don't feel anything"}],"relearn":"Greeting your feelings each day keeps you their friend.","persona":"any","source":"emotional awareness / voice"},
   {"id":"ff-900","cat":"all-okay","type":"strike-rewrite","hook":"\"Brave kids never get scared.\"","myth":{"un":"Brave kids never get scared.","re":"Brave kids feel scared and try anyway.","why":"Feeling scared is what makes a thing brave to do."},"relearn":"Feeling scared and being brave can both be true at once.","persona":"any","source":"emotion validation"},
   {"id":"ff-901","cat":"all-okay","type":"strike-rewrite","hook":"\"Only babies cry at drop-off.\"","myth":{"un":"Only babies cry at drop-off.","re":"Anyone can cry when they miss someone.","why":"Missing your family is a big feeling for every age."},"relearn":"Crying when you miss someone is okay for any kid.","persona":"Kabir","source":"emotion validation"},
@@ -368,13 +368,13 @@ const SCENARIOS: Scenario[] = [
   {"id":"ff-1188","cat":"empathy","type":"branch","hook":"A girl in your class always sits alone at break.","options":[{"text":"Sit with her and ask about her favourite game","consequence":"She lights up; she feels noticed.","outcome":"kind","best":true},{"text":"Decide she likes being alone and ignore her","consequence":"She stays lonely.","outcome":"missed"}],"debrief":"Noticing someone alone and reaching out is real empathy.","relearn":"Reaching out to someone alone can lift their lonely feeling.","persona":"any","source":"empathy / inclusion"},
   {"id":"ff-1189","cat":"empathy","type":"branch","hook":"Your friend is scared to go down the big slide at the park.","options":[{"text":"Say \"it's okay to feel scared, I'll wait with you\"","consequence":"They feel safe and braver.","outcome":"kind","best":true},{"text":"Push them to hurry up","consequence":"They feel rushed and more scared.","outcome":"missed"}],"debrief":"Patience and \"it's okay to feel scared\" help a friend.","relearn":"Letting a friend feel scared, and waiting, is kind.","persona":"any","source":"empathy"},
   {"id":"ff-1190","cat":"empathy","type":"branch","hook":"At a birthday party one child didn't get a return gift and looks sad.","options":[{"text":"Tell the host quietly so they can fix it","consequence":"The child gets one and feels included.","outcome":"kind","best":true},{"text":"Wave your gift in their face","consequence":"They feel left out and worse.","outcome":"unkind"}],"debrief":"Noticing a left-out friend and helping quietly is kind.","relearn":"Helping someone left out feel included is empathy.","persona":"any","source":"empathy / inclusion"},
-  {"id":"ff-1191","cat":"empathy","type":"reflect","hook":"Lensy: how do you know when a friend feels sad?","prompt":"Pick what you'd look for.","options":["Their face looks droopy","They go quiet","Their eyes get teary"],"affirm":"Yes — faces and bodies show us how friends feel. Good noticing.","relearn":"You can notice a friend's feeling from their face and body.","persona":"any","source":"empathy / noticing"},
+  {"id":"ff-1191","cat":"empathy","type":"reflect","hook":"Lensy: how do you know when a friend feels sad?","prompt":"Pick what you'd look for.","options":["Their face looks droopy","They go quiet","Their eyes get teary"],"affirm":"Yes, faces and bodies show us how friends feel. Good noticing.","relearn":"You can notice a friend's feeling from their face and body.","persona":"any","source":"empathy / noticing"},
   {"id":"ff-1192","cat":"empathy","type":"reflect","hook":"Lensy: a friend is happy. How could you share their joy?","prompt":"Pick one.","options":["Smile big with them","Say 'that's wonderful!'","Clap for them"],"affirm":"Sharing happy feelings makes them grow. Lovely.","relearn":"You can share in a friend's happy feeling too.","persona":"any","source":"empathy / shared joy"},
   {"id":"ff-1193","cat":"empathy","type":"reflect","hook":"Lensy: when could you ask someone \"are you okay?\"","prompt":"Pick a time.","options":["When they look sad","When they got hurt","When they're very quiet"],"affirm":"Asking \"are you okay?\" is a kind, caring thing to do anytime.","relearn":"Asking \"are you okay?\" shows a friend you care.","persona":"any","source":"empathy"},
   {"id":"ff-1194","cat":"empathy","type":"reflect","hook":"Lensy: a new friend feels shy. How might you help them feel welcome?","prompt":"Pick one.","options":["Smile at them","Say hello","Ask them to play"],"affirm":"Any warm welcome helps a shy friend feel they belong.","relearn":"A friendly welcome helps a shy friend feel safe.","persona":"any","source":"empathy / inclusion"},
   {"id":"ff-1195","cat":"empathy","type":"reflect","hook":"Lensy: a friend is angry. What kind thing could you do?","prompt":"Pick one.","options":["Give them space","Stay calm near them","Ask if they want to talk"],"affirm":"All of these are kind ways to be with an angry friend.","relearn":"You can be kind to an angry friend by staying calm.","persona":"any","source":"empathy"},
   {"id":"ff-1196","cat":"empathy","type":"reflect","hook":"Lensy: how does it feel inside when you help a friend?","prompt":"Pick one.","options":["Warm","Happy","Proud"],"affirm":"Helping a friend can feel warm and good inside. That's empathy.","relearn":"Helping others can feel warm and good inside.","persona":"any","source":"empathy / my feelings"},
-  {"id":"ff-1197","cat":"empathy","type":"reflect","hook":"Lensy: a friend is crying. Is it okay that they cry?","prompt":"What do you think?","options":["Yes, crying is okay","Everyone cries sometimes","Crying lets feelings out"],"affirm":"Yes — crying is okay for anyone, and being kind helps.","relearn":"Crying is okay; a kind friend stays near.","persona":"any","source":"empathy"},
+  {"id":"ff-1197","cat":"empathy","type":"reflect","hook":"Lensy: a friend is crying. Is it okay that they cry?","prompt":"What do you think?","options":["Yes, crying is okay","Everyone cries sometimes","Crying lets feelings out"],"affirm":"Yes, crying is okay for anyone, and being kind helps.","relearn":"Crying is okay; a kind friend stays near.","persona":"any","source":"empathy"},
   {"id":"ff-1198","cat":"empathy","type":"reflect","hook":"Lensy: noticing how others feel is a skill. Can you practise it?","prompt":"What do you think?","options":["Yes","I can try","I'll look at faces"],"affirm":"Noticing others' feelings gets easier the more you practise. Lovely.","relearn":"Noticing others' feelings is a skill you can practise.","persona":"any","source":"empathy / skill"},
   {"id":"ff-1199","cat":"empathy","type":"role-play","hook":"Your friend just heard their team lost and looks sad.","setup":"Say something caring:","yourLine":[{"text":"\"That's disappointing. I'm here with you.\"","best":true},{"text":"\"You should have played better.\""}],"relearn":"Caring words help a disappointed friend feel less alone.","persona":"any","source":"empathy / voice"},
   {"id":"ff-1200","cat":"empathy","type":"role-play","hook":"A friend tells you they're scared of the dark.","setup":"Say something kind:","yourLine":[{"text":"\"I get scared of the dark too sometimes.\"","best":true},{"text":"\"Only babies are scared of the dark.\""}],"relearn":"Saying \"me too\" helps a scared friend feel okay.","persona":"any","source":"empathy / me too"},
@@ -408,12 +408,12 @@ const SCENARIOS: Scenario[] = [
   {"id":"ff-1228","cat":"empathy","type":"build","hook":"Build a kit of clues that tell you how a friend feels.","prompt":"Pick the feeling-clues you can notice.","pieces":["Their face","Their voice","Their body","Their shoe size","Their colour shirt","What they say"],"mode":"assemble","key":["Their face","Their voice","Their body","What they say"],"relearn":"Faces, voices, bodies and words show how a friend feels.","persona":"any","source":"empathy / noticing"},
   {"id":"ff-1229","cat":"empathy","type":"build","hook":"Build a plan to comfort a friend who is scared.","prompt":"Put the steps in order.","pieces":["Notice they look scared","Move close and stay calm","Say \"I'm here, it's okay\"","Help them find a grown-up if needed"],"mode":"sequence","key":["Notice they look scared","Move close and stay calm","Say \"I'm here, it's okay\"","Help them find a grown-up if needed"],"relearn":"Notice, stay close, reassure, and get help if it's big.","persona":"Kabir","source":"empathy"},
   {"id":"ff-1230","cat":"empathy","type":"build","hook":"Build the kind things to do for a lonely classmate.","prompt":"Pick the kind moves.","pieces":["Sit with them","Ask them to play","Ignore them","Share your snack","Whisper about them","Say \"I'm glad you're here\""],"mode":"assemble","key":["Sit with them","Ask them to play","Share your snack","Say \"I'm glad you're here\""],"relearn":"Sitting, inviting and sharing help a lonely friend.","persona":"any","source":"empathy / inclusion"},
-  {"id":"ff-1231","cat":"empathy","type":"strike-rewrite","hook":"Some people think only sad friends need your help.","myth":{"un":"You only help a friend when they're sad.","re":"Sharing a friend's happy feeling is empathy too.","why":"Joining joy — \"I'm happy for you!\" — makes a friend's good feeling even bigger."},"relearn":"Sharing a friend's happy feeling is empathy too.","persona":"any","source":"empathy"},
+  {"id":"ff-1231","cat":"empathy","type":"strike-rewrite","hook":"Some people think only sad friends need your help.","myth":{"un":"You only help a friend when they're sad.","re":"Sharing a friend's happy feeling is empathy too.","why":"Joining joy by saying \"I'm happy for you!\" makes a friend's good feeling even bigger."},"relearn":"Sharing a friend's happy feeling is empathy too.","persona":"any","source":"empathy"},
   {"id":"ff-1232","cat":"empathy","type":"strike-rewrite","hook":"Some kids think you must fix every problem to help.","myth":{"un":"You have to fix everything to help a friend.","re":"Sometimes just being there is the kind thing.","why":"Sitting with a friend, or telling a grown-up, can help even when you can't fix it."},"relearn":"Sometimes just being there is the kind thing.","persona":"any","source":"empathy"},
-  {"id":"ff-1233","cat":"empathy","type":"strike-rewrite","hook":"Some people think only girls should comfort friends.","myth":{"un":"Only girls should comfort a crying friend.","re":"Anyone can be kind and comfort a friend.","why":"Caring and helping are for everyone — kindness has no gender."},"relearn":"Anyone can be kind and comfort a friend.","persona":"any","source":"empathy (links g04)"},
+  {"id":"ff-1233","cat":"empathy","type":"strike-rewrite","hook":"Some people think only girls should comfort friends.","myth":{"un":"Only girls should comfort a crying friend.","re":"Anyone can be kind and comfort a friend.","why":"Caring and helping are for everyone. Kindness has no gender."},"relearn":"Anyone can be kind and comfort a friend.","persona":"any","source":"empathy (links g04)"},
   {"id":"ff-1234","cat":"empathy","type":"strike-rewrite","hook":"Some kids think other people don't really feel things.","myth":{"un":"Other people don't feel things the way I do.","re":"Other people feel all the same feelings you do.","why":"Their happy, sad, scared and angry feelings are real and matter, just like yours."},"relearn":"Other people feel all the same feelings you do.","persona":"any","source":"empathy"},
   {"id":"ff-1235","cat":"empathy","type":"strike-rewrite","hook":"Some people think being kind means you can't have fun.","myth":{"un":"Stopping to help a friend ruins your fun.","re":"Helping a friend can feel warm and good.","why":"Being kind often feels nice inside, and friends help each other have fun together."},"relearn":"Helping a friend can feel warm and good.","persona":"any","source":"empathy"},
-  {"id":"ff-1236","cat":"empathy","type":"strike-rewrite","hook":"Some kids think you can read minds to know feelings.","myth":{"un":"You should just know how a friend feels.","re":"You notice a friend's feeling from their face, body and words.","why":"Looking and listening — and asking \"are you okay?\" — tell you how a friend feels."},"relearn":"You read a friend's feeling from face, body and words.","persona":"any","source":"empathy"},
+  {"id":"ff-1236","cat":"empathy","type":"strike-rewrite","hook":"Some kids think you can read minds to know feelings.","myth":{"un":"You should just know how a friend feels.","re":"You notice a friend's feeling from their face, body and words.","why":"Looking, listening and asking \"are you okay?\" tell you how a friend feels."},"relearn":"You read a friend's feeling from face, body and words.","persona":"any","source":"empathy"},
   {"id":"ff-1237","cat":"empathy","type":"strike-rewrite","hook":"Some people think laughing at a fall is just a joke.","myth":{"un":"Laughing when a friend trips is just funny.","re":"It can hurt their feelings; helping them up is kind.","why":"A friend that trips may feel embarrassed, and kindness helps that feeling more than laughter."},"relearn":"Helping a friend up is kinder than laughing.","persona":"any","source":"empathy"},
   {"id":"ff-1238","cat":"empathy","type":"strike-rewrite","hook":"Some kids think a left-out friend wants to be alone.","myth":{"un":"A friend sitting alone wants to be left alone.","re":"They may feel lonely; inviting them in is kind.","why":"Many kids sitting alone feel left out, and a friendly \"come play\" helps them feel they belong."},"relearn":"A left-out friend may want a friendly invite in.","persona":"any","source":"empathy"},
   {"id":"ff-1260","cat":"my-feelings","type":"reflect","hook":"Lensy: good morning! Which feeling woke up with you today?","prompt":"Point to one.","options":["Sleepy","Bouncy","Quiet","Bubbly"],"affirm":"Thanks for checking in. However you woke up, that feeling is welcome.","relearn":"A morning check-in builds the habit of knowing your own feeling.","persona":"any","source":"daily check-in"},
@@ -562,7 +562,7 @@ const SCENARIOS: Scenario[] = [
 export const FEELINGS: V2GameConfig = {
   gameId: "feelings",
   title: "Feelings Friends",
-  greet: "Hello! I'm Lensy. The Feelings Friends are here — and every feeling is okay. Let's play! 💛",
+  greet: "Hello! I'm Lensy. The Feelings Friends are here, and every feeling is okay. Let's play! 💛",
   scenarios: SCENARIOS,
   categories: [
   { id: "name-feelings", emoji: "😊", label: "Name feelings" },
@@ -576,6 +576,6 @@ export const FEELINGS: V2GameConfig = {
     title: "Feelings Friend! 🎉",
     blurb: "All feelings are okay, naming one makes it smaller, I can calm the big ones, and saying no and asking for help are brave. 💛",
   },
-  helpLine: "If a feeling gets too big, you can always ask a trusted grown-up for help — they want to help. 💛",
+  helpLine: "If a feeling gets too big, you can always ask a trusted grown-up for help. They want to help. 💛",
   helpLabel: "Ask a grown-up for help",
 };

@@ -1,4 +1,4 @@
-# forge — the content-growth pipeline (locked design)
+# forge: the content-growth pipeline (locked design)
 
 Grow every game's scenario bank from ~84 → **target 400** (full fleet; ~21.8k new scenarios), each
 GDD-grounded, persona-aligned, India-real, web-validated, in the typed v2 schema, ≤160/field, under its
@@ -6,7 +6,7 @@ chapter band ceiling, at the **upgraded mechanic shapes** (sort 6 items · spot 
 match 5 pairs). Reshape the legacy shapes too (797 sorts / 377 spots / 455 matches).
 
 ## Core principle (the whole point)
-**Anything a Python script can prove, a script MUST prove and BLOCK on — recomputed from the committed
+**Anything a Python script can prove, a script MUST prove and BLOCK on: recomputed from the committed
 `.ts`, never from an agent's self-report.** Only irreducibly semantic judgments (is this answer key correct?
 age-appropriate? a fresh idea or a reskin?) go to an **adversarial agent in a different context than the
 generator**, and even those are **force-triggered by deterministic tripwires** so the review can't be skipped
@@ -23,8 +23,8 @@ trust the generator's `needsFact` self-classification.
 
 ## Per-game flow
 1. **PLAN** (`forge_plan.py`) → `.forge/<gXX>/plan.json`: quota per (category × mechanic) sized from the
-   library's `leadMechanics`, **band-aware mechanic allowlist** (Ch.1–2 disallows spot/swipe unless the
-   library lists them — no "spot the predator" for ages 3–6), persona roster, band ceiling, intended_count,
+   library's `leadMechanics`, **band-aware mechanic allowlist** (Ch.1-2 disallows spot/swipe unless the
+   library lists them: no "spot the predator" for ages 3-6), persona roster, band ceiling, intended_count,
    existing fingerprints, and the legacy-reshape worklist.
 2. **GROUND**: an agent reads the 5 attested docs → `GROUNDING.md` (truth-anchors, persona voice, age band,
    exact helpline string, banned framings). `read_first.py --attest-expansion` hash-pins the docs.

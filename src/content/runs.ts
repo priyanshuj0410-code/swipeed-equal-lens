@@ -18,7 +18,7 @@ export const RUN_DECKS: RunDeck[] = [
     forks: [
       {
         afterStep: 4,
-        prompt: "“You're my whole world” — sweet, or too much, too fast? What do you tell Meera?",
+        prompt: "“You're my whole world”, sweet, or too much, too fast? What do you tell Meera?",
         choices: [
           { branch: "talk", label: "Talk it out", hint: "Name how it feels and see how he responds", teaches: "communication" },
           { branch: "brush", label: "Brush it off", hint: "Let it go and hope it settles", teaches: "(what happens if you don't speak up)" },
@@ -36,8 +36,8 @@ export const RUN_DECKS: RunDeck[] = [
       },
     ],
     resolution: {
-      clear: "Meera names the pattern — possessiveness dressed as love — and steps back with her head high.",
-      reflect: "The signs were there, weren't they? Let's look again together — no blame, just another read.",
+      clear: "Meera names the pattern, possessiveness dressed as love, and steps back with her head high.",
+      reflect: "The signs were there, weren't they? Let's look again together, no blame, just another read.",
     },
   },
   {
@@ -70,8 +70,8 @@ export const RUN_DECKS: RunDeck[] = [
       },
     ],
     resolution: {
-      clear: "Aisha sees it: this isn't banter, it's belittling — and she leans back toward the friends who lift her up.",
-      reflect: "Some of those 'jokes' were red flags. No worries — let's run the ones we missed and look again.",
+      clear: "Aisha sees it: this isn't banter, it's belittling, and she leans back toward the friends who lift her up.",
+      reflect: "Some of those 'jokes' were red flags. No worries. Let's run the ones we missed and look again.",
     },
   },
   {
@@ -104,8 +104,8 @@ export const RUN_DECKS: RunDeck[] = [
       },
     ],
     resolution: {
-      clear: "Rohan keeps his boundaries, saves the evidence, and tells a trusted adult — exactly right.",
-      reflect: "Some of those messages were more serious than they looked. Let's look again — and remember, Get Help is always one tap away.",
+      clear: "Rohan keeps his boundaries, saves the evidence, and tells a trusted adult: exactly right.",
+      reflect: "Some of those messages were more serious than they looked. Let's look again. Remember, Get Help is always one tap away.",
     },
   },
   {
@@ -120,7 +120,7 @@ export const RUN_DECKS: RunDeck[] = [
     forks: [
       {
         afterStep: 4,
-        prompt: "“Share your location for me” — caring, or controlling? What does Kabir do?",
+        prompt: "“Share your location for me”, caring, or controlling? What does Kabir do?",
         choices: [
           { branch: "talk", label: "Talk it out", hint: "Say he'd rather not", teaches: "communication" },
           { branch: "agree", label: "Agree", hint: "Turn it on to avoid a fuss", teaches: "(where it leads)" },
@@ -138,14 +138,14 @@ export const RUN_DECKS: RunDeck[] = [
       },
     ],
     resolution: {
-      clear: "Kabir names it — control wearing the mask of love — and stops shrinking himself to keep the peace.",
-      reflect: "A lot of that 'love' was really control. No blame — let's run the ones we missed and look again.",
+      clear: "Kabir names it, control wearing the mask of love, and stops shrinking himself to keep the peace.",
+      reflect: "A lot of that 'love' was really control. No blame. Let's run the ones we missed and look again.",
     },
   },
   {
     id: "family-boundaries",
     title: "Family & Boundaries",
-    blurb: "Care vs boundary-crossing at home. Help Anaya tell the difference — kindly.",
+    blurb: "Care vs boundary-crossing at home. Help Anaya tell the difference, kindly.",
     emoji: "🏠",
     accent: "oklch(0.72 0.13 145)",
     character: "anaya",
@@ -172,8 +172,8 @@ export const RUN_DECKS: RunDeck[] = [
       },
     ],
     resolution: {
-      clear: "Anaya holds her boundaries kindly — and knows a caring family respects a 'no'.",
-      reflect: "Some of that 'care' overstepped. Let's look again — and remember Get Help is one tap away.",
+      clear: "Anaya holds her boundaries kindly, and knows a caring family respects a 'no'.",
+      reflect: "Some of that 'care' overstepped. Let's look again, and remember Get Help is one tap away.",
     },
   },
   {
@@ -197,7 +197,7 @@ export const RUN_DECKS: RunDeck[] = [
       },
       {
         afterStep: 7,
-        prompt: "“It's just a dare — don't be boring.” How does Veer respond?",
+        prompt: "“It's just a dare. Don't be boring.” How does Veer respond?",
         choices: [
           { branch: "refuse", label: "Refuse", hint: "Say no clearly", teaches: "refusal" },
           { branch: "stall", label: "Stall", hint: "Put it off", teaches: "(why pressure escalates)" },
@@ -206,16 +206,16 @@ export const RUN_DECKS: RunDeck[] = [
       },
     ],
     resolution: {
-      clear: "Veer reads the difference between belonging and pressure — and the friends worth keeping show themselves.",
+      clear: "Veer reads the difference between belonging and pressure, and the friends worth keeping show themselves.",
       reflect: "Some of that 'fun' was pressure in disguise. Let's look again at the tricky ones.",
     },
   },
 ];
 
-/** The three playable story arcs (Boss Rush is a mode, not a story deck — kept out of this list). */
+/** The three playable story arcs (Boss Rush is a mode, not a story deck: kept out of this list). */
 export const STORY_DECKS = RUN_DECKS;
 
-// Boss Rush: a gauntlet of the hardest reads — every main-line disguised card (including the bosses)
+// Boss Rush: a gauntlet of the hardest reads, every main-line disguised card (including the bosses)
 // across all decks, ordered easiest → hardest. No forks, no safeguarding cards; "Coach" frames it.
 export const BOSS_RUSH_CARDS: Card[] = RUN_CARDS.filter(
   (c) => c.is_disguised && !c.branch_id && !c.is_safeguarding
@@ -224,7 +224,7 @@ export const BOSS_RUSH_CARDS: Card[] = RUN_CARDS.filter(
 export const BOSS_RUSH_DECK: RunDeck = {
   id: "boss-rush",
   title: "Boss Rush",
-  blurb: "Coach's gauntlet — only the trickiest, most-disguised cards. Test your eye.",
+  blurb: "Coach's gauntlet: only the trickiest, most-disguised cards. Test your eye.",
   emoji: "🦉",
   accent: "oklch(0.7 0.16 50)",
   character: "coach",
@@ -232,8 +232,8 @@ export const BOSS_RUSH_DECK: RunDeck = {
   forks: [],
   bossCardId: BOSS_RUSH_CARDS[BOSS_RUSH_CARDS.length - 1]?.id ?? "",
   resolution: {
-    clear: "Sharp eyes — you read the disguises that fool most people. Coach is impressed.",
-    reflect: "Disguised cards are the hard ones — that's the whole point. Let's look again at the tricky ones.",
+    clear: "Sharp eyes: you read the disguises that fool most people. Coach is impressed.",
+    reflect: "Disguised cards are the hard ones: that's the whole point. Let's look again at the tricky ones.",
   },
 };
 

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   applicationName: "SwipeEd",
   title: { default: "SwipeEd by The Equal Lens", template: "%s · SwipeEd" },
   description:
-    "SwipeEd is a learning path of warm, no-fail games for ages 3–18 — feelings, bodies, relationships, gender, rights and digital life — built on Unlearn → Relearn → Grow.",
+    "SwipeEd is a learning path of warm, no-fail games for ages 3-18 about feelings, bodies, relationships, gender, rights and digital life, built on Unlearn → Relearn → Grow.",
   manifest: "/manifest.webmanifest",
   appleWebApp: { capable: true, statusBarStyle: "default", title: "SwipeEd" },
   icons: {
@@ -42,7 +42,7 @@ export const viewport: Viewport = {
   themeColor: "#553286",
   width: "device-width",
   initialScale: 1,
-  // Allow pinch-zoom (WCAG 1.4.4 / 1.4.10) — never disable user scaling. Drag gestures scope their own
+  // Allow pinch-zoom (WCAG 1.4.4 / 1.4.10): never disable user scaling. Drag gestures scope their own
   // touch-action, so zoom and gestures coexist.
   maximumScale: 5,
   userScalable: true,
