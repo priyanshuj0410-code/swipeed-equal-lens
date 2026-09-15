@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Volume2, VolumeX, RotateCcw, Check, ChevronUp, Home } from "lucide-react";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
-import { LensyQuestion, RevealGate, cleanLine, revealDelayMs } from "@/components/games/lensy-question";
+import { LensyQuestion, RevealGate, cleanLine, pairLine, plainLabel, revealDelayMs } from "@/components/games/lensy-question";
 import { AnswerCard, CornerBadge } from "@/components/games/answer-cells";
 import { MatchBoard } from "@/components/games/match-board";
 import { UnReBeat } from "@/components/games/un-re";
@@ -91,7 +91,7 @@ function MatchLap({ lap, say, onSolved }: Omit<LapProps<CapMatchLap>, "reduceMot
       <p className="text-center text-xs font-semibold text-foreground/60">draw a line from each card to its match</p>
       <MatchBoard
         pairs={lap.pairs}
-        onMatch={(left, right, done) => { celebrate("small"); if (done) { celebrate("big"); say(lap.celebrate); onSolved(); } else say(`${left}: ${right}. ✓`); }}
+        onMatch={(left, right, done) => { celebrate("small"); if (done) { celebrate("big"); say(lap.celebrate); onSolved(); } else say(pairLine(left, right)); }}
         onMiss={() => say("Not a match. Try another.")}
       />
     </div>
@@ -135,7 +135,7 @@ function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
         className={`relative flex flex-1 flex-col items-center justify-center gap-1.5 rounded-2xl border-2 px-3 py-4 text-center transition-colors ${armed ? "border-solid" : "border-dashed"}`}
         style={{ borderColor: st.tint, background: `color-mix(in srgb, ${st.tint} ${hover === b.id ? "24%" : "9%"}, transparent)` }}>
         <span className="text-3xl" aria-hidden>{st.emoji}</span>
-        <span className="text-sm font-extrabold text-foreground">{b.label}</span>
+        <span className="text-sm font-extrabold text-foreground">{plainLabel(b.label)}</span>
         {armed && <CornerBadge>⤵</CornerBadge>}
       </button>
     );
@@ -147,7 +147,7 @@ function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
         {order.map((it) => {
           const bi = placed[it.id] ? lap.bins.findIndex((b) => b.id === placed[it.id]) : -1;
           return bi >= 0 ? (
-            <AnswerCard key={it.id} disabled state="done" tint={styles[bi].tint} badge={styles[bi].emoji} aria-label={`${it.text}: ${lap.bins[bi].label}`}
+            <AnswerCard key={it.id} disabled state="done" tint={styles[bi].tint} badge={styles[bi].emoji} aria-label={`${it.text}: ${plainLabel(lap.bins[bi].label)}`}
               className="rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] disabled:opacity-100">{it.text}</AnswerCard>
           ) : (
             <AnswerCard key={it.id} data-id={it.id} onClick={() => arm(it.id)} {...pointer.handlers} state={sel === it.id && !drag ? "selected" : "idle"} aria-pressed={sel === it.id}

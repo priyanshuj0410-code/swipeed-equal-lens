@@ -14,6 +14,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/7c73c697-ebd9-49fe-862f-210febf8f2df  # SWED-93
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22  # SWED-92
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb  # SWED-95
 ---
 
 # SwipeEd design system
@@ -206,7 +207,10 @@ precisely.
    above the answer cards (`.glass-card`, 15px bold, 3px lip). The card keeps the beat's question for the whole beat.
 2. **The feedback line.** A plain text line under the card (`text-sm`, semibold, `text-foreground/80`,
    `min-h-10`), `role="status" aria-live="polite" aria-atomic="true"`. Nudges ("Not a match. Try
-   another.") and confirmations ("Kind words: builds trust. ✓") go here and never replace the question.
+   another.") and confirmations ("Kind words: builds trust ✔") go here and never replace the question.
+   A confirmation is `pairLine(item, answer)`: the zone or right card's trailing emoji is dropped (the zone
+   already shows it) and the line ends on a heavy tick, which speech skips as an emoji
+   ([SWED-95](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb)). Zone labels render through `plainLabel()` for the same reason.
    When a card on screen already shows a spoken line (a branch consequence, a capstone swipe cue or
    solved truth), the line stays empty and the text is announced to screen readers through a
    `sr-only` span in the same live region, so it is never shown twice.

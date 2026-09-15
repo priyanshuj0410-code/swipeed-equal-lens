@@ -13,6 +13,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb  # SWED-95
 ---
 
 # SwipeEd v2 engine
@@ -229,8 +230,10 @@ after a playtest where players answered without reading the question. The visual
 `LensyQuestion` and `RevealGate` from `src/components/games/lensy-question.tsx`.
 
 **Building the question.** `hookLine(s)` in `V2Game` returns the text for the card: `joinQuestion(hook, prompt)`
-for `reflect` and `build`, `joinQuestion(hook, setup)` for `role-play`, `joinQuestion(hook, "Find <find>.")` for
-`explore-label`, and `cleanLine(hook)` for every other mechanic. `cleanLine()` strips "Lensy:"/"Sam:" narrator
+for `reflect` and `build`, `joinQuestion(hook, setup)` for `role-play`, and `cleanLine(hook)` for every other
+mechanic. An `explore-label` hook is already the instruction, so its `find` is kept as the clue for a wrong tap:
+`clueLine(find)` gives "Not quite. Look for the part that fills with air.", "Think about why ..." for a question
+clause, or the sentence as written ([SWED-95](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb); joining them used to ask twice, "Tap why. Find why ..."). `cleanLine()` strips "Lensy:"/"Sam:" narrator
 prefixes at the start of the line or of any sentence; `joinQuestion()` drops a prompt the hook already ends with
 and drops a clipped tag question of up to three words that is not itself a question ("Agree?", "Land right?")
 from the end of the hook when a real question follows. `say()` runs every spoken line through `cleanLine()` too.

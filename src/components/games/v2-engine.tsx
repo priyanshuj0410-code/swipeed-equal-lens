@@ -5,7 +5,7 @@ import { Volume2, VolumeX, Home, RotateCcw, ShieldCheck, Phone } from "lucide-re
 import { greetWithName } from "@/lib/personalize";
 import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
-import { LensyQuestion, RevealGate, cleanLine, joinQuestion, revealDelayMs } from "@/components/games/lensy-question";
+import { LensyQuestion, RevealGate, cleanLine, clueLine, joinQuestion, pairLine, plainLabel, revealDelayMs } from "@/components/games/lensy-question";
 import { AnswerCard, CornerBadge } from "@/components/games/answer-cells";
 import { MatchBoard } from "@/components/games/match-board";
 import { SwipeCard, type SideStyle } from "@/components/games/swipe-card";
@@ -60,9 +60,6 @@ const alternate = <T,>(history: T[], a: T, b: T): T => {
   if (history.length >= 2 && x === y) return x === a ? b : a;
   return Math.random() < 0.5 ? a : b;
 };
-
-// An explore-label `find` is either a noun phrase ("the part that pumps blood") or a full instruction ("Tap the part ...").
-const findLine = (find: string): string => { const f = find.trim(), line = /^[A-Z]/.test(f) ? f : `Find ${f}`; return /[.!?…]$/.test(line) ? line : `${line}.`; };
 
 // ---- anti-repeat rotation memory ----
 // shuffle() is memoryless, so with a shallow bank the same beats resurface session to session. We keep a small
@@ -131,8 +128,9 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     if (s.type === "reflect" || s.type === "choose") return joinQuestion(s.hook, s.prompt);
     if (s.type === "role-play") return joinQuestion(s.hook, s.setup);
     if (s.type === "build") return joinQuestion(s.hook, s.prompt);
-    if (s.type === "explore-label") return joinQuestion(s.hook, findLine(s.find));
-    return cleanLine(s.hook); // swipe: the card shows the instruction only; the cue lives on the swipe card (no redundancy)
+    // explore-label: the hook is already the instruction and `find` is a clue saved for a wrong tap; swipe: the card
+    // shows the instruction only and the cue lives on the swipe card
+    return cleanLine(s.hook);
   };
   const resolveLine = (s: Scenario): string =>
     s.type === "reflect" ? s.affirm : s.type === "branch" ? s.debrief : s.type === "strike-rewrite" ? `${s.myth.re} ${s.myth.why}` : s.type === "explore-label" ? s.reveal : s.type === "spot" ? s.why : s.relearn;
@@ -584,7 +582,7 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
     if (sc.key[itemId] === binId) {
       const np = { ...placed, [itemId]: binId }; setPlaced(np); setSel(null);
       const bin = sc.bins.find((b) => b.id === binId);
-      say(`${itemText(itemId)}: ${bin?.label}. ✓`);
+      say(pairLine(itemText(itemId), bin?.label ?? ""));
       if (Object.keys(np).length >= sc.items.length) onSolved();
     } else say("Not there. Try another zone.");
   };
@@ -616,7 +614,7 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
         className={`relative flex flex-1 flex-col items-center justify-center gap-1.5 rounded-2xl border-2 px-3 py-4 text-center transition-colors ${armed ? "border-solid" : "border-dashed"}`}
         style={{ borderColor: st.tint, background: `color-mix(in srgb, ${st.tint} ${hover === b.id ? "24%" : "9%"}, transparent)` }}>
         <span className="text-3xl" aria-hidden>{st.emoji}</span>
-        <span className="text-sm font-extrabold text-foreground">{b.label}</span>
+        <span className="text-sm font-extrabold text-foreground">{plainLabel(b.label)}</span>
         {armed && <CornerBadge>⤵</CornerBadge>}
       </button>
     );
@@ -628,7 +626,7 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
         {order.map((it) => {
           const bi = placed[it.id] ? sc.bins.findIndex((b) => b.id === placed[it.id]) : -1;
           return bi >= 0 ? (
-            <AnswerCard key={it.id} disabled state="done" tint={styles[bi].tint} badge={styles[bi].emoji} aria-label={`${it.text}: ${sc.bins[bi].label}`}
+            <AnswerCard key={it.id} disabled state="done" tint={styles[bi].tint} badge={styles[bi].emoji} aria-label={`${it.text}: ${plainLabel(sc.bins[bi].label)}`}
               className="rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] disabled:opacity-100">{it.text}</AnswerCard>
           ) : (
             <AnswerCard key={it.id} data-id={it.id} onClick={() => arm(it.id)} {...pointer.handlers} state={sel === it.id && !drag ? "selected" : "idle"} aria-pressed={sel === it.id}
@@ -663,7 +661,7 @@ function MatchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "match
   return (
     <MatchBoard
       pairs={sc.pairs}
-      onMatch={(left, right, done) => { say(`${left}: ${right}. ✓`); if (done) onSolved(); }}
+      onMatch={(left, right, done) => { say(pairLine(left, right)); if (done) onSolved(); }}
       onMiss={() => say("Not a match. Try another.")}
     />
   );
@@ -763,7 +761,7 @@ function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type:
   const [found, setFound] = useState<string | null>(null);
   const choose = (p: string) => {
     if (p === sc.answer) { setFound(p); vibrate(12); setTimeout(onSolved, 450); }
-    else say(`Not quite. Find ${sc.find}.`);
+    else say(`Not quite. ${clueLine(sc.find)}`);
   };
   if (isAnatomy) {
     return (
