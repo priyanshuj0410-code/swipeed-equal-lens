@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/life-ready.md
 title: Life Ready
-description: SwipeEd node #g42 (ages 15-18, penultimate), the life-skills game for the threshold of adulthood. With grown-up Lensy, a young person maps their values, decides like an adult, handles big transitions, builds people-skills and a support network, and busts the life-myths (UN & RE). The capstone of the Feelings & Life Skills thread.
+description: "SwipeEd node #g42 (ages 15-18, penultimate), the life-skills game for the threshold of adulthood. With grown-up Lensy, a young person maps their values, decides like an adult, handles big transitions, builds people-skills and a support network, and busts the life-myths (UN & RE). The capstone of the Feelings & Life Skills thread."
 resource: https://swipeed.vercel.app/game/life-ready
 tags: [games, swipeed, ages-15-18, life-skills, decision-making, self-awareness, resilience, help-seeking, sam, un-re]
 timestamp: 2026-06-21T14:45:00Z

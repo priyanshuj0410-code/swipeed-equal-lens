@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/safety-squad.md
 title: Safety Squad
-description: SwipeEd node #8 (ages 6-9), the Safety & Consent thread on screens. Join Lensy's squad to spot unsafe (touch/online/bullying), make the safe move (Say No · Get Away · Tell), keep private things private, and know which secrets to always tell. Safeguarding-critical.
+description: "SwipeEd node #8 (ages 6-9), the Safety & Consent thread on screens. Join Lensy's squad to spot unsafe (touch/online/bullying), make the safe move (Say No · Get Away · Tell), keep private things private, and know which secrets to always tell. Safeguarding-critical."
 resource: https://swipeed.vercel.app/game/safety-squad
 tags: [games, swipeed, ages-6-9, safety, consent, online-safety, safeguarding, un-re, sam]
 timestamp: 2026-06-19T23:30:00Z

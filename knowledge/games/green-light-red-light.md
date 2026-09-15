@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/green-light-red-light.md
 title: Green Light / Red Light
-description: Node #24's flagship relationships game on the SwipeEd path. Read healthy vs unhealthy behaviour by swipe. Live as an educational roguelike (story Runs, a Clarity meter, Insight perks, forks, boss cards) built over the original v1 swipe-deck core, which is kept as Quick Play.
+description: "Node #24's flagship relationships game on the SwipeEd path. Read healthy vs unhealthy behaviour by swipe. Live as an educational roguelike (story Runs, a Clarity meter, Insight perks, forks, boss cards) built over the original v1 swipe-deck core, which is kept as Quick Play."
 resource: https://swipeed.vercel.app/path
 tags: [games, swipeed, green-light-red-light, relationships, swipe-engine, roguelike, safeguarding]
 timestamp: 2026-06-21T01:00:00Z

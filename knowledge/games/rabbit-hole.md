@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/rabbit-hole.md
 title: The Rabbit Hole
-description: SwipeEd node #g43 (ages 12-15), the game about online misogyny and the 'manosphere'. With teen Lensy, a teenager learns how the radicalisation funnel works, who profits from it (the grift), busts its claims (UN & RE), and (above all) what real strength / positive masculinity looks like. Non-shaming, media-literacy-led, never platforms real content; routes the underlying loneliness to help.
+description: "SwipeEd node #g43 (ages 12-15), the game about online misogyny and the 'manosphere'. With teen Lensy, a teenager learns how the radicalisation funnel works, who profits from it (the grift), busts its claims (UN & RE), and (above all) what real strength / positive masculinity looks like. Non-shaming, media-literacy-led, never platforms real content; routes the underlying loneliness to help."
 resource: https://swipeed.vercel.app/game/rabbit-hole
 tags: [games, swipeed, ages-12-15, gender, media-literacy, online-misogyny, manosphere, positive-masculinity, sam, un-re]
 timestamp: 2026-06-21T16:00:00Z

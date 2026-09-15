@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/clean-crew.md
 title: Clean Crew
-description: SwipeEd node #g37 (ages 3-6), caring for your body. With Lensy and the Clean Crew, a child learns washing, brushing, a daily routine and simple healthy habits. The hygiene companion to body-safety; a gentle precursor to the unlearn-relearn beat.
+description: "SwipeEd node #g37 (ages 3-6), caring for your body. With Lensy and the Clean Crew, a child learns washing, brushing, a daily routine and simple healthy habits. The hygiene companion to body-safety; a gentle precursor to the unlearn-relearn beat."
 resource: https://swipeed.vercel.app/game/clean-crew
 tags: [games, swipeed, ages-3-6, hygiene, self-care, routines, healthy-habits, sam]
 timestamp: 2026-06-20T12:00:00Z

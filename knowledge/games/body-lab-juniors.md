@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/body-lab-juniors.md
 title: Body Lab Juniors
-description: SwipeEd node #6 (ages 6-9) that opens Chapter 2. A friendly, reading-light "body lab" run by Lensy where a child learns how the body works and grows, a simple answer to "where do babies grow?", and that every body is good. UN & RE debut here.
+description: "SwipeEd node #6 (ages 6-9) that opens Chapter 2. A friendly, reading-light \"body lab\" run by Lensy where a child learns how the body works and grows, a simple answer to \"where do babies grow?\", and that every body is good. UN & RE debut here."
 resource: https://swipeed.vercel.app/game/body-lab
 tags: [games, swipeed, ages-6-9, body, science, un-re, sam]
 timestamp: 2026-06-19T22:30:00Z

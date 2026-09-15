@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/feelings-friends.md
 title: Feelings Friends
-description: SwipeEd's first game (node #1, ages 3-6), a warm, audio-first SEL game where a child names, shows, refuses and calms big feelings, and meets Lensy for the first time. Reworked to GDD 01 (the Chapter-1 pilot): six verb-moves on an 88-scenario library.
+description: "SwipeEd's first game (node #1, ages 3-6), a warm, audio-first SEL game where a child names, shows, refuses and calms big feelings, and meets Lensy for the first time. Reworked to GDD 01 (the Chapter-1 pilot): six verb-moves on an 88-scenario library."
 resource: https://swipeed.vercel.app/game/feelings
 tags: [games, swipeed, ages-3-6, sel, feelings, life-skills, sam, gdd-rework]
 timestamp: 2026-06-22T16:00:00Z

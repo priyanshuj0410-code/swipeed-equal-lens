@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/what-makes-me-me.md
 title: What Makes Me, Me
-description: SwipeEd node #7 (ages 6-9), the gender-thread keystone. Sort traits into Body (born with) vs Learned (taught), bust the unfair learned "rules" with UN & RE, and discover that what makes you you isn't your gender.
+description: "SwipeEd node #7 (ages 6-9), the gender-thread keystone. Sort traits into Body (born with) vs Learned (taught), bust the unfair learned \"rules\" with UN & RE, and discover that what makes you you isn't your gender."
 resource: https://swipeed.vercel.app/game/what-makes-me
 tags: [games, swipeed, ages-6-9, gender, sex-vs-gender, un-re, sam]
 timestamp: 2026-06-19T23:00:00Z

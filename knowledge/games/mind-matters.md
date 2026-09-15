@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/mind-matters.md
 title: Mind Matters
-description: SwipeEd node #g38 (ages 9-12), the emotional & mental-wellbeing game. With Lensy, a pre-teen names big feelings, builds a healthy cool-down toolkit, bounces back from setbacks with self-kindness, busts mental-health stigma (UN & RE), and learns when/how to ask for help. Healthy coping only; routes distress to real help.
+description: "SwipeEd node #g38 (ages 9-12), the emotional & mental-wellbeing game. With Lensy, a pre-teen names big feelings, builds a healthy cool-down toolkit, bounces back from setbacks with self-kindness, busts mental-health stigma (UN & RE), and learns when/how to ask for help. Healthy coping only; routes distress to real help."
 resource: https://swipeed.vercel.app/game/mind-matters
 tags: [games, swipeed, ages-9-12, mental-health, wellbeing, resilience, anti-stigma, help-seeking, sam, un-re]
 timestamp: 2026-06-21T12:30:00Z
