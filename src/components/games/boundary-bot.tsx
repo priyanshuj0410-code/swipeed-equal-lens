@@ -1,6 +1,6 @@
 "use client";
 
-// Boundary Bot (node g15, ages 9–12, Chapter 3) — NEW v2 build to GDD 15 (mechanic-embodying). The
+// Boundary Bot (node g15, ages 9-12, Chapter 3): NEW v2 build to GDD 15 (mechanic-embodying). The
 // consent-and-boundaries node (Thread B), run on the shared v2 engine: its researched typed library + config
 // (content/games/boundary-bot.ts) render the play actions (branch · reflect · strike-rewrite · role-play ·
 // sort · spot · build), led by boundary/pressure dilemmas (branch), the say-the-line rehearsal (role-play),

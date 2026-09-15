@@ -1,6 +1,6 @@
 "use client";
 
-// Own Your Health (node g47, ages 18–22, Chapter 6) — NEW v2 build to GDD 47 (mechanic-embodying), the College
+// Own Your Health (node g47, ages 18-22, Chapter 6): NEW v2 build to GDD 47 (mechanic-embodying), the College
 // SRH-ownership node (Thread F), reworking the old ModesEngine build onto the shared v2 engine: its researched
 // typed library + config (content/games/own-your-health.ts) render the play actions (branch · strike-rewrite ·
 // sort · reflect · spot · role-play · match), led by branch + strike-rewrite + sort. SRH becomes fully the young

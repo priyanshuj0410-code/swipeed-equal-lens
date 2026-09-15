@@ -1,6 +1,6 @@
 "use client";
 
-// Mind Matters (node g38, ages 9–12, Chapter 3) — NEW v2 build to GDD 38 (mechanic-embodying). The
+// Mind Matters (node g38, ages 9-12, Chapter 3): NEW v2 build to GDD 38 (mechanic-embodying). The
 // mental-wellbeing game (Thread C), run on the shared v2 engine: its researched typed library + config
 // (content/games/mind-matters.ts) render the play actions (branch · strike-rewrite · sort · reflect ·
 // role-play · build · match), led by the coping chooser (branch), the build-your-toolkit board (build), and

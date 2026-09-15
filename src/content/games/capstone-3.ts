@@ -1,8 +1,8 @@
-// Content for Capstone 3 — Growing Up Smart (node c3, Chapter 3 graduation, ages 9–12). NEW rich build to
+// Content for Capstone 3: Growing Up Smart (node c3, Chapter 3 graduation, ages 9-12). NEW rich build to
 // GDD c3 ("Capstone format v1"), following the c1 reference. Not a lesson, never a test: a calm, near-peer,
 // no-fail celebration that consolidates the chapter's nine big truths through spaced, VARIED retrieval (each
-// truth re-cued through a DIFFERENT mechanic — gallery · match · swipe · sort · branch · spot · build), then
-// lights up the Growing-Up constellation and awards a graduation sticker. Closes Chapter 3 (#g13–g20).
+// truth re-cued through a DIFFERENT mechanic: gallery · match · swipe · sort · branch · spot · build), then
+// lights up the Growing-Up constellation and awards a graduation sticker. Closes Chapter 3 (#g13, g20).
 // Faithful from the Landing JSON, rendered by the shared rich engine (components/games/capstone-rich.tsx).
 // gameId "capstone-3" (the Landing's "capstone-ch3" is design-doc only). DO NOT RENAME.
 
@@ -14,7 +14,7 @@ export const CAPSTONE_3: CapstoneConfig = {
   node: "c3",
   chapter: 3,
   ages: "9-12",
-  arrival: "Lensy: look how far you've come. When this chapter started, so much was brand new — now it's just how you think. Let's walk back through it together.",
+  arrival: "Lensy: look how far you've come. When this chapter started, so much was brand new. Now it's just how you think. Let's walk back through it together.",
   canvasPayoff: "The Growing-Up map lights up at dusk. Every skill you built switches on across your skyline, until your nine stickers rise like a constellation.",
   threadsRecapped: ["A","C","F","B","D","E"],
   recap: [
@@ -47,7 +47,7 @@ export const CAPSTONE_3: CapstoneConfig = {
     {"id":"c3-r4","prompt":"Lensy: what will you carry into the teen years ahead?","options":["Be kind to myself","Choose my values","Speak up","Keep growing"],"affirm":"Carry it forward, the next chapter's ready for you."},
   ],
   celebration: {"glyph":"growing-up-star","certificate":"This certifies that you are a Growing Up Smart graduate. You understand your body and mind, handle big feelings, choose well, and stand up for others.","stickerBook":"All nine Chapter 3 stickers now shine in your Growing-Up constellation, topped by a golden Growing-Up star, your Chapter 3 graduation sticker."},
-  preview: "Next, Chapter 4: Reading Relationships (ages 12–15). Relationships get more real — attraction, deeper consent, reading people — at your own pace.",
+  preview: "Next, Chapter 4: Reading Relationships (ages 12-15). Relationships get more real, with attraction, deeper consent and reading people, at your own pace.",
   share: "This chapter is more your own, so it's your call: if you'd like, share one thing you're proud of with a grown-up you trust. Or keep it for yourself.",
   doneTitle: "🎓 Chapter Three complete!",
   coins: 30,

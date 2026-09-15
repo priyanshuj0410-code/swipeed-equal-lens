@@ -1,6 +1,6 @@
 import type { Sign, SignId } from "@/lib/types";
 
-// The 20 signs — adapted from the One Love Foundation's ten signs of a healthy /
+// The 20 signs: adapted from the One Love Foundation's ten signs of a healthy /
 // unhealthy relationship. This published taxonomy keeps classifications defensible
 // and gives players a real, transferable vocabulary.
 export const SIGNS: Sign[] = [
@@ -16,7 +16,7 @@ export const SIGNS: Sign[] = [
   { id: "healthy-conflict", name: "Healthy Conflict", flag: "green", definition: "Disagreeing openly and respectfully, then resolving it." },
   { id: "fun", name: "Fun", flag: "green", definition: "Enjoying each other; feeling relaxed and yourself." },
   // Red-flag signs (swipe left)
-  { id: "intensity", name: "Intensity", flag: "red", definition: "Too much, too fast — overwhelming feelings or demands." },
+  { id: "intensity", name: "Intensity", flag: "red", definition: "Too much, too fast: overwhelming feelings or demands." },
   { id: "possessiveness", name: "Possessiveness", flag: "red", definition: "Jealousy and control over what you do and whom you see." },
   { id: "manipulation", name: "Manipulation", flag: "red", definition: "Influencing you unfairly to get their way." },
   { id: "isolation", name: "Isolation", flag: "red", definition: "Cutting you off from friends, family or activities." },

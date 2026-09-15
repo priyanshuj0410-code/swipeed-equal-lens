@@ -1,6 +1,6 @@
 {
   "chapter": 7,
-  "title": "Building a Life Together — or On Your Own Terms",
+  "title": "Building a Life, Together or On Your Own Terms",
   "ages": "22 → first child",
   "audience": "adult",
   "theme": "dark",
@@ -9,7 +9,7 @@
   "tools": { "unlearn": "UN (eraser)", "relearn": "RE (pencil)" },
   "myths": [
     { "id": "c7-g53-m1", "node": "g53", "category": "D/1.2", "audience": "adult", "chapter": 7,
-      "myth": "The right marriage will complete me.", "truth": "A partner adds to a whole life — they don't fix it.",
+      "myth": "The right marriage will complete me.", "truth": "A partner adds to a whole life. They don't fix it.",
       "explanation": "Go in whole; a relationship can't be your missing piece.", "sources": ["UNESCO ITGSE 1.2"] },
     { "id": "c7-g53-m2", "node": "g53", "category": "D/1.2", "audience": "adult", "chapter": 7,
       "myth": "Attraction is enough to build a life on.", "truth": "Shared values and respect outlast the spark.",
@@ -26,7 +26,7 @@
       "explanation": "The 'still-unmarried' stigma is pressure, not truth.", "sources": ["UNESCO ITGSE 3.2"] },
     { "id": "c7-g54-m2", "node": "g54", "category": "D/1.2", "audience": "adult", "chapter": 7,
       "myth": "A woman's clock means she must hurry.", "truth": "Whether and when to partner is your call, not a deadline.",
-      "explanation": "The timeline pressure falls heaviest on women — and it's resistible.", "sources": ["UNESCO ITGSE 1.2"] },
+      "explanation": "The timeline pressure falls heaviest on women, and it's resistible.", "sources": ["UNESCO ITGSE 1.2"] },
     { "id": "c7-g54-m3", "node": "g54", "category": "D/2.2", "audience": "adult", "chapter": 7,
       "myth": "Everyone should want children.", "truth": "Choosing to be childfree is a complete, valid life.",
       "explanation": "'When are you having kids?' is a choice, not an obligation.", "sources": ["UNESCO ITGSE 2.2"] },
@@ -35,7 +35,7 @@
       "explanation": "A person's value never expires.", "sources": ["UNESCO ITGSE 3.2"] },
 
     { "id": "c7-g55-m1", "node": "g55", "category": "E/3.2", "audience": "adult", "chapter": 7,
-      "myth": "He 'helps' with the housework.", "truth": "It's shared work, not help — it's his home too.",
+      "myth": "He 'helps' with the housework.", "truth": "It's shared work, not help. It's his home too.",
       "explanation": "Naming chores as 'help' makes them her default.", "sources": ["UNESCO ITGSE 3.2"] },
     { "id": "c7-g55-m2", "node": "g55", "category": "E/3.2", "audience": "adult", "chapter": 7,
       "myth": "Remembering everything is just a woman's knack.", "truth": "The mental load is real work and should be shared.",
@@ -48,7 +48,7 @@
       "explanation": "An equal home is renegotiated as life changes.", "sources": ["UNESCO ITGSE 5.3"] },
 
     { "id": "c7-g56-m1", "node": "g56", "category": "B/4.2", "audience": "adult", "chapter": 7,
-      "myth": "Marriage means you're always available.", "truth": "Consent is ongoing — even with a spouse.",
+      "myth": "Marriage means you're always available.", "truth": "Consent is ongoing, even with a spouse.",
       "explanation": "'Married = always available' is never true.", "sources": ["UNESCO ITGSE 4.2"] },
     { "id": "c7-g56-m2", "node": "g56", "category": "B/4.1", "audience": "adult", "chapter": 7,
       "myth": "It's only abuse if they hit you.", "truth": "Emotional, financial and sexual abuse are abuse too.",
@@ -87,7 +87,7 @@
       "explanation": "Controlling all the money is a recognised form of abuse.", "sources": ["UNESCO ITGSE 2.2"] },
 
     { "id": "c7-g59-m1", "node": "g59", "category": "F/8.1", "audience": "adult", "chapter": 7,
-      "myth": "Having kids is just the next step you take.", "truth": "Whether, when and how many is a real choice — make it together.",
+      "myth": "Having kids is just the next step you take.", "truth": "Whether, when and how many is a real choice. Make it together.",
       "explanation": "Reproductive planning is a deliberate, shared decision.", "sources": ["UNESCO ITGSE 8.1"] },
     { "id": "c7-g59-m2", "node": "g59", "category": "F/6.3", "audience": "adult", "chapter": 7,
       "myth": "There's always time to have children later.", "truth": "Fertility has a timeline worth understanding.",
@@ -96,7 +96,7 @@
       "myth": "Infertility is a failure or someone's fault.", "truth": "Infertility is common, and there are real options.",
       "explanation": "It's a medical reality, not a personal failing.", "sources": ["UNESCO ITGSE 6.2"] },
     { "id": "c7-g59-m4", "node": "g59", "category": "F/8.1", "audience": "adult", "chapter": 7,
-      "myth": "The family should get a son.", "truth": "Choosing a baby's sex is illegal — and every child is equal.",
+      "myth": "The family should get a son.", "truth": "Choosing a baby's sex is illegal, and every child is equal.",
       "explanation": "Son-preference and sex-selection are banned under the PCPNDT Act.", "sources": ["PCPNDT Act (India)", "UNESCO ITGSE 8.1"] },
 
     { "id": "c7-g60-m1", "node": "g60", "category": "F/1.1", "audience": "adult", "chapter": 7,
@@ -109,7 +109,7 @@
       "myth": "Only married couples can be good parents.", "truth": "Single and LGBTQ+ parents raise thriving kids.",
       "explanation": "Loving, capable parenting isn't limited by family shape.", "sources": ["UNESCO ITGSE 1.1"] },
     { "id": "c7-g60-m4", "node": "g60", "category": "F/2.2", "audience": "adult", "chapter": 7,
-      "myth": "The path to family is the same for everyone.", "truth": "Gendered and legal barriers are real — and worth naming.",
+      "myth": "The path to family is the same for everyone.", "truth": "Gendered and legal barriers are real and worth naming.",
       "explanation": "Single men and others face extra legal hurdles (e.g. CARA rules).", "sources": ["CARA 2022 (India)", "UNESCO ITGSE 2.2"] }
   ],
   "doodles": [
@@ -131,6 +131,6 @@
     { "id": "c7-s-family", "name": "Many-ways-to-family stickers", "role": "earnable", "node": "g60" },
     { "id": "c7-s-capstone", "name": "Building Together crest", "role": "earnable", "node": "c7" }
   ],
-  "capstone": { "id": "c7", "name": "Building Together", "landing": "A life built together — or on your own terms: the partnership, equal-home, family-map and reproductive-choice tools earned across Chapter 7, erased pressures shown as faint ghosts under the truths, Sam waving onward to parenthood." },
-  "canvasFeel": "Adult / dark theme on the dotted-paper texture — building-a-life motifs (rings, blueprints, a forking path, a family map) glowing against deep violet night paper; struck-through 'settle down' pressures rubbed out by UN, equal-partnership truths written by RE."
+  "capstone": { "id": "c7", "name": "Building Together", "landing": "A life built together or on your own terms: the partnership, equal-home, family-map and reproductive-choice tools earned across Chapter 7, erased pressures shown as faint ghosts under the truths, Sam waving onward to parenthood." },
+  "canvasFeel": "Adult / dark theme on the dotted-paper texture: building-a-life motifs (rings, blueprints, a forking path, a family map) glowing against deep violet night paper; struck-through 'settle down' pressures rubbed out by UN, equal-partnership truths written by RE."
 }

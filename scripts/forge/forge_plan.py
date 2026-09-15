@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""forge_plan.py — S0 planner: the per-game resumable contract the generator + gates run against.
+"""forge_plan.py: S0 planner: the per-game resumable contract the generator + gates run against.
 
 Emits .forge/<gameId>/plan.json: band-aware mechanic allowlist, per-(category × mechanic) generation quota
 sized toward the 400 target (quality-first: a target, not an inviolable floor), the legacy-reshape worklist

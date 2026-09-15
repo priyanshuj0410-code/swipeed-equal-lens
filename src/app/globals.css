@@ -1,8 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-/* The Equal Lens brand design system (@equal-lens/brand tarball) — canonical palette + UI-kit classes */
-@import "@equal-lens/brand/tokens.css"; /* canonical CSS vars (single source of truth) — --color-brand, --dot, dark flip */
+/* The Equal Lens brand design system (@equal-lens/brand tarball): canonical palette + UI-kit classes */
+@import "@equal-lens/brand/tokens.css"; /* canonical CSS vars (single source of truth): --color-brand, --dot, dark flip */
 @import "@equal-lens/brand/tailwind.css"; /* palette → bg-brand/text-ink/font-hand + dark flip */
 @import "@equal-lens/brand/components.css"; /* .btn/.card/.tabs/... classes */
 
@@ -56,7 +56,7 @@
 }
 
 /*
- * The Equal Lens — brand tokens (source of truth), aliased to the existing semantic
+ * The Equal Lens: brand tokens (source of truth), aliased to the existing semantic
  * tokens so every component re-tints with no edits (Phase 1 of the brand alignment;
  * see docs/brand-alignment.md). Equal Violet system + four accents; dark values flip
  * under [data-audience="adult"]. GLRL green/red stay reserved for gameplay flags.
@@ -80,7 +80,7 @@
   --brand-600: var(--violet-700);
   --brand-foreground: #fbf9ff;
   /* RESERVED --prx-*: engine-owned semantic colour. NOT part of the themeable
-     brand surface — a customer theme must never be able to repaint what "correct"
+     brand surface: a customer theme must never be able to repaint what "correct"
      looks like. See knowledge/architecture/creator-identity.md. */
   --prx-flag-green: oklch(0.68 0.16 150);
   --prx-flag-red: oklch(0.62 0.2 22);
@@ -160,7 +160,7 @@
   --sidebar-ring: var(--color-brand);
 }
 
-/* Adult / dark mode — flip the brand tokens; the aliased semantics follow automatically.
+/* Adult / dark mode: flip the brand tokens; the aliased semantics follow automatically.
    `.dark` kept as a back-compat alias of the brand mechanism `[data-audience="adult"]`. */
 .dark,
 [data-audience="adult"] {
@@ -217,7 +217,7 @@
 
 /* NOTE: the brand's [data-audience="adult"] palette flip gets out-cascaded by Tailwind v4's @import
    layering, so the dark --color-paper/-ink/-surface/-brand/-dot values are applied at runtime as
-   INLINE custom properties on <html> by the path's ThemeController (see path-scene.tsx) — inline
+   INLINE custom properties on <html> by the path's ThemeController (see path-scene.tsx); inline
    styles beat any selector and inherit everywhere, sidestepping the layer fight. The derived tokens
    above (--brand-500, --secondary, …) then resolve against those dark values automatically. */
 
@@ -230,7 +230,7 @@
     background-image: var(--app-bg);
     background-attachment: fixed;
     background-repeat: no-repeat;
-    /* Theme (Kids/Adult) cross-fade — 320ms, per the brand. */
+    /* Theme (Kids/Adult) cross-fade: 320ms, per the brand. */
     transition: background-color 0.32s ease, color 0.32s ease;
   }
   html {
@@ -245,7 +245,7 @@
   }
 }
 
-/* Frosted "liquid glass" card material — blurs the 3D grassland behind it.
+/* Frosted "liquid glass" card material: blurs the 3D grassland behind it.
    (Opacity nudged up + dark text vs the original since our backdrop is bright.) */
 /* Sticker surfaces: The Equal Lens cut-out look (class names kept so every game re-skins from here). Flat surface
    fill and a chunky Ink outline that flips with the theme.
@@ -311,7 +311,7 @@
   background: color-mix(in srgb, var(--cell-tint, var(--prx-pos)) var(--prx-wash), var(--color-surface));
 }
 
-/* Branded loading splash — indeterminate bar slide. */
+/* Branded loading splash: indeterminate bar slide. */
 @keyframes splash-bar {
   0% {
     transform: translateX(-120%);
@@ -366,14 +366,14 @@ html[data-playing="true"] .gethelp-label {
   .juice-shake, .juice-pulse { animation: none; }
 }
 
-/* The gentle reading timer bar (GLRL 2.0 runs): shrinks over the card's time budget. Non-punitive —
+/* The gentle reading timer bar (GLRL 2.0 runs): shrinks over the card's time budget. Non-punitive
    running out costs nothing; a fast+accurate read just earns a small bonus. */
 @keyframes glrl-timer {
   from { width: 100%; }
   to { width: 0%; }
 }
 
-/* The Equal Lens motion kit — lively but tasteful (brand p.12); seasoning, never load-bearing.
+/* The Equal Lens motion kit: lively but tasteful (brand p.12); seasoning, never load-bearing.
    All animations are disabled under prefers-reduced-motion. */
 @keyframes anim-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
 @keyframes anim-wobble { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
@@ -416,7 +416,7 @@ html[data-playing="true"] .gethelp-label {
 .beat-burst { animation: beat-burst 0.8s ease-out both; }
 @media (prefers-reduced-motion: reduce) { .beat-badge { animation: none; } .beat-burst { display: none; } }
 
-/* Interactive myth notes on the path — the brand .note sized for the canvas. Drag UN to smudge the
+/* Interactive myth notes on the path: the brand .note sized for the canvas. Drag UN to smudge the
    myth (blur + fade), then RE to reveal the truth + a short why. */
 .myth-card {
   position: relative; /* anchor the UN/RE ink canvas (.myth-ink) */
@@ -428,7 +428,7 @@ html[data-playing="true"] .gethelp-label {
   font-size: 0.78rem;
   line-height: 1.25;
 }
-/* the UN/RE drawing surface — covers the note; UN paints the note's paper over the myth (erasing it),
+/* the UN/RE drawing surface: covers the note; UN paints the note's paper over the myth (erasing it),
    RE draws coral ink. Sits above the text but the words stay in the DOM (aria) underneath. */
 .myth-ink {
   position: absolute;
@@ -446,7 +446,7 @@ html[data-playing="true"] .gethelp-label {
 .myth-card .myth-hint { display: block; margin-top: 4px; font-size: 0.64rem; font-weight: 600; opacity: 0.5; }
 .myth-card .myth-expl { margin-top: 4px; font-size: 0.66rem; font-weight: 600; opacity: 0.72; }
 
-/* Path tool dock — the brand UN/RE toolbar, brand-docked bottom-centre. RESPONSIVE: full labels
+/* Path tool dock: the brand UN/RE toolbar, brand-docked bottom-centre. RESPONSIVE: full labels
    on web, icon-only on mobile. */
 .tb-pill { max-width: calc(100vw - 1.5rem); overflow-x: auto; }
 /* Keep buttons + mascots from squishing on a narrow (mobile) track: the toolbar is a flex row, so
@@ -458,7 +458,7 @@ html[data-playing="true"] .gethelp-label {
   .tb-label { display: none; }
 }
 
-/* Ambient canvas decor — recoloured hand-drawn marks (mask-tinted to a brand accent) and loose
+/* Ambient canvas decor: recoloured hand-drawn marks (mask-tinted to a brand accent) and loose
    scribbled text (myths struck-through in coral, relearned truths in violet). */
 .doodle-mark {
   display: block;
@@ -472,7 +472,7 @@ html[data-playing="true"] .gethelp-label {
   pointer-events: none;
   user-select: none;
 }
-/* wrapper that makes a loose "written on canvas" myth interactive — anchors the UN/RE ink canvas over the
+/* wrapper that makes a loose "written on canvas" myth interactive: anchors the UN/RE ink canvas over the
    scribbled text, with a floor height so RE still has room to draw once the myth is erased. */
 .canvas-myth {
   position: relative;

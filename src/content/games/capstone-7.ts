@@ -1,5 +1,5 @@
-// Capstone 7 — "A Life, Built" (node c7, Chapter 7 graduation, ages 22+, Building a Life). NEW rich build to GDD
-// c7 ("Capstone format v1"), matching c1–c6, on the shared rich capstone engine (capstone-rich.tsx): its Landing
+// Capstone 7: "A Life, Built" (node c7, Chapter 7 graduation, ages 22+, Building a Life). NEW rich build to GDD
+// c7 ("Capstone format v1"), matching c1, c6, on the shared rich capstone engine (capstone-rich.tsx): its Landing
 // config drives arrive -> look back (the "A Life, Built" constellation gallery, eight Chapter-7 stickers) -> play
 // back (seven victory laps, each a chapter truth re-cued through a different mechanic: gallery -> sort ->
 // strike-rewrite -> branch -> match -> swipe -> role-play) -> reflect (five gentle prompts) -> celebrate
@@ -20,7 +20,7 @@ export const CAPSTONE_7: CapstoneConfig = {
   "node": "c7",
   "chapter": 7,
   "ages": "22+",
-  "arrival": "Lensy: look at what you've built — a partner chosen well or your own path held high, a fair home, your own footing. The turn to 'us', never losing the 'me'.",
+  "arrival": "Lensy: look at what you've built, a partner chosen well or your own path held high, a fair home, your own footing. The turn to 'us', never losing the 'me'.",
   "canvasPayoff": "The canvas blooms into a warm home, door open: chairs at a shared table, a family of any shape in the window, a path to your own horizon, lit by eight stickers.",
   "threadsRecapped": [
     "B",
@@ -92,7 +92,7 @@ export const CAPSTONE_7: CapstoneConfig = {
       "id": "c7-p1",
       "from": "all",
       "type": "gallery",
-      "frame": "Your A Life, Built constellation — eight stickers from a whole chapter of building an adult life, with a partner or on your own terms. Tap any star to revisit.",
+      "frame": "Your A Life, Built constellation: eight stickers from a whole chapter of building an adult life, with a partner or on your own terms. Tap any star to revisit.",
       "stickers": [
         "choosing-building",
         "your-path",
@@ -154,7 +154,7 @@ export const CAPSTONE_7: CapstoneConfig = {
       "myth": {
         "un": "Helping out with chores means I share the home equally.",
         "re": "Owning a share end-to-end, the planning and the remembering, is what equal really means.",
-        "why": "Helping waits to be asked; owning means carrying it — the planning and the remembering too."
+        "why": "Helping waits to be asked; owning means carrying it, the planning and the remembering too."
       },
       "celebrate": "You see the invisible load now, and you own your half."
     },
@@ -176,7 +176,7 @@ export const CAPSTONE_7: CapstoneConfig = {
         }
       ],
       "celebrate": "You lead with belief and help, never blame.",
-      "debrief": "Belief, no blame, and a route to help — that's how you show up for someone."
+      "debrief": "Belief, no blame, and a route to help. That's how you show up for someone."
     },
     {
       "id": "c7-p5",
@@ -204,9 +204,9 @@ export const CAPSTONE_7: CapstoneConfig = {
       "from": "g59",
       "type": "swipe",
       "frame": "Remember the calm read? Swipe up for the honest, panic-free truth about fertility and age.",
-      "cue": "Fertility changes gradually with age — for women and men alike — with no sudden cut-off, and a weaponised clock helps no one.",
+      "cue": "Fertility changes gradually with age, for women and men alike, with no sudden cut-off, and a weaponised clock helps no one.",
       "celebrate": "You keep the facts calm and the clock un-weaponised.",
-      "up": "Calm, honest facts — not panic."
+      "up": "Calm, honest facts, not panic."
     },
     {
       "id": "c7-p7",
@@ -285,9 +285,9 @@ export const CAPSTONE_7: CapstoneConfig = {
   ],
   "celebration": {
     "glyph": "a-life-built-star",
-    "certificate": "This certifies you a graduate of Chapter 7 — A Life, Built. You choose on values, share the load, keep money fair, live consent at home. Stand tall.",
-    "stickerBook": "All eight Chapter 7 stickers now glow in your A Life, Built constellation, crowned by a golden graduation star — every sticker since age 3 shining beneath it."
+    "certificate": "This certifies you a graduate of Chapter 7: A Life, Built. You choose on values, share the load, keep money fair, live consent at home. Stand tall.",
+    "stickerBook": "All eight Chapter 7 stickers now glow in your A Life, Built constellation, crowned by a golden graduation star, every sticker since age 3 shining beneath it."
   },
-  "preview": "Next, Chapter 8: Parenthood — the final chapter, for those who parent. Raise a child with the equality, consent and warmth you've carried all along.",
-  "share": "Your call: if it feels right, tell someone you trust one thing you're proud of building — a fairer home, a clearer boundary, a choice of your own."
+  "preview": "Next, Chapter 8: Parenthood, the final chapter, for those who parent. Raise a child with the equality, consent and warmth you've carried all along.",
+  "share": "Your call: if it feels right, tell someone you trust one thing you're proud of building, a fairer home, a clearer boundary, a choice of your own."
 };

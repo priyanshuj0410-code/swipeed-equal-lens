@@ -1,6 +1,6 @@
 "use client";
 
-// Equal & Confident (node g50, ages 18–22, Chapter 6) — NEW v2 build to GDD 50 (mechanic-embodying), taking
+// Equal & Confident (node g50, ages 18-22, Chapter 6): NEW v2 build to GDD 50 (mechanic-embodying), taking
 // gender-equality & allyship into adult arenas (Thread E), reworking the old ModesEngine build onto the shared v2
 // engine: its researched typed library + config (content/games/equal-confident.ts) render the play actions
 // (branch · strike-rewrite · sort · reflect · role-play · spot · match), led by branch + strike-rewrite +

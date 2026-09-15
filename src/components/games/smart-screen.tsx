@@ -1,6 +1,6 @@
 "use client";
 
-// Smart Screen Heroes (node g12, ages 6–9, Chapter 2) — NEW v2 build to GDD 12 (mechanic-embodying). The
+// Smart Screen Heroes (node g12, ages 6-9, Chapter 2): NEW v2 build to GDD 12 (mechanic-embodying). The
 // early media-literacy game that opens the Values, Rights & Media thread and completes Chapter 2, run on the
 // shared v2 engine: its researched typed library + config (content/games/smart-screen.ts) render the play
 // actions (branch · reflect · strike-rewrite · sort · spot · role-play · build), led by smart-screen dilemmas

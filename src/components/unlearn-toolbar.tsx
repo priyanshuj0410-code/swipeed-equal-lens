@@ -3,7 +3,7 @@
 import { Toolbar, ToolbarButton, ToolbarSeparator } from "@equal-lens/brand";
 import { useUnlearnTool, unlearnTool } from "@/lib/unlearn-tool";
 
-// The path-world tool dock — the brand UN/RE toolbar. RESPONSIVE: full labels on web (≥640px),
+// The path-world tool dock: the brand UN/RE toolbar. RESPONSIVE: full labels on web (≥640px),
 // icon-only on mobile. Browse = travel + play; Unlearn (UN) smudges a myth; Relearn (RE) reveals
 // the truth. Active tool = brand yellow.
 export function UnlearnToolbar() {
@@ -27,7 +27,7 @@ export function UnlearnToolbar() {
         <span className="tb-label">Relearn</span>
       </ToolbarButton>
       <ToolbarSeparator />
-      {/* the hide-notes toggle is a desktop-only convenience — hidden on mobile to keep the dock compact */}
+      {/* the hide-notes toggle is a desktop-only convenience: hidden on mobile to keep the dock compact */}
       <span className="hidden sm:contents">
         <ToolbarButton active={hide} onClick={() => unlearnTool.toggleHide()} title={hide ? "Show notes" : "Hide notes"} aria-label="Hide notes">
           <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>

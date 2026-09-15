@@ -1,6 +1,6 @@
 "use client";
 
-// Reality Check (node g28, ages 12–15, Chapter 4) — NEW v2 build to GDD 28 (mechanic-embodying). The teen
+// Reality Check (node g28, ages 12-15, Chapter 4): NEW v2 build to GDD 28 (mechanic-embodying). The teen
 // media-literacy peak (Thread G · Values, Rights & Media), run on the shared v2 engine: its researched typed
 // library + config (content/games/reality-check.ts) render the play actions (spot · strike-rewrite · swipe ·
 // branch · reflect · sort · role-play · match), led by spot (catch the trick), strike-rewrite (bust the claim)

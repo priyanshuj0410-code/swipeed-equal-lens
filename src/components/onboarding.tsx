@@ -8,17 +8,17 @@ const AVATARS = ["🦊", "🐼", "🦉", "🐯", "🐸", "🐙", "🦄", "🐱"]
 // Age bands map to the path chapters (each `ageGate` is a chapter entry point). Picking one drops the
 // learner at their age-appropriate chapter; earlier chapters stay open for revision (see node-unlock.ts).
 const AGE_BANDS: { ageGate: number; label: string }[] = [
-  { ageGate: 3, label: "3–6" },
-  { ageGate: 6, label: "6–9" },
-  { ageGate: 9, label: "9–12" },
-  { ageGate: 12, label: "12–15" },
-  { ageGate: 15, label: "15–18" },
-  { ageGate: 18, label: "18–22" },
+  { ageGate: 3, label: "3-6" },
+  { ageGate: 6, label: "6-9" },
+  { ageGate: 9, label: "9-12" },
+  { ageGate: 12, label: "12-15" },
+  { ageGate: 15, label: "15-18" },
+  { ageGate: 18, label: "18-22" },
   { ageGate: 22, label: "22+" },
   { ageGate: 25, label: "Parent" },
 ];
 
-/** First-run onboarding: a brand sticker card on dotted paper — pick a name + avatar, age band, language, safety note. */
+/** First-run onboarding: a brand sticker card on dotted paper, pick a name + avatar, age band, language, safety note. */
 export function Onboarding() {
   const { completeOnboarding } = useProfile();
   const [name, setName] = useState("");
@@ -28,7 +28,7 @@ export function Onboarding() {
 
   return (
     <>
-      {/* Clean dotted-paper backdrop (replaces the realistic grassland) — no colour glows */}
+      {/* Clean dotted-paper backdrop (replaces the realistic grassland): no colour glows */}
       <div
         className="fixed inset-0 z-0"
         style={{
@@ -56,7 +56,7 @@ export function Onboarding() {
               Learn by swiping
             </h1>
             <p className="text-sm leading-relaxed text-[color-mix(in_oklch,var(--color-ink),transparent_28%)]">
-              Quick, friendly games about relationships, fairness and growing up — travel the path one lesson at a time.
+              Quick, friendly games about relationships, fairness and growing up. Travel the path one lesson at a time.
             </p>
           </div>
 
@@ -94,7 +94,7 @@ export function Onboarding() {
             </div>
           </div>
 
-          {/* age band — picks the chapter to start at (earlier chapters stay open for revision) */}
+          {/* age band: picks the chapter to start at (earlier chapters stay open for revision) */}
           <div className="flex flex-col gap-1.5">
             <span className="text-sm font-bold text-[var(--color-ink)]">How old are you?</span>
             <div className="grid grid-cols-4 gap-1.5">
@@ -114,7 +114,7 @@ export function Onboarding() {
                 </button>
               ))}
             </div>
-            <span className="text-xs font-medium text-[color-mix(in_oklch,var(--color-ink),transparent_45%)]">We&apos;ll start you at the right chapter — earlier ones stay open to revisit.</span>
+            <span className="text-xs font-medium text-[color-mix(in_oklch,var(--color-ink),transparent_45%)]">We&apos;ll start you at the right chapter. Earlier ones stay open to revisit.</span>
           </div>
 
           {/* language */}
@@ -125,7 +125,7 @@ export function Onboarding() {
                 English
               </span>
               <span className="rounded-full border-2 border-dashed border-[var(--violet-200)] px-4 py-1.5 text-sm font-semibold text-[color-mix(in_oklch,var(--color-ink),transparent_45%)]">
-                हिन्दी — soon
+                हिन्दी (soon)
               </span>
             </div>
           </div>
@@ -139,7 +139,7 @@ export function Onboarding() {
             }}
           >
             These games cover real-life topics like relationships and fairness. If anything feels too real, tap{" "}
-            <span className="font-bold">Get Help</span> any time — it&apos;s always in the corner.
+            <span className="font-bold">Get Help</span> any time. It&apos;s always in the corner.
           </p>
 
           {/* CTA */}

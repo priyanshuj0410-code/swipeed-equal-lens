@@ -64,7 +64,7 @@ export type Deck = {
   /** Decks that are NOT school-comfort-safe (romantic framing) are hidden when School-Comfort Mode is on. */
   schoolComfortSafe: boolean;
   isDaily?: boolean;
-  /** Its own game, not a Green Light/Red Light deck — hidden from the GL/RL hub. */
+  /** Its own game, not a Green Light/Red Light deck: hidden from the GL/RL hub. */
   standalone?: boolean;
   /** Swipe semantics for this deck. Defaults to red/green flags. */
   swipe?: { left: string; right: string };
@@ -80,7 +80,7 @@ export type Card = {
   signId?: SignId; // links to one of the 20 core signs for Flag-pedia mastery
   difficulty: 1 | 2 | 3;
   is_disguised: boolean; // looks like the opposite of the correct answer
-  is_safeguarding: boolean; // genuine abuse — never scored; routes to supportive screen
+  is_safeguarding: boolean; // genuine abuse: never scored; routes to supportive screen
   feedback_short: string; // one-line "why" on the reveal
   learn_more_ref?: string;
   locale: string;
@@ -91,10 +91,10 @@ export type Card = {
   illustration_ref?: string;
 };
 
-// --- Life-Skills Toolkit (Thread C spine) — see knowledge/games/life-skills-toolkit.md ---
+// --- Life-Skills Toolkit (Thread C spine): see knowledge/games/life-skills-toolkit.md ---
 // The four persistent tools a child builds & levels across the whole 15-year journey.
 export type ToolId = "cool-down" | "decision-steps" | "talk-it-out" | "help-map";
-// Per-tool state on the profile. level 0 = locked; 1–5 = unlocked & deepened (one per chapter).
+// Per-tool state on the profile. level 0 = locked; 1-5 = unlocked & deepened (one per chapter).
 export type ToolState = { level: number; lastUsedAt?: string };
 
 export type Profile = {
@@ -112,13 +112,13 @@ export type Profile = {
   // --- 2.0 run meta-progression (optional; default-merged on load) ---
   runsCompleted?: number;
   runDeckCleared?: Record<string, boolean>; // story-deck arcs finished (by RunDeckId)
-  disgSeen?: number; // lifetime disguised cards seen — the headline learning signal
+  disgSeen?: number; // lifetime disguised cards seen: the headline learning signal
   disgCorrect?: number; // lifetime disguised cards read correctly
   dailyRunOn?: string; // YYYY-MM-DD the Daily Run was last taken
   muted?: boolean; // global sound mute (synced to the juice layer)
   // --- Life-Skills Toolkit (optional; default-merged). Unlocked/levelled by the Thread-C games. ---
   toolkit?: Partial<Record<ToolId, ToolState>>;
-  // --- Wellbeing shell (optional; default-merged). On-device only — never a mood *value*, just cadence. ---
+  // --- Wellbeing shell (optional; default-merged). On-device only: never a mood *value*, just cadence. ---
   calmMode?: boolean; // reduced-stimulation across the whole app
   mood?: { lastCheckDayKey?: string }; // when the gentle mood check-in was last shown (YYYY-MM-DD)
   dailyStreak?: { count: number; lastDayKey: string; freezes: number }; // the kind streak (with freezes)
@@ -149,7 +149,7 @@ export type Character = {
   name: string;
   avatar: string; // emoji stand-in until illustration_ref art lands
   pronoun: "she" | "he" | "they";
-  blurb: string; // who they are — shown on the loadout / character chip
+  blurb: string; // who they are: shown on the loadout / character chip
 };
 
 /** A branching choice at a fork. `branch` is the branch_id later cards are gated to. */
@@ -180,7 +180,7 @@ export type RunDeck = {
   resolution: { clear: string; reflect: string }; // high- vs low-Clarity outcome copy
 };
 
-/** Insight perks ("powers") are reading/learning aids — never auto-win, never purchased. The first
+/** Insight perks ("powers") are reading/learning aids: never auto-win, never purchased. The first
  *  four are available from the start; the rest unlock by play (see `isPerkUnlocked`). */
 export type PerkId =
   | "slow-mo"

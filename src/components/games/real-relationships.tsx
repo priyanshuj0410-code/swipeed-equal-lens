@@ -1,6 +1,6 @@
 "use client";
 
-// Real Relationships (node g46, ages 18–22, Chapter 6) — NEW v2 build to GDD 46 (mechanic-embodying), the
+// Real Relationships (node g46, ages 18-22, Chapter 6): NEW v2 build to GDD 46 (mechanic-embodying), the
 // relationship heart of College (Thread D), reworking the old ModesEngine build onto the shared v2 engine: its
 // researched typed library + config (content/games/real-relationships.ts) render the play actions (branch · sort
 // · strike-rewrite · reflect · role-play · spot · match), led by branch + sort + strike-rewrite. Good

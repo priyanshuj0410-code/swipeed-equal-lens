@@ -1,8 +1,8 @@
 "use client";
 
-// Be the Safe Adult (node g69, Parent Layer, Chapter 8) — NEW v2 build to GDD 69 (mechanic-embodying), the
+// Be the Safe Adult (node g69, Parent Layer, Chapter 8): NEW v2 build to GDD 69 (mechanic-embodying), the
 // SAFEGUARDING KEYSTONE that closes the Parent Layer and underwrites the ENTIRE kids' journey: from My Body, My
-// Rules (g02) onward the curriculum tells children to "tell a trusted adult" — this node makes sure that adult
+// Rules (g02) onward the curriculum tells children to "tell a trusted adult": this node makes sure that adult
 // exists, notices, and responds right. MAXIMUM-CARE and trauma-informed; direct but never fear-mongering and never
 // graphic. Runs on the shared v2 engine: its researched typed library + config (content/games/be-the-safe-adult.ts)
 // render the play actions (strike-rewrite · role-play · branch · sort · match · spot · reflect), led by

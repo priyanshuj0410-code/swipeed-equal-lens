@@ -59,7 +59,7 @@ export function EnvProp({
   );
 }
 
-/** A decorative grassy ground band — a normal-flow footer that grounds a screen in the path's world. */
+/** A decorative grassy ground band: a normal-flow footer that grounds a screen in the path's world. */
 export function GroundScenery({ className = "" }: { className?: string }) {
   return (
     <div className={`pointer-events-none w-full ${className}`} aria-hidden>

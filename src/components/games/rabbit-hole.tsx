@@ -1,10 +1,10 @@
 "use client";
 
-// The Rabbit Hole (node g43, ages 12–15, Chapter 4) — NEW v2 build to GDD 43 (mechanic-embodying). The
+// The Rabbit Hole (node g43, ages 12-15, Chapter 4): NEW v2 build to GDD 43 (mechanic-embodying). The
 // online-misogyny / manosphere node (Thread E/G · Gender & Media), run on the shared v2 engine: its researched
 // typed library + config (content/games/rabbit-hole.ts) render the play actions (branch · reflect ·
 // strike-rewrite · spot · sort · role-play · match), led by strike-rewrite (bust the claim), spot (catch the
-// hook) and branch. THE ONE RULE: never shame the boy — the funnel and the grift are the target, never the kid;
+// hook) and branch. THE ONE RULE: never shame the boy, the funnel and the grift are the target, never the kid;
 // boys pulled in are usually lonely/anxious/seeking identity, and grifters + algorithms exploit that.
 // Media-literacy-led, evenhanded (the manosphere harms boys too), centred on positive masculinity (real
 // strength lifts people, never needs anyone small; strong AND kind; confidence is built not bought). Never

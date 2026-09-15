@@ -1,6 +1,6 @@
 import type { Card } from "@/lib/types";
 
-// The scoring system has one job: reward careful, accurate reading — never speed,
+// The scoring system has one job: reward careful, accurate reading, never speed,
 // guessing, or spending. No hard fail-state.
 export const POINTS = {
   correct: 10,

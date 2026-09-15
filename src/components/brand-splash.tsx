@@ -33,7 +33,7 @@ export function BrandSplash({
     >
       <Logo className="size-20" title="SwipeEd" />
       {/* The splash background is hardcoded LIGHT, so its colours must NOT use theme tokens (--foreground /
-          --color-ink / --color-brand) — the path's ThemeController flips those to dark inline on <html> at
+          --color-ink / --color-brand), and the path's ThemeController flips those to dark inline on <html> at
           night, which turned the wordmark + bar invisible. Hardcode the brand ink + purple here. */}
       <span className="font-display text-2xl font-extrabold tracking-tight" style={{ color: "#2a1a47" }}>SwipeEd</span>
       <span className="-mt-1 text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: "#7c5cab" }}>by The Equal Lens</span>

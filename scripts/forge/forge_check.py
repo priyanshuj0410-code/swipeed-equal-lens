@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""forge_check.py — the deterministic validator, used in two modes (one code path, no rubber-stamp):
+"""forge_check.py: the deterministic validator, used in two modes (one code path, no rubber-stamp):
 
   --batch <file.ndjson> --game <gid>   per-batch lint during generation: validate each candidate line
                                        (parse, id safety against the shipped bank and the plan's id blocks,
@@ -11,7 +11,7 @@
                                        share caps, and count vs the planned target (quality-first: a logged
                                        exhaustion at .forge/<gid>/exhaustion.json permits a dip).
 
-Exits non-zero on any HARD failure so it can gate a commit. Truth is recomputed from the file — never an
+Exits non-zero on any HARD failure so it can gate a commit. Truth is recomputed from the file: never an
 agent's self-report.
 """
 import json, os, sys, glob
@@ -42,7 +42,7 @@ def personas_from_plan(plan):
 def check_batch(batch_file, gid, plan=None, game_path=None):
     plan = plan or C.load_plan(gid)
     if not plan:
-        raise SystemExit(f"no plan for {gid} — run forge_plan.py {gid} --write first")
+        raise SystemExit(f"no plan for {gid}: run forge_plan.py {gid} --write first")
     allowed = set(plan["allowed_mechanics"])
     ceil = plan.get("band_ceiling")
     chapter = plan.get("chapter")
@@ -119,14 +119,14 @@ def check_game(gid):
     exhausted = os.path.exists(os.path.join(C.REPO, ".forge", gid, "exhaustion.json"))
     count_fail = (n < TARGET) and not exhausted
 
-    print(f"■ forge_check {gid} (Ch.{chapter}) — {n} scenarios, ceil {ceil}")
+    print(f"■ forge_check {gid} (Ch.{chapter}): {n} scenarios, ceil {ceil}")
     print(f"  parse errors: {len(perr)} | per-scenario failures: {per_scn} | dup ids: {len(dupe)}")
     if mix_warn:
         print("  MIX:")
         for w in mix_warn:
             print(f"    ⚠ {w}")
     if count_fail:
-        print(f"  COUNT: {n} < {TARGET} and no .forge/{gid}/exhaustion.json — below target")
+        print(f"  COUNT: {n} < {TARGET} and no .forge/{gid}/exhaustion.json, below target")
     if hard or mix_warn or count_fail:
         print("\n  ✗ FAIL:")
         for h in hard[:30]:
@@ -134,7 +134,7 @@ def check_game(gid):
         if per_scn > 25:
             print(f"    … +{per_scn-25} more per-scenario failures")
         sys.exit(1)
-    print("  ✓ PASS — all shapes/helplines/lengths/band/membership/mix/count clean")
+    print("  ✓ PASS: all shapes/helplines/lengths/band/membership/mix/count clean")
 
 
 def main():

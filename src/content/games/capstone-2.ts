@@ -1,4 +1,4 @@
-// Content for Capstone 2 — Fair & Safe Explorer (node c2, Chapter 2 graduation, ages 6–9). NEW rich build to
+// Content for Capstone 2: Fair & Safe Explorer (node c2, Chapter 2 graduation, ages 6-9). NEW rich build to
 // GDD c2 ("Capstone format v1"), following the c1 template. Not a lesson, never a test: a joyful, no-fail
 // celebration that lights up the explorer's map and consolidates all eight Chapter 2 truths through spaced,
 // VARIED retrieval (gallery · match · sort · spot · build · swipe), then crowns it with a golden compass and

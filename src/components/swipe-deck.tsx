@@ -193,7 +193,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete, labels }:
 
           {index === 0 && mode === "score" ? (
             <span className="flex items-center justify-center gap-1.5 text-[11px] font-medium text-muted-foreground">
-              <Hand className="size-3.5 -scale-x-100 animate-bounce" aria-hidden /> Swipe or tap — right = {L.right}, left = {L.left}
+              <Hand className="size-3.5 -scale-x-100 animate-bounce" aria-hidden /> Swipe or tap: right = {L.right}, left = {L.left}
             </span>
           ) : (
             <span className="text-center text-[11px] text-muted-foreground">Healthy or unhealthy? Swipe the card or use the buttons.</span>

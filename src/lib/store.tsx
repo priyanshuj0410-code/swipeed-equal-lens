@@ -11,7 +11,7 @@ import type { Profile, SignId, ToolId } from "@/lib/types";
 import { TOOL_IDS, MAX_LEVEL } from "@/lib/toolkit";
 import { setMuted as setJuiceMuted, setCalm as setJuiceCalm } from "@/lib/juice";
 
-// Local YYYY-MM-DD (device clock) — the day key for the kind streak + mood-check cadence.
+// Local YYYY-MM-DD (device clock): the day key for the kind streak + mood-check cadence.
 function dayKey(offset = 0): string {
   const d = new Date();
   d.setDate(d.getDate() + offset);
@@ -94,7 +94,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     setJuiceMuted(profile.muted ?? false);
   }, [profile.muted]);
 
-  // Calm Mode — dial down motion app-wide (juice/confetti) and tag the root for any CSS hooks.
+  // Calm Mode: dial down motion app-wide (juice/confetti) and tag the root for any CSS hooks.
   useEffect(() => {
     const on = profile.calmMode ?? false;
     setJuiceCalm(on);
@@ -171,7 +171,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
       }),
     []
   );
-  // Raise every tool to at least `level` — the toolkit grows a chapter at a time as Thread-C games finish.
+  // Raise every tool to at least `level`: the toolkit grows a chapter at a time as Thread-C games finish.
   const levelTools = useCallback(
     (level: number) =>
       setProfile((prev) => {
@@ -206,7 +206,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     []
   );
   // Tick the kind streak once per day. A missed day spends a freeze (if any) to protect the streak;
-  // otherwise it resets gently to 1 — never any shame. New visitors start at day 1 with two freezes.
+  // otherwise it resets gently to 1: never any shame. New visitors start at day 1 with two freezes.
   const recordVisit = useCallback(
     () =>
       setProfile((prev) => {

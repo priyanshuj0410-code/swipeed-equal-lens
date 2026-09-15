@@ -1,6 +1,6 @@
 "use client";
 
-// Find Your Feet (node g52, ages 18–22, Chapter 6) — NEW v2 build to GDD 52 (mechanic-embodying), completing the
+// Find Your Feet (node g52, ages 18-22, Chapter 6): NEW v2 build to GDD 52 (mechanic-embodying), completing the
 // College wellbeing cluster (Thread C), reworking the old ModesEngine build onto the shared v2 engine: its
 // researched typed library + config (content/games/find-your-feet.ts) render the play actions (branch ·
 // strike-rewrite · sort · reflect · role-play · match · spot), led by branch + strike-rewrite + sort. No one has

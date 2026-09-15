@@ -1,6 +1,6 @@
 "use client";
 
-// Bounce (node g39, ages 12–15, Chapter 4) — NEW v2 build to GDD 39 (mechanic-embodying). The resilience +
+// Bounce (node g39, ages 12-15, Chapter 4): NEW v2 build to GDD 39 (mechanic-embodying). The resilience +
 // stress + teen-mental-health node (Thread C), run on the shared v2 engine: its researched typed library + config
 // (content/games/bounce.ts) render the play actions (branch · strike-rewrite · role-play · reflect · sort · build ·
 // match), led by branch (choose the move that actually helps), strike-rewrite (bust the resilience myth) and

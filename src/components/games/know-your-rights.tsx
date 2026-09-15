@@ -1,6 +1,6 @@
 "use client";
 
-// Know Your Rights (Adult) (node g51, ages 18–22, Chapter 6) — NEW v2 build to GDD 51 (mechanic-embodying), the
+// Know Your Rights (Adult) (node g51, ages 18-22, Chapter 6): NEW v2 build to GDD 51 (mechanic-embodying), the
 // College node that closes the chapter (Thread G), reworking the old ModesEngine build onto the shared v2 engine:
 // its researched typed library + config (content/games/know-your-rights.ts) render the play actions (branch ·
 // strike-rewrite · sort · reflect · match · role-play · spot), led by branch + strike-rewrite + match. Turns

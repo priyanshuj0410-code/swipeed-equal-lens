@@ -1,7 +1,7 @@
 <!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+This version has breaking changes: APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
 # Working conventions
@@ -13,5 +13,5 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 > **This is a `the-equal-lens` domain.** A chat here may edit only The Equal Lens files (this repo,
 > the site, SwipeEd). It may read anything and file tickets into any domain, but an Edit or Write into the
-> **Praxis** engine repo is blocked by `~/.claude/hooks/domain-guard.sh` — Praxis is a separate venture.
+> **Praxis** engine repo is blocked by `~/.claude/hooks/domain-guard.sh`: Praxis is a separate venture.
 > Need an engine change? File a ticket in Plane `claude-pri / PRX` for a Praxis chat.

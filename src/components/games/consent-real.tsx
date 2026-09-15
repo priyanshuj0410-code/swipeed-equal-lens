@@ -1,6 +1,6 @@
 "use client";
 
-// Consent, For Real (node g44, ages 18–22, Chapter 6) — NEW v2 build to GDD 44 (mechanic-embodying), the first
+// Consent, For Real (node g44, ages 18-22, Chapter 6): NEW v2 build to GDD 44 (mechanic-embodying), the first
 // node of Chapter 6 (College) and the adult completion of the consent thread (Thread B). Reworks the old
 // ModesEngine build onto the shared v2 engine: its researched typed library + config (content/games/consent-real.ts)
 // render the play actions (branch · strike-rewrite · sort · reflect · role-play · spot · match), led by branch +

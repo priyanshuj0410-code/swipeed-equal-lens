@@ -35,7 +35,7 @@ knowledge/
   schemas/           question-bank.md (bank format, sources, gates, fleet numbers)
   games/             the catalog: one doc per game and capstone, plus the SwipeEd overview docs
   audits/            dated audits: design, question bank, forge pipeline
-  playbooks/         approved plans and how-tos (playtest-feedback-plan-2026-09-15.md)
+  playbooks/         approved plans and how-tos (playtest-feedback-plan-2026-09-15.md, writing-without-dashes.md)
   research/          dated research: tools, evidence and options before a decision (visual answer options)
   log/               log.md, the dated project log, newest first
 ```
@@ -52,6 +52,7 @@ knowledge/
 | Design | [design system](design.md) · [design audit, 2026-09-14](audits/design-audit-2026-09-14.md) |
 | Audits | [design, 2026-09-14](audits/design-audit-2026-09-14.md) · [question bank, 2026-09-14](audits/question-bank-audit-2026-09-14.md) · [forge pipeline, 2026-09-14](audits/forge-pipeline-review-2026-09-14.md) |
 | Plans | [playtest feedback plan, 2026-09-15](playbooks/playtest-feedback-plan-2026-09-15.md): question focus, match and sort, reflect, myth cards |
+| Voice | [writing without dashes](playbooks/writing-without-dashes.md): the moves that replace em and en dashes, the comma splice trap, the gate ([SWED-92](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22)) |
 | Research | [visual answer options, 2026-09-15](research/visual-answer-options-2026-09-15.md): pictures for pre-readers, reading evidence, Runway, Recraft and other tools ([SWED-89](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5)) |
 | Tracking and history | [Plane configuration](plane.config.md) · [project log](log/log.md) |
 

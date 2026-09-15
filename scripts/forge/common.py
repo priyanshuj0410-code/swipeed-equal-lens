@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""forge/common.py — the shared foundation every forge gate imports.
+"""forge/common.py: the shared foundation every forge gate imports.
 
 This is the safety boundary in code: the byte-exact helpline allowlist, the band map, the per-band mechanic
 allowlist, the must-be-true field-role map, parse-or-die parsing, dedup normalization, and the per-mechanic
 structural validators. The individual gate scripts (forge_helpline/forge_shape/forge_mix/…) are thin wrappers
-over this. Keep DATA here verified and version-pinned — its recall is what stands between the gate and a
+over this. Keep DATA here verified and version-pinned: its recall is what stands between the gate and a
 shipped wrong child-safety number.
 
 Allowlist last web-verified 2026-06-24 against india.gov.in/directory/helpline + childlineindia.org.
@@ -39,7 +39,7 @@ ASSENT_ONLY = {"yes", "no", "maybe", "agree", "disagree", "i agree", "i disagree
 # service's canonical number. Numbers NOT in a helpline context (calories, ages, counts) are ignored.
 # Services carry ALL valid alternates (e.g. women = 181 OR 1091; emergency/police = 112 OR 100) so the gate is
 # forgiving of correct variants while still catching a WRONG binding ("Childline 112"). The check is
-# DIRECT-BINDING only: a service name immediately followed by a number must be one of that service's numbers —
+# DIRECT-BINDING only: a service name immediately followed by a number must be one of that service's numbers
 # so "Childline, Tele-MANAS and 112" or "112 (emergency)" (number not directly after the name) never false-flag.
 HELPLINES = [
     {"service": "Childline",  "forms": ["1098"],                                   "names": [r"child\s?line"]},
@@ -55,7 +55,7 @@ HELPLINES = [
 RETIRED_HELPLINES = [
     {"service": "KIRAN", "use": "Tele-MANAS 14416", "pattern": re.compile(r"\bKIRAN\b|1800[\s-]?599[\s-]?0019")},
 ]
-# every legit helpline digit-form (normalized, dashes stripped) — for the "dialed number must be allowlisted" check
+# every legit helpline digit-form (normalized, dashes stripped): for the "dialed number must be allowlisted" check
 HELPLINE_FORMS = {f.replace("-", "") for h in HELPLINES for f in h["forms"]}
 # a number is "dialed" (and so must be a real helpline) only right after an explicit call/dial verb
 DIAL_CONTEXT = re.compile(r"\b(?:call|dial|ring)\s+(\d[\d\- ]{2,4}\d)", re.I)
@@ -65,7 +65,7 @@ US_DENYLIST = re.compile(
     r"\b(9-1-1|911|CPS\b|child protective services|district attorney|\bDA\b|title ix|\bsophomore\b|\bfreshman\b|\bjunior high\b|\bmiddle school\b(?! in india)|\bgrade\s?\d{1,2}\b|\bzip ?code\b|\bSSN\b|\bDMV\b)|[$]\d",
     re.I)
 
-# law/statute sniffer — these claims MUST be web-verified (force needsFact regardless of generator's tag)
+# law/statute sniffer: these claims MUST be web-verified (force needsFact regardless of generator's tag)
 STATUTE_YEAR = {"POSH": "2013", "PWDV": "2005", "DV Act": "2005", "BNS": "2023", "RPwD": "2016", "POCSO": "2012", "PCMA": "2006"}
 LAW_TOKENS = re.compile(r"\b(POCSO|POSH|BNS|BNSS|IPC|RPwD|PCMA|age of consent|child marriage|domestic violence act|section \d+)\b", re.I)
 # stat phrasing is case-insensitive; the source ORGS are case-SENSITIVE so the pronoun "who" doesn't trip \bWHO\b
@@ -75,14 +75,14 @@ AGE_OF_CONSENT = "18"
 
 # ── per-band mechanic allowlist ─────────────────────────────────────────────────────────────────────────────
 # A mechanic is allowed for a game if it's in the band default-allowed set OR the game's library leadMechanics.
-# Ch.1-2 (ages 3-9) default-DISALLOW the red-flag/predator-spotting (spot) and flag-reading (swipe) verbs —
-# they need older cognition and risk teaching fear to little kids — UNLESS that game's GDD leads with them.
+# Ch.1-2 (ages 3-9) default-DISALLOW the red-flag/predator-spotting (spot) and flag-reading (swipe) verbs
+# they need older cognition and risk teaching fear to little kids: UNLESS that game's GDD leads with them.
 BAND_DISALLOW = {1: {"spot", "swipe"}, 2: {"spot", "swipe"}}
 BIN_VALENCES = {"pos", "neg", "tell", "uhoh", "neutral"}
 ALL_MECHANICS = {"reflect", "choose", "role-play", "strike-rewrite", "branch", "sort", "match", "build", "explore-label", "spot", "swipe"}
 
 # ── field roles: where canonical facts MUST hold vs where deliberate myths/lies live ─────────────────────────
-# Visible (rendered) string fields per type — used for <=160, normalization, dedup.
+# Visible (rendered) string fields per type: used for <=160, normalization, dedup.
 def visible_fields(o):
     """Yield (field_label, text) for every player-visible string in a scenario."""
     t = o.get("type")
@@ -141,11 +141,11 @@ def visible_fields(o):
     else:
         # FAIL CLOSED. This is the sole feed for the ≤160 field cap (field_len_errors), the US-framing
         # denylist + helpline name↔number binding (helpline_errors), and the dedup prose fingerprint
-        # (norm_scenario). Falling through silently — as this used to — yields only hook+relearn, so a
+        # (norm_scenario). Falling through silently (as this used to) yields only hook+relearn, so a
         # new mechanic's entire payload goes unread and every one of those gates reports green while
         # blind. Adding a mechanic MUST include an arm here.
         raise ValueError(
-            f"visible_fields: unhandled scenario type {t!r} (id={o.get('id')!r}). Add an arm for it — "
+            f"visible_fields: unhandled scenario type {t!r} (id={o.get('id')!r}). Add an arm for it: "
             f"the length, helpline and dedup gates all read this function."
         )
 
@@ -157,7 +157,7 @@ def must_be_true_texts(o):
         out.append(o["relearn"])
     if t == "strike-rewrite":
         m = o.get("myth", {}) or {}
-        out += [m.get("re", ""), m.get("why", "")]   # NOT m['un'] — that's the myth being struck
+        out += [m.get("re", ""), m.get("why", "")]   # NOT m['un']: that's the myth being struck
     elif t == "branch":
         out.append(o.get("debrief", ""))
         for op in o.get("options", []) or []:
@@ -193,11 +193,11 @@ def must_be_true_texts(o):
         # If that call is ever revisited, add the fields here rather than removing the arm.
         pass
     else:
-        # FAIL CLOSED. This feeds claim_flags — the law/statute/statistic sniffer that forces web
+        # FAIL CLOSED. This feeds claim_flags: the law/statute/statistic sniffer that forces web
         # verification before a scenario may ship. Silent fallthrough (the old behaviour) means a new
         # mechanic can assert an unverified legal or medical claim and never be flagged.
         raise ValueError(
-            f"must_be_true_texts: unhandled scenario type {t!r} (id={o.get('id')!r}). Add an arm — "
+            f"must_be_true_texts: unhandled scenario type {t!r} (id={o.get('id')!r}). Add an arm: "
             f"name the fields where the app speaks in its own voice, or `pass` if genuinely none."
         )
     return [x for x in out if x]
@@ -290,7 +290,7 @@ def game_to_chapter():
     return m
 
 def file_gameid(path):
-    """The RUNTIME gameId from a content file's config — may differ from the filename stem (e.g.
+    """The RUNTIME gameId from a content file's config: may differ from the filename stem (e.g.
     feelings-friends.ts → gameId 'feelings'). path.ts keys off this runtime id, not the filename."""
     if not os.path.exists(path):
         return os.path.basename(path)[:-3]
@@ -298,7 +298,7 @@ def file_gameid(path):
     return m.group(1) if m else os.path.basename(path)[:-3]
 
 def chapter_of(gid_or_path):
-    """Chapter for a game by filename stem OR path — resolves the config gameId first so a file whose name
+    """Chapter for a game by filename stem OR path: resolves the config gameId first so a file whose name
     differs from its gameId still gets the right chapter (hence the right band ceiling + band-mechanic guard)."""
     g2ch = game_to_chapter()
     path = gid_or_path if gid_or_path.endswith(".ts") else os.path.join(GAMES, gid_or_path + ".ts")
@@ -335,7 +335,7 @@ def jaccard(a, b):
     return len(a & b) / len(a | b)
 
 # ── required fields per scenario type (mirrors the Base + payload in src/content/games/v2-schema.ts) ─────────
-# Base = {id, cat, persona, source, relearn, hook} is required on EVERY type — a scenario missing any of these
+# Base = {id, cat, persona, source, relearn, hook} is required on EVERY type: a scenario missing any of these
 # compiles to a tsc error and may render blank at runtime, so the gate must catch it (not rely on tsc backstop).
 REQUIRED_BASE = ["id", "cat", "type", "persona", "source", "relearn", "hook"]
 REQUIRED_PAYLOAD = {
@@ -357,7 +357,7 @@ def _missing(o, f):
     return f not in o or v is None or v == "" or v == [] or v == {}
 
 def required_field_errors(o):
-    """Every Base field + the per-type payload fields must be present and non-empty — mirrors the TS Scenario
+    """Every Base field + the per-type payload fields must be present and non-empty: mirrors the TS Scenario
     union, so malformed (would-not-compile) content fails the gate instead of slipping through to tsc."""
     e = [f"missing base field '{f}'" for f in REQUIRED_BASE if _missing(o, f)]
     t = o.get("type")
@@ -472,7 +472,7 @@ def shape_errors(o, strict_target=True):
                 e.append(f"swipe {side}={v!r} not in {sorted(BIN_VALENCES)}")
         lv, rv = o.get("leftValence"), o.get("rightValence")
         if lv and rv and lv == rv and lv != "neutral":
-            e.append(f"swipe both sides declare {lv!r} — the two sides would render identically")
+            e.append(f"swipe both sides declare {lv!r}: the two sides would render identically")
     elif t == "build":
         key = o.get("key", []); pieces = o.get("pieces", [])
         if not set(key).issubset(set(pieces)):
@@ -485,12 +485,12 @@ def shape_errors(o, strict_target=True):
     return e
 
 def helpline_errors(o):
-    """Precise helpline check over a scenario's visible text — DIRECT BINDING only, low false-positive.
+    """Precise helpline check over a scenario's visible text: DIRECT BINDING only, low false-positive.
       (1) US-framing tokens are blocked.
       (2) A service NAME immediately followed by a number (optionally via at/on/:/-) must be one of THAT
-          service's valid numbers — catches 'Childline 112' but not '112 (emergency)' or multi-service lists.
+          service's valid numbers: catches 'Childline 112' but not '112 (emergency)' or multi-service lists.
       (3) A number right after a call/dial/ring verb must be an allowlisted helpline (catches a hallucinated
-          dial-this number) — content numbers like '1000 calories' or '18 years' are never in a dial context.
+          dial-this number): content numbers like '1000 calories' or '18 years' are never in a dial context.
     """
     e = []
     for label, txt in visible_fields(o):
@@ -498,7 +498,7 @@ def helpline_errors(o):
     return e
 
 def helpline_errors_text(label, txt):
-    """The same three checks over ONE string — so config fields (helpLine, helpLabel, greet, reassure) are
+    """The same three checks over ONE string: so config fields (helpLine, helpLabel, greet, reassure) are
     held to the identical standard as scenario prose. A game's helpLine is spoken aloud, with authority, to
     a child in distress; it was previously length-checked and nothing more."""
     e = []
@@ -512,7 +512,7 @@ def helpline_errors_text(label, txt):
     for h in HELPLINES:
         canon = {f.replace("-", "") for f in h["forms"]}
         for nm in h["names"]:
-            for m in re.finditer(nm + r"\s*(?:at|on|number|helpline|[:\-–])?\s*(\d[\d\- ]{1,5}\d)", txt, re.I):
+            for m in re.finditer(nm + r"\s*(?:at|on|number|helpline|[:\-\u2013\u2014])?\s*(\d[\d\- ]{1,5}\d)", txt, re.I):
                 nd = re.sub(r"[\s\-]", "", m.group(1))
                 if nd not in canon and len(nd) <= 5:
                     e.append(f"{label}: '{h['service']}' bound to {m.group(1).strip()} (want {h['forms'][0]})")
@@ -529,7 +529,7 @@ def allowed_mechanics(chapter, lead_mechanics):
 def field_len_errors(o):
     return [f"{label} >{FIELD_MAX} ({len(txt)})" for label, txt in visible_fields(o) if len(txt) > FIELD_MAX]
 
-# keys that are NOT narrated prose — excluded from the per-scenario band total (read by the forge gates and by
+# keys that are NOT narrated prose: excluded from the per-scenario band total (read by the forge gates and by
 # scripts/content_gate.py, which runs at commit and before every build).
 # `note` (choose) is shown only for a wrong or missed pick, so it is capped per field but left out of the total.
 NON_PROSE = {"id", "cat", "type", "key", "persona", "source", "mode", "valence", "outcome", "leftValence", "rightValence", "note"}
@@ -553,7 +553,7 @@ def band_error(o, ceil):
 
 def claim_flags(o):
     """Claims that MUST be web-verified (force needsFact regardless of the generator's tag). Only scans
-    must-be-true fields — a law/stat asserted inside a deliberate myth (myth.un / trick item) is not a claim
+    must-be-true fields: a law/stat asserted inside a deliberate myth (myth.un / trick item) is not a claim
     the app makes. Returns list of (kind, snippet)."""
     flags = []
     for txt in must_be_true_texts(o):

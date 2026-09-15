@@ -1,10 +1,10 @@
-// Capstone 5 — "Ready for the World" (node c5, Chapter 5 graduation, ages 15–18) AND the close of the whole
-// 4–18 SwipeEd journey. NEW rich build to GDD c5 ("Capstone format v1"), following the c1 reference and matching
-// c2–c4, replacing the old nine-star tap build. Runs on the shared rich capstone engine (capstone-rich.tsx): its
+// Capstone 5: "Ready for the World" (node c5, Chapter 5 graduation, ages 15-18) AND the close of the whole
+// 4-18 SwipeEd journey. NEW rich build to GDD c5 ("Capstone format v1"), following the c1 reference and matching
+// c2, c4, replacing the old nine-star tap build. Runs on the shared rich capstone engine (capstone-rich.tsx): its
 // Landing config drives arrive → look back (the "Ready for the World" constellation gallery, nine Chapter-5
 // stickers crowned by the whole-journey star) → play back (victory laps, each a chapter truth re-cued through a
 // different mechanic: gallery · swipe · spot · branch · sort · match · branch · strike-rewrite · swipe) → reflect
-// → celebrate (constellation + sunrise + graduation certificate for the whole 4–18 journey). Recaps the nine
+// → celebrate (constellation + sunrise + graduation certificate for the whole 4-18 journey). Recaps the nine
 // Chapter-5 lessons (My Choices, My Future · Status: Know It · Mutual · Spectrum · Lead the Way · Change Makers ·
 // Justice League · Life Ready · Decoded). No score, no fail. gameId "capstone-5" (the Landing's "capstone-ch5" is
 // aspirational; the engine-host registry id is "capstone-5").
@@ -16,7 +16,7 @@ export const CAPSTONE_5: CapstoneConfig = {
   "node": "c5",
   "chapter": 5,
   "ages": "15-18",
-  "arrival": "Look how far you've come — from a small kid naming feelings to a near-adult ready for the world. Let's take a calm, proud walk back through it all.",
+  "arrival": "Look how far you've come: from a small kid naming feelings to a near-adult ready for the world. Let's take a calm, proud walk back through it all.",
   "canvasPayoff": "Sunrise over the whole landscape: every chapter you've finished glows together, 4 to 18. Your nine stickers rise into the dawn as one bright constellation.",
   "threadsRecapped": [
     "B",
@@ -251,7 +251,7 @@ export const CAPSTONE_5: CapstoneConfig = {
       "myth": {
         "un": "Only certain people need to know their status.",
         "re": "Knowing your status is routine, private and for everyone; it's strength, not shame.",
-        "why": "Testing is routine and private — the only thing to fear is stigma, never the test."
+        "why": "Testing is routine and private. The only thing to fear is stigma, never the test."
       },
       "celebrate": "Knowing is strength. You carry that calmly now."
     },
@@ -312,10 +312,10 @@ export const CAPSTONE_5: CapstoneConfig = {
   ],
   "celebration": {
     "glyph": "ready-for-the-world-star",
-    "certificate": "This certifies you are Ready for the World — a graduate of Chapter 5 and the whole SwipeEd journey, ages 4 to 18. You did it yourself. Unlearn. Relearn. Grow.",
+    "certificate": "This certifies you are Ready for the World: a graduate of Chapter 5 and the whole SwipeEd journey, ages 4 to 18. You did it yourself. Unlearn. Relearn. Grow.",
     "stickerBook": "All nine Chapter 5 stickers blaze in your Ready for the World constellation, crowned by a golden graduation star. Every sticker since age 4 glows with them."
   },
-  "preview": "Next, Chapter 6: College (ages 18–22). The kids' journey is complete; the adult one begins — and Lensy is still right beside you.",
+  "preview": "Next, Chapter 6: College (ages 18-22). The kids' journey is complete; the adult one begins, and Lensy is still right beside you.",
   "share": "Your call: share one thing you're proud of growing into with a grown-up you trust, or simply hold it for yourself. Either way, you've earned this.",
   "doneTitle": "🎓🌟 The whole journey complete!",
   "coins": 50

@@ -8,7 +8,7 @@ const COLORS = ["#62b84b", "#e05c52", "#4f6ef7", "#f5c518"];
  * cue across every game**: confetti (respecting reduced-motion) AND a chime (small → "green", big →
  * "win"), so all games sound consistent without each wiring its own audio. Pass `{ sound: false }`
  * where the caller already owns the sound (the swipe atom, the run host/debrief) to avoid double-play.
- * The chime is mute-aware (see `lib/juice.ts`) and still plays under reduced-motion — audio isn't motion.
+ * The chime is mute-aware (see `lib/juice.ts`) and still plays under reduced-motion: audio isn't motion.
  */
 export function celebrate(power: "small" | "big" = "small", opts?: { sound?: boolean }) {
   if (typeof window === "undefined") return;

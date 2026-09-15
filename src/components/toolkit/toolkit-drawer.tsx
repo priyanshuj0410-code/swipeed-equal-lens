@@ -9,7 +9,7 @@ import { BreathingSpace } from "@/components/toolkit/breathing-space";
 import { HELP } from "@/content/help";
 import type { ToolId } from "@/lib/types";
 
-// The always-available Toolkit — the home base for the Life-Skills Toolkit AND the single Get-Help entry
+// The always-available Toolkit: the home base for the Life-Skills Toolkit AND the single Get-Help entry
 // point (folded in, so help is always one tap away even before any tool is unlocked). The launcher lives in
 // the top toolbar (icon-only on mobile). The sheet always offers Get Help + a Breathing space; unlocked
 // Thread-C tools appear below as the child earns them. Other games *reference* these via tool moments.
@@ -58,7 +58,7 @@ export function ToolkitDrawer() {
 
   return (
     <>
-      {/* launcher — top toolbar (top-right), icon-only on mobile. Folds in Get Help, so it's always shown. */}
+      {/* launcher: top toolbar (top-right), icon-only on mobile. Folds in Get Help, so it's always shown. */}
       <button
         type="button"
         onClick={() => setOpen("drawer")}
@@ -71,8 +71,8 @@ export function ToolkitDrawer() {
 
       {open === "drawer" && sheet("Your Toolkit", null, (
         <>
-          <p className="mb-4 text-xs text-foreground/60">Skills you carry — and help, any time you need it.</p>
-          {/* Get Help — always present (folded in from the old top-corner pill) */}
+          <p className="mb-4 text-xs text-foreground/60">Skills you carry, and help any time you need it.</p>
+          {/* Get Help: always present (folded in from the old top-corner pill) */}
           <button type="button" onClick={() => setOpen("help")} className="glass-card mb-2.5 flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95">
             <LifeBuoy className="size-5" aria-hidden /> Get help
           </button>

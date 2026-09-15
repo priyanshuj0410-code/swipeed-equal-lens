@@ -21,7 +21,7 @@ function Gate({ children }: { children: React.ReactNode }) {
 
 /**
  * Wraps the app with profile state, the onboarding gate, and the always-on wellbeing chrome:
- * the day/night wind-down, and the Life-Skills Toolkit (top-toolbar trigger) — which now also folds in
+ * the day/night wind-down, and the Life-Skills Toolkit (top-toolbar trigger): which now also folds in
  * Get Help, so help is always one tap away (the old standalone top-corner Get-Help pill is retired).
  */
 export function AppShell({ children }: { children: React.ReactNode }) {

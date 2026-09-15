@@ -1,10 +1,10 @@
 "use client";
 
-// Justice League: Rights Edition (node g35, ages 15–18, Chapter 5) — NEW v2 build to GDD 35 (mechanic-embodying).
+// Justice League: Rights Edition (node g35, ages 15-18, Chapter 5), NEW v2 build to GDD 35 (mechanic-embodying).
 // The rights-&-redress node (Thread G · Values, Rights & Media), run on the shared v2 engine: its researched
 // typed library + config (content/games/justice-league.ts) render the play actions (branch · reflect · sort ·
 // match · strike-rewrite · spot · role-play), led by branch + match + strike-rewrite. You have rights, laws
-// protect you, and there are real routes to help and justice — knowing them is your superpower. EDUCATIONAL, not
+// protect you, and there are real routes to help and justice: knowing them is your superpower. EDUCATIONAL, not
 // legal advice: plain-language law, demystified redress, real authorities + free legal aid; never promises
 // outcomes. India: constitutional rights, POCSO (18), POSH IC, child-marriage law, DV Act, cyber-law; routes to a
 // trusted adult, police/FIR (Zero FIR), Internal Committees, Child Welfare Committees, NALSA legal aid (15100),

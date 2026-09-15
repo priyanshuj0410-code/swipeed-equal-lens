@@ -1,6 +1,6 @@
 "use client";
 
-// Choosing & Building (node g53, ages 22+, Chapter 7) — NEW v2 build to GDD 53 (mechanic-embodying), the OPENER
+// Choosing & Building (node g53, ages 22+, Chapter 7): NEW v2 build to GDD 53 (mechanic-embodying), the OPENER
 // of Chapter 7 (Building a Life), where the story turns from 'me' to 'us' (Thread D). Runs on the shared v2
 // engine: its researched typed library + config (content/games/choosing-building.ts) render the play actions
 // (branch · strike-rewrite · sort · reflect · role-play · match · spot), led by branch + strike-rewrite + sort.

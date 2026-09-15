@@ -35,7 +35,7 @@ export function GameShell({
 
   return (
     <>
-      {/* top bar — equal-height glass pills, matching the path chrome */}
+      {/* top bar: equal-height glass pills, matching the path chrome */}
       <div className="fixed left-4 top-4 z-50 flex max-w-[calc(100%-4rem)] items-center gap-2">
         <button
           type="button"

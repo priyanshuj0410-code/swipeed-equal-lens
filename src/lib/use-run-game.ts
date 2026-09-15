@@ -111,7 +111,7 @@ export function useRunGame() {
 
   const commit = useCallback(
     (flag: Flag, fast = false) => {
-      // Side-effect intents are captured in the (pure) state updater and executed AFTER it — never
+      // Side-effect intents are captured in the (pure) state updater and executed AFTER it: never
       // inside setR. Calling recordCard (a setProfile) inside the updater is a setState-during-render
       // of another component (see https://react.dev/link/setstate-in-render).
       let committed = false;
@@ -151,7 +151,7 @@ export function useRunGame() {
             missed = [...prev.missed, card];
             wrongThisCard = true;
           }
-          // gentle speed bonus: only a correct, confident read — and only once accuracy is high.
+          // gentle speed bonus: only a correct, confident read, and only once accuracy is high.
           // Never punishes slowness (no Clarity loss); off under Calm Mind (fast stays false).
           if (fast && isCorrect && correct / scored >= 0.7) {
             const bonus = 5;
@@ -189,7 +189,7 @@ export function useRunGame() {
     [recordCard]
   );
 
-  /** Advance after a reveal — may open a fork, or resolve the run. */
+  /** Advance after a reveal: may open a fork, or resolve the run. */
   const next = useCallback(() => {
     setR((prev) => {
       if (!prev || prev.phase !== "reveal") return prev;

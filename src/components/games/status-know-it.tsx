@@ -1,6 +1,6 @@
 "use client";
 
-// Status: Know It (node g30, ages 15–18, Chapter 5) — NEW v2 build to GDD 30 (mechanic-embodying). The STI/HIV
+// Status: Know It (node g30, ages 15-18, Chapter 5), NEW v2 build to GDD 30 (mechanic-embodying). The STI/HIV
 // testing-&-treatment node (Thread F · SRH), run on the shared v2 engine: its researched typed library + config
 // (content/games/status-know-it.ts) render the play actions (strike-rewrite · branch · reflect · sort · match ·
 // role-play · spot), led by strike-rewrite + branch + sort. Owning your sexual health: testing is power not

@@ -1,5 +1,5 @@
-// Capstone 6 — "Standing on My Own" (node c6, Chapter 6 graduation, ages 18–22, College). NEW rich build to GDD
-// c6 ("Capstone format v1"), following the c1 reference and matching c2–c5, replacing the old nine-star tap build
+// Capstone 6: "Standing on My Own" (node c6, Chapter 6 graduation, ages 18-22, College). NEW rich build to GDD
+// c6 ("Capstone format v1"), following the c1 reference and matching c2, c5, replacing the old nine-star tap build
 // (the simple CapstoneEngine). Runs on the shared rich capstone engine (capstone-rich.tsx): its Landing config
 // drives arrive → look back (the "Standing on My Own" constellation gallery, nine Chapter-6 stickers) → play back
 // (victory laps, each a chapter truth re-cued through a different mechanic: gallery · swipe · branch · sort ·
@@ -17,7 +17,7 @@ export const CAPSTONE_6: CapstoneConfig = {
   "node": "c6",
   "chapter": 6,
   "ages": "18-22",
-  "arrival": "look at you, standing on your own. This chapter you took the wheel of an adult life — health, money, mind and worth — and carried it. Let's walk it back.",
+  "arrival": "look at you, standing on your own. This chapter you took the wheel of an adult life (health, money, mind and worth) and carried it. Let's walk it back.",
   "canvasPayoff": "The canvas opens on a room of your own in a new city, the world's lights beyond the window. Nine stickers rise as the Standing on My Own constellation.",
   "threadsRecapped": [
     "B",
@@ -97,7 +97,7 @@ export const CAPSTONE_6: CapstoneConfig = {
       "id": "c6-p1",
       "from": "all",
       "type": "gallery",
-      "frame": "Your Standing on My Own constellation — nine stickers from a whole chapter of growing into adult life. Tap any star to revisit what you can now handle yourself.",
+      "frame": "Your Standing on My Own constellation: nine stickers from a whole chapter of growing into adult life. Tap any star to revisit what you can now handle yourself.",
       "stickers": [
         "consent-real",
         "swipe-smart",
@@ -300,11 +300,11 @@ export const CAPSTONE_6: CapstoneConfig = {
   ],
   "celebration": {
     "glyph": "standing-on-my-own-star",
-    "certificate": "This certifies that you are Standing on My Own — a Chapter 6 graduate and independent young adult who took the wheel of your life. Stand tall, you've earned it.",
+    "certificate": "This certifies that you are Standing on My Own: a Chapter 6 graduate and independent young adult who took the wheel of your life. Stand tall, you've earned it.",
     "stickerBook": "All nine Chapter 6 stickers shine in your Standing on My Own constellation, crowned by a golden graduation star, every sticker since age 4 glowing beneath it."
   },
   "preview": "Next, Chapter 7: Building a Life (ages 22 on). Now comes partnership, a home, shared money and family choices, all built on the independence you earned.",
-  "share": "Your call: tell someone you trust one thing you're proud of growing into — maybe someone who knew you before you left home. Or hold it close; you've earned it.",
+  "share": "Your call: tell someone you trust one thing you're proud of growing into, maybe someone who knew you before you left home. Or hold it close; you've earned it.",
   "doneTitle": "🎓 Standing on my own!",
   "coins": 50
 };

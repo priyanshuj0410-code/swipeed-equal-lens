@@ -1,6 +1,6 @@
 "use client";
 
-// Spectrum (node g32, ages 15–18, Chapter 5) — NEW v2 build to GDD 32 (mechanic-embodying). The identity /
+// Spectrum (node g32, ages 15-18, Chapter 5): NEW v2 build to GDD 32 (mechanic-embodying). The identity /
 // orientation / respect node (Thread D · Relationships), run on the shared v2 engine: its researched typed
 // library + config (content/games/spectrum.ts) render the play actions (reflect · branch · strike-rewrite ·
 // sort · role-play · match · spot), led by strike-rewrite + branch + reflect. Respect is a value, not a debate;

@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "SwipeEd by The Equal Lens",
     short_name: "SwipeEd",
     description:
-      "SwipeEd by The Equal Lens — unlearn bias and relearn empathy through play, across warm no-fail games for ages 3–18.",
+      "SwipeEd by The Equal Lens: unlearn bias and relearn empathy through play, with warm, no-fail games for ages 3-18.",
     start_url: "/path",
     display: "standalone",
     background_color: "#fbf9ff",

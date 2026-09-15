@@ -3,7 +3,7 @@ import { cardPoints } from "@/lib/scoring";
 
 // The Clarity meter is the *character's* stake (not player "lives"). Correct reads hold/raise it,
 // misses lower it, and disguised / boss cards swing it more. Safeguarding cards NEVER move Clarity
-// (and are never scored). There is no hard fail — Clarity just floors at 0 and the final value picks
+// (and are never scored). There is no hard fail: Clarity just floors at 0 and the final value picks
 // a gentle resolution. XP reuses the v1 coin scoring (combo plays the role of the streak multiplier).
 export const CLARITY = { start: 60, min: 0, max: 100, clearThreshold: 55 } as const;
 
@@ -30,7 +30,7 @@ export function runOutcome(finalClarity: number): RunOutcome {
   return finalClarity >= CLARITY.clearThreshold ? "clear" : "reflect";
 }
 
-/** XP for one card — reuses `cardPoints` (safeguarding & wrong reads score 0; combo ≈ streak). */
+/** XP for one card: reuses `cardPoints` (safeguarding & wrong reads score 0; combo ≈ streak). */
 export function cardXp(card: Card, correct: boolean, comboAfter: number): number {
   return cardPoints(card, correct, comboAfter);
 }

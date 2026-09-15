@@ -10,7 +10,7 @@ import { TOOL_GUIDE } from "@/content/toolkit";
 import { speak, stopSpeaking } from "@/lib/speak";
 import type { ToolId } from "@/lib/types";
 
-// A guided run of one toolkit tool — Sam hands it over, then each step is tap-to-hear. The Cool-Down
+// A guided run of one toolkit tool: Sam hands it over, then each step is tap-to-hear. The Cool-Down
 // "breathe" step opens the Breathing space; the Help Map "helplines" step lists the real services
 // (reused from the global Get Help). Generic over all four tools (content lives in src/content/toolkit.ts).
 export function ToolPlayer({ toolId, onClose }: { toolId: ToolId; onClose: () => void }) {
@@ -93,7 +93,7 @@ export function ToolPlayer({ toolId, onClose }: { toolId: ToolId; onClose: () =>
                 </button>
               )}
 
-              {/* the actual helpline numbers live in the toolkit's "Get help" view now — not duplicated here */}
+              {/* the actual helpline numbers live in the toolkit's "Get help" view now: not duplicated here */}
             </div>
           ))}
         </div>

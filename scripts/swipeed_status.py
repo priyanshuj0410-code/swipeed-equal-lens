@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""SwipeEd build status — the SINGLE SOURCE OF TRUTH for the path, each node's v2 build status, and the NEXT
-node to build. Derived from scripts/master-node-table.xlsx (the master node table — step 0 of the read-first
+"""SwipeEd build status: the SINGLE SOURCE OF TRUTH for the path, each node's v2 build status, and the NEXT
+node to build. Derived from scripts/master-node-table.xlsx (the master node table: step 0 of the read-first
 hard rule) + the gen-path GAME map + the actual src/content/games/*.ts files.
 
-DO NOT state build progress or "the next node" from memory — run this. It exists because that exact mistake
+DO NOT state build progress or "the next node" from memory: run this. It exists because that exact mistake
 was made (claiming Chapter 2 was done / the next node was g13, when the table said g09 → g41).
 
 Usage:
@@ -47,7 +47,7 @@ def load_nodes():
             order = int(r[0])
         except (TypeError, ValueError):
             continue
-        prereq = str(r[10]).strip() if r[10] not in (None, "—", "") else None
+        prereq = str(r[10]).strip() if r[10] not in (None, "\u2014", "") else None
         nodes.append(dict(order=order, id=str(r[1]).strip(), label=str(r[2]).strip(),
                           type=str(r[3]).strip().lower(), chapter=str(r[4]).strip(), prereq=prereq))
     nodes.sort(key=lambda n: n["order"])
@@ -55,7 +55,7 @@ def load_nodes():
 
 
 def v2_gids():
-    """The set of runtime gameIds that are BUILT to v2 — found by reading each content file's own
+    """The set of runtime gameIds that are BUILT to v2: found by reading each content file's own
     `gameId: "..."` (robust to filename ≠ gameId, e.g. feelings-friends.ts → gameId 'feelings')."""
     out = set()
     if not CONTENT.exists():
@@ -70,7 +70,7 @@ def v2_gids():
 
 
 def is_registered(gid, eh):
-    """engine-host keys may be quoted ("clean-crew":) or unquoted (feelings:) — match either."""
+    """engine-host keys may be quoted ("clean-crew":) or unquoted (feelings:), match either."""
     return bool(gid) and (f'"{gid}"' in eh or re.search(rf'(?<![\w-]){re.escape(gid)}\s*:\s*dynamic', eh) is not None)
 
 
@@ -99,12 +99,12 @@ def main():
     args = sys.argv[1:]
     try:
         nodes, nxt = compute()
-    except Exception as e:  # noqa: BLE001 — a broken table/map must hard-fail the gate
+    except Exception as e:  # noqa: BLE001, a broken table/map must hard-fail the gate
         print(f"⛔ swipeed_status could not read the master node table / GAME map: {e}", file=sys.stderr)
         return 1
 
     if "--next" in args:
-        print(f'{nxt["id"]} {nxt["game"]}' if nxt else "none — all lessons are v2")
+        print(f'{nxt["id"]} {nxt["game"]}' if nxt else "none: all lessons are v2")
         return 0
 
     if "--assert-next" in args:
@@ -118,14 +118,14 @@ def main():
 
     SYM = {"v2": "✅ v2     ", "v1": "⚠️  v1    ", "unbuilt": "⬚ unbuilt", "capstone": "🏆 capstone"}
     problems = []
-    print("SwipeEd build status — from scripts/master-node-table.xlsx (the source of truth)\n")
+    print("SwipeEd build status: from scripts/master-node-table.xlsx (the source of truth)\n")
     cur = None
     for n in nodes:
         if n["chapter"] != cur:
             cur = n["chapter"]
-            print(f"  — {cur} —")
+            print(f"  [{cur}]")
         flag = "  ⛔ v2 but NOT registered in engine-host" if (n["status"] == "v2" and not n["registered"]) else ""
-        print(f"   {n['order']:>2}  {n['id']:<4} {SYM.get(n['status'], n['status']):<10} {(n['game'] or '—'):<16} {n['label']}{flag}")
+        print(f"   {n['order']:>2}  {n['id']:<4} {SYM.get(n['status'], n['status']):<10} {(n['game'] or 'none'):<16} {n['label']}{flag}")
         if n["status"] == "v2" and not n["registered"]:
             problems.append(f"{n['id']} ({n['game']}) is built v2 but is NOT registered in engine-host (won't launch)")
     print()
@@ -136,7 +136,7 @@ def main():
 
     if "--check" in args:
         if problems and os.environ.get("SWIPEED_STATUS_OVERRIDE") != "1":
-            print("\n⛔ CONSISTENCY PROBLEMS (blocking — set SWIPEED_STATUS_OVERRIDE=1 to bypass):", file=sys.stderr)
+            print("\n⛔ CONSISTENCY PROBLEMS (blocking: set SWIPEED_STATUS_OVERRIDE=1 to bypass):", file=sys.stderr)
             for p in problems:
                 print("   -", p, file=sys.stderr)
             return 1

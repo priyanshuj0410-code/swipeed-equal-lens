@@ -9,7 +9,7 @@ import { ToolkitReflection } from "@/components/toolkit/toolkit-reflection";
 import { celebrate } from "@/lib/confetti";
 
 /**
- * Shared "you did it" card for every game — swipe and engine alike. Records completion
+ * Shared "you did it" card for every game: swipe and engine alike. Records completion
  * (stars + coins + best streak) into the profile once on mount, so the matching path node
  * turns to "completed". `onExit` returns to the path (in place when hosted there).
  */
@@ -36,8 +36,8 @@ export function GameDone({
   const router = useRouter();
   const exit = onExit ?? (() => router.push("/path"));
   // Capstones close a chapter with a Thread-C reflection ("skills you've grown"). c8 is the final
-  // look-back — the catalog runs to Ch.8 (parenthood); it ended at c5 back when it stopped at 18.
-  // The toolkit is deliberately a 5-level model (Thread-C games span Ch.1–5), so capstones 6–8 show
+  // look-back: the catalog runs to Ch.8 (parenthood); it ended at c5 back when it stopped at 18.
+  // The toolkit is deliberately a 5-level model (Thread-C games span Ch.1-5), so capstones 6-8 show
   // the fully-grown level-5 toolkit: that clamp is correct, only the finale flag was left behind.
   const capstoneLevel = gameId.startsWith("capstone-") ? Number(gameId.slice("capstone-".length)) : 0;
   const FINAL_CAPSTONE = 8;

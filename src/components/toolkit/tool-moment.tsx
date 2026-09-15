@@ -7,8 +7,8 @@ import { isUnlocked, toolById } from "@/lib/toolkit";
 import { ToolPlayer } from "@/components/toolkit/tool-player";
 import type { ToolId } from "@/lib/types";
 
-// In-context "tool moment" — the spine's key mechanic. An optional, NEVER-BLOCKING nudge dropped at a
-// high-stakes beat inside another game ("This is a Cool-Down moment — want to use it?"), pulling the same
+// In-context "tool moment": the spine's key mechanic. An optional, NEVER-BLOCKING nudge dropped at a
+// high-stakes beat inside another game ("This is a Cool-Down moment: want to use it?"), pulling the same
 // guided tool from the child's drawer so the skill is practised in the exact context it's needed.
 // Self-hides if the tool isn't unlocked yet (a child only sees moments for skills they carry) or once
 // dismissed. Does not pause or gate the host game.
@@ -25,7 +25,7 @@ export function ToolMoment({ tool, line }: { tool: ToolId; line?: string }) {
       <div className="glass-pill flex items-center gap-2.5 rounded-2xl px-3 py-2.5 backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
         <span className="text-xl" aria-hidden>{t.emoji}</span>
         <span className="flex-1 text-xs font-semibold leading-snug">
-          {line ?? `This is a ${t.name} moment — want to use it?`}
+          {line ?? `This is a ${t.name} moment. Want to use it?`}
         </span>
         <button
           type="button"

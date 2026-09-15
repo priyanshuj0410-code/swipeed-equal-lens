@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Check } from "lucide-react";
 
-// Shared inclusive avatar builder — "Make-a-Friend" (Same Same, Different) and "Make-a-Can-Do-Kid"
+// Shared inclusive avatar builder: "Make-a-Friend" (Same Same, Different) and "Make-a-Can-Do-Kid"
 // (Can-Do Kids). One definition so creation looks the same across games, and disability inclusion is
 // baked in for every game that builds a character (pattern #17). Calls onAdd(candoLine) so the host can
 // narrate + reward.

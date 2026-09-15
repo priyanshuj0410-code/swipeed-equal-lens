@@ -18,7 +18,7 @@ import { sfx, haptic, shake } from "@/lib/juice";
 const signDef = (signId?: string) => SIGNS.find((s) => s.id === signId)?.definition;
 
 /** Hosts one GLRL 2.0 run end-to-end: card swipe + Clarity/combo chrome, the fork screen, and the
- *  debrief. Adds the juice (SFX / haptics / shake-pulse) and the UN & RE "unlearn–relearn" beat on a
+ *  debrief. Adds the juice (SFX / haptics / shake-pulse) and the UN & RE "unlearn, relearn" beat on a
  *  missed disguised card. Deck + perks come from the Loadout; `onExit` returns to the path. */
 export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perks: PerkId[]; onExit: () => void }) {
   const run = useRunGame();
@@ -66,7 +66,7 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
       haptic("tap");
       shake(shellRef.current, "shake");
     }
-    // a confident, in-time read (only counts toward the bonus once accuracy is high — engine-gated)
+    // a confident, in-time read (only counts toward the bonus once accuracy is high: engine-gated)
     const fast = hud.timed && Date.now() - cardStart.current < hud.timeBudgetMs * 0.5;
     run.commit(flag, fast);
   };
@@ -82,7 +82,7 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
         </div>
       )}
 
-      {/* the fork choice (hud/view are null during a fork — character comes from the deck) */}
+      {/* the fork choice (hud/view are null during a fork: character comes from the deck) */}
       {fork && <ForkScreen fork={fork} character={CHARACTER_BY_ID[RUN_DECK_BY_ID[deckId].character]} onChoose={run.chooseFork} />}
 
       {/* the card */}
@@ -133,12 +133,12 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
 
           {/* bottom action area */}
           <div className="fixed inset-x-0 bottom-6 z-40 mx-auto flex w-full max-w-sm flex-col gap-2.5 px-5">
-            {/* UN & RE unlearn–relearn beat on a missed disguised card (the core principle, in play) */}
+            {/* UN & RE unlearn, relearn beat on a missed disguised card (the core principle, in play) */}
             {wrongDisguised && (
               <div className="glass-pill rounded-2xl px-4 py-3 text-xs leading-relaxed backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
                 <p className="flex items-start gap-1.5">
                   <Eraser className="mt-0.5 size-3.5 shrink-0" style={{ color: "#b3c8ff" }} aria-hidden />
-                  <span><b>Unlearn.</b> Lots of people read that as okay — let&apos;s gently rub it out. You&apos;re not wrong, you&apos;re growing.</span>
+                  <span><b>Unlearn.</b> Lots of people read that as okay. Let&apos;s gently rub it out. You&apos;re not wrong, you&apos;re growing.</span>
                 </p>
                 <p className="mt-1.5 flex items-start gap-1.5">
                   <Pencil className="mt-0.5 size-3.5 shrink-0" style={{ color: "#62e08f" }} aria-hidden />
@@ -177,7 +177,7 @@ export function GlrlRunHost({ deckId, perks, onExit }: { deckId: RunDeckId; perk
                 )}
                 {hud.xrayHint && (
                   <div className="glass-pill flex items-center gap-1.5 self-center rounded-full px-3 py-1 text-xs font-semibold backdrop-blur-md backdrop-saturate-150" style={{ color: "#b3c8ff" }}>
-                    <Search className="size-3.5" aria-hidden /> X-Ray — this one&apos;s: {hud.xrayHint}
+                    <Search className="size-3.5" aria-hidden /> X-Ray: this one&apos;s {hud.xrayHint}
                   </div>
                 )}
                 <div className="flex items-center gap-3">

@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { Canvas, useThree, useFrame, type ThreeEvent } from "@react-three/fiber";
 import { Html, Line } from "@react-three/drei";
 import { Check, Lock, Play, Trophy } from "lucide-react";
-import { tokens } from "@equal-lens/brand"; // canvas-world brand colours — single source (retheme via the library)
+import { tokens } from "@equal-lens/brand"; // canvas-world brand colours: single source (retheme via the library)
 import { NODES, CHAPTERS, type Chapter } from "@/content/path";
 import { CANVAS_MYTHS, CHAPTER_CANVAS } from "@/content/chapter-canvas";
 import { unlearnTool, useUnlearnTool, type UnlearnToolName } from "@/lib/unlearn-tool";
@@ -39,7 +39,7 @@ const TOON_GRAD = (() => {
 // a node lands exactly on each extremum. The canvas camera scrolls straight up the centre line (see
 // FollowCam), so the wave weaves L/R in frame. Tune: NODE_AMP = swing, NODE_DZ = vertical gap.
 const PATH_SCALE = 3; // scenery density only (tree/prop counts); the curve below is in world units
-const NODE_AMP = 3; // horizontal swing — nodes rest at x = ±NODE_AMP (closer to centre)
+const NODE_AMP = 3; // horizontal swing: nodes rest at x = ±NODE_AMP (closer to centre)
 const NODE_DZ = 3.5; // vertical distance between consecutive nodes (half a sine period)
 const SINE_START_Z = 18; // z of the first (bottom) node
 const SINE_SAMPLES_PER_NODE = 12; // control points between nodes → smooth (not zigzag) sine
@@ -209,12 +209,12 @@ function roundRectPath(g: CanvasRenderingContext2D, x: number, y: number, w: num
   g.closePath();
 }
 
-// The brand canvas: dotted paper. Matches The Equal Lens site exactly — paper #FBF9FF with a 28px
+// The brand canvas: dotted paper. Matches The Equal Lens site exactly: paper #FBF9FF with a 28px
 // grid of soft violet dots (--dot #ECE6F6), no grain. This is the surface for both the land and the
 // sky, so the whole world reads as one sheet of the site's dotted paper.
 const PAPER = "#FBF9FF";
 const PAPER_DOT = "#ECE6F6";
-const PAPER_TILE_DOTS = 8; // dots per tile edge — used to convert a world dot-spacing into texture repeat
+const PAPER_TILE_DOTS = 8; // dots per tile edge: used to convert a world dot-spacing into texture repeat
 // One seamless tile of the brand dotted paper: pure paper, no grain, no tint. Small dot radius +
 // supersampling keep the dots crisp and fine (not blobs) once tiled across the big ground/sky.
 function makePaperTex(dotR = 0.7, paper = PAPER, dot = PAPER_DOT) {
@@ -242,7 +242,7 @@ function makePaperTex(dotR = 0.7, paper = PAPER, dot = PAPER_DOT) {
 // Fine like the site: small, tightly-spaced dots. (Tune this one number if dots want bigger/smaller.)
 const paperRepeatFor = (worldSpan: number, dotWorld = 0.16) => worldSpan / (PAPER_TILE_DOTS * dotWorld);
 
-// The 8 hand-drawn doodle marks from the site (Doodles.tsx), drawn to textures — the brand's
+// The 8 hand-drawn doodle marks from the site (Doodles.tsx), drawn to textures: the brand's
 // easter-egg "the whole site is a canvas" confetti, scattered across the sky in the 4 accents.
 type DoodleMark = "squiggle" | "sparkle" | "spiral" | "arrow" | "heart" | "star" | "zigzag" | "swirl";
 const DOODLE_DEFS: Record<DoodleMark, { w: number; h: number; fills?: string[]; strokes?: [string, number][] }> = {
@@ -401,10 +401,10 @@ function makePathStrokeTex() {
   return t;
 }
 
-const CANVAS_PAPER = tokens.light.paper; // #FBF9FF — from @equal-lens/brand
-const CANVAS_DOT = tokens.light.mist; // #E7E0F1 — from @equal-lens/brand
-const CANVAS_INK = tokens.light.ink; // #221436 — hand-drawn outline / Ink
-// Adult chapters (Ch.6–8) use the brand's dark [data-audience="adult"] flip. The DOM overlays inherit
+const CANVAS_PAPER = tokens.light.paper; // #FBF9FF: from @equal-lens/brand
+const CANVAS_DOT = tokens.light.mist; // #E7E0F1: from @equal-lens/brand
+const CANVAS_INK = tokens.light.ink; // #221436: hand-drawn outline / Ink
+// Adult chapters (Ch.6-8) use the brand's dark [data-audience="adult"] flip. The DOM overlays inherit
 // it from the CSS tokens; the 3D dotted-paper surfaces read these SHARED THREE.Colors, which the
 // ThemeController lerps as the camera crosses from the kids' stretch into the adult one.
 const CANVAS_PAPER_DARK = tokens.dark.paper; // #15101F
@@ -443,7 +443,7 @@ function applyAudience(adult: boolean) {
   }
 }
 
-// Canvas skin — the sky: the brand dotted paper on the distant backdrop, drawn in SCREEN space.
+// Canvas skin: the sky: the brand dotted paper on the distant backdrop, drawn in SCREEN space.
 // Knobs: uPx (pixel spacing) + uDotPx (dot radius px).
 function CanvasSky() {
   const mat = useMemo(
@@ -455,8 +455,8 @@ function CanvasSky() {
         uniforms: {
           uPaper: { value: _themePaper },
           uDot: { value: _themeDot },
-          uPx: { value: 45.0 }, // dot spacing (×1.5 — more space between dots)
-          uDotPx: { value: 2.0 }, // dot radius (×2 — bigger dots)
+          uPx: { value: 45.0 }, // dot spacing (×1.5: more space between dots)
+          uDotPx: { value: 2.0 }, // dot radius (×2: bigger dots)
         },
         vertexShader: `
           void main() { gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
@@ -486,9 +486,9 @@ function CanvasSky() {
 }
 
 // ============================================================================================
-// Dotted-paper ground — FRESH (no makePaperTex / no texture). The brand canvas: paper #FBF9FF with
+// Dotted-paper ground: FRESH (no makePaperTex / no texture). The brand canvas: paper #FBF9FF with
 // #ECE6F6 dots on a WORLD-SPACE grid, drawn procedurally in a shader. Each dot is computed from the
-// world XZ position, so it stays a crisp anti-aliased circle at any distance or camera angle — no
+// world XZ position, so it stays a crisp anti-aliased circle at any distance or camera angle: no
 // texture tiling, no stretching toward the horizon, no mip blur. Two knobs: GAP (spacing) + DOT (radius).
 // ============================================================================================
 function CanvasGround() {
@@ -533,7 +533,7 @@ function CanvasGround() {
   );
 }
 
-// Progress trail (Nodes & Navigation spec §6): the route you've walked inks over in Grow Coral — a solid
+// Progress trail (Nodes & Navigation spec §6): the route you've walked inks over in Grow Coral, a solid
 // line drawn in BEHIND the player along the path; ahead stays dotted paper. Replaces any progress bar.
 // uProgress = the furthest you've reached (a high-water mark, so reviewing earlier nodes never erases it).
 function ProgressTrail({ progress }: { progress: React.MutableRefObject<number> }) {
@@ -556,7 +556,7 @@ function ProgressTrail({ progress }: { progress: React.MutableRefObject<number> 
       pts.push(base[i]);
       uvx.push(i / N);
     }
-    const hw = 0.04; // half-width of the inked line (world units) — very lean trail (1/4)
+    const hw = 0.04; // half-width of the inked line (world units): very lean trail (1/4)
     const pos: number[] = [];
     const uv: number[] = [];
     const idx: number[] = [];
@@ -619,9 +619,9 @@ function ProgressTrail({ progress }: { progress: React.MutableRefObject<number> 
   return <mesh geometry={geometry} material={material} renderOrder={1} />;
 }
 
-// Capstone "clearings" (Nodes & Navigation spec §6): a chapter's capstone isn't a plain node — the path
+// Capstone "clearings" (Nodes & Navigation spec §6): a chapter's capstone isn't a plain node, the path
 // opens into a wider sun-tinted glade drawn on the paper (a celebratory landing), with the capstone
-// sticker sitting in it. Flat on the page (not a panel) — just a soft sun patch + a thin Equal-Violet ring.
+// sticker sitting in it. Flat on the page (not a panel): just a soft sun patch + a thin Equal-Violet ring.
 function CapstoneClearings({ nodes }: { nodes: SceneNode[] }) {
   const spots = useMemo(() => {
     const us = chapterSpacedUs(nodes).nodeU;
@@ -646,14 +646,14 @@ function CapstoneClearings({ nodes }: { nodes: SceneNode[] }) {
 }
 
 // ============================================================================================
-// Canvas corridor — a long winding hallway that follows the path: floor + two side walls + ceiling,
+// Canvas corridor: a long winding hallway that follows the path: floor + two side walls + ceiling,
 // all swept along CURVE so the whole corridor curves with the path. Every surface is the brand dotted
 // paper (#FBF9FF + #E7E0F1 dots on a world-unit UV grid). Soft ambient occlusion darkens the four
-// corner seams where the surfaces meet — and because those seams are real straight geometry, the room
+// corner seams where the surfaces meet: and because those seams are real straight geometry, the room
 // edges read clean + straight (a white-room corner, not a vignette).
 // Knobs: CORRIDOR_W (half-width) · CORRIDOR_H (height) · uCorner (AO depth) · uFalloff (AO spread).
 // ============================================================================================
-const CORRIDOR_W = 16; // half-width — the corridor is 2*W wide
+const CORRIDOR_W = 16; // half-width: the corridor is 2*W wide
 const CORRIDOR_H = 15; // ceiling height above the floor
 const DOOR_HALF_W = 3.5; // doorway half-width (the opening is 2× this, centred on the path)
 const DOOR_H = 9; // doorway height
@@ -666,17 +666,17 @@ function chapterSpacedUs(nodes: SceneNode[]): { nodeU: number[]; wallU: number[]
   const span = Math.max(1, total - 1);
   const cl = (x: number) => Math.max(0, Math.min(1, x));
   const nodeU = nodes.map((_, i) => cl(slot[i] / span));
-  return { nodeU, wallU: [], wallCap: [] }; // door walls removed — no wall positions
+  return { nodeU, wallU: [], wallCap: [] }; // door walls removed: no wall positions
 }
-// the live corridor mesh (canvas skin only) — used to occlude DOM node/banner overlays behind walls.
+// the live corridor mesh (canvas skin only): used to occlude DOM node/banner overlays behind walls.
 // A module-level callback ref sidesteps any ref-forwarding-through-props subtlety.
 let _corridorMesh: THREE.Mesh | null = null;
-const _doorMeshes: THREE.Mesh[] = []; // swinging door panels — they also occlude DOM overlays while shut
-const _openDoors = new Set<number>(); // door u's the player has opened (Enter) — releases the travel gate
+const _doorMeshes: THREE.Mesh[] = []; // swinging door panels: they also occlude DOM overlays while shut
+const _openDoors = new Set<number>(); // door u's the player has opened (Enter): releases the travel gate
 const _CURVE_LEN = CURVE.getLength();
 const _DOOR_GATE_U = 7 / _CURVE_LEN; // clamp travel this far past a shut door's u → camera halts just shy of it
 const _COMPANION_DOOR_CLEAR = 1.2 / _CURVE_LEN; // the companion halts this far (world units) before a shut door
-let _doorUs: number[] = []; // every door's u (published by CorridorDoors) — drives the camera + companion gates
+let _doorUs: number[] = []; // every door's u (published by CorridorDoors): drives the camera + companion gates
 function _frontShutDoorU(): number {
   // u of the nearest still-shut door, or Infinity if all opened (doors open in order along the path)
   let g = Infinity;
@@ -686,7 +686,7 @@ function _frontShutDoorU(): number {
 const CORRIDOR_DOOR_TONE = 0.95; // the "door wall" across the corridor after each capstone (doors added later)
 function CanvasCorridor({ nodes }: { nodes: SceneNode[] }) {
   const geometry = useMemo(() => {
-    // floor hidden — this mesh only builds the chapter door-walls now
+    // floor hidden: this mesh only builds the chapter door-walls now
     const W = CORRIDOR_W;
     const H = CORRIDOR_H;
     const W2 = 2 * W;
@@ -808,7 +808,7 @@ function CanvasCorridor({ nodes }: { nodes: SceneNode[] }) {
   );
 }
 
-// Swinging canvas doors — one per chapter-boundary wall, filling its doorway. Each hinges on one side
+// Swinging canvas doors: one per chapter-boundary wall, filling its doorway. Each hinges on one side
 // and swings open as the camera nears, so you travel through the doorway, never the solid wall. Dots are
 // drawn in the door's LOCAL coords (so they stay fixed on the panel as it swings), with an inset panel
 // shade + an Ink handle so it reads as a door.
@@ -877,7 +877,7 @@ function DoorPanel({ u, hinge, quat, chapter, material, progress }: { u: number;
     };
   }, []);
   useFrame((_, dt) => {
-    const target = opened ? 1 : 0; // the door only opens on Enter — never automatically
+    const target = opened ? 1 : 0; // the door only opens on Enter: never automatically
     open.current += (target - open.current) * Math.min(1, dt * 3); // gentle swing
     if (swing.current) swing.current.rotation.y = -open.current * (Math.PI / 2 + 0.12);
     const n = !opened && Math.abs(progress.current - u) < _DOOR_GATE_U + 0.02; // you've reached the door (where travel halts)
@@ -946,7 +946,7 @@ function CorridorDoors({ nodes, chapters, progress }: { nodes: SceneNode[]; chap
     };
   }, [doors]);
   useFrame(() => {
-    // travel gate: you can't glide past a shut door — clamp progress just short of the nearest closed one
+    // travel gate: you can't glide past a shut door, clamp progress just short of the nearest closed one
     const door = _frontShutDoorU();
     if (door < Infinity && progress.current > door + _DOOR_GATE_U) progress.current = door + _DOOR_GATE_U;
   });
@@ -977,7 +977,7 @@ function CanvasHorizon() {
   );
 }
 
-// Brand doodle confetti — the 8 marks in the 4 accents, floating across the sky (billboards).
+// Brand doodle confetti: the 8 marks in the 4 accents, floating across the sky (billboards).
 const SKY_DOODLES: { name: DoodleMark; color: string }[] = [
   { name: "sparkle", color: "#FFC94D" },
   { name: "squiggle", color: "#2DD4BF" },
@@ -1131,11 +1131,11 @@ function DrawnPath() {
   );
 }
 
-// The companion is now the brand flying ship (DOM/SVG, see Companion) — no GLB to preload.
+// The companion is now the brand flying ship (DOM/SVG, see Companion): no GLB to preload.
 
 // --- node markers ----------------------------------------------------------------------
 // Bubble colour comes from the node's thread hex; state changes the *treatment* (full vs
-// greyed) and the icon — colour carries the thread, per the single-path design.
+// greyed) and the icon: colour carries the thread, per the single-path design.
 function nodeShades(hex: string, state: NodeState, capstone: boolean) {
   const c = new THREE.Color(hex);
   if (state === "soon" || state === "locked") c.lerp(new THREE.Color("#8b93a0"), capstone ? 0.22 : 0.72); // capstones stay gold; not-built/locked lessons grey out
@@ -1179,7 +1179,7 @@ const _occOrigin = new THREE.Vector3();
 const _occTarget = new THREE.Vector3();
 const _occDir = new THREE.Vector3();
 const _occRay = new THREE.Raycaster();
-// Is a corridor wall — or a shut door panel — between the camera and this world point? Used to hide DOM
+// Is a corridor wall (or a shut door panel) between the camera and this world point? Used to hide DOM
 // node/banner labels that would otherwise draw on top of the wall they're really behind.
 function _wallOccludes(camPos: THREE.Vector3, tx: number, ty: number, tz: number): boolean {
   if (!_corridorMesh) return false;
@@ -1193,7 +1193,7 @@ function _wallOccludes(camPos: THREE.Vector3, tx: number, ty: number, tz: number
   return _occRay.intersectObjects(targets, false).length > 0;
 }
 
-// node ids whose completion beat (the earned-sticker 'drop') has already played — persisted, so it fires
+// node ids whose completion beat (the earned-sticker 'drop') has already played: persisted, so it fires
 // only on a NEW completion, never when a done node scrolls into view or on reload.
 const _celebrated: Set<string> = (() => {
   try {
@@ -1226,7 +1226,7 @@ function Node({
   onSelect?: (n: SceneNode) => void;
   reduced: boolean;
   canvas: boolean;
-  active: boolean; // the single "play me next" node — gets Lensy + the re-sketching ring
+  active: boolean; // the single "play me next" node: gets Lensy + the re-sketching ring
   playerName?: string;
 }) {
   const pos = useMemo(() => CURVE.getPointAt(u), [u]);
@@ -1259,7 +1259,7 @@ function Node({
   }, [canvas, completed, node.id]);
   useFrame((s) => {
     if (spr.current) {
-      spr.current.position.y = canvas ? 0.35 : 0.2 + (bob && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0); // canvas: no bob (spec — stuck on, never hovering)
+      spr.current.position.y = canvas ? 0.35 : 0.2 + (bob && !reduced ? Math.sin(s.clock.elapsedTime * 1.6) * 0.18 : 0); // canvas: no bob (spec, stuck on, never hovering)
     }
     // reveal the name when the node is at / just ahead of the camera focus
     // (touch has no hover, so on-screen nodes label themselves)
@@ -1285,7 +1285,7 @@ function Node({
     if (!blocked) onSelect?.(node);
   };
   // ---- canvas skin: a real Equal Lens DOM sticker (drei <Html>) using the site's own .sticker-soft
-  // recipe + brand tokens — so it auto dark-flips, always faces the camera, and reuses the actual CSS
+  // recipe + brand tokens: so it auto dark-flips, always faces the camera, and reuses the actual CSS
   // (not a hand-painted texture). Lift shadow = 'tappable' (spec §2); Locked is flat/un-inked. The glyph
   // is the lesson emoji, a stand-in for the game's hand-drawn sticker motif. ----
   if (canvas) {
@@ -1295,7 +1295,7 @@ function Node({
           <div className="pointer-events-none relative flex flex-col items-center" style={{ visibility: occluded ? "hidden" : "visible" }}>
             <button
               type="button"
-              aria-label={`${node.label} — ${cap ? "capstone, " : ""}${locked ? "locked, finish earlier lessons first" : soon ? "coming soon" : node.state === "completed" ? "done" : "play"}`}
+              aria-label={`${node.label}, ${cap ? "capstone, " : ""}${locked ? "locked, finish earlier lessons first" : soon ? "coming soon" : node.state === "completed" ? "done" : "play"}`}
               disabled={blocked}
               onPointerDown={(e) => e.stopPropagation()}
               onPointerOver={() => setHovered(true)}
@@ -1328,7 +1328,7 @@ function Node({
             </button>
             {/* completion beat: a one-shot Unlearn→Relearn burst ring when this node has just been completed */}
             {beat && <span aria-hidden className="beat-burst pointer-events-none absolute left-1/2 top-1/2 rounded-full border-4" style={{ width: cap ? 170 : 142, height: cap ? 170 : 142 }} />}
-            {/* Active node (spec §3/§5): the single 'play me next' — a re-sketching Equal-Violet ring +
+            {/* Active node (spec §3/§5): the single 'play me next', a re-sketching Equal-Violet ring +
                 Lensy perched with a 'Play?' bubble. The strongest on-brand play cue; replaces the play mark. */}
             {active && (
               <>
@@ -1376,7 +1376,7 @@ function Node({
         <div className="relative flex flex-col items-center" style={{ visibility: occluded ? "hidden" : "visible" }}>
           <button
             type="button"
-            aria-label={`${node.label} — ${cap ? "capstone, " : ""}${node.state === "soon" ? "not built yet" : node.state}`}
+            aria-label={`${node.label}, ${cap ? "capstone, " : ""}${node.state === "soon" ? "not built yet" : node.state}`}
             disabled={soon}
             onPointerDown={(e) => e.stopPropagation()}
             onFocus={focus}
@@ -1467,7 +1467,7 @@ const _hashStr = (s: string) => {
 };
 
 // Chapter "canvas dressing" (Chapter Canvas Theming doc): each chapter's myths scattered as
-// struck-through sticky notes along that chapter's stretch of the path — bias drawn on the page
+// struck-through sticky notes along that chapter's stretch of the path: bias drawn on the page
 // (teal UN strike) with the truth RE writes (coral) below. A curated few per chapter; windowed so
 // only the nearby notes mount.
 function CanvasContent({ nodes, progress, pointers }: { nodes: SceneNode[]; progress: React.MutableRefObject<number>; pointers: React.MutableRefObject<Map<number, number>> }) {
@@ -1500,7 +1500,7 @@ function CanvasContent({ nodes, progress, pointers }: { nodes: SceneNode[]; prog
         const h = _hashStr(m.id);
         out.push({
           id: m.id,
-          x: (j % 2 === 0 ? 1 : -1) * (8 + (h % 5)), // 8–12 to the side, clear of the ±3 path swing
+          x: (j % 2 === 0 ? 1 : -1) * (8 + (h % 5)), // 8-12 to the side, clear of the ±3 path swing
           z: zBot + (zTop - zBot) * f,
           rot: (h % 9) - 4,
           tone: tones[h % tones.length],
@@ -1566,9 +1566,9 @@ function CanvasContent({ nodes, progress, pointers }: { nodes: SceneNode[]; prog
 
 type MythPhase = "myth" | "erased" | "truth";
 
-// The UN/RE ink layer over a myth note — REAL drawing on the path canvas. UN (erase): rub the eraser across
+// The UN/RE ink layer over a myth note: REAL drawing on the path canvas. UN (erase): rub the eraser across
 // the myth and it wipes away under your finger (the note's own paper paints over the words). RE (draw):
-// scribble the truth in coral "Grow" ink in the cleared space. No-fail — a tap counts, and ~half the note
+// scribble the truth in coral "Grow" ink in the cleared space. No-fail: a tap counts, and ~half the note
 // erased (or a few strokes drawn) completes the stage. Two fingers never draw; they scroll the path (the
 // shared pointers map). The note's DOM text stays under the canvas for screen readers (canvas is aria-hidden).
 function MythInk({ mode, pointers, onComplete }: { mode: "erase" | "draw"; pointers: React.MutableRefObject<Map<number, number>>; onComplete: () => void }) {
@@ -1620,7 +1620,7 @@ function MythInk({ mode, pointers, onComplete }: { mode: "erase" | "draw"; point
     ctx.lineJoin = "round";
     if (mode === "erase") {
       // paint the surface behind the words to "rub them out": a sticky-note's own paper (its bg colour),
-      // or — for a loose myth scribbled straight on the canvas — the page's paper token.
+      // or (for a loose myth scribbled straight on the canvas) the page's paper token.
       const bg = getComputedStyle(c.parentElement as HTMLElement).backgroundColor;
       const paper = getComputedStyle(document.documentElement).getPropertyValue("--color-paper").trim() || "#fbf7ef";
       const col = bg && bg !== "rgba(0, 0, 0, 0)" ? bg : paper;
@@ -1725,7 +1725,7 @@ function MythNoteBody({
 }
 
 const DOODLE_MARKS = ["sparkle", "star", "heart", "squiggle", "spiral", "swirl", "zigzag", "arrow"];
-// Brand accent palette for the marks — coral / sun / teal / violet / sky, so the scatter reads as the
+// Brand accent palette for the marks: coral / sun / teal / violet / sky, so the scatter reads as the
 // colourful, delicate hand-drawn texture from the marketing site (not one heavy violet block).
 const DOODLE_ACCENTS = ["var(--color-grow)", "var(--color-sun)", "var(--color-insight)", "var(--violet-400)", "var(--color-sky)"];
 
@@ -1734,10 +1734,10 @@ type Decor =
   | { kind: "myth"; id: string; x: number; z: number; rot: number; text: string; truth: string; explanation?: string }
   | { kind: "truth"; id: string; x: number; z: number; rot: number; text: string };
 
-// Ambient chapter decor (Chapter Canvas Theming doc): the brand's signature scatter — small, multi-
+// Ambient chapter decor (Chapter Canvas Theming doc): the brand's signature scatter, small, multi-
 // colour hand-drawn marks PLUS loose text scribbled straight onto the paper: myths struck-through in
 // coral, relearned truths in violet (just like the marketing hero). The struck MYTHS here are interactive
-// just like the sticky notes — with a tool selected you rub them out (UN) and draw the truth (RE); marks and
+// just like the sticky notes: with a tool selected you rub them out (UN) and draw the truth (RE); marks and
 // the standalone truth scribbles stay decorative. Uses myths OFFSET from the sticky-note subset so nothing duplicates.
 function ChapterDoodles({ nodes, progress, pointers }: { nodes: SceneNode[]; progress: React.MutableRefObject<number>; pointers: React.MutableRefObject<Map<number, number>> }) {
   // the loose "written on canvas" myths are interactive too (not just the sticky notes): with UN you rub the
@@ -1815,7 +1815,7 @@ function ChapterDoodles({ nodes, progress, pointers }: { nodes: SceneNode[]; pro
             z,
             rot: (h % 50) - 25,
             mark: it.mark!,
-            size: 24 + (h % 18), // 24–42: small & delicate
+            size: 24 + (h % 18), // 24-42: small & delicate
             accent: DOODLE_ACCENTS[h % DOODLE_ACCENTS.length],
           });
         } else {
@@ -1872,7 +1872,7 @@ function ChapterDoodles({ nodes, progress, pointers }: { nodes: SceneNode[]; pro
             </group>
           );
         }
-        // myth — interactive: erase the struck myth (UN), draw the truth (RE), then it reveals
+        // myth: interactive: erase the struck myth (UN), draw the truth (RE), then it reveals
         const ph: MythPhase = phases[m.id] ?? "myth";
         const inkMode: "erase" | null = ph === "myth" && tool === "eraser" ? "erase" : null;
         return (
@@ -1955,7 +1955,7 @@ function FreeInk({ pointers }: { pointers: React.MutableRefObject<Map<number, nu
   return (
     <>
       {active && (
-        // invisible, raycastable ground plane; R3F gives us e.point (world hit) directly — no manual raycast
+        // invisible, raycastable ground plane; R3F gives us e.point (world hit) directly: no manual raycast
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, Y - 0.02, PATH_MID_Z]} onPointerDown={onDown} onPointerMove={onMove} onPointerUp={finish} onPointerLeave={finish}>
           <planeGeometry args={[1600, PATH_SPAN_Z + 900]} />
           <meshBasicMaterial transparent opacity={0} depthWrite={false} />
@@ -1987,7 +1987,7 @@ function Nodes({
 }) {
   const total = nodes.length;
   const us = useMemo(() => chapterSpacedUs(nodes).nodeU, [nodes]);
-  // exactly one Active node = the next in the chain — the first still-playable lesson AT OR AFTER the
+  // exactly one Active node = the next in the chain: the first still-playable lesson AT OR AFTER the
   // chosen-age entry point (so the glow sits on the user's band, not a revision node), else the first playable
   const activeIndex = useMemo(() => {
     const f = focusIndex ?? 0;
@@ -2073,7 +2073,7 @@ function CanvasBackground() {
   return null;
 }
 
-// Theme controller — flips the world to the brand's dark "adult" palette across the Ch.5→Ch.6
+// Theme controller: flips the world to the brand's dark "adult" palette across the Ch.5→Ch.6
 // boundary. It lerps the shared dotted-paper colours (3D) and toggles [data-audience="adult"] on
 // <html> so the DOM overlays (toolbar, nodes, banners, background) inherit the dark token flip too.
 function ThemeController({ progress, adultStartU }: { progress: React.MutableRefObject<number>; adultStartU: number }) {
@@ -2132,7 +2132,7 @@ export function PathScene({
   nodes?: SceneNode[];
   chapters?: Chapter[];
   onSelectNode?: (n: SceneNode) => void;
-  /** true while ANY game (swipe or engine) is being played in place — freezes the camera & hides nodes */
+  /** true while ANY game (swipe or engine) is being played in place: freezes the camera & hides nodes */
   playing?: boolean;
   /** node index to focus on load (the chosen age band's entry node); falls back to first playable */
   focusIndex?: number;
@@ -2149,9 +2149,9 @@ export function PathScene({
   }, [nodes, focusIndex]);
   const progress = useRef(startU);
   // live map of every pointer currently on the screen (pointerId -> clientY). Shared with the interactive
-  // myth notes so the canvas can offer "one finger draws, two fingers scroll" — drawing never locks travel.
+  // myth notes so the canvas can offer "one finger draws, two fingers scroll": drawing never locks travel.
   const pointersRef = useRef<Map<number, number>>(new Map());
-  // u where the world flips to the adult (dark) theme — midway between the last kids node and the
+  // u where the world flips to the adult (dark) theme: midway between the last kids node and the
   // first adult one (Ch.6+). >1 (never) when there are no adult chapters.
   const adultStartU = useMemo(() => {
     const i = nodes.findIndex((n) => /Ch\.[678]/.test(n.chapter ?? ""));
@@ -2218,7 +2218,7 @@ export function PathScene({
       if (overlayOpen()) return;
       if (!pts.has(e.pointerId)) return;
       pts.set(e.pointerId, e.clientY);
-      // TWO-FINGER SCROLL — works in every mode (Browse AND while a draw tool is active): drawing never
+      // TWO-FINGER SCROLL: works in every mode (Browse AND while a draw tool is active): drawing never
       // locks travel. One finger draws/erases a myth; two fingers scroll the path.
       if (pts.size >= 2) {
         const a = avgY();
@@ -2275,7 +2275,7 @@ export function PathScene({
       <ProgressTrail progress={progress} />
       <FollowCam progress={progress} />
       <ThemeController progress={progress} adultStartU={adultStartU} />
-      {/* soft, season-free lighting — enough to light Sam (the only lit 3D object) */}
+      {/* soft, season-free lighting: enough to light Sam (the only lit 3D object) */}
       <hemisphereLight args={["#ffffff", "#e7e0f1", 1.1]} />
       <directionalLight position={[6, 14, 8]} intensity={1.15} />
       {/* phase 1: nodes + chapter signs (hidden while a level is being played).

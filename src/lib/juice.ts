@@ -2,20 +2,20 @@
 
 // Game-feel layer for GLRL 2.0 runs: short Web-Audio SFX + haptics + a screenshake/pulse hook.
 // Dependency-light (no asset files), and honours prefers-reduced-motion + a mute toggle. Audio is
-// lazily created on first use (autoplay policy: the first sound follows a user gesture — a swipe).
+// lazily created on first use (autoplay policy: the first sound follows a user gesture, a swipe).
 type Kind = "green" | "red" | "toxic" | "combo" | "win" | "shatter";
 
 let ctx: AudioContext | null = null;
 let muted = false;
 let calm = false; // app-wide Calm Mode (reduced-stimulation), set from the profile
 
-/** True when motion should be dialled down — either the OS reduced-motion setting OR Calm Mode. */
+/** True when motion should be dialled down: either the OS reduced-motion setting OR Calm Mode. */
 export const prefersReducedMotion = () =>
   calm ||
   (typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
 const reducedMotion = prefersReducedMotion;
 
-/** Calm Mode — a reduced-stimulation setting across the whole app (synced from the profile). */
+/** Calm Mode: a reduced-stimulation setting across the whole app (synced from the profile). */
 export function setCalm(v: boolean) {
   calm = v;
 }
@@ -68,7 +68,7 @@ export function sfx(kind: Kind, combo = 0) {
     case "red":
       tone([300, 220], { type: "sine", dur: 0.18 });
       break;
-    case "toxic": // a genuinely toxic / boss red — heavier
+    case "toxic": // a genuinely toxic / boss red: heavier
       tone([180, 120], { type: "sawtooth", dur: 0.26, gain: 0.05 });
       break;
     case "combo": // ascending chime, climbs with the combo
@@ -77,7 +77,7 @@ export function sfx(kind: Kind, combo = 0) {
     case "win":
       tone([523, 659, 784, 1047], { type: "triangle", dur: 0.2, stepMs: 110, gain: 0.07 });
       break;
-    case "shatter": // a disguised card correctly busted — a crisp, bright burst
+    case "shatter": // a disguised card correctly busted: a crisp, bright burst
       tone([880, 1245, 1760], { type: "triangle", dur: 0.13, stepMs: 45, gain: 0.07 });
       break;
   }
@@ -103,7 +103,7 @@ export function shake(el: HTMLElement | null, kind: "shake" | "pulse" = "shake")
 
 // ---- ambient music bed: a soft, low pad that intensifies with tension (Clarity falling) and ducks
 // out on serious cards. Very quiet, mute-aware, paused when the tab is hidden. Audio is not a motion
-// concern, so reduced-motion doesn't silence it — the mute toggle does.
+// concern, so reduced-motion doesn't silence it: the mute toggle does.
 let musicNodes: { osc: OscillatorNode[]; lp: BiquadFilterNode; gain: GainNode } | null = null;
 let musicTension = 0;
 let musicActive = true;

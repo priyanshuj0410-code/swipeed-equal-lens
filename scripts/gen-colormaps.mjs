@@ -16,7 +16,7 @@ const TARGET = {
   autumn: "#D2691E", // strong orange
   winter: "#F4F6F9", // near-pure white (barely-cool), so snow reads white not blue
   spring: "#7ECB5A", // fresh green (grass / conifers / hills)
-  spring_blossom: "#FFD1DC", // light cherry-blossom pink — applied ONLY to the round trees at runtime
+  spring_blossom: "#FFD1DC", // light cherry-blossom pink, applied ONLY to the round trees at runtime
 };
 
 // how much of the original swatch's luminance variation to keep (lower = flatter toward

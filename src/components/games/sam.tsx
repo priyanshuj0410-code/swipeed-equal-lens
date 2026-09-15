@@ -1,6 +1,6 @@
-// Sam — the companion the child travels with for the whole journey, now rendered as Lensy, The Equal
+// Sam: the companion the child travels with for the whole journey, now rendered as Lensy, The Equal
 // Lens mascot (the curious purple alien). One shared definition so Sam/Lensy looks the same across every
-// game; keeps the size ramp (the companion "grows with you") and the gentle mascot bob. No CSS shadow —
+// game; keeps the size ramp (the companion "grows with you") and the gentle mascot bob. No CSS shadow
 // Lensy's art carries its own ground shadow, and the mark/mascot take no effects (brand p.10).
 type Pose = "wave" | "stand" | "think" | "idea";
 

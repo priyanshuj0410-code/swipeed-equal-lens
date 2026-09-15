@@ -2,8 +2,8 @@
 
 import type { RunResult } from "@/lib/use-run-game";
 
-// The run's outcome beat — the character "sees clearly" (high Clarity) or a gentle, reflective
-// "the signs were there — let's look again" (low Clarity). Never "you failed". Shown atop the debrief.
+// The run's outcome beat: the character "sees clearly" (high Clarity) or a gentle, reflective
+// "the signs were there: let's look again" (low Clarity). Never "you failed". Shown atop the debrief.
 export function ResolutionBeat({ result }: { result: RunResult }) {
   const clear = result.outcome === "clear";
   return (

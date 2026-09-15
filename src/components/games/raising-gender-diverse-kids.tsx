@@ -1,8 +1,8 @@
 "use client";
 
-// Raising Gender-Diverse Kids (node g66, Parent Layer, Chapter 8) — NEW v2 build to GDD 66 (mechanic-embodying), a
+// Raising Gender-Diverse Kids (node g66, Parent Layer, Chapter 8): NEW v2 build to GDD 66 (mechanic-embodying), a
 // SENSITIVE Parent-Layer node handled with the care of Spectrum (g32): dignity-first, never-out, child-safety-
-// centred. The evidence is the spine: an affirming parent is the single biggest protective factor — family
+// centred. The evidence is the spine: an affirming parent is the single biggest protective factor, family
 // acceptance roughly HALVES the odds of suicidal thoughts. Runs on the shared v2 engine: its researched typed
 // library + config (content/games/raising-gender-diverse-kids.ts) render the play actions (strike-rewrite · branch
 // · role-play · reflect · sort · match · spot), led by strike-rewrite + branch + role-play. Six modes: acceptance

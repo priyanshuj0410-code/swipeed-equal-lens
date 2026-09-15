@@ -5,7 +5,7 @@ import { useEffect } from "react";
 /**
  * The PWA service worker is **disabled**.
  *
- * It was caching stale JS throughout the brand re-skin and serving old builds — most visibly serving a
+ * It was caching stale JS throughout the brand re-skin and serving old builds: most visibly serving a
  * pre-fix bundle on the production preview, so the realistic 3D world bled through the canvas world.
  * This unregisters any existing service worker and clears its caches on load; `public/sw.js` is itself a
  * kill-switch that self-unregisters. Re-introduce a real offline SW later if offline support is wanted.

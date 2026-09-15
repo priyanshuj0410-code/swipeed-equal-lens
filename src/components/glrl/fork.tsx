@@ -4,7 +4,7 @@ import type { RunFork } from "@/lib/use-run-game";
 import type { Character } from "@/lib/types";
 import { MessageCircle, ShieldCheck, DoorOpen, ArrowRight } from "lucide-react";
 
-// The story fork — twice per run the player decides (not just judges), changing later cards and the
+// The story fork: twice per run the player decides (not just judges), changing later cards and the
 // ending. Choices teach communication / boundary-setting / safe exit. Full-screen glass overlay over
 // the grassland.
 const ICONS = [MessageCircle, ShieldCheck, DoorOpen];

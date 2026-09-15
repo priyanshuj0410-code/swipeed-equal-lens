@@ -12,6 +12,7 @@ Phase 0 mapping decisions (see the path PR):
   - prereq/buildsOn/topics/ageGate are carried through but NOT used for gating yet.
 """
 import json, os, sys
+import re
 import openpyxl
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -28,15 +29,15 @@ GAME = {
     "g17": "flip-script", "g18": "norm-storm", "g19": "speak-up", "g24": "glrl", "g25": "mythbuster-lab",
     "g29": "my-choices", "g30": "status-know-it", "g31": "mutual", "g32": "spectrum", "g42": "life-ready", "g36": "decoded",
     "g27": "stand-up", "g40": "firewall", "g43": "rabbit-hole", "g33": "lead-the-way", "g34": "change-makers", "g35": "justice-league",
-    # Chapter 6 — adult journey (18–22)
+    # Chapter 6: adult journey (18-22)
     "g44": "consent-real", "g45": "swipe-right", "g46": "real-relationships", "g47": "own-your-health",
     "g48": "money-independence", "g49": "mind-belonging", "g52": "find-your-feet", "g50": "equal-confident", "g51": "know-your-rights",
     "c6": "capstone-6",
-    # Chapter 7 — Building a Life (22 → first child)
+    # Chapter 7: Building a Life (22 → first child)
     "g53": "choosing-building", "g54": "your-path-your-call", "g55": "equal-partners", "g56": "respect-at-home",
     "g57": "family-map", "g58": "money-together", "g59": "if-when-whether", "g60": "many-ways-to-family",
     "c7": "capstone-7",
-    # Chapter 8 — Parenthood (first child on)
+    # Chapter 8: Parenthood (first child on)
     "g61": "us-after-kids", "g62": "equal-parents", "g63": "looking-after-you", "g64": "the-talks",
     "g65": "break-the-cycle", "g66": "raising-gender-diverse-kids", "g67": "raising-neurodiverse-kids",
     "g68": "navigating-addictions", "g69": "be-the-safe-adult",
@@ -56,7 +57,7 @@ EMOJI = {
     "g13": "🌱", "g14": "🧬", "g15": "🤖", "g16": "🔀", "g17": "🎬", "g18": "🌪️", "g19": "📣", "g20": "🦠", "c3": "🏆",
     "g21": "💪", "g22": "🗓️", "g23": "🧫", "g24": "🚦", "g25": "💡", "g26": "🟰", "g27": "✊", "g40": "🧱", "g43": "🕳️", "g28": "🔍", "c4": "🏆",
     "g29": "🧭", "g30": "🩺", "g31": "💚", "g32": "🌈", "g33": "💼", "g34": "🌍", "g35": "🏛️", "g36": "🔓", "c5": "🏆",
-    # Ch.6 · 18–22 (College / Standing on My Own)
+    # Ch.6 · 18-22 (College / Standing on My Own)
     "g44": "🫶", "g45": "💘", "g46": "💞", "g47": "🌡️", "g48": "💰", "g49": "🫂", "g52": "👣", "g50": "🌟", "g51": "📜", "c6": "🏆",
     # Ch.7 · 22 → first child (Building a Life)
     "g53": "💍", "g54": "🛤️", "g55": "🧺", "g56": "🏠", "g57": "🗺️", "g58": "💵", "g59": "🤰", "g60": "👪", "c7": "🏆",
@@ -65,12 +66,12 @@ EMOJI = {
 }
 
 CHAPTER_SUBTITLE = {
-    "Ch.1 · Ages 3–6": "Everyone is equal & can-do",
-    "Ch.2 · Ages 6–9": "Fair is fair",
-    "Ch.3 · Ages 9–12": "Question the script",
-    "Ch.4 · Ages 12–15": "Equality in practice",
-    "Ch.5 · Ages 15–18": "Change the system",
-    "Ch.6 · Ages 18–22": "Standing on my own",
+    "Ch.1 · Ages 3-6": "Everyone is equal & can-do",
+    "Ch.2 · Ages 6-9": "Fair is fair",
+    "Ch.3 · Ages 9-12": "Question the script",
+    "Ch.4 · Ages 12-15": "Equality in practice",
+    "Ch.5 · Ages 15-18": "Change the system",
+    "Ch.6 · Ages 18-22": "Standing on my own",
     "Ch.7 · 22 → first child": "Building a life",
     "Ch.8 · Parenthood (first child on)": "Raising the next generation",
 }
@@ -78,7 +79,15 @@ CHAPTER_SUBTITLE = {
 def clean(v):
     if v is None: return None
     s = str(v).strip()
-    return None if s in ("", "—", "-") else s
+    if s in ("", "\u2014", "-"):
+        return None
+    # the spreadsheet uses dashes; SwipeEd never does (SWED-92): ranges take a hyphen, anything else a colon
+    s = re.sub(r"(\d)\s*[\u2013\u2014]\s*(\d)", r"\1-\2", s)
+    s = re.sub(r"([?!])\s*[\u2013\u2014]\s*", r"\1 ", s)
+    m = re.search(r"\s*[\u2013\u2014]\s*", s)
+    if m:
+        s = s[: m.start()] + (", " if ":" in s[: m.start()] else ": ") + s[m.end():]
+    return re.sub(r"\s*[\u2013\u2014]\s*", ", ", s)
 
 wb = openpyxl.load_workbook(XLSX, data_only=True)
 ws = wb["Master Node Table"]
@@ -147,7 +156,7 @@ def node_line(n):
     return "  { " + ", ".join(parts) + " },"
 
 lines = []
-lines.append("// AUTO-GENERATED from scripts/master-node-table.xlsx by scripts/gen-path.py — do not edit by hand.")
+lines.append("// AUTO-GENERATED from scripts/master-node-table.xlsx by scripts/gen-path.py: do not edit by hand.")
 lines.append("// Edit the spreadsheet and rerun the generator. Phase 0: order + thread colour + chapter")
 lines.append("// regions; built games are playable, the rest render disabled ('not built'). No gates yet.")
 lines.append("")
@@ -160,13 +169,13 @@ lines.append("  id: string; // stable table id (g01…/c1…)")
 lines.append("  label: string;")
 lines.append("  type: NodeType;")
 lines.append("  chapter: string;")
-lines.append("  ageGate: number; // 3/6/9/12/15 — carried for later phases, NOT gated yet")
+lines.append("  ageGate: number; // 3/6/9/12/15: carried for later phases, NOT gated yet")
 lines.append("  thread: ThreadKey;")
 lines.append("  threadName: string;")
 lines.append("  hex: string; // bubble tint (one colour per thread)")
 lines.append("  topics: string[];")
-lines.append("  prereq?: string; // linear predecessor — carried, NOT gated yet")
-lines.append("  buildsOn?: string; // spiral reference — analytics/callbacks only")
+lines.append("  prereq?: string; // linear predecessor: carried, NOT gated yet")
+lines.append("  buildsOn?: string; // spiral reference: analytics/callbacks only")
 lines.append("  note?: string;")
 lines.append("  emoji: string;")
 lines.append("  game?: string; // dispatch id for a built game; absent => not built (disabled)")

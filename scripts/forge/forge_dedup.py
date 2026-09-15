@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""forge_dedup.py — whole-bank (all 69 games) duplicate detection, band-aware, helpline-masked.
+"""forge_dedup.py: whole-bank (all 69 games) duplicate detection, band-aware, helpline-masked.
 
 Two signals, so a generator can't beat it by swapping nouns:
-  STRUCTURAL — a per-mechanic signature over the answer-bearing structure (sort item-set+partition, match
+  STRUCTURAL: a per-mechanic signature over the answer-bearing structure (sort item-set+partition, match
                pair-set, spot scene-set+trick count, branch option-set, swipe cue+side, reflect option-set,
                role-play line-set). Identical structure with reskinned nouns = a twin.
-  PROSE      — 3-shingle Jaccard over normalized visible text (helpline strings + named services MASKED so
+  PROSE: 3-shingle Jaccard over normalized visible text (helpline strings + named services MASKED so
                their mandatory repetition across beats doesn't read as duplication).
 
 INTRA-band near-dups BLOCK (same chapter = the same lesson twice). CROSS-band near-dups are LOGGED only
@@ -50,10 +50,10 @@ def struct_sig(o):
     if t == "explore-label":
         return ("explore", nz(o.get("find")), nz(o.get("answer")))
     # FAIL CLOSED. This used to `return (t,)`, giving every scenario of an unregistered mechanic the
-    # SAME signature — so N genuinely-distinct scenarios collapse into N-choose-2 false STRUCT
+    # SAME signature: so N genuinely-distinct scenarios collapse into N-choose-2 false STRUCT
     # collisions and the merge gate becomes un-passable for reasons that look nothing like the cause.
     raise ValueError(
-        f"struct_sig: unhandled scenario type {t!r} (id={o.get('id')!r}). Add a signature for it — "
+        f"struct_sig: unhandled scenario type {t!r} (id={o.get('id')!r}). Add a signature for it: "
         f"it must capture what makes two scenarios of this mechanic structurally the same."
     )
 
@@ -83,7 +83,7 @@ def find_collisions(recs, focus=None):
         by_sig.setdefault(r["sig"], []).append(r)
     for sig, group in by_sig.items():
         # Was: `len(group) < 2 or sig[0] in ("reflect",) and len(sig) < 2`. The second clause was
-        # unreachable — `and` binds tighter than `or`, and struct_sig returns a 3-tuple for reflect, so
+        # unreachable: `and` binds tighter than `or`, and struct_sig returns a 3-tuple for reflect, so
         # `len(sig) < 2` was never true. It was guarding against the bare `(t,)` fallthrough, which
         # struct_sig no longer produces (it raises instead), so the clause is now genuinely redundant.
         if len(group) < 2:
@@ -95,7 +95,7 @@ def find_collisions(recs, focus=None):
                     continue
                 pair = ("STRUCT", a, b)
                 (intra if a["ch"] == b["ch"] else cross).append(pair)
-    # prose near-dup — only compare within the same mechanic + chapter bucket for tractability
+    # prose near-dup: only compare within the same mechanic + chapter bucket for tractability
     buck = {}
     for r in recs:
         buck.setdefault((r["type"], r["ch"]), []).append(r)
@@ -128,13 +128,13 @@ def main():
         for kind, a, b in out[:n]:
             print(f"    [{kind}] {a['gid']}:{a['id']} ({a['type']}) ≈ {b['gid']}:{b['id']}  (Ch.{a['ch']}/{b['ch']})")
         return len(out)
-    print(f"forge_dedup over {len(recs)} scenarios" + (f" — focus {focus}" if focus else ""))
+    print(f"forge_dedup over {len(recs)} scenarios" + (f": focus {focus}" if focus else ""))
     ni = show(intra)
     print(f"  INTRA-band collisions (BLOCK): {ni}")
     if cross:
         print(f"  cross-band echoes (LOGGED, ok): {len({tuple(sorted([a['id'],b['id']])) for _,a,b in cross})}")
     if verify and ni:
-        print(f"\n✗ {focus}: {ni} intra-band collision(s) — resolve before merge.")
+        print(f"\n✗ {focus}: {ni} intra-band collision(s), resolve before merge.")
         sys.exit(1)
     if not intra:
         print("  ✓ no intra-band duplicates")
