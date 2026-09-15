@@ -76,7 +76,7 @@ export function ToolkitDrawer() {
           <button type="button" onClick={() => setOpen("help")} className="glass-card mb-2.5 flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95">
             <LifeBuoy className="size-5" aria-hidden /> Get help
           </button>
-          <button type="button" onClick={() => setOpen("breathing")} className="mb-3 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">
+          <button type="button" onClick={() => setOpen("breathing")} className="cta mb-3 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95">
             <Wind className="size-5" aria-hidden /> Breathing space
           </button>
           {tools.length > 0 ? (

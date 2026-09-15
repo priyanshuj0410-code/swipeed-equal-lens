@@ -334,14 +334,14 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
         {/* Home's "Play with Lensy" CTA sits at the bottom (the topic grid is the browsing area above). The
             Get-Help pill was removed here (the top-bar icon covers it); it still surfaces on safety resolves. */}
         {view === "home" && (
-          <button type="button" onClick={startRotate} className="flex h-16 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-extrabold text-slate-900 transition-transform active:scale-[0.98]">
+          <button type="button" onClick={startRotate} className="cta flex h-16 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-extrabold text-slate-900 transition-transform active:scale-[0.98]">
             <ShieldCheck className="size-6" aria-hidden /> Play with Lensy
           </button>
         )}
         {view === "play" && (
           <div className="flex flex-col items-stretch gap-1.5">
             {phase === "resolve" && (
-              <button ref={nextRef} type="button" onClick={next} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
+              <button ref={nextRef} type="button" onClick={next} className="cta flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
                 {qi + 1 >= queue.length ? "Finish ⭐" : "Next →"}
               </button>
             )}
@@ -459,7 +459,7 @@ function ChoosePlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "choo
       </div>
       {!shown && (
         <button type="button" onClick={check} disabled={picked.length === 0}
-          className="flex h-12 w-full items-center justify-center rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
+          className="cta flex h-12 w-full items-center justify-center rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
           {missed ? "Check again" : "Check"}
         </button>
       )}
@@ -509,7 +509,7 @@ function StrikePlay({ sc, onSolved, reduceMotion }: { sc: Extract<Scenario, { ty
     <div className="flex flex-1 flex-col gap-2.5">
       {/* a click with detail 0 comes from a keyboard or screen reader, never from a finger scrubbing the card */}
       <div tabIndex={0} role="button" aria-label={`Rub out the myth: ${sc.myth.un}`} onKeyDown={onKeyDown} onClick={(e) => { if (e.detail === 0) eraseNow(); }} {...drag.handlers}
-        className="glass-card relative flex min-h-48 flex-1 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
+        className="glass-card lift relative flex min-h-48 flex-1 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
         <p className="text-[19px] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? (progress >= 1 ? 0.12 : 1) : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{sc.myth.un}</p>
         <span className="pointer-events-none absolute bottom-2 right-3 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>
       </div>
@@ -713,7 +713,7 @@ function BuildPlay({ sc, onSolved, say, labels, reduceMotion }: { sc: Extract<Sc
             className={`glass-card touch-none rounded-2xl px-3 py-2.5 text-sm font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 disabled:opacity-40 ${drag?.piece === p ? "opacity-30" : ""}`}>{p}</button>
         ))}
       </div>
-      <button type="button" disabled={!enough} onClick={onSolved} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
+      <button type="button" disabled={!enough} onClick={onSolved} className="cta flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
         <ShieldCheck className="size-5" aria-hidden /> {sc.mode === "sequence" ? (labels?.sequence ?? "That's my plan!") : (labels?.assemble ?? "That's my team!")}
       </button>
     </div>

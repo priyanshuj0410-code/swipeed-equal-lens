@@ -168,7 +168,7 @@ export function Loadout({
               type="button"
               disabled={!ready}
               onClick={() => deck && onStart(deck, perks)}
-              className="mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50"
+              className="cta mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50"
             >
               <Play className="size-5" aria-hidden /> Start
             </button>

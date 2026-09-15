@@ -49,7 +49,7 @@ export function MakeAKid({ ctaLabel = "Add to my garden", onAdd }: { ctaLabel?: 
           </button>
         ))}
       </div>
-      <button type="button" disabled={added} onClick={() => { setAdded(true); onAdd(cando); }} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
+      <button type="button" disabled={added} onClick={() => { setAdded(true); onAdd(cando); }} className="cta flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-bold text-slate-900 transition-transform active:scale-95 disabled:opacity-50">
         <Check className="size-5" aria-hidden /> {ctaLabel}
       </button>
     </div>

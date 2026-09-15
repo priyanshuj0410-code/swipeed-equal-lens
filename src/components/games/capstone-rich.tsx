@@ -271,7 +271,7 @@ function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
   if (solved) {
     return (
       <div className="flex flex-1 flex-col">
-        <div className={`${card} animate-in fade-in slide-in-from-bottom-4 flex min-h-72 w-full flex-1 flex-col items-center justify-center gap-3 rounded-3xl px-6 py-12 text-center duration-300`} style={{ boxShadow: "6px 6px 0 0 var(--prx-pos)" }}>
+        <div className={`${card} animate-in fade-in slide-in-from-bottom-4 flex min-h-72 w-full flex-1 flex-col items-center justify-center gap-3 rounded-3xl px-6 py-12 text-center duration-300`} style={{ borderColor: "var(--prx-pos)" }}>
           <span className="text-6xl" aria-hidden>💚</span>
           <p className="text-lg font-bold text-foreground">{lap.up}</p>
         </div>
@@ -283,7 +283,7 @@ function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
     <div className="flex flex-1 flex-col gap-3">
       <div tabIndex={0} role="group" aria-roledescription="card you swipe up to cheer on"
         aria-label={`${lap.cue}. Press Up arrow to cheer it on.`} onKeyDown={onKeyDown} {...drag.handlers}
-        className="glass-card relative flex min-h-72 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[19px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
+        className="glass-card lift relative flex min-h-72 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[19px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
         style={{ transform: `translateY(${flew ? -880 : dy}px) rotate(${flew ? -4 : 0}deg)`, transition: flew ? "transform 0.32s cubic-bezier(0.33,0,0.2,1)" : drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.2s ease-out", touchAction: "pan-x", boxShadow: lifting ? "0 -6px 0 0 var(--prx-pos)" : undefined }}>
         {lifting && (
           <>
@@ -296,7 +296,7 @@ function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
       </div>
       {/* the tap and screen-reader floor for a gesture a young child or a screen-reader user may not manage */}
       <button type="button" onClick={commit} disabled={flew}
-        className="glass-pill flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-sm font-bold text-foreground transition-transform active:scale-95 disabled:opacity-100">
+        className="glass-pill press flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-sm font-bold text-foreground transition-transform active:scale-95 disabled:opacity-100">
         <ChevronUp className="size-4" aria-hidden /> Swipe up, or tap to cheer it on
       </button>
     </div>
@@ -365,7 +365,7 @@ function StrikeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapStrikeLap>)
     <div className="flex flex-1 flex-col gap-2.5">
       {/* a click with detail 0 comes from a keyboard or screen reader, never from a finger scrubbing the card */}
       <div tabIndex={0} role="button" aria-label={`Rub out the myth: ${lap.myth.un}`} onKeyDown={onKeyDown} onClick={(e) => { if (e.detail === 0) eraseNow(); }} {...drag.handlers}
-        className="glass-card relative flex min-h-48 flex-1 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
+        className="glass-card lift relative flex min-h-48 flex-1 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
         <p className="text-[19px] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? 1 : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{lap.myth.un}</p>
         <span className="pointer-events-none absolute bottom-2 right-3 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>
       </div>
@@ -450,7 +450,7 @@ function CelebrationView({ config, say, onGraduate }: { config: CapstoneConfig; 
         <p className="text-sm text-foreground">{config.preview}</p>
         <p className="mt-2 text-xs text-foreground/70">💬 {config.share}</p>
       </div>
-      <button type="button" onClick={onGraduate} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-bold text-slate-900 transition-transform active:scale-95">
+      <button type="button" onClick={onGraduate} className="cta flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-bold text-slate-900 transition-transform active:scale-95">
         Get my graduation sticker! 🎓
       </button>
     </div>
@@ -598,7 +598,7 @@ export function RichCapstone({ config, onExit }: { config: CapstoneConfig; onExi
         {cur.kind !== "celebration" && (
           <div className="flex flex-col items-stretch gap-1.5">
             {canNext && (
-              <button ref={nextRef} type="button" onClick={next} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
+              <button ref={nextRef} type="button" onClick={next} className="cta flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">
                 {nextLabel}
               </button>
             )}

@@ -460,8 +460,7 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
           <button
             type="button"
             onClick={next}
-            className="h-14 flex-1 rounded-2xl border-[2.5px] border-[color:var(--color-ink)] bg-primary text-base font-bold text-primary-foreground transition-transform active:scale-95"
-            style={{ boxShadow: "3px 3px 0 0 var(--color-ink)" }}
+            className="press h-14 flex-1 rounded-2xl border-[2.5px] border-[color:var(--color-ink)] bg-primary text-base font-bold text-primary-foreground transition-transform active:scale-95"
           >
             {index + 1 >= cards.length ? "Finish" : "Next"}
           </button>
@@ -471,8 +470,8 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
               type="button"
               disabled={busy}
               onClick={() => commit("red")}
-              className="flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold transition-transform active:scale-95 disabled:opacity-60"
-              style={{ background: "var(--color-surface)", color: "var(--prx-flag-red)", border: "2.5px solid var(--prx-flag-red)", boxShadow: "3px 3px 0 0 var(--color-ink)" }}
+              className="press flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold transition-transform active:scale-95 disabled:opacity-60"
+              style={{ background: "var(--color-surface)", color: "var(--prx-flag-red)", border: "2.5px solid var(--prx-flag-red)" }}
             >
               <Flag className="size-5" aria-hidden /> {L.left}
             </button>
@@ -480,8 +479,8 @@ export function SwipeDeck3D({ cards, deckId, mode = "score", onComplete, labels,
               type="button"
               disabled={busy}
               onClick={() => commit("green")}
-              className="flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold transition-transform active:scale-95 disabled:opacity-60"
-              style={{ background: "var(--color-surface)", color: "var(--prx-flag-green)", border: "2.5px solid var(--prx-flag-green)", boxShadow: "3px 3px 0 0 var(--color-ink)" }}
+              className="press flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl text-base font-bold transition-transform active:scale-95 disabled:opacity-60"
+              style={{ background: "var(--color-surface)", color: "var(--prx-flag-green)", border: "2.5px solid var(--prx-flag-green)" }}
             >
               <Check className="size-5" aria-hidden /> {L.right}
             </button>
