@@ -16,6 +16,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d  # SWED-75
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
 ---
 
 # Choosing & Building
@@ -54,6 +55,8 @@ it?** Lensy returns as a grown peer who has been through the choosing. **A relat
 something that fixes you; commitment is a clear-eyed choice between equals; and whether the introduction comes
 from an app, a friend, or your family, the skills (and the consent) are the same.**
 
+> **Multi-step branches and role-plays ([SWED-96](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9), 2026-09-15).** All 90 branches and 62 role-plays are now 3 to 5 questions on one situation (91 with 3, 53 with 4, 8 with 5; 525 questions), each with 4 options and one best, a `then` for every option and a `why` for every question; the best answers are revealed at the end. Written by three writer agents from a brief, then: option lengths evened out by hand so the best option is the longest in 32% of questions (it was 53% in the role-plays); an independent blind reviewer picked the same best option in 522 of 525 questions (the 3 were rewritten); and a continuity pass fixed 137 questions that only made sense after one earlier pick, plus 71 comma splices in spoken lines.
+>
 > **Reflect conversation ([SWED-97](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc), 2026-09-15).** 16 of the 19 reflects carry their own `ask` and `deeper` ("What makes that one feel hard to start?", "What is one small way you could open it?"). The other 3 (cb-1037, cb-1118, cb-1123) are in the reassurance categories, so they stay tap-only.
 
 ## What it embodies

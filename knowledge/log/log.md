@@ -24,6 +24,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb  # SWED-95
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
 ---
 
 # SwipeEd project log
@@ -31,6 +32,22 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 · engine and content: branch and role-play become multi-step ([SWED-96](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9))
+- **Why.** The owner asked for at least 4 options, several questions (3 to 5) on the same scenario building on the
+  previous answer, and the right answers revealed at the end. 89% of branches and 93% of role-plays had two options
+  and one question with the answer shown at once.
+- **Shape.** `steps`: 3 to 5 of `{prompt, options, why}`, 4 or 5 options of `{text, then, best}` with exactly one
+  best. Single-step scenarios stay valid until their game converts; new content must be multi-step.
+- **Play.** `StoryPlay`: pick, see what happens (or what they say back), Continue; the next question replaces the one
+  on Lensy's card; a recap at the end shows each pick beside the best option and why, then the debrief.
+- **Gates.** Story shape, a band ceiling per step, visible and must-be-true fields, a dedup signature, a blind review
+  of each step's best option, and four lints: `single-step`, `then-verdict`, `step-questions`, `best-longest`.
+- **Pilot content.** All 152 Choosing & Building branches and role-plays (525 questions). Option lengths evened out
+  by hand; the blind reviewer agreed on 522 of 525 best options; 137 questions that assumed one earlier pick were
+  rewritten, and 71 comma splices fixed. Other 68 games: not converted yet (10,241 scenarios).
+- **Checked.** Content gate, forge_check, dedup and fixtures; headless playthroughs at 360, 390 and 412px in both
+  themes, including a 5-question safety role-play.
 
 ## 2026-09-15 · docs: the knowledge base drops its spaced hyphens ([SWED-98](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850))
 - **Why.** SWED-92 removed every em and en dash, but 2,551 spaced hyphens were still standing in for them in

@@ -15,6 +15,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
 ---
 
 # SwipeEd: The Interaction Model (direct manipulation)
@@ -73,8 +74,8 @@ mechanic composes, turning each interaction into the verb it teaches.
 | **strike-rewrite** | scrub the (now visible) myth away → truth resolves | Enter/Space erases in one go | back-and-forth scrub = toddler-easy; progress adds up across strokes (2026-09-15) |
 | **myth card** (a strike-rewrite beat in a game with `mythCards`) | swipe the card showing a myth or its truth: Myth left, True right (2026-09-15) | ←/→ on the card, or the Myth and True buttons under it | the question card says only "Myth or true? Swipe the card."; a wrong side gets "Look again"; ends on the UN/RE card; never three scrubs or three cards in a row |
 | **choose** | tap every option that fits, then Check (2026-09-15) | same (checkbox buttons) | a miss gets a count and one more look; then every answer shows with its note; no-fail |
-| **role-play** | tap an equal-weight, **shuffled** speech card (read & choose the assertive line) | same (native buttons) | press-and-hold-to-speak deferred (optional) |
-| **branch** | tap a (now **shuffled**) option → see its consequence → best advances | same | tap *is* the verb (committing to a course) |
+| **role-play** | a 3 to 5 line conversation: tap one of 4 or 5 **shuffled** lines to say, hear the reply, answer the next line; the best lines are revealed at the end ([SWED-96](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9)); single-step games still tap one of two speech cards | same (native buttons) | press-and-hold-to-speak deferred (optional) |
+| **branch** | 3 to 5 decisions in one situation: tap one of 4 or 5 **shuffled** options, see what happens, decide again; the best moves are revealed at the end ([SWED-96](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9)); single-step games still see a consequence and retry | same | tap *is* the verb (committing to a course) |
 | **spot** | tap the suspicious card → the flag PLANTS on the catch | same | tap *is* the verb (pointing) |
 | **reflect** | tap any option, then write a few words about it and answer one deeper question (each skippable) | same, plus a text box; ages 3-6 tell a grown-up instead; safety beats stay tap-only | no wrong answer; the reflection continues past the tap ([SWED-97](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc)) |
 | **explore-label** | anatomy → tap the part ON a body figure (it lights up where it lives); abstract → honest "which is true?" cards | same (labelled `<button>`s over an aria-hidden SVG) | split is **content-detected** (no schema change) |
