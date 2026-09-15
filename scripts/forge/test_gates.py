@@ -455,6 +455,13 @@ def story_fixtures():
     open(os.path.join(tmp, "review-story.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "best": [best[0], "Choice 2a", best[2]]}) + "\n")
     found, _ = B.diff("t", tmp, [], game_path=game)
     result("a reviewer who picks a different option in one step", len(found) == 1 and "Choice 2a" in found[0][2], found)
+    cont = [json.loads(l) for l in open(os.path.join(tmp, "continuity.ndjson"), encoding="utf8") if l.strip()]
+    result("the continuity row shows every then and hides best", len(cont) == 1 and all("then" in x for st in cont[0]["steps"] for x in st["options"])
+           and '"best"' not in json.dumps(cont))
+    sub = os.path.join(tmp, "only")
+    counts = B.make("t", sub, [], game_path=game, seed=1, only={"t-999"})
+    found, missing = B.diff("t", sub, [], game_path=game, only={"t-999"})
+    result("a make limited to other ids writes no story and reports nothing missing", counts["story"] == 0 and not found and not missing, (counts, missing))
     shutil.rmtree(tmp)
     return fails
 
