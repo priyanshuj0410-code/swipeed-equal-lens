@@ -20,12 +20,27 @@ export type ReflectScenario = Base & { type: "reflect"; prompt: string; options:
 // has a `note`: why it fits (shown if the player missed it) or why it does not (shown if they picked it). Feelings,
 // personal choices and safety lines stay `reflect`, where no answer is wrong.
 export type ChooseScenario = Base & { type: "choose"; prompt: string; options: { text: string; fits: boolean; note: string }[] };
-// role-play (voice): say the words. Exactly one line is `best` (the assertive script); the other is passive.
-export type RolePlayScenario = Base & { type: "role-play"; setup: string; yourLine: { text: string; best?: boolean }[] };
+// A step of a multi-step branch or role-play (SWED-96). A scenario has 3 to 5 steps on one situation; each step has 4 or
+// 5 options with exactly one `best`. Picking an option shows its `then` (what happens next, or what the other person
+// says back), which leads into the next step. Nothing is marked right or wrong until the scenario ends, when every
+// step's pick is shown beside the best option and its `why`. Single-step scenarios keep playing until their game is
+// converted; new content is always multi-step.
+export type StoryOption = { text: string; then: string; best?: boolean; outcome?: string };
+export type StoryStep = { prompt: string; options: StoryOption[]; why: string };
+// role-play (voice): say the words. Single-step: exactly one `yourLine` is `best` (the assertive script). Multi-step:
+// `setup` sets the scene and each step's `prompt` is what the other person says.
+export type RolePlayScenario = Base & { type: "role-play"; setup: string } & (
+  | { steps: StoryStep[]; yourLine?: never }
+  | { yourLine: { text: string; best?: boolean }[]; steps?: never }
+);
 // strike-rewrite: UN erases a myth, RE writes the truth with a reason.
 export type StrikeRewriteScenario = Base & { type: "strike-rewrite"; myth: { un: string; re: string; why: string } };
-// branch: choose what to do; each option has a consequence; one is `best`; a `debrief` reinforces the safe way.
-export type BranchScenario = Base & { type: "branch"; options: { text: string; consequence: string; outcome?: string; best?: boolean }[]; debrief: string };
+// branch: choose what to do. Single-step: each option has a consequence and one is `best`. Multi-step: `steps` (see
+// StoryStep). Either way a `debrief` reinforces the safe way.
+export type BranchScenario = Base & { type: "branch"; debrief: string } & (
+  | { steps: StoryStep[]; options?: never }
+  | { options: { text: string; consequence: string; outcome?: string; best?: boolean }[]; steps?: never }
+);
 // sort: drop each item into the right bin (the `key` maps item id → bin id). Telling concepts apart.
 // `valence` makes a bin's meaning EXPLICIT so the engine never guesses it from the label (colour is a primary
 // signal for pre-readers): pos=good/true/safe 💚, neg=bad/false/unsafe 🛑, tell=speak-up 🗣️, uhoh=careful 😬,
@@ -55,6 +70,11 @@ export type SwipeScenario = Base & { type: "swipe"; cue: string; left: string; r
 
 export type Scenario =
   | ReflectScenario | ChooseScenario | RolePlayScenario | StrikeRewriteScenario | BranchScenario | SortScenario | MatchScenario | BuildScenario | ExploreLabelScenario | SpotScenario | SwipeScenario;
+
+export type StoryScenario = (BranchScenario | RolePlayScenario) & { steps: StoryStep[] };
+/** A multi-step branch or role-play (SWED-96). */
+export const isStory = (s: Scenario): s is StoryScenario =>
+  (s.type === "branch" || s.type === "role-play") && Array.isArray((s as { steps?: unknown }).steps);
 
 // A game's home categories (theme tiles + the sticker book).
 export type GameCategory = { id: string; emoji: string; label: string };

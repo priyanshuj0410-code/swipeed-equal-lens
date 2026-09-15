@@ -29,6 +29,11 @@ MATCH_PAIRS = 5
 # "tap everything" nor "tap one" works and the count itself is not a tell.
 CHOOSE_OPTIONS = 6
 CHOOSE_FITS = (2, 4)
+# multi-step branch and role-play (SWED-96): 3 to 5 steps on one situation, 4 or 5 options a step, exactly one best,
+# answers revealed at the end. Single-step scenarios stay valid until their game is converted (the single-step lint).
+STORY_STEPS = (3, 5)
+STORY_OPTIONS = (4, 5)
+STORY_TYPES = {"branch", "role-play"}
 # an option that only agrees or disagrees tests nothing about the question
 ASSENT_ONLY = {"yes", "no", "maybe", "agree", "disagree", "i agree", "i disagree", "true", "false", "not sure",
                "both", "neither", "all of these", "none of these", "all of the above", "none of the above"}
@@ -82,6 +87,21 @@ BIN_VALENCES = {"pos", "neg", "tell", "uhoh", "neutral"}
 ALL_MECHANICS = {"reflect", "choose", "role-play", "strike-rewrite", "branch", "sort", "match", "build", "explore-label", "spot", "swipe"}
 
 # ── field roles: where canonical facts MUST hold vs where deliberate myths/lies live ─────────────────────────
+def is_story(o):
+    """A multi-step branch or role-play (SWED-96)."""
+    return o.get("type") in STORY_TYPES and "steps" in o
+
+def story_fields(o):
+    for i, st in enumerate(o.get("steps") or []):
+        if not isinstance(st, dict):
+            continue
+        yield f"step[{i}].prompt", st.get("prompt", "") or ""
+        for j, op in enumerate(st.get("options") or []):
+            if isinstance(op, dict):
+                yield f"step[{i}].option[{j}].text", op.get("text", "") or ""
+                yield f"step[{i}].option[{j}].then", op.get("then", "") or ""
+        yield f"step[{i}].why", st.get("why", "") or ""
+
 # Visible (rendered) string fields per type: used for <=160, normalization, dedup.
 def visible_fields(o):
     """Yield (field_label, text) for every player-visible string in a scenario."""
@@ -101,6 +121,8 @@ def visible_fields(o):
             yield f"option[{i}].note", op.get("note", "")
     elif t == "role-play":
         yield "setup", o.get("setup", "")
+        if is_story(o):
+            yield from story_fields(o)
         for i, l in enumerate(o.get("yourLine", []) or []):
             yield f"yourLine[{i}]", l.get("text", "")
     elif t == "strike-rewrite":
@@ -108,6 +130,8 @@ def visible_fields(o):
         for k in ("un", "re", "why"):
             yield f"myth.{k}", m.get(k, "")
     elif t == "branch":
+        if is_story(o):
+            yield from story_fields(o)
         for i, op in enumerate(o.get("options", []) or []):
             yield f"option[{i}].text", op.get("text", "")
             yield f"option[{i}].consequence", op.get("consequence", "")
@@ -163,6 +187,10 @@ def must_be_true_texts(o):
         for op in o.get("options", []) or []:
             if op.get("best"):
                 out += [op.get("text", ""), op.get("consequence", "")]
+        # a multi-step branch asserts its best choices and the reveal's reasons; the other options and every `then` are
+        # the story (deliberate wrong moves and what they lead to)
+        for st in o.get("steps", []) or []:
+            out += [op.get("text", "") for op in st.get("options", []) or [] if op.get("best")] + [st.get("why", "")]
     elif t == "reflect":
         out.append(o.get("affirm", ""))
     elif t == "choose":
@@ -186,6 +214,9 @@ def must_be_true_texts(o):
             out += [p.get("left", ""), p.get("right", "")]
     elif t == "sort":
         out += [it.get("text", "") for it in o.get("items", []) or []]
+    elif t == "role-play" and is_story(o):
+        # the reveal's reasons are the app speaking; options and replies are in-character lines
+        out += [st.get("why", "") for st in o.get("steps", []) or []]
     elif t in ("role-play", "build"):
         # Deliberate no-op, made explicit so the else below can fail closed. These two contribute only
         # the base `relearn` (appended above): role-play's yourLine options are in-character player
@@ -341,9 +372,9 @@ REQUIRED_BASE = ["id", "cat", "type", "persona", "source", "relearn", "hook"]
 REQUIRED_PAYLOAD = {
     "reflect": ["prompt", "options", "affirm"],
     "choose": ["prompt", "options"],
-    "role-play": ["setup", "yourLine"],
+    "role-play": ["setup"],
     "strike-rewrite": ["myth"],
-    "branch": ["options", "debrief"],
+    "branch": ["debrief"],
     "sort": ["items", "bins", "key"],
     "match": ["pairs"],
     "build": ["prompt", "pieces", "mode", "key"],
@@ -351,6 +382,9 @@ REQUIRED_PAYLOAD = {
     "spot": ["scene", "why"],
     "swipe": ["cue", "left", "right", "answer"],
 }
+
+# branch and role-play carry either multi-step `steps` (SWED-96) or their legacy single-step field, never both
+ONE_OF = {"branch": "options", "role-play": "yourLine"}
 
 def _missing(o, f):
     v = o.get(f, None)
@@ -367,9 +401,60 @@ def required_field_errors(o):
         e.append(f"unknown type '{t}'")
     if t == "strike-rewrite" and isinstance(o.get("myth"), dict):
         e += [f"missing myth.{k}" for k in ("un", "re", "why") if not o["myth"].get(k)]
+    if t in ONE_OF:
+        single = ONE_OF[t]
+        has = [f for f in (single, "steps") if not _missing(o, f)]
+        if not has:
+            e.append(f"missing {t} field 'steps' (or a legacy '{single}')")
+        elif len(has) == 2:
+            e.append(f"{t} has both 'steps' and a legacy '{single}'")
     return e
 
 # ── per-mechanic structural validators ──────────────────────────────────────────────────────────────────────
+def story_errors(o):
+    """Shape of a multi-step branch or role-play: 3 to 5 steps, each with a prompt, a why, and 4 or 5 options that all
+    have text and a then, exactly one of them best, none repeated and none repeating the prompt."""
+    e = []
+    steps = o.get("steps")
+    if not isinstance(steps, list):
+        return ["steps is not a list"]
+    if not STORY_STEPS[0] <= len(steps) <= STORY_STEPS[1]:
+        e.append(f"steps={len(steps)} (need {STORY_STEPS[0]} to {STORY_STEPS[1]})")
+    for i, st in enumerate(steps):
+        if not isinstance(st, dict):
+            e.append(f"step[{i}] is not an object")
+            continue
+        prompt = st.get("prompt")
+        if not (isinstance(prompt, str) and prompt.strip()):
+            e.append(f"step[{i}] missing prompt")
+        if not (isinstance(st.get("why"), str) and st["why"].strip()):
+            e.append(f"step[{i}] missing why (the end reveal explains the best option)")
+        opts = st.get("options") if isinstance(st.get("options"), list) else []
+        if not STORY_OPTIONS[0] <= len(opts) <= STORY_OPTIONS[1]:
+            e.append(f"step[{i}] options={len(opts)} (need {STORY_OPTIONS[0]} to {STORY_OPTIONS[1]})")
+        best, texts = 0, []
+        for j, op in enumerate(opts):
+            if not isinstance(op, dict):
+                e.append(f"step[{i}].option[{j}] is not an object")
+                continue
+            if "best" in op and not isinstance(op["best"], bool):
+                e.append(f"step[{i}].option[{j}] best is not boolean")
+            best += op.get("best") is True
+            if not (isinstance(op.get("text"), str) and op["text"].strip()):
+                e.append(f"step[{i}].option[{j}] missing text")
+            if not (isinstance(op.get("then"), str) and op["then"].strip()):
+                e.append(f"step[{i}].option[{j}] missing then (what happens after this pick)")
+            t_norm = norm_text(op.get("text") or "")
+            texts.append(t_norm)
+            if t_norm and t_norm == norm_text(prompt or ""):
+                e.append(f"step[{i}].option[{j}] repeats the prompt")
+        if best != 1:
+            e.append(f"step[{i}] best count={best} (need exactly 1)")
+        if len(set(texts)) != len(texts):
+            e.append(f"step[{i}] duplicate option texts")
+    return e
+
+
 def shape_errors(o, strict_target=True):
     """Structural integrity per type. strict_target=True enforces the UPGRADED shapes (sort 6 / spot 5-2 /
     match 5) for NEW content; False only checks internal consistency (for grandfathered/legacy checks)."""
@@ -417,6 +502,8 @@ def shape_errors(o, strict_target=True):
             e.append("match duplicate rights")
         if set(lefts) & set(rights):
             e.append("match left text equals a right text (ambiguous)")
+    elif t in STORY_TYPES and is_story(o):
+        e += story_errors(o)
     elif t == "branch":
         opts = o.get("options", [])
         best = [op for op in opts if op.get("best")]
@@ -545,9 +632,24 @@ def prose_chars(o):
         return 0
     return sum(walk(vv, kk) for kk, vv in o.items())
 
+def story_prose(o):
+    """Narrated characters per step of a multi-step scenario: the question card (the hook, and a role-play's setup, open
+    the first step), the options, and the longest `then` the pick can show. A step's `why` appears only in the end
+    reveal, which is read at the player's pace, so it is capped per field instead."""
+    lead = len(o.get("hook", "") or "") + (len(o.get("setup", "") or "") if o.get("type") == "role-play" else 0)
+    out = []
+    for i, st in enumerate(o.get("steps") or []):
+        opts = [op for op in (st.get("options") or []) if isinstance(op, dict)] if isinstance(st, dict) else []
+        n = len((st or {}).get("prompt", "") or "") + sum(len(op.get("text", "") or "") for op in opts)
+        n += max((len(op.get("then", "") or "") for op in opts), default=0)
+        out.append(n + (lead if i == 0 else 0))
+    return out
+
 def band_error(o, ceil):
     if not ceil:
         return []
+    if is_story(o):
+        return [f"step[{i}] prose {n} > band ceiling {ceil}" for i, n in enumerate(story_prose(o)) if n > ceil]
     tot = prose_chars(o)
     return [f"prose total {tot} > band ceiling {ceil}"] if tot > ceil else []
 

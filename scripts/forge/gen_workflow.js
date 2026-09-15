@@ -24,7 +24,15 @@ TARGET MECHANIC SHAPES (the gate REQUIRES these for new content; read scripts/fo
   "why" explains why the caught items are the red flags. Inverting this silently teaches the wrong reflex (the engine
   has no fail state), so double-check every spot: do the 2 trick:true items match the bad thing the hook asks for?
 - match: EXACTLY 5 pairs; distinct lefts; distinct rights; no left text equals a right text.
-- branch: exactly one option "best":true; every non-best option has a "consequence".
+- branch: MULTI-STEP (SWED-96): hook (the situation) + steps:[3 to 5 of {"prompt","options":[4 or 5 of
+  {"text","then","best"}],"why"}] + debrief. Exactly one "best":true in each step (leave the key off the others). A
+  prompt is what is happening now plus ONE question, and must make sense after ANY option of the step before: the
+  player's path shows in the picked option's "then", which appears just before the next prompt, so move the situation
+  forward ("A week later...") instead of assuming one earlier pick. A "then" is one realistic sentence of what that
+  pick leads to, different for every option, and never grades it ("Good choice"): the answers are revealed only at the
+  end, where "why" (one sentence) says why that step's best option is best. Wrong options are tempting real reactions
+  with at least one near miss per step, and the best option is not the longest. Never write the old single-step shape
+  (options with "consequence").
 - reflect: NO right answer. options:[…] + affirm:"…". Never put best/key/trick/answer on a reflect. Keep reflect for
   feelings, personal choices and safety lines ("it's not your fault"), where every answer is acceptable.
 - choose: prompt + EXACTLY 6 options:[{"text","fits","note"}], 2 to 4 with "fits":true (vary the count). Use it for a
@@ -33,7 +41,11 @@ TARGET MECHANIC SHAPES (the gate REQUIRES these for new content; read scripts/fo
   for a fitting option, why it fits (shown if missed); for the others, why it does not (shown if picked). Fitting
   option texts and every note must be TRUE.
 - strike-rewrite: myth:{un, re, why}. "un" is the gentle myth; "re"+"why" MUST be true.
-- role-play: setup + yourLine:[{text,best?}] (exactly one best).
+- role-play: MULTI-STEP (SWED-96): hook + setup (one sentence placing the conversation, never an instruction such as
+  "Say:") + steps:[3 to 5 of {"prompt","options","why"}], built like a branch: each prompt is what the other person
+  says, attributed with a verb (Aunty asks: "..."), never a bare "Name:"; the 4 or 5 options are lines the player could
+  say, in double quotes, each with a "then" that is the other person's reply; exactly one "best":true per step. Never
+  write the old "yourLine" shape.
 - build: prompt + pieces:[…] + mode:"assemble"|"sequence" + key:[…] (key ⊆ pieces).
 - swipe: cue (the card text) + left + right (short side labels) + answer:"left"|"right" + leftValence and rightValence
   from {"pos","neg","tell","uhoh","neutral"} (declared, never inferred). The two sides differ. (ONLY if swipe is
@@ -41,12 +53,15 @@ TARGET MECHANIC SHAPES (the gate REQUIRES these for new content; read scripts/fo
 - explore-label: parts:[…] + find (what to look for, a noun phrase such as "the part that pumps blood") + answer (one
   of parts) + reveal (the fact shown after). Anatomy parts must be real body regions.
 Base fields on EVERY scenario: id, cat, type, persona, source, relearn, hook.
-HARD limits: every visible string ≤160 chars; whole-scenario prose total ≤ the band ceiling. Helpline numbers EXACT.
+HARD limits: every visible string ≤160 chars; whole-scenario prose total ≤ the band ceiling (for branch and role-play
+the ceiling applies per step: the prompt, every option text and the longest then, plus the hook and setup on step 1).
+Helpline numbers EXACT.
 No US framing (no 911/CPS/$/"grade 3"/zip). ids globally unique.
 NARRATOR: never start any line with "Lensy:" or "Sam:" (the app shows every hook on Lensy's question card, so a prefix
 repeats the speaker). If the GROUNDING or GDD writes lines as "Lensy: ..." or "Sam: ...", drop the prefix.
-VOICE (the gate rejects these, scripts/forge/lints.py): no em or en dashes anywhere (use a hyphen, comma, colon or full
-stop). A reflect or choose hook plus prompt asks ONE question: no second question and no tag question such as
+VOICE (the gate rejects these, scripts/forge/lints.py): no em or en dashes anywhere, and no spaced hyphen standing in
+for one (use a comma, colon or full stop; no comma splices). A multi-step branch or role-play never grades a pick in a
+"then" and a branch step prompt asks one question. A reflect or choose hook plus prompt asks ONE question: no second question and no tag question such as
 "Agree?", "Clear?" or "Useful shift?" at the end of the hook. A match left and its right share no word (so a pair
 cannot be matched by wording), and match rights are clearly different from each other, never near-synonyms. A sort
 item shares no word with its own zone's label. A strike-rewrite myth.re reads on its own (no "It", "They", "Both" or

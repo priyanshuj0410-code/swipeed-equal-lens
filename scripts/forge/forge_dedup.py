@@ -32,6 +32,8 @@ def struct_sig(o):
         return ("match", frozenset((nz(p.get("left")), nz(p.get("right"))) for p in o.get("pairs", [])))
     if t == "spot":
         return ("spot", frozenset((nz(s.get("text")), bool(s.get("trick"))) for s in o.get("scene", [])))
+    if C.is_story(o):
+        return (t, tuple(frozenset(nz(op.get("text")) for op in st.get("options", [])) for st in o.get("steps", [])))
     if t == "branch":
         return ("branch", frozenset(nz(op.get("text")) for op in o.get("options", [])))
     if t == "swipe":

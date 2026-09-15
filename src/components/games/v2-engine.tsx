@@ -10,12 +10,13 @@ import { AnswerCard, CornerBadge } from "@/components/games/answer-cells";
 import { MatchBoard } from "@/components/games/match-board";
 import { SwipeCard, type SideStyle } from "@/components/games/swipe-card";
 import { UnReBeat } from "@/components/games/un-re";
+import { StoryPlay } from "@/components/games/story-play";
 import { useProfile } from "@/lib/store";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
 import { usePointerDrag, hitTestZone } from "@/components/games/interactions";
 import { prefersReducedMotion } from "@/lib/juice";
-import { shuffle, byCat, type Scenario, type V2GameConfig } from "@/content/games/v2-schema";
+import { shuffle, byCat, isStory, type Scenario, type V2GameConfig } from "@/content/games/v2-schema";
 
 // The shared v2 "mechanic-embodying" engine: renders any game's typed scenario library as the micro-loop
 // (Hook → Play → Reassure → Sticker), with one bespoke interaction per mechanic so the lesson IS the verb,
@@ -125,6 +126,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   useEffect(() => () => stopSpeaking(), []);
 
   const hookLine = (s: Scenario): string => {
+    if (isStory(s)) return joinQuestion(s.type === "role-play" ? joinQuestion(s.hook, s.setup) : s.hook, s.steps[0].prompt);
     if (s.type === "reflect" || s.type === "choose") return joinQuestion(s.hook, s.prompt);
     if (s.type === "role-play") return joinQuestion(s.hook, s.setup);
     if (s.type === "build") return joinQuestion(s.hook, s.prompt);
@@ -138,7 +140,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   // listed OR it's a branch with an escape-and-tell best choice (outcome:"safe"), so grooming/unsafe-touch
   // beats that live in other categories (e.g. consent-stop) still surface the reassurance.
   const isSafetyBeat = (s: Scenario): boolean =>
-    reassureCats.includes(s.cat) || (s.type === "branch" && s.options.some((o) => o.outcome === "safe"));
+    reassureCats.includes(s.cat) || (s.type === "branch" && (isStory(s) ? s.steps.flatMap((st) => st.options) : s.options ?? []).some((o) => o.outcome === "safe"));
 
   // Myth cards (SWED-70): with `mythCards` on, a strike-rewrite beat is a scrub or a swipe card about half the time,
   // never three of a kind in a row, and a card shows the myth or its truth on the same rule. The question card then
@@ -159,6 +161,16 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     questionSpeech.current = card && s.type === "strike-rewrite" ? `${q} ${card === "myth" ? s.myth.un : s.myth.re}` : q;
     say(questionSpeech.current, q);
   }, [say, mythCards]);
+
+  // A multi-step beat asks its next question on the same card (SWED-96): the renderer holds its own answers back, so
+  // this changes the card, speaks it, and moves focus to it without unmounting the renderer.
+  const [asked, setAsked] = useState(0);
+  const ask = useCallback((q: string) => {
+    const line = cleanLine(q);
+    setQuestion(line); setAsked((n) => n + 1);
+    questionSpeech.current = line;
+    say(line, line);
+  }, [say]);
 
   // Hold the answers until the question has been read. A timer, not speech onEnd: muting mid-line cancels
   // onEnd (lib/speak.ts), which would leave the answers hidden. Tapping the question or the gate skips the wait.
@@ -249,7 +261,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
       text={cardText}
       feedback={feedbackText}
       announce={announceText}
-      focusKey={playing ? `${qi}:${sc?.id}` : undefined}
+      focusKey={playing ? `${qi}:${sc?.id}:${asked}` : undefined}
       onTap={playing && phase === "play" && !revealed ? () => setRevealed(true) : undefined}
     />
   );
@@ -306,9 +318,9 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
           )}
 
           {/* PLAY: Lensy's question card carries the hook; the answers follow once it has been read. */}
-          {view === "play" && sc && (phase === "play" || sc.type === "choose") && (revealed ? (
+          {view === "play" && sc && (phase === "play" || sc.type === "choose" || isStory(sc)) && (revealed ? (
             <div className={`flex flex-1 flex-col gap-4 ${reduceMotion ? "" : "animate-in fade-in slide-in-from-bottom-2 duration-300"}`}>
-              <Play key={sc.id} sc={sc} onSolved={solve} say={say} reduceMotion={reduceMotion} buildLabels={buildLabels} mythCard={mythCard} />
+              <Play key={sc.id} sc={sc} onSolved={solve} say={say} ask={ask} done={phase === "resolve"} reduceMotion={reduceMotion} buildLabels={buildLabels} mythCard={mythCard} />
             </div>
           ) : <RevealGate onReveal={() => setRevealed(true)} />)}
           {view === "play" && sc && phase === "resolve" && (
@@ -353,7 +365,8 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 }
 
 // ============================ the mechanic renderers ============================
-function Play({ sc, onSolved, say, reduceMotion, buildLabels, mythCard }: { sc: Scenario; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string, shown?: string) => void; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string }; mythCard?: "myth" | "truth" | null }) {
+function Play({ sc, onSolved, say, ask, done, reduceMotion, buildLabels, mythCard }: { sc: Scenario; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string, shown?: string) => void; ask: (q: string) => void; done: boolean; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string }; mythCard?: "myth" | "truth" | null }) {
+  if (isStory(sc)) return <StoryPlay sc={sc} ask={ask} say={say} onSolved={onSolved} done={done} />;
   switch (sc.type) {
     case "reflect": return <ReflectPlay sc={sc} onSolved={onSolved} />;
     case "choose": return <ChoosePlay sc={sc} onSolved={onSolved} say={say} />;
@@ -470,7 +483,7 @@ function ChoosePlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "choo
 // the assertive line advances, a passive line speaks and warmly re-opens (no fail). The success haptic now fires
 // once (in solve()): the renderer no longer double-buzzes. Every card carries 🗣️ so the "voice" motif holds.
 function RolePlayPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "role-play" }>; onSolved: () => void; say: (t: string) => void }) {
-  const [lines] = useState(() => shuffle(sc.yourLine));
+  const [lines] = useState(() => shuffle(sc.yourLine ?? []));
   const choose = (l: { text: string; best?: boolean }) => {
     if (l.best) onSolved();
     else say("That's one way. Now say the strong, brave line! 💪");
@@ -532,7 +545,7 @@ function MythCardPlay({ sc, side, onSolved, say, reduceMotion }: { sc: Extract<S
 // branch: pick a choice; HEAR + see its consequence; the safe (best) choice leads on, others gently
 // redirect. If a scenario has no `best` at all, any pick advances (never a soft-lock).
 function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "branch" }>; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string, shown?: string) => void }) {
-  const [opts] = useState(() => shuffle(sc.options)); // best is authored at index 0: shuffle so there's no "tap the top" tell
+  const [opts] = useState(() => shuffle(sc.options ?? [])); // best is authored at index 0: shuffle so there's no "tap the top" tell
   // a non-advancing pick on a "find the best" branch shows the consequence + a re-pick (stays in play); an
   // advancing pick hands off to the engine so the consequence + Next render in the standard (bottom-pinned) resolve.
   const [repick, setRepick] = useState<number | null>(null);

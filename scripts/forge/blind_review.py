@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
-"""blind_review.py: blind answer-key review for choose, match and sort scenarios (playtest feedback plan, Phase 2;
-first used on the Choosing & Building pilot under SWED-75).
+"""blind_review.py: blind answer-key review for choose, match, sort and multi-step branch and role-play scenarios
+(playtest feedback plan, Phase 2; first used on the Choosing & Building pilot under SWED-75, stories added in SWED-96).
 
 A reviewer who has not seen the keys answers every question with its answers removed and its options, rights or
 items shuffled. This script writes those blind files and diffs the reviewer's answers against the keys. A
 disagreement means the intended answer is not the only defensible one, so the scenario is rewritten before it ships.
 
-  make <gameId> <dir> [batch.ndjson ...]   write blind-choose/match/sort.ndjson for the game, with batches applied
+  make <gameId> <dir> [batch.ndjson ...]   write blind-choose/match/sort/story.ndjson for the game, with batches applied
   diff <gameId> <dir> [batch.ndjson ...]   compare the reviewer's files in <dir> with the keys; exit 1 on disagreement
 
 The reviewer writes, one JSON object per line:
   review-choose.ndjson  {"id", "fits": [option texts], "unsure": [option texts], "why"}
   review-match.ndjson   {"id", "pairs": [{"left", "right"}], "why"}
   review-sort.ndjson    {"id", "key": {item text: zone label}, "why"}
+  review-story.ndjson   {"id", "best": [the chosen option text for each step, in order], "why"}
+A story's blind row shows every step's prompt and its options shuffled, without any `then`: a then describes what an
+option leads to, which a player only sees after picking it.
 Batches are applied in order over the shipped game, so a pending reshape is reviewed as it will ship.
 """
 import json
@@ -37,15 +40,29 @@ def scenarios(gid, batches, game_path=None):
     return by
 
 
+KINDS = ("choose", "match", "sort", "story")
+
+
+def kind(o):
+    return "story" if C.is_story(o) else o.get("type")
+
+
 def make(gid, out, batches, game_path=None, seed=None):
     by = scenarios(gid, batches, game_path)
     rng = random.Random(seed if seed is not None else gid)
     os.makedirs(out, exist_ok=True)
-    files = {k: open(os.path.join(out, f"blind-{k}.ndjson"), "w", encoding="utf8") for k in ("choose", "match", "sort")}
+    files = {k: open(os.path.join(out, f"blind-{k}.ndjson"), "w", encoding="utf8") for k in KINDS}
     counts = {k: 0 for k in files}
     for o in by.values():
-        t = o.get("type")
-        if t == "choose":
+        t = kind(o)
+        if t == "story":
+            steps = []
+            for st in o["steps"]:
+                texts = [x["text"] for x in st["options"]]
+                rng.shuffle(texts)
+                steps.append({"prompt": st["prompt"], "options": texts})
+            row = {"id": o["id"], "type": o["type"], "hook": o["hook"], **({"setup": o["setup"]} if o.get("setup") else {}), "steps": steps}
+        elif t == "choose":
             texts = [x["text"] for x in o["options"]]
             rng.shuffle(texts)
             row = {"id": o["id"], "question": f"{o['hook']} {o['prompt']}", "options": texts}
@@ -73,7 +90,7 @@ def _rows(path):
 def diff(gid, d, batches, game_path=None):
     """Disagreements as (kind, id, detail) plus the ids the reviewer skipped."""
     by = scenarios(gid, batches, game_path)
-    out, seen = [], {"choose": set(), "match": set(), "sort": set()}
+    out, seen = [], {k: set() for k in KINDS}
     for r in _rows(os.path.join(d, "review-choose.ndjson")):
         o = by[r["id"]]
         seen["choose"].add(r["id"])
@@ -96,7 +113,15 @@ def diff(gid, d, batches, game_path=None):
         wrong = {t: (key[t], r.get("key", {}).get(t)) for t in key if r.get("key", {}).get(t) != key[t]}
         if wrong:
             out.append(("sort", r["id"], f"(key, reviewer) {wrong}; {r.get('why', '')}"))
-    missing = sorted(i for i, o in by.items() if o.get("type") in seen and i not in seen[o["type"]])
+    for r in _rows(os.path.join(d, "review-story.ndjson")):
+        o = by[r["id"]]
+        seen["story"].add(r["id"])
+        key = [next(x["text"] for x in st["options"] if x.get("best")) for st in o["steps"]]
+        got = list(r.get("best", []))
+        wrong = [(i, key[i], got[i] if i < len(got) else None) for i in range(len(key)) if i >= len(got) or got[i] != key[i]]
+        if wrong:
+            out.append(("story", r["id"], f"(step, key, reviewer) {wrong}; {r.get('why', '')}"))
+    missing = sorted(i for i, o in by.items() if kind(o) in seen and i not in seen[kind(o)])
     return out, missing
 
 
