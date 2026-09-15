@@ -3,17 +3,18 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/plan-it.md
 title: Plan It
-description: An SRH planning game for ages 12-15 - how pregnancy happens, how it's prevented, and how planning protects your future. Map the fertility cycle, bust the dangerous pregnancy myths (UN & RE), weigh prevention (abstinence respected; contraception School-Comfort-gated), play the planning life-sim, and ask anything privately. Non-judgmental, no-fail.
+description: An SRH planning game for ages 12-15, covering how pregnancy happens, how it's prevented, and how planning protects your future. Map the fertility cycle, bust the dangerous pregnancy myths (UN & RE), weigh prevention (abstinence respected; contraception School-Comfort-gated), play the planning life-sim, and ask anything privately. Non-judgmental, no-fail.
 resource: https://swipeed.vercel.app/game/plan-it
 tags: [games, swipeed, srh, contraception, pregnancy, ages-12-15]
 timestamp: 2026-06-20T18:30:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
 ---
 
 # Plan It
 
-> **Reworked to GDD 22 v2 - the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
+> **Reworked to GDD 22 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The fertility + pregnancy + contraception node (Thread F · SRH) is now a **504-scenario
 > typed library** (`content/games/plan-it.ts`: how-it-happens 81 · bust-myths 93 · ways-to-prevent 83 ·
 > delaying-valid 72 · plan-future 99 · facts-help 76), generated **faithfully** from the scorecard-passed GDD 22
@@ -26,15 +27,15 @@ plane_issues:
 > douching, 'safe days', orgasm); age-appropriate prevention overview (**abstinence fully reliable & respected**;
 > condoms; *ask a doctor* about the rest); **delaying is fully valid** and respected (your pace vs "everyone's
 > doing it" / "if you loved me"); facts from a **doctor / trusted adult**, not rumours. **GATED** at the path
-> layer (age band) - untouched by the content/wrapper swap. Engine: **no new mechanic** (reuses 7 of 9); a
-> notable `binStyle` fix - **removed `not needed` from the negative set**, because it was wrongly red-tinting a
+> layer (age band), untouched by the content/wrapper swap. Engine: **no new mechanic** (reuses 7 of 9); a
+> notable `binStyle` fix: **removed `not needed` from the negative set**, because it was wrongly red-tinting a
 > *neutral factual* bin (pl-003, which sorts "an orgasm by the girl" into "Not needed" for pregnancy) and the
 > same neutral "Not needed" in [Clean Crew](clean-crew.md); both are now correctly neutral (a strict improvement).
 > Added unreliable/made-up/rumour for the fact-vs-rumour sorts. `gameId "plan-it"` (matches the registry id).
 > Builds on [The Amazing Journey](the-amazing-journey.md) (g14); prereq g39. The sections below describe the
 > original v1 build, superseded by the v2 mechanic engine.
 
-**Node #22 - the SRH planning step of Chapter 4** (ages 12-15). *Pregnancy isn't a mystery - it follows
+**Node #22: the SRH planning step of Chapter 4** (ages 12-15). *Pregnancy isn't a mystery. It follows
 clear rules.* The teen learns **how it happens, how it's prevented, and how planning protects the future
 they want.** It continues [The Amazing Journey](the-amazing-journey.md)'s (#14) reproduction story into
 **prevention and planning**, links the fertility cycle back to the menstrual-cycle learning of
@@ -48,19 +49,19 @@ choice; accurate, non-explicit contraception detail is gated by the School-Comfo
 - **Age band:** 12-15 · **Curriculum:** UNESCO 6.2 (reproduction), 8.1 (pregnancy prevention). Builds on #14; links to #23, #29.
 - **Status:** live · https://swipeed.vercel.app/game/plan-it
 
-## How it works - five modes + the Badge Book
-1. **The Fertility Cycle** - when pregnancy can happen (a sperm meets an egg; the fertile window isn't a
+## How it works: five modes + the Badge Book
+1. **The Fertility Cycle**: when pregnancy can happen (a sperm meets an egg; the fertile window isn't a
    single day; because cycles vary, you can't reliably "guess" a safe time).
-2. **Myths Busted** - the **UN & RE** core on the **dangerous** pregnancy myths ("can't get pregnant the
+2. **Myths Busted**: the **UN & RE** core on the **dangerous** pregnancy myths ("can't get pregnant the
    first time / standing up / during a period", boss: "pulling out is reliable + contraception causes
-   infertility") - *these myths cause real, preventable harm.*
-3. **Ways to Prevent** - **delaying / not having sex yet** as the only 100%-sure way and **a respected
+   infertility"). *These myths cause real, preventable harm.*
+3. **Ways to Prevent**: **delaying / not having sex yet** as the only 100%-sure way and **a respected
    choice plenty of people make** (always shown); accurate, non-explicit contraception basics (a doctor/
    youth clinic explains them; condoms also protect against infection) added **only when School-Comfort
    is off**.
-4. **Plan It!** - the signature **life-sim**: choices ripple into the future, **without fear or shame**
+4. **Plan It!** the signature **life-sim**: choices ripple into the future, **without fear or shame**
    (the safe choices keep your goals on track; a risky one is shown calmly with a chance to reconsider).
-5. **My Future + Ask Anything** - private reflection + anonymous Q&A; pressure or pregnancy worry routes
+5. **My Future + Ask Anything**: private reflection + anonymous Q&A; pressure or pregnancy worry routes
    to a doctor, an **RKSK adolescent-friendly health clinic**, or **Childline 1098**. (No methods described.)
 
 A 5-badge **Badge Book** finishes into the shared [`GameDone`](swipeed.md) card. Lensy returns in the teen

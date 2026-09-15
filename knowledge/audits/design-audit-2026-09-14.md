@@ -2,11 +2,12 @@
 type: reference
 owner: the-equal-lens
 title: SwipeEd design audit, 2026-09-14
-description: Measurements behind the design system doc - dash counts, colours outside the token set, WCAG contrast results, Lazyweb comparisons and a file:line index of every divergence.
+description: Measurements behind the design system doc, covering dash counts, colours outside the token set, WCAG contrast results, Lazyweb comparisons and a file:line index of every divergence.
 tags: [swipeed, design-system, accessibility, audit]
 timestamp: 2026-09-14T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
 ---
 
 # SwipeEd design audit, 2026-09-14
@@ -45,15 +46,15 @@ uses an em dash at each point marked `[em dash]` below; that marker is a substit
 this findings document so the document itself stays dash-free, the source file at that line and
 column is the actual evidence:
 
-- `src/content/games/be-the-safe-adult.ts:36` - `"why":"Panic, anger or blame, and shaming a child
+- `src/content/games/be-the-safe-adult.ts:36`: `"why":"Panic, anger or blame, and shaming a child
   for the topic, both teach them to hide [em dash] the un-tellable reactions to catch."`
-- `src/content/games/be-the-safe-adult.ts:43` - `"why":"Paranoia and assuming respectability equals
+- `src/content/games/be-the-safe-adult.ts:43`: `"why":"Paranoia and assuming respectability equals
   safety go wrong [em dash] observing, respecting discomfort and an open door protect."`
-- `src/content/games/be-the-safe-adult.ts:64` - `"why":"Covering it up and paying off the abuser
+- `src/content/games/be-the-safe-adult.ts:64`: `"why":"Covering it up and paying off the abuser
   leave a child in danger [em dash] the rest protect them."`
-- `src/content/games/be-the-safe-adult.ts:117` - `"relearn":"Strong reactions to small confessions
+- `src/content/games/be-the-safe-adult.ts:117`: `"relearn":"Strong reactions to small confessions
   teach a child that honesty is dangerous [em dash] calm builds real honesty."`
-- `src/content/games/be-the-safe-adult.ts:127` - `"affirm":"Reading silence as fear rather than
+- `src/content/games/be-the-safe-adult.ts:127`: `"affirm":"Reading silence as fear rather than
   betrayal keeps you gentle and open [em dash] exactly what helps a child come back."`
 
 All five are from one file out of 79 with the same shape; the pattern repeats catalog-wide.

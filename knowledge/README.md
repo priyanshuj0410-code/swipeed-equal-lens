@@ -2,7 +2,7 @@
 type: index
 owner: the-equal-lens
 title: SwipeEd knowledge base
-description: Start here - what SwipeEd is, where every doc lives, and the rules for keeping this knowledge base in step with the code.
+description: Start here for what SwipeEd is, where every doc lives, and the rules for keeping this knowledge base in step with the code.
 tags: [swipeed, index, knowledge-base]
 timestamp: 2026-09-15T00:00:00Z
 plane_issues:
@@ -10,6 +10,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b  # SWED-65
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5  # SWED-89
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
 ---
 
 # SwipeEd knowledge base
@@ -18,11 +19,11 @@ SwipeEd is The Equal Lens's learning path app for ages 3 to parenthood: 77 nodes
 
 ## Start here
 
-1. **[SwipeEd - what we built and why](games/swipeed-build-overview.md)** - the product, the engine, the content pipeline and how the fleet was grown.
-2. **[SwipeEd, the app](games/swipeed.md)** - the path, the chapters, the audience.
-3. **[v2 engine](architecture/v2-engine.md)** - how a game runs, from path node to completion card.
-4. **[Question bank](schemas/question-bank.md)** - the scenario format, where content comes from, and the gates it must pass.
-5. **[Design system](design.md)** - tokens, type, components, motion and accessibility.
+1. **[SwipeEd: what we built and why](games/swipeed-build-overview.md)**: the product, the engine, the content pipeline and how the fleet was grown.
+2. **[SwipeEd, the app](games/swipeed.md)**: the path, the chapters, the audience.
+3. **[v2 engine](architecture/v2-engine.md)**: how a game runs, from path node to completion card.
+4. **[Question bank](schemas/question-bank.md)**: the scenario format, where content comes from, and the gates it must pass.
+5. **[Design system](design.md)**: tokens, type, components, motion and accessibility.
 
 ## Structure
 

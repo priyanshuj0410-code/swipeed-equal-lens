@@ -7,6 +7,7 @@ tags: [swipeed, voice, copy, content, gates]
 timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22  # SWED-92
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
 ---
 
 # Writing without dashes
@@ -60,6 +61,12 @@ fail the same way: "What you'd offer a friend, talk, call a line, you're not alo
 - **A dash that code must match** (a spreadsheet cell holding one, a regex that accepts one) is written as an escape,
   `"\u2014"` or `[\u2013\u2014]`, so the source file has no dash and the behaviour is unchanged.
 - **Hash-pinned attestations** in `.read-first/` quote source documents word for word and are not rewritten.
+- **Frontmatter is YAML.** A colon followed by a space breaks an unquoted `title:` or `description:`, so use a comma,
+  a full stop or a word such as "covering", or quote the whole value.
+- **Don't stack colons.** If the sentence already has one ("**Being You**: for anyone questioning: it's okay"), use
+  brackets, a comma or a full stop for the dash instead: "**Being You**, for anyone questioning: it's okay".
+- **Headings are link targets.** Rewriting one changes its anchor (`#capstone-3---growing-up-smart-built` becomes
+  `#capstone-3-growing-up-smart-built`), so update the links to it in the same change.
 
 ## The gate
 
@@ -76,7 +83,8 @@ The content lint in `scripts/forge/lints.py` also flags dashes in generated batc
 
 ## Known debt
 
-About 2,000 spaced hyphens ( - ) remain in older knowledge base prose, mostly from an earlier dash-to-hyphen swap
-(log bullets, table separators, game docs). They are not em or en dashes, so the gate passes them, but they break the
-spirit of the rule. New docs use colons, commas and full stops; the old ones are rewritten when touched. App copy and
-scenario content have none.
+None. The 2,551 spaced hyphens that an earlier dash-to-hyphen swap left in knowledge base prose (log bullets, headings,
+frontmatter, table cells and game docs) were rewritten under
+[SWED-98](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850).
+App copy and scenario content have none. The gate only sees em and en dashes, so a new spaced hyphen still passes it:
+catch it in review.

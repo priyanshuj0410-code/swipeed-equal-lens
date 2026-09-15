@@ -1,13 +1,14 @@
 ---
 type: research
 owner: the-equal-lens
-title: Visual answer options - tools and approach, including a zero-budget route (2026-09-15)
-description: How SwipeEd can give answer options pictures so children who cannot read yet can play and pictures build reading - what the reading research says, the scale of the job, a zero-budget route (Fluent Emoji, FLUX.1 schnell on the Mac, CC0 illustrations, CSS motion) and which free tiers the terms rule out, paid tools for reference, open symbol sets, safety rules for pictures, and a pilot plan.
+title: "Visual answer options: tools and approach, including a zero-budget route (2026-09-15)"
+description: How SwipeEd can give answer options pictures so children who cannot read yet can play and pictures build reading, covering what the reading research says, the scale of the job, a zero-budget route (Fluent Emoji, FLUX.1 schnell on the Mac, CC0 illustrations, CSS motion) and which free tiers the terms rule out, paid tools for reference, open symbol sets, safety rules for pictures, and a pilot plan.
 tags: [swipeed, research, pictures, pre-readers, early-literacy, runway, recraft, image-generation, accessibility]
 timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5  # SWED-89
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/49cf4efd-6622-4ac8-907c-7c01ccfd0754  # SWED-90
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
 ---
 
 # Visual answer options: tools and approach

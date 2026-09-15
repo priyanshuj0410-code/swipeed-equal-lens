@@ -16,6 +16,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22  # SWED-92
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb  # SWED-95
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
 ---
 
 # SwipeEd design system
@@ -123,7 +124,7 @@ as debt below rather than promoted to a second token.
 The brand canon gives the three families strict roles: **Poppins** for all headings, display type and UI
 labels, **Nunito Sans** for body copy, and **Baloo 2 for Lensy and mascot voice only, never a heading** (the
 canon names Baloo 2 in a headline as the most common brand error). The Equal Lens website's
-`knowledge/design.md` loosens this to "Baloo 2 - headlines + playful / mascot voice."
+`knowledge/design.md` loosens this to "Baloo 2: headlines + playful / mascot voice."
 
 SwipeEd currently goes further than either: it points `--font-display`, `--font-heading` and `--font-hand` at
 the same Baloo 2 variable (`src/app/globals.css:16-18`) and sets every `h1`/`h2`/`h3` in Baloo 2
@@ -435,8 +436,9 @@ file and line where verifiable:
 9. **UN/RE label contrast fails in light mode.** See Accessibility. Newly measured on 2026-09-14,
    tracked as [SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587).
 10. **Voice rule violated at scale in shipped content.** Resolved on 2026-09-15 under SWED-92: no em or en dashes
-    remain and a gate keeps it that way (see Voice and copy). About 2,000 spaced hyphens remain in older knowledge base
-    prose; app copy and content have none.
+    remain and a gate keeps it that way (see Voice and copy). The spaced hyphens left in older knowledge base prose were
+    rewritten the same day under [SWED-98](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850);
+    app copy and content have none.
 
 ## References
 

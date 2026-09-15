@@ -10,15 +10,16 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
 ---
 
 # Games Catalog
 
-A **game** is a single interactive learning experience - a micro-learning game, interactive
+A **game** is a single interactive learning experience: a micro-learning game, interactive
 simulation, or case study (see [vision](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/platform/vision.md)). Each game is documented here as a
 first-class concept, even when several games ship inside the same app.
 
-> **New here?** Read **[SwipeEd - what we built & why](swipeed-build-overview.md)** first - the
+> **New here?** Read **[SwipeEd: what we built & why](swipeed-build-overview.md)** first: the
 > end-to-end synthesis of the product, the v2 engine, the [forge content pipeline](swipeed-content-pipeline.md),
 > and the run that grew **all 69 games to ≥400 scenarios**.
 
@@ -28,7 +29,7 @@ first-class concept, even when several games ship inside the same app.
 > id and depend on the shared [Engine SDK](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/architecture/engine-sdk.md); **today** they are in-app
 > modules within the SwipeEd repo (see [SwipeEd → current state](swipeed.md#current-state-vs-the-plan)).
 
-## SwipeEd - games on the path
+## SwipeEd: games on the path
 
 All live at https://swipeed.vercel.app (play in place over the 3D path). Listed by age band.
 
@@ -93,21 +94,21 @@ All live at https://swipeed.vercel.app (play in place over the 3D path). Listed 
 | **The Family Map** | 22+ | Seven v2 mechanics · GDD 57 v2 (Ch.7 · in-laws & joint family · callback to My Family Garden g03 · kind boundaries · couple-as-team · respect both ways ≠ obedience · dowry illegal/abuse→g56 · 181/112) | live | [doc](family-map.md) |
 | **Money, Together** | 22+ | Seven v2 mechanics · GDD 58 v2 (Ch.7 · work & money in partnership · the money talk · joint+personal accounts · stay independent · fair-not-gendered · economic abuse/stridhan → PWDVA 2005/g56 · 181/1091/112/NALSA 15100) | live | [doc](money-together.md) |
 | **If, When & Whether** | 22+ | Seven v2 mechanics · GDD 59 v2 (Ch.7 · reproductive decisions · adult My Choices · childfree complete · calm fertility facts (women & men) · own timeline · infertility ~1-in-6, no shame · son-preference/sex-selection illegal PCPNDT · non-coercive · RKSK/clinician) | live | [doc](if-when-whether.md) |
-| **Many Ways to Family** | 22+ | Seven v2 mechanics · GDD 60 v2 (Ch.7 equity close · routes to family - adoption/fostering/IVF-ART/surrogacy/single & LGBTQ+/blended/childfree · real family ≠ only biological · honest dated India barriers (CARA/ART Acts/Supriyo 2023) · full dignity, no outing · not legal advice · CARA/NALSA 15100) | live | [doc](many-ways-to-family.md) |
+| **Many Ways to Family** | 22+ | Seven v2 mechanics · GDD 60 v2 (Ch.7 equity close · routes to family: adoption/fostering/IVF-ART/surrogacy/single & LGBTQ+/blended/childfree · real family ≠ only biological · honest dated India barriers (CARA/ART Acts/Supriyo 2023) · full dignity, no outing · not legal advice · CARA/NALSA 15100) | live | [doc](many-ways-to-family.md) |
 | **Us, After Kids** | Parent | Seven v2 mechanics · GDD 61 v2 (Ch.8 opener · partnership & self after a baby · post-baby dip normal ~2-in-3, not a verdict · name the tiredness not each other · share don't resent · fathers as equal parents, not 'babysitting' · reconnect at both partners' pace, no deadline · perinatal depression → Tele-MANAS 14416/g63 · strain→g56) | live | [doc](us-after-kids.md) |
 | **Equal Parents** | Parent | Seven v2 mechanics · GDD 62 v2 (Ch.8 · co-parenting as equals · g55's equal-home work in raising kids · share the care (only breastfeeding mother-specific) · the parental mental load · involved dads = pro-men · kids are watching · everyone gains · burnout→g63/Tele-MANAS · binStyle: +`one-sided`→NEG) | live | [doc](equal-parents.md) |
 | **Looking After You** | Parent | Seven v2 mechanics · GDD 63 v2 (Ch.8 high-care · parental wellbeing/burnout · can't pour from an empty cup · self-care=childcare, struggling≠failing · baby blues vs PPD/anxiety (mums & dads), intrusive thoughts=symptom not verdict · help=strength · not therapy · PPD ~1-in-5 India · Tele-MANAS 14416/112) | live | [doc](looking-after-you.md) |
 | **The Talks, Age by Age** | Parent Layer | Seven v2 mechanics · GDD 64 v2 (Ch.8 Parent-Layer keystone · age-by-age RSE · not one dreaded 'talk' but many small ones · correct body names protect against abuse · puberty before it starts · porn-literacy vs the manosphere · facts AND your values · be the askable door · mirrors My Body My Rules g02 · child-safety→g69/Childline 1098) | live | [doc](the-talks.md) |
 | **Break the Cycle** | Parent Layer | Seven v2 mechanics · GDD 65 v2 (Ch.8 emotional core · deepest UN→RE beat · positive parenting / breaking generational trauma · discipline without fear/shame/hitting · repair beats perfection · calm yourself · heal your wounds · firmly non-shaming, busts the practice not the parent · Tele-MANAS 14416, harm→g69 · binStyle: +3 'keep/passes' NEG tokens) | live | [doc](break-the-cycle.md) |
-| **Raising Gender-Diverse Kids** | Parent Layer | Seven v2 mechanics · GDD 66 v2 (Ch.8 · affirming an LGBTQ+/gender-nonconforming child, Spectrum's care · acceptance is protection - roughly halves suicide-thought odds · orientation/identity/expression are 3 things · first reaction matters, never out the child · never conversion 'cures' · NALSA/decriminalisation · Tele-MANAS 14416 · binStyle +`keeps you stuck`) | live | [doc](raising-gender-diverse-kids.md) |
-| **Raising Neurodiverse Kids** | Parent Layer | Seven v2 mechanics · GDD 67 v2 (Ch.8 · autism/ADHD/learning differences · Same Same Different g04 grown up · difference not deficiency, different not less · accommodate not force masking · advocate (RPwD Act 2016) · drop the shame - no one's fault, not parenting/screens/vaccines · meltdowns=overwhelm · not a diagnostic tool · burnout→g63/Tele-MANAS 14416) | live | [doc](raising-neurodiverse-kids.md) |
+| **Raising Gender-Diverse Kids** | Parent Layer | Seven v2 mechanics · GDD 66 v2 (Ch.8 · affirming an LGBTQ+/gender-nonconforming child, Spectrum's care · acceptance is protection: roughly halves suicide-thought odds · orientation/identity/expression are 3 things · first reaction matters, never out the child · never conversion 'cures' · NALSA/decriminalisation · Tele-MANAS 14416 · binStyle +`keeps you stuck`) | live | [doc](raising-gender-diverse-kids.md) |
+| **Raising Neurodiverse Kids** | Parent Layer | Seven v2 mechanics · GDD 67 v2 (Ch.8 · autism/ADHD/learning differences · Same Same Different g04 grown up · difference not deficiency, different not less · accommodate not force masking · advocate (RPwD Act 2016) · drop the shame: no one's fault, not parenting/screens/vaccines · meltdowns=overwhelm · not a diagnostic tool · burnout→g63/Tele-MANAS 14416) | live | [doc](raising-neurodiverse-kids.md) |
 | **Navigating Addictions** | Parent Layer | Seven v2 mechanics · GDD 68 v2 (Ch.8 high-care · child's substance/screen/gaming dependence · shame drives it underground, connection brings it to light · spot signs calmly not snooping · respond don't rupture · health issue not moral failing · get help early · model healthy habits · acute risk=emergency 112 · Tele-MANAS 14416/Childline 1098) | live | [doc](navigating-addictions.md) |
-| **Be the Safe Adult** | Parent Layer | Seven v2 mechanics · GDD 69 v2 (Ch.8 safeguarding keystone · underwrites the whole kids' journey · be tellable (open no-blame door) · spot signs - most abuse is by someone known · disclosure response: believe/calm/not-their-fault/protect · POCSO basics, child always the victim · online grooming/sextortion · maximum-care · Childline 1098/POCSO e-Box/police/cybercrime 1930) | live | [doc](be-the-safe-adult.md) |
+| **Be the Safe Adult** | Parent Layer | Seven v2 mechanics · GDD 69 v2 (Ch.8 safeguarding keystone · underwrites the whole kids' journey · be tellable (open no-blame door) · spot signs: most abuse is by someone known · disclosure response: believe/calm/not-their-fault/protect · POCSO basics, child always the victim · online grooming/sextortion · maximum-care · Childline 1098/POCSO e-Box/police/cybercrime 1930) | live | [doc](be-the-safe-adult.md) |
 
-**The whole catalog is built** - **69 lesson nodes** across Chapters 1-8 (ages 3 → parenthood) plus
+**The whole catalog is built**: **69 lesson nodes** across Chapters 1-8 (ages 3 → parenthood) plus
 **8 [capstone graduations](capstones.md)**, 77 nodes in all. (The child journey, Chapters 1-5 / ages
 3-18, is the first 43 lesson nodes and capstones c1-c5.) The ten gender-equality lessons (Same Same Different →
-Justice League) began from the **Gender Equality Game Pack** brief and the rest from a GDD per node - but
+Justice League) began from the **Gender Equality Game Pack** brief and the rest from a GDD per node, but
 each is an **individual game**, not a bundle. **[Feelings Friends](feelings-friends.md)** (node #1) is the
 child's first game and first meeting with Lensy. Most lessons share a **5-mode + UN & RE** shape; the
 exceptions are **[Green Light / Red Light](green-light-red-light.md)** (the #24 roguelike) and
@@ -115,50 +116,50 @@ exceptions are **[Green Light / Red Light](green-light-red-light.md)** (the #24 
 
 **The adult journey (Ch.6-8, ages 18-22 → parenthood).** Chapter 6 (#g44-g52) was first built on a shared
 **[ModesEngine](swipeed-game-patterns.md)** (home grid · Lensy · badge book · four mode kinds), and is **now
-being reworked onto the shared [v2 mechanic engine](swipeed-game-patterns.md)** - the same
-mechanic-embodying standard as the child journey - one node at a time from its v2-reworked GDD + scenario
+being reworked onto the shared [v2 mechanic engine](swipeed-game-patterns.md)** (the same
+mechanic-embodying standard as the child journey) one node at a time from its v2-reworked GDD + scenario
 library. **All nine Chapter-6 lessons (g44-g52) are now v2,** and the **c6 capstone (Standing on My Own)** has had
 its rich rework. **Chapter 7 (Building a Life, 22 → first child) is built:** its opener
 **[Choosing & Building](choosing-building.md)** (#g53) and its equity heart **[Your Path, Your Call](your-path-your-call.md)**
-(#g54) are live - the **first genuinely-new nodes** built after the Ch.1-6 retrofit, authored v2-native (each
+(#g54) are live: the **first genuinely-new nodes** built after the Ch.1-6 retrofit, authored v2-native (each
 needed fresh wiring: a new `gameId` in the gen-path `GAME` dict, regenerated `path.ts`, and an `engine-host`
-registration). g53 equips the person who chooses a partnership; g54 is its deliberate counterpoint - marriage and
+registration). g53 equips the person who chooses a partnership; g54 is its deliberate counterpoint: marriage and
 children are one valid path, not the measure of a life; **[Equal Partners](equal-partners.md) (#g55)** is the
-equal-home heart - the second shift, the invisible mental load, and the "helping → owning" reframe; and
-**[Respect at Home](respect-at-home.md) (#g56)** is the chapter's **highest-safeguarding node** - consent inside
+equal-home heart: the second shift, the invisible mental load, and the "helping → owning" reframe; and
+**[Respect at Home](respect-at-home.md) (#g56)** is the chapter's **highest-safeguarding node**: consent inside
 marriage, recognising abuse & coercive control, survivor-centred routing to help; and
-**[The Family Map](family-map.md) (#g57)** brings the in-laws & joint family - the full-circle callback to
+**[The Family Map](family-map.md) (#g57)** brings the in-laws & joint family: the full-circle callback to
 My Family Garden (g03); and **[Money, Together](money-together.md) (#g58)** carries the Work & Money domain into
 partnership (the money talk, fair-not-gendered roles, economic abuse → g56); and
-**[If, When & Whether](if-when-whether.md) (#g59)** is the reproductive-decision heart (the adult My Choices -
+**[If, When & Whether](if-when-whether.md) (#g59)** is the reproductive-decision heart (the adult My Choices:
 whether/when/how many children, non-coercive, childfree complete, infertility without shame); and
 **[Many Ways to Family](many-ways-to-family.md) (#g60)** closes the lesson nodes as the equity bookend (diverse
 routes to family, real family ≠ only biological, honest dated India barriers, full dignity); and the
-**[c7 capstone - A Life, Built](capstones.md)** crowns the chapter. **All of Chapter 7 (g53-g60 + c7) is now
-live** - which means the **entire 3 → first-child journey (Chapters 1-7, 67 nodes) is built** to the v2/rich
+**[c7 capstone: A Life, Built](capstones.md)** crowns the chapter. **All of Chapter 7 (g53-g60 + c7) is now
+live**, which means the **entire 3 → first-child journey (Chapters 1-7, 67 nodes) is built** to the v2/rich
 standard.
 
 **Chapter 8 (Parenthood, first child on) is built.** Its opener
-**[Us, After Kids](us-after-kids.md) (#g61)** is live - the partnership and the self after a baby (the post-baby
-dip is normal, fathers are equal parents, reconnect at your own pace, perinatal depression routes to help) - and
+**[Us, After Kids](us-after-kids.md) (#g61)** is live: the partnership and the self after a baby (the post-baby
+dip is normal, fathers are equal parents, reconnect at your own pace, perinatal depression routes to help), and
 **[Equal Parents](equal-parents.md) (#g62)** takes the equal-home work into raising children (share the care and
 the parental mental load, involved fatherhood as pro-men, kids learn equality by watching); and the high-care
 **[Looking After You](looking-after-you.md) (#g63)** protects the parent's own wellbeing (burnout, baby blues vs
 postpartum depression, help-seeking as strength); and **[The Talks, Age by Age](the-talks.md) (#g64)** is the
-**Parent-Layer keystone** - age-by-age RSE guidance that closes the generational loop (many small talks, correct
+**Parent-Layer keystone**: age-by-age RSE guidance that closes the generational loop (many small talks, correct
 names, facts-and-values, the askable door; mirrors My Body, My Rules g02); and **[Break the Cycle](break-the-cycle.md)
-(#g65)** is the **emotional core** - positive parenting and breaking generational trauma, the deepest Unlearn→Relearn
+(#g65)** is the **emotional core**: positive parenting and breaking generational trauma, the deepest Unlearn→Relearn
 beat (discipline without fear/shame/hitting, repair beats perfection, heal your own wounds; firmly non-shaming);
 **[Raising Gender-Diverse Kids](raising-gender-diverse-kids.md) (#g66)** affirms and protects an LGBTQ+ child
-(Spectrum's care - acceptance is protection, never out the child, never conversion "cures"); **[Raising Neurodiverse Kids](raising-neurodiverse-kids.md) (#g67)** supports an autistic/ADHD/learning-different
-child (Same Same, Different g04 grown up - difference not deficiency, accommodate, advocate, drop the shame); the high-care **[Navigating Addictions](navigating-addictions.md) (#g68)** helps a parent meet a child's substance/
+(Spectrum's care: acceptance is protection, never out the child, never conversion "cures"); **[Raising Neurodiverse Kids](raising-neurodiverse-kids.md) (#g67)** supports an autistic/ADHD/learning-different
+child (Same Same, Different g04 grown up: difference not deficiency, accommodate, advocate, drop the shame); the high-care **[Navigating Addictions](navigating-addictions.md) (#g68)** helps a parent meet a child's substance/
 screen/gaming dependence (shame drives it underground, connection brings it to light; health not moral failing;
 help early; acute risk = emergency); and the maximum-care **[Be the Safe Adult](be-the-safe-adult.md) (#g69)** is
-the **safeguarding keystone** - spotting abuse, POCSO basics, the disclosure response, online dangers - that
+the **safeguarding keystone** (spotting abuse, POCSO basics, the disclosure response, online dangers) that
 underwrites the whole kids' journey (it's the trusted adult every child node assumes); and the
-**[c8 capstone - Full Circle](capstones.md)** crowns the chapter. **🎉 The entire catalog is complete:** all of
-Chapters 1-8 (**77 nodes - 69 lessons + 8 capstones**) are now built to the v2/rich standard. The **3 → parenthood
-journey is fully built**, and the generational loop comes full circle - the child the journey began with (My Body,
+**[c8 capstone: Full Circle](capstones.md)** crowns the chapter. **🎉 The entire catalog is complete:** all of
+Chapters 1-8 (**77 nodes: 69 lessons + 8 capstones**) are now built to the v2/rich standard. The **3 → parenthood
+journey is fully built**, and the generational loop comes full circle: the child the journey began with (My Body,
 My Rules, g02) is now the parent who teaches it (The Talks g64; Be the Safe Adult g69).
 
 ## Documenting a new game
@@ -170,4 +171,4 @@ My Rules, g02) is now the parent who teaches it (The Talks g64; Be the Safe Adul
 6. If it makes a **new reusable decision**, add it to the [patterns doc](swipeed-game-patterns.md) in the same branch.
 
 ## Related
-- [SwipeEd - what we built & why](swipeed-build-overview.md) · [SwipeEd (app)](swipeed.md) · [Reusable game patterns](swipeed-game-patterns.md) · [The Interaction Model (gestures)](swipeed-interaction-model.md) · [Capstones (chapter graduations)](capstones.md) · [Core principle: Unlearn → Relearn → Grow](swipeed-core-principle.md) · [SwipeEd - The Path World (3D)](swipeed-world.md) · [Content-growth pipeline (forge)](swipeed-content-pipeline.md) · [Repo topology](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/architecture/repo-topology.md) · [Game registry](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/architecture/game-registry.md) · [Engine SDK](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/architecture/engine-sdk.md)
+- [SwipeEd: what we built & why](swipeed-build-overview.md) · [SwipeEd (app)](swipeed.md) · [Reusable game patterns](swipeed-game-patterns.md) · [The Interaction Model (gestures)](swipeed-interaction-model.md) · [Capstones (chapter graduations)](capstones.md) · [Core principle: Unlearn → Relearn → Grow](swipeed-core-principle.md) · [SwipeEd: The Path World (3D)](swipeed-world.md) · [Content-growth pipeline (forge)](swipeed-content-pipeline.md) · [Repo topology](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/architecture/repo-topology.md) · [Game registry](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/architecture/game-registry.md) · [Engine SDK](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/architecture/engine-sdk.md)
