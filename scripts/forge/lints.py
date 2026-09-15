@@ -15,6 +15,13 @@ gate holds at zero findings once a game has been cleaned (a game is added to the
   match-giveaway  a left and its right share a content word, so the pair can be matched by wording alone
   sort-giveaway   an item shares a content word with its own zone's label that no other zone's label has
   myth-context    a myth's truth (myth.re) opens with a pronoun, so it does not stand alone on a myth card
+  single-step     a branch or role-play with one question and its answer shown at once; content is multi-step now,
+                  3 to 5 steps with 4 or 5 options each and the answers revealed at the end (SWED-96)
+  then-verdict    a step's `then` that grades the pick ("Good choice", "That was wrong"), which gives the answer away
+                  before the end reveal
+  step-questions  a branch step prompt that asks more than one question
+  best-longest    a multi-step scenario whose best option is clearly the longest (6 or more characters longer than every
+                  other option) in more than half its steps, which players learn to spot
   follow-up       a reflect `ask` or `deeper` that is not exactly one question (SWED-97)
   disclosure      a reflect `ask` or `deeper` that asks players about harm in their own life ("Has this happened to you?",
                   "Tell me about a time..."): the app cannot receive a disclosure (child-safe content rules)
@@ -46,6 +53,7 @@ DASH = re.compile("[\u2013\u2014]")
 NARRATOR = re.compile(r"(^|[.!?…]\s+)(?:Lensy|Sam)\s*:", re.I)
 TAG = re.compile(r"[.!?…]\s+([^.!?…]{1,30})\?\s*$")
 PRONOUN_OPEN = re.compile(r"^(?:it|they|both|this|these|those|he|she)\b", re.I)
+VERDICT = re.compile(r"\b(?:good|great|best|right|wrong|correct|incorrect|smart|poor|bad|nice|kind|brave)\s+(?:choice|move|answer|call|pick|option|decision)\b|\b(?:well done|good job|that was (?:wrong|right|the best))\b", re.I)
 DISCLOSURE = re.compile(r"\b(?:tell (?:me|us|lensy) about (?:a time|when)|(?:has|did) (?:this|that|anything like this|something like this) (?:ever )?happen(?:ed)? to you|describe what happened|who (?:hurt|touched|hit) you|what happened to you)\b", re.I)
 IDIOM_OPEN = re.compile(r"^it(?:'s|’s| is) (?:okay|ok|fine|normal|natural|alright|all right|never|always|not)\b", re.I)
 
@@ -101,11 +109,36 @@ def content_lints(o):
             tell = (content_words(it.get("text")) & labels.get(own, set())) - others
             if tell:
                 out.append(f"sort-giveaway: '{it.get('text')}' shares {sorted(tell)} with its zone's label")
-    elif t == "strike-rewrite":
+    if t in C.STORY_TYPES and not C.is_story(o):
+        out.append(f"single-step: a {t} with one question; make it {C.STORY_STEPS[0]} to {C.STORY_STEPS[1]} steps (SWED-96)")
+    if C.is_story(o):
+        for i, st in enumerate(o.get("steps") or []):
+            if not isinstance(st, dict):
+                continue
+            if t == "branch" and (st.get("prompt") or "").count("?") > 1:
+                out.append(f"step-questions: step[{i}] prompt asks more than one question")
+            for j, op in enumerate(st.get("options") or []):
+                m = VERDICT.search((op or {}).get("then") or "")
+                if m:
+                    out.append(f"then-verdict: step[{i}].option[{j}] then grades the pick ('{m.group(0)}')")
+        clear = sum(1 for st in o.get("steps") or [] if best_clearly_longest(st))
+        if clear * 2 > len(o.get("steps") or []):
+            out.append(f"best-longest: the best option is clearly the longest in {clear} of {len(o['steps'])} steps")
+    if t == "strike-rewrite":
         re_text = ((o.get("myth") or {}).get("re") or "").strip()
         if PRONOUN_OPEN.match(re_text) and not IDIOM_OPEN.match(re_text):
             out.append(f"myth-context: myth.re opens with a pronoun ('{re_text[:40]}...')")
     return out
+
+
+LENGTH_TELL = 6  # characters by which a best option must out-length every other option to count as a visible tell
+
+
+def best_clearly_longest(st):
+    opts = [op for op in (st.get("options") or []) if isinstance(op, dict)] if isinstance(st, dict) else []
+    best = [len(op.get("text") or "") for op in opts if op.get("best")]
+    rest = [len(op.get("text") or "") for op in opts if not op.get("best")]
+    return bool(best and rest) and best[0] >= max(rest) + LENGTH_TELL
 
 
 def review_flags(o):

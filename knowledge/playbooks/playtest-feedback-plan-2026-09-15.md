@@ -22,6 +22,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/baa41435-d56c-487b-ac9b-7557d49c85f5  # SWED-87
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8ed837-a59d-4d5b-9457-ba32b594c6fe  # SWED-88
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5  # SWED-89
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
 ---
 
 # Playtest feedback plan, 2026-09-15
@@ -145,7 +146,7 @@ The owner sets growth targets for the myth corpus before this phase. Flag-readin
   - [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007) voice cleanup: "Lensy:" prefixes, double questions, clipped tags, engine dashes
 
   [SWED-56](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a4b0bddb-0951-40ec-a66f-1c7bae11b823), [SWED-57](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/04be0c5a-f6b0-4372-b2bc-79b26f3fcd6c) and [SWED-58](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4e86866f-408c-4033-9056-5eed8edfa912) close with Phase 1. The content phases depend on the [SWED-65](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b) forge tickets.
-- **Not in scope, worth a follow-up:** 93% of role-plays and 89% of branches offer only two options, which is the same "too easy" problem.
+- **Not in scope, worth a follow-up:** 93% of role-plays and 89% of branches offer only two options, which is the same "too easy" problem. Taken up on 2026-09-15 as [SWED-96](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9): multi-step branch and role-play with 4 or 5 options and the answers revealed at the end, piloted on Choosing & Building.
 
 ## Verification
 

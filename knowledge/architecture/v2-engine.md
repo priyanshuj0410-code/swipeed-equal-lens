@@ -15,6 +15,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb  # SWED-95
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
 ---
 
 # SwipeEd v2 engine
@@ -144,9 +145,9 @@ contract: no hard fail state, a wrong attempt is a spoken nudge and a retry, and
 |---|---|---|---|---|
 | **reflect** | Taps any one of several options; every option is valid (no wrong answer), then writes a few words about the pick and answers one deeper question, each skippable ([SWED-97](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc)) | Tap, then a text box (ages 3-6: a talk-to-a-grown-up card; safety beats: tap only) | The affirm appears with the player's words before the deeper question; the result closes on the relearn. A tap-only beat keeps "<pick>. <affirm>"; no UN/RE beat | `ReflectPlay`, `src/components/games/reflect-play.tsx` |
 | **choose** | Taps every option that fits out of six (two to four fit), then Check | Tap only; options are checkbox buttons | A first Check that misses says how many fit and allows a retry; the next Check reveals every answer with notes for wrong and missed picks, then resolves (no-fail). `V2Game` keeps the renderer mounted through the resolve so the answers stay visible above the `relearn` pill ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4)) | `ChoosePlay`, `v2-engine.tsx` |
-| **role-play** | Taps one of two shuffled "say it" speech cards; only the assertive line advances | Tap only, native buttons | Passive pick: spoken nudge, card set stays up for a re-pick; no UN/RE beat | `RolePlayPlay`, `v2-engine.tsx:419-436` |
+| **role-play** | Multi-step ([SWED-96](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9)): 3 to 5 lines of a conversation; each step the player picks one of 4 or 5 shuffled lines to say and hears the other person's reply (`then`) before their next line. Single-step (until a game is converted): taps one of two shuffled speech cards; only the assertive line advances | Tap only, native buttons | Multi-step: nothing is marked until a recap of every pick beside the best line and its `why`, then the relearn. Single-step: a passive pick gets a spoken nudge and the cards stay up | `StoryPlay` (`story-play.tsx`); single-step `RolePlayPlay` |
 | **strike-rewrite** | Scrubs back-and-forth across the myth card to erase it | Drag/scrub (`usePointerDrag`, distance-based), or Enter/Space on the focusable card | The one verb with a dedicated UN/RE moment: resolve renders the shared `UnReBeat` card (`un-re.tsx`). In a game with `mythCards` on, `present()` plays about half the beats as a myth card instead: the card shows `myth.un` (swipe Myth) or `myth.re` (swipe True), a wrong side nudges, and the resolve is the same UN/RE card ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543)) | `StrikePlay`; `MythCardPlay` on the shared `SwipeCard` |
-| **branch** | Taps one of several shuffled choices and sees its consequence; only the `best` choice (or any, if none is marked best) advances | Tap only, native buttons | Consequence spoken on pick; advancing pick shows a 💚/💛 emoji-prefixed consequence (see SWED-57); no UN/RE beat | `BranchPlay`, `v2-engine.tsx:466-496` |
+| **branch** | Multi-step ([SWED-96](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9)): 3 to 5 decisions in one situation; each pick shows what happens next (`then`) before the next decision. Single-step (until a game is converted): taps one of several shuffled choices and sees its consequence; only the `best` choice advances | Tap only, native buttons | Multi-step: nothing is marked until a recap of every pick beside the best move and its `why`, then the debrief. Single-step: the consequence is spoken on pick; a non-best pick offers a retry | `StoryPlay` (`story-play.tsx`); single-step `BranchPlay` |
 | **sort** | Drags a chip into its labelled bin | Drag (`usePointerDrag` + `hitTestZone`), or tap-to-arm chip then tap bin | Spoken confirmation per correct placement; wrong bin springs back with a nudge; items and zones are both shuffled; no UN/RE beat | `SortPlay`, `v2-engine.tsx` |
 | **match** | Draws a cord from a left card to its right card | Drag (`usePointerDrag` + `hitTestZone` + `ConnectorOverlay`), or tap-left then tap-right | Spoken confirmation per correct pair; wrong pair springs back with a nudge; no pair sits straight across; no UN/RE beat | `MatchPlay` wraps the shared `MatchBoard`, `src/components/games/match-board.tsx` |
 | **build** | Drags (or taps) pieces onto a "slate", then confirms | Drag (`usePointerDrag` + `hitTestZone`) with a tap fallback; explicit confirm button | Spoken nudge on a wrong/out-of-order piece; no UN/RE beat | `BuildPlay`, `v2-engine.tsx:684-729` |
@@ -247,6 +248,17 @@ close to you pick, and why?"); `onSolved(pick, undefined, true)` then closes on 
 through." on the card. Text lives only in component state: nothing is stored, logged or sent. A broad word list
 (`DISTRESS`) catches writing that may describe harm to the player; it clears the box, never echoes the words, asks
 "You're not alone with this.", shows a support card with the game's help pill and continues on **Continue**.
+
+**Multi-step branch and role-play ([SWED-96](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9)).** `isStory(sc)` (a branch or role-play with `steps`) sends the beat to
+`StoryPlay` instead of the single-step renderers, and `V2Game` keeps it mounted through the resolve so the recap stays
+on screen. The first question on the card is `joinQuestion(hook, steps[0].prompt)` (a role-play joins its `setup` too)
+and waits behind the engine's `RevealGate`. Each step's options are shuffled once per beat. A pick locks the step,
+speaks the option's `then` with the feedback line kept empty (the `then` pill shows it) and focuses **Continue**;
+Continue calls `ask(steps[i + 1].prompt)`, and `StoryPlay` holds the new answers back for `revealDelayMs(prompt)` with its
+own `RevealGate`. After the last step it asks "Let's look back at each choice." and calls `onSolved()`: the recap lists
+each question with the player's pick, the best option when they missed it, and the step's `why`, and the resolve pill
+shows `debrief` (branch) or `relearn` (role-play). A branch step whose best option carries `outcome: "safe"` makes the
+beat a safety beat, as a single-step one does.
 
 **Building the question.** `hookLine(s)` in `V2Game` returns the text for the card: `joinQuestion(hook, prompt)`
 for `reflect` and `build`, `joinQuestion(hook, setup)` for `role-play`, and `cleanLine(hook)` for every other

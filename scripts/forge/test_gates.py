@@ -90,6 +90,7 @@ def main():
     fails += regrowth_fixtures()
     fails += blind_review_fixtures()
     fails += no_dashes_fixtures()
+    fails += story_fixtures()
     if fails:
         print(f"\n✗ {fails} gate test(s) failed"); sys.exit(1)
     print("\n✓ all gate fixtures pass: missing-Base-field content is rejected")
@@ -376,6 +377,84 @@ def content_gate_fixtures():
         else:
             fails += 1
             print(f"  ✗ content gate wrong on: {name}")
+    shutil.rmtree(tmp)
+    return fails
+
+
+VALID_STORY = {"id": "t-020", "cat": "c", "type": "branch", "persona": "any", "source": "s", "relearn": "Standing with someone helps.",
+               "hook": "Kabir's classmates laugh at his lunch.", "debrief": "Checking in and naming it both help.",
+               "steps": [{"prompt": f"Moment {k + 1}. What do you do?", "why": f"Reason {k + 1}.",
+                          "options": [{"text": f"Choice {k + 1}{c}", "then": f"What happens after {k + 1}{c}.", **({"best": True} if c == "b" else {})}
+                                      for c in "abcd"]} for k in range(3)]}
+
+
+def story_fixtures():
+    """Multi-step branch and role-play (SWED-96): 3 to 5 steps, 4 or 5 options with exactly one best, a then on every
+    option and a why on every step, never both steps and the legacy field, the band ceiling per step; the single-step
+    and then-verdict lints; and the blind review of each step's best option."""
+    import copy, json, shutil, tempfile
+    import lints as L
+    import blind_review as B
+    fails = 0
+
+    def result(name, ok, detail=""):
+        nonlocal fails
+        if ok:
+            print(f"  ✓ story check right on: {name}")
+        else:
+            fails += 1; print(f"  ✗ story check wrong on: {name} {detail}")
+
+    def variant(mutate):
+        o = copy.deepcopy(VALID_STORY); mutate(o); return o
+
+    role = variant(lambda o: o.update(type="role-play", setup="Kabir sits down beside you.", id="t-021"))
+    del role["debrief"]
+    for name, o in (("a valid multi-step branch", VALID_STORY), ("a valid multi-step role-play", role)):
+        errs = C.scenario_errors(o, 1, None, C.BAND_CEIL[1])
+        result(name, not errs, errs)
+    cases = [
+        ("two steps", lambda o: o["steps"].pop(), "steps=2"),
+        ("six steps", lambda o: o["steps"].extend(copy.deepcopy(o["steps"][:3])), "steps=6"),
+        ("three options in a step", lambda o: o["steps"][1]["options"].pop(0), "options=3"),
+        ("six options in a step", lambda o: o["steps"][1]["options"].extend(copy.deepcopy(o["steps"][0]["options"][:2])), "options=6"),
+        ("no best option in a step", lambda o: o["steps"][2]["options"][1].pop("best"), "best count=0"),
+        ("two best options in a step", lambda o: o["steps"][2]["options"][0].update(best=True), "best count=2"),
+        ("an option without a then", lambda o: o["steps"][0]["options"][3].update(then=""), "missing then"),
+        ("a step without a why", lambda o: o["steps"][0].pop("why"), "missing why"),
+        ("two options with the same text", lambda o: o["steps"][0]["options"][3].update(text="Choice 1a"), "duplicate option texts"),
+        ("steps and legacy options together", lambda o: o.update(options=[{"text": "a", "consequence": "c", "best": True}]), "has both"),
+        ("a step over the Chapter 1 band ceiling", lambda o: [op.update(text=f"{op['text']} " + "x" * 90) for op in o["steps"][1]["options"]], "step[1] prose"),
+    ]
+    for name, mutate, needle in cases:
+        errs = C.scenario_errors(variant(mutate), 1, None, C.BAND_CEIL[1])
+        result(f"caught {name}", any(needle in e for e in errs), errs)
+    legacy = {"id": "t-022", "cat": "c", "type": "branch", "persona": "any", "source": "s", "relearn": "r", "hook": "h", "debrief": "d",
+              "options": [{"text": "a", "consequence": "c", "best": True}, {"text": "b", "consequence": "d"}]}
+    result("a legacy branch still passes its shape check", not C.shape_errors(legacy))
+    result("the single-step lint fires on a legacy branch", any(f.startswith("single-step") for f in L.content_lints(legacy)))
+    result("no lint on a clean multi-step branch", not L.content_lints(VALID_STORY), L.content_lints(VALID_STORY))
+    verdict = variant(lambda o: o["steps"][0]["options"][1].update(then="Good choice. Kabir smiles."))
+    result("the then-verdict lint fires on a graded then", any(f.startswith("then-verdict") for f in L.content_lints(verdict)))
+    long_best = variant(lambda o: [st["options"][1].update(text=st["options"][1]["text"] + " and a long reason") for st in o["steps"][:2]])
+    result("the best-longest lint fires when the best is clearly longest in most steps", any(f.startswith("best-longest") for f in L.content_lints(long_best)))
+    one_long = variant(lambda o: o["steps"][0]["options"][1].update(text="Choice 1b and a long reason"))
+    result("no best-longest lint for one long best option", not any(f.startswith("best-longest") for f in L.content_lints(one_long)))
+    truths = C.must_be_true_texts(VALID_STORY)
+    result("best options and reasons are fact-checked, other options are not", "Choice 1b" in truths and "Reason 2." in truths and "Choice 1a" not in truths)
+
+    tmp = tempfile.mkdtemp()
+    game = os.path.join(tmp, "t.ts")
+    open(game, "w", encoding="utf8").write("import type { Scenario } from \"./v2-schema\";\n\nconst SCENARIOS: Scenario[] = [\n  " + json.dumps(VALID_STORY) + ",\n];\n")
+    B.make("t", tmp, [], game_path=game, seed=1)
+    blind = open(os.path.join(tmp, "blind-story.ndjson"), encoding="utf8").read()
+    result("the blind story row hides best and then", '"best"' not in blind and '"then"' not in blind and "Choice 2c" in blind)
+    best = [next(x["text"] for x in st["options"] if x.get("best")) for st in VALID_STORY["steps"]]
+    open(os.path.join(tmp, "review-story.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "best": best}) + "\n")
+    found, missing = B.diff("t", tmp, [], game_path=game)
+    result("a reviewer who picks every best option", not found and not missing, found)
+    open(os.path.join(tmp, "review-story.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "best": [best[0], "Choice 2a", best[2]]}) + "\n")
+    found, _ = B.diff("t", tmp, [], game_path=game)
+    result("a reviewer who picks a different option in one step", len(found) == 1 and "Choice 2a" in found[0][2], found)
     shutil.rmtree(tmp)
     return fails
 
