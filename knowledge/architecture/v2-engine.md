@@ -14,6 +14,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb  # SWED-95
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
 ---
 
 # SwipeEd v2 engine
@@ -141,7 +142,7 @@ contract: no hard fail state, a wrong attempt is a spoken nudge and a retry, and
 
 | Verb | What the child does | Input modes | Feedback / UN-RE | Renderer (file:line) |
 |---|---|---|---|---|
-| **reflect** | Taps any one of several options; every option is valid (no wrong answer) | Tap only, native buttons | Picked option echoed back by name, then the shared `affirm` line; no UN/RE beat | `ReflectPlay`, `v2-engine.tsx:405-413` |
+| **reflect** | Taps any one of several options; every option is valid (no wrong answer), then writes a few words about the pick and answers one deeper question, each skippable ([SWED-97](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc)) | Tap, then a text box (ages 3-6: a talk-to-a-grown-up card; safety beats: tap only) | The affirm appears with the player's words before the deeper question; the result closes on the relearn. A tap-only beat keeps "<pick>. <affirm>"; no UN/RE beat | `ReflectPlay`, `src/components/games/reflect-play.tsx` |
 | **choose** | Taps every option that fits out of six (two to four fit), then Check | Tap only; options are checkbox buttons | A first Check that misses says how many fit and allows a retry; the next Check reveals every answer with notes for wrong and missed picks, then resolves (no-fail). `V2Game` keeps the renderer mounted through the resolve so the answers stay visible above the `relearn` pill ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4)) | `ChoosePlay`, `v2-engine.tsx` |
 | **role-play** | Taps one of two shuffled "say it" speech cards; only the assertive line advances | Tap only, native buttons | Passive pick: spoken nudge, card set stays up for a re-pick; no UN/RE beat | `RolePlayPlay`, `v2-engine.tsx:419-436` |
 | **strike-rewrite** | Scrubs back-and-forth across the myth card to erase it | Drag/scrub (`usePointerDrag`, distance-based), or Enter/Space on the focusable card | The one verb with a dedicated UN/RE moment: resolve renders the shared `UnReBeat` card (`un-re.tsx`). In a game with `mythCards` on, `present()` plays about half the beats as a myth card instead: the card shows `myth.un` (swipe Myth) or `myth.re` (swipe True), a wrong side nudges, and the resolve is the same UN/RE card ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543)) | `StrikePlay`; `MythCardPlay` on the shared `SwipeCard` |
@@ -228,6 +229,24 @@ Added by [SWED-66](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4a
 after a playtest where players answered without reading the question. The visual pattern is specified in
 [design.md, How Lensy speaks](../design.md#voice-and-copy); this section is the engine side. Both engines render
 `LensyQuestion` and `RevealGate` from `src/components/games/lensy-question.tsx`.
+
+**Asking again within a beat.** A beat that continues after its first answer calls `ask(question, lead?)` in `V2Game`:
+the card changes to the new question, `lead` is spoken before it, "Hear it again" replays the new question, and focus
+moves to the card (the `LensyQuestion` focus key counts asks). The renderer stays mounted, because unmounting it behind
+`RevealGate` would lose the beat's state, so a renderer that asks again holds its own answers back. `V2Game` keeps
+`reflect` (like `choose`) mounted through the resolve so the conversation stays on screen above the take-away.
+
+**Reflect conversation ([SWED-97](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc)).** `ReflectPlay` picks the turn from the pick, the band and the beat. The band
+comes from the game's node `ageGate` in `path.ts`: under 6 is `talk`, under 18 `kids`, otherwise `adults`. A safety beat
+(`isSafetyBeat`: a `reassureCats` category) resolves on the tap as before, with "<pick>. <affirm>", the reassurance and
+the help pill, because an open question there invites a disclosure the app cannot receive. `talk` shows a card asking the
+child to tell a grown-up nearby and resolves the same way. Otherwise Lensy asks `ask` (default "What made you pick that
+one?" or, for adults, "What makes that one fit for you?"), the player writes up to 280 characters or skips, then sees
+their words and the affirm while Lensy asks `deeper` (default "What might a friend pick, and why?" or "What might someone
+close to you pick, and why?"); `onSolved(pick, undefined, true)` then closes on the relearn with "Thanks for thinking it
+through." on the card. Text lives only in component state: nothing is stored, logged or sent. A broad word list
+(`DISTRESS`) catches writing that may describe harm to the player; it clears the box, never echoes the words, asks
+"You're not alone with this.", shows a support card with the game's help pill and continues on **Continue**.
 
 **Building the question.** `hookLine(s)` in `V2Game` returns the text for the card: `joinQuestion(hook, prompt)`
 for `reflect` and `build`, `joinQuestion(hook, setup)` for `role-play`, and `cleanLine(hook)` for every other

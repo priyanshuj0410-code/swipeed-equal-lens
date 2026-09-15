@@ -14,6 +14,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007  # SWED-71
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d  # SWED-75
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
 ---
 
 # Choosing & Building
@@ -51,6 +52,8 @@ question - **how do two whole people choose each other and build a shared life w
 it?** Lensy returns as a grown peer who has been through the choosing. **A relationship is something you build, not
 something that fixes you; commitment is a clear-eyed choice between equals; and whether the introduction comes
 from an app, a friend, or your family, the skills - and the consent - are the same.**
+
+> **Reflect conversation ([SWED-97](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc), 2026-09-15).** 16 of the 19 reflects carry their own `ask` and `deeper` ("What makes that one feel hard to start?", "What is one small way you could open it?"). The other 3 (cb-1037, cb-1118, cb-1123) are in the reassurance categories, so they stay tap-only.
 
 ## What it embodies
 
