@@ -2,20 +2,21 @@
 type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/swipe-right.md
-title: Swipe Right? - Dating & Apps
-description: Modern dating & app safety for ages 18-22 - realistic expectations, meeting safely, spotting catfishing & ghosting (UN & RE), dating with consent, and kindness on both sides of a no. Builds on flag-reading + online safety + adult consent.
+title: Swipe Right? (Dating & Apps)
+description: Modern dating & app safety for ages 18-22, covering realistic expectations, meeting safely, spotting catfishing & ghosting (UN & RE), dating with consent, and kindness on both sides of a no. Builds on flag-reading + online safety + adult consent.
 resource: https://swipeed.vercel.app/game/swipe-right
 tags: [games, swipeed, relationships, online-safety, ages-18-22, adult-journey]
 timestamp: 2026-06-22T12:05:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
 ---
 
-# Swipe Right? - Dating & Apps
+# Swipe Right? (Dating & Apps)
 
-> **Reworked to GDD 45 v2 - the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
+> **Reworked to GDD 45 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The College dating node (Thread D · Relationships) **moved off the [ModesEngine](swipeed-game-patterns.md)
-> onto the shared v2 mechanic engine** - a **503-scenario typed library** (`content/games/swipe-right.ts`:
+> onto the shared v2 mechanic engine**: a **503-scenario typed library** (`content/games/swipe-right.ts`:
 > dating-now 81 · meeting-safely 87 · fakes-and-ghosts 83 · date-with-respect 87 · profiles-are-people 80 ·
 > tools-and-help 85) with seven play actions (branch ×88 · strike-rewrite ×75 · sort ×76 · reflect ×78 ·
 > role-play ×62 · spot ×57 · match ×67), **0% binary**, led by branch + strike-rewrite + role-play. **Dating now
@@ -33,8 +34,8 @@ plane_issues:
 > [Green Light / Red Light](green-light-red-light.md) (g24), [Firewall](firewall.md) (g40) & [Consent, For Real](consent-for-real.md)
 > (g44); precedes g46. The sections below describe the original ModesEngine v1 build, superseded by v2.
 
-**Node #g45 - Chapter 6 (College, ages 18-22).** Modern dating, real talk: meet safely, read people
-honestly, and treat people kindly - including yourself. Carries [Green Light / Red Light](green-light-red-light.md)'s
+**Node #g45: Chapter 6 (College, ages 18-22).** Modern dating, real talk: meet safely, read people
+honestly, and treat people kindly, including yourself. Carries [Green Light / Red Light](green-light-red-light.md)'s
 flag-reading and [Firewall](firewall.md)'s online safety into adult dating, with
 [Consent, For Real](consent-for-real.md) (#g44) underwriting respect.
 
@@ -43,12 +44,12 @@ flag-reading and [Firewall](firewall.md)'s online safety into adult dating, with
 - **Type:** mode-based scenario game · no-fail · UNESCO 1.2, 4.3, 5.5 · 18-22.
 - **Status:** live · https://swipeed.vercel.app/game/swipe-right
 
-## How it works - five modes
-1. **Dating Now** - realistic expectations vs the highlight-reel illusion (tap-reveal list).
-2. **Meeting Safely** - first-meet safety: public place, tell a friend, your own transport, trust your gut.
-3. **Fakes & Ghosts** - the **UN → RE** beat: catfishing/fake profiles ("they must be real"), and why ghosting/leading-on isn't okay either.
-4. **Date with Respect** - pacing, consent in dating, and handling rejection kindly **both ways**.
-5. **Tools & Ask-It** - meet-safe references + private Q&A with **report/help routing** (Cyber Crime 1930, Women Helpline 181, Emergency 112).
+## How it works: five modes
+1. **Dating Now**: realistic expectations vs the highlight-reel illusion (tap-reveal list).
+2. **Meeting Safely**: first-meet safety: public place, tell a friend, your own transport, trust your gut.
+3. **Fakes & Ghosts**: the **UN → RE** beat: catfishing/fake profiles ("they must be real"), and why ghosting/leading-on isn't okay either.
+4. **Date with Respect**: pacing, consent in dating, and handling rejection kindly **both ways**.
+5. **Tools & Ask-It**: meet-safe references + private Q&A with **report/help routing** (Cyber Crime 1930, Women Helpline 181, Emergency 112).
 
 ## Related
 - [Reusable Game Patterns](swipeed-game-patterns.md) · [Consent, For Real](consent-for-real.md) · [Firewall](firewall.md) · [Games catalog](index.md)

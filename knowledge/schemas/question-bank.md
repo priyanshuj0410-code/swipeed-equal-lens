@@ -17,6 +17,8 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007  # SWED-71
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d  # SWED-75
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22  # SWED-92
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
 ---
 
 # SwipeEd question bank
@@ -50,7 +52,7 @@ Two parallel chains feed the live app: the **path** (which nodes exist, in what 
 |---|---|---|
 | 1 | The 5 read-first docs under `Strategy/`: the build bible (`SwipeEd - Game Strategy (build bible).pdf`), the transition plan (`SwipeEd - Transition Plan (Step 1, GDD rework).pdf`), the game's own GDD (`GDD <N> - <Title> (reworked v2).pdf`), that chapter's personas (`Personas/SwipeEd - Chapter <N> User Personas.pdf`), and the Scenario Library JSON (`SwipeEd - GDD <N> <Title> - Scenario Library.json`) | Yes, in the app repo, read-only design source. `scripts/read_first.py` resolves and hash-pins all 5 before a build may be attested. |
 | 2 | The Scenario Library JSON itself | Yes. It is not a brief: it already holds the finished ~84-scenario original library in schema (`scenarios[]`), plus `leadMechanics`, `categories`, `mechanicsUsed` and an `evidenceBase`. Example (`be-the-safe-adult`): `count: 84`, `leadMechanics: ["strike-rewrite","role-play","branch"]`. |
-| 3 | `.forge/<gameId>/plan.json` | **No** (gitignored). Written by `forge_plan.py <gameId> --write`: band ceiling, allowed mechanics for that chapter's band, per-(category x mechanic) generation quota, the legacy-reshape worklist (plus `reshape_legacy.lint`, every scenario with a blocking content lint, same-type rewrites a review lists in `.forge/<gameId>/reshape.json`, and `convert`, the reflects a classification step listed in `.forge/<gameId>/convert.json` to become choose, [SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4)), an `intended_count`, and (since [SWED-73](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71)) `id_prefix` and `id_blocks`: one block of 100 fresh id numbers per category, starting above the highest number already in the bank. `intended_count` is a **pre-generation target** (existing + planned generation), not the eventual shipped count - for `be-the-safe-adult` the plan computed `intended_count: 451` (84 existing + 367 planned); the game shipped at 406. |
+| 3 | `.forge/<gameId>/plan.json` | **No** (gitignored). Written by `forge_plan.py <gameId> --write`: band ceiling, allowed mechanics for that chapter's band, per-(category x mechanic) generation quota, the legacy-reshape worklist (plus `reshape_legacy.lint`, every scenario with a blocking content lint, same-type rewrites a review lists in `.forge/<gameId>/reshape.json`, and `convert`, the reflects a classification step listed in `.forge/<gameId>/convert.json` to become choose, [SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4)), an `intended_count`, and (since [SWED-73](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71)) `id_prefix` and `id_blocks`: one block of 100 fresh id numbers per category, starting above the highest number already in the bank. `intended_count` is a **pre-generation target** (existing + planned generation), not the eventual shipped count: for `be-the-safe-adult` the plan computed `intended_count: 451` (84 existing + 367 planned); the game shipped at 406. |
 | 4 | `.forge/<gameId>/GROUNDING.md` | **No** (gitignored). A grounding agent reads the plan, the GDD, the Scenario Library, the chapter personas and `v2-schema.ts`, then writes this: game purpose, exact age band, per-category teaching intent with 6-10 GDD-cited truth anchors, the persona voice roster, the **exact helpline string** for that game, and banned framings. |
 | 5 | `.forge/<gameId>/gen/<category>.ndjson` | **No** (gitignored). One generation agent per category writes newline-delimited JSON, one scenario object per line, self-validating against `forge_check.py --batch ... --game <gameId>` until it reports "0 rejected". New ids must sit in the category's block; a shipped id may appear only as a reshape on the worklist. Lines carry pipeline sidecar keys (`_evidence`, `_anchor`, `needsFact`). |
 | 6 | `.forge/<gameId>/combined.ndjson` | **No** (gitignored). The concatenation of every `gen/*.ndjson` for that game (`cat .forge/<gameId>/gen/*.ndjson > .forge/<gameId>/combined.ndjson`). |
@@ -60,9 +62,9 @@ Two parallel chains feed the live app: the **path** (which nodes exist, in what 
 
 **What is hand-authored vs generated, inside one shipped `.ts` file.** The `SCENARIOS: Scenario[]` array body (the part between `const SCENARIOS: Scenario[] = [` and the matching `];`) is machine-written: either transcribed from the original Scenario Library JSON or produced/reshaped by forge. The trailing `V2GameConfig` object (`gameId`, `title`, `greet`, `scenarios: SCENARIOS`, `categories`, `badge`, `helpLine`, `helpLabel`, `reassure`, `reassureCats`) is hand-authored once per game and is outside the span `forge_assemble.py` ever touches.
 
-**What is gitignored and regenerable, and its real limit.** The whole `.forge/` tree, plus one-off working files that show up inside it (for example `.forge/my-body/overflow.json`, a leftover list of over-length scenario ids from a message-length trim pass), is disposable in principle: it can be regenerated from `Strategy/` plus the live `.ts`. In practice it is **not kept in sync** after the merge gate forces a hand-fix directly in the shipped `.ts` - the assemble step's own workflow instructions say to fix failures "directly in `src/content/games/<gameId>.ts`" (gen_workflow.js:162) with no step that writes the fix back into `.forge/`. This single fact is the root cause of both SWED-53 and SWED-54 below: `.forge/` is a point-in-time generation log, not a live mirror of the shipped bank.
+**What is gitignored and regenerable, and its real limit.** The whole `.forge/` tree, plus one-off working files that show up inside it (for example `.forge/my-body/overflow.json`, a leftover list of over-length scenario ids from a message-length trim pass), is disposable in principle: it can be regenerated from `Strategy/` plus the live `.ts`. In practice it is **not kept in sync** after the merge gate forces a hand-fix directly in the shipped `.ts`: the assemble step's own workflow instructions say to fix failures "directly in `src/content/games/<gameId>.ts`" (gen_workflow.js:162) with no step that writes the fix back into `.forge/`. This single fact is the root cause of both SWED-53 and SWED-54 below: `.forge/` is a point-in-time generation log, not a live mirror of the shipped bank.
 
-Capstones (`src/content/games/capstone-1.ts` ... `capstone-8.ts`) are **not** part of the forge pipeline at all - there is no `.forge/capstone-*` directory. Each is authored directly from its `SwipeEd - Capstone c<N> <Title> - Landing.json` design source under `Strategy/`, faithfully transcribed into `capstone-schema.ts`'s `CapstoneConfig` shape. `capstone-1.ts` through `capstone-4.ts` are written one lap object per line (matching the lesson-bank style); `capstone-5.ts` through `capstone-8.ts` are written pretty-printed, multi-line per object. Both are valid, equivalent JSON, just reflowed differently - a reader (or a script) parsing "one JSON object per line" alone will silently undercount `capstone-5` to `capstone-8`, which is why the fleet-counting method below balance-matches braces instead.
+Capstones (`src/content/games/capstone-1.ts` ... `capstone-8.ts`) are **not** part of the forge pipeline at all: there is no `.forge/capstone-*` directory. Each is authored directly from its `SwipeEd - Capstone c<N> <Title> - Landing.json` design source under `Strategy/`, faithfully transcribed into `capstone-schema.ts`'s `CapstoneConfig` shape. `capstone-1.ts` through `capstone-4.ts` are written one lap object per line (matching the lesson-bank style); `capstone-5.ts` through `capstone-8.ts` are written pretty-printed, multi-line per object. Both are valid, equivalent JSON, just reflowed differently: a reader (or a script) parsing "one JSON object per line" alone will silently undercount `capstone-5` to `capstone-8`, which is why the fleet-counting method below balance-matches braces instead.
 
 ## Schema
 
@@ -91,17 +93,19 @@ Capstones (`src/content/games/capstone-1.ts` ... `capstone-8.ts`) are **not** pa
 
 Each row cites `v2-schema.ts` for the type, `common.py` for the required-payload and shape rules the gate enforces, and one real, shipped example.
 
-**reflect** - "EVERY option is acceptable (no wrong answer)" (v2-schema.ts:17)
+**reflect**: "EVERY option is acceptable (no wrong answer)" (v2-schema.ts:17)
 
 | Field | Type | Constraint |
 |---|---|---|
 | `prompt` | `string` | required |
 | `options` | `string[]` | required, non-empty (common.py:361-362); never carries `best`/`key`/`trick`/`answer` |
-| `affirm` | `string` | required; spoken on any tap |
+| `affirm` | `string` | required; shown with the player's words before the deeper question (spoken on the tap for a tap-only beat) |
+| `ask` | `string` | optional ([SWED-97](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc)): one question about the player's pick, asked after the tap; the band default when absent; lints `follow-up` (exactly one question) and `disclosure` (never asks about harm in the player's own life) |
+| `deeper` | `string` | optional: one perspective-taking question asked after the first answer; same lints and defaults |
 
 Example (`feelings-friends.ts`, ff-004): `prompt: "Point to your feeling."`, `options: ["Happy","Calm","A little wobbly","Excited"]`, `affirm: "Thank you for noticing your feeling. That's a real skill."`.
 
-**choose** - tap every option that fits, then Check ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4), 2026-09-15). The right/wrong successor to reflect for lesson and values questions; feelings, personal choices and safety lines stay reflect
+**choose**: tap every option that fits, then Check ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4), 2026-09-15). The right/wrong successor to reflect for lesson and values questions; feelings, personal choices and safety lines stay reflect
 
 | Field | Type | Constraint |
 |---|---|---|
@@ -110,16 +114,16 @@ Example (`feelings-friends.ts`, ff-004): `prompt: "Point to your feeling."`, `op
 
 `note` explains a pick: for a fitting option why it fits (shown if the player missed it), for the others why it does not (shown if they picked it). Fitting option texts and every note are must-be-true fields for the claim sniffer; the texts of options that do not fit are deliberate wrong answers. Notes count toward the 160-character field cap but not toward the band ceiling, because a player sees only the ones for their mistakes.
 
-**role-play** - say the words; exactly one line is the assertive script (v2-schema.ts:19)
+**role-play**: say the words; exactly one line is the assertive script (v2-schema.ts:19)
 
 | Field | Type | Constraint |
 |---|---|---|
 | `setup` | `string` | required |
-| `yourLine` | `{text: string; best?: boolean}[]` | required; exactly one `best: true` (enforced only by the generation prompt, gen_workflow.js:30 - `common.py`'s `shape_errors` has no validation arm for this mechanic) |
+| `yourLine` | `{text: string; best?: boolean}[]` | required; exactly one `best: true` (enforced only by the generation prompt, gen_workflow.js:30: `common.py`'s `shape_errors` has no validation arm for this mechanic) |
 
 Example (`feelings-friends.ts`, ff-002): `yourLine: [{"text":"\"I feel ___.\"","best":true},{"text":"Keep it hidden"}]`.
 
-**strike-rewrite** - UN erases a myth, RE writes the truth with a reason (v2-schema.ts:21)
+**strike-rewrite**: UN erases a myth, RE writes the truth with a reason (v2-schema.ts:21)
 
 | Field | Type | Constraint |
 |---|---|---|
@@ -129,7 +133,7 @@ Example (`feelings-friends.ts`, ff-002): `yourLine: [{"text":"\"I feel ___.\"","
 
 Example (`be-the-safe-adult.ts` source, sa-900): `myth: {"un":"If something was really wrong, my child would just blurt it out at dinner.","re":"Children often hold the hardest things back the longest...","why":"Telling follows safety, not the other way round."}`.
 
-**branch** - choose what to do; a `debrief` reinforces the safe way (v2-schema.ts:23)
+**branch**: choose what to do; a `debrief` reinforces the safe way (v2-schema.ts:23)
 
 | Field | Type | Constraint |
 |---|---|---|
@@ -138,7 +142,7 @@ Example (`be-the-safe-adult.ts` source, sa-900): `myth: {"un":"If something was 
 
 Example (`feelings-friends.ts`, ff-016): the `best` option is "Say 'I'm angry!' and take big breaths"; the non-best option "Hit the other kid" carries its own consequence.
 
-**sort** - drop each item into the right bin (v2-schema.ts:25-31)
+**sort**: drop each item into the right bin (v2-schema.ts:25-31)
 
 | Field | Type | Constraint |
 |---|---|---|
@@ -146,15 +150,15 @@ Example (`feelings-friends.ts`, ff-016): the `best` option is "Say 'I'm angry!' 
 | `bins` | `{id, label, valence?}[]` | required; every bin must be used by at least one `key` entry (common.py:321-323); every bin must declare an explicit `valence` for new content (common.py:324-325) |
 | `key` | `Record<string,string>` | required; maps every item id to a real bin id (common.py:315-319) |
 
-`valence` is one of `pos` (good/true/safe), `neg` (bad/false/unsafe), `tell` (speak up), `uhoh` (be careful), `neutral` (non-valenced category) - so the engine colours a bin from data, never a label-regex guess (v2-schema.ts:26-29). Example (`be-the-safe-adult.ts`, sa-1394): a 6-item sort into `believe` (pos) / `calm` (tell) / `act` (uhoh) bins.
+`valence` is one of `pos` (good/true/safe), `neg` (bad/false/unsafe), `tell` (speak up), `uhoh` (be careful), `neutral` (non-valenced category), so the engine colours a bin from data, never a label-regex guess (v2-schema.ts:26-29). Example (`be-the-safe-adult.ts`, sa-1394): a 6-item sort into `believe` (pos) / `calm` (tell) / `act` (uhoh) bins.
 
-**match** - connect each left to its right (v2-schema.ts:32-33)
+**match**: connect each left to its right (v2-schema.ts:32-33)
 
 | Field | Type | Constraint |
 |---|---|---|
 | `pairs` | `{left, right}[]` | required; **exactly 5** for new content (`MATCH_PAIRS`, common.py:341-342); distinct lefts, distinct rights, and no left text may equal a right text (common.py:343-348) |
 
-**build** - assemble a team (order-free) or a plan (sequence) (v2-schema.ts:34-35)
+**build**: assemble a team (order-free) or a plan (sequence) (v2-schema.ts:34-35)
 
 | Field | Type | Constraint |
 |---|---|---|
@@ -165,7 +169,7 @@ Example (`feelings-friends.ts`, ff-016): the `best` option is "Say 'I'm angry!' 
 
 No target count; `build` is not one of the three upgraded-shape mechanics.
 
-**explore-label** - tap the body part that matches the clue (v2-schema.ts:36-38)
+**explore-label**: tap the body part that matches the clue (v2-schema.ts:36-38)
 
 | Field | Type | Constraint |
 |---|---|---|
@@ -174,18 +178,18 @@ No target count; `build` is not one of the three upgraded-shape mechanics.
 | `answer` | `string` | required; must be one of `parts` (common.py:387-388) |
 | `reveal` | `string` | required, the fun fact shown on a correct tap |
 
-A wrong tap warmly re-asks; no fail state. This is the signature verb of exactly one game, `body-lab.ts` (node g06) - no other bank in the fleet uses it.
+A wrong tap warmly re-asks; no fail state. This is the signature verb of exactly one game, `body-lab.ts` (node g06): no other bank in the fleet uses it.
 
-**spot** - tap the trick in the scene (v2-schema.ts:39-41)
+**spot**: tap the trick in the scene (v2-schema.ts:39-41)
 
 | Field | Type | Constraint |
 |---|---|---|
 | `scene` | `{id, text, trick: boolean}[]` | required; **exactly 5** items for new content (`SPOT_SCENE`, common.py:329-330); **exactly 2** with `trick: true` (`SPOT_TRICKS`, common.py:331-332, "3 truths + 2 lies"); unique scene ids |
 | `why` | `string` | required, explains the catch on resolve |
 
-**Polarity is the number-one spot bug** (gen_workflow.js:20-25): `trick: true` must be the unsafe/wrong/manipulative item, never the good one, because the engine only registers taps on `trick: true` items - inverting it silently teaches the wrong reflex (no fail state to catch it). Disallowed in Chapters 1-2 unless that game's GDD lists it in `leadMechanics` (`BAND_DISALLOW`, common.py:73).
+**Polarity is the number-one spot bug** (gen_workflow.js:20-25): `trick: true` must be the unsafe/wrong/manipulative item, never the good one, because the engine only registers taps on `trick: true` items: inverting it silently teaches the wrong reflex (no fail state to catch it). Disallowed in Chapters 1-2 unless that game's GDD lists it in `leadMechanics` (`BAND_DISALLOW`, common.py:73).
 
-**swipe** - read the cue, swipe the right way (v2-schema.ts:42-50)
+**swipe**: read the cue, swipe the right way (v2-schema.ts:42-50)
 
 | Field | Type | Constraint |
 |---|---|---|
@@ -198,9 +202,9 @@ Undeclared valence used to be inferred from the label text by regex and got it w
 
 ### Capstone schema (`src/content/games/capstone-schema.ts`)
 
-A capstone is not a lesson and never a test - a no-score, no-fail celebration replaying a chapter's big truths through varied mechanics. `CapstoneConfig` (capstone-schema.ts:37-54): `gameId`, `capstone` (display name), `node`, `chapter`, `ages`, `arrival`, `canvasPayoff`, `threadsRecapped`, `recap: CapRecap[]` (`{node, game, thread, bigTruth, glyph}`, one per chapter game), `playback: CapLap[]` (the victory laps), `reflect: CapReflect[]` (`{id, prompt, options, affirm}` - gentle prompts with **no `type` field**, so they are not laps), `celebration: {glyph, certificate, stickerBook}`, `preview`, `share`, `doneTitle`, `coins?`.
+A capstone is not a lesson and never a test: a no-score, no-fail celebration replaying a chapter's big truths through varied mechanics. `CapstoneConfig` (capstone-schema.ts:37-54): `gameId`, `capstone` (display name), `node`, `chapter`, `ages`, `arrival`, `canvasPayoff`, `threadsRecapped`, `recap: CapRecap[]` (`{node, game, thread, bigTruth, glyph}`, one per chapter game), `playback: CapLap[]` (the victory laps), `reflect: CapReflect[]` (`{id, prompt, options, affirm}`: gentle prompts with **no `type` field**, so they are not laps), `celebration: {glyph, certificate, stickerBook}`, `preview`, `share`, `doneTitle`, `coins?`.
 
-`CapLap` is a 9-way union (capstone-schema.ts:10-31), one fewer than the 10 lesson mechanics - there is no capstone `reflect` lap or `explore-label` lap:
+`CapLap` is a 9-way union (capstone-schema.ts:10-31), one fewer than the 10 lesson mechanics, since there is no capstone `reflect` lap or `explore-label` lap:
 
 | Lap type | Distinctive fields | Notes |
 |---|---|---|
@@ -224,28 +228,28 @@ Every lap carries `id`, `from` (the source node id, or `"all"` for the gallery),
 | Max single-mechanic share | 35% of a game's bank | `forge_check.py:21` (`MAX_MECH_SHARE`) |
 | Max "easy verb" share | 42% for `reflect` + `role-play` combined | `forge_check.py:22-23` (`EASY_VERBS`, `MAX_EASY_SHARE`) |
 | Band-disallowed mechanics | Chapters 1-2 (ages 3-9): no `spot`, no `swipe`, unless the game's own GDD lists it in `leadMechanics` | `common.py:71-73` (`BAND_DISALLOW`) |
-| Band prose ceiling (per scenario) | Ch.1-2: 360 - Ch.3-4: 400 - Ch.5-6: 460 - Ch.7-8: 500 chars, summed across all narrated fields | `common.py:21` (`BAND_CEIL`) |
+| Band prose ceiling (per scenario) | Ch.1-2: 360 · Ch.3-4: 400 · Ch.5-6: 460 · Ch.7-8: 500 chars, summed across all narrated fields | `common.py:21` (`BAND_CEIL`) |
 | Per-field cap | 160 real code points (emoji/curly quotes count as one) per player-visible bubble/pill/card | `common.py:20` (`FIELD_MAX`) |
 | Prose near-dup threshold | 0.82 Jaccard over normalized 3-shingles | `forge_dedup.py:23` (`PROSE_JACCARD`) |
 
-Categories themselves are per-game (6 for `be-the-safe-adult`, 5 for `glrl`, 6 for `body-lab`; see Fleet numbers) and come from that game's Scenario Library JSON `categories` map - they are not standardized fleet-wide. The chapter band (1-8) is what drives ceilings and the mechanic allowlist, read off `path.ts` by `chapter_of()` (common.py:230-235), which resolves the file's **runtime** `gameId` rather than trusting the filename stem (the one game where they differ is `feelings-friends.ts`, whose `gameId` is `"feelings"`).
+Categories themselves are per-game (6 for `be-the-safe-adult`, 5 for `glrl`, 6 for `body-lab`; see Fleet numbers) and come from that game's Scenario Library JSON `categories` map. They are not standardized fleet-wide. The chapter band (1-8) is what drives ceilings and the mechanic allowlist, read off `path.ts` by `chapter_of()` (common.py:230-235), which resolves the file's **runtime** `gameId` rather than trusting the filename stem (the one game where they differ is `feelings-friends.ts`, whose `gameId` is `"feelings"`).
 
 ## Safety and quality gates
 
 | Gate | What it blocks | Pre-commit? | Forge-only? |
 |---|---|---|---|
-| `swipeed_status.py --check` | Build-status inconsistency between the xlsx, the `GAME` map and the actual content files; a v2 game built but not registered in `engine-host` | Yes (`githooks/pre-commit:10`) | - |
-| `read_first.py --gate` | A **new** v2 build committed without a hash-pinned attestation that its 5 source docs were read | Yes (`githooks/pre-commit:23`), but only fires when a content file newly becomes v2 | - |
+| `swipeed_status.py --check` | Build-status inconsistency between the xlsx, the `GAME` map and the actual content files; a v2 game built but not registered in `engine-host` | Yes (`githooks/pre-commit:10`) | none |
+| `read_first.py --gate` | A **new** v2 build committed without a hash-pinned attestation that its 5 source docs were read | Yes (`githooks/pre-commit:23`), but only fires when a content file newly becomes v2 | none |
 | `no_dashes.py` | An em or en dash in any tracked text file (copy, content, comments, scripts, docs), except the hash-pinned `.read-first/` attestations ([SWED-92](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22)). How to write around them: [writing without dashes](../playbooks/writing-without-dashes.md) | Yes, on the staged files | Also `npm run gates` over every tracked file, so a build fails on it |
 | `content_gate.py` | Over the whole bank: parse errors, a lesson bank under 300 scenarios, duplicate ids within a game, every per-scenario check in `common.scenario_errors` (required fields, strict shapes, helplines on every visible field, 160 characters per field, the chapter band ceiling, band-mechanic membership using the committed scenario libraries' `leadMechanics`), the 35% and 42% mix caps, config strings (length and helplines), and every capstone and help-sheet string (length and helplines). About 5 seconds | Yes, when `src/content/` or the gate scripts are staged; override for one commit with `SWIPEED_CONTENT_GATE_OVERRIDE=1` | Also `npm run gates`, and before every build (`prebuild`), so a Vercel preview or production deploy fails on it with no override |
-| `lints.py` | Content lints from the playtest plan ([SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de)): em or en dashes, "Lensy:"/"Sam:" prefixes or the scenario's own persona name used as one ("Sneha: ...", [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007)), a reflect or choose hook plus prompt with more than one question or a clipped tag question ("Agree?"), a match left and right that share a content word, a sort item that shares a word with its own zone's label that no other zone has, and a `myth.re` that opens with a pronoun. `--review` also lists match rights that share a word (possible near-synonyms, audit A12) | Yes, through the content gate, for games on `scripts/forge/lint_clean.json` (Choosing & Building since 2026-09-15; a cleaned game is added and never removed) | Also on every new batch in `forge_check.py --batch`; `python3 scripts/forge/lints.py <file stem>` reports a game |
-| `forge_check.py --game <gid>` | The content gate's lesson checks for one game, plus the forge plan's persona roster and a count under 400 without a logged `exhaustion.json` (both read the gitignored `.forge/`, so they stay forge-only) | **No** | Yes - the merge-gate step of `gen_workflow.js` |
-| `forge_check.py --batch <file> --game <gid>` | The same per-scenario checks over one NDJSON batch, plus the content lints, id safety against the shipped bank and the plan's id blocks, and a rejection for any non-empty line that is not a scenario | **No** | Yes - the self-validation loop each generation/review agent runs |
-| `forge_dedup.py --verify --game <gid>` | INTRA-band (same chapter) structural or >=0.82 Jaccard prose near-duplicates. Cross-band echoes are logged, not blocked (legitimate age re-teaching) | **No** | Yes - the assemble step |
+| `lints.py` | Content lints from the playtest plan ([SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de)): em or en dashes, "Lensy:"/"Sam:" prefixes or the scenario's own persona name used as one ("Sneha: ...", [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007)), a reflect or choose hook plus prompt with more than one question or a clipped tag question ("Agree?"), a match left and right that share a content word, a sort item that shares a word with its own zone's label that no other zone has, a `myth.re` that opens with a pronoun, and a reflect `ask` or `deeper` that is not exactly one question or that asks about harm in the player's own life ([SWED-97](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc)). `--review` also lists match rights that share a word (possible near-synonyms, audit A12) | Yes, through the content gate, for games on `scripts/forge/lint_clean.json` (Choosing & Building since 2026-09-15; a cleaned game is added and never removed) | Also on every new batch in `forge_check.py --batch`; `python3 scripts/forge/lints.py <file stem>` reports a game |
+| `forge_check.py --game <gid>` | The content gate's lesson checks for one game, plus the forge plan's persona roster and a count under 400 without a logged `exhaustion.json` (both read the gitignored `.forge/`, so they stay forge-only) | **No** | Yes: the merge-gate step of `gen_workflow.js` |
+| `forge_check.py --batch <file> --game <gid>` | The same per-scenario checks over one NDJSON batch, plus the content lints, id safety against the shipped bank and the plan's id blocks, and a rejection for any non-empty line that is not a scenario | **No** | Yes: the self-validation loop each generation/review agent runs |
+| `forge_dedup.py --verify --game <gid>` | INTRA-band (same chapter) structural or >=0.82 Jaccard prose near-duplicates. Cross-band echoes are logged, not blocked (legitimate age re-teaching) | **No** | Yes: the assemble step |
 | `forge_assemble.py --apply` | A merge that would overwrite shipped scenarios, change a reshape's category, change its type other than a listed reflect-to-choose conversion, use an out-of-block or repeated id, or carry a non-scenario line; and a merged file that fails its parse and count round trip (written atomically, so the game file is untouched on failure) | **No** (it *is* the write step) | Yes |
 | `test_gates.py` | A fixture suite proving the gates reject malformed content: missing required fields, retired helplines, and the content gate's planted problems (a wrong helpline in a hook, an emptied bank, an over-length reflect option, a broken line, bad capstone and help-sheet numbers) and the dash gate (an em dash and an en dash fail, a hyphenated range and a clean line pass) | Yes, with the content gate | Also before every build (`npm run gates`) |
 
-**Net effect:** committing a hand-edit to an existing scenario is only gated on message length, build-status consistency and (for a brand-new game) the read-first attestation. Shape correctness, mechanic-mix caps, duplicate ids and dedup are **not** re-checked at commit time - they run only inside the forge workflow or when a maintainer runs them by hand. [Extending SwipeEd](../games/extending-swipeed.md) flags the same gap.
+**Net effect:** committing a hand-edit to an existing scenario is only gated on message length, build-status consistency and (for a brand-new game) the read-first attestation. Shape correctness, mechanic-mix caps, duplicate ids and dedup are **not** re-checked at commit time. They run only inside the forge workflow or when a maintainer runs them by hand. [Extending SwipeEd](../games/extending-swipeed.md) flags the same gap.
 
 ### The helpline allowlist (`common.py:37-50`)
 
@@ -393,17 +397,17 @@ By share of the fleet: branch 18.1%, strike-rewrite 17.2%, reflect 15.9%, role-p
 | Capstone victory laps | 70 |
 | **Grand total (lessons + capstone laps)** | **33,612** |
 | Average scenarios per lesson game | 486.1 |
-| Games below the 400 floor | 2: `looking-after-you` (397), `raising-neurodiverse-kids` (396) - both carry a logged `.forge/<gameId>/exhaustion.json` |
+| Games below the 400 floor | 2: `looking-after-you` (397), `raising-neurodiverse-kids` (396): both carry a logged `.forge/<gameId>/exhaustion.json` |
 
 ## Known issues
 
 Verified read-only against the live repo on 2026-09-14, against a 2026-09-01 audit.
 
-### SWED-53: `.forge/` source lost `leftValence`/`rightValence` for swipe items - CONFIRMED
+### SWED-53: `.forge/` source lost `leftValence`/`rightValence` for swipe items (CONFIRMED)
 
-The shipped fleet carries declared valence on every swipe item: 201/201 in `src/content/games/*.ts` (across the only two games that use `swipe`: `glrl` 120, `reality-check` 81). The `.forge/` source snapshots carry it on **none**: 0/160 in `.forge/*/combined.ndjson` and 0/160 in the underlying `.forge/*/gen/*.ndjson` batches for those same two games. Root cause: `scripts/forge/migrate_swipe_valence.py` is a one-off migration that splices `leftValence`/`rightValence` into a line via a regex anchor on `"answer":"left|right"`, keyed off `swipe_valence_map.json`'s label-pair table (86 entries). Its own docstring describes exactly what it touches: `src/content/games/*.ts`, nothing under `.forge/`. It was run once, directly against the shipped files, and never back-ported to the generation snapshots - the same staleness pattern as SWED-54.
+The shipped fleet carries declared valence on every swipe item: 201/201 in `src/content/games/*.ts` (across the only two games that use `swipe`: `glrl` 120, `reality-check` 81). The `.forge/` source snapshots carry it on **none**: 0/160 in `.forge/*/combined.ndjson` and 0/160 in the underlying `.forge/*/gen/*.ndjson` batches for those same two games. Root cause: `scripts/forge/migrate_swipe_valence.py` is a one-off migration that splices `leftValence`/`rightValence` into a line via a regex anchor on `"answer":"left|right"`, keyed off `swipe_valence_map.json`'s label-pair table (86 entries). Its own docstring describes exactly what it touches: `src/content/games/*.ts`, nothing under `.forge/`. It was run once, directly against the shipped files, and never back-ported to the generation snapshots, the same staleness pattern as SWED-54.
 
-### SWED-54: 14 scenario ids shared by two different scenarios - CONFIRMED, exact match
+### SWED-54: 14 scenario ids shared by two different scenarios (CONFIRMED, exact match)
 
 Not present in the shipped bank (0 duplicate ids within any single `src/content/games/*.ts`, verified two independent ways) and not present in any individual pre-combine `.forge/*/gen/<category>.ndjson` batch. All 14 live in `.forge/<gameId>/combined.ndjson`, the post-concatenation, pre-assembly file:
 
@@ -412,11 +416,11 @@ Not present in the shipped bank (0 duplicate ids within any single `src/content/
 | `lead-the-way` | lw-990 through lw-997 | 8 |
 | `mutual` | mt-990 through mt-995 | 6 |
 
-Each pair comes from two **different** category batches independently generating a scenario at the same id (for example `lw-990` exists once as a `the-gaps` `spot` scenario and once as a `what-allyship-is` `strike-rewrite` scenario). Since each individual `gen/*.ndjson` file is clean, the collision is introduced specifically at the `cat gen/*.ndjson > combined.ndjson` step, at what looks like a category id-block boundary. The shipped `.ts` for both games has zero duplicate ids today: `forge_check.py`'s merge gate hard-fails on duplicate ids (`forge_check.py:91-93`), which would have forced a hand-fix in the `.ts` directly (`lead-the-way.ts` keeps only the `the-gaps`/`spot` version of `lw-990`) - but, as with SWED-53, that fix was never carried back into `.forge/`.
+Each pair comes from two **different** category batches independently generating a scenario at the same id (for example `lw-990` exists once as a `the-gaps` `spot` scenario and once as a `what-allyship-is` `strike-rewrite` scenario). Since each individual `gen/*.ndjson` file is clean, the collision is introduced specifically at the `cat gen/*.ndjson > combined.ndjson` step, at what looks like a category id-block boundary. The shipped `.ts` for both games has zero duplicate ids today: `forge_check.py`'s merge gate hard-fails on duplicate ids (`forge_check.py:91-93`), which would have forced a hand-fix in the `.ts` directly (`lead-the-way.ts` keeps only the `the-gaps`/`spot` version of `lw-990`), but, as with SWED-53, that fix was never carried back into `.forge/`.
 
-### SWED-55: 52 duplicate or near-duplicate scenarios - directionally confirmed, order of magnitude match
+### SWED-55: 52 duplicate or near-duplicate scenarios (directionally confirmed, order of magnitude match)
 
-`forge_dedup.py` was not run for this audit; its documented method - a per-mechanic structural signature plus 3-shingle Jaccard >= 0.82 over normalized, helpline-masked visible text, INTRA-band (same chapter) blocking and CROSS-band (different chapter) merely logged - was independently reimplemented from scratch for this audit. Results over the live fleet (33,542 scenarios):
+`forge_dedup.py` was not run for this audit; its documented method (a per-mechanic structural signature plus 3-shingle Jaccard >= 0.82 over normalized, helpline-masked visible text, INTRA-band (same chapter) blocking and CROSS-band (different chapter) merely logged) was independently reimplemented from scratch for this audit. Results over the live fleet (33,542 scenarios):
 
 | Class | Structural collisions | Prose near-dups (>= 0.82) | Distinct scenarios touched |
 |---|---|---|---|
@@ -424,20 +428,20 @@ Each pair comes from two **different** category batches independently generating
 | Cross-band (logged, allowed by design) | 51 pairs | 7 pairs | 99 |
 | **Combined** | **53 pairs** | **7 pairs** | **103** |
 
-The audit's headline "52" lines up closely with the structural-signature pair count (53 here); an exact match would need a run of the real `forge_dedup.py`, which this audit did not do. The large majority are cross-band echoes tied to explicit spiral-curriculum links in `path.ts`'s `buildsOn` field - `my-body` <-> `safety-squad` (My Body, My Rules -> Safety Squad) alone accounts for 11 of the 53 structural pairs, which is exactly the "legitimate age re-teaching" case `forge_dedup.py`'s own design calls out as logged, not blocked. Only the 2 intra-band pairs are the class the merge gate is meant to catch: A run of the real `forge_dedup.py --verify` for all 69 games on 2026-09-14 reported 0 intra-band collisions, including the two pairs below, so they are candidates for a human look rather than gate failures; the reimplementation's normalisation evidently differs.
+The audit's headline "52" lines up closely with the structural-signature pair count (53 here); an exact match would need a run of the real `forge_dedup.py`, which this audit did not do. The large majority are cross-band echoes tied to explicit spiral-curriculum links in `path.ts`'s `buildsOn` field: `my-body` <-> `safety-squad` (My Body, My Rules -> Safety Squad) alone accounts for 11 of the 53 structural pairs, which is exactly the "legitimate age re-teaching" case `forge_dedup.py`'s own design calls out as logged, not blocked. Only the 2 intra-band pairs are the class the merge gate is meant to catch: A run of the real `forge_dedup.py --verify` for all 69 games on 2026-09-14 reported 0 intra-band collisions, including the two pairs below, so they are candidates for a human look rather than gate failures; the reimplementation's normalisation evidently differs.
 
 - `feelings:ff-013` (strike-rewrite) and `same-same:ss-041`, both Ch.1: "Big boys don't cry."
 - `feelings:ff-083` (reflect) and `my-body:mb-082`, both Ch.1: near-identical "who would you tell" prompts.
 
-Both pairs sit in the original ~84-scenario hand-authored libraries of two *different* Chapter-1 games (not forge-generated), which is consistent with `forge_dedup.py`'s whole-bank pass only running inside one game's own forge cycle - two pre-existing games that were never forged against each other in the same pass would not have been cross-checked. Worth a maintainer follow-up; low severity (4 scenarios out of 33,542).
+Both pairs sit in the original ~84-scenario hand-authored libraries of two *different* Chapter-1 games (not forge-generated), which is consistent with `forge_dedup.py`'s whole-bank pass only running inside one game's own forge cycle: two pre-existing games that were never forged against each other in the same pass would not have been cross-checked. Worth a maintainer follow-up; low severity (4 scenarios out of 33,542).
 
 ### Which gates catch which issue
 
 | Issue | Would a pre-commit hook have caught it? | Would `forge_check`/`forge_dedup` (forge-only) have caught it? |
 |---|---|---|
-| SWED-53 (`.forge/` missing valence) | No - pre-commit never reads `.forge/` | No - the merge gate only checks the committed `.ts`, where valence is present |
-| SWED-54 (14 duplicate ids) | No - duplicate-id detection is inside `forge_check.py`, not pre-commit | Yes, on the shipped `.ts` (and did - that is why the shipped files are clean); never on `.forge/` snapshots |
-| SWED-55 (52 near-dups) | No - dedup is inside `forge_dedup.py`, not pre-commit | Yes for intra-band, by design; cross-band is logged, not blocked, so these mostly would not be "caught" even in forge |
+| SWED-53 (`.forge/` missing valence) | No: pre-commit never reads `.forge/` | No: the merge gate only checks the committed `.ts`, where valence is present |
+| SWED-54 (14 duplicate ids) | No: duplicate-id detection is inside `forge_check.py`, not pre-commit | Yes, on the shipped `.ts` (and did: that is why the shipped files are clean); never on `.forge/` snapshots |
+| SWED-55 (52 near-dups) | No: dedup is inside `forge_dedup.py`, not pre-commit | Yes for intra-band, by design; cross-band is logged, not blocked, so these mostly would not be "caught" even in forge |
 
 ## How to change a bank safely
 
@@ -482,7 +486,7 @@ shipped scenario it finds ambiguous in `.forge/<gameId>/reshape.json` (`{"blind-
 review the rewrites blind again. Assemble when it reports none, and add the game to `lint_clean.json` once `lints.py` finds nothing. The planner refuses a
 convert file that names an unsupported conversion or an id that is not a shipped reflect.
 
-**A standing caution**, given SWED-53 and SWED-54 above: whichever path you take, a fix made by hand directly in the `.ts` (as the merge gate's own failure-recovery instructions require) is never carried back into `.forge/<gameId>/`. Treat `.forge/` as a historical log of one generation run, not a live mirror of the shipped bank - never diff against it to decide whether the shipped content is correct.
+**A standing caution**, given SWED-53 and SWED-54 above: whichever path you take, a fix made by hand directly in the `.ts` (as the merge gate's own failure-recovery instructions require) is never carried back into `.forge/<gameId>/`. Treat `.forge/` as a historical log of one generation run, not a live mirror of the shipped bank: never diff against it to decide whether the shipped content is correct.
 
 ## Glossary
 
@@ -502,11 +506,11 @@ convert file that names an unsupported conversion or an id that is not a shipped
 
 ## Related
 
-- [Content pipeline (forge)](../games/swipeed-content-pipeline.md) - how the fleet was grown, wave by wave.
-- [Extending SwipeEd](../games/extending-swipeed.md) - the checklist for adding a game or an 11th mechanic.
-- [SwipeEd - what we built and why](../games/swipeed-build-overview.md) - the end-to-end synthesis of the build.
-- [Reusable game patterns](../games/swipeed-game-patterns.md) - the engine and content patterns this schema assumes.
-- [Games catalog](../games/index.md) - all 69 games and 8 capstones by chapter.
+- [Content pipeline (forge)](../games/swipeed-content-pipeline.md): how the fleet was grown, wave by wave.
+- [Extending SwipeEd](../games/extending-swipeed.md): the checklist for adding a game or an 11th mechanic.
+- [SwipeEd: what we built and why](../games/swipeed-build-overview.md): the end-to-end synthesis of the build.
+- [Reusable game patterns](../games/swipeed-game-patterns.md): the engine and content patterns this schema assumes.
+- [Games catalog](../games/index.md): all 69 games and 8 capstones by chapter.
 - [v2 engine](../architecture/v2-engine.md) · [design system](../design.md) · [knowledge base index](../README.md)
 - [Question bank audit, 2026-09-14](../audits/question-bank-audit-2026-09-14.md) and [forge pipeline review, 2026-09-14](../audits/forge-pipeline-review-2026-09-14.md).
 - Spot-checked against this doc: [Be the Safe Adult](../games/be-the-safe-adult.md), [Green Light / Red Light](../games/green-light-red-light.md), [Body Lab Juniors](../games/body-lab-juniors.md).

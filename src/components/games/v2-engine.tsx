@@ -11,6 +11,8 @@ import { MatchBoard } from "@/components/games/match-board";
 import { SwipeCard, type SideStyle } from "@/components/games/swipe-card";
 import { UnReBeat } from "@/components/games/un-re";
 import { StoryPlay } from "@/components/games/story-play";
+import { ReflectPlay, type ReflectBand } from "@/components/games/reflect-play";
+import { NODES } from "@/content/path";
 import { useProfile } from "@/lib/store";
 import { speak, stopSpeaking, replay } from "@/lib/speak";
 import { celebrate } from "@/lib/confetti";
@@ -91,6 +93,8 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   // a branch resolve (the picked option's consequence) shown by the engine so its Next is bottom-pinned like every
   // other mechanic: BranchPlay no longer renders its own inline Next.
   const [branchResolve, setBranchResolve] = useState<{ text: string; best: boolean } | null>(null);
+  // the reflect conversation ran (SWED-97), so the affirm is already on screen and the result closes on the relearn
+  const [talked, setTalked] = useState(false);
   const [stickers, setStickers] = useState<Set<string>>(new Set()); // category ids earned
   const [bubble, setBubble] = useState(() => cleanLine(greet));
   const [heard, setHeard] = useState(""); // a spoken line shown elsewhere on screen, announced but not repeated on the feedback line
@@ -107,6 +111,11 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   const greeting = useMemo(() => greetWithName(greet, profile.name), [greet, profile.name]);
   const reduceMotion = prefersReducedMotion(); // calm OR the OS prefers-reduced-motion setting: gates all motion
   const sc = queue[qi];
+  // how a reflect continues after the pick (SWED-97): ages 3-6 talk to a grown-up, older players write
+  const band = useMemo<ReflectBand>(() => {
+    const age = NODES.find((n) => n.game === gameId)?.ageGate ?? 12;
+    return age < 6 ? "talk" : age < 18 ? "kids" : "adults";
+  }, [gameId]);
 
   // say() speaks `t`; `shown` replaces what the feedback line displays ("" when a card already shows the line).
   const say = useCallback((t: string, shown?: string) => {
@@ -157,19 +166,21 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
       if (shape === "card") { card = alternate(runs.side, "myth", "truth"); runs.side.push(card); }
     }
     const q = card ? MYTH_CARD_QUESTION : hookLine(s);
-    setBranchResolve(null); setPhase("play"); setQuestion(q); setRevealed(false); setMythCard(card);
+    setBranchResolve(null); setPhase("play"); setQuestion(q); setRevealed(false); setMythCard(card); setTalked(false);
     questionSpeech.current = card && s.type === "strike-rewrite" ? `${q} ${card === "myth" ? s.myth.un : s.myth.re}` : q;
     say(questionSpeech.current, q);
   }, [say, mythCards]);
 
-  // A multi-step beat asks its next question on the same card (SWED-96): the renderer holds its own answers back, so
-  // this changes the card, speaks it, and moves focus to it without unmounting the renderer.
+  // A beat that continues after its first answer (a reflect conversation, SWED-97, or a multi-step branch or
+  // role-play, SWED-96) asks its next question on the same card: the renderer holds its own
+  // answers back, so this changes the card, speaks it (after `lead`, when given) and moves focus to it without
+  // unmounting the renderer.
   const [asked, setAsked] = useState(0);
-  const ask = useCallback((q: string) => {
+  const ask = useCallback((q: string, lead?: string) => {
     const line = cleanLine(q);
     setQuestion(line); setAsked((n) => n + 1);
     questionSpeech.current = line;
-    say(line, line);
+    say(lead ? `${cleanLine(lead)} ${line}` : line, line);
   }, [say]);
 
   // Hold the answers until the question has been read. A timer, not speech onEnd: muting mid-line cancels
@@ -208,7 +219,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 
   // A renderer calls this when the child completes its interaction. `picked` (reflect) lets us echo the chosen
   // option back by name first ("Happy. <affirm>") so affect-labelling is audible.
-  const solve = (picked?: string, branch?: { text: string; best: boolean }) => {
+  const solve = (picked?: string, branch?: { text: string; best: boolean }, conversation = false) => {
     if (!sc) return;
     earn(sc.cat);
     celebrate("small");
@@ -216,6 +227,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
     setBranchResolve(branch ?? null);
     setPhase("resolve");
     if (branch) return; // the branch consequence was already spoken on pick
+    if (conversation && sc.type === "reflect") { setTalked(true); say(sc.relearn); return; }
     const line = resolveLine(sc);
     say(picked && sc.type === "reflect" ? `${picked}. ${line}` : line);
   };
@@ -318,9 +330,13 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
           )}
 
           {/* PLAY: Lensy's question card carries the hook; the answers follow once it has been read. */}
-          {view === "play" && sc && (phase === "play" || sc.type === "choose" || isStory(sc)) && (revealed ? (
+          {view === "play" && sc && (phase === "play" || sc.type === "choose" || sc.type === "reflect" || isStory(sc)) && (revealed ? (
             <div className={`flex flex-1 flex-col gap-4 ${reduceMotion ? "" : "animate-in fade-in slide-in-from-bottom-2 duration-300"}`}>
-              <Play key={sc.id} sc={sc} onSolved={solve} say={say} ask={ask} done={phase === "resolve"} reduceMotion={reduceMotion} buildLabels={buildLabels} mythCard={mythCard} />
+              {sc.type === "reflect" ? (
+                <ReflectPlay key={sc.id} sc={sc} band={band} safety={isSafetyBeat(sc)} ask={ask} say={say} onSolved={solve} done={phase === "resolve"} help={HelpPill} />
+              ) : (
+                <Play key={sc.id} sc={sc} onSolved={solve} say={say} ask={ask} done={phase === "resolve"} reduceMotion={reduceMotion} buildLabels={buildLabels} mythCard={mythCard} />
+              )}
             </div>
           ) : <RevealGate onReveal={() => setRevealed(true)} />)}
           {view === "play" && sc && phase === "resolve" && (
@@ -330,7 +346,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
               ) : branchResolve ? (
                 <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold leading-relaxed backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{branchResolve.best ? "💚 " : "💛 "}{branchResolve.text}</div>
               ) : (
-                <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold leading-relaxed backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {resolveLine(sc)}</div>
+                <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold leading-relaxed backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {talked && sc.type === "reflect" ? sc.relearn : resolveLine(sc)}</div>
               )}
               {reassure && isSafetyBeat(sc) && (
                 <div className="glass-pill rounded-2xl px-4 py-2.5 text-center text-sm font-medium backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{reassure}</div>
@@ -368,7 +384,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 function Play({ sc, onSolved, say, ask, done, reduceMotion, buildLabels, mythCard }: { sc: Scenario; onSolved: (picked?: string, branch?: { text: string; best: boolean }) => void; say: (t: string, shown?: string) => void; ask: (q: string) => void; done: boolean; reduceMotion: boolean; buildLabels?: { assemble?: string; sequence?: string }; mythCard?: "myth" | "truth" | null }) {
   if (isStory(sc)) return <StoryPlay sc={sc} ask={ask} say={say} onSolved={onSolved} done={done} />;
   switch (sc.type) {
-    case "reflect": return <ReflectPlay sc={sc} onSolved={onSolved} />;
+    case "reflect": return null; // V2Game renders ReflectPlay itself: the conversation needs ask, the band and help
     case "choose": return <ChoosePlay sc={sc} onSolved={onSolved} say={say} />;
     case "role-play": return <RolePlayPlay sc={sc} onSolved={onSolved} say={say} />;
     case "strike-rewrite": return mythCard
@@ -407,18 +423,6 @@ function SwipePlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, 
     <SwipeCard cue={sc.cue} left={sc.left} right={sc.right} answer={sc.answer} styles={swipeStyles(sc)} reduceMotion={reduceMotion}
       onCorrect={() => { vibrate(12); onSolved(); }}
       onMiss={() => say("Look again. Read the card, then swipe it the other way.")} />
-  );
-}
-
-// reflect: every option is affirming; tap any (no wrong answer). The chosen option is echoed back by name on
-// resolve (affect-labelling). Tap IS the right verb here: a drag would add ceremony and hurt the 3-6 band.
-function ReflectPlay({ sc, onSolved }: { sc: Extract<Scenario, { type: "reflect" }>; onSolved: (picked?: string) => void }) {
-  return (
-    <div className="grid grid-cols-1 gap-2.5">
-      {sc.options.map((o) => (
-        <button key={o} type="button" onClick={() => onSolved(o)} className="glass-card flex items-center justify-center rounded-2xl px-3 py-4 text-center text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.96]">{o}</button>
-      ))}
-    </div>
   );
 }
 

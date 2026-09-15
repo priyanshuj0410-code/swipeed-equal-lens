@@ -14,8 +14,10 @@ export type V2Mechanic = "reflect" | "choose" | "role-play" | "strike-rewrite" |
 
 type Base = { id: string; cat: string; persona: string; source: string; relearn: string; hook: string };
 
-// reflect: affirm autonomy / a body-cue; EVERY option is acceptable (no wrong answer). Tap any → `affirm`.
-export type ReflectScenario = Base & { type: "reflect"; prompt: string; options: string[]; affirm: string };
+// reflect: affirm autonomy / a body-cue; EVERY option is acceptable (no wrong answer). Tap any, then the reflection
+// continues (SWED-97): `ask` invites the player's own words about their pick and `deeper` asks one more,
+// perspective-taking question, each with a band default when absent. Ages 3-6 and safety beats keep the single tap.
+export type ReflectScenario = Base & { type: "reflect"; prompt: string; options: string[]; affirm: string; ask?: string; deeper?: string };
 // choose: tap every option that fits, then Check (SWED-69). Exactly 6 options, 2 to 4 with `fits: true`. Every option
 // has a `note`: why it fits (shown if the player missed it) or why it does not (shown if they picked it). Feelings,
 // personal choices and safety lines stay `reflect`, where no answer is wrong.

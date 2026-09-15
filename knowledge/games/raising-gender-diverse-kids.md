@@ -3,51 +3,52 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/raising-gender-diverse-kids.md
 title: Raising Gender-Diverse Kids
-description: Affirming and protecting an LGBTQ+ or gender-nonconforming child, for parents - not forcing norms, being their safe place. An affirming, accepting parent is the single biggest protective factor; family acceptance roughly halves the odds of suicidal thoughts and attempts. Dignity-first, never-out, child-safety-centred; never conversion "cures"; meets parents with compassion without shaming their beliefs, while the child's safety and dignity stay non-negotiable.
+description: Affirming and protecting an LGBTQ+ or gender-nonconforming child, for parents. Not forcing norms, being their safe place. An affirming, accepting parent is the single biggest protective factor; family acceptance roughly halves the odds of suicidal thoughts and attempts. Dignity-first, never-out, child-safety-centred; never conversion "cures"; meets parents with compassion without shaming their beliefs, while the child's safety and dignity stay non-negotiable.
 resource: https://swipeed.vercel.app/game/raising-gender-diverse-kids
 tags: [games, swipeed, parenting, lgbtq, gender-diversity, child-safeguarding, chapter-8, parent-layer]
 timestamp: 2026-06-24T03:45:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
 ---
 
 # Raising Gender-Diverse Kids
 
-> **Built to GDD 66 v2 - the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
-> **The sixth Chapter-8 node - a sensitive Parent-Layer node handled with the care of [Spectrum](spectrum.md)
+> **Built to GDD 66 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
+> **The sixth Chapter-8 node, a sensitive Parent-Layer node handled with the care of [Spectrum](spectrum.md)
 > (g32): dignity-first, never-out, child-safety-centred.** *The evidence is the spine: an affirming, accepting
-> parent is the single biggest protective factor in such a child's wellbeing and safety - **family acceptance
+> parent is the single biggest protective factor in such a child's wellbeing and safety: **family acceptance
 > roughly halves the odds of suicidal thoughts and attempts** and raises self-esteem and health.* A **437-scenario
 > typed library** (`content/games/raising-gender-diverse-kids.ts`: acceptance-is-protection 74 · understand 14 ·
-> if-they-come-out 74 · protect-and-affirm 70 · your-own-journey 72 · support-and-india 72) - seven play actions
+> if-they-come-out 74 · protect-and-affirm 70 · your-own-journey 72 · support-and-india 72), with seven play actions
 > (strike-rewrite ×77 · branch ×68 · reflect ×68 · role-play ×64 · sort ×56 · match ×52 · spot ×52), **0% binary**,
 > led by strike-rewrite (bust the myth) + branch (your move) + role-play (say it). Six modes: **acceptance is
 > protection** (busts *"accepting causes it"* and *"disapproval steers them back"*; lead with love before full
 > understanding); **understand** (orientation, gender identity and expression are three *different* things; busts
 > phase/choice/illness/foreign-invention/bad-parenting myths); **if they come out** (the first reaction matters
-> most - lead with gratitude and unconditional love, process your own shock later, **never out the child**);
+> most: lead with gratitude and unconditional love, process your own shock later, **never out the child**);
 > **protect and affirm** (be the safe harbour and advocate, shield from bullying, follow the child's lead with no
 > pressure to label or mask, use their name and pronouns); **your own journey** (meet your own fears and grief
-> honestly and move toward acceptance without shame - take your struggle to a supportive **adult**, not your
+> honestly and move toward acceptance without shame: take your struggle to a supportive **adult**, not your
 > child); **support and the India context** (affirming counsellors & helplines, **never conversion "cures"**, and
-> the settled value that every child deserves a safe loving home - set against India's constitutional dignity, the
+> the settled value that every child deserves a safe loving home, set against India's constitutional dignity, the
 > **NALSA** recognition of transgender persons & self-identification, and the **decriminalisation of consensual
 > same-sex relations**). **Affirming and evidence-based, yet compassionate: it meets parents wherever they start,
 > without shaming them or their beliefs, while keeping the child's safety & dignity non-negotiable; it never
 > encourages outing a child and records no identity** (`reassureCats` [acceptance-is-protection · if-they-come-out
 > · your-own-journey] + `reassure` + `helpLine` → **Tele-MANAS 14416**, affirming counsellors;
 > crisis 112). **gameId:** library, GDD and engine-host registry all agree on **`raising-gender-diverse-kids`** (no
-> trap). Engine: **no new mechanic, but one `binStyle` token added** - verbatim-engine emulation caught a real
-> mis-colour: POS's bare `keep` token wrongly greened the bad bin **"Keeps you stuck"** (gd-043) - NEG had `keeps
+> trap). Engine: **no new mechanic, but one `binStyle` token added**. Verbatim-engine emulation caught a real
+> mis-colour: POS's bare `keep` token wrongly greened the bad bin **"Keeps you stuck"** (gd-043): NEG had `keeps
 > stuck` but not `keeps you stuck`; added **`keeps you stuck`** to NEG. **Cross-game regression:** only g66 uses it,
 > now correctly red; zero collisions. Spot ids injected (8). New-node wiring: `g66 → raising-gender-diverse-kids`
 > in the gen-path `GAME` dict (+ 🏳️‍🌈 emoji), `path.ts` regenerated (73 built/playable), registered in
 > `engine-host`. Read-first attested. **Builds on** [Spectrum](spectrum.md) (g32) and
-> [What Makes Me, Me](what-makes-me-me.md) (g07) - the gender-diversity spine, now for the parent.
+> [What Makes Me, Me](what-makes-me-me.md) (g07), the gender-diversity spine, now for the parent.
 
-**Node #g66 - Chapter 8, Parent Layer (positive parenting).** *You don't have to understand everything to lead
-with love - and your love is the single biggest thing protecting your child.* This is the **parent's side of
+**Node #g66: Chapter 8, Parent Layer (positive parenting).** *You don't have to understand everything to lead
+with love, and your love is the single biggest thing protecting your child.* This is the **parent's side of
 [Spectrum](spectrum.md) (#g32)**: the teen learned that gender and orientation are a spectrum and nobody gets
 outed; now the parent of an LGBTQ+ or gender-nonconforming child learns that *their acceptance is literally
 life-protecting*. Lensy returns with the same dignity-first care. **The spine: acceptance is protection (it roughly
@@ -57,20 +58,20 @@ harmful, never the answer.**
 
 ## What it embodies
 
-- **Acceptance is protection (14)** - an affirming parent is the single biggest protective factor; busts
+- **Acceptance is protection (14)**: an affirming parent is the single biggest protective factor; busts
   *"accepting causes it"* and *"disapproval steers them back"*; lead with love before full understanding.
-- **Understand (14)** - orientation, gender identity and expression are three different things; busts
+- **Understand (14)**: orientation, gender identity and expression are three different things; busts
   phase/choice/illness/foreign-invention/bad-parenting myths.
-- **If they come out (14)** - the first reaction matters most; lead with gratitude and unconditional love; process
+- **If they come out (14)**: the first reaction matters most; lead with gratitude and unconditional love; process
   your own shock later; **never out the child**.
-- **Protect and affirm (14)** - be the safe harbour and advocate; shield from bullying; follow the child's lead
+- **Protect and affirm (14)**: be the safe harbour and advocate; shield from bullying; follow the child's lead
   (no pressure to label or mask); use their name and pronouns.
-- **Your own journey (14)** - meet your fears and grief honestly and move toward acceptance without shame; take
+- **Your own journey (14)**: meet your fears and grief honestly and move toward acceptance without shame; take
   your struggle to a supportive **adult**, not your child.
-- **Support and the India context (14)** - affirming counsellors & helplines; **never conversion "cures"**; every
+- **Support and the India context (14)**: affirming counsellors & helplines; **never conversion "cures"**; every
   child deserves a safe loving home; NALSA recognition and decriminalisation of consensual same-sex relations.
 
-**Safeguarding (sensitive, affirming).** Handled with Spectrum's care - dignity-first, never-out, records no
+**Safeguarding (sensitive, affirming).** Handled with Spectrum's care: dignity-first, never-out, records no
 identity. It meets parents wherever they start without shaming them or their beliefs, but the **child's safety and
 dignity are non-negotiable**, and **conversion "therapy" / "cures" are named harmful and never endorsed**. Crisis
 or distress routes to Tele-MANAS 14416, an affirming counsellor, or emergency 112. India:

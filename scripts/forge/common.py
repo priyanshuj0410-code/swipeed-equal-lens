@@ -114,6 +114,9 @@ def visible_fields(o):
         for i, s in enumerate(o.get("options", []) or []):
             yield f"option[{i}]", s
         yield "affirm", o.get("affirm", "")
+        for k in ("ask", "deeper"):  # the reflection's follow-up questions (SWED-97), optional
+            if isinstance(o.get(k), str):
+                yield k, o[k]
     elif t == "choose":
         yield "prompt", o.get("prompt", "")
         for i, op in enumerate(o.get("options", []) or []):
@@ -619,7 +622,8 @@ def field_len_errors(o):
 # keys that are NOT narrated prose: excluded from the per-scenario band total (read by the forge gates and by
 # scripts/content_gate.py, which runs at commit and before every build).
 # `note` (choose) is shown only for a wrong or missed pick, so it is capped per field but left out of the total.
-NON_PROSE = {"id", "cat", "type", "key", "persona", "source", "mode", "valence", "outcome", "leftValence", "rightValence", "note"}
+# `ask` and `deeper` (reflect) are asked one at a time after the pick, so they are capped per field too.
+NON_PROSE = {"id", "cat", "type", "key", "persona", "source", "mode", "valence", "outcome", "leftValence", "rightValence", "note", "ask", "deeper"}
 
 def prose_chars(o):
     def walk(v, k=None):

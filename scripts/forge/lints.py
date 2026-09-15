@@ -22,6 +22,9 @@ gate holds at zero findings once a game has been cleaned (a game is added to the
   step-questions  a branch step prompt that asks more than one question
   best-longest    a multi-step scenario whose best option is clearly the longest (6 or more characters longer than every
                   other option) in more than half its steps, which players learn to spot
+  follow-up       a reflect `ask` or `deeper` that is not exactly one question (SWED-97)
+  disclosure      a reflect `ask` or `deeper` that asks players about harm in their own life ("Has this happened to you?",
+                  "Tell me about a time..."): the app cannot receive a disclosure (child-safe content rules)
 
 Review flags (reported, never blocking): match rights that share a content word, which may be near-synonyms that
 turn the pairing into guesswork (question bank audit A12).
@@ -51,6 +54,7 @@ NARRATOR = re.compile(r"(^|[.!?…]\s+)(?:Lensy|Sam)\s*:", re.I)
 TAG = re.compile(r"[.!?…]\s+([^.!?…]{1,30})\?\s*$")
 PRONOUN_OPEN = re.compile(r"^(?:it|they|both|this|these|those|he|she)\b", re.I)
 VERDICT = re.compile(r"\b(?:good|great|best|right|wrong|correct|incorrect|smart|poor|bad|nice|kind|brave)\s+(?:choice|move|answer|call|pick|option|decision)\b|\b(?:well done|good job|that was (?:wrong|right|the best))\b", re.I)
+DISCLOSURE = re.compile(r"\b(?:tell (?:me|us|lensy) about (?:a time|when)|(?:has|did) (?:this|that|anything like this|something like this) (?:ever )?happen(?:ed)? to you|describe what happened|who (?:hurt|touched|hit) you|what happened to you)\b", re.I)
 IDIOM_OPEN = re.compile(r"^it(?:'s|’s| is) (?:okay|ok|fine|normal|natural|alright|all right|never|always|not)\b", re.I)
 
 
@@ -77,6 +81,15 @@ def content_lints(o):
             out.append(f"dash: {label} uses an em or en dash")
         if NARRATOR.search(txt or "") or (speaker and speaker.search(txt or "")):
             out.append(f"narrator: {label} starts a line with a narrator prefix")
+    if t == "reflect":
+        for k in ("ask", "deeper"):
+            q = o.get(k)
+            if not isinstance(q, str):
+                continue
+            if q.count("?") != 1 or not q.rstrip().endswith("?"):
+                out.append(f"follow-up: {k} must be one question ending in '?'")
+            if DISCLOSURE.search(q):
+                out.append(f"disclosure: {k} asks about the player's own experience")
     if t in ("reflect", "choose"):
         if f"{o.get('hook', '')} {o.get('prompt', '')}".count("?") > 1:
             out.append("two-questions: the hook and prompt ask more than one question")

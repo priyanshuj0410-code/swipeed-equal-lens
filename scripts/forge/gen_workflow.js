@@ -34,7 +34,10 @@ TARGET MECHANIC SHAPES (the gate REQUIRES these for new content; read scripts/fo
   with at least one near miss per step, and the best option is not the longest. Never write the old single-step shape
   (options with "consequence").
 - reflect: NO right answer. options:[…] + affirm:"…". Never put best/key/trick/answer on a reflect. Keep reflect for
-  feelings, personal choices and safety lines ("it's not your fault"), where every answer is acceptable.
+  feelings, personal choices and safety lines ("it's not your fault"), where every answer is acceptable. Optional
+  (SWED-97, the reflection continues after the tap): "ask", one question about the player's pick ("What makes that one
+  feel hard to start?"), and "deeper", one perspective-taking question ("What might a friend pick, and why?"). Each is
+  exactly one question and never asks about harm in the player's own life ("Has this happened to you?").
 - choose: prompt + EXACTLY 6 options:[{"text","fits","note"}], 2 to 4 with "fits":true (vary the count). Use it for a
   lesson or values question with a defensible answer. Wrong options must be genuinely tempting (a common belief or a
   near miss), never silly, never "Yes"/"No"/"Both", never a copy of the question. Every note is one short sentence:
