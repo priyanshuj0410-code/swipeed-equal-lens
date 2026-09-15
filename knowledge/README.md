@@ -9,6 +9,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2e3bdb51-00e7-45ff-8181-a301db687b5b  # SWED-65
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5  # SWED-89
 ---
 
 # SwipeEd knowledge base
@@ -35,6 +36,7 @@ knowledge/
   games/             the catalog: one doc per game and capstone, plus the SwipeEd overview docs
   audits/            dated audits: design, question bank, forge pipeline
   playbooks/         approved plans and how-tos (playtest-feedback-plan-2026-09-15.md)
+  research/          dated research: tools, evidence and options before a decision (visual answer options)
   log/               log.md, the dated project log, newest first
 ```
 
@@ -50,6 +52,7 @@ knowledge/
 | Design | [design system](design.md) · [design audit, 2026-09-14](audits/design-audit-2026-09-14.md) |
 | Audits | [design, 2026-09-14](audits/design-audit-2026-09-14.md) · [question bank, 2026-09-14](audits/question-bank-audit-2026-09-14.md) · [forge pipeline, 2026-09-14](audits/forge-pipeline-review-2026-09-14.md) |
 | Plans | [playtest feedback plan, 2026-09-15](playbooks/playtest-feedback-plan-2026-09-15.md): question focus, match and sort, reflect, myth cards |
+| Research | [visual answer options, 2026-09-15](research/visual-answer-options-2026-09-15.md): pictures for pre-readers, reading evidence, Runway, Recraft and other tools ([SWED-89](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5)) |
 | Tracking and history | [Plane configuration](plane.config.md) · [project log](log/log.md) |
 
 ## Keeping it in sync

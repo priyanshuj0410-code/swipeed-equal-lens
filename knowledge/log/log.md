@@ -19,6 +19,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de  # SWED-77
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007  # SWED-71
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d  # SWED-75
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5  # SWED-89
 ---
 
 # SwipeEd project log
@@ -26,6 +27,17 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 - research: visual answer options for pre-readers ([SWED-89](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5))
+- **Why.** The owner wants options to be visual for children who cannot read yet, so pictures help them read and
+  make the games more interesting, for older players too; Runway was suggested.
+- **Findings.** Pictures help understanding but can pull attention away from the printed word, so the word must
+  stay dominant and pictures should fade. A reusable picture bank of about 200 pictures covers most of Feelings
+  Friends. Recraft (SVG, style lock, about $0.04 an image) suits the library; Runway suits motion but trains on
+  uploads below Enterprise and has no SVG; free emoji art (Fluent Emoji, MIT) suits a prototype. Open AAC symbol
+  sets are mostly non-commercial and off-brand.
+- **Doc.** [research/visual-answer-options-2026-09-15.md](../research/visual-answer-options-2026-09-15.md), with a
+  proposed picture card, rules for pictures, a pilot plan and owner decisions. Nothing is built yet.
 
 ## 2026-09-15 - content: the Choosing & Building pilot ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4), [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007), [SWED-68](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62), [SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d))
 - **Why.** Phase 3 of the [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md): the game the

@@ -21,6 +21,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e0437d36-ca6c-45e5-a252-a97f98540836  # SWED-86
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/baa41435-d56c-487b-ac9b-7557d49c85f5  # SWED-87
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8ed837-a59d-4d5b-9457-ba32b594c6fe  # SWED-88
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5  # SWED-89
 ---
 
 # Playtest feedback plan, 2026-09-15
@@ -212,7 +213,10 @@ A reviewer asked to write 139 blind answers in one response ran out of output; a
 bank are ordered scales ("Tiny / Medium / Big / Really big" in Feelings Friends), so the engine does not shuffle
 them. A later wave can add an explicit flag if order bias shows up in the playtest.
 
-**Next:** the same pass on a Chapter 1 game (Feelings Friends), then the playtest with the original testers.
+**Next:** the same pass on a Chapter 1 game (Feelings Friends), then the playtest with the original testers. For
+ages 3 to 6 the owner wants visual options (pictures with the words, so pre-readers can play and pictures build
+reading); the tools and approach are in [visual answer options](../research/visual-answer-options-2026-09-15.md)
+([SWED-89](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5)), and the Feelings Friends pass waits on the owner's decisions listed there.
 
 **Before Phase 2:** the forge safety work this plan depends on is filed as [SWED-72](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b) (gates before every
 deploy), [SWED-73](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9c4f8ab8-948f-4898-b536-457b25d11d71) (safe regrowth), [SWED-74](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1de71970-d924-45d7-acb9-3c28e8a33126) (claim verification), [SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d) (independent
