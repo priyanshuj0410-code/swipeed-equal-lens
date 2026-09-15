@@ -433,6 +433,14 @@ def story_fixtures():
     result("a legacy branch still passes its shape check", not C.shape_errors(legacy))
     result("the single-step lint fires on a legacy branch", any(f.startswith("single-step") for f in L.content_lints(legacy)))
     result("no lint on a clean multi-step branch", not L.content_lints(VALID_STORY), L.content_lints(VALID_STORY))
+    for text in ("It matters to me, can we talk?", "\"It's fine, I'll cover it this month.\"", "Forget it, it's probably nothing.",
+                 "Say it's fine, you're used to it by now", "\"I'm not always asking, that's not fair.\""):
+        result(f"the splice lint fires on: {text}", bool(L.comma_splices(text)))
+    for text in ("Saying it out loud, you realise the laugh bothered you.", "If it does, that's your problem, not mine.",
+                 "\"That's fair,\" he says. \"Maybe I need that break too.\"", "Honestly, we'll see if you even try this time.",
+                 "\"Someone has to, I guess.\"", "When you're ready, I'm here.", "Say yes, and raise the money comment on the date",
+                 "He nods, relieved, and the problem stays exactly where it was."):
+        result(f"no splice lint on: {text}", not L.comma_splices(text), L.comma_splices(text))
     for name, prompt in (("no question", "Moment 2."), ("two questions", "Moment 2? What now?")):
         asks = json.loads(json.dumps(VALID_STORY))
         asks["steps"][1]["prompt"] = prompt
