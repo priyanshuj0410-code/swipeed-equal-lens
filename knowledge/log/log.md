@@ -28,6 +28,16 @@ Newest first. Every change that affects a game, the path, the engine or the ques
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
 
+## 2026-09-15 - research: visual answer options on a zero budget ([SWED-90](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/49cf4efd-6622-4ac8-907c-7c01ccfd0754))
+- **Why.** The owner set the budget for pictures to zero.
+- **Route.** Fluent Emoji (MIT) for feelings and people; FLUX.1 [schnell] (Apache 2.0) run free on the Mac with a
+  style model trained on the brand art for actions and scenes; vtracer for SVG; Humaaans and Open Peeps (CC0);
+  CSS or GSAP motion on our own SVGs. Free costs time: about a day to set up and two to three days for Feelings Friends.
+- **Ruled out by their terms.** Gemini and AI Studio (18+, not for apps likely used by under-18s), Recraft free
+  (Recraft owns outputs), Runway and Krea free (non-commercial), Leonardo and Ideogram free (outputs public).
+  ARASAAC needs owner sign-off (non-commercial, share-alike, clinical look).
+- **Doc.** A zero-budget section in [research/visual-answer-options-2026-09-15.md](../research/visual-answer-options-2026-09-15.md).
+
 ## 2026-09-15 - research: visual answer options for pre-readers ([SWED-89](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5))
 - **Why.** The owner wants options to be visual for children who cannot read yet, so pictures help them read and
   make the games more interesting, for older players too; Runway was suggested.

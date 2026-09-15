@@ -1,12 +1,13 @@
 ---
 type: research
 owner: the-equal-lens
-title: Visual answer options - tools and approach (2026-09-15)
-description: How SwipeEd can give answer options pictures so children who cannot read yet can play and pictures build reading - what the reading research says, the scale of the job, image and animation tools (Runway, Recraft, Gemini and others) with prices and licences, open symbol sets, safety rules for pictures, and a pilot plan with owner decisions.
+title: Visual answer options - tools and approach, including a zero-budget route (2026-09-15)
+description: How SwipeEd can give answer options pictures so children who cannot read yet can play and pictures build reading - what the reading research says, the scale of the job, a zero-budget route (Fluent Emoji, FLUX.1 schnell on the Mac, CC0 illustrations, CSS motion) and which free tiers the terms rule out, paid tools for reference, open symbol sets, safety rules for pictures, and a pilot plan.
 tags: [swipeed, research, pictures, pre-readers, early-literacy, runway, recraft, image-generation, accessibility]
 timestamp: 2026-09-15T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5  # SWED-89
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/49cf4efd-6622-4ac8-907c-7c01ccfd0754  # SWED-90
 ---
 
 # Visual answer options: tools and approach
@@ -17,7 +18,68 @@ Runway was suggested. Tracked as [SWED-89](https://app.plane.so/the-equal-lens/p
 [playtest feedback plan](../playbooks/playtest-feedback-plan-2026-09-15.md), where the Chapter 1 pilot needs options
 that 3 to 6 year olds can use.
 
+## Zero-budget route
+
+The owner set the budget to zero on 2026-09-15 ([SWED-90](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/49cf4efd-6622-4ac8-907c-7c01ccfd0754)), so the paid tools later in this doc are for reference
+only. Everything else here (the evidence, the proposed card, the rules for pictures) still applies.
+
+| Need | Free tool | Licence and obligations |
+|---|---|---|
+| Feelings, faces, people, body parts, everyday objects | Microsoft Fluent Emoji, flat style (about 1,500) | MIT: keep the licence notice in the repo; no in-app credit; may recolour and combine |
+| Actions and scenes in our style ("share the toy", "tell a grown-up", Indian homes and schools) | FLUX.1 [schnell] run on the Mac (Apple M4, 24 GB) with Draw Things (free Mac app) or mflux (free command line); SDXL as a smaller alternative | FLUX.1 [schnell] is Apache 2.0: pictures usable anywhere, no AI label required. SDXL (CreativeML Open RAIL++-M) allows commercial use with content restrictions |
+| One style across hundreds of pictures | A small style model (LoRA) trained on the brand art in `public/brand/`, locally in Draw Things | Our own model; no third-party terms |
+| Turning pictures into SVG | vtracer (MIT, full colour); Inkscape Trace Bitmap (free) for hand finishing | Tools only; the SVGs are ours |
+| Ready-made people to build scenes | Humaaans and Open Peeps (Pablo Stanley) | CC0: no obligations |
+| Motion | CSS or the Web Animations API on our own SVGs; GSAP (free for all use since 2025); Fluent Emoji Animated (MIT) | Free; far lighter than video on low-end phones |
+| Tap to hear | The browser speech the app already uses | Free |
+| Knowing which concepts need pictures | ARASAAC's vocabulary and free API, as a checklist | See "use with care" before using its pictograms |
+
+**Ruled out by their own terms** (checked on the vendors' pages on 2026-09-15):
+
+- **Google AI Studio and the Gemini API:** "You must be 18 years of age or older to use the APIs. You also will not use
+  the Services as part of a website, application, or other service ... that is directed towards or is likely to be
+  accessed by individuals under the age of 18." Unpaid use also trains Google's models.
+- **Recraft free:** "Free Tier Assets are owned by Recraft" and "no commercial use of Free Tier Assets is permitted".
+- **Runway free:** personal, non-commercial use only, and uploads may train its models.
+- **Krea free:** no commercial licence. **Leonardo and Ideogram free:** outputs are forced public, so unreleased brand
+  art would be copyable before launch.
+- **FLUX.1 [dev]:** its outputs may be used commercially, but each must be reviewed and disclosed as AI-generated;
+  [schnell] has no such terms, so use [schnell].
+- **Streamline free** (its licence bars offering icons for users to pick from), **Icons8 free** (a link on every
+  screen), **Rive** for our own files (exporting is a paid feature).
+
+**Use with care:**
+
+- **ARASAAC** (13,500+ pictograms) covers our concepts best, but it is CC BY-NC-SA: no commercial use of any kind,
+  changed pictograms must stay under the same licence, and every use needs its credit line ("The pictographic symbols
+  used are the property of the Government of Aragón and have been created by Sergio Palao for ARASAAC, that
+  distribute them under Creative Commons License BY-NC-SA"). Many are black-and-white schematic figures that look
+  clinical beside our cards. Acceptable only while SwipeEd stays free and without paid partners, and only if the
+  owner agrees; email ARASAAC first.
+- **OpenMoji** (CC BY-SA: credit, and changed icons must stay CC BY-SA), **Noto Emoji** (Apache 2.0, glossier look),
+  **Jellow** (Indian contexts, but non-commercial, share-alike and small).
+
+**How the free sets look.** A side-by-side of six Feelings Friends concepts (angry, sad, a hug, ask for help, slow
+breaths, share) on our card style: Fluent Emoji is bright, flat and consistent (its hug is already violet); OpenMoji's
+black outlines echo our sticker cards but some poses read poorly; Noto uses gradients; ARASAAC is the most explicit
+for actions but mostly black-and-white stick figures. Emoji sets cover feelings well and social actions only partly,
+which is where locally generated pictures come in.
+
+**Free costs time instead of money.** About a day to set up (install, download 7 to 12 GB of model weights, train
+the style model overnight; the Mac has about 39 GB free), then under a minute to render a picture and one to two
+minutes to review it. About 200 Feelings Friends pictures is roughly two to three working days including review.
+
+**Free pilot:**
+
+1. Prototype the picture card with Fluent Emoji for Feelings Friends' feelings words.
+2. Install Draw Things, download FLUX.1 [schnell], train a style model on the brand art, and make 30 test action
+   pictures for the owner to sign off.
+3. Make the Feelings Friends action pictures, vectorise them, review each against the rules below, and tag the options.
+4. Playtest as planned below. Motion stays CSS animation on our own SVGs; no video.
+
 ## Recommendation in brief
+
+Written before the budget was set to zero; item 3's tools are paid (see the zero-budget route above).
 
 1. **Picture and word together, never a picture alone.** The word stays large and always visible; the picture sits
    above it as a scaffold, Lensy reads the word when it is tapped, and the picture fades as reading grows. The
@@ -165,13 +227,30 @@ Drawn from the brand and child-safe content rules and the safety research:
 
 ## Owner decisions
 
-- Budget and who holds the accounts and API keys (Recraft; Runway; Google).
+- With a zero budget: a day of setup on the Mac and 7 to 12 GB of disk for local models.
+- Whether to use ARASAAC pictograms at all (non-commercial and share-alike terms, clinical look).
+- (Paid route, if budget appears later) who holds the accounts and API keys (Recraft; Runway; Google).
 - Sign-off on the picture style after the style test.
 - Whether Runway training on our uploads is acceptable, or motion waits for an Enterprise plan or another tool.
 - Whether the emoji-placeholder prototype can go to the playtest.
 - SWED-83 (anatomical words) before any body-safety pictures.
 
 ## Sources
+
+Zero-budget route: Gemini API additional terms (https://ai.google.dev/gemini-api/terms); Recraft terms
+(https://www.recraft.ai/legal/terms); FLUX [dev] licence (https://bfl.ai/legal/non-commercial-license-terms); FLUX.1
+[schnell] model card (https://huggingface.co/black-forest-labs/FLUX.1-schnell); SDXL licence
+(https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/blob/main/LICENSE.md); Draw Things LoRA training notes
+(https://wiki.drawthings.ai/wiki/LoRa_Training_Notes); mflux (https://github.com/filipstrand/mflux); vtracer
+(https://github.com/visioncortex/vtracer); Runway usage policy
+(https://help.runwayml.com/hc/en-us/articles/17944787368595-Runway-s-Usage-Policy); Krea terms
+(https://www.krea.ai/terms); Leonardo commercial usage (https://intercom.help/leonardo-ai/en/articles/8044018-commercial-usage);
+Ideogram terms (https://ideogram.ai/legal/tos/); Humaaans (https://www.humaaans.com/); Open Peeps
+(https://www.openpeeps.com/); ARASAAC terms (https://arasaac.org/terms-of-use, https://aulaabierta.arasaac.org/en/terms-of-use);
+Fluent Emoji Animated (https://github.com/microsoft/fluentui-emoji-animated); GSAP free announcement
+(https://webflow.com/blog/gsap-becomes-free); Streamline free licence
+(https://help.streamlinehq.com/en/articles/5354376-streamline-free-license); Icons8 licence (https://icons8.com/license);
+Rive pricing (https://rive.app/pricing).
 
 Reading research: Samuels 1967 (https://eric.ed.gov/?id=ED014370); review of Samuels-era replications
 (https://pmc.ncbi.nlm.nih.gov/articles/PMC12034512/); Guo et al. 2020, AERA Open
