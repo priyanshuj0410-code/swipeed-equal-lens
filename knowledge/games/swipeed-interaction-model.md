@@ -13,6 +13,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e4cc4443-d867-41a0-b827-fb434940eb62  # SWED-68
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
 ---
 
 # SwipeEd - The Interaction Model (direct manipulation)
@@ -74,7 +75,7 @@ mechanic composes, turning each interaction into the verb it teaches.
 | **role-play** | tap an equal-weight, **shuffled** speech card (read & choose the assertive line) | same (native buttons) | press-and-hold-to-speak deferred (optional) |
 | **branch** | tap a (now **shuffled**) option → see its consequence → best advances | same | tap *is* the verb (committing to a course) |
 | **spot** | tap the suspicious card → the flag PLANTS on the catch | same | tap *is* the verb (pointing) |
-| **reflect** | tap any option → it's echoed back by name | same | tap *is* the verb; no wrong answer |
+| **reflect** | tap any option, then write a few words about it and answer one deeper question (each skippable) | same, plus a text box; ages 3-6 tell a grown-up instead; safety beats stay tap-only | no wrong answer; the reflection continues past the tap ([SWED-97](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc)) |
 | **explore-label** | anatomy → tap the part ON a body figure (it lights up where it lives); abstract → honest "which is true?" cards | same (labelled `<button>`s over an aria-hidden SVG) | split is **content-detected** (no schema change) |
 
 ## Bugs fixed in the same pass

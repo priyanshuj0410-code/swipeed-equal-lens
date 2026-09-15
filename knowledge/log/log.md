@@ -22,6 +22,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5  # SWED-89
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22  # SWED-92
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb  # SWED-95
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
 ---
 
 # SwipeEd project log
@@ -29,6 +30,20 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 · engine: reflect continues past the tap ([SWED-97](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc))
+- **Why.** The owner asked for reflect to ask players to write about the option they picked, and for the reflection to
+  continue instead of ending on one affirm line.
+- **Play.** Pick, then Lensy asks about the pick; the player writes up to 280 characters or skips; their words and the
+  affirm appear with one deeper, perspective-taking question; the beat closes on the relearn. Defaults per band, or a
+  scenario's own `ask` and `deeper`. Ages 3-6 get a tell-a-grown-up card; safety beats keep the single tap.
+- **Safety and privacy.** Nothing typed is saved, logged or sent, and the screen says so. Follow-up questions never ask
+  about harm in the player's own life (lint `disclosure`). Words that suggest harm show a calm support card with the
+  game's help route instead of being echoed back.
+- **Content and gates.** 16 Choosing & Building reflects got tailored `ask` and `deeper`; `ask` and `deeper` are
+  visible fields (160 characters, helplines) with `follow-up` and `disclosure` lints and fixtures.
+- **Checked.** Headless on Choosing & Building (write, distress, safety beat, dark), Heart Smart (skip, 360px) and
+  Feelings Friends (talk card).
 
 ## 2026-09-15 · engine: tidy confirmation lines and one explore-label question ([SWED-95](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb))
 - **Why.** The question types gallery showed "Cheering when they try: Helps 💚 . ✓" on a correct sort, zones that
