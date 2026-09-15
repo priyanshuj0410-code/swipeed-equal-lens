@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/my-family-garden.md
 title: My Family Garden
-description: SwipeEd node #3 (ages 3-6), the start of the Relationships thread. With Lensy, a child builds their own family, learns to be a good friend, and grows a Kindness Garden that blooms with every caring act.
+description: "SwipeEd node #3 (ages 3-6), the start of the Relationships thread. With Lensy, a child builds their own family, learns to be a good friend, and grows a Kindness Garden that blooms with every caring act."
 resource: https://swipeed.vercel.app/game/family-garden
 tags: [games, swipeed, ages-3-6, relationships, families, kindness, sam]
 timestamp: 2026-06-19T21:00:00Z

@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/bounce.md
 title: Bounce
-description: SwipeEd node #g39 (ages 12-15), the teen mental-health & resilience game. With Lensy, a teen spots stress signals, builds a resilience toolkit, bounces back from setbacks with self-compassion, busts stigma (UN & RE), supports friends safely, and learns where to get help. Highest-care wellbeing, healthy coping only, crisis routing first.
+description: "SwipeEd node #g39 (ages 12-15), the teen mental-health & resilience game. With Lensy, a teen spots stress signals, builds a resilience toolkit, bounces back from setbacks with self-compassion, busts stigma (UN & RE), supports friends safely, and learns where to get help. Highest-care wellbeing, healthy coping only, crisis routing first."
 resource: https://swipeed.vercel.app/game/bounce
 tags: [games, swipeed, ages-12-15, mental-health, resilience, anti-stigma, help-seeking, crisis-routing, sam, un-re]
 timestamp: 2026-06-21T13:00:00Z

@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/heart-smart.md
 title: Heart Smart
-description: SwipeEd node #g41 (ages 6-9), the empathy & getting-along game. With Lensy, an early-primary child reads feelings in self and others, handles big feelings in small healthy steps, chooses kindness, sorts squabbles, and meets the first gentle UN & RE. The missing 6-9 link in the Feelings & Life Skills thread.
+description: "SwipeEd node #g41 (ages 6-9), the empathy & getting-along game. With Lensy, an early-primary child reads feelings in self and others, handles big feelings in small healthy steps, chooses kindness, sorts squabbles, and meets the first gentle UN & RE. The missing 6-9 link in the Feelings & Life Skills thread."
 resource: https://swipeed.vercel.app/game/heart-smart
 tags: [games, swipeed, ages-6-9, sel, empathy, emotions, conflict-resolution, kindness, sam, un-re]
 timestamp: 2026-06-21T14:30:00Z

@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/my-body-my-rules.md
 title: My Body, My Rules
-description: SwipeEd node #2 (ages 3-6), the body-safety foundation. With Lensy, a child learns body names, that their body is theirs, safe vs unsafe touch, the Big No, and who to tell. Taught as empowerment, never fear.
+description: "SwipeEd node #2 (ages 3-6), the body-safety foundation. With Lensy, a child learns body names, that their body is theirs, safe vs unsafe touch, the Big No, and who to tell. Taught as empowerment, never fear."
 resource: https://swipeed.vercel.app/game/my-body
 tags: [games, swipeed, ages-3-6, body-safety, consent, safeguarding, pocso, sam]
 timestamp: 2026-06-19T20:30:00Z

@@ -24,6 +24,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb  # SWED-95
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1a2181d-de35-49cb-9ab5-2766a364dac9  # SWED-99
 ---
 
 # SwipeEd project log
@@ -31,6 +32,25 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-15 · docs: game doc descriptions no longer stop at a # ([SWED-99](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1a2181d-de35-49cb-9ab5-2766a364dac9))
+- **Why.** 15 game docs had an unquoted frontmatter `description:` with a `#` after a space, as in "SwipeEd node #g39
+  (ages 12-15), the teen mental-health & resilience game." YAML reads that `#` as the start of a comment, so the
+  parsed description was "SwipeEd node" (or "Node", or "SwipeEd's first game (node") and the rest was lost. They came
+  in with the SWED-61 copy.
+- **What changed.** Those 15 values are now in double quotes, with inner double quotes escaped in 3 of them. One line
+  per doc, nothing else in them: [Body Lab Juniors](../games/body-lab-juniors.md), [Bounce](../games/bounce.md),
+  [Clean Crew](../games/clean-crew.md), [Feelings Friends](../games/feelings-friends.md),
+  [Firewall](../games/firewall.md), [Friend or Frenemy?](../games/friend-or-frenemy.md),
+  [Green Light / Red Light](../games/green-light-red-light.md), [Heart Smart](../games/heart-smart.md),
+  [Life Ready](../games/life-ready.md), [Mind Matters](../games/mind-matters.md),
+  [My Body, My Rules](../games/my-body-my-rules.md), [My Family Garden](../games/my-family-garden.md),
+  [The Rabbit Hole](../games/rabbit-hole.md), [Safety Squad](../games/safety-squad.md) and
+  [What Makes Me, Me](../games/what-makes-me-me.md).
+- **Checks.** A script compared the raw text of every top-level frontmatter value in the 95 knowledge base docs with
+  `yaml.safe_load` and flagged values that parse shorter. It found these 15 and now finds none. Every frontmatter
+  parses in PyYAML and js-yaml, each fixed description parses to exactly the text that was on the line, and each doc's
+  body and other keys match the previous commit. `scripts/no_dashes.py` passes.
 
 ## 2026-09-15 · docs: the knowledge base drops its spaced hyphens ([SWED-98](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850))
 - **Why.** SWED-92 removed every em and en dash, but 2,551 spaced hyphens were still standing in for them in

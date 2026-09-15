@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/friend-or-frenemy.md
 title: Friend or Frenemy?
-description: SwipeEd node #9 (ages 6-9), the Relationships thread's first "is this healthy?" game. Branching friend stories with Lensy: spot a true friend vs frenemy behaviour, collect the words to handle the tricky stuff. The child-level seed of Green Light / Red Light.
+description: "SwipeEd node #9 (ages 6-9), the Relationships thread's first \"is this healthy?\" game. Branching friend stories with Lensy: spot a true friend vs frenemy behaviour, collect the words to handle the tricky stuff. The child-level seed of Green Light / Red Light."
 resource: https://swipeed.vercel.app/game/friend-frenemy
 tags: [games, swipeed, ages-6-9, relationships, friendship, un-re, sam]
 timestamp: 2026-06-19T23:55:00Z

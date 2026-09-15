@@ -3,7 +3,7 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/firewall.md
 title: Firewall
-description: SwipeEd node #g40 (ages 12-15), the teen online-safety game. With Lensy, a teen spots grooming/catfishing red flags, thinks before sharing, rehearses a calm no-blame sextortion-response plan, busts online myths (UN & RE), and locks down privacy. High-stakes safeguarding, non-explicit, never victim-blaming, no how-to-harm, routes real situations to help.
+description: "SwipeEd node #g40 (ages 12-15), the teen online-safety game. With Lensy, a teen spots grooming/catfishing red flags, thinks before sharing, rehearses a calm no-blame sextortion-response plan, busts online myths (UN & RE), and locks down privacy. High-stakes safeguarding, non-explicit, never victim-blaming, no how-to-harm, routes real situations to help."
 resource: https://swipeed.vercel.app/game/firewall
 tags: [games, swipeed, ages-12-15, online-safety, grooming, sextortion, digital-footprint, safeguarding, pocso, sam, un-re]
 timestamp: 2026-06-21T14:00:00Z
