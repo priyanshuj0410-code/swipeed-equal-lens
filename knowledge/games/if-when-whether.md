@@ -3,70 +3,71 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/if-when-whether.md
 title: If, When & Whether
-description: Reproductive planning for ages 22+ - whether to have children, when, and how many, made with real knowledge, together, and free of pressure in any direction. Calm fertility awareness (women and men), preconception health, when-and-spacing on your own timeline, infertility with compassion and realism, and resisting son-preference and pressure. Childfree is a complete, valid life. Medically accurate but panic-free; not medical advice.
+description: Reproductive planning for ages 22+, covering whether to have children, when, and how many, made with real knowledge, together, and free of pressure in any direction. Calm fertility awareness (women and men), preconception health, when-and-spacing on your own timeline, infertility with compassion and realism, and resisting son-preference and pressure. Childfree is a complete, valid life. Medically accurate but panic-free; not medical advice.
 resource: https://swipeed.vercel.app/game/if-when-whether
 tags: [games, swipeed, reproductive-health, fertility, childfree, autonomy, ages-22-plus, adult-journey, chapter-7]
 timestamp: 2026-06-24T01:50:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
 ---
 
 # If, When & Whether
 
-> **Built to GDD 59 v2 - the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
-> **The seventh Chapter-7 node - the reproductive-decision heart of the chapter and the adult version of
-> [My Choices, My Future](my-choices-my-future.md) (g29):** *whether to have children, when, and how many - made
+> **Built to GDD 59 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
+> **The seventh Chapter-7 node, the reproductive-decision heart of the chapter and the adult version of
+> [My Choices, My Future](my-choices-my-future.md) (g29):** *whether to have children, when, and how many, made
 > with real knowledge, together, and free of pressure in **any** direction.* A **434-scenario typed library**
 > (`content/games/if-when-whether.ts`: whether-and-why 72 · fertility-for-real 75 · when-and-spacing 66 · if-its-hard
-> 77 · free-of-pressure 75 · tools-and-help 69) - seven play actions (strike-rewrite ×100 · branch ×64 · reflect ×60
+> 77 · free-of-pressure 75 · tools-and-help 69), with seven play actions (strike-rewrite ×100 · branch ×64 · reflect ×60
 > · sort ×51 · match ×51 · role-play ×58 · spot ×50), **0% binary**, led by strike-rewrite (bust the myth) + branch
 > (your move) + sort. Six modes: **whether & why** (children are an if/when/whether *choice*, not the assumed
 > default; **childfree is a complete, valid life**; busts *"a woman who doesn't want kids is selfish"*); **fertility
-> for real** (calm, honest fertility awareness - the fertile window, age trends for women **and** men, preconception
+> for real** (calm, honest fertility awareness: the fertile window, age trends for women **and** men, preconception
 > health & folic acid; busts both *"there's always time"* and *"it just happens instantly"*; refuses scare tactics);
 > **when & spacing** (timing, readiness as honest reflection not perfection, spacing & contraception, your own
-> timeline not the crowd's); **if it's hard** (infertility with compassion & realism - **~1 in 6 people, men and
+> timeline not the crowd's); **if it's hard** (infertility with compassion & realism: **~1 in 6 people, men and
 > women roughly equally**; options like IVF help many but aren't guaranteed; no false hope, no shame); **free of
 > pressure** (the couple's autonomy; resisting "good news" pressure; confronting **son-preference and sex-selection,
 > illegal under the PCPNDT Act**; refusing a weaponised fertility clock); **tools & help**. **Even-handed and
 > non-coercive: no pressure toward children or against; childfree and many-paths-to-parenthood equally valid;
-> medically accurate but panic-free; not medical advice - points to clinicians.** Where it's hard, it routes to
+> medically accurate but panic-free; not medical advice, points to clinicians.** Where it's hard, it routes to
 > [Many Ways to Family](swipeed-game-patterns.md) (g60); the emotionally-loaded cats reassure (`reassureCats`
 > [free-of-pressure · if-its-hard] + `reassure` + `helpLine` → a clinician, **RKSK** and public reproductive-health
 > services; sex selection is illegal under the PCPNDT Act). **gameId:** library, GDD and engine-host registry all
-> agree on **`if-when-whether`** (no trap). Engine: **no new mechanic and no `binStyle` change** - verbatim-engine
+> agree on **`if-when-whether`** (no trap). Engine: **no new mechanic and no `binStyle` change**. Verbatim-engine
 > emulation over all 11 sort pairs found no mis-colours (*Honest fact* / *Panic myth*, *Respects autonomy* /
 > *Violates it*, *Healthy support* / *Harmful pressure*, *Compassionate truth* / *Harmful (or Cruel) myth* coloured
 > by existing tokens; the rest neutral). Spot ids injected (7); one spot (iw-054) carries multiple valid
 > `trick:true` items. **Unlike the other Chapter-7 nodes this carries no DV helpline** (it's a health/autonomy node,
-> not a safety node) - the help route is a clinician + RKSK. New-node wiring: `g59 → if-when-whether` in the
+> not a safety node). The help route is a clinician + RKSK. New-node wiring: `g59 → if-when-whether` in the
 > gen-path `GAME` dict (+ 🤰 emoji), `path.ts` regenerated (65 built/playable), registered in `engine-host`.
 > Read-first attested. **Builds on** [My Choices, My Future](my-choices-my-future.md) (g29); **pairs with** Many
 > Ways to Family (g60).
 
-**Node #g59 - Chapter 7, ages 22+ (Building a Life).** *Whether, when and how many is yours to decide - with real
+**Node #g59: Chapter 7, ages 22+ (Building a Life).** *Whether, when and how many is yours to decide, with real
 knowledge, and free of pressure in any direction.* Where [My Choices, My Future](my-choices-my-future.md) (#g29)
 taught the teenager that their future is theirs to plan, this node carries that autonomy into the single most
-pressured reproductive decision an Indian adult faces - *when are you having children, and is it a son?* Lensy returns
+pressured reproductive decision an Indian adult faces: *when are you having children, and is it a son?* Lensy returns
 as a calm, factual peer. **The spine: the decision is the couple's alone; the facts are honest and panic-free; and
-every outcome - children now, later, never, or a hard road through infertility - is met without shame.**
+every outcome (children now, later, never, or a hard road through infertility) is met without shame.**
 
 ## What it embodies
 
-- **Whether & why (14)** - children are an if/when/whether choice, not the assumed default; **childfree is a
+- **Whether & why (14)**: children are an if/when/whether choice, not the assumed default; **childfree is a
   complete, valid life**; busts *"a woman who doesn't want kids is selfish."*
-- **Fertility for real (14)** - calm, honest fertility awareness: the fertile window, age trends for **women and
+- **Fertility for real (14)**: calm, honest fertility awareness: the fertile window, age trends for **women and
   men**, preconception health; busts both *"there's always time"* and *"it just happens instantly"*; no scare
   tactics.
-- **When & spacing (14)** - readiness as honest reflection (not perfection), spacing and contraception, your own
+- **When & spacing (14)**: readiness as honest reflection (not perfection), spacing and contraception, your own
   timeline, not the crowd's.
-- **If it's hard (14)** - infertility with compassion and realism (~1 in 6, men and women roughly equally; IVF
-  helps many but isn't guaranteed) - no false hope, no shame.
-- **Free of pressure (14)** - the couple's autonomy; resisting "good news" and family pressure; **son-preference
+- **If it's hard (14)**: infertility with compassion and realism (~1 in 6, men and women roughly equally; IVF
+  helps many but isn't guaranteed), no false hope, no shame.
+- **Free of pressure (14)**: the couple's autonomy; resisting "good news" and family pressure; **son-preference
   and sex-selection are illegal** (PCPNDT Act); refusing a weaponised fertility clock.
-- **Tools & help (14)** - a decision-reflection tool, fertility basics, and RKSK/public reproductive-health
+- **Tools & help (14)**: a decision-reflection tool, fertility basics, and RKSK/public reproductive-health
   services & clinicians.
 
-**Stance.** Non-coercive in every direction - no pressure toward children or against - and medically accurate but
+**Stance.** Non-coercive in every direction (no pressure toward children or against) and medically accurate but
 deliberately panic-free. It is **not medical advice** and points to clinicians and public services; it names
 **sex selection as illegal** under the PCPNDT Act, and meets infertility with realism and zero shame.

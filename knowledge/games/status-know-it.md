@@ -3,20 +3,21 @@ type: Concept
 owner: the-equal-lens
 copied_from: owhile-engine@c182048:knowledge/games/status-know-it.md
 title: "Status: Know It"
-description: A sexual-health-ownership app for ages 15-18 - knowing your status is power, not shame. Testing as self-care (UN & RE), a personal prevention stack, partner communication, treat-and-thrive (U=U), and dignity for all. Empowering, non-judgmental, non-explicit; some specifics School-Comfort-gated. No-fail.
+description: A sexual-health-ownership app for ages 15-18. Knowing your status is power, not shame. Testing as self-care (UN & RE), a personal prevention stack, partner communication, treat-and-thrive (U=U), and dignity for all. Empowering, non-judgmental, non-explicit; some specifics School-Comfort-gated. No-fail.
 resource: https://swipeed.vercel.app/game/status-know-it
 tags: [games, swipeed, srh, sti, hiv, testing, ages-15-18]
 timestamp: 2026-06-20T21:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
 ---
 
 # Status: Know It
 
-> **Reworked to GDD 30 v2 - the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
+> **Reworked to GDD 30 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The STI/HIV testing-&-treatment node (Thread F · SRH, ages 15-18) is now a **506-scenario typed library**
 > (`content/games/status-know-it.ts`: know-your-status 84 · prevention-stack 79 · talk-about-it 88 ·
-> treat-and-thrive 83 · dignity-no-stigma 84 · own-it-decide 88) on the **shared v2 engine** - seven play
+> treat-and-thrive 83 · dignity-no-stigma 84 · own-it-decide 88) on the **shared v2 engine**, with seven play
 > actions (strike-rewrite ×92 · branch ×91 · reflect ×86 · sort ×71 · match ×57 · role-play ×61 · spot ×48),
 > **0% binary**, led by strike-rewrite + branch + sort. **Testing is power, not shame**; build a prevention
 > stack; talk to a partner; **treatment works** (HIV manageable, **U=U**; STIs treatable/curable); **dignity,
@@ -28,8 +29,8 @@ plane_issues:
 > green). Spot ids injected (4). Builds on [Outbreak](outbreak.md) (g23); pairs [My Choices, My Future](my-choices-my-future.md)
 > (g29); links [Mutual](mutual.md) (g31). The sections below describe the original v1 build, superseded by v2.
 
-**Node #30 - the SRH ownership step of Chapter 5** (ages 15-18). *Knowing your status is power, not shame.
-Testing is self-care, prevention is yours to own, treatment works - and everyone deserves dignity.* It is
+**Node #30: the SRH ownership step of Chapter 5** (ages 15-18). *Knowing your status is power, not shame.
+Testing is self-care, prevention is yours to own, treatment works, and everyone deserves dignity.* It is
 the **personal, adult completion of [Outbreak](outbreak.md)** (#23): the population strategy becomes your
 own routine, the Defense Kit becomes your **prevention stack**, and the anti-stigma core becomes
 **self-respect and respect for others**. It pairs with [My Choices, My Future](my-choices-my-future.md)
@@ -42,18 +43,18 @@ non-judgmental, non-explicit; some specifics gated by School-Comfort. Lensy retu
 - **Age band:** 15-18 · **Curriculum:** UNESCO 8.2 & 8.3 (STI/HIV, testing, treatment, stigma). Builds on #23; links to #29, #31.
 - **Status:** live · https://swipeed.vercel.app/game/status-know-it
 
-## How it works - five modes + the Badge Book
-1. **Know Your Status** - testing as **routine, smart, empowering self-care** (what tests, when, where,
-   confidentially - a NACO ICTC centre, an RKSK clinic, a doctor); then the **UN & RE** shame-bust:
-   *"testing means you did something wrong"* → *"it's power - you can protect yourself and the people you
+## How it works: five modes + the Badge Book
+1. **Know Your Status**: testing as **routine, smart, empowering self-care** (what tests, when, where,
+   confidentially: a NACO ICTC centre, an RKSK clinic, a doctor); then the **UN & RE** shame-bust:
+   *"testing means you did something wrong"* → *"it's power: you can protect yourself and the people you
    care about."*
-2. **The Prevention Stack** - your comprehensive toolkit to **choose and combine** (delaying, the HPV
+2. **The Prevention Stack**: your comprehensive toolkit to **choose and combine** (delaying, the HPV
    vaccine, regular testing, honest disclosure; **condoms and PrEP** added when School-Comfort is off).
-3. **Talk About It** - partner communication about status/testing/protection: bring it up calmly and
-   caringly; a partner who refuses to talk *tells you something* - your health and boundaries come first.
-4. **Treat & Thrive** - fear removed: treatment works; HIV is manageable; **U=U**; most STIs are treated or
+3. **Talk About It**: partner communication about status/testing/protection: bring it up calmly and
+   caringly; a partner who refuses to talk *tells you something*: your health and boundaries come first.
+4. **Treat & Thrive**: fear removed: treatment works; HIV is manageable; **U=U**; most STIs are treated or
    cured; a diagnosis is not the end.
-5. **Dignity & Ask Anything** - anti-stigma and self-respect; a fully open private Q&A; testing/help routes
+5. **Dignity & Ask Anything**: anti-stigma and self-respect; a fully open private Q&A; testing/help routes
    to a NACO ICTC centre, an RKSK clinic, or **Childline 1098**.
 
 A 5-badge **Badge Book** finishes into the shared [`GameDone`](swipeed.md) card. Reuses the shared
