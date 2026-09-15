@@ -49,7 +49,7 @@ export function Onboarding() {
               alt=""
               width={88}
               height={88}
-              className="-mt-2 drop-shadow-[3px_4px_0_var(--violet-200)]"
+              className="-mt-2"
             />
             <span className="eyebrow">SwipeEd by The Equal Lens</span>
             <h1 className="font-[family-name:var(--font-hand)] text-3xl font-extrabold leading-none text-[var(--color-ink)]">
@@ -84,7 +84,7 @@ export function Onboarding() {
                   aria-pressed={avatar === a}
                   className={`grid aspect-square place-items-center rounded-xl text-xl transition-transform active:scale-90 ${
                     avatar === a
-                      ? "border-[2.5px] border-[var(--color-brand)] bg-[var(--violet-100)] shadow-[2px_2px_0_var(--violet-200)]"
+                      ? "border-[2.5px] border-[var(--color-brand)] bg-[var(--violet-100)]"
                       : "border-2 border-[var(--color-mist)] bg-[var(--color-paper)] hover:-translate-y-0.5"
                   }`}
                 >
@@ -106,7 +106,7 @@ export function Onboarding() {
                   aria-pressed={ageGate === b.ageGate}
                   className={`grid h-11 place-items-center rounded-xl text-sm font-bold transition-transform active:scale-90 ${
                     ageGate === b.ageGate
-                      ? "border-[2.5px] border-[var(--color-brand)] bg-[var(--violet-100)] text-[var(--color-ink)] shadow-[2px_2px_0_var(--violet-200)]"
+                      ? "border-[2.5px] border-[var(--color-brand)] bg-[var(--violet-100)] text-[var(--color-ink)]"
                       : "border-2 border-[var(--color-mist)] bg-[var(--color-paper)] text-[var(--color-ink)] hover:-translate-y-0.5"
                   }`}
                 >
@@ -121,7 +121,7 @@ export function Onboarding() {
           <div className="flex flex-col gap-1.5">
             <span className="text-sm font-bold text-[var(--color-ink)]">Language</span>
             <div className="flex gap-2">
-              <span className="rounded-full border-[2.5px] border-[var(--color-ink)] bg-[var(--color-brand)] px-4 py-1.5 text-sm font-bold text-white shadow-[2px_2px_0_var(--color-ink)]">
+              <span className="rounded-full border-[2.5px] border-[var(--color-ink)] bg-[var(--color-brand)] px-4 py-1.5 text-sm font-bold text-white">
                 English
               </span>
               <span className="rounded-full border-2 border-dashed border-[var(--violet-200)] px-4 py-1.5 text-sm font-semibold text-[color-mix(in_oklch,var(--color-ink),transparent_45%)]">
@@ -147,7 +147,7 @@ export function Onboarding() {
             type="button"
             disabled={!canStart}
             onClick={() => completeOnboarding({ name: name.trim(), avatar, locale: "en-IN", entryAgeGate: ageGate ?? undefined })}
-            className="mt-1 inline-flex h-14 w-full items-center justify-center gap-1 rounded-full border-[2.5px] border-[var(--color-ink)] bg-[var(--color-grow)] font-[family-name:var(--font-hand)] text-lg font-extrabold text-[var(--color-ink)] shadow-[4px_4px_0_var(--color-ink)] transition-transform hover:-translate-y-0.5 active:translate-y-0 active:shadow-[2px_2px_0_var(--color-ink)] disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-45 disabled:shadow-[4px_4px_0_var(--color-ink)]"
+            className="mt-1 inline-flex h-14 w-full items-center justify-center gap-1 rounded-full border-[2.5px] border-[var(--color-ink)] bg-[var(--color-grow)] font-[family-name:var(--font-hand)] text-lg font-extrabold text-[var(--color-ink)] cta [--lip-sun:color-mix(in_srgb,var(--color-grow)_55%,#0b3d1f)] disabled:cursor-not-allowed disabled:opacity-45"
           >
             Start playing
             <span aria-hidden>→</span>

@@ -84,7 +84,7 @@ export function MoodCheckIn() {
                 <Sam size={48} />
                 <p className="text-sm font-semibold">Thanks for telling me. Hard days happen — and they pass. Want a moment to just breathe?</p>
               </div>
-              <button type="button" onClick={() => setBreathing(true)} className="flex h-11 items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-sm font-bold text-slate-900 transition-transform active:scale-95">
+              <button type="button" onClick={() => setBreathing(true)} className="cta flex h-11 items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-sm font-bold text-slate-900 transition-transform active:scale-95">
                 <Wind className="size-4" aria-hidden /> Breathing space
               </button>
               <p className="text-center text-xs text-foreground/60">You can always talk to someone — the Get Help button is in the corner.</p>

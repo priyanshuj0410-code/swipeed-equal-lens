@@ -28,6 +28,17 @@ Newest first. Every change that affects a game, the path, the engine or the ques
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
 
+## 2026-09-15 - design: press, don't float ([SWED-93](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/7c73c697-ebd9-49fe-862f-210febf8f2df))
+- **Why.** The owner, on a game start screen: "The hard shadow is getting too much... everything doesn't need it.
+  Rethink!" Every pill, card and panel had a 3 to 6px diagonal ink shadow, which in dark mode became a light lavender
+  offset, and the one sun button had none.
+- **Rule.** Flat for what you read (question card, pills, result cards, panels); a lip straight under the bottom edge for
+  what you press (answer cards, topic tiles, answer pills, path nodes; `.lift` for drag cards); the strongest lip for the
+  one main action (`.cta`). Lips are darker than the surface in light mode and a quiet purple-grey in dark mode.
+- **Code.** `globals.css` (`--lip`, `--lip-brand`, `--lip-sun`, `.press`, `.lift`, `.cta`, `.question-card`), sun
+  buttons tagged `cta`, inline offset shadows removed from onboarding, the swipe deck and the capstone swipe lap.
+- **Docs.** design.md elevation table, question card and answer card rows. Checked in headless Chrome, both themes.
+
 ## 2026-09-15 - research: visual answer options on a zero budget ([SWED-90](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/49cf4efd-6622-4ac8-907c-7c01ccfd0754))
 - **Why.** The owner set the budget for pictures to zero.
 - **Route.** Fluent Emoji (MIT) for feelings and people; FLUX.1 [schnell] (Apache 2.0) run free on the Mac with a

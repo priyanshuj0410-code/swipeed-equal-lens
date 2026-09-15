@@ -907,7 +907,7 @@ function DoorPanel({ u, hinge, quat, chapter, material, progress }: { u: number;
                 setOpened(true);
                 _openDoors.add(u); // release the travel gate past this door
               }}
-              className="pointer-events-auto rounded-full border-[2.5px] border-ink bg-sun px-4 py-1.5 text-sm font-bold text-ink shadow-[3px_3px_0_var(--color-ink)] transition-transform hover:-translate-y-0.5 active:translate-y-0"
+              className="cta pointer-events-auto rounded-full border-[2.5px] border-ink bg-sun px-4 py-1.5 text-sm font-bold text-ink transition-transform"
             >
               Enter →
             </button>

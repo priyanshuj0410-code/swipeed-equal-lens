@@ -30,7 +30,7 @@ export function ToolMoment({ tool, line }: { tool: ToolId; line?: string }) {
         <button
           type="button"
           onClick={() => { useTool(tool); setOpen(true); }}
-          className="shrink-0 rounded-full bg-[var(--color-sun)] px-3 py-1 text-xs font-bold text-slate-900 transition-transform active:scale-95"
+          className="cta shrink-0 rounded-full bg-[var(--color-sun)] px-3 py-1 text-xs font-bold text-slate-900 transition-transform active:scale-95"
         >
           Use it
         </button>

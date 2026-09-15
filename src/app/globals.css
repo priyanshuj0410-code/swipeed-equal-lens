@@ -105,6 +105,10 @@
   --prx-on-fill: #221436;
   --prx-wash: 12%;
   --prx-wash-hover: 28%;
+  /* Elevation lips (SWED-93): the shelf under things you press. Always darker than the surface it sits under. */
+  --lip: color-mix(in srgb, var(--color-ink) 45%, var(--color-surface));
+  --lip-brand: color-mix(in srgb, var(--color-brand) 70%, var(--color-ink));
+  --lip-sun: color-mix(in srgb, var(--color-sun) 55%, #6b4300);
   --prx-dim: color-mix(in oklab, currentColor 28%, transparent);
   --flame: var(--color-sun);
   --accent-amber: var(--color-sun);
@@ -177,6 +181,9 @@
   --prx-slot-6: oklch(0.71 0.16 346);
   --prx-wash: 20%;
   --prx-wash-hover: 40%;
+  --lip: color-mix(in srgb, var(--color-ink) 22%, var(--color-paper));
+  --lip-brand: color-mix(in srgb, var(--color-brand) 55%, var(--color-paper));
+  --lip-sun: color-mix(in srgb, var(--color-sun) 50%, #000);
   /* --prx-pos/-neg are aliases and follow their flag tokens; --prx-on-fill deliberately does NOT flip. */
   --flame: var(--color-sun);
   --accent-amber: var(--color-sun);
@@ -240,22 +247,60 @@
 
 /* Frosted "liquid glass" card material — blurs the 3D grassland behind it.
    (Opacity nudged up + dark text vs the original since our backdrop is bright.) */
-/* Sticker surfaces — The Equal Lens cut-out look (replaces the old frosted glass; class names
-   kept so every game re-skins from here). Flat surface fill, chunky Ink outline, hard offset
-   shadow (no blur). Outline + default text use the Ink token, so they flip with the theme. */
+/* Sticker surfaces: The Equal Lens cut-out look (class names kept so every game re-skins from here). Flat surface
+   fill and a chunky Ink outline that flips with the theme.
+   Elevation (SWED-93, 2026-09-15), "press, don't float": only things you press get a lip, a shelf straight under the
+   bottom edge that sinks when pressed; the main action (.cta) has the strongest; every other surface is flat. This keeps
+   the brand's "lifted, therefore tappable" meaning instead of lifting everything. No state changes the lip's offset, so
+   cards never move while the player works (SWED-67). */
 .glass-card {
   background: var(--color-surface);
   color: var(--color-ink);
   border: 2.5px solid var(--color-ink);
-  box-shadow: 4px 4px 0 0 var(--color-ink);
   border-radius: 20px;
 }
+:is(button, a, [role="button"], [role="checkbox"], [role="radio"]).glass-card,
+.press {
+  box-shadow: 0 3px 0 0 var(--lip);
+  transition: translate 0.12s ease, box-shadow 0.12s ease;
+}
+:is(button, a, [role="button"], [role="checkbox"], [role="radio"]).glass-card:active:not(:disabled),
+.press:active:not(:disabled) {
+  translate: 0 2px;
+  box-shadow: 0 1px 0 0 var(--lip);
+}
+/* a card you drag (swipe and scrub cards): the lip says "movable"; dragging moves it, so there is no press */
+.lift {
+  box-shadow: 0 4px 0 0 var(--lip);
+}
+/* the main action on a screen (Play with Lensy, Check, Next, Finish): the one strong lip */
+.cta {
+  box-shadow: 0 4px 0 0 var(--lip-sun);
+  transition: translate 0.12s ease, box-shadow 0.12s ease;
+}
+.cta:active:not(:disabled) {
+  translate: 0 3px;
+  box-shadow: 0 1px 0 0 var(--lip-sun);
+}
+.cta:disabled {
+  box-shadow: none;
+}
+/* Lensy's question card: flat, set apart by a light brand wash and its size rather than a shadow */
+.popover.question-card {
+  box-shadow: none;
+  background: color-mix(in srgb, var(--color-brand) 9%, var(--color-surface));
+}
+@media (prefers-reduced-motion: reduce) {
+  .press, .cta, :is(button, a, [role="button"], [role="checkbox"], [role="radio"]).glass-card { transition: none; }
+}
 /* Answer card states (match cells, sort chips; components/games/answer-cells.tsx). A state recolours the card and
-   never changes its border width, shadow offset or size, so options stay put while the player works. */
+   never changes its border width, lip offset or size, so options stay put while the player works. */
 .glass-card[data-state="selected"] {
   border-color: var(--color-brand);
-  box-shadow: 4px 4px 0 0 var(--color-brand);
   background: color-mix(in srgb, var(--color-brand) var(--prx-wash-hover), var(--color-surface));
+}
+:is(button, a, [role="button"], [role="checkbox"], [role="radio"]).glass-card[data-state="selected"] {
+  box-shadow: 0 3px 0 0 var(--lip-brand);
 }
 .glass-card[data-state="target"] {
   border-color: var(--color-brand);
@@ -291,13 +336,12 @@ html[data-playing="true"] .gethelp-label {
   display: none;
 }
 
-/* Smaller frosted-glass chrome (pills, buttons, labels) sharing the card material.
-   Pair with Tailwind `backdrop-blur-* backdrop-saturate-*` utilities on the element. */
+/* Smaller chrome (pills, buttons, labels) sharing the card material. Flat: chrome and info pills never lift
+   (SWED-93). A pill that is an answer (the Myth and True buttons) adds .press. */
 .glass-pill {
   background: var(--color-surface);
   color: var(--color-ink);
   border: 2px solid var(--color-ink);
-  box-shadow: 3px 3px 0 0 var(--color-ink);
   transition: transform 0.18s ease;
 }
 
@@ -349,12 +393,12 @@ html[data-playing="true"] .gethelp-label {
   .hover-pop:hover, .glass-pill:hover { transform: none; }
 }
 
-/* The Equal Lens sticker recipe — copied verbatim from the site's globals.css (the source of truth):
-   a chunky outline + a HARD offset shadow = the 'lifted, therefore tappable' affordance (Nodes &
-   Navigation spec §2). .sticker uses ink (flips in dark); .sticker-soft uses the Equal Violet ramp.
-   .node-locked is the flat 'un-inked' state: no shadow, pale dashed outline, faint. */
-.sticker { border: 2.5px solid var(--color-ink); box-shadow: 4px 4px 0 var(--color-ink); }
-.sticker-soft { border: 2.5px solid var(--violet-600); box-shadow: 4px 5px 0 var(--violet-200); }
+/* The Equal Lens sticker recipe, from the site's globals.css: a chunky outline, and a lift only where it means
+   'tappable' (Nodes & Navigation spec §2). Since SWED-93 the lift is a lip straight under the edge, and .sticker (used for
+   containers such as the onboarding card) is flat. .sticker-soft (path nodes) keeps a lip in the Equal Violet ramp.
+   .node-locked is the flat 'un-inked' state: no lip, pale dashed outline, faint. */
+.sticker { border: 2.5px solid var(--color-ink); }
+.sticker-soft { border: 2.5px solid var(--violet-600); box-shadow: 0 4px 0 var(--violet-200); }
 .node-locked { border: 2.5px dashed var(--violet-200); box-shadow: none; opacity: 0.6; }
 .canvas-dots { background-image: radial-gradient(var(--dot) 1.1px, transparent 1.1px); background-size: 28px 28px; }
 

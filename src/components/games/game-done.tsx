@@ -88,7 +88,7 @@ export function GameDone({
         <button
           type="button"
           onClick={exit}
-          className="flex h-11 items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-sm font-bold text-slate-900 transition-transform active:scale-95"
+          className="cta flex h-11 items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-sm font-bold text-slate-900 transition-transform active:scale-95"
         >
           <Map className="size-4" aria-hidden /> Back to the path
         </button>

@@ -70,7 +70,7 @@ export function LensyQuestion({ text, feedback = "", announce = "", reserve, foc
           <h2
             ref={ref}
             tabIndex={-1}
-            className="popover max-h-[38vh] overflow-y-auto text-left font-hand text-[19px] font-semibold leading-snug outline-none"
+            className="popover question-card max-h-[38vh] overflow-y-auto text-left font-hand text-[19px] font-semibold leading-snug outline-none"
           >
             {text}
           </h2>

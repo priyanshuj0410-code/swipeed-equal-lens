@@ -59,7 +59,7 @@ export function SwipeCard({ cue, left, right, answer, styles, reduceMotion, onCo
     const st = side === "left" ? L : R, label = side === "left" ? left : right;
     return (
       <button type="button" onClick={() => commit(side)} disabled={flyTo !== 0}
-        className="glass-pill flex h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-2xl px-3 text-sm font-bold text-foreground transition-transform active:scale-95 disabled:opacity-100">
+        className="glass-pill press flex h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-2xl px-3 text-sm font-bold text-foreground transition-transform active:scale-95 disabled:opacity-100">
         {side === "left" && <span aria-hidden>{st.emoji}</span>}
         <span className="truncate">{label}</span>
         {side === "right" && <span aria-hidden>{st.emoji}</span>}
@@ -74,7 +74,7 @@ export function SwipeCard({ cue, left, right, answer, styles, reduceMotion, onCo
         aria-label={`${cue}. Swipe left or press Left arrow for ${left}; swipe right or press Right arrow for ${right}.`}
         onKeyDown={onKeyDown}
         {...drag.handlers}
-        className="glass-card relative flex min-h-64 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[20px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
+        className="glass-card lift relative flex min-h-64 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[20px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
         style={{ transform: `translateX(${tx}px) rotate(${tx * 0.035}deg)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.25s ease-out", touchAction: "pan-y", boxShadow: edge ? `6px 6px 0 0 ${edge.tint}` : undefined }}
       >
         {edge && (
