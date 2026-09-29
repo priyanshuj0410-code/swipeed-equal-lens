@@ -47,8 +47,9 @@ A batch's progress is never kept in a session's memory: `steps_wave.py status N`
 3. **Plan.** `python3 scripts/forge/steps_wave.py split N` (once), then `python3 scripts/forge/steps_wave.py plan N`.
    It prints each batch's next stage and writes the workflow's args to `.forge/rollout/wave-args.json`.
 4. **Launch.** `python3 scripts/forge/steps_wave.py mark running --chapter N --note "<workflow run id>"`, then run the
-   repo's named workflow `multi-step-wave` with the contents of `wave-args.json` as its `args` (a JSON object, not a
-   string). Every batch resumes from its files, so relaunching after any stop is always safe. Do not use
+   Workflow tool with `scriptPath` `/Users/priyanshu/swipeed-equal-lens/.claude/workflows/multi-step-wave.js` and the
+   contents of `wave-args.json` as its `args` (a JSON object, not a string; the name `multi-step-wave` is not always
+   registered). Every batch resumes from its files, so relaunching after any stop is always safe. Do not use
    `resumeFromRunId`: agents the guard stopped are cached as finished.
 5. **When the workflow ends,** run `steps_wave.py plan N` again. If any batch is still at write, review or fix,
    relaunch (step 1 first). When every batch is `certified` or `read`, ship.
