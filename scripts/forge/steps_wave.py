@@ -11,6 +11,8 @@ resume from any session.
                                               write the multi-step-wave workflow's args (default .forge/rollout/wave-args.json)
   steps_wave.py status <chapter>              print each batch's next stage
   steps_wave.py state                         print the rollout state (.forge/rollout/state.json)
+  steps_wave.py alive                         minutes since any rollout file under .forge changed (a live workflow writes
+                                              them all the time, so a recent change means another session owns the work)
   steps_wave.py mark <status> [--chapter N] [--note text]   record running, paused, shipping, waiting-for-owner or done
 
 Stages, in order: write, review (round 1 to 3), fix (round 1 to 3), then certified (a fix changed nothing), read (the
@@ -188,6 +190,20 @@ def cmd_mark(status, chapter=None, note=None):
     print(f"rollout: Chapter {st['chapter']} {status}{': ' + st['note'] if st['note'] else ''}")
 
 
+def cmd_alive():
+    import time
+    newest = 0
+    for g in os.listdir(os.path.join(REPO, ".forge")):
+        d = os.path.join(REPO, ".forge", g, "steps")
+        if not os.path.isdir(d):
+            continue
+        for root, _, files in os.walk(d):
+            for f in files:
+                newest = max(newest, os.path.getmtime(os.path.join(root, f)))
+    mins = (time.time() - newest) / 60 if newest else float("inf")
+    print(f"last rollout file change: {mins:.0f} min ago")
+
+
 def cmd_state():
     import time
     st = load_state()
@@ -200,6 +216,9 @@ def main():
     a = sys.argv[1:]
     if a[:1] == ["state"]:
         cmd_state()
+        return
+    if a[:1] == ["alive"]:
+        cmd_alive()
         return
     if a[:1] == ["mark"] and len(a) >= 2:
         chapter = int(a[a.index("--chapter") + 1]) if "--chapter" in a else None

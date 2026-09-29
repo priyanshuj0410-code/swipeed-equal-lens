@@ -98,5 +98,6 @@ Two local scheduled tasks resume the work (they run while the Claude app is open
 | `swipeed-rollout-resume` | once, re-armed at each pause | Resumes the rollout from this playbook |
 | `swipeed-rollout-watchdog` | daily at 10:30 | The same, as a backstop for a pause that was never re-armed or a session that died |
 
-Both skip when `state` says `running` and was updated within 3 hours, when the state is `waiting-for-owner` or
-`done`, or when the guard is tripped or a window is at 65% or more.
+Both skip when the state is `waiting-for-owner` or `done`; when it is `running` or `shipping` and
+`steps_wave.py alive` shows a rollout file changed within the last 60 minutes (another session owns the work); or when
+the guard is tripped or a window is at 65% or more.
