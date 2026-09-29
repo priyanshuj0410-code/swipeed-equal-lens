@@ -490,27 +490,30 @@ shipped scenario it finds ambiguous in `.forge/<gameId>/reshape.json` (`{"blind-
 review the rewrites blind again. Assemble when it reports none, and add the game to `lint_clean.json` once `lints.py` finds nothing. The planner refuses a
 convert file that names an unsupported conversion or an id that is not a shipped reflect.
 
-**Multi-step rollout** of a game's single-step branches and role-plays ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4), first run on Chapter 7):
-re-run `forge_plan.py <gameId> --write` so the stories are on the `lint` worklist, split them into source files of
-about 50 under `.forge/<gameId>/steps/`, and run each batch through four roles, each with a brief in
+**Multi-step rollout** of a game's single-step branches and role-plays ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4), first run on Chapter 7).
+The per-wave procedure, the owner's decisions and the auto-resume are in the
+[multi-step rollout playbook](../playbooks/multi-step-rollout.md). `steps_wave.py` splits a chapter's stories into
+source files of about 50 under `.forge/<gameId>/steps/` and works out each batch's next stage from its files, and the
+repo's named workflow `multi-step-wave` (`.claude/workflows/multi-step-wave.js`) runs the roles, each with a brief in
 `scripts/forge/briefs/`:
 
-1. **Writer** (`steps-write.md`): converts the batch until `forge_check.py --batch` rejects nothing and
-   `steps_batch.py <source> <batch>` proves every source id is covered once, unchanged in type, category, persona and
-   source.
-2. **Reviewers**, side by side: a blind reviewer picks each step's best option from
-   `blind_review.py make <gameId> <dir> <batch> --batch-only` (`steps-review.md`, pass 1), and an auditor gives a
-   verdict on every transition a player can reach, an option's `then` followed by the next prompt, from
-   `steps_audit.py make`, plus notes on safety, point of view and one-path best options (`steps-audit.md`).
-   `steps_audit.py check` fails when any transition lacks a verdict.
-3. **Fixer** (`steps-fix.md`): resolves the blind disagreements, breaks and notes, safety first, and lists the
-   scenarios it rewrote.
-4. **Re-check**: a fresh reviewer runs the blind pick and the audit again on those scenarios only (`--ids`); a last
-   fixer resolves whatever it still flags, without another review.
+1. **Writer** (`steps-write.md`, plus `steps-minors.md` for Chapters 3 to 5): converts the batch until
+   `forge_check.py --batch` rejects nothing and `steps_batch.py <source> <batch>` proves every source id is covered
+   once, unchanged in type, category, persona and source.
+2. **Three reviewers per round**, side by side, on inputs `steps_final.py make` writes: a blind reviewer picks each
+   step's best option without the answers (`steps-review.md`, pass 1); an auditor gives a verdict on every transition a
+   player can reach, an option's `then` followed by the next prompt (`steps-audit.md`, checked by `steps_audit.py`);
+   and a safety and fidelity reviewer reads each story beside its single-step source for survivor-centred safety, the
+   source's lesson, facts and judged life choices (`steps-final-safety.md`).
+3. **Fixer** (`steps-fix.md`): `steps_final.py check` collects every finding and fails on any missing review; the
+   fixer resolves the blocking ones (safety first), logs each decision in `fix-log.ndjson`, and `steps_final.py next`
+   lists what changed. Round 1 reviews every scenario; rounds 2 and 3 review only what the last fix changed. A batch
+   is certified when a fix changes nothing; anything the round 3 fix changed is read by the shipping session.
 
 Whole-scenario continuity reviews missed most breaks in the first Chapter 7 batches, and a Sonnet auditor could not
-finish the transition audit, so the audit and re-check run on Opus. Where the player is the one being pressured or
-harmed, the briefs treat freezing, silence and giving in as survival responses, never as wrong options.
+finish the transition audit, so the audit and the safety review run on Opus, as do the writers and fixers of
+safety-heavy games. Where the player is the one being pressured or harmed, the briefs treat freezing, silence and giving
+in as survival responses, never as wrong options.
 
 **A standing caution**, given SWED-53 and SWED-54 above: whichever path you take, a fix made by hand directly in the `.ts` (as the merge gate's own failure-recovery instructions require) is never carried back into `.forge/<gameId>/`. Treat `.forge/` as a historical log of one generation run, not a live mirror of the shipped bank: never diff against it to decide whether the shipped content is correct.
 

@@ -36,7 +36,7 @@ knowledge/
   schemas/           question-bank.md (bank format, sources, gates, fleet numbers)
   games/             the catalog: one doc per game and capstone, plus the SwipeEd overview docs
   audits/            dated audits: design, question bank, forge pipeline
-  playbooks/         approved plans and how-tos (playtest-feedback-plan-2026-09-15.md, writing-without-dashes.md)
+  playbooks/         approved plans and how-tos (playtest-feedback-plan-2026-09-15.md, writing-without-dashes.md, multi-step-rollout.md)
   research/          dated research: tools, evidence and options before a decision (visual answer options)
   log/               log.md, the dated project log, newest first
 ```

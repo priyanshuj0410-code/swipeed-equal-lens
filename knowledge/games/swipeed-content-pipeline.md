@@ -74,6 +74,10 @@ check → semantic reviewer, ≤1 bounce then drop) → ASSEMBLE + whole-bank DE
   unchanged in type, category, persona and source) and transition audit (a required verdict on every option's then
   followed by the next prompt), used with the writer, reviewer, auditor and fixer briefs in `scripts/forge/briefs/`
   ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4)). The process is in the [question bank](../schemas/question-bank.md).
+- `steps_final.py` and `steps_wave.py`: the rollout's review rounds (blind picks, transition audit, and a safety and
+  fidelity review against the source, collected and coverage-checked per round) and its wave planner, which works out
+  every batch's next stage from its files so any session can resume a wave. The named workflow `multi-step-wave` runs
+  a chapter; the [multi-step rollout playbook](../playbooks/multi-step-rollout.md) is the procedure.
 - `forge_dedup.py`: whole-bank structural + prose dedup, band-aware, helpline-masked. **Intra-band blocks,
   cross-band logs.** Surfaced 10 pre-existing intra-chapter twins (cross-game reflects) worth cleaning. (On 2026-09-14 the real `forge_dedup.py` reported none across all 69 games; an independent re-check flagged 2 candidate pairs for a human look; see the [question bank](../schemas/question-bank.md#known-issues).)
 
