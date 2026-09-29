@@ -26,6 +26,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1a2181d-de35-49cb-9ab5-2766a364dac9  # SWED-99
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49  # SWED-91
 ---
 
 # SwipeEd project log
@@ -33,6 +34,15 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-30 · pictures: local FLUX style test, round one ([SWED-91](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49))
+- **Why.** The owner chose free local FLUX pictures for answer cards and needs to sign off a style.
+- **What.** 30 Feelings Friends concepts in two styles (a written style, and Lensy's art as a reference) from
+  FLUX.2 [klein] 4B (Apache 2.0) on the Mac, with transparent cut-outs and a review page that saves the owner's style
+  choice and per-picture verdicts. Setup, recipe and findings are in the
+  [visual answer options research](../research/visual-answer-options-2026-09-15.md#local-flux-style-test-swed-91).
+- **Found.** Clean on-brand look; the Lensy style adds ground shadows; lavender hair, "fair" skin reading as not
+  Indian, and five actions that do not read go into round two.
 
 ## 2026-09-15 · engine and content: branch and role-play become multi-step ([SWED-96](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9))
 - **Why.** The owner asked for at least 4 options, several questions (3 to 5) on the same scenario building on the
