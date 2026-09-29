@@ -9,6 +9,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5  # SWED-89
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/49cf4efd-6622-4ac8-907c-7c01ccfd0754  # SWED-90
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49  # SWED-91
 ---
 
 # Visual answer options: tools and approach
@@ -225,6 +226,28 @@ Drawn from the brand and child-safe content rules and the safety research:
    language.
 5. **Runway test, about $5.** Three Lensy reaction clips with Act-Two, to judge whether motion adds enough to justify
    its weight on low-end phones.
+
+## Local FLUX style test ([SWED-91](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49))
+
+The zero-budget route's first test, run on the owner's Mac (Apple M4, 24 GB) with no spend.
+
+- **Runner and model.** [mflux](https://github.com/filipstrand/mflux) 0.19 as a `uv` tool, running
+  `black-forest-labs/FLUX.2-klein-4B`, licensed Apache 2.0 (checked on the model page on 2026-09-30), so pictures it
+  makes can ship in the app. The weights are about 15 GB in the Hugging Face cache; generation works offline after
+  the first download. Settings: 8-bit, 4 steps, 768 px.
+- **Recipe.** `scripts/pictures/flux_batch.py` holds the style prompt and the 30 Feelings Friends concepts, and cuts the
+  white background to transparent for answer cards; `--edit <picture>` draws in the style of a reference picture.
+  `scripts/pictures/review_page.py` builds the owner's review page. Outputs live in `.forge/pictures/` (not in git).
+- **Timing.** About 84 seconds a picture from the text style and 111 seconds with Lensy's art as a reference, while
+  other work ran on the Mac.
+- **Round one (2026-09-30).** 30 concepts in two styles. Both look on brand (flat, rounded, soft violet outlines, big
+  eyes) and the cut-outs are clean. The Lensy-reference style adds a soft ground shadow under most figures, against
+  the no-shadows rule. Across both styles: some children get lavender hair from the palette; "fair wheatish" skin came
+  out blonde and very pale, which reads as not Indian; several actions do not read (take turns, wait your turn, slow
+  breaths, shy, count to five); one picture has a stray line and one sad friend is bald. The next round names black or
+  dark brown hair, avoids "fair", and redraws the actions that did not read.
+- **Owner review.** The review page stores the owner's style choice and a verdict and note per picture; the next
+  round waits for it.
 
 ## Owner decisions
 
