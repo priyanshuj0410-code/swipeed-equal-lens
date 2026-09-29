@@ -488,6 +488,26 @@ def story_fixtures():
     open(os.path.join(aud, "review-audit.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "transitions": ["ok"] * (n - 1) + ["break: never met"], "notes": ["safety: x"]}) + "\n")
     problems, breaks, notes = A.check(aud, batch)
     result("the audit check passes full coverage and lists the break and note", not problems and len(breaks) == 1 and len(notes) == 1, (problems, breaks, notes))
+    import steps_final as F
+    src = os.path.join(tmp, "source.ndjson")
+    open(src, "w", encoding="utf8").write(json.dumps({"id": "t-020", "hook": "Old hook.", "relearn": "Old relearn."}) + "\n")
+    fin = os.path.join(tmp, "final")
+    n = F.make("t", fin, batch, src, game_path=game)
+    fid = json.loads(open(os.path.join(fin, "fidelity.ndjson"), encoding="utf8").read())
+    result("the final pass pairs each story with its source", n == 1 and fid["source"]["hook"] == "Old hook." and fid["final"]["steps"][0]["options"], fid.get("source"))
+    out = F.check("t", fin, batch, game_path=game)
+    result("the final check reports every missing review as a coverage problem", out["summary"]["coverage_problems"] == 3, out["coverage"])
+    best = [next(x["text"] for x in st["options"] if x.get("best")) for st in VALID_STORY["steps"]]
+    ts = len(A.transitions(VALID_STORY))
+    open(os.path.join(fin, "review-story.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "best": best}) + "\n")
+    open(os.path.join(fin, "review-audit.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "transitions": ["ok"] * ts}) + "\n")
+    open(os.path.join(fin, "review-safety.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "findings": [{"lens": "facts", "severity": "block", "field": "why", "problem": "x"}]}) + "\n")
+    out = F.check("t", fin, batch, game_path=game)
+    result("the final check counts a blocking safety finding", out["summary"]["coverage_problems"] == 0 and out["summary"]["blocking"] == 1, out["summary"])
+    open(os.path.join(fin, "batch-before.ndjson"), "w", encoding="utf8").write(open(batch, encoding="utf8").read())
+    edited = json.loads(json.dumps(VALID_STORY)); edited["steps"][0]["prompt"] = "Moment 1, changed. What do you do?"
+    open(batch, "w", encoding="utf8").write(json.dumps(edited) + "\n")
+    result("the final pass lists a scenario a fixer changed", F.changed_ids(os.path.join(fin, "batch-before.ndjson"), batch) == ["t-020"])
     shutil.rmtree(tmp)
     return fails
 
