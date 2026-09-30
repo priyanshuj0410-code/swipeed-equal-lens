@@ -10,6 +10,7 @@ timestamp: 2026-06-24T01:40:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4  # SWED-100
 ---
 
 # Money, Together
@@ -48,6 +49,8 @@ this node carries that footing into a shared life, where money is one of the big
 one of the most gendered. Lensy returns as a steady, practical peer. **The spine: talk money openly and plan
 together, keep your own independence inside the partnership, treat money roles as fair not gendered, and know the
 bright line where "managing the money" becomes economic abuse.**
+
+> **Multi-step branches and role-plays ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4), 2026-09-30).** All 76 branches and 56 role-plays are now 3 to 5 questions on one situation (78 with 3, 48 with 4, 6 with 5; 456 questions), each with 4 or 5 options and one best, revealed at the end. After a write, review and fix pass, a final certification ran up to four rounds of three independent reviews (a blind best-option pick, a transition-by-transition audit, and a safety and fidelity review against the single-step source): round 1 found 108 blocking problems across all 132 stories, round 4 found 2 in the 17 it re-checked, and the 12 stories the last fix touched were read in full before shipping. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).
 
 ## What it embodies
 

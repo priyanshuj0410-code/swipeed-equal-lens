@@ -10,6 +10,7 @@ timestamp: 2026-06-24T01:20:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4  # SWED-100
 ---
 
 # Respect at Home
@@ -54,6 +55,8 @@ flag-reading of [Green Light / Red Light](green-light-red-light.md) (#24) → th
 the one relationship where society most often assumes consent away. Lensy returns as a steady, level-headed adult
 peer. **The whole node is built around one truth: a person's worth, safety and yes do not dissolve in a marriage,
 and when respect curdles into control, that is abuse, never love, and never the victim's fault.**
+
+> **Multi-step branches and role-plays ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4), 2026-09-30).** All 86 branches and 68 role-plays are now 3 to 5 questions on one situation (91 with 3, 59 with 4, 4 with 5; 529 questions), each with 4 or 5 options and one best, revealed at the end. After a write, review and fix pass, a final certification ran up to four rounds of three independent reviews (a blind best-option pick, a transition-by-transition audit, and a safety and fidelity review against the single-step source): round 1 found 39 blocking problems across all 154 stories, round 4 found 0 in the 11 it re-checked, and the 9 stories the last fix touched were read in full before shipping. Every scenario with a safety finding in any round, and every one that names a helpline, was also read in full before shipping: where the player is the one being harmed, freezing or giving in is never a wrong option and no pick leads to harm; every story says it is never their fault and reaches a trusted person, 181, 112 or free legal aid on 15100; and male survivors are pointed to a trusted person, 15100 or 112 rather than the women's helplines. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).
 
 ## What it embodies
 
