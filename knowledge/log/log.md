@@ -36,6 +36,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a211b3dc-b375-4701-ab93-7c8f4d948d6b  # SWED-108
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e  # SWED-109
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9b892973-658b-4376-962e-dde7a59e3a60  # SWED-110
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2  # SWED-105
 ---
 
 # SwipeEd project log
@@ -43,6 +44,25 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-01 · path: a v2 Green Light / Red Light finish completes g24 ([SWED-105](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2))
+- **Why.** Finishing the v2 game never marked g24 done, so g25 (MythBuster: Gender) and every node after it stayed
+  locked for players who entered at 3, 6, 9 or 12. `GameDone` saves the v2 game's stars as `deckStars.glrl`, but the
+  path's completion test for GLRL still counted only the v1 finishes: a cleared story run (`runDeckCleared`, written
+  only by the v1 run debrief) or stars on a Quick Play deck.
+- **Reproduced.** In a browser on main 9807b35: a fresh profile onboarded at 12-15 played `/game/glrl` to "Flag
+  Reader!" and saved `deckStars {glrl: 3}` with `runDeckCleared {}`. Back on `/path`, g24 read "locked, finish
+  earlier lessons first" and g25 stayed locked. With g21 to g23 also done, g24 stayed playable and never completed.
+- **What.** The completion test moved from the path page to `makeGameDone` in `src/lib/node-unlock.ts`, and GLRL now
+  also counts its own stars. The v1 story run and Quick Play deck finishes still count, MythBuster stars alone still
+  do not, and every other game is unchanged. The same profile now shows g24 done and g25 playable.
+- **Checks.** New `scripts/tests/node-unlock.test.mjs`, run by `npm run gates`: after a v2 finish g24 completes and
+  g25 opens for entry ages 3, 6, 9 and 12, entry at 15 or older keeps Chapter 4 open, the v1 finishes still count,
+  and no other game completes from GLRL's stars. It failed on the old rule and passes now. Also `npm run gates` and
+  `tsc`.
+- **Docs.** [Green Light / Red Light](../games/green-light-red-light.md) (completion note),
+  [the path world](../games/swipeed-world.md) (node gating) and the [v2 engine](../architecture/v2-engine.md)
+  (completion flow and its line references).
 
 ## 2026-10-01 · code: lint passes cleanly ([SWED-110](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9b892973-658b-4376-962e-dde7a59e3a60))
 

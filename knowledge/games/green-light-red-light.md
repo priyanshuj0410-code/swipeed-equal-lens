@@ -10,6 +10,7 @@ timestamp: 2026-06-21T01:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2  # SWED-105
 ---
 
 # Green Light / Red Light
@@ -35,8 +36,12 @@ plane_issues:
 > id is `green-light-red-light` but the engine-host registry id is `glrl`: config uses `glrl`. Engine: the new
 > swipe mechanic + a small `binStyle` accretion (consent real/not, healthier/unhealthy valenced; the flag-reading
 > *sort* bins stay neutral: the swipe verb colours flags itself). Builds on [Boundary Bot](boundary-bot.md)
-> (g15); prereq g23. The sections below describe the original v1 swipe-roguelike build, superseded by the v2
-> mechanic engine.
+> (g15); prereq g23. **Completion:** earning all five category stickers ends the game and `GameDone` saves
+> `deckStars.glrl`, which completes g24 and opens g25 (`makeGameDone` in `src/lib/node-unlock.ts`, which still also
+> counts a v1 finish: a cleared story run or Quick Play deck stars). Until
+> [SWED-105](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2)
+> the path counted only the v1 finishes, so a v2 finish left g25 onward locked. The sections below describe the
+> original v1 swipe-roguelike build, superseded by the v2 mechanic engine.
 
 The **first game** built on the [SwipeEd](swipeed.md) path and its **flagship relationships lesson**
 (ages ~12-15). Per **GDD 24** ("standard node edition"), it is the **reference flagship the other 35
@@ -164,7 +169,8 @@ branch + KB update:
    deliberately **text-light 3-step flow**: **Step 1 Mode**: Story · Daily (date-seeded) · **Easy**
    (= Quick Play swipe) · **Hard** (= Boss Rush, the disguised/boss gauntlet framed by "Coach"); **Step 2**
    pick a story; **Step 3** pick **powers** (= the Insight perks). Daily/Easy/Hard start in one tap with a
-   default power pair. The path GLRL node turns "completed" once any story run is cleared.
+   default power pair. A cleared story run still turns the path GLRL node "completed", as does the v2 finish
+   (see the completion note at the top).
    *(Flag-pedia character-arc entries surfaced lightly as deck progress in the hub; deeper Flag-pedia
    integration deferred.)*
 5. ⏳ **l10n + a11y**: Hindi content, School-Comfort for runs, audio narration, reduced-motion juice.

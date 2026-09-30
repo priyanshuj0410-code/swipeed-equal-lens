@@ -16,6 +16,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/15cccb6b-b650-4a05-aca2-0c1dcd8957fb  # SWED-95
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2  # SWED-105
 ---
 
 # SwipeEd v2 engine
@@ -52,7 +53,7 @@ covered in the [question bank](../schemas/question-bank.md) doc; this doc treats
 
 ```mermaid
 flowchart TD
-    A["Node tap in the 3D path<br/>path-scene.tsx:1285 onSelect"] --> B["PathPage.handleSelect<br/>app/path/page.tsx:99-112"]
+    A["Node tap in the 3D path<br/>path-scene.tsx:1285 onSelect"] --> B["PathPage.handleSelect<br/>app/path/page.tsx:87-100"]
     B -->|"mythbuster (legacy deck)"| C["useSwipeGame<br/>(out of scope)"]
     B -->|"hasEngineGame(gid)"| D["setEngineGame(gid)"]
     B -->|"unbuilt / classic href"| E["router.push(node.href)"]
@@ -72,7 +73,7 @@ flowchart TD
     O2 --> P
     P --> Q["user taps 'Back to the path' (onExit)"]
     Q --> R["setEngineGame(null) or router.push('/path')"]
-    R --> S["PathPage nodes useMemo recomputes<br/>app/path/page.tsx:53-92<br/>node-unlock.ts isNodeUnlocked"]
+    R --> S["PathPage nodes useMemo recomputes<br/>app/path/page.tsx:53-80<br/>node-unlock.ts makeGameDone, isNodeUnlocked"]
     S --> A
 ```
 
@@ -80,7 +81,7 @@ Step by step, with the files that own each hop:
 
 1. **Node tap.** `PathScene` (`src/components/path-scene.tsx:2124-2134`) renders each node and, on tap, calls its
    `onSelect` prop (wired through `Node`, `path-scene.tsx:1285`) with the tapped `SceneNode`.
-2. **Routing the tap.** `PathPage.handleSelect` (`src/app/path/page.tsx:99-112`) reads `node.game`: the
+2. **Routing the tap.** `PathPage.handleSelect` (`src/app/path/page.tsx:87-100`) reads `node.game`: the
    `mythbuster` id goes to the legacy swipe engine; anything for which `hasEngineGame(gid)` is true (from
    `engine-host.tsx`) sets `engineGame` state, which mounts `EngineGameHost`; anything else (an unbuilt "soon"
    node, or a node whose only affordance is a plain route) falls back to `router.push(node.href)`.
@@ -101,8 +102,8 @@ Step by step, with the files that own each hop:
    `unlockTool(id, level)` for any Life-Skills Toolkit tool the game grows, then a big celebration.
 8. **Back to the path.** `onExit` either clears `engineGame` state (in-place play on `/path`) or
    `router.push("/path")` (the standalone `/game/[id]` route, `src/app/game/[id]/page.tsx:32`). Either way,
-   `PathPage`'s `nodes` memo (`app/path/page.tsx:53-92`) recomputes from the now-updated `profile.deckStars`, and
-   `src/lib/node-unlock.ts`'s `isNodeUnlocked` (`node-unlock.ts:36-42`) may flip the next node from `locked` to
+   `PathPage`'s `nodes` memo (`app/path/page.tsx:53-80`) recomputes from the now-updated `profile.deckStars`, and
+   `src/lib/node-unlock.ts`'s `isNodeUnlocked` (`node-unlock.ts:37-43`) may flip the next node from `locked` to
    `playable` because its `prereq` is now satisfied.
 
 ## Registry and how a game is added
@@ -209,11 +210,14 @@ personalised greeting, `v2-engine.tsx:89-91`), and on completion they call, via 
 - `unlockTool(id, level)` (`store.tsx:164-173`) for each Life-Skills Toolkit tool the game grows
   (`toolsUnlockedBy(gameId)`, `src/lib/toolkit.ts`; a no-op for non-Thread-C games).
 
-Node unlocking is derived, not stored: `src/lib/node-unlock.ts`'s `isNodeUnlocked` (`node-unlock.ts:36-42`) is a
-pure function of a node's `prereq`, the player's `entryAgeGate`, and a completion test built from
-`profile.deckStars` in `app/path/page.tsx:56-71`. `PathPage` recomputes this in a `useMemo`
-(`app/path/page.tsx:53-92`) whenever `deckStars`, `runDeckCleared`, or `entryAgeGate` change, which is exactly
-what happens the moment `finishDeck` runs.
+Node unlocking is derived, not stored: `src/lib/node-unlock.ts`'s `isNodeUnlocked` (`node-unlock.ts:37-43`) is a
+pure function of a node's `prereq`, the player's `entryAgeGate`, and a completion test, `makeGameDone`
+(`node-unlock.ts:57-76`): a game is done once `deckStars` has its id. Green Light / Red Light (`glrl`, g24) also
+still counts a v1 finish, any cleared story run in `runDeckCleared` or stars on a v1 Quick Play deck other than
+MythBuster; until [SWED-105](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2)
+it counted only those, so a v2 finish never completed g24. `scripts/tests/node-unlock.test.mjs` covers the
+rule. `PathPage` recomputes this in a `useMemo` (`app/path/page.tsx:53-80`) whenever `deckStars`,
+`runDeckCleared`, or `entryAgeGate` change, which is exactly what happens the moment `finishDeck` runs.
 
 A second, smaller piece of state is content rotation, not profile: a per-game anti-repeat ring at
 `localStorage` key `swipeed:seen:<gameId>` (`v2-engine.tsx:60-66`), capped at roughly 60% of that game's bank

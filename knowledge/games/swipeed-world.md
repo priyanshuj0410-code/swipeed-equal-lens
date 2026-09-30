@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9b892973-658b-4376-962e-dde7a59e3a60  # SWED-110
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2  # SWED-105
 ---
 
 # SwipeEd: The Path World (3D)
@@ -49,11 +50,13 @@ derived legacy structures). The table is the single source of truth for:
 - **Built vs. not-built:** built games are enabled; unbuilt nodes render visible-but-disabled ("soon").
 - **Node dependencies & gating** (the table's `prereq` chain): a node is **`locked`** until its prerequisite
   is completed (greyed, disabled, "finish earlier lessons first"). Completion is read from
-  `profile.deckStars` (v2 engine games record there via `GameDone`). Gating is driven by the **age band the
+  `profile.deckStars` (v2 engine games record there via `GameDone`); Green Light / Red Light (g24) also still
+  counts a v1 finish, a cleared story run or Quick Play deck stars. Gating is driven by the **age band the
   learner picks at onboarding** (`profile.entryAgeGate`): they enter at *their* chapter with its first node
   open (**without** clearing earlier chapters; earlier chapters stay open for **revision**), and the path
   gates forward from there along the linear chain. Legacy users with no age band stay **ungated**. The pure
-  model is `src/lib/node-unlock.ts` (`isNodeUnlocked` / `entryStartOrder` / `entryFocusIndex`); the camera +
+  model is `src/lib/node-unlock.ts` (`makeGameDone` / `isNodeUnlocked` / `entryStartOrder` / `entryFocusIndex`,
+  tested by `scripts/tests/node-unlock.test.mjs`); the camera +
   "play me next" glow focus the entry chapter. Regenerate the path by re-running the script after editing the xlsx.
 
 Distance simply fades into flat paper: there are **no mountains and no horizon band**. Nodes **window** to
