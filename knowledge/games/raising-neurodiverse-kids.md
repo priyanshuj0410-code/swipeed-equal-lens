@@ -10,6 +10,7 @@ timestamp: 2026-06-24T04:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
 ---
 
 # Raising Neurodiverse Kids
@@ -54,6 +55,8 @@ child learns that a brain that works differently is a difference to support, not
 the same warmth. **The spine: lead with strengths; accommodate the environment instead of forcing the child to
 mask; advocate for their rights; drop the shame (it's no one's fault); meet meltdowns with co-regulation; and look
 after yourself, because this is demanding work.**
+
+> **Multi-step branches and role-plays ([SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330), 2026-09-30).** All 61 branches and 61 role-plays are now 3 to 5 questions on one situation (79 with 3, 38 with 4, 5 with 5; 414 questions), each with 4 or 5 options and one best, revealed at the end. After a write, review and fix pass, a final certification ran up to four rounds of three independent reviews (a blind best-option pick, a transition-by-transition audit, and a safety and fidelity review against the single-step source): round 1 found 108 blocking problems across all 122 stories, round 4 found 1 in the 19 it re-checked, and the 9 stories the last fix touched were read in full before shipping. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).
 
 ## What it embodies
 

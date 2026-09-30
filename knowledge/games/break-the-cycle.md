@@ -10,6 +10,7 @@ timestamp: 2026-06-24T03:30:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
 ---
 
 # Break the Cycle
@@ -51,6 +52,8 @@ blame, because most parents who hit or shame were raised that way. Lensy returns
 the practice is the problem, never the person. **The spine: the inheritance isn't destiny; firm-and-kind discipline
 works better than fear; repair beats perfection; your own old wounds deserve tending; and the cycle can stop with
 you.**
+
+> **Multi-step branches and role-plays ([SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330), 2026-09-30).** All 66 branches and 58 role-plays are now 3 to 5 questions on one situation (74 with 3, 44 with 4, 6 with 5; 428 questions), each with 4 or 5 options and one best, revealed at the end. After a write, review and fix pass, a final certification ran up to four rounds of three independent reviews (a blind best-option pick, a transition-by-transition audit, and a safety and fidelity review against the single-step source): round 1 found 79 blocking problems across all 124 stories, round 4 found 0 in the 9 it re-checked, and the 1 story the last fix touched was read in full before shipping. Every story with a safety finding in any round or naming a helpline was also read in full before shipping, and the owner reads the shipped stories on a [review page](https://claude.ai/artifact/TtPPrzyuqbitV8RKvRRkrZ). One best move was widened by hand to "your spouse or someone you trust", so it works for a single parent too. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).
 
 ## What it embodies
 

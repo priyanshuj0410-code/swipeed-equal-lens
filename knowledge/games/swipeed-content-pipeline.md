@@ -19,6 +19,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4  # SWED-100
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/02455c6c-fb84-4cc8-a691-58156ea1a13d  # SWED-104
 ---
 
 # SwipeEd content-growth pipeline (`forge`)
@@ -106,8 +107,9 @@ a filename≠gameId game lost its chapter (chapter_of resolves the runtime gameI
 
 ## Progress
 **Multi-step rollout** ([playbook](../playbooks/multi-step-rollout.md)): Choosing & Building (SWED-96) and the other seven
-Chapter 7 games ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4), 2026-09-30, 967 stories) are multi-step; Chapter 8 is in progress
-([SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330)); then Chapters 6, 5, 4 and 3, and a Chapter 1 pilot game for the owner's sign-off.
+Chapter 7 games ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4), 2026-09-30, 967 stories) and the nine Chapter 8 games
+([SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330), 2026-09-30, 1,172 stories) are multi-step; Chapter 6 is in progress
+([SWED-104](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/02455c6c-fb84-4cc8-a691-58156ea1a13d)); then Chapters 5, 4 and 3, and a Chapter 1 pilot game for the owner's sign-off.
 
 **ALL 69 games at ≥400, fleet complete** (Chapters 1-8, ages 3 → parenthood). Waves 5-31 grew 55 games
 (smart-screen … navigating-addictions 435, be-the-safe-adult 406). 67 games at ≥400; two logged quality-first

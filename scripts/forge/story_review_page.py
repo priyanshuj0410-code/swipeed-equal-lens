@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common as C  # noqa: E402
 import steps_wave as W  # noqa: E402
 
-HELPLINE = re.compile(r"\b(181|1091|112|100|14416|1098|15100)\b")
+HELPLINE = re.compile(r"\b(181|1091|112|100|14416|1098|15100|1930)\b")
 
 
 def safety_ids(stem):
