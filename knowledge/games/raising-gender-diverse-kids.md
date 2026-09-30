@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
 ---
 
 # Raising Gender-Diverse Kids
@@ -55,6 +56,8 @@ life-protecting*. Lensy returns with the same dignity-first care. **The spine: a
 halves suicide risk); orientation, identity and expression are distinct and not a phase, choice or illness; the
 first reaction to a coming-out matters most; your own fear is okay but belongs with another adult; and "cures" are
 harmful, never the answer.**
+
+> **Multi-step branches and role-plays ([SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330), 2026-09-30).** All 68 branches and 64 role-plays are now 3 to 5 questions on one situation (82 with 3, 46 with 4, 4 with 5; 450 questions), each with 4 or 5 options and one best, revealed at the end. After a write, review and fix pass, a final certification ran up to four rounds of three independent reviews (a blind best-option pick, a transition-by-transition audit, and a safety and fidelity review against the single-step source): round 1 found 87 blocking problems across all 132 stories, round 4 found 0 in the 23 it re-checked, and the 10 stories the last fix touched were read in full before shipping. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).
 
 ## What it embodies
 

@@ -29,6 +29,8 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49  # SWED-91
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4  # SWED-100
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/88bb2bfc-fb38-4df6-bc26-3895c72a67e6  # SWED-103
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/02455c6c-fb84-4cc8-a691-58156ea1a13d  # SWED-104
 ---
 
 # SwipeEd project log
@@ -36,6 +38,28 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-30 · content: Chapter 8 branches and role-plays become multi-step ([SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330))
+- **Why.** The owner's rollout decisions of 2026-09-29 ([multi-step rollout playbook](../playbooks/multi-step-rollout.md)):
+  after Chapter 7, the parenting chapter, then Chapters 6, 5, 4 and 3.
+- **What.** All 1,172 single-step stories in the nine Chapter 8 lesson games (601 branches, 571 role-plays) are now
+  multi-step: 4,022 questions, 713 stories with 3 steps, 412 with 4 and 47 with 5. Chapter 8 has no single-step
+  branch or role-play left.
+- **How it was checked.** The same write, review and fix pass and final certification as Chapter 7. Round 1 found 918
+  blocking problems; round 4 found 14 in the 149 stories it re-checked. The shipping session read in full the 61 stories
+  the last fix changed, all 210 stories in Be the Safe Adult, Break the Cycle, Navigating Addictions and The Talks with
+  a safety finding in any round or naming a helpline, and the 14 findings fixers had kept. Every safety story believes the
+  child, says it is not their fault, never promises an unsafe secret, never has the parent confront an abuser, and
+  routes to Childline 1098, cybercrime 1930, 112 or Tele-MANAS 14416 as GROUNDING.md sets out.
+- **Fixed by hand.** Two tempting wrong options in The Talks that could read as "don't tell a teacher" or "don't tell
+  a grandparent" (now other mistakes, so no option says telling another safe adult is wrong); a Break the Cycle best
+  move that needed a spouse (now "your spouse or someone you trust"); an unclear Be the Safe Adult relearn; and a stray
+  persona tag, Diego, the only one outside the game personas in all 69 games (now Vikram).
+- **Owner review.** Review pages for the four safety-heavy games are published; the owner marks each story ok or flag
+  and flags are fixed the same day. `story_review_page.py` now also marks stories naming cybercrime 1930.
+- **Next.** Chapter 6 ([SWED-104](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/02455c6c-fb84-4cc8-a691-58156ea1a13d), 1,391 stories in 31 batches) started writing the same day.
+- **Checks.** forge_check for all nine games, forge_dedup with no duplicates within a band, the content gate, every
+  gate fixture, the dash check and the build.
 
 ## 2026-09-30 · pictures: FLUX style test, round two in the shaded Lensy look ([SWED-91](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49))
 - **Why.** The owner chose the Lensy style but found round one too flat, and clarified that the no-shadows rule is for

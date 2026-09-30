@@ -10,6 +10,7 @@ timestamp: 2026-06-24T02:30:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
 ---
 
 # Us, After Kids
@@ -50,6 +51,8 @@ the [Choosing & Building](choosing-building.md) partnership (g53) now under the 
 person who needs everything. Lensy returns as a been-there peer. **The spine: the post-baby dip is normal and not a
 verdict; you fight the tiredness, not each other; you share the load so it doesn't curdle into resentment; you
 reconnect on your own clock; and you both stay whole people, with fathers as equal parents, never "helpers."**
+
+> **Multi-step branches and role-plays ([SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330), 2026-09-30).** All 68 branches and 67 role-plays are now 3 to 5 questions on one situation (85 with 3, 46 with 4, 4 with 5; 459 questions), each with 4 or 5 options and one best, revealed at the end. After a write, review and fix pass, a final certification ran up to four rounds of three independent reviews (a blind best-option pick, a transition-by-transition audit, and a safety and fidelity review against the single-step source): round 1 found 129 blocking problems across all 135 stories, round 4 found 1 in the 21 it re-checked, and the 9 stories the last fix touched were read in full before shipping. A stray persona tag inherited from the game data (Diego) was set to Vikram by hand. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).
 
 ## What it embodies
 

@@ -10,6 +10,7 @@ timestamp: 2026-06-24T04:30:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
 ---
 
 # Be the Safe Adult
@@ -55,6 +56,8 @@ observant, and gets the disclosure response right. Lensy returns with the catalo
 voice. **The spine: build the open, no-blame door on purpose; notice calmly (most harm is by someone known);
 respond to a disclosure with belief, calm and "it's not your fault"; act and report; and treat the child as always
 the protected victim.**
+
+> **Multi-step branches and role-plays ([SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330), 2026-09-30).** All 63 branches and 68 role-plays are now 3 to 5 questions on one situation (72 with 3, 53 with 4, 6 with 5; 458 questions), each with 4 or 5 options and one best, revealed at the end. After a write, review and fix pass, a final certification ran up to four rounds of three independent reviews (a blind best-option pick, a transition-by-transition audit, and a safety and fidelity review against the single-step source): round 1 found 87 blocking problems across all 131 stories, round 4 found 4 in the 14 it re-checked, and the 10 stories the last fix touched were read in full before shipping. Every story with a safety finding in any round or naming a helpline was also read in full before shipping, and the owner reads the shipped stories on a [review page](https://claude.ai/artifact/HL43DkbUhz8f49xPPhPzbC). One unclear relearn line was reworded by hand. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).
 
 ## What it embodies
 

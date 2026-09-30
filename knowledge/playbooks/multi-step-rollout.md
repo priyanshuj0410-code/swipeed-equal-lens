@@ -75,8 +75,10 @@ A batch's progress is never kept in a session's memory: `steps_wave.py status N`
 7. **Merge and push.** Commit `[SWED-n] ...`; check `git worktree list` for where `main` lives and merge `--no-ff`
    there (rebase first if `main` moved; `plane_issues` lists and the log's top entries conflict almost every time:
    keep both, newest first); `npm run build`; `git push origin main`; wait for the Vercel status to succeed.
-8. **Close.** Plane issue to Done with a one-line comment. For safety-heavy games, publish or update the owner's review
-   page (an artifact listing each safety scenario in full) and send the link. Then
+8. **Close.** Plane issue to Done with a one-line comment. For safety-heavy games, build the owner's review page with
+   `python3 scripts/forge/story_review_page.py <game>` and publish it as an artifact with the `db` and `user`
+   capabilities (verdicts land in its `reviews` collection), then send the link. Read the flags with the artifact's
+   database tools and fix any the same day. Then
    `steps_wave.py mark paused --chapter <next>` and start the next chapter at step 1 of "Running a wave".
 
 After Chapter 3 ships, convert Feelings Friends alone as the Chapter 1 pilot (same process), ship nothing, publish a

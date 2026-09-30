@@ -10,6 +10,7 @@ timestamp: 2026-06-24T03:15:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
 ---
 
 # The Talks, Age by Age
@@ -50,6 +51,8 @@ the catalog quietly assumed a trusted, askable adult; g64 is where that adult is
 puberty, relationships and the online world. Lensy returns as a been-there peer who insists you don't need a perfect
 script. **The spine: start early and stay askable; correct names and honest facts make kids safer; share your
 values *with* the facts (not instead of them); and silence simply hands the teaching to the algorithm.**
+
+> **Multi-step branches and role-plays ([SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330), 2026-09-30).** All 67 branches and 70 role-plays are now 3 to 5 questions on one situation (83 with 3, 48 with 4, 6 with 5; 471 questions), each with 4 or 5 options and one best, revealed at the end. After a write, review and fix pass, a final certification ran up to four rounds of three independent reviews (a blind best-option pick, a transition-by-transition audit, and a safety and fidelity review against the single-step source): round 1 found 81 blocking problems across all 137 stories, round 4 found 2 in the 10 it re-checked, and the 2 stories the last fix touched were read in full before shipping. Every story with a safety finding in any round or naming a helpline was also read in full before shipping, and the owner reads the shipped stories on a [review page](https://claude.ai/artifact/4jkyPqnsGLNrtMo3v26pxb). Two tempting wrong options that could read as "don't tell a teacher" or "don't tell a grandparent" were replaced by hand, so no option says that telling another safe adult is wrong. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).
 
 ## What it embodies
 
