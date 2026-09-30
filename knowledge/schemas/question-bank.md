@@ -507,8 +507,8 @@ repo's named workflow `multi-step-wave` (`.claude/workflows/multi-step-wave.js`)
    source's lesson, facts and judged life choices (`steps-final-safety.md`).
 3. **Fixer** (`steps-fix.md`): `steps_final.py check` collects every finding and fails on any missing review; the
    fixer resolves the blocking ones (safety first), logs each decision in `fix-log.ndjson`, and `steps_final.py next`
-   lists what changed. Round 1 reviews every scenario; rounds 2 and 3 review only what the last fix changed. A batch
-   is certified when a fix changes nothing; anything the round 3 fix changed is read by the shipping session.
+   lists what changed. Round 1 reviews every scenario; rounds 2 to 4 review only what the last fix changed. A batch
+   is certified when a fix changes nothing; anything the round 4 fix changed is read by the shipping session.
 
 Whole-scenario continuity reviews missed most breaks in the first Chapter 7 batches, and a Sonnet auditor could not
 finish the transition audit, so the audit and the safety review run on Opus, as do the writers and fixers of

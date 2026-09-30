@@ -59,7 +59,7 @@ A batch's progress is never kept in a session's memory: `steps_wave.py status N`
 `steps_wave.py mark shipping --chapter N`, then:
 
 1. **Read what no reviewer saw.** For every batch at `read`, read each scenario listed in
-   `final-NN/r3/changed.txt` in full, as a player would, against `steps-write.md` (and `steps-minors.md` for Chapters 3
+   `final-NN/r4/changed.txt` in full, as a player would, against `steps-write.md` (and `steps-minors.md` for Chapters 3
    to 5). Fix by hand with a short Python edit; re-run `forge_check.py --batch`.
 2. **Read every safety change.** For each game in `SAFETY_HEAVY` (`scripts/forge/steps_wave.py`), read every scenario
    that had a safety or fidelity finding in any round (the `fix-log.ndjson` files) and every scenario whose source

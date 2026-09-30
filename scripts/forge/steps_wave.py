@@ -15,9 +15,9 @@ resume from any session.
                                               them all the time, so a recent change means another session owns the work)
   steps_wave.py mark <status> [--chapter N] [--note text]   record running, paused, shipping, waiting-for-owner or done
 
-Stages, in order: write, review (round 1 to 3), fix (round 1 to 3), then certified (a fix changed nothing), read (the
-round 3 fix changed scenarios that no reviewer has seen, so the shipping session reads them), or ship-ready once every
-batch is certified or read. Rounds: round 1 reviews every scenario; later rounds review only what the last fix changed.
+Stages, in order: write, review (round 1 to 4), fix (round 1 to 4), then certified (a fix changed nothing), read (the
+round 4 fix changed scenarios that no reviewer has seen, so the shipping session reads them), or ship-ready once every
+batch is certified or read. Rounds: round 1 reviews every scenario; later rounds review only what the last fix changed, up to round 4.
 """
 import json
 import math
@@ -33,7 +33,7 @@ import steps_final as F  # noqa: E402
 
 REPO = C.REPO
 ROLLOUT = os.path.join(REPO, ".forge", "rollout")
-MAX_ROUNDS = 3
+MAX_ROUNDS = 4  # Chapter 7 still had blocking findings after round 3 in several batches
 BATCH = 50
 AUDIENCE = {1: "children aged 3 to 6, playing with a grown-up", 2: "children aged 6 to 9", 3: "children aged 9 to 12",
             4: "young teens aged 12 to 15", 5: "teens aged 15 to 18", 6: "young adults aged 18 to 22",
@@ -136,17 +136,19 @@ def state(stem, nn, prepare=False):
                 prev = os.path.join(d, f"final-{nn}", f"r{r - 1}", "changed.txt")
                 F.make(stem, rd, batch, src, F.read_ids(prev))
             return "review", r, "prepared"
+        changed = os.path.join(rd, "changed.txt")
+        if os.path.exists(changed):
+            # a finished round: its fixer passed coverage then; later fixes change the batch, so never re-check it
+            if not F.read_ids(changed):
+                return "certified", r, "the last fix changed nothing"
+            if r == MAX_ROUNDS:
+                return "read", r, f"{len(F.read_ids(changed))} changed after the last review"
+            continue
         ids = F.read_ids(os.path.join(rd, "audit.ndjson"))
         out = F.check(stem, rd, batch, ids)
         if out["summary"]["coverage_problems"]:
             return "review", r, f"{out['summary']['coverage_problems']} reviews missing"
-        changed = os.path.join(rd, "changed.txt")
-        if not os.path.exists(changed):
-            return "fix", r, f"{out['summary']['blocking']} blocking"
-        if not F.read_ids(changed):
-            return "certified", r, f"{out['summary']['blocking']} blocking left" if out["summary"]["blocking"] else "clean"
-        if r == MAX_ROUNDS:
-            return "read", r, f"{len(F.read_ids(changed))} changed after the last review"
+        return "fix", r, f"{out['summary']['blocking']} blocking"
     return "read", MAX_ROUNDS, "?"
 
 

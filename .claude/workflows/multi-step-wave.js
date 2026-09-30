@@ -1,10 +1,10 @@
 export const meta = {
   name: 'multi-step-wave',
-  description: 'One chapter of the multi-step rollout: write each batch, then blind, audit and safety review in up to 3 rounds with fixes (SWED-100)',
+  description: 'One chapter of the multi-step rollout: write each batch, then blind, audit and safety review in up to 4 rounds with fixes (SWED-100)',
   whenToUse: 'Run with args from `python3 scripts/forge/steps_wave.py plan <chapter>` (.forge/rollout/wave-args.json); safe to rerun after any stop, because every batch resumes from its files',
   phases: [
     { title: 'Write', detail: 'one writer per batch of about 50 (Opus for safety-heavy games)' },
-    { title: 'Review', detail: 'per round: blind picks (Sonnet), transition audit and safety-fidelity review (Opus)' },
+    { title: 'Review', detail: 'per round (up to 4): blind picks (Sonnet), transition audit and safety-fidelity review (Opus)' },
     { title: 'Fix', detail: 'one fixer per batch per round; later rounds review only what changed' },
   ],
 }
@@ -12,7 +12,7 @@ export const meta = {
 // Model choices (global rule 1 asks for a reason for Opus): the transition audit and the safety review run on Opus because
 // a Sonnet auditor could not finish the audit, and Sonnet writers produced survivor-blaming options in Respect at Home.
 
-const MAX_ROUNDS = 3
+const MAX_ROUNDS = args.maxRounds || 4
 const STOP = { stopped_by_guard: { type: 'boolean', description: 'true if a usage guard message told you to stop before finishing' } }
 const WRITE = { type: 'object', properties: { scenarios: { type: 'integer' }, rejected: { type: 'integer' }, coverage_ok: { type: 'boolean' }, round_one_ready: { type: 'boolean' }, unsure: { type: 'array', items: { type: 'string' } }, ...STOP }, required: ['scenarios', 'rejected', 'coverage_ok', 'round_one_ready'] }
 const PICKS = { type: 'object', properties: { reviewed: { type: 'integer' }, hard_steps: { type: 'integer' }, ...STOP }, required: ['reviewed', 'hard_steps'] }
