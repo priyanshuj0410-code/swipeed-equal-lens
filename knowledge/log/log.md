@@ -37,6 +37,13 @@ Newest first. Every change that affects a game, the path, the engine or the ques
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
 
+## 2026-09-30 · pictures: FLUX style test, round two in the shaded Lensy look ([SWED-91](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49))
+- **Why.** The owner chose the Lensy style but found round one too flat, and clarified that the no-shadows rule is for
+  the UI, not illustrations.
+- **What.** `flux_batch.py --style shaded` (soft cel shading, highlights, ground shadow) with round one's fixes, and a
+  round-two review page that compares each picture with round one and asks whether this is the look. Findings and the
+  corrected picture rule are in the [visual answer options research](../research/visual-answer-options-2026-09-15.md).
+
 ## 2026-09-30 · content: Chapter 7 branches and role-plays become multi-step ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4))
 - **Why.** The owner's SWED-96 decision (3 to 5 questions, 4 or more options, best moves revealed at the end), rolled
   out beyond the Choosing & Building pilot. The owner approved the whole rollout on 2026-09-29: ship each chapter once

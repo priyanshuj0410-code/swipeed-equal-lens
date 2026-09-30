@@ -200,8 +200,10 @@ prototype. Global Symbols offers one search API across the open sets, with Hindi
 
 Drawn from the brand and child-safe content rules and the safety research:
 
-- Match the brand art in `public/brand/` (Lensy, UN, RE): flat vector, rounded shapes, soft dark-violet outlines,
-  violet and cream palette, big friendly eyes, no text inside the picture.
+- Match the brand art in `public/brand/` (Lensy, UN, RE): 2D, rounded shapes, soft dark-violet outlines, violet and
+  cream palette, big friendly eyes, and the mascots' soft shading and light (highlights, gentle shade, a soft ground
+  shadow). The brand's no-shadows rule is for the app's cards and buttons, not illustrations (owner, 2026-09-30). No
+  text inside the picture.
 - **No photographs of children, ever**, and no realistic renders of children.
 - Show trusted helpers (parents, grandparents, teachers) with visible diversity of gender, skin tone, clothing and
   family shape, including joint families. Avoid "stranger danger" imagery: most child sexual abuse is by someone the
@@ -241,13 +243,22 @@ The zero-budget route's first test, run on the owner's Mac (Apple M4, 24 GB) wit
 - **Timing.** About 84 seconds a picture from the text style and 111 seconds with Lensy's art as a reference, while
   other work ran on the Mac.
 - **Round one (2026-09-30).** 30 concepts in two styles. Both look on brand (flat, rounded, soft violet outlines, big
-  eyes) and the cut-outs are clean. The Lensy-reference style adds a soft ground shadow under most figures, against
-  the no-shadows rule. Across both styles: some children get lavender hair from the palette; "fair wheatish" skin came
+  eyes) and the cut-outs are clean. The Lensy-reference style adds a soft ground shadow under most figures (flagged
+  at the time as against the no-shadows rule, which the owner later clarified applies only to the UI). Across both styles: some children get lavender hair from the palette; "fair wheatish" skin came
   out blonde and very pale, which reads as not Indian; several actions do not read (take turns, wait your turn, slow
   breaths, shy, count to five); one picture has a stray line and one sad friend is bald. The next round names black or
   dark brown hair, avoids "fair", and redraws the actions that did not read.
-- **Owner review.** The review page stores the owner's style choice and a verdict and note per picture; the next
-  round waits for it.
+- **Owner review, round one.** The owner chose the Lensy style but found it too flat: Lensy, UN and RE are 2D with
+  shading and light, and the no-shadows rule is for the UI, not illustrations.
+- **Round two (2026-09-30).** `flux_batch.py --style shaded` asks for soft cel shading with light from the upper left,
+  glossy hair and eye highlights and a soft ground shadow, with Lensy's waving picture as the reference, plus round
+  one's fixes (black or dark brown hair for every child, no "fair" skin, clearer poses). About 145 seconds a picture.
+  The look now matches the mascots; share the toy, take turns, wait your turn and the full joint family read clearly.
+  Still to fix: calm reads as winking, curious lost its magnifying glass, slow breaths still reads as praying, count to
+  five reads as waving, say sorry reads as sulking, and walk away has a stray floating head. The review page
+  (`review_page.py --round 2`) asks the owner whether this is the look and collects per-picture verdicts.
+
+
 
 ## Owner decisions
 

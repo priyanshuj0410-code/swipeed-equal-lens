@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """review_page.py: build the owner's review page for a FLUX style test (SWED-91).
 
-  <mflux python> review_page.py <test dir> [notes.json]
+  <mflux python> review_page.py <test dir> [notes.json]            round one: two styles side by side
+  <mflux python> review_page.py <test dir> [notes.json] --round 2  round two: the shaded style beside round one's Lensy style
 
 Reads <test dir>/text-style and <test dir>/lensy-style (from flux_batch.py), writes <test dir>/review/index.html and
 review/pics/<style>/<id>.png (cut-outs at 360px). notes.json maps "<style>-<id>" to the reviewer's note on that picture.
 The page stores the owner's verdicts in the artifact's db: collection "verdicts" (doc "<style>-<id>": verdict ok or
-redo, and a note) and doc "decision/style" (choice text, lensy or neither, and a note).
+redo, and a note) and doc "decision/style" (choice text, lensy or neither, and a note). Round two keeps those and adds collection "verdicts-r2" (doc "<id>")
+and doc "decision/look" (choice yes, more, less or other, and a note), with notes.json keyed "shaded-<id>".
 """
 import html
 import json
@@ -20,6 +22,9 @@ STYLES = [("text", "Text style", "text-style", "Drawn from a written style descr
 
 
 def main():
+    args = [a for a in sys.argv[1:] if a not in ("--round", "2")]
+    if "--round" in sys.argv:
+        return round_two(args[0], json.load(open(args[1])) if len(args) > 1 else {})
     d = sys.argv[1]
     notes = json.load(open(sys.argv[2])) if len(sys.argv) > 2 else {}
     out = os.path.join(d, "review")
@@ -322,6 +327,227 @@ status("Loading your saved review...");
 })();
 </script>
 """
+
+def round_two(d, notes):
+    out = os.path.join(d, "review")
+    log = json.load(open(os.path.join(d, "shaded-style", "log.json")))
+    os.makedirs(os.path.join(out, "pics", "shaded"), exist_ok=True)
+    for p in log["pictures"]:
+        im = Image.open(os.path.join(d, "shaded-style", f"{p['id']}-cut.png"))
+        im.thumbnail((360, 360))
+        im.save(os.path.join(out, "pics", "shaded", f"{p['id']}.png"), optimize=True)
+    order = [p["id"] for p in json.load(open(os.path.join(d, "text-style", "log.json")))["pictures"]]
+    words = {p["id"]: p["word"] for p in log["pictures"]}
+    secs = round(sum(p["seconds"] for p in log["pictures"]) / max(1, len(log["pictures"])))
+    data = {"seconds": secs, "concepts": [{"id": c, "word": words[c], "note": notes.get(f"shaded-{c}", "")} for c in order if c in words]}
+    css = TEMPLATE[TEMPLATE.index("<style>"):TEMPLATE.index("</style>") + len("</style>")]
+    page = ROUND_TWO.replace("__STYLE__", css).replace("__SECS__", str(secs)).replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
+    open(os.path.join(out, "index.html"), "w", encoding="utf8").write(page)
+    print(os.path.join(out, "index.html"), len(data["concepts"]), "concepts (round two)")
+
+
+ROUND_TWO = r"""<title>Feelings Friends Picture Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&family=Poppins:wght@600;700&display=swap">
+__STYLE__
+<style>
+.concept { grid-template-columns: 170px 190px 1fr; }
+.before { display: grid; justify-items: center; gap: 6px; }
+.before .card { opacity: .8; }
+.before .card img { width: 110px; height: 110px; }
+.before small { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+.looks { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+@media (max-width: 860px) { .concept { grid-template-columns: 1fr; } .before { justify-items: start; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">SWED-91 · round two</div>
+    <h1>Feelings Friends Picture Test</h1>
+    <p class="lede">You chose the Lensy style and asked for the shading and light that Lensy, UN and RE have. Here are all
+    30 again in that look: soft shading with light from the upper left, highlights in the hair and eyes, and a soft
+    shadow on the ground. Round one's fixes are in too: black or dark brown hair, no blonde children, and clearer
+    poses for shy, count to five, take turns, wait your turn and slow breaths.</p>
+    <div class="asks">
+      <div class="ask"><b>1. Is this the look?</b><span>Yes, more shading, less shading, or something else.</span></div>
+      <div class="ask"><b>2. Flag what needs redoing</b><span>Tap Redo on any picture that is wrong, with a few words why. My notes are in lavender; round one is shown faded on the left.</span></div>
+      <div class="ask"><b>3. That's it</b><span>Your answers save as you go. I read them from here for the next step.</span></div>
+    </div>
+    <p id="status" class="status" role="status"></p>
+  </header>
+
+  <section aria-labelledby="look-h">
+    <h2 id="look-h">Is this the look for the picture bank?</h2>
+    <div class="looks" id="looks"></div>
+    <label class="meta" style="margin-top:12px">Anything to add about the look (optional)
+      <textarea id="look-note" placeholder="For example: stronger light, softer ground shadow, bigger eyes"></textarea>
+    </label>
+  </section>
+
+  <section aria-labelledby="pics-h">
+    <div class="toolbar">
+      <div>
+        <h2 id="pics-h" style="margin:0">Every picture</h2>
+        <span class="progress" id="progress"></span>
+      </div>
+      <div class="row-actions" role="group" aria-label="Show">
+        <button class="pill filter" data-filter="all" aria-pressed="true">All</button>
+        <button class="pill filter" data-filter="open" aria-pressed="false">Not reviewed</button>
+        <button class="pill filter" data-filter="redo" aria-pressed="false">Redo</button>
+        <button class="pill filter" data-filter="noted" aria-pressed="false">Has my note</button>
+        <button class="pill" id="rest-ok">Mark the rest as looks right</button>
+      </div>
+    </div>
+    <div class="concepts" id="concepts"></div>
+  </section>
+
+  <footer class="meta">
+    <span>Model: FLUX.2 [klein] 4B (Apache 2.0), run locally with mflux, 8-bit, 4 steps, 768 px, with Lensy's waving picture as the style reference; about __SECS__ seconds a picture. The white background is cut to transparent, the ground shadow stays. Not in the app yet.</span>
+    <span>The no-shadows rule is for the app's cards and buttons, not illustrations: pictures match the mascots' shading and light. Other rules: no text in pictures, no photographs or realistic renders of children, a range of genders, skin tones, clothes and family shapes, nothing frightening. Body-safety pictures wait for SWED-83.</span>
+  </footer>
+</div>
+
+<script>
+const DATA = __DATA__;
+const LOOKS = [["yes", "Yes, this look"], ["more", "More shading"], ["less", "Less shading"], ["other", "Something else"]];
+const $ = (s, el = document) => el.querySelector(s);
+const verdicts = {};
+let look = {};
+let filter = "all";
+let db = null;
+let canWrite = true;
+
+function renderLooks() {
+  const box = $("#looks"); box.textContent = "";
+  for (const [val, label] of LOOKS) {
+    const b = document.createElement("button"); b.className = "pill filter"; b.textContent = label;
+    b.setAttribute("aria-pressed", look.choice === val ? "true" : "false"); b.disabled = !canWrite;
+    b.addEventListener("click", () => saveLook({ choice: val }));
+    box.append(b);
+  }
+  const note = $("#look-note");
+  if (document.activeElement !== note) note.value = look.note || "";
+  note.disabled = !canWrite;
+}
+
+function visible(c) {
+  const v = (verdicts[c.id] || {}).verdict;
+  if (filter === "noted") return !!c.note;
+  if (filter === "open") return !v;
+  if (filter === "redo") return v === "redo";
+  return true;
+}
+
+function card(src, word, alt) {
+  const el = document.createElement("div"); el.className = "card";
+  const im = document.createElement("img"); im.src = src; im.alt = alt; im.loading = "lazy";
+  const w = document.createElement("span"); w.textContent = word;
+  el.append(im, w); return el;
+}
+
+function renderConcepts() {
+  const box = $("#concepts"); box.textContent = "";
+  let done = 0, redo = 0;
+  for (const c of DATA.concepts) {
+    const v = verdicts[c.id] || {};
+    if (v.verdict) done++; if (v.verdict === "redo") redo++;
+    if (!visible(c)) continue;
+    const row = document.createElement("article"); row.className = "concept";
+    const h = document.createElement("h3"); h.textContent = c.word; row.append(h);
+    const before = document.createElement("div"); before.className = "before";
+    const sm = document.createElement("small"); sm.textContent = "Round one";
+    before.append(card("pics/lensy/" + c.id + ".png", c.word, c.word + ", round one"), sm);
+    row.append(before);
+    const pic = document.createElement("div"); pic.className = "pic" + (v.verdict === "ok" ? " is-ok" : v.verdict === "redo" ? " is-redo" : "");
+    const side = document.createElement("div"); side.className = "side";
+    const which = document.createElement("div"); which.className = "which"; which.textContent = "Round two, shaded"; side.append(which);
+    if (c.note) { const n = document.createElement("div"); n.className = "mynote"; const b = document.createElement("b"); b.textContent = "My note: "; n.append(b, document.createTextNode(c.note)); side.append(n); }
+    const acts = document.createElement("div"); acts.className = "row-actions";
+    for (const [val, label] of [["ok", "Looks right"], ["redo", "Redo"]]) {
+      const bt = document.createElement("button"); bt.className = "pill " + val; bt.textContent = label;
+      bt.setAttribute("aria-pressed", v.verdict === val ? "true" : "false"); bt.disabled = !canWrite;
+      bt.addEventListener("click", () => saveVerdict(c.id, { verdict: v.verdict === val ? "" : val }));
+      acts.append(bt);
+    }
+    side.append(acts);
+    if (v.verdict === "redo" || v.note) {
+      const ta = document.createElement("textarea"); ta.placeholder = "What should change?"; ta.value = v.note || ""; ta.disabled = !canWrite;
+      ta.setAttribute("aria-label", "Note on " + c.word);
+      ta.addEventListener("change", () => saveVerdict(c.id, { note: ta.value.trim() }));
+      side.append(ta);
+    }
+    pic.append(card("pics/shaded/" + c.id + ".png", c.word, c.word + ", round two"), side);
+    row.append(pic);
+    box.append(row);
+  }
+  $("#progress").textContent = done + " of " + DATA.concepts.length + " reviewed" + (redo ? ", " + redo + " to redo" : "");
+}
+
+function status(text, warn) { const el = $("#status"); el.textContent = text; el.className = "status" + (warn ? " warn" : ""); }
+
+const pending = {};
+async function saveVerdict(id, patch) {
+  if (!db) return;
+  const next = Object.assign({ id: id, verdict: "", note: "" }, verdicts[id] || {}, patch, { at: Date.now() });
+  verdicts[id] = next; renderConcepts();
+  if (pending[id]) { pending[id] = next; return; }
+  pending[id] = next;
+  try { while (pending[id]) { const body = pending[id]; pending[id] = null; await db.collection("verdicts-r2").doc(id).set(body); } }
+  catch (e) { handleWriteError(e); pending[id] = null; }
+}
+
+let lookBusy = false, lookNext = null;
+async function saveLook(patch) {
+  if (!db) return;
+  look = Object.assign({ choice: "", note: "" }, look, patch, { at: Date.now() });
+  renderLooks();
+  lookNext = look;
+  if (lookBusy) return;
+  lookBusy = true;
+  try { while (lookNext) { const body = lookNext; lookNext = null; await db.doc("decision/look").set(body); } }
+  catch (e) { handleWriteError(e); }
+  lookBusy = false;
+}
+
+function handleWriteError(e) {
+  if (e && e.code === "invalid_argument") { canWrite = false; status("This view can read the review but not save it. Open it from your own account to leave verdicts.", true); renderLooks(); renderConcepts(); }
+  else if (e && e.code === "quota_exceeded") status("The review store is full, so this change was not saved.", true);
+  else status("A change did not save. Try that tap again in a moment.", true);
+}
+
+document.querySelectorAll("button.filter[data-filter]").forEach(b => b.addEventListener("click", () => {
+  filter = b.dataset.filter;
+  document.querySelectorAll("button.filter[data-filter]").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  renderConcepts();
+}));
+$("#look-note").addEventListener("change", e => saveLook({ note: e.target.value.trim() }));
+$("#rest-ok").addEventListener("click", async () => {
+  if (!db || !canWrite) return;
+  for (const c of DATA.concepts) if (!(verdicts[c.id] || {}).verdict) await saveVerdict(c.id, { verdict: "ok" });
+});
+
+renderLooks(); renderConcepts();
+status("Loading your saved review...");
+
+(async () => {
+  const cl = window.claude;
+  db = cl && cl.use ? await cl.use("db") : null;
+  const user = cl && cl.use ? await cl.use("user") : null;
+  if (!db) { status("Open this page in Claude to save your review. You can still look through every picture.", true); canWrite = false; renderLooks(); renderConcepts(); return; }
+  if (user && user.can) { try { const w = await user.can("data.write"); if (w === false) { canWrite = false; status("You can look through the pictures but not save a review from this view.", true); } } catch (e) {} }
+  db.collection("verdicts-r2").onSnapshot(snap => {
+    for (const d of snap.docs) { const b = d.data(); if (b) verdicts[d.id] = Object.assign({}, b); }
+    for (const ch of snap.docChanges()) if (ch.type === "removed") delete verdicts[ch.doc.id];
+    renderConcepts();
+    if (canWrite) status("");
+  }, () => status("Saved verdicts could not load. Reload the page to try again.", true));
+  db.doc("decision/look").onSnapshot(snap => { look = snap.exists ? Object.assign({}, snap.data()) : {}; renderLooks(); },
+    () => status("The saved answer could not load. Reload the page to try again.", true));
+})();
+</script>
+"""
+
 
 if __name__ == "__main__":
     main()
