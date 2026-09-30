@@ -257,6 +257,39 @@ The zero-budget route's first test, run on the owner's Mac (Apple M4, 24 GB) wit
   Still to fix: calm reads as winking, curious lost its magnifying glass, slow breaths still reads as praying, count to
   five reads as waving, say sorry reads as sulking, and walk away has a stray floating head. The review page
   (`review_page.py --round 2`) asks the owner whether this is the look and collects per-picture verdicts.
+- **Owner review, round two (2026-10-01, in chat).** The amount of shading is right. But the round, circular highlight
+  on the hair looks like a bald spot in many pictures (the heads crop shows a pale round shine on top of the hair; it
+  is probably copied from the shine on Lensy's round head in the reference).
+- **Round three (2026-10-01).** A five-picture test with thin highlight streaks along the strands removed the spot on
+  straight hair but left a grey round patch on curly hair and turned some streaks tan, so the hair looked dyed. The
+  style prompt now asks for matte hair that fully covers the head, shaded only with a darker tone underneath and at the
+  back, with no shine or light patch; a second test kept the faces' shading and removed the tan streaks, though one
+  curly head still drew a darker round patch at its seed, so every picture is checked for it and redrawn with another
+  seed when found. All 30 are redrawn. The nine pictures whose
+  action did not read get new prompts (calm with both eyes closed, shy peeking with no finger at the lips, proud holding
+  a real drawing, curious looking through the magnifying glass at a ladybird, slow breaths breathing out with a hand on
+  the tummy, count to five touching each finger, ask for help at a desk with a raised hand, say sorry handing back a
+  toy, walk away with whole children behind her), each drawn with two seeds (`--seed-base`) so the better one is kept.
+  `scripts/pictures/previews.py` makes small previews and a magnified heads crop of each card for image review.
+- **Independent review of round three (2026-10-01).** A workflow gave every picture two independent checks: a blind
+  reader who names the card without being told its word, and an inspector for hair, anatomy, artefacts, the concept,
+  representation and safety. 29 of 39 were marked redo, and spot checks confirmed the claims. Matte hair alone did not
+  remove the spot: 12 pictures still had a round grey patch on the top left of the head, traced to the style line
+  "lighter highlight tones on the top and left of every shape", which the model applied to hair as well. "Light brown
+  skin" came out pale peach on nine children and adults, so they read as white or East Asian. Grandmother, teacher and
+  father had toddler proportions. Poses with several hand instructions grew a third hand (slow breaths, curious), and
+  crowded scenes lost a person or showed a floating head (wait your turn, family, play together). Nine concepts
+  passed: draw your feeling, scared, shy, a hug, squeeze a soft toy, take turns, walk away, ask for help and say sorry.
+- **Round four (2026-10-01).** Highlights are limited to faces, skin and clothes; everyone is asked for warm brown
+  skin from light-medium to deep; grown-ups are asked for adult proportions; slow breaths rests both hands on the
+  tummy, curious crouches over a ladybird, and wait your turn, play together and family have fewer people. The 21
+  failing concepts are drawn with two seeds, and the six hardest with a third, then reviewed the same way.
+- **Round four picks (2026-10-01).** Hair, skin and grown-ups are fixed in the chosen versions. Count to five still
+  read as waving in all three seeds and the slow-breaths breath lines looked like a white moustache, so both were
+  redrawn as concrete actions: counting five blocks lined up on a table, and gently blowing a pinwheel with eyes closed.
+  The chosen 30 are in `.forge/pictures/flux-style-test/final-r4/` (`picks.json` names the round and seed of each).
+  Grown-ups keep the style's big-headed proportions, which suits the mascots but makes the grandmother and teacher
+  read young on their own; that is the owner's call.
 
 
 

@@ -131,6 +131,17 @@ Results on 2026-10-02: the character LoRA drew Lensy, UN and RE on-model in comi
   the dash check among the gates, and the [knowledge base index](../README.md) lists the multi-step rollout
   playbook and the README.
 
+## 2026-10-01 · pictures: FLUX style test, rounds three and four ([SWED-91](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49))
+- **Why.** The owner kept round two's amount of shading but found that a round highlight on the hair read as a bald
+  spot in many pictures.
+- **What.** The hair spot came from the style line asking for highlights "on every shape", so highlights are now for
+  faces, skin and clothes and hair is matte. An independent image review (a blind reader and an inspector per picture,
+  78 checks) then found pale skin from "light brown", adults drawn with toddler proportions, extra hands and missing
+  people; prompts now ask for warm brown skin and adult grown-ups, and the hard scenes were simplified (slow breaths is
+  a girl blowing a pinwheel, count to five is counting blocks). The best of up to three seeds per concept makes a new
+  30-picture set for the owner. `flux_batch.py --seed-base` and `previews.py` support this; findings are in the
+  [visual answer options research](../research/visual-answer-options-2026-09-15.md).
+
 ## 2026-09-30 · content: Chapter 8 branches and role-plays become multi-step ([SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330))
 - **Why.** The owner's rollout decisions of 2026-09-29 ([multi-step rollout playbook](../playbooks/multi-step-rollout.md)):
   after Chapter 7, the parenting chapter, then Chapters 6, 5, 4 and 3.
