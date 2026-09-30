@@ -27,6 +27,8 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1a2181d-de35-49cb-9ab5-2766a364dac9  # SWED-99
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49  # SWED-91
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4  # SWED-100
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/88bb2bfc-fb38-4df6-bc26-3895c72a67e6  # SWED-103
 ---
 
 # SwipeEd project log
@@ -34,6 +36,30 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-09-30 · content: Chapter 7 branches and role-plays become multi-step ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4))
+- **Why.** The owner's SWED-96 decision (3 to 5 questions, 4 or more options, best moves revealed at the end), rolled
+  out beyond the Choosing & Building pilot. The owner approved the whole rollout on 2026-09-29: ship each chapter once
+  certified, continue with Chapters 8, 6, 5, 4 and 3, pilot one Chapter 1 game for sign-off, and resume automatically
+  after usage pauses ([multi-step rollout playbook](../playbooks/multi-step-rollout.md)).
+- **What.** All 967 single-step stories in the other seven Chapter 7 games (553 branches, 414 role-plays) are now
+  multi-step: 3,322 questions, 589 stories with 3 steps, 335 with 4 and 43 with 5. Chapter 7 has no single-step
+  branch or role-play left.
+- **How it was checked.** Writers, then blind best-option picks and a transition-by-transition audit with a fixer, then
+  a final certification of up to four rounds of three independent reviews (blind picks, transition audit, and a new
+  safety and fidelity review against each single-step source). Round 1 of the certification found 452 blocking
+  problems; round 4 found 10 in the 124 stories it re-checked. The shipping session read in full the 69 stories the
+  last fix changed, every Respect at Home story with a safety finding or a helpline, and the 29 findings fixers had
+  kept; it fixed a male survivor pointed at the women's helplines, a role-play line missing its quotes, and two
+  duplicate exchanges by hand.
+- **Found and filed.** If, When & Whether sends adults to RKSK, the adolescent health programme, across the game
+  ([SWED-103](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/88bb2bfc-fb38-4df6-bc26-3895c72a67e6)).
+- **Tooling.** `steps_final.py` (review rounds and coverage), `steps_wave.py` (a wave's per-batch state from its
+  files), the `multi-step-wave` workflow, briefs for writers, reviewers, auditors, fixers and players under 18, a
+  comma splice lint, one question per branch step, and the usage guard's session limit
+  ([question bank](../schemas/question-bank.md), [content pipeline](../games/swipeed-content-pipeline.md)).
+- **Checks.** forge_check for all seven games, forge_dedup with no duplicates within a chapter, the content gate, every
+  gate fixture, the dash check and the build.
 
 ## 2026-09-30 · pictures: local FLUX style test, round one ([SWED-91](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49))
 - **Why.** The owner chose free local FLUX pictures for answer cards and needs to sign off a style.

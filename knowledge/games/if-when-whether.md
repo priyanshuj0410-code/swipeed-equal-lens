@@ -10,6 +10,8 @@ timestamp: 2026-06-24T01:50:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4  # SWED-100
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/88bb2bfc-fb38-4df6-bc26-3895c72a67e6  # SWED-103
 ---
 
 # If, When & Whether
@@ -51,6 +53,8 @@ taught the teenager that their future is theirs to plan, this node carries that 
 pressured reproductive decision an Indian adult faces: *when are you having children, and is it a son?* Lensy returns
 as a calm, factual peer. **The spine: the decision is the couple's alone; the facts are honest and panic-free; and
 every outcome (children now, later, never, or a hard road through infertility) is met without shame.**
+
+> **Multi-step branches and role-plays ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4), 2026-09-30).** All 64 branches and 58 role-plays are now 3 to 5 questions on one situation (76 with 3, 40 with 4, 6 with 5; 418 questions), each with 4 or 5 options and one best, revealed at the end. After a write, review and fix pass, a final certification ran up to four rounds of three independent reviews (a blind best-option pick, a transition-by-transition audit, and a safety and fidelity review against the single-step source): round 1 found 65 blocking problems across all 122 stories, round 4 found 0 in the 25 it re-checked, and the 9 stories the last fix touched were read in full before shipping. The reviewers also flagged that the game sends adults to RKSK, the adolescent health programme; that is a game-wide fix, filed as [SWED-103](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/88bb2bfc-fb38-4df6-bc26-3895c72a67e6). Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).
 
 ## What it embodies
 

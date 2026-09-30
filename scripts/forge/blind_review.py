@@ -6,8 +6,13 @@ A reviewer who has not seen the keys answers every question with its answers rem
 items shuffled. This script writes those blind files and diffs the reviewer's answers against the keys. A
 disagreement means the intended answer is not the only defensible one, so the scenario is rewritten before it ships.
 
-  make <gameId> <dir> [batch.ndjson ...]   write blind-choose/match/sort/story.ndjson for the game, with batches applied
+  make <gameId> <dir> [batch.ndjson ...]   write blind-choose/match/sort/story.ndjson for the game, with batches applied,
+                                           plus continuity.ndjson for stories
   diff <gameId> <dir> [batch.ndjson ...]   compare the reviewer's files in <dir> with the keys; exit 1 on disagreement
+
+  --batch-only   only the scenarios in the given batches (a rollout reviews one batch at a time, SWED-100)
+  --ids a,b,c    only these ids (a re-check of the steps a fixer rewrote)
+  --ids-from f   only the ids in f: one per line, or the "id" of each row of an .ndjson file
 
 The reviewer writes, one JSON object per line:
   review-choose.ndjson  {"id", "fits": [option texts], "unsure": [option texts], "why"}
@@ -15,7 +20,8 @@ The reviewer writes, one JSON object per line:
   review-sort.ndjson    {"id", "key": {item text: zone label}, "why"}
   review-story.ndjson   {"id", "best": [the chosen option text for each step, in order], "why"}
 A story's blind row shows every step's prompt and its options shuffled, without any `then`: a then describes what an
-option leads to, which a player only sees after picking it.
+option leads to, which a player only sees after picking it. Its continuity row adds each option's `then` and still
+hides `best`, so a second pass can check that every next prompt follows from every earlier pick.
 Batches are applied in order over the shipped game, so a pending reshape is reviewed as it will ship.
 """
 import json
@@ -47,21 +53,27 @@ def kind(o):
     return "story" if C.is_story(o) else o.get("type")
 
 
-def make(gid, out, batches, game_path=None, seed=None):
+def make(gid, out, batches, game_path=None, seed=None, only=None):
     by = scenarios(gid, batches, game_path)
     rng = random.Random(seed if seed is not None else gid)
     os.makedirs(out, exist_ok=True)
     files = {k: open(os.path.join(out, f"blind-{k}.ndjson"), "w", encoding="utf8") for k in KINDS}
     counts = {k: 0 for k in files}
+    continuity = open(os.path.join(out, "continuity.ndjson"), "w", encoding="utf8")
     for o in by.values():
+        if only is not None and o["id"] not in only:
+            continue
         t = kind(o)
         if t == "story":
-            steps = []
+            steps, full = [], []
             for st in o["steps"]:
-                texts = [x["text"] for x in st["options"]]
-                rng.shuffle(texts)
-                steps.append({"prompt": st["prompt"], "options": texts})
-            row = {"id": o["id"], "type": o["type"], "hook": o["hook"], **({"setup": o["setup"]} if o.get("setup") else {}), "steps": steps}
+                opts = [{"text": x["text"], "then": x["then"]} for x in st["options"]]
+                rng.shuffle(opts)
+                steps.append({"prompt": st["prompt"], "options": [x["text"] for x in opts]})
+                full.append({"prompt": st["prompt"], "options": opts})
+            head = {"id": o["id"], "type": o["type"], "hook": o["hook"], **({"setup": o["setup"]} if o.get("setup") else {})}
+            row = {**head, "steps": steps}
+            continuity.write(json.dumps({**head, "steps": full}, ensure_ascii=False) + "\n")
         elif t == "choose":
             texts = [x["text"] for x in o["options"]]
             rng.shuffle(texts)
@@ -78,17 +90,23 @@ def make(gid, out, batches, game_path=None, seed=None):
             continue
         files[t].write(json.dumps(row, ensure_ascii=False) + "\n")
         counts[t] += 1
-    for f in files.values():
+    for f in (*files.values(), continuity):
         f.close()
     return counts
+
+
+def read_ids(path):
+    """Ids from a file: one per line, or the "id" of each row of an .ndjson file."""
+    lines = [l.strip() for l in open(path, encoding="utf8") if l.strip()]
+    return [json.loads(l)["id"] for l in lines] if path.endswith(".ndjson") else lines
 
 
 def _rows(path):
     return [json.loads(l) for l in open(path, encoding="utf8") if l.strip()] if os.path.exists(path) else []
 
 
-def diff(gid, d, batches, game_path=None):
-    """Disagreements as (kind, id, detail) plus the ids the reviewer skipped."""
+def diff(gid, d, batches, game_path=None, only=None):
+    """Disagreements as (kind, id, detail) plus the ids the reviewer skipped (within `only` when given)."""
     by = scenarios(gid, batches, game_path)
     out, seen = [], {k: set() for k in KINDS}
     for r in _rows(os.path.join(d, "review-choose.ndjson")):
@@ -121,18 +139,28 @@ def diff(gid, d, batches, game_path=None):
         wrong = [(i, key[i], got[i] if i < len(got) else None) for i in range(len(key)) if i >= len(got) or got[i] != key[i]]
         if wrong:
             out.append(("story", r["id"], f"(step, key, reviewer) {wrong}; {r.get('why', '')}"))
-    missing = sorted(i for i, o in by.items() if kind(o) in seen and i not in seen[kind(o)])
+    missing = sorted(i for i, o in by.items() if kind(o) in seen and i not in seen[kind(o)] and (only is None or i in only))
     return out, missing
 
 
 def main():
     if len(sys.argv) < 4 or sys.argv[1] not in ("make", "diff"):
         raise SystemExit(__doc__)
-    cmd, gid, d, batches = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4:]
+    cmd, gid, d, rest = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4:]
+    ids = rest[rest.index("--ids") + 1] if "--ids" in rest else None
+    ids_from = rest[rest.index("--ids-from") + 1] if "--ids-from" in rest else None
+    if ids_from:
+        ids = ",".join(read_ids(ids_from))
+    batches = [a for a in rest if not a.startswith("--") and a not in (ids, ids_from)]
+    only = None
+    if "--batch-only" in rest:
+        only = {json.loads(l)["id"] for b in batches for l in open(b, encoding="utf8") if l.strip()}
+    if ids is not None:
+        only = (only if only is not None else set(scenarios(gid, batches))) & {i.strip() for i in ids.split(",") if i.strip()}
     if cmd == "make":
-        print(f"✓ blind files in {d}: {make(gid, d, batches)}")
+        print(f"✓ blind files in {d}: {make(gid, d, batches, only=only)}")
         return
-    found, missing = diff(gid, d, batches)
+    found, missing = diff(gid, d, batches, only=only)
     for kind, i, detail in found:
         print(f"  {kind} {i}: {detail}")
     if missing:

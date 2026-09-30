@@ -433,6 +433,18 @@ def story_fixtures():
     result("a legacy branch still passes its shape check", not C.shape_errors(legacy))
     result("the single-step lint fires on a legacy branch", any(f.startswith("single-step") for f in L.content_lints(legacy)))
     result("no lint on a clean multi-step branch", not L.content_lints(VALID_STORY), L.content_lints(VALID_STORY))
+    for text in ("It matters to me, can we talk?", "\"It's fine, I'll cover it this month.\"", "Forget it, it's probably nothing.",
+                 "Say it's fine, you're used to it by now", "\"I'm not always asking, that's not fair.\""):
+        result(f"the splice lint fires on: {text}", bool(L.comma_splices(text)))
+    for text in ("Saying it out loud, you realise the laugh bothered you.", "If it does, that's your problem, not mine.",
+                 "\"That's fair,\" he says. \"Maybe I need that break too.\"", "Honestly, we'll see if you even try this time.",
+                 "\"Someone has to, I guess.\"", "When you're ready, I'm here.", "Say yes, and raise the money comment on the date",
+                 "He nods, relieved, and the problem stays exactly where it was."):
+        result(f"no splice lint on: {text}", not L.comma_splices(text), L.comma_splices(text))
+    for name, prompt in (("no question", "Moment 2."), ("two questions", "Moment 2? What now?")):
+        asks = json.loads(json.dumps(VALID_STORY))
+        asks["steps"][1]["prompt"] = prompt
+        result(f"the step-questions lint fires on a branch prompt with {name}", any(f.startswith("step-questions") for f in L.content_lints(asks)))
     verdict = variant(lambda o: o["steps"][0]["options"][1].update(then="Good choice. Kabir smiles."))
     result("the then-verdict lint fires on a graded then", any(f.startswith("then-verdict") for f in L.content_lints(verdict)))
     long_best = variant(lambda o: [st["options"][1].update(text=st["options"][1]["text"] + " and a long reason") for st in o["steps"][:2]])
@@ -455,6 +467,47 @@ def story_fixtures():
     open(os.path.join(tmp, "review-story.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "best": [best[0], "Choice 2a", best[2]]}) + "\n")
     found, _ = B.diff("t", tmp, [], game_path=game)
     result("a reviewer who picks a different option in one step", len(found) == 1 and "Choice 2a" in found[0][2], found)
+    cont = [json.loads(l) for l in open(os.path.join(tmp, "continuity.ndjson"), encoding="utf8") if l.strip()]
+    result("the continuity row shows every then and hides best", len(cont) == 1 and all("then" in x for st in cont[0]["steps"] for x in st["options"])
+           and '"best"' not in json.dumps(cont))
+    sub = os.path.join(tmp, "only")
+    counts = B.make("t", sub, [], game_path=game, seed=1, only={"t-999"})
+    found, missing = B.diff("t", sub, [], game_path=game, only={"t-999"})
+    result("a make limited to other ids writes no story and reports nothing missing", counts["story"] == 0 and not found and not missing, (counts, missing))
+    import steps_audit as A
+    batch = os.path.join(tmp, "batch.ndjson")
+    open(batch, "w", encoding="utf8").write(json.dumps(VALID_STORY) + "\n")
+    aud = os.path.join(tmp, "audit")
+    A.make(aud, batch)
+    row = json.loads(open(os.path.join(aud, "audit.ndjson"), encoding="utf8").read())
+    n = len(row["transitions"])
+    result("the audit row numbers every option of every step before a later prompt", n == sum(len(st["options"]) for st in VALID_STORY["steps"][:-1]), n)
+    open(os.path.join(aud, "review-audit.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "transitions": ["ok"] * (n - 1)}) + "\n")
+    problems, _, _ = A.check(aud, batch)
+    result("the audit check reports a verdict missing", len(problems) == 1 and "verdicts" in problems[0], problems)
+    open(os.path.join(aud, "review-audit.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "transitions": ["ok"] * (n - 1) + ["break: never met"], "notes": ["safety: x"]}) + "\n")
+    problems, breaks, notes = A.check(aud, batch)
+    result("the audit check passes full coverage and lists the break and note", not problems and len(breaks) == 1 and len(notes) == 1, (problems, breaks, notes))
+    import steps_final as F
+    src = os.path.join(tmp, "source.ndjson")
+    open(src, "w", encoding="utf8").write(json.dumps({"id": "t-020", "hook": "Old hook.", "relearn": "Old relearn."}) + "\n")
+    fin = os.path.join(tmp, "final")
+    n = F.make("t", fin, batch, src, game_path=game)
+    fid = json.loads(open(os.path.join(fin, "fidelity.ndjson"), encoding="utf8").read())
+    result("the final pass pairs each story with its source", n == 1 and fid["source"]["hook"] == "Old hook." and fid["final"]["steps"][0]["options"], fid.get("source"))
+    out = F.check("t", fin, batch, game_path=game)
+    result("the final check reports every missing review as a coverage problem", out["summary"]["coverage_problems"] == 3, out["coverage"])
+    best = [next(x["text"] for x in st["options"] if x.get("best")) for st in VALID_STORY["steps"]]
+    ts = len(A.transitions(VALID_STORY))
+    open(os.path.join(fin, "review-story.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "best": best}) + "\n")
+    open(os.path.join(fin, "review-audit.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "transitions": ["ok"] * ts}) + "\n")
+    open(os.path.join(fin, "review-safety.ndjson"), "w", encoding="utf8").write(json.dumps({"id": "t-020", "findings": [{"lens": "facts", "severity": "block", "field": "why", "problem": "x"}]}) + "\n")
+    out = F.check("t", fin, batch, game_path=game)
+    result("the final check counts a blocking safety finding", out["summary"]["coverage_problems"] == 0 and out["summary"]["blocking"] == 1, out["summary"])
+    open(os.path.join(fin, "batch-before.ndjson"), "w", encoding="utf8").write(open(batch, encoding="utf8").read())
+    edited = json.loads(json.dumps(VALID_STORY)); edited["steps"][0]["prompt"] = "Moment 1, changed. What do you do?"
+    open(batch, "w", encoding="utf8").write(json.dumps(edited) + "\n")
+    result("the final pass lists a scenario a fixer changed", F.changed_ids(os.path.join(fin, "batch-before.ndjson"), batch) == ["t-020"])
     shutil.rmtree(tmp)
     return fails
 

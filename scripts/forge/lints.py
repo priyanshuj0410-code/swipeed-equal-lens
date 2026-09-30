@@ -19,12 +19,16 @@ gate holds at zero findings once a game has been cleaned (a game is added to the
                   3 to 5 steps with 4 or 5 options each and the answers revealed at the end (SWED-96)
   then-verdict    a step's `then` that grades the pick ("Good choice", "That was wrong"), which gives the answer away
                   before the end reveal
-  step-questions  a branch step prompt that asks more than one question
+  step-questions  a branch step prompt that does not ask exactly one question
   best-longest    a multi-step scenario whose best option is clearly the longest (6 or more characters longer than every
                   other option) in more than half its steps, which players learn to spot
   follow-up       a reflect `ask` or `deeper` that is not exactly one question (SWED-97)
   disclosure      a reflect `ask` or `deeper` that asks players about harm in their own life ("Has this happened to you?",
                   "Tell me about a time..."): the app cannot receive a disclosure (child-safe content rules)
+  splice          a comma splice: two sentences joined by a comma ("It's fine, I'll cover it."), which the brand voice
+                  writes as two sentences. A heuristic tuned on the Choosing & Building review (SWED-100): it catches
+                  68 of the 71 splices that review fixed by hand and skips tags ("I guess"), intros ("Honestly,") and
+                  clauses opened by if, when or because
 
 Review flags (reported, never blocking): match rights that share a content word, which may be near-synonyms that
 turn the pairing into guesswork (question bank audit A12).
@@ -55,6 +59,59 @@ TAG = re.compile(r"[.!?…]\s+([^.!?…]{1,30})\?\s*$")
 PRONOUN_OPEN = re.compile(r"^(?:it|they|both|this|these|those|he|she)\b", re.I)
 VERDICT = re.compile(r"\b(?:good|great|best|right|wrong|correct|incorrect|smart|poor|bad|nice|kind|brave)\s+(?:choice|move|answer|call|pick|option|decision)\b|\b(?:well done|good job|that was (?:wrong|right|the best))\b", re.I)
 DISCLOSURE = re.compile(r"\b(?:tell (?:me|us|lensy) about (?:a time|when)|(?:has|did) (?:this|that|anything like this|something like this) (?:ever )?happen(?:ed)? to you|describe what happened|who (?:hurt|touched|hit) you|what happened to you)\b", re.I)
+# comma splice heuristic: a comma between a left part that reads as a clause and a right part that opens one
+_SUBJ = r"(?:i|you|he|she|it|we|they)"
+_CONTR = (r"(?:nothing's|everything's|something's|who's|where's|how's|i'm|i'll|i've|i'd|you're|you'll|you've|you'd|he's|"
+          r"he'll|he'd|she's|she'll|she'd|it's|it'll|it'd|we're|we'll|we've|we'd|they're|they'll|they've|they'd|there's|"
+          r"that's|that'll|here's|what's|let's)")
+_AUX = (r"(?:am|is|are|was|were|do|does|did|don't|doesn't|didn't|can|can't|could|couldn't|will|won't|would|wouldn't|should|"
+        r"shouldn't|have|has|had|haven't|hasn't|need|needs|know|think|feel|feels|want|wants|get|gets|got|go|goes|went|make|"
+        r"makes|made|say|says|said|see|sees|saw|look|looks|seem|seems)")
+_NOT_VERB = r"(?:and|or|too|both|all|guys|two|three|alone|included)"
+_OPENER = (r"(?:whatever|whoever|wherever|however|whichever|if|when|whenever|because|although|though|as|since|while|after|"
+           r"before|once|unless|until|whether|even|so|and|but|or|then|like|with|without|by|for|in|on|at|from|to|of|about|"
+           r"not|instead|later|first|finally|usually|often|meanwhile|besides)")
+_INTRO = (r"(?:no|yes|okay|ok|well|sorry|honestly|sometimes|fine|sure|look|listen|maybe|please|oh|hey|thanks|right|wow|hmm|"
+          r"still|now|again|really|actually|anyway|also|just|only|seriously|see|alright|great|good|true|wait|arre|haan|"
+          r"accha|achha|beta|yaar|ji)")
+_IMPERATIVE = (r"(?:don't|do|fix|be|stay|get|go|come|hold|find|help|show|bring|write|read|note|name|say|tell|ask|let|take|"
+               r"give|keep|stop|try|make|leave|call|text|suggest|agree|thank|wait|forget|trust|remind|check|share|talk|"
+               r"explain|offer|admit|promise|decide|refuse|insist|point|mention|pause|listen|nod|laugh|smile|change|drop|"
+               r"skip|join|pay|split|book|plan|put|send|reply|block|report|walk|move)")
+_INTRO_PHRASES = {"i mean", "you know", "you see", "i guess", "i think", "i suppose"}
+_TAG_QUESTION = r"(?:\w+n't|do|does|did|can|could|would|will|is|are|am|was|were|have|has)\s+(?:i|you|we|they|he|she|it)\W*"
+_TAG = re.compile(r"(?:i guess|i suppose|i think|i mean|i know|i hope|i promise|i swear|you know|you know that|you see|"
+                  rf"that's all|that's it|right)\W*|{_TAG_QUESTION}")
+_SUBORDINATE = re.compile(r"\b(?:if|when|whenever|because|although|though|once|unless|until|since|while|before|after|whether)\b")
+_GERUND = re.compile(r"^(?!(?:nothing|something|everything|anything|during|morning|evening|thing)\b)\w+ing\s")
+_OPENS_CLAUSE = re.compile(
+    rf"^(?:{_CONTR}\b|(?:why|what|how|where|who)\s+(?:do|does|did|would|could|should|can|is|are|was|were|will|have|has)\b"
+    rf"|(?:can|could|would|will|shall|should|do|does|did|is|are)\s+(?:we|you|i|he|she|they)\b"
+    rf"|{_SUBJ}\s+(?!{_NOT_VERB}\b)\w+"
+    r"|(?:this|that|the|my|your|his|her|our|their|nothing|everything|something|nobody|everyone)\s+(?:\w+\s+){0,2}"
+    r"(?:is|are|was|were|isn't|aren't|wasn't|doesn't|don't|didn't|won't|can't|will|would|has|have|had|matters|counts)\b)")
+_IS_CLAUSE = re.compile(rf"\b{_CONTR}\b|^{_IMPERATIVE}\b|^{_SUBJ}\s+(?!{_NOT_VERB}\b)\w+|\b(?:{_SUBJ}|that|this|there|[a-z]+)\s+{_AUX}\b")
+
+
+def comma_splices(text):
+    """Comma splices in one text, each as 'left, right'."""
+    out = []
+    t = (text or "").replace("\u201c", '"').replace("\u201d", '"').replace("\u2019", "'")
+    for sentence in re.split(r'(?<=[.!?])"?\s+', t):
+        parts = [x for x in re.split(r',(?!")\s+', sentence) if not re.fullmatch(rf"\W*{_INTRO}\W*", x.strip().lower())]
+        for a, b in zip(parts, parts[1:]):
+            left = re.split(r'[:"]', a.strip().strip('"').lower())[-1].strip()
+            left = re.sub(rf"^(?:{_INTRO}|i mean|you know|you see)\s+", "", left)
+            right = b.strip().strip('"').lower()
+            if left == right or left in _INTRO_PHRASES or _TAG.fullmatch(right) or _SUBORDINATE.search(left):
+                continue
+            if len(left.split()) < 2 or re.match(rf"^{_OPENER}\b", left) or _GERUND.match(left):
+                continue
+            if _OPENS_CLAUSE.match(right) and _IS_CLAUSE.search(left):
+                out.append(f"{a.strip()}, {b.strip()}")
+    return out
+
+
 IDIOM_OPEN = re.compile(r"^it(?:'s|’s| is) (?:okay|ok|fine|normal|natural|alright|all right|never|always|not)\b", re.I)
 
 
@@ -79,6 +136,8 @@ def content_lints(o):
     for label, txt in C.visible_fields(o):
         if DASH.search(txt or ""):
             out.append(f"dash: {label} uses an em or en dash")
+        for splice in comma_splices(txt)[:1]:
+            out.append(f"splice: {label} joins two sentences with a comma ('{splice[:70]}')")
         if NARRATOR.search(txt or "") or (speaker and speaker.search(txt or "")):
             out.append(f"narrator: {label} starts a line with a narrator prefix")
     if t == "reflect":
@@ -115,8 +174,8 @@ def content_lints(o):
         for i, st in enumerate(o.get("steps") or []):
             if not isinstance(st, dict):
                 continue
-            if t == "branch" and (st.get("prompt") or "").count("?") > 1:
-                out.append(f"step-questions: step[{i}] prompt asks more than one question")
+            if t == "branch" and (st.get("prompt") or "").count("?") != 1:
+                out.append(f"step-questions: step[{i}] prompt must ask exactly one question")
             for j, op in enumerate(st.get("options") or []):
                 m = VERDICT.search((op or {}).get("then") or "")
                 if m:

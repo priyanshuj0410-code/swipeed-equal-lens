@@ -10,6 +10,7 @@ timestamp: 2026-06-24T01:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4  # SWED-100
 ---
 
 # Your Path, Your Call
@@ -50,6 +51,8 @@ protects the person's **autonomy over whether to walk that path at all**, and di
 marriage-market scrutiny and colourism) that treats a wedding or a baby as a verdict on a life. Lensy returns as a
 grown peer who has felt the pressure and chosen on their own terms. **The stigma is about social control, not
 truth: a person's worth is never their marital status, and womanhood is not motherhood.**
+
+> **Multi-step branches and role-plays ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4), 2026-09-30).** All 86 branches and 64 role-plays are now 3 to 5 questions on one situation (93 with 3, 49 with 4, 8 with 5; 515 questions), each with 4 or 5 options and one best, revealed at the end. After a write, review and fix pass, a final certification ran up to four rounds of three independent reviews (a blind best-option pick, a transition-by-transition audit, and a safety and fidelity review against the single-step source): round 1 found 55 blocking problems across all 150 stories, round 4 found 3 in the 23 it re-checked, and the 13 stories the last fix touched were read in full before shipping. Two stories that repeated each other's closing exchange (yp-051 and yp-1222) were made distinct by hand. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).
 
 ## What it embodies
 

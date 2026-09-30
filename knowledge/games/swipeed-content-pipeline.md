@@ -17,6 +17,8 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d  # SWED-75
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22  # SWED-92
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4  # SWED-100
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
 ---
 
 # SwipeEd content-growth pipeline (`forge`)
@@ -59,12 +61,24 @@ check → semantic reviewer, ≤1 bounce then drop) → ASSEMBLE + whole-bank DE
   reshape worklist, and writing atomically after a parse and count round-trip (SWED-73). A reshape keeps its type
   unless it is a listed reflect becoming a choose.
 - `lints.py`: content lints from the playtest plan ([SWED-77](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d29a10b8-b2e1-4f02-8710-0de2de4f36de)): dashes, narrator prefixes (including the persona's own name, [SWED-71](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6769fb3c-5205-49a1-9b85-ecf593fd6007)), stacked or
-  clipped questions, match and sort giveaways, truths that need their myth. Blocking for new batches and for games on `lint_clean.json`.
+  clipped questions, match and sort giveaways, truths that need their myth, single-step stories and the multi-step rules
+  (graded thens, one question per branch step, best options that are clearly longest), and comma splices
+  ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4)). Blocking for new batches and for games on `lint_clean.json`.
 - `scripts/no_dashes.py`: the whole-repo dash gate ([SWED-92](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22)): any em or en dash in a tracked text file fails the
   build and the commit. Writers follow [writing without dashes](../playbooks/writing-without-dashes.md).
 - `blind_review.py`: blind answer-key review ([SWED-75](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a72838c-0fcd-4100-bf57-7d6885f65d2d)): writes every choose, match and sort without its answers
   for an independent reviewer, then diffs their answers with the keys. A disagreement means a second answer is
-  defensible, so the scenario is rewritten. First used on the Choosing & Building pilot.
+  defensible, so the scenario is rewritten. First used on the Choosing & Building pilot. Covers multi-step stories
+  too, and with `--batch-only` or `--ids` reviews one batch or a fixer's rewrites, adding a `continuity.ndjson` of
+  every step with its thens ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4)).
+- `steps_batch.py` and `steps_audit.py`: the multi-step rollout's coverage check (every source id converted once,
+  unchanged in type, category, persona and source) and transition audit (a required verdict on every option's then
+  followed by the next prompt), used with the writer, reviewer, auditor and fixer briefs in `scripts/forge/briefs/`
+  ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4)). The process is in the [question bank](../schemas/question-bank.md).
+- `steps_final.py` and `steps_wave.py`: the rollout's review rounds (blind picks, transition audit, and a safety and
+  fidelity review against the source, collected and coverage-checked per round) and its wave planner, which works out
+  every batch's next stage from its files so any session can resume a wave. The named workflow `multi-step-wave` runs
+  a chapter; the [multi-step rollout playbook](../playbooks/multi-step-rollout.md) is the procedure.
 - `forge_dedup.py`: whole-bank structural + prose dedup, band-aware, helpline-masked. **Intra-band blocks,
   cross-band logs.** Surfaced 10 pre-existing intra-chapter twins (cross-game reflects) worth cleaning. (On 2026-09-14 the real `forge_dedup.py` reported none across all 69 games; an independent re-check flagged 2 candidate pairs for a human look; see the [question bank](../schemas/question-bank.md#known-issues).)
 
@@ -91,6 +105,10 @@ a filename≠gameId game lost its chapter (chapter_of resolves the runtime gameI
 `scripts/forge/gen_workflow.js` (parameterised by gameId).
 
 ## Progress
+**Multi-step rollout** ([playbook](../playbooks/multi-step-rollout.md)): Choosing & Building (SWED-96) and the other seven
+Chapter 7 games ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4), 2026-09-30, 967 stories) are multi-step; Chapter 8 is in progress
+([SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330)); then Chapters 6, 5, 4 and 3, and a Chapter 1 pilot game for the owner's sign-off.
+
 **ALL 69 games at ≥400, fleet complete** (Chapters 1-8, ages 3 → parenthood). Waves 5-31 grew 55 games
 (smart-screen … navigating-addictions 435, be-the-safe-adult 406). 67 games at ≥400; two logged quality-first
 dips (looking-after-you 397, raising-neurodiverse-kids 396, both `exhaustion.json`). Every game independently
