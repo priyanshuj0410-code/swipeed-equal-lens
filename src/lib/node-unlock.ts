@@ -7,6 +7,7 @@
 // before: so adding this never locks anyone who onboarded before age bands existed.
 
 import { NODES, CHAPTERS, type GameNode } from "@/content/path";
+import { DECK_BY_ID } from "@/content/decks";
 
 const NODE_BY_ID = new Map(NODES.map((n) => [n.id, n] as const));
 
@@ -49,5 +50,27 @@ export function makeNodeCompleted(isGameDone: (gameId: string) => boolean): (nod
     if (!n) return true;
     if (!n.game) return true; // unbuilt prereq can't be required
     return isGameDone(n.game);
+  };
+}
+
+// Is a runtime game done, from the saved profile? GameDone saves stars under the game id, so stars mean done.
+export function makeGameDone(
+  deckStars: Record<string, number> | undefined,
+  runDeckCleared: Record<string, boolean> | undefined
+): (game?: string) => boolean {
+  const stars = deckStars ?? {};
+  const runCleared = runDeckCleared ?? {};
+  return (game?: string) => {
+    if (!game) return false;
+    if (game === "mythbuster") return stars["mythbuster"] != null;
+    // GLRL is "done" once the v2 game is finished (its own stars, like any game), or on a legacy v1 finish:
+    // any story run cleared, or any Quick Play swipe deck.
+    if (game === "glrl")
+      return (
+        stars["glrl"] != null ||
+        Object.keys(runCleared).length > 0 ||
+        Object.keys(stars).some((k) => k !== "mythbuster" && DECK_BY_ID[k as keyof typeof DECK_BY_ID] != null)
+      );
+    return stars[game] != null;
   };
 }

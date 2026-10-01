@@ -16,7 +16,7 @@ import { GameShell } from "@/components/game-shell";
 import { GameDone } from "@/components/games/game-done";
 import { EngineGameHost, hasEngineGame } from "@/components/games/engine-host";
 import { NODES, CHAPTERS } from "@/content/path";
-import { isNodeUnlocked, makeNodeCompleted, entryFocusIndex } from "@/lib/node-unlock";
+import { isNodeUnlocked, makeNodeCompleted, makeGameDone, entryFocusIndex } from "@/lib/node-unlock";
 import { DECK_BY_ID, resolveDeckCards } from "@/content/decks";
 import type { SceneNode } from "@/components/path-scene";
 
@@ -43,19 +43,7 @@ export default function PathPage() {
   }, [playing]);
 
   const nodes = useMemo<SceneNode[]>(() => {
-    const stars = profile.deckStars ?? {};
-    const runCleared = profile.runDeckCleared ?? {};
-    const isDone = (game?: string) => {
-      if (!game) return false;
-      if (game === "mythbuster") return stars["mythbuster"] != null;
-      // GLRL is "done" once any story run is cleared, or any Quick Play swipe deck.
-      if (game === "glrl")
-        return (
-          Object.keys(runCleared).length > 0 ||
-          Object.keys(stars).some((k) => k !== "mythbuster" && DECK_BY_ID[k as keyof typeof DECK_BY_ID] != null)
-        );
-      return stars[game] != null;
-    };
+    const isDone = makeGameDone(profile.deckStars, profile.runDeckCleared);
     // Node gating (master-node-table driven): a built node is "completed" if done, "playable" if unlocked
     // (earlier chapters + the chosen-age entry node + any node whose prereq is done), else "locked". Unbuilt
     // nodes are "soon". Legacy users (no entryAgeGate) are ungated: everything built stays playable.
