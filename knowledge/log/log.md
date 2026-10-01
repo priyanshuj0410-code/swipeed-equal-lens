@@ -34,6 +34,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1e640d0d-e504-4326-a2a8-a60d4a1886e2  # SWED-106
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/66768e21-f648-4c92-bbda-d30a084d9569  # SWED-107
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a211b3dc-b375-4701-ab93-7c8f4d948d6b  # SWED-108
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e  # SWED-109
 ---
 
 # SwipeEd project log
@@ -41,6 +42,17 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-01 · repo: the brand package comes from GitHub Packages ([SWED-109](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e))
+- **Why.** `@equal-lens/brand` was a tarball checked into `vendor/` since SWED-44. The owner chose GitHub Packages
+  (2026-10-01), so every Equal Lens app installs the same versioned package.
+- **What.** The Equal Lens repo now publishes the brand system on a `brand-v<version>` tag
+  ([THEEQ-55](https://app.plane.so/the-equal-lens/projects/131d7f73-411c-4a57-a1d3-3147617b2de9/issues/85b1e374-6638-408e-a0fe-edd5dbba1f8d)); 0.1.0 is
+  published as `@priyanshuj0410-code/equal-lens-brand` (GitHub Packages needs the account scope) with the same files
+  as the vendored tarball. SwipeEd installs it under its own name with an npm alias, so no import changes, and
+  `.npmrc` reads a `read:packages` token from `NPM_TOKEN`, locally and on Vercel. The vendored tarball is removed.
+  [Stack, build and deployment](../architecture/deployment.md), the [design system](../design.md) and the README
+  say how to install and upgrade it.
 
 ## 2026-10-01 · repo: versioned releases ([SWED-108](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a211b3dc-b375-4701-ab93-7c8f4d948d6b))
 - **Why.** Every merge to `main` deploys, so the repo had no tags or releases and `package.json` still said 0.1.0.

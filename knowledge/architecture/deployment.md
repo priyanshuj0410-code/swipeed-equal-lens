@@ -12,6 +12,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1e640d0d-e504-4326-a2a8-a60d4a1886e2  # SWED-106
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/66768e21-f648-4c92-bbda-d30a084d9569  # SWED-107
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a211b3dc-b375-4701-ab93-7c8f4d948d6b  # SWED-108
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e  # SWED-109
 ---
 
 # Stack, build and deployment
@@ -22,7 +23,7 @@ plane_issues:
 |---|---|---|
 | Framework | Next.js 16.2.9 (App Router), React 19.2.4, TypeScript 5 | `package.json`, `src/app/` |
 | Styling | Tailwind CSS v4, shadcn config, The Equal Lens brand tokens | `src/app/globals.css`, `components.json`, [design system](../design.md) |
-| Brand package | `@equal-lens/brand` 0.1.0, vendored as a tarball | `vendor/equal-lens-brand-0.1.0.tgz` |
+| Brand package | `@equal-lens/brand` 0.1.0 from GitHub Packages, published as `@priyanshuj0410-code/equal-lens-brand` and aliased back | `package.json`, `.npmrc` |
 | 3D path | three 0.171, @react-three/fiber 9, @react-three/drei 10 | `src/components/path-scene.tsx` |
 | Games | one shared v2 engine and typed scenario banks | [v2 engine](v2-engine.md), [question bank](../schemas/question-bank.md) |
 | Installable app | web manifest and service worker | `src/app/manifest.ts`, `public/sw.js` |
@@ -43,7 +44,7 @@ plane_issues:
 
 The package manager is npm (`package-lock.json`). Git hooks live in `scripts/githooks/` and are enabled by `scripts/setup-hooks.sh` (`core.hooksPath`), which `npm install` now runs through the `prepare` script (it does nothing outside a git work tree, such as a build container). The pre-commit hook runs the status check, the read-first gate and the content gate. Since [SWED-72](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b) the content gate and the tests also run before every build, so no deploy skips them; the Vercel build image has Python 3. Duplicate detection (`forge_dedup.py`) and the forge's count and persona checks still run only inside the forge workflow (see [question bank](../schemas/question-bank.md)).
 
-`@equal-lens/brand` is installed from `file:./vendor/equal-lens-brand-0.1.0.tgz`. It was vendored on 2026-09-01 (SWED-44) because cloud builds could not resolve the package from outside the repo.
+`@equal-lens/brand` comes from GitHub Packages ([SWED-109](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e)). The Equal Lens repo publishes it, with semantic versions and a changelog, on a `brand-v<version>` tag ([THEEQ-55](https://app.plane.so/the-equal-lens/projects/131d7f73-411c-4a57-a1d3-3147617b2de9/issues/85b1e374-6638-408e-a0fe-edd5dbba1f8d)). GitHub Packages only accepts npm packages scoped to the owning account, so it is published as `@priyanshuj0410-code/equal-lens-brand`, and `package.json` installs it under its own name with an npm alias (`"@equal-lens/brand": "npm:@priyanshuj0410-code/equal-lens-brand@0.1.0"`), so no import changes. GitHub Packages needs a token even to install: `.npmrc` reads it from `NPM_TOKEN`, which must hold a classic token with `read:packages`, set locally and as a Vercel project environment variable. Upgrading the brand is a deliberate change: bump the pinned version, read the changelog, and check the UI against the [design system](../design.md). From 2026-09-01 (SWED-44) to the switch, the package was vendored as `vendor/equal-lens-brand-0.1.0.tgz` because cloud builds could not resolve it from outside the repo; the published 0.1.0 has the same files.
 
 ## Hosting
 

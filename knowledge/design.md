@@ -18,6 +18,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e  # SWED-109
 ---
 
 # SwipeEd design system
@@ -25,7 +26,7 @@ plane_issues:
 SwipeEd is The Equal Lens's Duolingo-style learning path: a 3D React Three Fiber path of 77 nodes
 (69 games plus 8 gold capstones) across 8 age-band chapters, ages 3 through parenthood. Games open
 over the path in a shared shell and finish on a shared completion card. Stack: Next.js 16, React 19,
-Tailwind v4, `@equal-lens/brand` vendored at `vendor/equal-lens-brand-0.1.0.tgz`.
+Tailwind v4, `@equal-lens/brand` 0.1.0 from GitHub Packages (see [deployment](architecture/deployment.md)).
 
 This document is descriptive as well as prescriptive: it states the brand rule where SwipeEd should
 simply follow it, and it states SwipeEd's own established pattern where the game has grown a
@@ -37,7 +38,7 @@ audit) are recorded in full in the [design audit of 2026-09-14](audits/design-au
 
 Three layers, in order of authority:
 
-1. **`@equal-lens/brand` (npm package, vendored as `vendor/equal-lens-brand-0.1.0.tgz`, installed at
+1. **`@equal-lens/brand` (npm package from GitHub Packages, pinned at 0.1.0, installed at
    `node_modules/@equal-lens/brand/`).** The organisation's single source of truth for colour, type
    and the base component classes. SwipeEd imports `tokens.css`, `tailwind.css` and `components.css`
    from it directly in `src/app/globals.css:5-7`. When the package changes, SwipeEd re-themes for

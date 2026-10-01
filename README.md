@@ -70,6 +70,9 @@ so there is no offline mode) · Python 3 scripts for content tooling and gates. 
 
 ## Develop
 
+The Equal Lens brand package (`@equal-lens/brand`) installs from GitHub Packages, which needs a GitHub token with
+`read:packages` even for reading: run `gh auth refresh -s read:packages` once, then `export NPM_TOKEN=$(gh auth token)`.
+
 ```bash
 npm install          # also turns on the git hooks
 npm run dev          # http://localhost:3000
