@@ -1,5 +1,9 @@
 # SwipeEd: Developer Hand-off (Claude Code)
 
+> **Historical record, June 2026 (SWED-106).** This hand-off was the brief for growing SwipeEd to 77 nodes and
+> building the Life-Skills Toolkit. Both are done: every node is playable. For the current state read the
+> [knowledge base index](../knowledge/README.md) and [AGENTS.md](../AGENTS.md).
+
 *For the game-dev build chat · Updated June 2026 · companion to "SwipeEd: Seasons Implementation (Claude Code)"*
 
 ---

@@ -1,85 +1,124 @@
 # SwipeEd
 
-**A Duolingo-style learning-path app for relationships, sexuality & life-skills education (RSE/CSE),
-ages 3-18.** Live at **https://swipeed.vercel.app**.
+**A learning path for relationships, sexuality and life skills (RSE), from age 3 to parenthood, built by
+The Equal Lens.** Live at **https://swipeed.vercel.app**.
 
-> Warm, no-fail games a child grows up with: from naming their first feeling at age 3 to decoding the
-> internet at 18: all built on one principle: **Unlearn → Relearn → Grow.**
-
-SwipeEd is the flagship app on the [Praxis](https://github.com/priyanshuj0410-code/praxis-engine) engine.
-The **canonical knowledge base** (vision, architecture, and a doc for every game) lives in that repo
-this repo is the app itself. *(The repo/deployment keep the historical `swipeed` name.)*
+Every lesson is a short game, and every game follows one idea: **Unlearn, Relearn, Grow.** A player meets a
+belief they were handed, sees why it falls short, and practises a fairer, kinder one in its place.
 
 ## What it is
 
-A single 3D **learning path** of **43 lesson nodes + 5 capstone "graduations"**, grouped into five
-age-band chapters. Each node is a short, self-contained game hosted by **Sam**, a companion who grows up
-alongside the player. Topics span feelings & life-skills, bodies & growing up, safety & consent,
-relationships, gender & respect, sexual & reproductive health, and values / rights / media: all
-behaviour- and evidence-based, safeguarding-first, and (where sensitive) gated by a **School-Comfort**
-toggle. Every node is **live**.
+SwipeEd is one winding 3D path of **77 nodes: 69 lesson games and 8 capstones**, across **8 age-band
+chapters**. A player picks their age band when they start, enters at their own chapter and moves forward
+along the path; earlier chapters stay open for revision. Each node is a self-contained game hosted by
+**Lensy**, a curious alien who asks why rather than lecturing, with **UN** (the eraser, for unlearning) and
+**RE** (the pencil, for relearning).
 
-| Chapter | Ages | Nodes |
-|---|---|---|
-| **1** | 3-6 | Feelings Friends · My Body, My Rules · My Family Garden · Same Same, Different · Can-Do Kids · **Capstone: My First Friends** |
-| **2** | 6-9 | Body Lab Juniors · What Makes Me, Me · Safety Squad · Friend or Frenemy? · Fair Play World · Not Fair, Not Funny · Smart Screen Heroes · **Capstone: Fair & Safe Explorer** |
-| **3** | 9-12 | Puberty Quest · The Amazing Journey · Boundary Bot · Crossroads · Flip the Script · Norm Storm · Speak Up · Defenders of the Body · **Capstone: Growing Up Smart** |
-| **4** | 12-15 | Body Confident · Plan It · Outbreak: Stop the Spread · Green Light / Red Light · MythBuster: Gender · Equalize · Stand Up · Reality Check · **Capstone: Reading Relationships** |
-| **5** | 15-18 | My Choices, My Future · Status: Know It · Mutual · Spectrum · Lead the Way · Change Makers · Justice League: Rights · Decoded · **Capstone: Ready for the World** |
+| Chapter | Ages | Lesson games | Capstone |
+|---|---|---|---|
+| 1 | 3 to 6 | Feelings Friends · My Body, My Rules · Clean Crew · My Family Garden · Same Same, Different · Can-Do Kids | My First Friends |
+| 2 | 6 to 9 | Body Lab Juniors · What Makes Me, Me · Safety Squad · Friend or Frenemy? · Heart Smart · Fair Play World · Not Fair, Not Funny · Smart Screen Heroes | Fair & Safe Explorer |
+| 3 | 9 to 12 | Puberty Quest · Mind Matters · The Amazing Journey · Boundary Bot · Crossroads · Flip the Script · Norm Storm · Speak Up · Defenders of the Body | Growing Up Smart |
+| 4 | 12 to 15 | Body Confident · Bounce · Plan It · Outbreak: Stop the Spread · Green Light / Red Light · MythBuster: Gender · Equalize · Stand Up · Firewall · The Rabbit Hole · Reality Check | Reading Relationships |
+| 5 | 15 to 18 | My Choices, My Future · Status: Know It · Mutual · Spectrum · Lead the Way · Change Makers · Justice League: Rights Edition · Life Ready · Decoded | Ready for the World |
+| 6 | 18 to 22 | Consent, For Real · Swipe Right? Dating & Apps · Real Relationships · Own Your Health · Money & Independence · Mind & Belonging · Find Your Feet · Equal & Confident · Know Your Rights (Adult) | Standing on My Own |
+| 7 | 22 to a first child | Choosing & Building · Your Path, Your Call · Equal Partners · Respect at Home · The Family Map · Money, Together · If, When & Whether · Many Ways to Family | Building Together |
+| 8 | Parenthood | Us, After Kids · Equal Parents · Looking After You · The Talks (Age by Age) · Break the Cycle · Raising Gender-Diverse Kids · Raising Neurodiverse Kids · Navigating Addictions · Be the Safe Adult | Raising the Next Generation |
 
-## Architecture
+Beside the path, a **Life-Skills Toolkit** holds calming and check-in tools, and **Get Help** is always one
+tap away.
 
-- **Engine-games**: most lessons are pure-DOM overlay games: a component in
-  `src/components/games/<id>.tsx` + typed content in `src/content/games/<id>.ts`, registered in
-  `engine-host.tsx`, launched **in place** over the path or at `/game/<id>`. Most follow a shared shape:
-  a Sam header, a home grid of **five modes**, a badge book, an `UnReBeat` myth-bust, and a `GameDone`
-  completion.
-- **Green Light / Red Light** (#24) is the flagship **educational roguelike**: short runs, a Clarity
-  meter, equippable perks, branching forks and a boss: in `src/lib/use-run-game.ts` +
-  `src/components/glrl/`. **MythBuster** also keeps its original **swipe deck** at `/play/mythbuster`
-  alongside its 5-mode lab.
-- **Shared building blocks**: `Sam` (the companion avatar), `UnReBeat` (the Unlearn→Relearn beat), the
-  voice model (`src/lib/speak.ts`: narration + replay + emoji-stripping), and one juice layer
-  (`src/lib/juice.ts` / `confetti.ts`: Web-Audio SFX, haptics, confetti).
-- **The path**: a 3D React-Three-Fiber world (`src/app/path/`) with seasons, weather, day/night and a
-  walking companion; node→game wiring is generated by `scripts/gen-path.py` → `src/content/path.ts`.
+## How a game works
+
+- **One engine, many games.** Every lesson renders through `V2Game` (`src/components/games/v2-engine.tsx`)
+  and every capstone through `RichCapstone` (`src/components/games/capstone-rich.tsx`). A game is a typed
+  scenario library in `src/content/games/<id>.ts`; each game's own component is a few lines.
+- **The interaction is the lesson.** Scenarios play through 11 mechanics (`reflect`, `choose`, `role-play`,
+  `branch`, `strike-rewrite`, `sort`, `match`, `build`, `explore-label`, `spot` and `swipe`, defined in
+  `src/content/games/v2-schema.ts`): drag a chip to sort it, scrub a myth to erase it, swipe a flag to read
+  it.
+- **Stories with several turns.** Branches and role-plays are being rebuilt as stories of 3 to 5 questions on
+  one situation, each with 4 or 5 options and the best moves shown at the end. Chapters 7 and 8 are done;
+  Chapters 6, 5, 4 and 3 follow.
+- **Content is data.** The question bank holds 33,542 scenarios across the 69 games, and every one passes the
+  content gate before a build.
+- **The path world.** The path is a React Three Fiber scene (`src/app/path/`) with chapter seasons, weather
+  and day and night, generated from the master node table into `src/content/path.ts`. Games open in place
+  over the path or at `/game/<id>`, and `/classic` is a 2D fallback for devices without WebGL.
+
+## Design rules
+
+These are requirements, not polish.
+
+- **No fail state.** Gentle nudges and retries; nothing rewards speed or guessing.
+- **Unlearn, Relearn, Grow** at every real misconception.
+- **Safeguarding first.** Safety moments are never scored. A story never asks players about their own lives,
+  and when someone is harmed the right move reaches a trusted adult or real help. The help sheet lists
+  Childline 1098, Tele-MANAS 14416, the cybercrime helpline 1930 and the POCSO e-Box.
+- **Private by default.** No accounts and no leaderboards; the profile stays in the browser on the device.
+- **Accessible and adjustable.** Colour is never the only signal, every action has a button, and early
+  readers can listen. Settings offer text size, sound, a calm mode and School-Comfort Mode (which today
+  filters the Quick Play MythBuster deck).
+- **One voice.** Warm and plain, with no em or en dashes anywhere; a gate enforces it.
 
 ## Stack
 
-- **Next.js 16 (App Router)** · React 19 · TypeScript · **Tailwind v4** · **React-Three-Fiber**
-- **PWA**: installable, offline via service worker; design tokens in `src/app/globals.css`
-- Anonymous, **on-device** state (`src/lib/store.tsx`): no accounts, no public leaderboards
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 with The Equal Lens brand tokens ·
+three and React Three Fiber · an installable web app (its service worker currently only clears old caches,
+so there is no offline mode) · Python 3 scripts for content tooling and gates. Details:
+[stack, build and deployment](knowledge/architecture/deployment.md).
 
-## Design rules (requirements, not polish)
-
-- **No fail-state**; never reward speed or guessing: gentle nudges and retries.
-- **Unlearn → Relearn → Grow** at every genuine misconception (the shared `UnReBeat`).
-- **Safeguarding is never scored**; sensitive topics route to real help (Childline 1098, KIRAN, the
-  POCSO e-Box, women's helplines) and never frighten.
-- **School-Comfort** gates the most sensitive content; **accessibility**: colour is never the only
-  signal, every action has a button equivalent, audio-first for early readers.
-- **Content is data, never hard-coded**: every game's scenarios/facts live in `src/content/`.
-
-## Develop & deploy
+## Develop
 
 ```bash
-npm install
-npm run dev        # http://localhost:3000
-npm run build
-python3 scripts/gen-path.py   # regenerate src/content/path.ts after editing node→game wiring
+npm install          # also turns on the git hooks
+npm run dev          # http://localhost:3000
+npm run build        # runs the gates first, then next build
 ```
 
-Deployed to Vercel (`vercel deploy --prod`).
+| Command | What it does |
+|---|---|
+| `npm run gates` | The dash check, the whole-bank content gate, the gate fixtures and the engine unit tests (needs Python 3) |
+| `npm run lint` | ESLint |
+| `npm run status` | Build status of every node, from `scripts/master-node-table.xlsx` |
+| `python3 scripts/gen-path.py` | Regenerates `src/content/path.ts` from the master node table |
+
+This is Next.js 16, which differs from older versions: read the guide in `node_modules/next/dist/docs/` before
+changing framework code.
+
+## Deploy
+
+A push or merge to `main` deploys to production on Vercel. The build runs the same gates, so a content
+problem or a type error fails the deploy. Run `npm run build` locally before pushing.
+
+## Content pipeline
+
+Scenarios are grown and reshaped by the **forge** (`scripts/forge/`): writers and independent reviewers work
+from briefs in `scripts/forge/briefs/`, and every batch is checked by the same gates as the build. See the
+[content pipeline](knowledge/games/swipeed-content-pipeline.md) and the
+[question bank](knowledge/schemas/question-bank.md).
 
 ## Docs
 
-The single source of truth is the **[Praxis knowledge base](https://github.com/priyanshuj0410-code/praxis-engine/tree/main/knowledge)**
-start at [`knowledge/index.md`](https://github.com/priyanshuj0410-code/praxis-engine/blob/main/knowledge/index.md):
+The knowledge base in **[`knowledge/`](knowledge/README.md)** is the single source of truth; start at its
+[index](knowledge/README.md). Good first reads:
 
-- the **[games catalog](https://github.com/priyanshuj0410-code/praxis-engine/blob/main/knowledge/games/index.md)** with a doc per game,
-- the cross-game **[reusable patterns](https://github.com/priyanshuj0410-code/praxis-engine/blob/main/knowledge/games/swipeed-game-patterns.md)** (the starting requirements for the future Engine SDK),
-- the **[Unlearn → Relearn → Grow](https://github.com/priyanshuj0410-code/praxis-engine/blob/main/knowledge/games/swipeed-core-principle.md)** core principle, and
-- the **[project log](https://github.com/priyanshuj0410-code/praxis-engine/blob/main/knowledge/log.md)**.
+- [SwipeEd: what we built and why](knowledge/games/swipeed-build-overview.md)
+- [The v2 engine](knowledge/architecture/v2-engine.md)
+- [The question bank](knowledge/schemas/question-bank.md)
+- [The design system](knowledge/design.md)
+- [The games catalog](knowledge/games/index.md), with a doc for every game and capstone
+- [The project log](knowledge/log/log.md), newest first
 
-See [`AGENTS.md`](AGENTS.md) for working conventions (branch-per-change; keep the knowledge base current
-with every merge).
+`docs/` keeps earlier design records and `design/` the source documents (game design documents, the master
+node table, brand guidelines); where they differ, the knowledge base is current.
+
+## Working on SwipeEd
+
+[`AGENTS.md`](AGENTS.md) holds the working conventions: a branch per change, merged with `--no-ff`; every
+change ships with its knowledge base update; work is tracked in Plane (project `SWED`) and commit messages
+start with `[SWED-N]`.
+
+## Licence
+
+Copyright 2026 The Equal Lens. All rights reserved. See [LICENSE](LICENSE).

@@ -1,5 +1,8 @@
 # Phase 6: The Canvas-Skinned 3D World
 
+> **Historical record, June 2026 (SWED-106).** The host it calls Sam is now Lensy. For the path world as it is
+> today read [the path world](../knowledge/games/swipeed-world.md) and the [design system](../knowledge/design.md).
+
 > Design-of-record for re-imagining the game world in The Equal Lens style **without leaving the
 > 3D world**. Companion to `docs/brand-alignment.md`.
 >

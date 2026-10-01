@@ -1,5 +1,9 @@
 # SwipeEd × The Equal Lens: Brand-Alignment Design-of-Record
 
+> **Historical record, June 2026 (SWED-106).** This repo is no longer an isolated re-skin: it is the live
+> SwipeEd app, and a push to `main` deploys it. The brand alignment described here shipped; the current rules
+> are in the [design system](../knowledge/design.md).
+
 > **This repo is the isolated re-skin.** It is a clone of the live SwipeEd game (`/Users/priyanshu/swipeed`),
 > set up so the brand re-skin can be built **without touching the live game**. The clone's git remote was
 > renamed `origin` → `upstream`, so nothing here can accidentally push to live SwipeEd. When a phase is
