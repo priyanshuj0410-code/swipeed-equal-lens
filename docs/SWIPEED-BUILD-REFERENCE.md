@@ -1,5 +1,10 @@
 # SwipeEd (The Equal Lens): Build Reference
 
+> **Historical record, June 2026 (SWED-106).** This snapshot predates the move of the knowledge base into this
+> repo and the finished fleet: all 77 nodes are now built and play through one v2 engine. For the current
+> picture read [SwipeEd: what we built and why](../knowledge/games/swipeed-build-overview.md), the
+> [v2 engine](../knowledge/architecture/v2-engine.md) and the [knowledge base index](../knowledge/README.md).
+
 > **What this is.** A complete map of everything built: the app layer, the progression, the
 > games, and the app- and game-level mechanics: written so you can **improve a game without
 > breaking anything else**. Every section ends with what's *safe to touch* vs *load-bearing*.

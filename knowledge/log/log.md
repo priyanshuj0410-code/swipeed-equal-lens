@@ -31,6 +31,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/88bb2bfc-fb38-4df6-bc26-3895c72a67e6  # SWED-103
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/02455c6c-fb84-4cc8-a691-58156ea1a13d  # SWED-104
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1e640d0d-e504-4326-a2a8-a60d4a1886e2  # SWED-106
 ---
 
 # SwipeEd project log
@@ -38,6 +39,19 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-01 · docs: the GitHub README is current again ([SWED-106](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1e640d0d-e504-4326-a2a8-a60d4a1886e2))
+- **Why.** The owner found the README stale. It described 43 lessons in five chapters for ages 3 to 18, a host
+  called Sam, the Praxis repo as the knowledge base, KIRAN among the helplines, offline play and a CLI deploy.
+- **What.** `README.md` rewritten from facts checked in the code: 77 nodes (69 games and 8 capstones) across 8
+  chapters from age 3 to parenthood, every game by chapter, Lensy with UN and RE, the v2 engine and its 11
+  mechanics, the multi-step story rollout, 33,542 scenarios, the help sheet (Childline 1098, Tele-MANAS 14416,
+  cybercrime 1930, the POCSO e-Box), settings including School-Comfort Mode (which today filters only the Quick
+  Play MythBuster deck), the service worker that only clears old caches, the npm scripts and gates, deploy on
+  push to `main`, and docs in `knowledge/`. The four June 2026 design records in `docs/` now open with a dated
+  historical note pointing to the current docs. [Stack, build and deployment](../architecture/deployment.md) lists
+  the dash check among the gates, and the [knowledge base index](../README.md) lists the multi-step rollout
+  playbook and the README.
 
 ## 2026-09-30 · content: Chapter 8 branches and role-plays become multi-step ([SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330))
 - **Why.** The owner's rollout decisions of 2026-09-29 ([multi-step rollout playbook](../playbooks/multi-step-rollout.md)):
