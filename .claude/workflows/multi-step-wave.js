@@ -40,7 +40,7 @@ const source = it => `${S(it)}/source-${it.nn}.ndjson`
 const rdir = (it, r) => `${S(it)}/final-${it.nn}/r${r}`
 const key = it => `${it.stem}-${it.nn}`
 const minors = it => it.minors ? ' The players are under 18: also apply `scripts/forge/briefs/steps-minors.md`, which wins where it differs.' : ''
-const shared = 'Other agents are working on other batches at the same time: touch no files except the ones your brief names for this batch, never edit scripts, and do not run git. If a check script seems wrong, say so in your reply instead of changing it. If a "Usage guard" message tells you to stop, save what you have and return with stopped_by_guard true.'
+const shared = 'Work only in the main checkout, /Users/priyanshu/swipeed-equal-lens (the `.forge` folder exists only there, not in any worktree): start every shell command with `cd /Users/priyanshu/swipeed-equal-lens && ` and give file tools absolute paths under it. Other agents are working on other batches at the same time: touch no files except the ones your brief names for this batch, never edit scripts, and do not run git. If a check script seems wrong, say so in your reply instead of changing it. If a "Usage guard" message tells you to stop, save what you have and return with stopped_by_guard true.'
 const halted = x => !x || x.stopped_by_guard
 const heavyModel = it => it.safetyHeavy ? { model: 'opus' } : { model: 'sonnet', effort: 'high' }
 
