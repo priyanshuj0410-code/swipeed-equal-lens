@@ -1,0 +1,32 @@
+[
+ {
+  "id": "lensy-card",
+  "prompt": "Lensy, a violet heart-shaped alien mascot with big round eyes, a male-symbol arrow antenna on one side and a female-symbol cross antenna on the other, in a cream explorer outfit with a satchel, waving hello, flat 2D brand illustration with soft shading on a plain white background",
+  "seed": 7
+ },
+ {
+  "id": "trio-comic",
+  "prompt": "Lensy, RE and UN reading a book together under a tree, painted comic illustration",
+  "seed": 11
+ },
+ {
+  "id": "re-card",
+  "prompt": "RE, a violet pencil character with a cream sharpened tip, a smiling face and the letters RE, holding up a pencil, flat 2D brand illustration with soft shading on a plain white background",
+  "seed": 3
+ },
+ {
+  "id": "un-card",
+  "prompt": "UN, a violet eraser character with a cream top, a smiling face and the letters UN, waving, flat 2D brand illustration with soft shading on a plain white background",
+  "seed": 4
+ },
+ {
+  "id": "style-garden",
+  "prompt": "eqlcomic style painting of a girl and her grandmother planting seeds in a garden at sunset",
+  "seed": 5
+ },
+ {
+  "id": "style-classroom",
+  "prompt": "eqlcomic style painting of a cosy classroom where children ask questions",
+  "seed": 9
+ }
+]

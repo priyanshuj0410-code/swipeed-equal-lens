@@ -1,0 +1,144 @@
+{
+ "model": "flux2-klein-4b",
+ "data": "/Users/priyanshu/swipeed-equal-lens/.forge/pictures/lora/datasets/comic-style",
+ "seed": 42,
+ "steps": 4,
+ "guidance": 1.0,
+ "quantize": 8,
+ "low_ram": false,
+ "max_resolution": 384,
+ "training_loop": {
+  "num_epochs": 40,
+  "batch_size": 1,
+  "timestep_low": 0,
+  "timestep_high": 4
+ },
+ "optimizer": {
+  "name": "AdamW",
+  "learning_rate": 0.0001
+ },
+ "checkpoint": {
+  "output_path": "/Users/priyanshu/swipeed-equal-lens/.forge/pictures/lora/runs/comic-style",
+  "save_frequency": 180
+ },
+ "monitoring": {
+  "plot_frequency": 180,
+  "generate_image_frequency": 180
+ },
+ "lora_layers": {
+  "targets": [
+   {
+    "module_path": "transformer_blocks.{block}.attn.to_q",
+    "blocks": {
+     "start": 0,
+     "end": 5
+    },
+    "rank": 16
+   },
+   {
+    "module_path": "transformer_blocks.{block}.attn.to_k",
+    "blocks": {
+     "start": 0,
+     "end": 5
+    },
+    "rank": 16
+   },
+   {
+    "module_path": "transformer_blocks.{block}.attn.to_v",
+    "blocks": {
+     "start": 0,
+     "end": 5
+    },
+    "rank": 16
+   },
+   {
+    "module_path": "transformer_blocks.{block}.attn.to_out",
+    "blocks": {
+     "start": 0,
+     "end": 5
+    },
+    "rank": 16
+   },
+   {
+    "module_path": "transformer_blocks.{block}.attn.add_q_proj",
+    "blocks": {
+     "start": 0,
+     "end": 5
+    },
+    "rank": 16
+   },
+   {
+    "module_path": "transformer_blocks.{block}.attn.add_k_proj",
+    "blocks": {
+     "start": 0,
+     "end": 5
+    },
+    "rank": 16
+   },
+   {
+    "module_path": "transformer_blocks.{block}.attn.add_v_proj",
+    "blocks": {
+     "start": 0,
+     "end": 5
+    },
+    "rank": 16
+   },
+   {
+    "module_path": "transformer_blocks.{block}.attn.to_add_out",
+    "blocks": {
+     "start": 0,
+     "end": 5
+    },
+    "rank": 16
+   },
+   {
+    "module_path": "transformer_blocks.{block}.ff.linear_in",
+    "blocks": {
+     "start": 0,
+     "end": 5
+    },
+    "rank": 16
+   },
+   {
+    "module_path": "transformer_blocks.{block}.ff.linear_out",
+    "blocks": {
+     "start": 0,
+     "end": 5
+    },
+    "rank": 16
+   },
+   {
+    "module_path": "transformer_blocks.{block}.ff_context.linear_in",
+    "blocks": {
+     "start": 0,
+     "end": 5
+    },
+    "rank": 16
+   },
+   {
+    "module_path": "transformer_blocks.{block}.ff_context.linear_out",
+    "blocks": {
+     "start": 0,
+     "end": 5
+    },
+    "rank": 16
+   },
+   {
+    "module_path": "single_transformer_blocks.{block}.attn.to_qkv_mlp_proj",
+    "blocks": {
+     "start": 0,
+     "end": 20
+    },
+    "rank": 16
+   },
+   {
+    "module_path": "single_transformer_blocks.{block}.attn.to_out",
+    "blocks": {
+     "start": 0,
+     "end": 20
+    },
+    "rank": 16
+   }
+  ]
+ }
+}
