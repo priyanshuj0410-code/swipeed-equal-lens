@@ -54,6 +54,10 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 
 `Feedback/` (testers' screenshots) and `.plane_state_cache` are now in `.gitignore`. The build passes, and the path page renders with no console errors in headless Chrome.
 
+**History purge.** The `.lazyweb/` folder (six third-party app screenshots and a report, committed on 2026-06-18 and untracked later) was removed from every commit with `git filter-branch` on a mirror clone. The owner force-pushed the result: main went from fe54179 to 55b19f7 with the same files, and `v2026.10.0` was rewritten in place with the same tagger. Five merged branches were deleted from GitHub (`content/no-dashes`, `feat/myth-cards`, `feat/reflect-notes`, `fix/confirm-and-explore-lines`, `feat/brand-package`). Open local branches were rebased onto the new main.
+
+**Push guard.** `scripts/private_files.py` now flags `.lazyweb/`, and its new `--push` mode backs a pre-push hook (`scripts/githooks/pre-push`). The hook lists every file added or changed by the commits the remote does not have yet, and refuses the push if any of them is private or purged. A dry-run push of a branch from before the purges is refused and names all 19 files; a rebased branch and a branch deletion go through.
+
 ## 2026-10-01 · repo: the brand package comes from GitHub Packages ([SWED-109](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e))
 - **Why.** `@equal-lens/brand` was a tarball checked into `vendor/` since SWED-44. The owner chose GitHub Packages
   (2026-10-01), so every Equal Lens app installs the same versioned package.
