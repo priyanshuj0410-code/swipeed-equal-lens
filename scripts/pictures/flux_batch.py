@@ -46,7 +46,7 @@ STYLES = {
     "shaded": ("2D cartoon mascot style like the reference: rounded friendly shapes, big glossy eyes with white "
                "highlights, thick soft dark purple outlines. Clearly visible soft cel shading with one light source from the upper left: "
                "lighter highlight tones on the top and left of faces, skin and clothes, gentle darker shade tones on the lower right, "
-               "soft shading on faces, hair and clothes, matte hair that fully covers the head, shaded only with a slightly darker tone underneath and at the back, with no shine, no highlight and no light or grey patch anywhere on the hair, rosy cheeks, a faint paper grain texture, and a soft oval shadow "
+               "soft shading on faces, hair and clothes, matte hair that fully covers the head, shaded only with a slightly darker tone underneath and at the back, with no shine, no highlight and no light or grey patch anywhere on the hair, only a very faint warm tint on the cheeks with no pink blush circles, a faint paper grain texture, and a soft oval shadow "
                "on the ground under the figures. Palette of violet, lavender, cream and sunny yellow for clothes and "
                "objects, with natural skin tones. " + BACKGROUND),
 }

@@ -290,6 +290,14 @@ The zero-budget route's first test, run on the owner's Mac (Apple M4, 24 GB) wit
   The chosen 30 are in `.forge/pictures/flux-style-test/final-r4/` (`picks.json` names the round and seed of each).
   Grown-ups keep the style's big-headed proportions, which suits the mascots but makes the grandmother and teacher
   read young on their own; that is the owner's call.
+- **Owner review, round four (2026-10-01, in chat).** The blush is too strong. The owner chose to skip a second
+  independent image review and keep the weekly budget for the Chapter 6 rollout.
+- **Round five (2026-10-01).** `scripts/pictures/flux_edit.py` gives each approved picture back to the model as its
+  own reference with an instruction to change one detail, so poses, people and colours stay as approved. A test
+  showed it softens the blush cleanly, and that it can also clear the grey shine still left on some heads (sleepy,
+  angry), but the hair instruction turned the grandmother's grey hair black. So 27 pictures get "faint warmth on the
+  cheeks, solid matte black hair", and the three with elders (grandmother, tell a grown-up, family) get the blush
+  change only. The style prompt now asks for a very faint warm tint on the cheeks instead of rosy cheeks.
 
 
 
