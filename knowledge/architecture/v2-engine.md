@@ -53,7 +53,7 @@ covered in the [question bank](../schemas/question-bank.md) doc; this doc treats
 
 ```mermaid
 flowchart TD
-    A["Node tap in the 3D path<br/>path-scene.tsx:1285 onSelect"] --> B["PathPage.handleSelect<br/>app/path/page.tsx:87-100"]
+    A["Node tap in the 3D path<br/>path-scene.tsx:409 onSelect"] --> B["PathPage.handleSelect<br/>app/path/page.tsx:79-92"]
     B -->|"mythbuster (legacy deck)"| C["useSwipeGame<br/>(out of scope)"]
     B -->|"hasEngineGame(gid)"| D["setEngineGame(gid)"]
     B -->|"unbuilt / classic href"| E["router.push(node.href)"]
@@ -73,15 +73,15 @@ flowchart TD
     O2 --> P
     P --> Q["user taps 'Back to the path' (onExit)"]
     Q --> R["setEngineGame(null) or router.push('/path')"]
-    R --> S["PathPage nodes useMemo recomputes<br/>app/path/page.tsx:53-80<br/>node-unlock.ts makeGameDone, isNodeUnlocked"]
+    R --> S["PathPage nodes useMemo recomputes<br/>app/path/page.tsx:45-72<br/>node-unlock.ts makeGameDone, isNodeUnlocked"]
     S --> A
 ```
 
 Step by step, with the files that own each hop:
 
-1. **Node tap.** `PathScene` (`src/components/path-scene.tsx:2124-2134`) renders each node and, on tap, calls its
-   `onSelect` prop (wired through `Node`, `path-scene.tsx:1285`) with the tapped `SceneNode`.
-2. **Routing the tap.** `PathPage.handleSelect` (`src/app/path/page.tsx:87-100`) reads `node.game`: the
+1. **Node tap.** `PathScene` (`src/components/path-scene.tsx:1250-1260`) renders each node and, on tap, calls its
+   `onSelect` prop (wired through `Node`, `path-scene.tsx:409`) with the tapped `SceneNode`.
+2. **Routing the tap.** `PathPage.handleSelect` (`src/app/path/page.tsx:79-92`) reads `node.game`: the
    `mythbuster` id goes to the legacy swipe engine; anything for which `hasEngineGame(gid)` is true (from
    `engine-host.tsx`) sets `engineGame` state, which mounts `EngineGameHost`; anything else (an unbuilt "soon"
    node, or a node whose only affordance is a plain route) falls back to `router.push(node.href)`.
@@ -102,7 +102,7 @@ Step by step, with the files that own each hop:
    `unlockTool(id, level)` for any Life-Skills Toolkit tool the game grows, then a big celebration.
 8. **Back to the path.** `onExit` either clears `engineGame` state (in-place play on `/path`) or
    `router.push("/path")` (the standalone `/game/[id]` route, `src/app/game/[id]/page.tsx:32`). Either way,
-   `PathPage`'s `nodes` memo (`app/path/page.tsx:53-80`) recomputes from the now-updated `profile.deckStars`, and
+   `PathPage`'s `nodes` memo (`app/path/page.tsx:45-72`) recomputes from the now-updated `profile.deckStars`, and
    `src/lib/node-unlock.ts`'s `isNodeUnlocked` (`node-unlock.ts:37-43`) may flip the next node from `locked` to
    `playable` because its `prereq` is now satisfied.
 
@@ -216,7 +216,7 @@ pure function of a node's `prereq`, the player's `entryAgeGate`, and a completio
 still counts a v1 finish, any cleared story run in `runDeckCleared` or stars on a v1 Quick Play deck other than
 MythBuster; until [SWED-105](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2)
 it counted only those, so a v2 finish never completed g24. `scripts/tests/node-unlock.test.mjs` covers the
-rule. `PathPage` recomputes this in a `useMemo` (`app/path/page.tsx:53-80`) whenever `deckStars`,
+rule. `PathPage` recomputes this in a `useMemo` (`app/path/page.tsx:45-72`) whenever `deckStars`,
 `runDeckCleared`, or `entryAgeGate` change, which is exactly what happens the moment `finishDeck` runs.
 
 A second, smaller piece of state is content rotation, not profile: a per-game anti-repeat ring at

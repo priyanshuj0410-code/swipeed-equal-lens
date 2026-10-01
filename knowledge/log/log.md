@@ -50,7 +50,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   locked for players who entered at 3, 6, 9 or 12. `GameDone` saves the v2 game's stars as `deckStars.glrl`, but the
   path's completion test for GLRL still counted only the v1 finishes: a cleared story run (`runDeckCleared`, written
   only by the v1 run debrief) or stars on a Quick Play deck.
-- **Reproduced.** In a browser on main 9807b35: a fresh profile onboarded at 12-15 played `/game/glrl` to "Flag
+- **Reproduced.** In a browser on main (9807b35, before the SWED-107 history rewrite): a fresh profile onboarded at 12-15 played `/game/glrl` to "Flag
   Reader!" and saved `deckStars {glrl: 3}` with `runDeckCleared {}`. Back on `/path`, g24 read "locked, finish
   earlier lessons first" and g25 stayed locked. With g21 to g23 also done, g24 stayed playable and never completed.
 - **What.** The completion test moved from the path page to `makeGameDone` in `src/lib/node-unlock.ts`, and GLRL now
@@ -62,7 +62,7 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
   `tsc`.
 - **Docs.** [Green Light / Red Light](../games/green-light-red-light.md) (completion note),
   [the path world](../games/swipeed-world.md) (node gating) and the [v2 engine](../architecture/v2-engine.md)
-  (completion flow and its line references).
+  (completion flow and its line references, including the `path-scene.tsx` ones that SWED-110's cleanup moved).
 
 ## 2026-10-01 · code: lint passes cleanly ([SWED-110](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9b892973-658b-4376-962e-dde7a59e3a60))
 
