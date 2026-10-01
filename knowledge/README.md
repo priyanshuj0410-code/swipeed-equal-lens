@@ -12,6 +12,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5  # SWED-89
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1e640d0d-e504-4326-a2a8-a60d4a1886e2  # SWED-106
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/66768e21-f648-4c92-bbda-d30a084d9569  # SWED-107
 ---
 
 # SwipeEd knowledge base
@@ -54,7 +55,7 @@ knowledge/
 | Design | [design system](design.md) · [design audit, 2026-09-14](audits/design-audit-2026-09-14.md) |
 | Audits | [design, 2026-09-14](audits/design-audit-2026-09-14.md) · [question bank, 2026-09-14](audits/question-bank-audit-2026-09-14.md) · [forge pipeline, 2026-09-14](audits/forge-pipeline-review-2026-09-14.md) |
 | Plans | [playtest feedback plan, 2026-09-15](playbooks/playtest-feedback-plan-2026-09-15.md): question focus, match and sort, reflect, myth cards · [multi-step rollout](playbooks/multi-step-rollout.md): turning every branch and role-play into a multi-step story, chapter by chapter |
-| On GitHub | The repo's [README](../README.md) summarises the app for visitors; `docs/` holds dated design records from June 2026, each marked historical and pointing back here |
+| On GitHub | The repo is public. Its [README](../README.md) summarises the app for visitors; `docs/` holds dated design records from June 2026, each marked historical and pointing back here. Personal and internal documents stay out of the repo and its history ([SWED-107](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/66768e21-f648-4c92-bbda-d30a084d9569)): `.gitignore` and the `scripts/private_files.py` gate keep them out |
 | Voice | [writing without dashes](playbooks/writing-without-dashes.md): the moves that replace em and en dashes, the comma splice trap, the gate ([SWED-92](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22)) |
 | Research | [visual answer options, 2026-09-15](research/visual-answer-options-2026-09-15.md): pictures for pre-readers, reading evidence, Runway, Recraft and other tools ([SWED-89](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5)) |
 | Tracking and history | [Plane configuration](plane.config.md) · [project log](log/log.md) |

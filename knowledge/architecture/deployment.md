@@ -10,6 +10,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1e640d0d-e504-4326-a2a8-a60d4a1886e2  # SWED-106
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/66768e21-f648-4c92-bbda-d30a084d9569  # SWED-107
 ---
 
 # Stack, build and deployment
@@ -34,7 +35,7 @@ plane_issues:
 |---|---|
 | `npm run dev` | `next dev` |
 | `npm run build` | `npm run gates` first (the `prebuild` script), then `next build`, which compiles and type-checks. Vercel runs the same build, so a content gate failure or a type error fails the deploy. |
-| `npm run gates` | `python3 scripts/no_dashes.py` (no em or en dashes in any tracked text file, [SWED-92](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22)), `python3 scripts/content_gate.py` (the whole-bank content gate), `python3 scripts/forge/test_gates.py` (gate fixtures) and `node --test 'scripts/tests/*.test.mjs'` (engine unit tests) |
+| `npm run gates` | `python3 scripts/no_dashes.py` (no em or en dashes in any tracked text file, [SWED-92](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22)), `python3 scripts/private_files.py` (no CV, case study, job document, internal strategy document or brand guidelines PDF tracked in this public repo, [SWED-107](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/66768e21-f648-4c92-bbda-d30a084d9569)), `python3 scripts/content_gate.py` (the whole-bank content gate), `python3 scripts/forge/test_gates.py` (gate fixtures) and `node --test 'scripts/tests/*.test.mjs'` (engine unit tests) |
 | `npm run lint` | `eslint` (flat config) |
 | `npm run status` | `python3 scripts/swipeed_status.py`, build and registration status from `scripts/master-node-table.xlsx` |
 | `npm run read-first` | `python3 scripts/read_first.py`, the read-before-build attestation for new v2 games |

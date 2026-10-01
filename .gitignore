@@ -1,5 +1,15 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Personal and internal documents stay out of this public repo (SWED-107; scripts/private_files.py checks it).
+# The two strategy PDFs that scripts/read_first.py reads live on the owner's machine only.
+/design/*Resume*
+/design/*Case Study*
+/design/design-builder-role*
+/design/SwipeEd - Project Summary.docx
+/design/The-Equal-Lens-Brand-Guidelines*
+/Strategy/*Game Strategy (build bible)*
+/Strategy/*Transition Plan*
+
 # dependencies
 /node_modules
 /.pnp

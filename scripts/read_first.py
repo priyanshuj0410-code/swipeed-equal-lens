@@ -13,6 +13,10 @@ Usage:
 Honest limit: this guarantees the docs EXIST and that a hash-pinned attestation naming each was produced
 before the build commit, and blocks a new build without it: it cannot verify I understood them. The point is
 to remove the excuse and force a deliberate, doc-pinned read-first step (you literally can't attest a missing doc).
+
+The build bible and the transition plan are internal documents: since the repo went public (SWED-107) they stay in
+Strategy/ on the owner's machine, untracked and gitignored, so --require, --attest and --verify need those local
+copies. --gate only checks NEW games staged in a commit, so everyday commits do not depend on them.
 """
 import sys, os, re, glob, json, hashlib, datetime, pathlib, subprocess
 
