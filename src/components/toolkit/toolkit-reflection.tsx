@@ -13,7 +13,7 @@ export function ToolkitReflection({ chapterLevel, final }: { chapterLevel: numbe
   const idx = Math.max(0, Math.min(chapterLevel, MAX_LEVEL) - 1);
   return (
     <div className="glass-card w-full max-w-xs rounded-2xl px-5 py-4 backdrop-blur-[12px] backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
-      <p className="mb-3 text-center font-display text-base font-bold">🧰 Skills you've grown</p>
+      <p className="mb-3 text-center font-display text-base font-bold">🧰 Skills you&apos;ve grown</p>
       <div className="flex flex-col gap-2.5">
         {TOOLS.map((t) => (
           <div key={t.id} className="flex items-center gap-2.5 text-left">

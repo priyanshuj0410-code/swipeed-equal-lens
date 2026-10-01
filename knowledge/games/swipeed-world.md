@@ -10,6 +10,7 @@ timestamp: 2026-09-01T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9b892973-658b-4376-962e-dde7a59e3a60  # SWED-110
 ---
 
 # SwipeEd: The Path World (3D)
@@ -55,10 +56,10 @@ derived legacy structures). The table is the single source of truth for:
   model is `src/lib/node-unlock.ts` (`isNodeUnlocked` / `entryStartOrder` / `entryFocusIndex`); the camera +
   "play me next" glow focus the entry chapter. Regenerate the path by re-running the script after editing the xlsx.
 
-The world is scaled up (`PATH_SCALE = 3`), which now drives scenery/doodle density and path-point
-resolution. Distance simply fades into flat paper: there are **no mountains and no horizon band** (a
-`CanvasHorizon` component is defined in `path-scene.tsx` but is never mounted). Nodes **window** to
-`NODE_WINDOW = 5` at a time and stream in as you move.
+Distance simply fades into flat paper: there are **no mountains and no horizon band**. Nodes **window** to
+`NODE_WINDOW = 5` at a time and stream in as you move. The earlier unmounted experiments (the corridor
+with doors, the drawn horizon, sky and tree doodles, capstone clearings) were deleted from `path-scene.tsx`
+in [SWED-110](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9b892973-658b-4376-962e-dde7a59e3a60), along with the wall-occlusion raycast that only those walls needed.
 
 ## The Unlearn → Relearn canvas (interactive myths)
 Each chapter's stretch scatters struck-through myths along the path: **both** the brand **sticky-note

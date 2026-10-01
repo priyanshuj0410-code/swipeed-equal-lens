@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -8,6 +8,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { SwipeDeck } from "@/components/swipe-deck";
 import { Debrief } from "@/components/debrief";
 import { useProfile } from "@/lib/store";
+import { useWebgl } from "@/lib/use-webgl";
 import { DECK_BY_ID, resolveDeckCards, availableDecks } from "@/content/decks";
 import { POINTS, starsFor } from "@/lib/scoring";
 import { GroundScenery } from "@/components/scenery";
@@ -54,16 +55,7 @@ export function Play({ deckId }: { deckId: DeckId }) {
   const invalid = !deck || cards.length === 0;
 
   // WebGL? (null = detecting -> optimistically render 3D; false = 2D fallback)
-  const [webgl, setWebgl] = useState<boolean | null>(null);
-  useEffect(() => {
-    try {
-      const c = document.createElement("canvas");
-      setWebgl(!!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))));
-    } catch {
-      setWebgl(false);
-    }
-  }, []);
-
+  const webgl = useWebgl();
   // Immersive 3D card game for play/review when supported.
   if (!invalid && webgl !== false && (stage === "play" || stage === "review")) {
     const review = stage === "review";

@@ -72,6 +72,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage exists only after mount, so the saved profile loads here
       if (raw) setProfile({ ...DEFAULT_PROFILE, ...JSON.parse(raw) });
     } catch {
       /* ignore corrupt storage */

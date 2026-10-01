@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Check, Flag, LifeBuoy, Sparkles } from "lucide-react";
 import type { GameView } from "@/components/path-scene";
 import type { Flag as FlagType } from "@/lib/types";
@@ -99,15 +99,19 @@ export function GameCard({ view, onCommit }: { view: GameView; onCommit: (f: Fla
   const ref = useRef<HTMLDivElement>(null);
   const startX = useRef<number | null>(null);
   const [dx, setDx] = useState(0);
+  const [dragging, setDragging] = useState(false);
   const playable = view.phase === "play" && !view.exiting;
 
-  useEffect(() => {
+  const [shown, setShown] = useState({ card: view.card, phase: view.phase });
+  if (shown.card !== view.card || shown.phase !== view.phase) {
+    setShown({ card: view.card, phase: view.phase });
     setDx(0);
-  }, [view.card, view.phase]);
+  }
 
   function onDown(e: React.PointerEvent<HTMLDivElement>) {
     if (!playable) return;
     startX.current = e.clientX;
+    setDragging(true);
     e.currentTarget.setPointerCapture?.(e.pointerId);
   }
   function onMove(e: React.PointerEvent<HTMLDivElement>) {
@@ -117,6 +121,7 @@ export function GameCard({ view, onCommit }: { view: GameView; onCommit: (f: Fla
   function onUp() {
     if (startX.current == null) return;
     startX.current = null;
+    setDragging(false);
     const w = ref.current?.offsetWidth ?? 320;
     const th = w * COMMIT;
     if (dx > th) onCommit("green");
@@ -128,7 +133,7 @@ export function GameCard({ view, onCommit }: { view: GameView; onCommit: (f: Fla
   const transform = view.exiting ? `translateX(${dir * 120}vw) rotate(${dir * 22}deg)` : `translateX(${dx}px) rotate(${dx / 24}deg)`;
   const transition = view.exiting
     ? "transform 0.38s ease-in, background-color 0.25s"
-    : startX.current === null
+    : !dragging
       ? "transform 0.25s ease, background-color 0.25s"
       : "background-color 0.1s";
   const greenHint = Math.max(0, Math.min(1, dx / 120));

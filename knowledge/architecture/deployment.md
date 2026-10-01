@@ -13,6 +13,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/66768e21-f648-4c92-bbda-d30a084d9569  # SWED-107
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a211b3dc-b375-4701-ab93-7c8f4d948d6b  # SWED-108
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e  # SWED-109
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9b892973-658b-4376-962e-dde7a59e3a60  # SWED-110
 ---
 
 # Stack, build and deployment
@@ -38,7 +39,7 @@ plane_issues:
 | `npm run dev` | `next dev` |
 | `npm run build` | `npm run gates` first (the `prebuild` script), then `next build`, which compiles and type-checks. Vercel runs the same build, so a content gate failure or a type error fails the deploy. |
 | `npm run gates` | `python3 scripts/no_dashes.py` (no em or en dashes in any tracked text file, [SWED-92](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22)), `python3 scripts/private_files.py` (no CV, case study, job document, internal strategy document or brand guidelines PDF tracked in this public repo, [SWED-107](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/66768e21-f648-4c92-bbda-d30a084d9569)), `python3 scripts/content_gate.py` (the whole-bank content gate), `python3 scripts/forge/test_gates.py` (gate fixtures) and `node --test 'scripts/tests/*.test.mjs'` (engine unit tests) |
-| `npm run lint` | `eslint` (flat config) |
+| `npm run lint` | `eslint` (flat config with `eslint-config-next`). It passes with zero problems since [SWED-110](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9b892973-658b-4376-962e-dde7a59e3a60). Where the React Hooks rules object to React Three Fiber idioms (mutating three.js objects inside `useFrame`, writing the camera rig's shared progress ref), the line carries an `eslint-disable-next-line` comment that gives the reason. |
 | `npm run status` | `python3 scripts/swipeed_status.py`, build and registration status from `scripts/master-node-table.xlsx` |
 | `npm run read-first` | `python3 scripts/read_first.py`, the read-before-build attestation for new v2 games |
 

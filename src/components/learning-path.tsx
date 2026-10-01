@@ -9,6 +9,8 @@ import { Logo } from "@/components/logo";
 import { EnvProp } from "@/components/scenery";
 import { PATH, type PathNode } from "@/content/path";
 
+const SECTION_START = PATH.map((_, i) => PATH.slice(0, i).reduce((n, s) => n + s.nodes.length, 0));
+
 type Pt = { x: number; y: number };
 type Tile = { x: number; y: number; angle: number; along: number; across: number; key: number };
 
@@ -111,8 +113,8 @@ export function LearningPath() {
     const tangent = (s: number) => {
       const a = path.getPointAtLength(Math.max(0, s - 1.5));
       const b = path.getPointAtLength(Math.min(len, s + 1.5));
-      let tx = b.x - a.x;
-      let ty = b.y - a.y;
+      const tx = b.x - a.x;
+      const ty = b.y - a.y;
       const m = Math.hypot(tx, ty) || 1;
       return { tx: tx / m, ty: ty / m };
     };
@@ -185,8 +187,6 @@ export function LearningPath() {
     setEnv(envOut);
   }, [pathD, dims.w, dims.h]);
 
-  let gi = -1;
-
   return (
     <div className="mx-auto flex w-full max-w-md flex-1 flex-col gap-6 px-5 py-6 pb-24 animate-in fade-in duration-300">
       <header className="flex items-center justify-between">
@@ -241,7 +241,7 @@ export function LearningPath() {
           ))}
         </svg>
 
-        {PATH.map((section) => (
+        {PATH.map((section, si) => (
           <div key={section.title} className="relative z-10 flex flex-col gap-1">
             <div className="my-3 flex flex-col items-center gap-0.5 text-center">
               <span className="rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground shadow-sm">
@@ -249,9 +249,8 @@ export function LearningPath() {
               </span>
               <span className="text-[11px] text-muted-foreground">{section.subtitle}</span>
             </div>
-            {section.nodes.map((node) => {
-              gi += 1;
-              const index = gi;
+            {section.nodes.map((node, ni) => {
+              const index = SECTION_START[si] + ni;
               return (
                 <NodeRow
                   key={node.id}
