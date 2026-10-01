@@ -91,6 +91,10 @@ changing framework code.
 A push or merge to `main` deploys to production on Vercel. The build runs the same gates, so a content
 problem or a type error fails the deploy. Run `npm run build` locally before pushing.
 
+Milestones are tagged as [releases](https://github.com/priyanshuj0410-code/swipeed-equal-lens/releases) with calendar
+versions (`v2026.10.0`, then `v2026.10.1`), each with notes drawn from the project log; `scripts/release.py` bumps
+the version and publishes the release. See [releases](knowledge/architecture/deployment.md#releases).
+
 ## Content pipeline
 
 Scenarios are grown and reshaped by the **forge** (`scripts/forge/`): writers and independent reviewers work

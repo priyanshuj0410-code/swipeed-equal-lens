@@ -5,6 +5,7 @@ description: How branch and role-play scenarios are converted to multi-step stor
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4  # SWED-100
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a211b3dc-b375-4701-ab93-7c8f4d948d6b  # SWED-108
 ---
 
 # Multi-step rollout
@@ -72,9 +73,12 @@ A batch's progress is never kept in a session's memory: `steps_wave.py status N`
 6. **Docs.** In each game's doc under `knowledge/games/`: a short "Multi-step stories" note (how many converted, the
    step split, review rounds and what they found) and the chapter's ticket in `plane_issues`. A `knowledge/log/log.md`
    entry (newest first) and the counts in the question bank.
-7. **Merge and push.** Commit `[SWED-n] ...`; check `git worktree list` for where `main` lives and merge `--no-ff`
-   there (rebase first if `main` moved; `plane_issues` lists and the log's top entries conflict almost every time:
-   keep both, newest first); `npm run build`; `git push origin main`; wait for the Vercel status to succeed.
+7. **Merge, push and release.** Run `python3 scripts/release.py --bump` on the chapter branch and commit
+   `[SWED-n] ...`; check `git worktree list` for where `main` lives and merge `--no-ff` there (rebase first if `main`
+   moved; `plane_issues` lists and the log's top entries conflict almost every time: keep both, newest first);
+   `npm run build`; `git push origin main`; wait for the Vercel status to succeed; then
+   `python3 scripts/release.py --publish` on `main` tags the release and creates its GitHub release
+   ([releases](../architecture/deployment.md#releases)).
 8. **Close.** Plane issue to Done with a one-line comment. For safety-heavy games, build the owner's review page with
    `python3 scripts/forge/story_review_page.py <game>` and publish it as an artifact with the `db` and `user`
    capabilities (verdicts land in its `reviews` collection), then send the link. Read the flags with the artifact's

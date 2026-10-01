@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1e640d0d-e504-4326-a2a8-a60d4a1886e2  # SWED-106
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/66768e21-f648-4c92-bbda-d30a084d9569  # SWED-107
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a211b3dc-b375-4701-ab93-7c8f4d948d6b  # SWED-108
 ---
 
 # Stack, build and deployment
@@ -55,6 +56,22 @@ The package manager is npm (`package-lock.json`). Git hooks live in `scripts/git
 | Local link | `.vercel/project.json` in this repo (gitignored) |
 
 **A push or merge to `main` on GitHub deploys to production.** Every production deploy since 2026-09-01 has come from a git push to `main` (seven that day, the last for commit `e4953e2`). Run `npm run build` locally before pushing.
+
+### Releases
+
+Deploys are continuous; releases mark the milestones ([SWED-108](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a211b3dc-b375-4701-ab93-7c8f4d948d6b)). Versions are calendar versions,
+`YYYY.M.N`, where `N` counts the releases already made that month (`2026.10.0`, then `2026.10.1`). The version is in
+`package.json` and `package-lock.json`, each release is an annotated tag `vYYYY.M.N` on `main`, and each has a
+GitHub release whose notes list the [project log](../log/log.md) entries added since the previous tag.
+`scripts/release.py` does both halves:
+
+1. On the branch that ships the milestone, before merging: `python3 scripts/release.py --bump`, then commit the
+   version change with the rest.
+2. After that merge is pushed and Vercel reports success, on `main`: `python3 scripts/release.py --publish` (add
+   `--dry-run` to preview the tag and the notes). It refuses to run unless `main` matches `origin/main`.
+
+Cut a release when something a partner or a player would notice ships: a chapter of multi-step stories, an engine
+change, a picture set. Small fixes ride along in the next release.
 
 ### History
 
