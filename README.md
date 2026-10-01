@@ -78,7 +78,7 @@ npm run build        # runs the gates first, then next build
 
 | Command | What it does |
 |---|---|
-| `npm run gates` | The dash check, the whole-bank content gate, the gate fixtures and the engine unit tests (needs Python 3) |
+| `npm run gates` | The dash check, the private-documents check, the whole-bank content gate, the gate fixtures and the engine unit tests (needs Python 3) |
 | `npm run lint` | ESLint |
 | `npm run status` | Build status of every node, from `scripts/master-node-table.xlsx` |
 | `python3 scripts/gen-path.py` | Regenerates `src/content/path.ts` from the master node table |
