@@ -35,6 +35,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/66768e21-f648-4c92-bbda-d30a084d9569  # SWED-107
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a211b3dc-b375-4701-ab93-7c8f4d948d6b  # SWED-108
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e  # SWED-109
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9b892973-658b-4376-962e-dde7a59e3a60  # SWED-110
 ---
 
 # SwipeEd project log
@@ -42,6 +43,16 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-01 · code: lint passes cleanly ([SWED-110](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9b892973-658b-4376-962e-dde7a59e3a60))
+
+`npx eslint .` reported 47 problems (29 errors, 18 warnings) on a fresh clone. It now reports none, with no change in behaviour:
+- **Dead code:** about 870 lines of unmounted experiments left `path-scene.tsx` (the corridor and its doors, the drawn horizon, sky and tree doodles, capstone clearings and their texture helpers), plus the wall-occlusion raycast that only those walls used. [The path world](../games/swipeed-world.md) says so.
+- **Render purity:** WebGL detection and the reduced-motion check moved to `useSyncExternalStore` hooks (`src/lib/use-webgl.ts`, `src/lib/use-reduced-motion.ts`). The swipe cards track dragging in state instead of reading a ref while rendering. The toolbar reset and the card change adjust state during render instead of in an effect. The myth windows keep their scroll position in state.
+- **Small fixes:** `useTool` was renamed `markToolUsed` at its call site, so the hooks rule no longer mistakes it for a hook. Three apostrophes are escaped and two `let`s became `const`.
+- **Documented exceptions:** React Three Fiber's per-frame mutations, the localStorage profile load and one decorative SVG `<img>` keep a disable comment with a reason ([deployment](../architecture/deployment.md)).
+
+`Feedback/` (testers' screenshots) and `.plane_state_cache` are now in `.gitignore`. The build passes, and the path page renders with no console errors in headless Chrome.
 
 ## 2026-10-01 · repo: the brand package comes from GitHub Packages ([SWED-109](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e))
 - **Why.** `@equal-lens/brand` was a tarball checked into `vendor/` since SWED-44. The owner chose GitHub Packages

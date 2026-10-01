@@ -13,7 +13,7 @@ import type { ToolId } from "@/lib/types";
 // Self-hides if the tool isn't unlocked yet (a child only sees moments for skills they carry) or once
 // dismissed. Does not pause or gate the host game.
 export function ToolMoment({ tool, line }: { tool: ToolId; line?: string }) {
-  const { profile, useTool } = useProfile();
+  const { profile, useTool: markToolUsed } = useProfile();
   const [dismissed, setDismissed] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -29,7 +29,7 @@ export function ToolMoment({ tool, line }: { tool: ToolId; line?: string }) {
         </span>
         <button
           type="button"
-          onClick={() => { useTool(tool); setOpen(true); }}
+          onClick={() => { markToolUsed(tool); setOpen(true); }}
           className="cta shrink-0 rounded-full bg-[var(--color-sun)] px-3 py-1 text-xs font-bold text-slate-900 transition-transform active:scale-95"
         >
           Use it

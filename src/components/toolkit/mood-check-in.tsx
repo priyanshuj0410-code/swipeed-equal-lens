@@ -60,7 +60,7 @@ export function MoodCheckIn() {
             <>
               <div className="mb-3 flex items-center gap-3">
                 <Sam size={48} />
-                <p className="font-display text-base font-bold">How are you today? There's no wrong answer.</p>
+                <p className="font-display text-base font-bold">How are you today? There&apos;s no wrong answer.</p>
               </div>
               <div className="flex justify-between gap-1">
                 {MOODS.map((m) => (
@@ -88,7 +88,7 @@ export function MoodCheckIn() {
                 <Wind className="size-4" aria-hidden /> Breathing space
               </button>
               <p className="text-center text-xs text-foreground/60">You can always talk to someone. The Get Help button is in the corner.</p>
-              <button type="button" onClick={() => setShow(false)} className="text-xs font-semibold text-foreground/70">I'm okay for now</button>
+              <button type="button" onClick={() => setShow(false)} className="text-xs font-semibold text-foreground/70">I&apos;m okay for now</button>
             </div>
           )}
 

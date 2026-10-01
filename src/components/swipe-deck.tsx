@@ -50,6 +50,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete, labels }:
   const [lastPoints, setLastPoints] = useState(0);
   const missedRef = useRef<GameCard[]>([]);
   const startX = useRef<number | null>(null);
+  const [dragging, setDragging] = useState(false);
   const moved = useRef(false);
   const stackRef = useRef<HTMLDivElement>(null);
   const revealAt = useRef(0);
@@ -114,6 +115,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete, labels }:
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
     if (phase !== "play" || exiting) return;
     startX.current = e.clientX;
+    setDragging(true);
     moved.current = false;
     e.currentTarget.setPointerCapture?.(e.pointerId);
   }
@@ -126,6 +128,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete, labels }:
   function onPointerUp() {
     if (startX.current === null) return;
     startX.current = null;
+    setDragging(false);
     const width = stackRef.current?.offsetWidth ?? 320;
     const threshold = width * COMMIT_FRACTION;
     if (dx > threshold) commit("green");
@@ -139,7 +142,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete, labels }:
     : `translateX(${dx}px) rotate(${dx / 18}deg)`;
   const frontTransition = exiting
     ? `transform ${EXIT_MS}ms ease-in, opacity ${EXIT_MS}ms ease-in`
-    : startX.current === null
+    : !dragging
       ? "transform 0.25s ease"
       : "none";
   const greenHint = Math.max(0, Math.min(1, dx / 120));

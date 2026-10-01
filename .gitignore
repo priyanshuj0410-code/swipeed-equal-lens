@@ -65,3 +65,9 @@ next-env.d.ts
 # Raw CC0 source kits (Kenney/Quaternius). The USED subset is vendored in public/models/;
 # these are the originals, re-downloadable, and 61MB has no business in git history.
 /assets/
+
+# playtest screenshots and notes from testers (private)
+/Feedback/
+
+# Plane state-id cache written by the ticket helpers
+.plane_state_cache

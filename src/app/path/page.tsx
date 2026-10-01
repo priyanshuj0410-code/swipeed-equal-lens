@@ -8,6 +8,7 @@ import { Flame, Star, Flag, Check, X } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { useProfile } from "@/lib/store";
 import { useSwipeGame } from "@/lib/use-swipe-game";
+import { useWebgl } from "@/lib/use-webgl";
 import { GameCard } from "@/components/game-card";
 import { WorldLoader } from "@/components/world-loader";
 import { UnlearnToolbar } from "@/components/unlearn-toolbar";
@@ -29,18 +30,9 @@ export default function PathPage() {
   const { profile } = useProfile();
   const game = useSwipeGame();
   const [engineGame, setEngineGame] = useState<string | null>(null);
-  const [webgl, setWebgl] = useState<boolean | null>(null);
+  const webgl = useWebgl();
 
   const playing = game.active || engineGame !== null;
-
-  useEffect(() => {
-    try {
-      const c = document.createElement("canvas");
-      setWebgl(!!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))));
-    } catch {
-      setWebgl(false);
-    }
-  }, []);
 
   // signals the global Get Help button to collapse to an icon during play
   useEffect(() => {
