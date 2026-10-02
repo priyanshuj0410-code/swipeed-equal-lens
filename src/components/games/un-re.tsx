@@ -10,12 +10,12 @@ export function UnReBeat({ un, re, why, fill = false }: { un: string; re: string
       <p className="flex items-start gap-2.5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/brand/un.svg" alt="" aria-hidden draggable={false} className="-mt-0.5 size-9 shrink-0 object-contain" />
-        <span><b style={{ color: "var(--color-insight)" }}>UN:</b> {un}</span>
+        <span><b style={{ color: "var(--un-ink)" }}>UN:</b> {un}</span>
       </p>
       <p className="mt-1.5 flex items-start gap-2.5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/brand/re.svg" alt="" aria-hidden draggable={false} className="-mt-0.5 size-9 shrink-0 object-contain" />
-        <span><b style={{ color: "var(--color-grow)" }}>RE:</b> {re}</span>
+        <span><b style={{ color: "var(--re-ink)" }}>RE:</b> {re}</span>
       </p>
       {/* the reason, as its own quieter line so every text block stays short (the un/re text carries the beat) */}
       {why ? <p className={`${fill ? "pl-[2.875rem] text-sm" : "pl-7 text-xs"} opacity-75`}>{why}</p> : null}

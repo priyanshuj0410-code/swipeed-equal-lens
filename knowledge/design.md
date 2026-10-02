@@ -19,6 +19,8 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e  # SWED-109
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587  # SWED-63
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/baa41435-d56c-487b-ac9b-7557d49c85f5  # SWED-87
 ---
 
 # SwipeEd design system
@@ -80,6 +82,8 @@ be able to repaint what correct looks like." A future brand retheme is allowed t
 | `--dot` | `#ECE6F6` | `#2A2140` | Dotted-paper texture |
 | `--color-insight` | `#2DD4BF` | same | Teal, "unlearn" |
 | `--color-grow` | `#FF7A5C` | same | Coral, "relearn" / CTA |
+| `--un-ink` | `#058274` | `var(--color-insight)` | UN's label text: the teal darkened in OKLCH to 4.7:1 on white ([SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587)). Text only; fills and icons keep `--color-insight`. |
+| `--re-ink` | `#BB543D` | `var(--color-grow)` | RE's label text: the coral darkened the same way, 4.7:1 on white. Text only. |
 | `--color-sun` | `#FFC94D` | same | Yellow, CTA (brand rule: always paired with ink text) |
 | `--color-sky` | `#4FB0E8` | same | Blue, support |
 
@@ -106,9 +110,10 @@ tokens automatically):
 | `--prx-slot-1` … `--prx-slot-6` | six hues, non-semantic | six hues | Position-only wheel for an *undeclared* bin, so a bin with no declared valence still gets a distinct colour and emoji without asserting correctness. |
 
 **UN and RE** are not colour tokens, they are characters that borrow existing brand accents:
-UN (the eraser, "unlearn") speaks in `--color-insight`; RE (the pencil, "relearn") speaks in
-`--color-grow`. Defined once in `src/components/games/un-re.tsx:6-16` and reused everywhere a myth
-gets busted. See Accessibility for a measured contrast problem with this pairing in light mode.
+UN (the eraser, "unlearn") is teal and RE (the pencil, "relearn") is coral. Their bold `UN:` and
+`RE:` labels use the text tokens `--un-ink` and `--re-ink`, which are darker in light mode and are the
+accents themselves in dark mode. Defined once in `src/components/games/un-re.tsx` and reused
+everywhere a myth gets busted. Never set `--color-insight` or `--color-grow` as text on a light surface.
 
 **Capstone gold is two different values, not one.** `--color-sun` (`#FFC94D`) is the brand's yellow
 accent and is what the 3D canvas-skin world actually paints on a capstone node
@@ -254,7 +259,7 @@ more.
 | Reflect conversation | `ReflectPlay` ([SWED-97](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc)): after the tap, the options give way to a flat "Your pick" card (`data-state="selected"`) and Lensy's card asks the scenario's `ask` (or the band's: "What made you pick that one?", "What makes that one fit for you?"). Under it, a text box in the onboarding input style (2.5px ink border, paper fill, brand border on focus, 3 rows, 280 characters) with a starter placeholder, a `text-xs` line "Only you see this. It isn't saved or sent anywhere." with a tabular counter, a sun **That's my answer** CTA (disabled while empty) and a tertiary **Skip**. The second turn shows "You wrote" (a flat `glass-pill` with the player's words) and the 💛 affirm pill above the same box for the `deeper` question; the result card reads "Thanks for thinking it through." and the take-away is the relearn. Ages 3-6 get a 🗣️ pill ("Say it out loud to a grown-up near you") with **I told them** and **Maybe later** instead of a box. Safety beats keep the single tap. Words that suggest harm replace the box with a flat support card, the game's help pill and **Continue**. Real-app references (a step count over options plus write-your-own, a compose screen with a skip): https://www.lazyweb.com/agentic-search/2b2bf842-3afb-4ceb-accb-b2e21ade3ad4 | `src/components/games/reflect-play.tsx` |
 | Swipe card | `SwipeCard`: the full-width cue card (`.lift`) that tints toward the side being dragged and shows a word-plus-emoji badge, with one `.glass-pill press` button per side under it (side word and valence emoji), so a player who cannot drag or cannot see the card can still answer. Arrow keys work on the focused card, and it ignores input once answered ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543)) | `src/components/games/swipe-card.tsx` |
 | Myth card | `MythCardPlay` ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543)): a strike-rewrite beat played on the Swipe card. Lensy's question card reads "Myth or true? Swipe the card." in place of the hook, and the card shows the myth (`myth.un`) or its truth (`myth.re`). The side buttons read 🛑 Myth (left, `--prx-neg`) and True 💚 (right, `--prx-pos`). A wrong side keeps the card where it is and puts "Look again. Is that really true?" or "Look again. That one is true." on the feedback line; the right side resolves to the shared UN/RE card. A game turns it on with `mythCards`; each strike beat is then a card or a scrub at random, never three of one kind in a row, and cards mix myths and truths on the same rule | `src/components/games/v2-engine.tsx` (`MythCardPlay`) |
-| Game shell chrome | `GameShell`: fixed glass-pill top bar (back button, title, progress "n/m"), opaque `--app-bg` overlay so the path is hidden behind an open game, `align="center"` vs `"fill"` for content that must pin its own top/bottom rows | `src/components/game-shell.tsx` |
+| Game shell chrome | `GameShell`: fixed glass-pill top bar (back button, title, progress "n/m"); its max width leaves room for the toolkit button in the top-right corner (`calc(100% - 5.5rem)`, `10rem` from `sm`), so a long title truncates instead of running under it ([SWED-87](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/baa41435-d56c-487b-ac9b-7557d49c85f5)), opaque `--app-bg` overlay so the path is hidden behind an open game, `align="center"` vs `"fill"` for content that must pin its own top/bottom rows | `src/components/game-shell.tsx` |
 | Lensy's question card | `LensyQuestion`: Lensy plus an `h2.popover` question card in `font-hand`, the feedback line (the play area's one live region) and `RevealGate`. See How Lensy speaks | `src/components/games/lensy-question.tsx` |
 | Feedback banners | No hard-fail red banner anywhere. A wrong move gets a warm nudge from `say(...)`, shown on the question card's feedback line and spoken; mechanics no longer render their own inline nudge lines under the answers (removed in SWED-66, they duplicated the spoken line and shifted the layout when they mounted). A non-best pick on a single-step branch keeps its 💛 consequence card with a retry button (a multi-step branch never marks a pick before its recap) | `src/components/games/lensy-question.tsx`; `say()` in `v2-engine.tsx` and `capstone-rich.tsx` |
 | Completion card | `GameDone`: 🎉 emoji, title, optional blurb, 0 to 3 star rating (`--accent-amber` = `--color-sun`), coin count, confetti (`celebrate("big")`) on mount, "Play again" / "Back to the path." Capstones wrap it with a `ToolkitReflection` | `src/components/games/game-done.tsx` |
@@ -353,10 +358,9 @@ mostly orphaned per `games/world-art-tokens.md`) and `skin="canvas"` (hand-drawn
 - **`--color-insight` (UN's teal) on `--color-surface` white measures 1.86:1, and `--color-grow`
   (RE's coral) on the same white measures 2.56:1. Both fail WCAG AA even at large text (needs 3.0:1),
   in the light theme only** (dark-mode surface is dark enough that both pass, 8.96:1 and 6.51:1).
-  This is the bold `UN:` and `RE:` label on every myth-bust in light mode (`src/components/games/un-re.tsx:12,15`; the rest of the line is ink), and was
-  not previously measured or flagged in code. Fix by darkening the two accent values for text use, or
-  by never setting them as a text colour directly and instead using them only as an icon/fill tint
-  next to ink text. Tracked as [SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587).
+  This was the bold `UN:` and `RE:` label on every myth-bust in light mode. **Fixed 2026-10-03:** the
+  labels now use `--un-ink` (`#058274`, 4.72:1 on white, 4.51:1 on paper) and `--re-ink` (`#BB543D`,
+  4.72:1 and 4.52:1), the same hues darkened in OKLCH; dark mode keeps the accents. Tracked as [SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587).
 - `--prx-on-fill` on `--prx-neg` (the "incorrect" fill) measures 4.28:1 in light mode, just under the
   4.5:1 normal-text AA threshold, though it clears the 3.0:1 large-text/UI-component threshold. Every
   other `--prx-*` fill/on-fill pairing clears normal-text AA.
