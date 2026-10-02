@@ -39,6 +39,11 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2  # SWED-105
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/43fe632c-cf79-4e56-9d1e-0f22c747a055  # SWED-112
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/ec93c9d9-14cb-4419-a349-a716dbcc6fae  # SWED-113
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1163d808-7f9b-4cc5-8571-c2e084e7221e  # SWED-79
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b  # SWED-80
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/346e8997-2ede-4e3b-a749-f8e7da185355  # SWED-81
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e2f01bdc-6e38-4eb0-8f87-b9c69e897cb5  # SWED-82
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc  # SWED-122
 ---
 
 # SwipeEd project log
@@ -46,6 +51,15 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-02 · content: four child-safety fixes from the question bank audit ([SWED-79](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1163d808-7f9b-4cc5-8571-c2e084e7221e), [SWED-80](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b), [SWED-81](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/346e8997-2ede-4e3b-a749-f8e7da185355), [SWED-82](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e2f01bdc-6e38-4eb0-8f87-b9c69e897cb5))
+
+- **Get Help sheet ([SWED-82](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e2f01bdc-6e38-4eb0-8f87-b9c69e897cb5)).** Childline is "free, 24/7 help for children. They keep it private unless someone is being hurt", not "confidential". The cybercrime line says "It is not your fault" instead of promising "You won't be in trouble". The same Childline promise in My Body (`mb-1393`, ages 3 to 6) is gone too.
+- **Secrecy model lines ([SWED-81](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/346e8997-2ede-4e3b-a749-f8e7da185355)).** No model line asks for secrecy any more: Plan It's two "just between us" lines and one adult line in Lead the Way were reworded.
+- **POCSO reporting limit ([SWED-80](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b)).** My Choices no longer calls mandatory reporting a myth. My Choices and Status: Know It now teach the one limit: clinics don't tell your family, but abuse or sex under 18 must be reported to the police. Promises that everything stays private were reworded, including both helpLines, capstone 5's status line and three Plan It lines. Every remaining line has a verdict in the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md). Other under-18 games with the same wording are tracked in [SWED-122](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc).
+- **Transgender law ([SWED-79](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1163d808-7f9b-4cc5-8571-c2e084e7221e)).** Raising Gender-Diverse Kids keeps NALSA (2014) as history. It now states that since the 2026 amendment a certificate needs a medical board and that the law is before the Supreme Court, and it points families to current legal advice. What Makes Me, Me drops "so everyone is seen". Law status was verified on 2026-10-02, with sources in the game doc.
+
+The content gate passes; the changed lines fit the field and band limits.
 
 ## 2026-10-02 · pictures: round six approved, first picture bank set, rollout tickets ([SWED-91](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49), [SWED-113](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/ec93c9d9-14cb-4419-a349-a716dbcc6fae))
 

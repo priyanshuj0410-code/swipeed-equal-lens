@@ -10,6 +10,7 @@ timestamp: 2026-06-20T20:30:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b  # SWED-80
 ---
 
 # My Choices, My Future
@@ -81,3 +82,7 @@ safe-helper box (#18)** now fully open.
   route); the Badge Book; English narration.
 - **Deferred (GDD Phase 2/3):** a deeper multi-factor decision sim with longer ripples, a fuller method
   comparison, crown levels, Classroom-Mode polish, calm mode, and **Hindi**.
+
+## Safety fixes (2026-10-02)
+
+[SWED-80](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b): the game no longer says mandatory reporting is a myth. It now teaches the one legal limit on clinic confidentiality for under-18s: clinics don't tell your family, but if a clinician learns that someone under 18 is having sex or being abused, POCSO says they must tell the police. `mc-945`'s relearn was rewritten, and `mc-956`'s relearn names the limit. The "ask what stays private" role-plays (`mc-050`, `mc-904`, `mc-921`, `mc-1263`, `mc-1416`) say a clinician will explain, including that limit. `mc-931`, `mc-1320` and `mc-1375` no longer promise that everything stays private, and neither do the `helpLine` and the badge blurb. Every remaining confidential or private line is listed with a verdict in the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md).

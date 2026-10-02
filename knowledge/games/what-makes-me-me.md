@@ -10,6 +10,7 @@ timestamp: 2026-06-19T23:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1163d808-7f9b-4cc5-8571-c2e084e7221e  # SWED-79
 ---
 
 # What Makes Me, Me
@@ -71,3 +72,7 @@ themselves (#17 spirit).
 
 ## Related
 - [SwipeEd (app)](swipeed.md) · [Same Same, Different (#4)](same-same-different.md) · [Can-Do Kids (#5)](can-do-kids.md) · [Core principle (UN & RE)](swipeed-core-principle.md) · [Games catalog](index.md)
+
+## Safety fixes (2026-10-02)
+
+[SWED-79](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1163d808-7f9b-4cc5-8571-c2e084e7221e): `wm-1189`'s affirm no longer says "so everyone is seen", which overstated the law after the 2026 amendment. It now says "Yes: India's law recognises a third gender." The other lines that cite NALSA (`wm-039`, `wm-048`, `wm-1176`, `wm-1201`, `wm-1216`) were rechecked. They state a child-level fact that is still true (the law recognises a third gender) and make no claim about certification, so they stay. `wm-1233`, named in the audit, is no longer in the bank. Law status verified on 2026-10-02 (see [Raising Gender-Diverse Kids](raising-gender-diverse-kids.md)).

@@ -12,6 +12,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1163d808-7f9b-4cc5-8571-c2e084e7221e  # SWED-79
 ---
 
 # Raising Gender-Diverse Kids
@@ -80,3 +81,14 @@ dignity are non-negotiable**, and **conversion "therapy" / "cures" are named har
 or distress routes to Tele-MANAS 14416, an affirming counsellor, or emergency 112. India:
 families navigate real cultural and legal complexity, so the node leads with the settled value (every child
 deserves a safe, loving home) and meets fear with facts, not blame.
+
+## Safety fixes (2026-10-02)
+
+[SWED-79](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1163d808-7f9b-4cc5-8571-c2e084e7221e): `gd-051` and `gd-052` no longer present self-identification as current law. The NALSA judgment (2014) and the 2018 decriminalisation are kept as history. The game now says that since the Transgender Persons (Protection of Rights) Amendment Act, 2026, a legal gender certificate needs a medical board's recommendation before a District Magistrate issues it, that the law is before the Supreme Court, and that families should get current legal advice. The dignity message stays, and it does not depend on a certificate.
+
+Verified on 2026-10-02:
+- Presidential assent on 30 March 2026; in force from 25 May 2026.
+- The Supreme Court declined an interim stay and heard the challenge from August 2026; no judgment yet.
+- Sources: [Supreme Court Observer](https://www.scobserver.in/cases/challenge-to-the-transgender-persons-amendment-act-2026/), [SCO report on the stay](https://www.scobserver.in/reports/challenge-to-transgender-amendment-act-2026-supreme-court-issues-notice-declines-interim-stay/), [Wikipedia summary with citations](https://en.wikipedia.org/wiki/Transgender_Persons_(Protection_of_Rights)_Amendment_Act,_2026).
+
+Re-verify whenever the Court rules.

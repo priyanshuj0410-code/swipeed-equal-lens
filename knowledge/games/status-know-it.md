@@ -10,6 +10,7 @@ timestamp: 2026-06-20T21:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b  # SWED-80
 ---
 
 # Status: Know It
@@ -73,3 +74,7 @@ School-Comfort (#14)** (NACO ICTC; condoms/PrEP gated; non-explicit).
   Childline route); the Badge Book; English narration.
 - **Deferred (GDD Phase 2/3):** a build-your-own-routine tracker, a fuller scenario bank, crown levels,
   Classroom-Mode polish, calm mode, and **Hindi**.
+
+## Safety fixes (2026-10-02)
+
+[SWED-80](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b): `sk-1083`'s relearn names the POCSO limit for under-18s (clinics keep your visit from your family, but abuse or sex under 18 must be reported to police). `sk-1378` no longer says care is "fully confidential" (now "your HIV status is protected by law"), `sk-1315` drops "no matter what", and the `helpLine` no longer promises confidential testing. Every remaining line is recorded in the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md).
