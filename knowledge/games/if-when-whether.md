@@ -35,14 +35,14 @@ plane_issues:
 > non-coercive: no pressure toward children or against; childfree and many-paths-to-parenthood equally valid;
 > medically accurate but panic-free; not medical advice, points to clinicians.** Where it's hard, it routes to
 > [Many Ways to Family](swipeed-game-patterns.md) (g60); the emotionally-loaded cats reassure (`reassureCats`
-> [free-of-pressure · if-its-hard] + `reassure` + `helpLine` → a clinician, **RKSK** and public reproductive-health
+> [free-of-pressure · if-its-hard] + `reassure` + `helpLine` → a doctor, a **government health centre** (PHC or CHC) or district hospital, and public reproductive-health
 > services; sex selection is illegal under the PCPNDT Act). **gameId:** library, GDD and engine-host registry all
 > agree on **`if-when-whether`** (no trap). Engine: **no new mechanic and no `binStyle` change**. Verbatim-engine
 > emulation over all 11 sort pairs found no mis-colours (*Honest fact* / *Panic myth*, *Respects autonomy* /
 > *Violates it*, *Healthy support* / *Harmful pressure*, *Compassionate truth* / *Harmful (or Cruel) myth* coloured
 > by existing tokens; the rest neutral). Spot ids injected (7); one spot (iw-054) carries multiple valid
 > `trick:true` items. **Unlike the other Chapter-7 nodes this carries no DV helpline** (it's a health/autonomy node,
-> not a safety node). The help route is a clinician + RKSK. New-node wiring: `g59 → if-when-whether` in the
+> not a safety node). The help route is a doctor or a government health centre. New-node wiring: `g59 → if-when-whether` in the
 > gen-path `GAME` dict (+ 🤰 emoji), `path.ts` regenerated (65 built/playable), registered in `engine-host`.
 > Read-first attested. **Builds on** [My Choices, My Future](my-choices-my-future.md) (g29); **pairs with** Many
 > Ways to Family (g60).
@@ -69,9 +69,13 @@ every outcome (children now, later, never, or a hard road through infertility) i
   helps many but isn't guaranteed), no false hope, no shame.
 - **Free of pressure (14)**: the couple's autonomy; resisting "good news" and family pressure; **son-preference
   and sex-selection are illegal** (PCPNDT Act); refusing a weaponised fertility clock.
-- **Tools & help (14)**: a decision-reflection tool, fertility basics, and RKSK/public reproductive-health
+- **Tools & help (14)**: a decision-reflection tool, fertility basics, and public reproductive-health services at government health centres
   services & clinicians.
 
 **Stance.** Non-coercive in every direction (no pressure toward children or against) and medically accurate but
 deliberately panic-free. It is **not medical advice** and points to clinicians and public services; it names
 **sex selection as illegal** under the PCPNDT Act, and meets infertility with realism and zero shame.
+
+## Help route for adults (2026-10-03)
+
+[SWED-103](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/88bb2bfc-fb38-4df6-bc26-3895c72a67e6): the game used to name RKSK (Rashtriya Kishor Swasthya Karyakram), which is the adolescent health programme for ages 10 to 19, as the real-help route for adults' fertility, preconception and infertility care. All 75 mentions in 37 scenarios now point to adult routes: a doctor, a government health centre (PHC or CHC), a district hospital, or a public hospital. The same change reached the help line, the help label ("Find care · a clinician / health centre"), the reassurance line and the game's local grounding file, so regrowth won't reintroduce RKSK. No scheme is named, so no scheme name can go stale.
