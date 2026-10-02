@@ -35,8 +35,9 @@ export function GameShell({
 
   return (
     <>
-      {/* top bar: equal-height glass pills, matching the path chrome */}
-      <div className="fixed left-4 top-4 z-50 flex max-w-[calc(100%-4rem)] items-center gap-2">
+      {/* top bar: equal-height glass pills, matching the path chrome. Its max width leaves room for the
+          toolkit button in the top-right corner (40px icon-only on phones, about 110px with its label from sm). */}
+      <div className="fixed left-4 top-4 z-50 flex max-w-[calc(100%-5.5rem)] items-center gap-2 sm:max-w-[calc(100%-10rem)]">
         <button
           type="button"
           aria-label="Back to path"
