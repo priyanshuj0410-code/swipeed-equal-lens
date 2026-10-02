@@ -48,6 +48,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587  # SWED-63
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/baa41435-d56c-487b-ac9b-7557d49c85f5  # SWED-87
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4b84c004-94c4-4487-9515-e467b32178ae  # SWED-64
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/20fb7ebd-51ba-4778-9b3c-77806ab99a70  # SWED-123
 ---
 
 # SwipeEd project log
@@ -55,6 +56,10 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-03 · content: game names instead of internal ids ([SWED-123](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/20fb7ebd-51ba-4778-9b3c-77806ab99a70))
+
+38 scenarios in 12 lesson games showed path node ids to players, for example "Many Ways to Family (g60)", "(links g02)" and "Help · g56". They now show the game's name, and "(links gNN)" notes were dropped. A new check, `node_id_errors` in `scripts/forge/common.py`, runs inside `scenario_errors`, so the content gate, the commit hook and the forge all reject an id in player-visible text. Three fixtures pass: an id is caught, while a game name and "G20" are not. Five lines were shortened to stay within the limits. Capstone `node` fields are structure, not text, and are untouched.
 
 ## 2026-10-03 · content: If, When & Whether sends adults to adult health services ([SWED-103](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/88bb2bfc-fb38-4df6-bc26-3895c72a67e6))
 
