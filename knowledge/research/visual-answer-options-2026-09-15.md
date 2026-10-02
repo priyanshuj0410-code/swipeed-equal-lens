@@ -10,6 +10,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/49cf4efd-6622-4ac8-907c-7c01ccfd0754  # SWED-90
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49  # SWED-91
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/ec93c9d9-14cb-4419-a349-a716dbcc6fae  # SWED-113
 ---
 
 # Visual answer options: tools and approach
@@ -257,8 +258,79 @@ The zero-budget route's first test, run on the owner's Mac (Apple M4, 24 GB) wit
   Still to fix: calm reads as winking, curious lost its magnifying glass, slow breaths still reads as praying, count to
   five reads as waving, say sorry reads as sulking, and walk away has a stray floating head. The review page
   (`review_page.py --round 2`) asks the owner whether this is the look and collects per-picture verdicts.
+- **Owner review, round two (2026-10-01, in chat).** The amount of shading is right. But the round, circular highlight
+  on the hair looks like a bald spot in many pictures (the heads crop shows a pale round shine on top of the hair; it
+  is probably copied from the shine on Lensy's round head in the reference).
+- **Round three (2026-10-01).** A five-picture test with thin highlight streaks along the strands removed the spot on
+  straight hair but left a grey round patch on curly hair and turned some streaks tan, so the hair looked dyed. The
+  style prompt now asks for matte hair that fully covers the head, shaded only with a darker tone underneath and at the
+  back, with no shine or light patch; a second test kept the faces' shading and removed the tan streaks, though one
+  curly head still drew a darker round patch at its seed, so every picture is checked for it and redrawn with another
+  seed when found. All 30 are redrawn. The nine pictures whose
+  action did not read get new prompts (calm with both eyes closed, shy peeking with no finger at the lips, proud holding
+  a real drawing, curious looking through the magnifying glass at a ladybird, slow breaths breathing out with a hand on
+  the tummy, count to five touching each finger, ask for help at a desk with a raised hand, say sorry handing back a
+  toy, walk away with whole children behind her), each drawn with two seeds (`--seed-base`) so the better one is kept.
+  `scripts/pictures/previews.py` makes small previews and a magnified heads crop of each card for image review.
+- **Independent review of round three (2026-10-01).** A workflow gave every picture two independent checks: a blind
+  reader who names the card without being told its word, and an inspector for hair, anatomy, artefacts, the concept,
+  representation and safety. 29 of 39 were marked redo, and spot checks confirmed the claims. Matte hair alone did not
+  remove the spot: 12 pictures still had a round grey patch on the top left of the head, traced to the style line
+  "lighter highlight tones on the top and left of every shape", which the model applied to hair as well. "Light brown
+  skin" came out pale peach on nine children and adults, so they read as white or East Asian. Grandmother, teacher and
+  father had toddler proportions. Poses with several hand instructions grew a third hand (slow breaths, curious), and
+  crowded scenes lost a person or showed a floating head (wait your turn, family, play together). Nine concepts
+  passed: draw your feeling, scared, shy, a hug, squeeze a soft toy, take turns, walk away, ask for help and say sorry.
+- **Round four (2026-10-01).** Highlights are limited to faces, skin and clothes; everyone is asked for warm brown
+  skin from light-medium to deep; grown-ups are asked for adult proportions; slow breaths rests both hands on the
+  tummy, curious crouches over a ladybird, and wait your turn, play together and family have fewer people. The 21
+  failing concepts are drawn with two seeds, and the six hardest with a third, then reviewed the same way.
+- **Round four picks (2026-10-01).** Hair, skin and grown-ups are fixed in the chosen versions. Count to five still
+  read as waving in all three seeds and the slow-breaths breath lines looked like a white moustache, so both were
+  redrawn as concrete actions: counting five blocks lined up on a table, and gently blowing a pinwheel with eyes closed.
+  The chosen 30 are in `.forge/pictures/flux-style-test/final-r4/` (`picks.json` names the round and seed of each).
+  Grown-ups keep the style's big-headed proportions, which suits the mascots but makes the grandmother and teacher
+  read young on their own; that is the owner's call.
+- **Owner review, round four (2026-10-01, in chat).** The blush is too strong. The owner chose to skip a second
+  independent image review and keep the weekly budget for the Chapter 6 rollout.
+- **Round five (2026-10-01).** `scripts/pictures/flux_edit.py` gives each approved picture back to the model as its
+  own reference with an instruction to change one detail, so poses, people and colours stay as approved. A test
+  showed it softens the blush cleanly, and that it can also clear the grey shine still left on some heads (sleepy,
+  angry), but the hair instruction turned the grandmother's grey hair black. So 27 pictures get "faint warmth on the
+  cheeks, solid matte black hair", and the three with elders (grandmother, tell a grown-up, family) get the blush
+  change only. The style prompt now asks for a very faint warm tint on the cheeks instead of rosy cheeks.
 
 
+
+- **Owner review, round five (2026-10-01, in chat).** Drop the blush entirely.
+- **Round six (2026-10-01 to 02).** The style prompt now asks for no blush at all, with cheeks the same tone as the rest
+  of the face, and an edit pass removed it from all 30 (the curious girl's headscarf and the grandmother's grey hair
+  named as things to keep). The edit overreached on five pictures, which were redone with what to keep: sleepy had
+  opened his eyes, tell a grown-up lost the grandfather's moustache, friend shifted the boy's skin redder, walk away
+  kept a grey shine on the girl's hair. Three edit passes could not remove the family grandfather's pink cheeks (the
+  last painted bright circles), so `scripts/pictures/recolor_cheeks.py` recoloured them to the skin around them by
+  script. The owner found the near-faceless squeeze-toy boy creepy; it was redrawn from text with his whole face
+  visible and closed eyes as gentle curves, four seeds, and the owner chose one.
+- **Approved (owner, 2026-10-02).** All 30 round-six cards. They ship as the first set of the picture bank:
+  `public/pictures/feelings-friends/` holds 512 px WebP cut-outs (911 KB in all) and `manifest.json` (id, word, alt
+  text, file, subject, tool, source round, reviewer, review date). The full-size originals stay in
+  `.forge/pictures/flux-style-test/final-r6-picks/`. A LoRA trained on the owner's Lensy comic was tested and not adopted
+  ([picture LoRAs](picture-loras-2026-10-01.md)); the cards stay on the untrained model.
+
+## Rollout tickets (2026-10-02)
+
+The owner asked for illustrations throughout SwipeEd. Umbrella: [SWED-113](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/ec93c9d9-14cb-4419-a349-a716dbcc6fae).
+
+| Ticket | State | What |
+|---|---|---|
+| [SWED-114](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f81e4045-7d9c-4baa-a146-a990462c8678) | Todo | Picture bank: manifest, pic ids on options and a review gate |
+| [SWED-115](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/00b958a7-94ae-4886-bc5c-b244a900457a) | Todo | Picture answer cards: picture slot, tap to hear, fading by chapter |
+| [SWED-116](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/c22c55c2-a9c8-4207-8413-70ea7a1b66d4) | Todo | Feelings Friends picture bank: tag options and draw the missing concepts |
+| [SWED-117](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/fc9f2774-34f1-4656-8de0-d59945e81526) | Todo | Picture pipeline playbook and character bible |
+| [SWED-118](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4d8f7c3f-6fd6-499f-982b-c4aef3087cd6) | Backlog | Playtest picture cards against word-only cards |
+| [SWED-119](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/496b921f-3625-4332-908c-3cdbae0e947b) | Backlog | Chapters 1 and 2 picture rollout |
+| [SWED-120](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4d0f7291-49cc-405a-a7c2-74d69cff2c46) | Backlog | Replace emoji placeholders with illustrations |
+| [SWED-121](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/231ea93b-bb70-4b82-95fd-7262fd2c2816) | Backlog | Body-safety pictures (waits on SWED-83) |
 
 ## Owner decisions
 

@@ -38,6 +38,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9b892973-658b-4376-962e-dde7a59e3a60  # SWED-110
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2  # SWED-105
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/43fe632c-cf79-4e56-9d1e-0f22c747a055  # SWED-112
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/ec93c9d9-14cb-4419-a349-a716dbcc6fae  # SWED-113
 ---
 
 # SwipeEd project log
@@ -45,6 +46,10 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-02 · pictures: round six approved, first picture bank set, rollout tickets ([SWED-91](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49), [SWED-113](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/ec93c9d9-14cb-4419-a349-a716dbcc6fae))
+
+The owner dropped the blush. Round six removed it from all 30 Feelings Friends cards with an edit pass. Five pictures where the edit changed more than the cheeks were redone. The family grandfather's cheeks were recoloured by script (`recolor_cheeks.py`), and the squeeze-toy card was redrawn with a visible face. The owner approved all 30 on 2026-10-02. They are now the first picture bank set: `public/pictures/feelings-friends/`, 512 px WebP cut-outs and a `manifest.json`. Nothing in the app shows them yet. The owner then asked for illustrations throughout SwipeEd, and the work is split into eight tickets under [SWED-113](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/ec93c9d9-14cb-4419-a349-a716dbcc6fae): the picture bank and gate, picture answer cards, the Feelings Friends bank, a pipeline playbook and character bible, a playtest, the Chapters 1 and 2 rollout, replacing emoji placeholders, and body-safety pictures (waiting on SWED-83). Details: [visual answer options](../research/visual-answer-options-2026-09-15.md).
 
 ## 2026-10-01 · pictures: LoRAs from the Lensy comic ([SWED-112](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/43fe632c-cf79-4e56-9d1e-0f22c747a055))
 
@@ -130,6 +135,17 @@ Results on 2026-10-02: the character LoRA drew Lensy, UN and RE on-model in comi
   historical note pointing to the current docs. [Stack, build and deployment](../architecture/deployment.md) lists
   the dash check among the gates, and the [knowledge base index](../README.md) lists the multi-step rollout
   playbook and the README.
+
+## 2026-10-01 · pictures: FLUX style test, rounds three and four ([SWED-91](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49))
+- **Why.** The owner kept round two's amount of shading but found that a round highlight on the hair read as a bald
+  spot in many pictures.
+- **What.** The hair spot came from the style line asking for highlights "on every shape", so highlights are now for
+  faces, skin and clothes and hair is matte. An independent image review (a blind reader and an inspector per picture,
+  78 checks) then found pale skin from "light brown", adults drawn with toddler proportions, extra hands and missing
+  people; prompts now ask for warm brown skin and adult grown-ups, and the hard scenes were simplified (slow breaths is
+  a girl blowing a pinwheel, count to five is counting blocks). The best of up to three seeds per concept makes a new
+  30-picture set for the owner. `flux_batch.py --seed-base` and `previews.py` support this; findings are in the
+  [visual answer options research](../research/visual-answer-options-2026-09-15.md).
 
 ## 2026-09-30 · content: Chapter 8 branches and role-plays become multi-step ([SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330))
 - **Why.** The owner's rollout decisions of 2026-09-29 ([multi-step rollout playbook](../playbooks/multi-step-rollout.md)):
