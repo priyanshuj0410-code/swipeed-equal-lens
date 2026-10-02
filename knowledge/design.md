@@ -19,6 +19,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e  # SWED-109
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587  # SWED-63
 ---
 
 # SwipeEd design system
@@ -80,6 +81,8 @@ be able to repaint what correct looks like." A future brand retheme is allowed t
 | `--dot` | `#ECE6F6` | `#2A2140` | Dotted-paper texture |
 | `--color-insight` | `#2DD4BF` | same | Teal, "unlearn" |
 | `--color-grow` | `#FF7A5C` | same | Coral, "relearn" / CTA |
+| `--un-ink` | `#058274` | `var(--color-insight)` | UN's label text: the teal darkened in OKLCH to 4.7:1 on white ([SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587)). Text only; fills and icons keep `--color-insight`. |
+| `--re-ink` | `#BB543D` | `var(--color-grow)` | RE's label text: the coral darkened the same way, 4.7:1 on white. Text only. |
 | `--color-sun` | `#FFC94D` | same | Yellow, CTA (brand rule: always paired with ink text) |
 | `--color-sky` | `#4FB0E8` | same | Blue, support |
 
@@ -106,9 +109,10 @@ tokens automatically):
 | `--prx-slot-1` … `--prx-slot-6` | six hues, non-semantic | six hues | Position-only wheel for an *undeclared* bin, so a bin with no declared valence still gets a distinct colour and emoji without asserting correctness. |
 
 **UN and RE** are not colour tokens, they are characters that borrow existing brand accents:
-UN (the eraser, "unlearn") speaks in `--color-insight`; RE (the pencil, "relearn") speaks in
-`--color-grow`. Defined once in `src/components/games/un-re.tsx:6-16` and reused everywhere a myth
-gets busted. See Accessibility for a measured contrast problem with this pairing in light mode.
+UN (the eraser, "unlearn") is teal and RE (the pencil, "relearn") is coral. Their bold `UN:` and
+`RE:` labels use the text tokens `--un-ink` and `--re-ink`, which are darker in light mode and are the
+accents themselves in dark mode. Defined once in `src/components/games/un-re.tsx` and reused
+everywhere a myth gets busted. Never set `--color-insight` or `--color-grow` as text on a light surface.
 
 **Capstone gold is two different values, not one.** `--color-sun` (`#FFC94D`) is the brand's yellow
 accent and is what the 3D canvas-skin world actually paints on a capstone node
@@ -353,10 +357,9 @@ mostly orphaned per `games/world-art-tokens.md`) and `skin="canvas"` (hand-drawn
 - **`--color-insight` (UN's teal) on `--color-surface` white measures 1.86:1, and `--color-grow`
   (RE's coral) on the same white measures 2.56:1. Both fail WCAG AA even at large text (needs 3.0:1),
   in the light theme only** (dark-mode surface is dark enough that both pass, 8.96:1 and 6.51:1).
-  This is the bold `UN:` and `RE:` label on every myth-bust in light mode (`src/components/games/un-re.tsx:12,15`; the rest of the line is ink), and was
-  not previously measured or flagged in code. Fix by darkening the two accent values for text use, or
-  by never setting them as a text colour directly and instead using them only as an icon/fill tint
-  next to ink text. Tracked as [SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587).
+  This was the bold `UN:` and `RE:` label on every myth-bust in light mode. **Fixed 2026-10-03:** the
+  labels now use `--un-ink` (`#058274`, 4.72:1 on white, 4.51:1 on paper) and `--re-ink` (`#BB543D`,
+  4.72:1 and 4.52:1), the same hues darkened in OKLCH; dark mode keeps the accents. Tracked as [SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587).
 - `--prx-on-fill` on `--prx-neg` (the "incorrect" fill) measures 4.28:1 in light mode, just under the
   4.5:1 normal-text AA threshold, though it clears the 3.0:1 large-text/UI-component threshold. Every
   other `--prx-*` fill/on-fill pairing clears normal-text AA.

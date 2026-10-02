@@ -146,6 +146,8 @@
   --ring: var(--color-brand);
   --chart-1: var(--color-brand);
   --chart-2: var(--color-insight);
+  --un-ink: #058274; /* UN and RE label text: the accents darkened in OKLCH to 4.7:1 on white (SWED-63) */
+  --re-ink: #BB543D;
   --chart-3: var(--color-sun);
   --chart-4: var(--color-grow);
   --chart-5: var(--color-sky);
@@ -207,6 +209,8 @@
   --accent-foreground: #f1ecfa;
   --chart-1: var(--color-brand);
   --chart-2: var(--color-insight);
+  --un-ink: var(--color-insight); /* UN and RE label text: the brand accents pass on dark surfaces */
+  --re-ink: var(--color-grow);
   --chart-3: var(--color-sun);
   --chart-4: var(--color-grow);
   --chart-5: var(--color-sky);
