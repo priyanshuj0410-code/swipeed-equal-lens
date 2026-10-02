@@ -186,9 +186,10 @@ function BuildLap({ lap, say, onSolved, reduceMotion }: LapProps<CapBuildLap>) {
   const dragP = useRef<string | null>(null);
   useEffect(() => { say(lap.frame); /* once */ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const addedRef = useRef<string[]>([]); // a drop and the click that can follow it land before a re-render
   const add = (p: string) => {
-    if (added.includes(p)) return;
-    const nx = [...added, p]; setAdded(nx); celebrate("small");
+    if (addedRef.current.includes(p)) return;
+    const nx = [...addedRef.current, p]; addedRef.current = nx; setAdded(nx); celebrate("small");
     if (nx.length >= lap.pieces.length) { celebrate("big"); say(lap.celebrate); onSolved(); }
   };
   const zones = () => [{ id: "slate", el: slate.current }];
@@ -196,12 +197,12 @@ function BuildLap({ lap, say, onSolved, reduceMotion }: LapProps<CapBuildLap>) {
     onStart: (s, e) => { const p = (e.currentTarget as HTMLElement).dataset.piece ?? null; dragP.current = p; if (p) setDrag({ piece: p, x: s.x, y: s.y }); },
     onMove: (s) => { const p = dragP.current; if (!p) return; setDrag({ piece: p, x: s.x, y: s.y }); setOver(!!hitTestZone(s.x, s.y, zones(), 48)); },
     onEnd: (s) => { const p = dragP.current; dragP.current = null; const on = hitTestZone(s.x, s.y, zones(), 48); setDrag(null); setOver(false); if (p && on) add(p); },
-    onTap: (e) => { const p = (e.currentTarget as HTMLElement).dataset.piece; if (p) add(p); },
+    onTap: () => { dragP.current = null; setDrag(null); setOver(false); },
   });
   return (
     <div className="flex flex-1 flex-col gap-3">
       <div ref={slate} className={`${card} flex min-h-40 flex-1 flex-wrap content-start gap-2 p-3 transition-colors`} style={over ? { boxShadow: "inset 0 0 0 2.5px var(--color-ink)" } : undefined}>
-        {added.length === 0 ? <span className="m-auto text-sm text-foreground/50">Drag pieces here…</span> :
+        {added.length === 0 ? <span className="m-auto text-sm text-foreground/50">Tap or drag pieces here…</span> :
           added.map((p) => <span key={p} className="rounded-xl bg-[var(--accent-amber)]/25 px-3 py-1.5 text-sm font-semibold text-foreground">{p} ✓</span>)}
       </div>
       {drag && !reduceMotion && (
@@ -209,10 +210,10 @@ function BuildLap({ lap, say, onSolved, reduceMotion }: LapProps<CapBuildLap>) {
       )}
       <div className="flex flex-wrap justify-center gap-2">
         {display.filter((p) => !added.includes(p)).map((p) => (
-          <button key={p} type="button" data-piece={p} {...pointer.handlers} className={`glass-card touch-none rounded-2xl px-3 py-2.5 text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 ${drag?.piece === p ? "opacity-30" : ""}`}>{p}</button>
+          <button key={p} type="button" data-piece={p} onClick={() => add(p)} {...pointer.handlers} className={`glass-card touch-none rounded-2xl px-3 py-2.5 text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 ${drag?.piece === p ? "opacity-30" : ""}`}>{p}</button>
         ))}
       </div>
-      <p className="text-center text-xs text-foreground/60">{added.length} / {lap.pieces.length} · drag them all in</p>
+      <p aria-live="polite" className="text-center text-xs text-foreground/60">{added.length} / {lap.pieces.length} · tap or drag them all in</p>
     </div>
   );
 }
