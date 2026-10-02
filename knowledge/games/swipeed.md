@@ -10,6 +10,8 @@ timestamp: 2026-06-19T12:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5f63c3db-0db3-4bb1-ab29-2806c72782cb  # SWED-83
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/73023a9c-e912-4e59-ab0a-b4028cacc7e7  # SWED-84
 ---
 
 # SwipeEd
@@ -94,6 +96,10 @@ spiral (topics return deeper each band: each loop is a relearn) · **ethical gam
 fail-state, no public ranking on sensitive topics, no heart-gating, cosmetic-only rewards) ·
 **safety-first** (Get Help permanent; serious content is supported, never scored) · age-adaptive
 (co-play + audio for the young; self-directed for teens).
+
+**Owner decisions on safety content (2026-10-03).**
+- **Health facts, care by referral ([SWED-84](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/73023a9c-e912-4e59-ab0a-b4028cacc7e7)).** The Equal Lens canon says it does no clinical content. The app's exception: SwipeEd teaches accurate health facts (STIs and HIV, contraception, body changes) and never gives treatment advice. Every clinical topic points to a clinician or service for care.
+- **Correct body words from Chapter 1 ([SWED-83](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5f63c3db-0db3-4bb1-ab29-2806c72782cb)).** My Body (3 to 6) and Body Lab (6 to 9) introduce the correct words for genitals and private parts at normal volume, alongside "private parts", as body-safety guidance recommends: a child who has the words can report abuse clearly. Defenders follows. The rewrite goes through the reviewed content pipeline, and it unblocks the body-safety pictures (SWED-121).
 
 ## Current state vs. the plan
 SwipeEd is **self-contained today**. It does **not yet consume a shared Owhile

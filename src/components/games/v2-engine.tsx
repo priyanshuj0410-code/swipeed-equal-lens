@@ -43,6 +43,17 @@ const NEUTRAL_BINS = [
   { emoji: "🟤", tint: "var(--prx-slot-5)" }, { emoji: "⬛", tint: "var(--prx-slot-6)" },
 ];
 // Explicit-valence palette: used when a bin DECLARES its meaning (new content), so the engine never guesses.
+// Names a helpline or help service (SWED-88): the numbers and names on the helpline allowlist, plus counsellors.
+const HELP_ROUTE = /\b(?:1098|181|1091|112|14416|1930|15100|child\s?line|tele[-\s]?manas|help ?line|pocso e-?box|counsell?or)\b/i;
+
+// The text of a scenario's best answers (and what follows them), where a routed ending says where help is.
+function bestTexts(s: Scenario): string[] {
+  if (isStory(s)) return s.steps.flatMap((st) => st.options.filter((o) => o.best).flatMap((o) => [o.text, o.then]));
+  if (s.type === "branch") return (s.options ?? []).filter((o) => o.best).flatMap((o) => [o.text, o.consequence]);
+  if (s.type === "role-play") return (s.yourLine ?? []).filter((l) => l.best).map((l) => l.text);
+  return [];
+}
+
 const VALENCE_STYLE: Record<string, { emoji: string; tint: string }> = {
   pos: { emoji: "💚", tint: "var(--prx-pos)" }, neg: { emoji: "🛑", tint: "var(--prx-neg)" },
   tell: { emoji: "🗣️", tint: "var(--prx-tell)" }, uhoh: { emoji: "😬", tint: "var(--prx-uhoh)" },
@@ -148,8 +159,11 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
   // A beat is a "safety" beat (gets the "never your fault" reassurance + the help pill) if its category is
   // listed OR it's a branch with an escape-and-tell best choice (outcome:"safe"), so grooming/unsafe-touch
   // beats that live in other categories (e.g. consent-stop) still surface the reassurance.
+  // A routed ending (SWED-88) counts too: its best answer names a helpline or a help service, so the player who
+  // chose it is shown where help is, whatever the category or outcome label.
   const isSafetyBeat = (s: Scenario): boolean =>
-    reassureCats.includes(s.cat) || (s.type === "branch" && (isStory(s) ? s.steps.flatMap((st) => st.options) : s.options ?? []).some((o) => o.outcome === "safe"));
+    reassureCats.includes(s.cat) || (s.type === "branch" && (isStory(s) ? s.steps.flatMap((st) => st.options) : s.options ?? []).some((o) => o.outcome === "safe")) ||
+    bestTexts(s).some((t) => HELP_ROUTE.test(t));
 
   // Myth cards (SWED-70): with `mythCards` on, a strike-rewrite beat is a scrub or a swipe card about half the time,
   // never three of a kind in a row, and a card shows the myth or its truth on the same rule. The question card then
@@ -351,7 +365,7 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
               {reassure && isSafetyBeat(sc) && (
                 <div className="glass-pill rounded-2xl px-4 py-2.5 text-center text-sm font-medium backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{reassure}</div>
               )}
-              {reassure && isSafetyBeat(sc) && HelpPill}
+              {isSafetyBeat(sc) && HelpPill}
             </>
           )}
         </div>

@@ -17,6 +17,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc  # SWED-97
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2  # SWED-105
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8ed837-a59d-4d5b-9457-ba32b594c6fe  # SWED-88
 ---
 
 # SwipeEd v2 engine
@@ -243,7 +244,7 @@ moves to the card (the `LensyQuestion` focus key counts asks). The renderer stay
 
 **Reflect conversation ([SWED-97](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc)).** `ReflectPlay` picks the turn from the pick, the band and the beat. The band
 comes from the game's node `ageGate` in `path.ts`: under 6 is `talk`, under 18 `kids`, otherwise `adults`. A safety beat
-(`isSafetyBeat`: a `reassureCats` category) resolves on the tap as before, with "<pick>. <affirm>", the reassurance and
+(`isSafetyBeat`: a `reassureCats` category, a branch with an `outcome: "safe"` option, or, since [SWED-88](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8ed837-a59d-4d5b-9457-ba32b594c6fe), a routed ending whose best answer names a helpline or help service, `HELP_ROUTE` in `v2-engine.tsx`) resolves on the tap as before, with "<pick>. <affirm>", the reassurance and
 the help pill, because an open question there invites a disclosure the app cannot receive. `talk` shows a card asking the
 child to tell a grown-up nearby and resolves the same way. Otherwise Lensy asks `ask` (default "What made you pick that
 one?" or, for adults, "What makes that one fit for you?"), the player writes up to 280 characters or skips, then sees
@@ -528,3 +529,7 @@ in the same branch as engine changes.
 - [Question bank](../schemas/question-bank.md) · [Design system](../design.md) · [Stack, build and deployment](deployment.md)
 - [Extending SwipeEd](../games/extending-swipeed.md) · [Interaction model](../games/swipeed-interaction-model.md) · [Reusable game patterns](../games/swipeed-game-patterns.md) · [Capstones](../games/capstones.md)
 - [Knowledge base index](../README.md)
+
+## Routed endings show Get Help ([SWED-88](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8ed837-a59d-4d5b-9457-ba32b594c6fe), 2026-10-03)
+
+Owner decision: any ending that routes to a helpline or a service shows the reassurance card and the help button, in every game. `isSafetyBeat` now also counts a scenario whose best answer (a branch or story option and what follows it, or a role-play line) names a helpline number on the allowlist, Childline, Tele-MANAS, a helpline, the POCSO e-Box or a counsellor. Outcome labels are free-form per game, and multi-step stories often have none, so the check reads the text rather than a label. The help button no longer needs the game to have a `reassure` line; the reassurance card still does. This adds 239 endings across the bank, including `cb-1292`, a forced-marriage story that used to end without it.
