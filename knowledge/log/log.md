@@ -49,6 +49,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/baa41435-d56c-487b-ac9b-7557d49c85f5  # SWED-87
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4b84c004-94c4-4487-9515-e467b32178ae  # SWED-64
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/20fb7ebd-51ba-4778-9b3c-77806ab99a70  # SWED-123
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f4f2b093-af4a-4dc3-ba7e-ae11b7838c58  # SWED-85
 ---
 
 # SwipeEd project log
@@ -56,6 +57,10 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-03 · content: statistics attributed, hedged or dropped ([SWED-85](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f4f2b093-af4a-4dc3-ba7e-ae11b7838c58))
+
+The audit's A6 and A8 to A11 are fixed. Raising Gender-Diverse Kids attributes the acceptance finding to US research and says "suicide attempt" everywhere. Puberty Quest drops the unsourced "23 million" figure and uses one puberty range (8 to 14). Fair Play's 40% chore gap is labelled worldwide and attributed to UNICEF. Looking After You says research suggests one in ten new fathers get postnatal depression. Only attribution and hedging were added, with no new claims; the sources are the ones the 2026-09-14 audit checked. The content gate passes.
 
 ## 2026-10-03 · content: game names instead of internal ids ([SWED-123](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/20fb7ebd-51ba-4778-9b3c-77806ab99a70))
 

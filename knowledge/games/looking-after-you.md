@@ -12,6 +12,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f4f2b093-af4a-4dc3-ba7e-ae11b7838c58  # SWED-85
 ---
 
 # Looking After You
@@ -73,3 +74,7 @@ with warmth and an **immediate route to help**: Tele-MANAS 14416, a doctor, emer
 It offers **healthy coping only and is explicitly not therapy**, always signposting professional care; it includes
 fathers and names joint-family pressure and stigma. India: **postpartum depression affects ~1 in 5 (≈22%) Indian
 mothers**, nearly double the global average and badly under-recognised, and fathers can be affected too (~1 in 10).
+
+## Statistics (2026-10-03)
+
+[SWED-85](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f4f2b093-af4a-4dc3-ba7e-ae11b7838c58): `ly-029` and `ly-1083` say "research suggests around one in ten" new fathers get postnatal depression. That matches international meta-analysis; no Indian study was found.

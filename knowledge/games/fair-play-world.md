@@ -10,6 +10,7 @@ timestamp: 2026-06-19T12:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f4f2b093-af4a-4dc3-ba7e-ae11b7838c58  # SWED-85
 ---
 
 # Fair Play World
@@ -64,3 +65,7 @@ audio contract (#10), the UN & RE move ([core principle](swipeed-core-principle.
 ## Status & roadmap
 - **Built:** all five modes, the Fairness Meter, the Badge Book + Rights Cards, the UN & RE rule-busting; English narration.
 - **Deferred (GDD Phase 2/3):** a draggable scene with a literally-leaning world, a fuller chore/chance/rights bank, Classroom-Mode polish, the daily streak, and **Hindi**.
+
+## Statistics (2026-10-03)
+
+[SWED-85](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f4f2b093-af4a-4dc3-ba7e-ae11b7838c58): the chore gap in `fp-014`, `fp-069` and `fp-946` is now the worldwide figure it is, attributed to UNICEF: girls aged 5 to 14 do about 40% more unpaid chores than boys. It is no longer presented as India's figure.
