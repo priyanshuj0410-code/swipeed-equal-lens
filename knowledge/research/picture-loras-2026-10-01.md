@@ -67,7 +67,7 @@ variant (a checkpoint zip or adapter, with a strength such as `@0.8`, joined wit
 them side by side on one sheet. Once [SWED-91](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49)
 merges, `flux_batch.py` can take the same LoRA paths for card batches.
 
-## Open questions
+## Open questions (for any later attempt)
 
 - Whether a LoRA trained at 384 px holds up when cards are drawn at 768 px; if not, retrain at 512 px with the base
   model and more memory headroom.
@@ -86,6 +86,10 @@ characters at step 370; comic style; both at 0.7).
 |---|---|---|
 | characters | Draws Lensy, UN and RE on-model where the plain model guesses: the trio in a painted scene comes out as Lensy, UN and RE instead of two children, and UN and RE keep the eraser and pencil shapes and letters. | Flat cards come out paler and softer than the brand art. It leaks: a garden or classroom prompt with no mascots turns people into purple creatures, so it must only be used for pictures of the mascots. The step-370 checkpoint is no better than step 740. |
 | comic-style | Gives scenes the comic's warm lamplit palette and painterly texture. | Faces and detail are softer than the comic, and RE loses its pencil shape when the style is applied to a card. |
+
+**Owner decision (2026-10-02): not adopted.** The picture cards stay on the untrained FLUX.2 klein model with the
+shaded style prompt, the Lensy reference picture and edit passes, the setup that produced round five. No LoRA is used,
+`flux_batch.py` does not gain a `--lora` option, and no second round is planned. The scripts stay for a later attempt.
 
 Likely causes: training ran on the 4-step distilled model (mflux recommends the non-distilled base model) at 384 px
 because 512 px overflows the Mac's memory, and the character set had no plain pictures of people to stop the

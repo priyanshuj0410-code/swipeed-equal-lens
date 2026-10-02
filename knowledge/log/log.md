@@ -50,6 +50,8 @@ Entries dated 2026-09-01 and earlier were written in the owhile-engine repo whil
 
 The owner asked for the picture generator to be personalised with LoRAs trained on their comic *Lensy and the Life Cycle of a Stereotype*, and chose two: one for the characters (Lensy, UN, RE) and one for the comic's painted style. `scripts/pictures/lora_dataset.py` cuts training images from the PDF. The crops were picked by hand, and any that caught speech-bubble lettering were tightened or dropped. That left 37 character images (31 comic crops plus the six brand SVGs on white) and 18 style scenes. `train_lora.sh` trains them with `mflux-train` on the FLUX.2 klein 4B model already on this Mac. 512 px overflows the 24 GB M4 (80 to 110 s a step), so training runs at 384 px (15 to 22 s a step, about 3 to 4 hours per LoRA). `lora_test.py` draws test prompts with and without each LoRA. Details, settings and open questions: [picture LoRAs](../research/picture-loras-2026-10-01.md).
 
+Results on 2026-10-02: the character LoRA drew Lensy, UN and RE on-model in comic scenes. But it turned ordinary people into purple creatures and made flat cards pale. The style LoRA gave scenes the comic's look, though softly. The owner chose not to use either: the cards stay on the untrained model and prompts that produced round five.
+
 ## 2026-10-01 · path: a v2 Green Light / Red Light finish completes g24 ([SWED-105](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2))
 - **Why.** Finishing the v2 game never marked g24 done, so g25 (MythBuster: Gender) and every node after it stayed
   locked for players who entered at 3, 6, 9 or 12. `GameDone` saves the v2 game's stars as `deckStars.glrl`, but the
