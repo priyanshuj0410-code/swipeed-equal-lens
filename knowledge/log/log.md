@@ -52,6 +52,16 @@ Newest first. Every change that affects a game, the path, the engine or the ques
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
 
+## 2026-10-02 · content: no unconditional confidentiality promises left in the under-18 games ([SWED-122](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc))
+
+This carries the SWED-80 fix into Speak Up, Outbreak, Stand Up, Mutual, Spectrum and Life Ready.
+- **Mutual** no longer tells 15 to 17-year-olds that disclosing abuse is "confidential" and that "you decide what happens next". It now says help goes at your pace, and that they act to keep you safe if you're under 18 and being hurt.
+- **Outbreak** (ages 12 to 15) says testing is "often confidential" instead of promising it.
+- **Spectrum's** model lines keep a friend's coming-out private without promising "always", and they offer help if the friend is unsafe.
+- **Helplines in Speak Up and Stand Up** are described as free help, not as confidential.
+
+34 scenarios changed. Every remaining line has a verdict in the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md), and the content gate passes.
+
 ## 2026-10-02 · content: four child-safety fixes from the question bank audit ([SWED-79](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1163d808-7f9b-4cc5-8571-c2e084e7221e), [SWED-80](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b), [SWED-81](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/346e8997-2ede-4e3b-a749-f8e7da185355), [SWED-82](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e2f01bdc-6e38-4eb0-8f87-b9c69e897cb5))
 
 - **Get Help sheet ([SWED-82](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e2f01bdc-6e38-4eb0-8f87-b9c69e897cb5)).** Childline is "free, 24/7 help for children. They keep it private unless someone is being hurt", not "confidential". The cybercrime line says "It is not your fault" instead of promising "You won't be in trouble". The same Childline promise in My Body (`mb-1393`, ages 3 to 6) is gone too.

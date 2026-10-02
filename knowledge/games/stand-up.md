@@ -10,6 +10,7 @@ timestamp: 2026-06-20T23:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc  # SWED-122
 ---
 
 # Stand Up
@@ -70,3 +71,7 @@ audio contract (#10), the UN & RE move ([core principle](swipeed-core-principle.
   (with the helpline routing); the Badge Book; English narration.
 - **Deferred (GDD Phase 2/3):** a fuller scenario bank, crown levels (subtler/riskier calls), Classroom-Mode
   rehearsal, calm mode, and **Hindi**.
+
+## Safety fixes (2026-10-02)
+
+[SWED-122](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc): Women Helpline 181 is described as free help and options, not confidential help (`st-938`, `st-954`). See the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md).

@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc  # SWED-122
 ---
 
 # Life Ready
@@ -82,3 +83,7 @@ thought"), and **UN & RE on the key unlearn** (the self-blame "asking for help i
 
 ## Related
 - [SwipeEd (app)](swipeed.md) · [Bounce (#g39)](bounce.md) · [Mind Matters (#g38)](mind-matters.md) · [Heart Smart (#g41)](heart-smart.md) · [Feelings Friends (#g01)](feelings-friends.md) · [Crossroads (#g16)](crossroads.md) · [Decoded (#g36)](decoded.md) · [Capstones](capstones.md) · [Life-Skills Toolkit (Thread C spine)](life-skills-toolkit.md) · [Reusable game patterns](swipeed-game-patterns.md) · [Games catalog](index.md)
+
+## Safety fixes (2026-10-02)
+
+[SWED-122](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc): in `lr-1411` the trustworthy counsellor is one who explains what stays private, not one who keeps everything confidential. See the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md).
