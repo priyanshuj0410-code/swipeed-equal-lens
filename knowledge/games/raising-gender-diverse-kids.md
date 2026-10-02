@@ -13,6 +13,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1163d808-7f9b-4cc5-8571-c2e084e7221e  # SWED-79
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f4f2b093-af4a-4dc3-ba7e-ae11b7838c58  # SWED-85
 ---
 
 # Raising Gender-Diverse Kids
@@ -92,3 +93,7 @@ Verified on 2026-10-02:
 - Sources: [Supreme Court Observer](https://www.scobserver.in/cases/challenge-to-the-transgender-persons-amendment-act-2026/), [SCO report on the stay](https://www.scobserver.in/reports/challenge-to-transgender-amendment-act-2026-supreme-court-issues-notice-declines-interim-stay/), [Wikipedia summary with citations](https://en.wikipedia.org/wiki/Transgender_Persons_(Protection_of_Rights)_Amendment_Act,_2026).
 
 Re-verify whenever the Court rules.
+
+## Statistics (2026-10-03)
+
+[SWED-85](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f4f2b093-af4a-4dc3-ba7e-ae11b7838c58): the acceptance finding is attributed to US research (the Trevor Project and the Family Acceptance Project; no comparable large Indian study was found). It now says "suicide attempt" everywhere: `gd-907`, `gd-935`, the greeting, the badge blurb, `helpLine` and `reassure`. The config strings had said "suicidal thoughts", which overstated the finding.

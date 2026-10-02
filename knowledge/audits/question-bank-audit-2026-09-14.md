@@ -170,6 +170,8 @@ work.
 
 **2026-10-02:** [SWED-79](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1163d808-7f9b-4cc5-8571-c2e084e7221e), [SWED-80](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b), [SWED-81](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/346e8997-2ede-4e3b-a749-f8e7da185355) and [SWED-82](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e2f01bdc-6e38-4eb0-8f87-b9c69e897cb5) are fixed. Every confidentiality line in the two Chapter 5 games is recorded in the [confidentiality sweep](confidentiality-sweep-2026-10-02.md). The same wording in other under-18 games moved to [SWED-122](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc), fixed the same day.
 
+**2026-10-03:** [SWED-85](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f4f2b093-af4a-4dc3-ba7e-ae11b7838c58) is fixed: A6 and A8 to A11 are attributed, hedged or dropped.
+
 | Priority | Ticket | Covers |
 |---|---|---|
 | Urgent | [SWED-79](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1163d808-7f9b-4cc5-8571-c2e084e7221e) Update transgender law content for the 2026 amendment | A1 |

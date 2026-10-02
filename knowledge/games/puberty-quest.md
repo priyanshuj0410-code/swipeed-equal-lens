@@ -10,6 +10,7 @@ timestamp: 2026-06-20T14:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f4f2b093-af4a-4dc3-ba7e-ae11b7838c58  # SWED-85
 ---
 
 # Puberty Quest
@@ -82,3 +83,7 @@ to menstrual-hygiene schemes; masturbation factual + School-Comfort-gated), **em
   School-Comfort gating of the masturbation card; English narration.
 - **Deferred (GDD Phase 2/3):** crown levels (revisit areas deeper), a fuller myth/fact bank, live Ask-It
   intake + human triage, optional class leagues, Classroom-Mode polish, calm mode, and **Hindi**.
+
+## Statistics (2026-10-03)
+
+[SWED-85](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f4f2b093-af4a-4dc3-ba7e-ae11b7838c58): `pq-037` drops the unsourced "23 million girls drop out" figure and keeps the supported point, that many girls miss school or drop out after periods start. Puberty now has one range, about 8 to 14 (`pq-003`, `pq-1151`), and periods keep their own, about 8 to 15 (`pq-1004`).
