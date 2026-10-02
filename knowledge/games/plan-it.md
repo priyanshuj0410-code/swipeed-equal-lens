@@ -10,6 +10,8 @@ timestamp: 2026-06-20T18:30:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/346e8997-2ede-4e3b-a749-f8e7da185355  # SWED-81
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b  # SWED-80
 ---
 
 # Plan It
@@ -79,3 +81,7 @@ audio contract (#10), **myth-bust-by-choosing-the-truth (#19)**, **Made-for-Indi
   doctor/RKSK/Childline route); the Badge Book; English narration.
 - **Deferred (GDD Phase 2/3):** a richer life-sim with longer-horizon ripples, crown levels, a fuller
   myth/fact bank, Classroom-Mode polish, calm mode, and **Hindi**.
+
+## Safety fixes (2026-10-02)
+
+[SWED-81](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/346e8997-2ede-4e3b-a749-f8e7da185355): the model lines in `pl-072` and `pl-1096` no longer say "just between us", which the bank elsewhere teaches as a grooming red flag. They are now "Can I ask you something about growing up?" and "Can I ask you something privately?". `pl-1096`'s relearn says a doctor will explain what stays private, instead of promising confidentiality. Under [SWED-80](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b), `pl-1106`, `pl-1125` and `pl-1129` no longer promise players aged 12 to 15 that their information is confidential.

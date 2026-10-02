@@ -10,6 +10,7 @@ timestamp: 2026-06-20T23:30:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/346e8997-2ede-4e3b-a749-f8e7da185355  # SWED-81
 ---
 
 # Lead the Way
@@ -74,3 +75,7 @@ audio contract (#10), the UN & RE move ([core principle](swipeed-core-principle.
   In Not Just Out (scenes), Your Leadership Style + Ask; the Badge Book; English narration.
 - **Deferred (GDD Phase 2/3):** a personal-action-plan builder, a fuller scenario bank, crown levels,
   Classroom-Mode practice, calm mode, and **Hindi**.
+
+## Safety fixes (2026-10-02)
+
+[SWED-81](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/346e8997-2ede-4e3b-a749-f8e7da185355): `lw-1035`'s model line, which calls a friend in privately, says "a quick word in private" instead of "just between us", so no model line in the bank asks for secrecy.

@@ -7,7 +7,7 @@ export const HELP = {
   lines: [
     {
       name: "Childline India: 1098",
-      detail: "Free, 24/7, confidential help for children. Call any time.",
+      detail: "Free, 24/7 help for children. They keep it private unless someone is being hurt.",
       href: "tel:1098",
       cta: "Call 1098",
     },
@@ -19,7 +19,7 @@ export const HELP = {
     },
     {
       name: "Cybercrime helpline: 1930",
-      detail: "Report grooming, sextortion or image abuse. You won't be in trouble.",
+      detail: "Report grooming, sextortion or image abuse. It is not your fault.",
       href: "tel:1930",
       cta: "Call 1930",
     },

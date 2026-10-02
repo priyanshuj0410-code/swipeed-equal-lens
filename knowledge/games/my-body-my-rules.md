@@ -10,6 +10,7 @@ timestamp: 2026-06-19T20:30:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e2f01bdc-6e38-4eb0-8f87-b9c69e897cb5  # SWED-82
 ---
 
 # My Body, My Rules
@@ -78,3 +79,7 @@ mandatory reporting). All content is non-graphic cartoon + plain words.
 
 ## Related
 - [SwipeEd (app)](swipeed.md) · [Feelings Friends (node #1)](feelings-friends.md) · [Reusable game patterns](swipeed-game-patterns.md) · [Green Light / Red Light](green-light-red-light.md) · [Games catalog](index.md)
+
+## Safety fixes (2026-10-02)
+
+[SWED-82](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e2f01bdc-6e38-4eb0-8f87-b9c69e897cb5): `mb-1393` no longer promises that Childline 1098 keeps a call private. It now says the call is free and that the person on the line helps keep children safe, matching the Get Help sheet.

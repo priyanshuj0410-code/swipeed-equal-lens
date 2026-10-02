@@ -38,7 +38,7 @@ export const CAPSTONE_5: CapstoneConfig = {
       "node": "g30",
       "game": "Status: Know It",
       "thread": "F · Sexual & Reproductive Health",
-      "bigTruth": "Knowing your status is strength, it's routine, private and protective; treatment works, and the only thing to fear is stigma.",
+      "bigTruth": "Knowing your status is strength: testing is routine, your result is protected by law, treatment works, and the only thing to fear is stigma.",
       "glyph": "status-strength"
     },
     {
