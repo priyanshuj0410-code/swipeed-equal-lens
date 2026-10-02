@@ -53,6 +53,10 @@ HELPLINES = [
     {"service": "TeleMANAS",  "forms": ["14416", "1-800-891-4416", "18008914416"], "names": [r"tele[-\s]?manas"]},
     {"service": "Cyber",      "forms": ["1930"],                                   "names": [r"cyber\s?crime helpline", r"cyber\s?crime number", r"report cyber\s?crime"]},
     {"service": "LegalAid",   "forms": ["15100"],                                  "names": [r"legal aid (?:helpline|number)", r"\bNALSA\b"]},
+    # NCPCR's route for reporting child sexual abuse (SWED-64). Number and email last checked 2026-10-03 against
+    # Telangana Today (5 Aug 2026) and Nyaaya, matching the child-safe-content reference; ncpcr.gov.in itself
+    # only served a redirect page. Email: pocsoebox-ncpcr@gov.in.
+    {"service": "POCSOeBox",  "forms": ["9868235077", "98682-35077"],              "names": [r"pocso\s?e[-\s]?box", r"ncpcr(?:['’]s)? e[-\s]?box"]},
 ]
 # Retired services: naming one is an error whatever number follows. KIRAN (1800-599-0019) was merged into
 # Tele-MANAS: announced 15 Feb 2024, calls diverted, then phased out (SWED-62). Case-sensitive, so a character
@@ -601,10 +605,13 @@ def helpline_errors_text(label, txt):
             e.append(f"{label}: retired helpline {r['service']} named (use {r['use']})")
     for h in HELPLINES:
         canon = {f.replace("-", "") for f in h["forms"]}
+        # a service whose main number is a mobile (the e-Box) reads and checks longer numbers; the short
+        # helplines keep the 2-7 digit read and the 5-digit flag limit
+        span, limit = (12, 12) if len(h["forms"][0]) > 5 else (5, 5)
         for nm in h["names"]:
-            for m in re.finditer(nm + r"\s*(?:at|on|number|helpline|[:\-\u2013\u2014])?\s*(\d[\d\- ]{1,5}\d)", txt, re.I):
+            for m in re.finditer(nm + r"\s*(?:at|on|number|helpline|[:\-\u2013\u2014])?\s*(\d[\d\- ]{1,%d}\d)" % span, txt, re.I):
                 nd = re.sub(r"[\s\-]", "", m.group(1))
-                if nd not in canon and len(nd) <= 5:
+                if nd not in canon and len(nd) <= limit:
                     e.append(f"{label}: '{h['service']}' bound to {m.group(1).strip()} (want {h['forms'][0]})")
     for m in DIAL_CONTEXT.finditer(txt):
         nd = re.sub(r"[\s\-]", "", m.group(1))

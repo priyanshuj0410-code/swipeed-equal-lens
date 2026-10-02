@@ -47,6 +47,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e0437d36-ca6c-45e5-a252-a97f98540836  # SWED-86
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587  # SWED-63
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/baa41435-d56c-487b-ac9b-7557d49c85f5  # SWED-87
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4b84c004-94c4-4487-9515-e467b32178ae  # SWED-64
 ---
 
 # SwipeEd project log
@@ -54,6 +55,10 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-03 · forge: POCSO e-Box joins the helpline allowlist ([SWED-64](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4b84c004-94c4-4487-9515-e467b32178ae))
+
+Shipped content names NCPCR's POCSO e-Box 14 times, but the helpline gate had no entry for it, so a wrong number written next to it could have shipped unnoticed. `scripts/forge/common.py` now binds it to 9868235077 (checked 2026-10-03 against two recent sources; NCPCR's own site served only a redirect). Its number is a mobile, so the binding check reads longer numbers after the e-Box's name only; every other helpline behaves exactly as before. Four fixtures in `test_gates.py` prove it: the right number, a wrong short number, a wrong mobile number, and no number. The content gate and `forge_check.py` pass. See [question bank](../schemas/question-bank.md).
 
 ## 2026-10-03 · ui: three accessibility fixes ([SWED-86](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/e0437d36-ca6c-45e5-a252-a97f98540836), [SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587), [SWED-87](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/baa41435-d56c-487b-ac9b-7557d49c85f5))
 

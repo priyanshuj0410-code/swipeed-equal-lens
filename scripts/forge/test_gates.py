@@ -84,6 +84,14 @@ def main():
             print(f"  ✓ retired-helpline check right on {txt!r}")
         else:
             fails += 1; print(f"  ✗ retired-helpline check wrong on {txt!r}")
+    # POCSO e-Box (SWED-64): a wrong number written next to its name is caught; the right one, or none, is not
+    for txt, want in (("Report it on the POCSO e-Box 9868235077.", False), ("Report it on the POCSO e-Box 1098.", True),
+                      ("Use the POCSO e-Box 9876543210 to report.", True), ("The POCSO e-Box (NCPCR) is online.", False)):
+        got = bool(C.helpline_errors_text("t", txt))
+        if got == want:
+            print(f"  ✓ e-Box binding right on {txt!r}")
+        else:
+            fails += 1; print(f"  ✗ e-Box binding wrong on {txt!r}: {C.helpline_errors_text('t', txt)}")
     fails += choose_fixtures()
     fails += lint_fixtures()
     fails += content_gate_fixtures()

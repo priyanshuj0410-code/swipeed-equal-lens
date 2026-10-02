@@ -23,6 +23,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4  # SWED-100
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4b84c004-94c4-4487-9515-e467b32178ae  # SWED-64
 ---
 
 # SwipeEd question bank
@@ -269,6 +270,7 @@ Byte-exact name-to-number binding, direct-binding only (a service name immediate
 | Tele-MANAS | 14416, 1-800-891-4416, 18008914416 |
 | Cyber | 1930 |
 | Legal aid (NALSA) | 15100 |
+| POCSO e-Box (NCPCR) | 9868235077, 98682-35077; email pocsoebox-ncpcr@gov.in ([SWED-64](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4b84c004-94c4-4487-9515-e467b32178ae)). Checked 2026-10-03 against Telangana Today (5 Aug 2026) and Nyaaya, matching the child-safe-content reference; ncpcr.gov.in itself only served a redirect page. Because its number is a mobile, the binding check reads up to 14 digits after the e-Box name; the short helplines keep the old limit. |
 
 Also enforced: a retired-helpline block that rejects any mention of KIRAN or its old number, merged into Tele-MANAS ([SWED-62](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb)); a US-framing denylist (911, CPS, "grade 3", zip code, "$", and similar, `common.py:57-59`) and a law/statute sniffer (`common.py:61-66`) that force-flags any POCSO/POSH/BNS/PCMA/age-of-consent/statistic claim for web verification regardless of the generator's own tagging. The cross-check below compares this allowlist with current India guidance.
 
