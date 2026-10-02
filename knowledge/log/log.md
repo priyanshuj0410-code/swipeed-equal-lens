@@ -37,6 +37,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e  # SWED-109
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9b892973-658b-4376-962e-dde7a59e3a60  # SWED-110
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2  # SWED-105
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/43fe632c-cf79-4e56-9d1e-0f22c747a055  # SWED-112
 ---
 
 # SwipeEd project log
@@ -44,6 +45,12 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-01 · pictures: LoRAs from the Lensy comic ([SWED-112](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/43fe632c-cf79-4e56-9d1e-0f22c747a055))
+
+The owner asked for the picture generator to be personalised with LoRAs trained on their comic *Lensy and the Life Cycle of a Stereotype*, and chose two: one for the characters (Lensy, UN, RE) and one for the comic's painted style. `scripts/pictures/lora_dataset.py` cuts training images from the PDF. The crops were picked by hand, and any that caught speech-bubble lettering were tightened or dropped. That left 37 character images (31 comic crops plus the six brand SVGs on white) and 18 style scenes. `train_lora.sh` trains them with `mflux-train` on the FLUX.2 klein 4B model already on this Mac. 512 px overflows the 24 GB M4 (80 to 110 s a step), so training runs at 384 px (15 to 22 s a step, about 3 to 4 hours per LoRA). `lora_test.py` draws test prompts with and without each LoRA. Details, settings and open questions: [picture LoRAs](../research/picture-loras-2026-10-01.md).
+
+Results on 2026-10-02: the character LoRA drew Lensy, UN and RE on-model in comic scenes. But it turned ordinary people into purple creatures and made flat cards pale. The style LoRA gave scenes the comic's look, though softly. The owner chose not to use either: the cards stay on the untrained model and prompts that produced round five.
 
 ## 2026-10-01 · path: a v2 Green Light / Red Light finish completes g24 ([SWED-105](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2))
 - **Why.** Finishing the v2 game never marked g24 done, so g25 (MythBuster: Gender) and every node after it stayed
