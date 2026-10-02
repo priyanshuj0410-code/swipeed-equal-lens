@@ -685,6 +685,12 @@ def membership_errors(o, allowed, personas=None):
         e.append(f"persona '{p}' not in chapter roster")
     return e
 
+NODE_ID = re.compile(r"\b[gc]\d{2}\b")  # path node ids ("g60") are internal; players see game names (SWED-123)
+
+def node_id_errors(o):
+    return [f"{label}: internal node id '{m.group(0)}' in player text (use the game's name)"
+            for label, txt in visible_fields(o) for m in NODE_ID.finditer(txt)]
+
 def scenario_errors(o, chapter=None, allowed=None, ceil=None, strict_shape=True, personas=None):
     """Every DETERMINISTIC per-scenario check, as a flat list of error strings (empty = clean)."""
     out = []
@@ -692,6 +698,7 @@ def scenario_errors(o, chapter=None, allowed=None, ceil=None, strict_shape=True,
     out += [f"shape: {x}" for x in shape_errors(o, strict_target=strict_shape)]
     out += [f"helpline: {x}" for x in helpline_errors(o)]
     out += [f"len: {x}" for x in field_len_errors(o)]
+    out += [f"ids: {x}" for x in node_id_errors(o)]
     out += [f"band: {x}" for x in band_error(o, ceil)]
     out += [f"membership: {x}" for x in membership_errors(o, allowed, personas)]
     return out

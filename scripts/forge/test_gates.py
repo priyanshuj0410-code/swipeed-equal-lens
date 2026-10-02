@@ -84,6 +84,14 @@ def main():
             print(f"  ✓ retired-helpline check right on {txt!r}")
         else:
             fails += 1; print(f"  ✗ retired-helpline check wrong on {txt!r}")
+    # internal node ids never reach players (SWED-123); the game's name is fine, so is G20 in prose
+    base = {"id": "x", "cat": "c", "type": "reflect", "persona": "any", "source": "g60 links", "prompt": "p", "options": ["a", "b", "c"]}
+    for hook, want in (("See g60 for other paths.", True), ("Many Ways to Family covers other paths.", False), ("The G20 met in Delhi.", False)):
+        got = bool(C.node_id_errors(dict(base, hook=hook, relearn="r")))
+        if got == want:
+            print(f"  ✓ node-id check right on {hook!r}")
+        else:
+            fails += 1; print(f"  ✗ node-id check wrong on {hook!r}")
     # POCSO e-Box (SWED-64): a wrong number written next to its name is caught; the right one, or none, is not
     for txt, want in (("Report it on the POCSO e-Box 9868235077.", False), ("Report it on the POCSO e-Box 1098.", True),
                       ("Use the POCSO e-Box 9876543210 to report.", True), ("The POCSO e-Box (NCPCR) is online.", False)):
