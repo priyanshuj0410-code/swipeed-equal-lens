@@ -3,7 +3,7 @@
   <mflux python> flux_edit.py <out dir> <instruction> <picture.png> [<picture.png> ...] [--seed N]
 Each picture is its own reference: the model redraws it following the instruction, so an approved picture keeps its
 pose, people and colours instead of being drawn again from text. Writes <out>/<id>.png, <id>-cut.png and log.json.
-Used in round five after the owner found the cheek blush too strong.
+Used in round five after the owner found the cheek blush too strong, and in round six when the owner dropped the blush.
 """
 import json
 import os

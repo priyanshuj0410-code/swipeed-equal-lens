@@ -10,6 +10,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/49cf4efd-6622-4ac8-907c-7c01ccfd0754  # SWED-90
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d1d37f37-4805-4e14-9274-100025838c49  # SWED-91
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/ec93c9d9-14cb-4419-a349-a716dbcc6fae  # SWED-113
 ---
 
 # Visual answer options: tools and approach
@@ -300,6 +301,36 @@ The zero-budget route's first test, run on the owner's Mac (Apple M4, 24 GB) wit
   change only. The style prompt now asks for a very faint warm tint on the cheeks instead of rosy cheeks.
 
 
+
+- **Owner review, round five (2026-10-01, in chat).** Drop the blush entirely.
+- **Round six (2026-10-01 to 02).** The style prompt now asks for no blush at all, with cheeks the same tone as the rest
+  of the face, and an edit pass removed it from all 30 (the curious girl's headscarf and the grandmother's grey hair
+  named as things to keep). The edit overreached on five pictures, which were redone with what to keep: sleepy had
+  opened his eyes, tell a grown-up lost the grandfather's moustache, friend shifted the boy's skin redder, walk away
+  kept a grey shine on the girl's hair. Three edit passes could not remove the family grandfather's pink cheeks (the
+  last painted bright circles), so `scripts/pictures/recolor_cheeks.py` recoloured them to the skin around them by
+  script. The owner found the near-faceless squeeze-toy boy creepy; it was redrawn from text with his whole face
+  visible and closed eyes as gentle curves, four seeds, and the owner chose one.
+- **Approved (owner, 2026-10-02).** All 30 round-six cards. They ship as the first set of the picture bank:
+  `public/pictures/feelings-friends/` holds 512 px WebP cut-outs (911 KB in all) and `manifest.json` (id, word, alt
+  text, file, subject, tool, source round, reviewer, review date). The full-size originals stay in
+  `.forge/pictures/flux-style-test/final-r6-picks/`. A LoRA trained on the owner's Lensy comic was tested and not adopted
+  ([picture LoRAs](picture-loras-2026-10-01.md)); the cards stay on the untrained model.
+
+## Rollout tickets (2026-10-02)
+
+The owner asked for illustrations throughout SwipeEd. Umbrella: [SWED-113](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/ec93c9d9-14cb-4419-a349-a716dbcc6fae).
+
+| Ticket | State | What |
+|---|---|---|
+| [SWED-114](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f81e4045-7d9c-4baa-a146-a990462c8678) | Todo | Picture bank: manifest, pic ids on options and a review gate |
+| [SWED-115](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/00b958a7-94ae-4886-bc5c-b244a900457a) | Todo | Picture answer cards: picture slot, tap to hear, fading by chapter |
+| [SWED-116](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/c22c55c2-a9c8-4207-8413-70ea7a1b66d4) | Todo | Feelings Friends picture bank: tag options and draw the missing concepts |
+| [SWED-117](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/fc9f2774-34f1-4656-8de0-d59945e81526) | Todo | Picture pipeline playbook and character bible |
+| [SWED-118](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4d8f7c3f-6fd6-499f-982b-c4aef3087cd6) | Backlog | Playtest picture cards against word-only cards |
+| [SWED-119](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/496b921f-3625-4332-908c-3cdbae0e947b) | Backlog | Chapters 1 and 2 picture rollout |
+| [SWED-120](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4d0f7291-49cc-405a-a7c2-74d69cff2c46) | Backlog | Replace emoji placeholders with illustrations |
+| [SWED-121](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/231ea93b-bb70-4b82-95fd-7262fd2c2816) | Backlog | Body-safety pictures (waits on SWED-83) |
 
 ## Owner decisions
 

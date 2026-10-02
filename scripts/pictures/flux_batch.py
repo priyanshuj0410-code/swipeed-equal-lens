@@ -46,7 +46,7 @@ STYLES = {
     "shaded": ("2D cartoon mascot style like the reference: rounded friendly shapes, big glossy eyes with white "
                "highlights, thick soft dark purple outlines. Clearly visible soft cel shading with one light source from the upper left: "
                "lighter highlight tones on the top and left of faces, skin and clothes, gentle darker shade tones on the lower right, "
-               "soft shading on faces, hair and clothes, matte hair that fully covers the head, shaded only with a slightly darker tone underneath and at the back, with no shine, no highlight and no light or grey patch anywhere on the hair, only a very faint warm tint on the cheeks with no pink blush circles, a faint paper grain texture, and a soft oval shadow "
+               "soft shading on faces, hair and clothes, matte hair that fully covers the head, shaded only with a slightly darker tone underneath and at the back, with no shine, no highlight and no light or grey patch anywhere on the hair, no blush at all, with cheeks the same skin tone as the rest of the face and no pink, red or warm tint, a faint paper grain texture, and a soft oval shadow "
                "on the ground under the figures. Palette of violet, lavender, cream and sunny yellow for clothes and "
                "objects, with natural skin tones. " + BACKGROUND),
 }
@@ -67,7 +67,7 @@ CONCEPTS = [
     ("breathe", "Slow breaths", "A young Indian girl with dark brown skin and two black braids, taking slow calm breaths by gently blowing on a colourful paper pinwheel that she holds up in one hand in front of her face, lips in a small round shape, eyes softly closed, calm peaceful face."),
     ("hug", "A hug", "A mother with medium brown skin and black hair in a simple salwar kameez giving her young son a warm hug, both smiling with eyes closed."),
     ("quiet-time", "Quiet time", "A young Indian girl with warm light-medium brown skin and black hair sitting on a floor cushion, reading a picture book calmly."),
-    ("squeeze-toy", "Squeeze a soft toy", "A young Indian boy with deep brown skin and black hair gently squeezing a soft teddy bear to calm down, eyes closed, calm face."),
+    ("squeeze-toy", "Squeeze a soft toy", "A young Indian boy with deep brown skin and short black hair, sitting and gently hugging a soft teddy bear to calm down. His whole face is clearly visible and turned toward the viewer, his hair stays above his eyebrows, both eyes are closed as gentle curved lines with relaxed eyebrows, and he has a small peaceful smile."),
     ("count", "Count to five", "A young Indian girl with medium brown skin and black hair, sitting at a small low table with five colourful wooden blocks lined up in a row in front of her, counting them: she touches the third block with one finger, calm focused face."),
     ("draw-feeling", "Draw your feeling", "A young Indian boy with light brown skin and black hair drawing a big coloured scribble with crayons on paper at a small table."),
     ("tell-grown-up", "Tell a grown-up", "A young Indian girl with dark brown skin and black hair talking to her kind grandfather, an elderly Indian man with warm medium brown skin, white hair and a white moustache, in a kurta, who kneels down to listen closely; both calm."),
