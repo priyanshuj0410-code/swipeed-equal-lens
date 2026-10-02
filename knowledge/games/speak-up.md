@@ -10,6 +10,7 @@ timestamp: 2026-06-20T17:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc  # SWED-122
 ---
 
 # Speak Up
@@ -79,3 +80,7 @@ Childline 1098 / POCSO e-Box / 181.
   Stand Together), the Badge Book; English narration; never-victim-blaming throughout.
 - **Deferred (GDD Phase 2/3):** a fuller scenario bank, crown levels (subtler harm), facilitator/Classroom
   guides, calm mode, and **Hindi**.
+
+## Safety fixes (2026-10-02)
+
+[SWED-122](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc): `su-1183` matches Childline 1098 to "Free, and there to help" instead of "Free and confidential". See the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md).

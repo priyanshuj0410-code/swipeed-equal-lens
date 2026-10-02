@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc  # SWED-122
 ---
 
 # Spectrum
@@ -80,3 +81,7 @@ including across disagreement), the **Ask-It / safe-helper box (#18)** (most car
   the Badge Book; English narration.
 - **Deferred (GDD Phase 2/3):** a fuller scenario/term glossary, crown levels, facilitator-led Classroom
   Mode, the most careful live Ask-It triage, calm mode, and **Hindi**.
+
+## Safety fixes (2026-10-02)
+
+[SWED-122](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc): the game still teaches never outing a friend. Its model lines no longer promise secrecy "always": "It stays with me, and you decide who knows. If you're ever unsafe, I'll help you get support." The safe-support line in `sp-1325` is "It stays with me unless you're in danger." `sp-1282` describes a helpline as a caring listener who explains what stays private. See the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md).

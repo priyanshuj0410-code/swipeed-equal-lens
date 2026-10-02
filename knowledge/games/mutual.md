@@ -10,6 +10,7 @@ timestamp: 2026-06-20T21:30:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc  # SWED-122
 ---
 
 # Mutual
@@ -78,3 +79,7 @@ consent vocabulary first met as the "Big No" matures here into the full enthusia
   181/1091/1098/112 routing); the Badge Book; English narration.
 - **Deferred (GDD Phase 2/3):** a richer branching communication sim, a fuller scenario bank, crown levels,
   Classroom-Mode polish (facilitator-led), calm mode, and **Hindi**.
+
+## Safety fixes (2026-10-02)
+
+[SWED-122](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc): help after a disclosure is no longer "confidential" with "you decide what happens next", which is false for a minor disclosing a sexual offence. `mt-1191` now says help goes at your pace and they explain each step, and if you're under 18 and being hurt, they act to keep you safe. Eleven more lines now call help "on your side" or "real". Every line is recorded in the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md).

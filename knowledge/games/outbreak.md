@@ -10,6 +10,7 @@ timestamp: 2026-06-20T19:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc  # SWED-122
 ---
 
 # Outbreak: Stop the Spread
@@ -81,3 +82,7 @@ safe-helper box (#18)**, and **Made-for-India + School-Comfort (#14)** (NACO ICT
   (UN & RE + pledge + the ICTC/Childline help line); the Badge Book; English narration.
 - **Deferred (GDD Phase 2/3):** a richer population-spread simulation, crown levels, a fuller myth/fact
   bank, Classroom-Mode polish, calm mode, and **Hindi**.
+
+## Safety fixes (2026-10-02)
+
+[SWED-122](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc): about fifteen lines that promised outright that testing is confidential now say "often confidential" or "treated as private". `ob-1356` teaches asking what stays private, including any legal limits, and `ob-1409` no longer says results are shared only with you. See the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md).

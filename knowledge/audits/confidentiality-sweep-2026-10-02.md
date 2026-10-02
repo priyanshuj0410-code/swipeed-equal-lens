@@ -1,8 +1,8 @@
 ---
 type: audit
 owner: the-equal-lens
-title: "Confidentiality sweep of My Choices and Status: Know It (2026-10-02)"
-description: Line-by-line record for SWED-80 of every player-facing line in the two Chapter 5 sexual-health games that says confidential, private or secret, after the fix, with a verdict and a reason for each.
+title: "Confidentiality sweep of the under-18 games (2026-10-02)"
+description: Line-by-line record for SWED-80 and SWED-122 of every player-facing line in the under-18 games that says confidential, private or secret, after the fixes, with a verdict and a reason for each.
 tags: [swipeed, audit, safeguarding, pocso, confidentiality, chapter-5]
 timestamp: 2026-10-02T00:00:00Z
 plane_issues:
@@ -408,3 +408,159 @@ Follow-up to finding A2 of the [question bank audit](question-bank-audit-2026-09
 | status-know-it | `sk-1406` | `.relearn` | Spot the cost and exposure myths; care is free and confidential. | service |
 | status-know-it | `sk-1409` | `.yourLine[0].text` | "Treatment works, it's free and private, and I'll go with you. You've got this." | testing |
 | status-know-it | `(game strings)` | `helpLine` | helpLine: "Free HIV/STI testing: find a NACO ICTC centre or ask a doctor, who will explain what stays private. If anyone pressures or exploi | rewritten |
+
+## Other under-18 games ([SWED-122](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc), 2026-10-02)
+
+The same sweep across Speak Up (Chapter 3), Outbreak and Stand Up (Chapter 4), and Mutual, Spectrum and Life Ready (Chapter 5). Consent, For Real and Equal & Confident are Chapter 6 (adults) and out of scope.
+
+- **Mutual** told 15 to 17-year-olds that disclosing abuse leads to "confidential" help where "you decide what happens next". For a minor, a helpline or counsellor must act on a sexual offence. `mt-1191` now says help goes at your pace and they explain each step, and if you're under 18 and being hurt, they act to keep you safe. The other promises now say help is "on your side" or "real".
+- **Outbreak** (ages 12 to 15) promised outright that testing is confidential in about fifteen lines. These now say "often confidential" or "treated as private", and `ob-1356` teaches asking what stays private, including any legal limits.
+- **Spectrum** keeps its lessons on never outing a friend. Two model lines drop "always" and "I won't tell anyone": "It stays with me, and you decide who knows. If you're ever unsafe, I'll help you get support." The "safe support" line in `sp-1325` is now "It stays with me unless you're in danger." `sp-1282` describes a helpline without "on your own terms".
+- **Speak Up, Stand Up, Life Ready:** Childline and Women Helpline 181 are "free" help, not "confidential", and a good counsellor "explains what stays private".
+
+132 lines (internal `source` notes and build keys left out). Counts: peer 40, hedged 27, rewritten 25, service 22, setting 13, situation 4, secrecy-flag 1.
+
+| Verdict | Why it stands |
+|---|---|
+| rewritten | Rewritten in SWED-122. |
+| hedged | Already hedged ('often', 'many', 'can be') or the player asks what stays private. |
+| service | Names a helpline, counsellor or clinic as a confidential service; accurate as a description. The limit is now taught in Mutual (`mt-1191`), Spectrum (`sp-1282`, `sp-1299`, `sp-1325`), Outbreak (`ob-1356`) and Life Ready (`lr-1411`). |
+| peer | About keeping someone else's identity, story or health status private (never outing anyone), not a promise from a service. |
+| setting | A private setting or way of doing something (talk privately, learn privately), not a confidentiality promise. |
+| situation | Describes a child's situation ('won't tell a parent'), matched to a helper; not a promise. |
+| secrecy-flag | The line the game teaches against: agreeing to keep an older person's secret. |
+
+| Game | Scenario | Field | Text | Verdict |
+|---|---|---|---|---|
+| speak-up | `su-056` | `.pairs[0].right` | Listen and support privately | peer |
+| speak-up | `su-973` | `.pairs[4].left` | Won't tell a parent or teacher | situation |
+| speak-up | `su-1073` | `.pairs[3].left` | You won't tell parents | situation |
+| speak-up | `su-1189` | `.options[0].text` | Tell a trusted adult and ask them to keep it private | hedged |
+| speak-up | `su-1217` | `.yourLine[0].text` | "Sir, can we talk privately? It's important." | hedged |
+| speak-up | `su-1336` | `.pairs[3].left` | Won't tell parents or teachers | situation |
+| speak-up | `su-1427` | `.pairs[3].left` | You won't tell parents | situation |
+| outbreak | `ob-043` | `.options[0].text` | Go to a clinic or doctor; it's routine and often confidential | rewritten |
+| outbreak | `ob-043` | `.options[1].consequence` | Testing is routine and often confidential; it's the responsible step. | rewritten |
+| outbreak | `ob-043` | `.relearn` | Testing is routine and often confidential; getting tested is responsible. | rewritten |
+| outbreak | `ob-045` | `.options[0].text` | Ask about confidentiality; many services protect your privacy | hedged |
+| outbreak | `ob-045` | `.options[1].consequence` | Ask, many services are confidential and youth-friendly. | hedged |
+| outbreak | `ob-045` | `.relearn` | You can ask about confidentiality; many testing services protect privacy. | hedged |
+| outbreak | `ob-055` | `.pairs[0].right` | Often confidential | hedged |
+| outbreak | `ob-074` | `.options[0].text` | Share that testing is normal, smart and often confidential | rewritten |
+| outbreak | `ob-924` | `.myth.re` | Testing is a normal, smart health check, like any other; often confidential. | hedged |
+| outbreak | `ob-929` | `.items[2].text` | Testing is often confidential | rewritten |
+| outbreak | `ob-929` | `.relearn` | Curable, often confidential, treatable are facts; 'death sentence' and 'only bad people' are myths. | rewritten |
+| outbreak | `ob-951` | `.options[1]` | "Testing is often confidential" | rewritten |
+| outbreak | `ob-959` | `.yourLine[0].text` | "Testing's just a normal health check, often confidential, not a confession." | hedged |
+| outbreak | `ob-959` | `.relearn` | Testing is a normal, often confidential health check, not a confession. | hedged |
+| outbreak | `ob-960` | `.pieces[2]` | "Testing is often confidential" | rewritten |
+| outbreak | `ob-960` | `.relearn` | Calm, true lines, surfaces are safe, most are curable, testing is often confidential, beat a scary forward. | rewritten |
+| outbreak | `ob-974` | `.relearn` | Testing is a routine, often confidential health check, not a confession. | rewritten |
+| outbreak | `ob-976` | `.pairs[1].right` | A real, confidential route | peer |
+| outbreak | `ob-991` | `.options[0].text` | Keep it private and ask how you can support them | hedged |
+| outbreak | `ob-991` | `.relearn` | A person's STI status is theirs to share; keep it confidential. | peer |
+| outbreak | `ob-1025` | `.options[1]` | Someone who keeps it private | peer |
+| outbreak | `ob-1032` | `.affirm` | Testing is routine, smart and often confidential; you get to ask. | hedged |
+| outbreak | `ob-1042` | `.bins[0].label` | Keeps it private | peer |
+| outbreak | `ob-1045` | `.items[0].text` | Knowing it's confidential. | peer |
+| outbreak | `ob-1049` | `.pairs[3].right` | A promise to keep it private. | peer |
+| outbreak | `ob-1054` | `.pieces[1]` | Promise it stays private | peer |
+| outbreak | `ob-1058` | `.pieces[0]` | Knowing it's confidential | peer |
+| outbreak | `ob-1058` | `.relearn` | Safe testing: confidential, company, 'it's routine', and no judgement. | service |
+| outbreak | `ob-1226` | `.debrief` | Testing is a normal, often confidential health check, not a confession. | rewritten |
+| outbreak | `ob-1226` | `.relearn` | Clinics treat testing as routine and often confidential; it's not a confession. | rewritten |
+| outbreak | `ob-1272` | `.debrief` | Testing is smart, routine and often confidential, never a confession. | hedged |
+| outbreak | `ob-1272` | `.relearn` | Testing is a routine, often-confidential health check, not a confession. | hedged |
+| outbreak | `ob-1278` | `.debrief` | People test when it feels private; confidentiality is part of the tool. | service |
+| outbreak | `ob-1278` | `.relearn` | Testing is often confidential; privacy is what brings people in. | hedged |
+| outbreak | `ob-1311` | `.options[2]` | I'd keep it private | peer |
+| outbreak | `ob-1311` | `.relearn` | A person's STI status is private; keeping it confidential protects them. | peer |
+| outbreak | `ob-1313` | `.relearn` | Testing is a routine, often-confidential health check, never a confession. | hedged |
+| outbreak | `ob-1330` | `.pairs[4].left` | Want it kept private | hedged |
+| outbreak | `ob-1330` | `.pairs[4].right` | A confidential check-up | hedged |
+| outbreak | `ob-1356` | `.options[0].text` | Ask the clinic about confidentiality first | rewritten |
+| outbreak | `ob-1356` | `.options[1].consequence` | Ask first; many youth services keep visits confidential. | rewritten |
+| outbreak | `ob-1356` | `.relearn` | Ask what stays private before you share; they'll explain any legal limits. | rewritten |
+| outbreak | `ob-1361` | `.options[1].consequence` | Many youth services are confidential; that's worth sharing. | hedged |
+| outbreak | `ob-1361` | `.debrief` | Knowing a service is confidential is often what lets someone finally test. | hedged |
+| outbreak | `ob-1370` | `.options[1].consequence` | Keep it private and still tell those at risk to test. | service |
+| outbreak | `ob-1378` | `.hook` | A student quietly asks you if a test will stay confidential. | rewritten |
+| outbreak | `ob-1378` | `.yourLine[0].text` | "Youth services treat this as private. Let's find one you trust and ask what stays private." | rewritten |
+| outbreak | `ob-1387` | `.myth.re` | Youth-friendly services treat your visit as confidential. | rewritten |
+| outbreak | `ob-1387` | `.relearn` | Youth-friendly services treat testing visits as private; you can ask what stays private. | rewritten |
+| outbreak | `ob-1396` | `.pieces[0]` | "Is this confidential?" | hedged |
+| outbreak | `ob-1398` | `.pieces[3]` | keep their visit confidential | peer |
+| outbreak | `ob-1398` | `.relearn` | Support a friend: normalise it, go along, find privacy, keep it confidential. | peer |
+| outbreak | `ob-1403` | `.pairs[1].right` | Ask about confidentiality | hedged |
+| outbreak | `ob-1420` | `.pairs[0].left` | Confidential | rewritten |
+| outbreak | `ob-1409` | `.affirm` | Clinics handle results with care and in private: that is what makes walking in feel possible. | rewritten |
+| outbreak | `ob-1413` | `.items[4].text` | Testing can be confidential | hedged |
+| outbreak | `(game strings)` | `helpLine` | helpLine: "For STI facts or testing, see a clinic, youth health service, or doctor, it's routine and often confidential. Get facts from clin | hedged |
+| stand-up | `st-995` | `.options[0].text` | Don't forward; report the message and tell her privately | setting |
+| stand-up | `st-1388` | `.items[2].text` | In private DMs and group chats | setting |
+| mutual | `mt-1239` | `.yourLine[1].text` | "Okay, I won't tell anyone about it." | secrecy-flag |
+| spectrum | `sp-044` | `.relearn` | Meet someone sharing with warmth and unchanged respect; keep it confidential. | peer |
+| spectrum | `sp-051` | `.options[0].text` | Reach a trusted adult/counsellor or a confidential line (Tele-MANAS 14416) | service |
+| spectrum | `sp-051` | `.options[1].consequence` | You don't have to carry it alone; trusted support and confidential lines exist. | peer |
+| spectrum | `sp-051` | `.debrief` | Confidential, caring support is there whenever you need it. | peer |
+| spectrum | `sp-054` | `.relearn` | Promise and keep confidentiality; their story is theirs to share. | peer |
+| spectrum | `sp-058` | `.options[0].text` | Reach careful, confidential support to help you through it | peer |
+| spectrum | `sp-058` | `.options[1].consequence` | Family tension is heavy; confidential support (Tele-MANAS 14416) can help. | service |
+| spectrum | `sp-058` | `.relearn` | For family tension, reach confidential support like Tele-MANAS 14416 or a counsellor. | service |
+| spectrum | `sp-069` | `.options[0].text` | Use a safe move, tell an adult, support privately, you don't have to go it alone | peer |
+| spectrum | `sp-077` | `.options[0].text` | Point them to a trusted adult, counsellor or a confidential line | service |
+| spectrum | `sp-077` | `.options[1].consequence` | Trusted adults, counsellors and confidential lines (14416, 1098) are real options. | service |
+| spectrum | `sp-077` | `.relearn` | Point a friend to a trusted adult, counsellor or confidential line. | service |
+| spectrum | `sp-907` | `.relearn` | You're allowed to keep things private while you work them out. | setting |
+| spectrum | `sp-929` | `.options[0].text` | Reach a trusted adult or a confidential line for support | service |
+| spectrum | `sp-929` | `.debrief` | When it gets heavy, confidential, caring support is always within reach. | peer |
+| spectrum | `sp-931` | `.options[0].text` | Look up accurate info privately and at your own pace | setting |
+| spectrum | `sp-931` | `.options[1].consequence` | Learning about yourself is your right; you can do it privately, in your own time. | setting |
+| spectrum | `sp-931` | `.debrief` | Quietly learning the facts is yours to do, privately and pressure-free. | setting |
+| spectrum | `sp-931` | `.relearn` | You can learn about yourself privately, at your own pace. | setting |
+| spectrum | `sp-951` | `.pairs[1].right` | Keeps your story confidential | peer |
+| spectrum | `sp-951` | `.relearn` | A good friend offers no-rush warmth, confidentiality, reassurance and a route to support. | peer |
+| spectrum | `sp-952` | `.why` | Telling others breaks confidentiality, and pushing a label ignores that it's their choice and time. | peer |
+| spectrum | `sp-952` | `.relearn` | Keep a friend's trust: confidentiality, no outing, no pressure to label. | peer |
+| spectrum | `sp-1005` | `.options[1].consequence` | Even a small part breaks the trust; keep it fully confidential. | peer |
+| spectrum | `sp-1023` | `.relearn` | Meet someone's sharing with warmth, sameness and confidentiality. | peer |
+| spectrum | `sp-1195` | `.yourLine[0].text` | "Ma'am, can I talk to you privately? Someone's being bullied for who they are." | hedged |
+| spectrum | `sp-1203` | `.scene[4].text` | "Support them, keep it private." | peer |
+| spectrum | `sp-1225` | `.myth.why` | You can tell an adult and back the person privately without a public showdown. | setting |
+| spectrum | `sp-1260` | `.pairs[3].left` | Want to talk in private first | setting |
+| spectrum | `sp-1262` | `.pairs[1].right` | Confidential, on-campus support | peer |
+| spectrum | `sp-1266` | `.pairs[3].left` | Confidential support | peer |
+| spectrum | `sp-1267` | `.pairs[4].left` | "Please keep this private" | peer |
+| spectrum | `sp-1268` | `.pairs[3].right` | Real, confidential help is there | peer |
+| spectrum | `sp-1272` | `.hook` | Lensy: a friend with nowhere to turn can always be pointed to a confidential line. Reassuring? | hedged |
+| spectrum | `sp-1272` | `.affirm` | 'Nowhere' is rarely true; a trusted adult, counsellor or confidential line is a real, safe route. | service |
+| spectrum | `sp-1282` | `.affirm` | A helpline gives you a trained, caring listener who explains what stays private. | rewritten |
+| spectrum | `sp-1282` | `.relearn` | A helpline gives you a trained, caring listener who explains what stays private. | rewritten |
+| spectrum | `sp-1285` | `.hook` | Lensy: if home feels tense, a confidential line or counsellor is there. Good to keep in mind? | hedged |
+| spectrum | `sp-1285` | `.affirm` | Family tension is real and hard; a counsellor or Tele-MANAS 14416 can hold space for you, in private. | setting |
+| spectrum | `sp-1285` | `.relearn` | If home feels tense, a confidential line or counsellor is there. | service |
+| spectrum | `sp-1292` | `.myth.re` | Trusted adults, counsellors and confidential lines like Tele-MANAS 14416 are real and there for you. | service |
+| spectrum | `sp-1297` | `.myth.re` | A confidential line gives a trained, caring listener; reaching out is a step toward feeling better. | service |
+| spectrum | `sp-1297` | `.relearn` | A confidential line connects you to real, caring support. | service |
+| spectrum | `sp-1299` | `.myth.un` | There's no private, confidential place to talk. | peer |
+| spectrum | `sp-1299` | `.myth.re` | A counsellor or a line like Tele-MANAS 14416 gives you a calm space to talk, and can explain what stays private. | service |
+| spectrum | `sp-1299` | `.myth.why` | Confidential routes exist precisely so you can talk safely. | peer |
+| spectrum | `sp-1302` | `.options[0].text` | Listen, keep it private, and mention a counsellor or Tele-MANAS 14416 | service |
+| spectrum | `sp-1302` | `.debrief` | Listen, keep confidence, and point to a confidential route, never broadcast it. | peer |
+| spectrum | `sp-1302` | `.relearn` | Listen, keep confidence, and point to a confidential route, never broadcast it. | peer |
+| spectrum | `sp-1307` | `.hook` | A classmate asks where to find confidential, low-cost support. | hedged |
+| spectrum | `sp-1307` | `.debrief` | A counsellor and a confidential line are concrete, real routes. | service |
+| spectrum | `sp-1307` | `.relearn` | A counsellor and a confidential line are concrete, real routes. | service |
+| spectrum | `sp-1313` | `.items[0].text` | Listen and keep it private | peer |
+| spectrum | `sp-1313` | `.items[1].text` | Share a confidential helpline | service |
+| spectrum | `sp-1315` | `.items[2].text` | A confidential helpline | service |
+| spectrum | `sp-1322` | `.setup` | A friend confides and begs you to keep it private. Say: | rewritten |
+| spectrum | `sp-1324` | `.yourLine[0].text` | "A counsellor or Tele-MANAS 14416 can listen, in private, any time." | setting |
+| spectrum | `sp-1328` | `.scene[0].text` | Listen and keep it private. | peer |
+| spectrum | `sp-1328` | `.scene[2].text` | Share a confidential helpline. | service |
+| spectrum | `sp-1329` | `.scene[2].text` | A counsellor listens in private. | setting |
+| spectrum | `sp-1404` | `.relearn` | It's not yours to guess or spread; let people's private business stay private. | peer |
+| spectrum | `sp-1415` | `.options[0].text` | Don't repeat it: what's private about someone stays private | peer |
+| spectrum | `sp-1415` | `.relearn` | Don't spread private guesses about people; what's private stays private. | peer |
+| life-ready | `lr-1272` | `.setup` | Raise it fairly, in private. Say: | setting |
+| life-ready | `lr-1411` | `.scene[4].text` | A counsellor who explains what stays private | rewritten |
