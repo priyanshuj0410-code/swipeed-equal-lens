@@ -18,7 +18,7 @@ def adapter(path, out):
     if not path.endswith(".zip"):
         return path
     with zipfile.ZipFile(path) as z:
-        names = [n for n in z.namelist() if n.endswith(".safetensors")]
+        names = [n for n in z.namelist() if n.endswith("_adapter.safetensors")]
         if not names:
             sys.exit(f"no .safetensors adapter inside {path}")
         target = os.path.join(out, "adapters", os.path.basename(path)[:-4] + ".safetensors")

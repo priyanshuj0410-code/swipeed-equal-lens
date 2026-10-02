@@ -75,6 +75,19 @@ merges, `flux_batch.py` can take the same LoRA paths for card batches.
   terms on using outputs for training.
 - Whether to add the approved round-six cards to the character set, so Lensy, UN and RE learn the card style too.
 
-## Results
+## Results (2026-10-02)
 
-Pending: the first training run started on 2026-10-01 at 19:26.
+Both trained to the end: characters at 00:16, comic-style overnight. The first run stopped at step 214 when the Claude
+session that launched it ended, and resumed from the step-185 checkpoint; launch long runs detached from the session
+(`setsid` plus `nohup`). Test sheet: `lora_test.py` at 768 px, six prompts, five variants (no LoRA; characters at step 740;
+characters at step 370; comic style; both at 0.7).
+
+| | Works | Does not work yet |
+|---|---|---|
+| characters | Draws Lensy, UN and RE on-model where the plain model guesses: the trio in a painted scene comes out as Lensy, UN and RE instead of two children, and UN and RE keep the eraser and pencil shapes and letters. | Flat cards come out paler and softer than the brand art. It leaks: a garden or classroom prompt with no mascots turns people into purple creatures, so it must only be used for pictures of the mascots. The step-370 checkpoint is no better than step 740. |
+| comic-style | Gives scenes the comic's warm lamplit palette and painterly texture. | Faces and detail are softer than the comic, and RE loses its pencil shape when the style is applied to a card. |
+
+Likely causes: training ran on the 4-step distilled model (mflux recommends the non-distilled base model) at 384 px
+because 512 px overflows the Mac's memory, and the character set had no plain pictures of people to stop the
+characters spreading to every figure. Next round, if wanted: the base model (a 15 GB download), 512 px with 4-bit
+weights, and 20 to 30 "regularisation" pictures of ordinary people captioned without the trigger words.
