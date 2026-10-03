@@ -54,6 +54,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5f63c3db-0db3-4bb1-ab29-2806c72782cb  # SWED-83
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/73023a9c-e912-4e59-ab0a-b4028cacc7e7  # SWED-84
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9f70534d-efc0-4daf-a265-e3ea21e69687  # SWED-124
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c  # SWED-125
 ---
 
 # SwipeEd project log
@@ -61,6 +62,16 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-03 · brand: the SwipeEd logo everywhere ([SWED-125](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c))
+
+The owner's official SwipeEd logo now appears everywhere:
+- **Browser:** the favicon (SVG plus a 16/32/48 `.ico`).
+- **Installed app:** the web-app icons (192 and 512 px, a maskable 512 and the Apple touch icon).
+- **In the app:** the `Logo` component on the splash and the learning path, with a dark-mode version that keeps the outline visible.
+- **Repo:** the README header, and a social-preview image for GitHub.
+
+The Lensy SVG favicon and the placeholder icon generator are gone; `scripts/gen-icons.sh` rebuilds every icon from the logo. See [design](../design.md).
 
 ## 2026-10-03 · research: MIT Solve 2027 Learning challenge eligibility ([SWED-124](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9f70534d-efc0-4daf-a265-e3ea21e69687))
 

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   appleWebApp: { capable: true, statusBarStyle: "default", title: "SwipeEd" },
   icons: {
     icon: [
-      { url: "/brand/lensy/lensy-icon.svg", type: "image/svg+xml" },
+      { url: "/brand/swipeed/logo.svg", type: "image/svg+xml" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
     ],
     apple: "/apple-icon.png",

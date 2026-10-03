@@ -9,6 +9,7 @@ timestamp: 2026-09-01T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c  # SWED-125
 ---
 
 # World/Art Artefact Inventory (re-vibe scope)
@@ -88,7 +89,7 @@ time-of-day behaviour is the wind-down nudge (`src/components/wind-down-nudge.ts
 - **Path companion:** `/brand/ship/ship-flying.svg` + `/brand/ship/ship-flame.svg` (DOM/SVG overlay via
   drei `<Html>`). `public/companion.png` is used only by the wind-down nudge.
 - **Brand/PWA:** `public/brand/` (`logo`, `lensy`, `mascots`, `ship`, `doodles`, `un.svg`, `re.svg`), plus
-  `public/logo.svg`, `icon-source.svg`, `icon-192.png`, `icon-512.png`, `apple-icon.png`;
+  `public/brand/swipeed/` (the SwipeEd logo, [SWED-125](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c)), `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`, `apple-icon.png` from `scripts/gen-icons.sh`;
   `src/app/favicon.ico`; `src/components/brand-splash.tsx`; `src/app/manifest.ts`.
 
 **Effort: 🟡 medium** (Lensy is the recurring face; brand is a handful of files).

@@ -1,3 +1,5 @@
+<p align="center"><img src="public/brand/swipeed/logo.svg" width="128" alt="SwipeEd logo"></p>
+
 # SwipeEd
 
 **A learning path for relationships, sexuality and life skills (RSE), from age 3 to parenthood, built by
