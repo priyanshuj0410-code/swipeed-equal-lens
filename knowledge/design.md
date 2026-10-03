@@ -21,6 +21,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e  # SWED-109
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587  # SWED-63
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/baa41435-d56c-487b-ac9b-7557d49c85f5  # SWED-87
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c  # SWED-125
 ---
 
 # SwipeEd design system
@@ -487,3 +488,18 @@ relevant section here before merging, and add the Plane issue that made the chan
 [question bank](schemas/question-bank.md) (content and valence data model),
 [world and art tokens](games/world-art-tokens.md), [interaction model](games/swipeed-interaction-model.md),
 the [design audit of 2026-09-14](audits/design-audit-2026-09-14.md) and the [knowledge base index](README.md).
+
+## SwipeEd logo and app icons ([SWED-125](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c), 2026-10-03)
+
+The official SwipeEd logo is a stack of answer cards with a coral arrow. It comes from The Equal Lens's `Solutions/` folder and is kept in `public/brand/swipeed/`:
+
+| File | Use |
+|---|---|
+| `logo.svg` | The default mark on light surfaces, and the SVG favicon |
+| `logo-on-dark.svg` | Dark mode and the adult chapters: the black-background version without its square, so the dark outline doesn't vanish |
+| `logo-white-bg.svg`, `logo-black-bg.svg` | Square versions for places that need a solid background |
+| `social-preview.png` | GitHub's social preview, 1280 x 640, uploaded by hand in the repo's Settings |
+
+- **In the app:** `Logo` (`src/components/logo.tsx`) shows `logo.svg`, and `logo-on-dark.svg` under the `dark:` variant (`.dark` or `[data-audience="adult"]`). It is used on the splash and the learning path. The Equal Lens's eQ mark stays in `public/brand/logo/` for the organisation's own branding.
+- **App icons:** `scripts/gen-icons.sh` (ImageMagick) builds them all from the logo. That covers `icon-192.png` and `icon-512.png` (transparent), `icon-maskable-512.png` (the logo at 72% on white, so Android's mask never clips it), `apple-icon.png` (opaque, 180 px) and `src/app/favicon.ico` (16, 32 and 48 px). Rerun it whenever the logo changes.
+
