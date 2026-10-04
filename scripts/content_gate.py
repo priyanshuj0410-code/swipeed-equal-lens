@@ -13,6 +13,8 @@ G2, G4, G5, G6, G18). This runs the deterministic checks over the whole bank in 
                  · for games on scripts/forge/lint_clean.json, zero content lints (scripts/forge/lints.py)
   capstones      ≤160 and helplines on every string in the config
   help sheet     helplines in every string of src/content/help.ts
+  catalog        fewer lesson games or capstones than MIN_LESSON_GAMES and MIN_CAPSTONES (SWED-133), so a
+                 missing or emptied games folder fails instead of passing with nothing to check
 
 Ids are unique per game, not across games (the audit found shared prefixes across games are legitimate, A16).
 
@@ -30,6 +32,8 @@ sys.path.insert(0, os.path.join(HERE, "forge"))
 import common as C  # noqa: E402
 import lints as L  # noqa: E402
 
+MIN_LESSON_GAMES = 69     # the catalog on 2026-10-04; raise it when a game ships, lower it only when one is retired
+MIN_CAPSTONES = 8
 MIN_BANK = 300            # every lesson bank holds 396+; far fewer means a truncated or emptied file
 MAX_MECH_SHARE = 0.35     # the same caps forge_check.py enforces at merge
 EASY_VERBS = {"reflect", "role-play"}
@@ -126,6 +130,15 @@ def check_help_sheet(path=HELP_TS):
     return errs
 
 
+def catalog_errors(lessons, capstones):
+    errs = []
+    if lessons < MIN_LESSON_GAMES:
+        errs.append(f"only {lessons} lesson games, expected at least {MIN_LESSON_GAMES}")
+    if capstones < MIN_CAPSTONES:
+        errs.append(f"only {capstones} capstones, expected at least {MIN_CAPSTONES}")
+    return errs
+
+
 def main():
     leads = lead_mechanics()
     clean = set(L.clean_games())
@@ -143,6 +156,9 @@ def main():
             scenarios += n
         if errs:
             failures[base] = errs
+    count_errs = catalog_errors(lessons, capstones)
+    if count_errs:
+        failures["src/content/games"] = count_errs
     help_errs = check_help_sheet()
     if help_errs:
         failures["src/content/help.ts"] = help_errs
