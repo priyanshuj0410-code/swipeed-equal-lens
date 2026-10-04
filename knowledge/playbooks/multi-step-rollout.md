@@ -6,6 +6,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4  # SWED-100
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a211b3dc-b375-4701-ab93-7c8f4d948d6b  # SWED-108
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/02455c6c-fb84-4cc8-a691-58156ea1a13d  # SWED-104
 ---
 
 # Multi-step rollout
@@ -94,8 +95,12 @@ When a "Usage guard:" message appears or the guard is tripped:
 
 1. Stop running workflows and background agents with TaskStop.
 2. `python3 scripts/forge/steps_wave.py mark paused --note "guard: <weekly or session> until <reset time>"`.
-3. Re-arm the scheduled task `swipeed-rollout-resume` with `update_scheduled_task` and a `fireAt` 10 minutes after the
-   reset time the guard reports (ISO 8601 with the +05:30 offset).
+3. Schedule the resume twice. In the session that paused, create a one-time session cron (`CronCreate`, recurring
+   false) 10 minutes after the reset time the guard reports, whose prompt is to resume the rollout from this playbook;
+   it runs with that session's permissions. Also re-arm the scheduled task `swipeed-rollout-resume` with
+   `update_scheduled_task` and a `fireAt` at the same time (ISO 8601 with the +05:30 offset), as the backstop for a
+   session that closes. After a pause, restart the guard watcher (a background loop that waits for
+   `~/.claude/usage-guard/tripped.json`).
 4. Tell the owner (a push notification when unattended) what finished, what is left and when it resumes.
 
 Two local scheduled tasks resume the work (they run while the Claude app is open, or on its next launch):
@@ -108,3 +113,10 @@ Two local scheduled tasks resume the work (they run while the Claude app is open
 Both skip when the state is `waiting-for-owner` or `done`; when it is `running` or `shipping` and
 `steps_wave.py alive` shows a rollout file changed within the last 60 minutes (another session owns the work); or when
 the guard is tripped or a window is at 65% or more.
+
+A routine only resumes unattended if it may run its commands without asking. On 2026-09-30 both routines stopped at
+their first Bash command, waiting for an approval nobody was there to give, and the rollout stayed paused for 12 hours
+until the owner noticed. The owner gives each routine an unattended permission mode in the app (or answers its first
+prompt with "always allow"). A run that `list_task_runs` shows as running, with its last activity a few seconds after
+it started, has stalled this way; resume from a live session and tell the owner. The session cron in step 3 avoids the
+problem while the pausing session stays open.
