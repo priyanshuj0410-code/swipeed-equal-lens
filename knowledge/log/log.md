@@ -55,6 +55,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/73023a9c-e912-4e59-ab0a-b4028cacc7e7  # SWED-84
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9f70534d-efc0-4daf-a265-e3ea21e69687  # SWED-124
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c  # SWED-125
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/3b8d2f41-f968-476f-b8a4-867231ecbe8f  # SWED-127
 ---
 
 # SwipeEd project log
@@ -62,6 +63,11 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-04 · copy: UX copy standard and a whole-app copy audit ([SWED-127](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/3b8d2f41-f968-476f-b8a4-867231ecbe8f))
+- **What.** A [UX copy standard](../playbooks/ux-copy-standard.md) for every string a player or parent sees or hears, and an [audit of the whole app](../audits/ux-copy-audit-2026-10-04.md) against it. Six auditors took one area each and a skeptic re-read every finding against the code; 170 findings held.
+- **Verdict.** The game copy is warm, never makes a player fail and is mostly ready to be spoken. The help it promises is broken: six screens point to a Get Help button that no longer exists, the in-game help pill only speaks, and "It's never your fault" is never spoken to the pre-readers who need it. A small set of lines breaks the child-safety rules (a capstone card that cheers a "maybe" treated as yes, sorts that judge a pressured child, unlimited privacy promises to under-18s, a wrong claim that the Domestic Violence Act covers every gender, "bad feeling" in Chapter 1).
+- **Next.** Five fix tickets: safety copy blockers (SWED-128), help that works on every screen (SWED-129), path myths always shown with their truth (SWED-130), honest Settings (SWED-131), one glossary and no symbols read aloud (SWED-132). The audit's own checks (word counts, a lint for symbols and unlimited privacy promises) belong in the gates.
 
 ## 2026-10-04 · content: Chapter 6 branches and role-plays become multi-step ([SWED-104](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/02455c6c-fb84-4cc8-a691-58156ea1a13d))
 - **What.** All 1391 single-step stories in the nine Chapter 6 games (842 branches, 549 role-plays) are now multi-step: 4718 questions, with 900 stories of 3 steps, 437 of 4 and 54 of 5. Chapter 6 has no single-step branch or role-play left.
