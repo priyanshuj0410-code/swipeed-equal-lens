@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 21 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible), and the game that **opens Chapter 4** (ages 12-15). The puberty-depth + body-image +
-> media-literacy node (Thread A) is now a **509-scenario typed library** (`content/games/body-confident.ts`:
+> media-literacy node (Thread A) is now a **509-scenario typed library** (`content/games/body-confident.json`:
 > changing-body 84 · real-vs-filtered 90 · worth-not-looks 84 · beauty-myths 88 · care-not-fix 77 · when-heavy 86),
 > generated **faithfully** from the scorecard-passed GDD 21 JSON, on the **shared v2 engine**
 > (`components/games/v2-engine.tsx`). The old 5-mode (Fact-or-Filter) build is replaced by **seven typed play

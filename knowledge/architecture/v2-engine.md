@@ -18,6 +18,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9  # SWED-96
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/29cd0a06-a442-4572-8955-29fbd4f5c0e2  # SWED-105
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8ed837-a59d-4d5b-9457-ba32b594c6fe  # SWED-88
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4  # SWED-134
 ---
 
 # SwipeEd v2 engine
@@ -28,17 +29,19 @@ SwipeEd's path has 77 nodes: 69 lesson games (`g01`-`g69`) across 8 age-band cha
 capstones (`c1`-`c8`). Every lesson node renders through one shared component, `V2Game`
 (`src/components/games/v2-engine.tsx:75`), and every capstone renders through a second shared component,
 `RichCapstone` (`src/components/games/capstone-rich.tsx:509`). Both are "mechanic-embodying": a game is not a
-quiz with a skin, it is a typed scenario library (`src/content/games/<id>.ts`) played back through one of ten
+quiz with a skin, it is a typed scenario library (`src/content/games/<id>.json`) played back through one of ten
 play verbs defined in `src/content/games/v2-schema.ts:13` (`reflect`, `role-play`, `strike-rewrite`, `branch`,
 `sort`, `match`, `build`, `explore-label`, `spot`, `swipe`), so the interaction itself is the lesson (drag a
 chip to sort it, scrub a myth to erase it, swipe a flag to read it) rather than a proxy tap on a multiple-choice
 option.
 
-Each of the 69 lesson wrapper components (for example `src/components/games/feelings-friends.tsx`) is a thin,
-mostly-comment file that imports its game's config and renders `<V2Game config={THE_CONFIG} onExit={onExit} />`.
-Each of the 8 capstone wrappers (for example `src/components/games/capstone-1.tsx`) is the same shape around
-`<RichCapstone config={THE_CONFIG} onExit={onExit} />`. Depth lives entirely in content; the two engine files
-plus their shared support files are the whole runtime.
+Content is data and the engine is code ([SWED-134](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4), 2026-10-04). Every game is a JSON data file in
+`src/content/games/` (format in the [question bank](../schemas/question-bank.md) doc), and
+`src/components/games/engine-host.tsx` maps each runtime `gameId` to its file with one of two loaders: `lesson()`
+loads `V2Game` and the game's data together and renders `<V2Game config={...} onExit={onExit} />`, and
+`capstone()` does the same with `RichCapstone`. Both are code-split, so a game's engine and data download only
+when it opens. The 77 per-game wrapper components that used to do this one by one are gone. Depth lives entirely
+in content; the two engine files plus their shared support files are the whole runtime.
 
 This doc covers only the v2 engine (lesson games) and the rich capstone engine (chapter graduations). SwipeEd
 also ships a separate, older "swipe deck" system (`src/lib/use-swipe-game.ts`, `src/lib/use-run-game.ts`,
@@ -119,7 +122,7 @@ capstone wrappers are registered the same way; capstone entries just happen to a
 are a two-line wrapper around `RichCapstone` with a different `config` import).
 
 Adding a game touches, at minimum:
-1. `src/content/games/<id>.ts`: the typed `V2GameConfig` (scenarios, categories, badge, optional `helpLine`).
+1. `src/content/games/<id>.json`: the typed `V2GameConfig` (scenarios, categories, badge, optional `helpLine`).
    `gameId` must equal both the path node's `game` field and the `engine-host.tsx` registry key
    (`v2-schema.ts:60`: "DO NOT RENAME").
 2. `src/components/games/<id>.tsx`: the wrapper, `<V2Game config={...} onExit={onExit} />`.

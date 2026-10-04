@@ -8,6 +8,7 @@ timestamp: 2026-10-04T00:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/bebd5a55-4403-44f5-866f-2a30d6e79f17  # SWED-133
   - https://app.plane.so/claude-pri/projects/00987666-dbc9-4caa-8c8d-004db87e6c11/issues/db4c43c6-0bdb-4dec-a387-338867b35576  # PARITY-84, playbook corrections filed for Nivel
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4  # SWED-134
 ---
 
 # Content stays in git, progress stays on the device
@@ -24,9 +25,16 @@ plane_issues:
 | The gates need the content in git | With the games folder emptied, `content_gate.py` printed "0 lesson games ... pass" and exited 0, and `no_dashes.py` checks only tracked files. Since SWED-133 the content gate fails below the catalog minimum. | `scripts/content_gate.py`, `scripts/no_dashes.py` |
 | A data release check is much weaker than SwipeEd's gates | The playbook's four release checks do not cover the helpline allowlist, band word limits, lints or dedup, and it calls the preview the child-safety review. | [v2 engine](v2-engine.md), `scripts/forge/` |
 | Content is code here | A game ships together with its engine, schema and KB doc in one reviewed branch; the owner's merge is the promote step. | AGENTS.md; commit b228185 (Chapter 6) |
-| Free quotas do not fit the bank | 33,542 scenarios, and `choosing-building.ts` alone is about 700 KB. A quota hit would block every build, including a safety fix. | `src/content/games/` |
+| Free quotas do not fit the bank | 33,542 scenarios, and `choosing-building.json` alone is about 700 KB. A quota hit would block every build, including a safety fix. | `src/content/games/` |
 | A public repo has nothing to hide | Taking content out of the repo would lose a public, diffable record of exactly what children see. | [README](../README.md) |
 | It would be a detour | The engine extraction plan (Owhile) is the planned next step for shared infrastructure. | [v2 engine](v2-engine.md), "engine extraction" |
+
+## Content as data files ([SWED-134](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4), done 2026-10-04)
+
+Every game's content is a JSON data file in `src/content/games/`, loaded on demand by one generic loader in
+`engine-host.tsx` with the engine it runs on. The content gate checks every file on every commit and build, as
+before, and now also checks each config's keys and types, since TypeScript no longer does. See the
+[question bank](../schemas/question-bank.md) doc for the file format.
 
 ## What SwipeEd borrows instead (no database needed)
 

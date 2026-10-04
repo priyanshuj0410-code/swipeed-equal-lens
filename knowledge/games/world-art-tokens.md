@@ -97,7 +97,7 @@ time-of-day behaviour is the wind-down nudge (`src/components/wind-down-nudge.ts
 ## 9. Feedback "juice" (minor)
 - `src/lib/confetti.ts`: `COLORS = ["#62b84b","#e05c52","#4f6ef7","#f5c518"]`.
 - `src/lib/juice.ts`: SFX are **synthesized Web-Audio** (no asset files to swap).
-- Per-game accent hexes are scattered across `src/content/games/*` and each game component's mode-tile ring colours (e.g. `feelings-friends.ts` mood colours), many small touch-points, each trivial (~40 files for full on-palette polish).
+- Per-game accent hexes are scattered across `src/content/games/*` and each game component's mode-tile ring colours (e.g. `feelings-friends.json` mood colours), many small touch-points, each trivial (~40 files for full on-palette polish).
 
 **Effort: 🟢 low each, many.**
 

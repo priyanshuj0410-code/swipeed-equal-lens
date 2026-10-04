@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 04 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The **gender-root** game is a **434-scenario typed library**
-> (`content/games/same-same.ts`: toys-for-all 69 · colours-for-all 74 · anyone-can 75 · strong-gentle 71 ·
+> (`content/games/same-same.json`: toys-for-all 69 · colours-for-all 74 · anyone-can 75 · strong-gentle 71 ·
 > different-wonderful 74 · fair-friends 71) on the **shared v2 engine** (`components/games/v2-engine.tsx`), where a
 > thin wrapper feeds the library + a `V2GameConfig`. Every scenario is one of **seven typed play actions**
 > (reflect · role-play · strike-rewrite · branch · sort · match · build), **0% binary tap**, led by **erasing
@@ -63,6 +63,6 @@ juice (#11), audio-first narration contract (#10), the inclusive builder (#17), 
 
 ## Status & roadmap
 - **Built:** the discover loop (share → friends → different), Lensy, the Friendship Garden, the myth-pop,
-  Make-a-Friend, all three layers; English narration. Content in `src/content/games/same-same.ts`.
+  Make-a-Friend, all three layers; English narration. Content in `src/content/games/same-same.json`.
 - **Deferred (GDD Phase 2/3):** the "Same Inside" **song**, group/Anganwadi mode, a fuller diversity
   matrix & friend album, caregiver guidance, and **Hindi**.

@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 41 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The deeper 6-9 emotional-intelligence node, **completing Chapter 2 to v2**, is a
-> **487-scenario typed library** (`content/games/heart-smart.ts`: complex-feelings 82 · handling-big 81 ·
+> **487-scenario typed library** (`content/games/heart-smart.json`: complex-feelings 82 · handling-big 81 ·
 > empathy 14 · getting-along 85 · kindness-gratitude 78 · heart-toolkit 80), generated **faithfully** from the
 > scorecard-passed GDD JSON, on the **shared v2 engine** (`components/games/v2-engine.tsx`). Every scenario is
 > one of **seven typed play actions** (branch ×109 · reflect ×111 · role-play ×62 · strike-rewrite ×53 · match ×53

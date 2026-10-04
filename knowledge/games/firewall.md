@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 40 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The teen online-safety node (Thread B · Safety, ages 12-15), high-stakes safeguarding
-> handled **calm, never fear-mongering**, is now a **538-scenario typed library** (`content/games/firewall.ts`:
+> handled **calm, never fear-mongering**, is now a **538-scenario typed library** (`content/games/firewall.json`:
 > spot-grooming 99 · think-before-share 91 · sextortion-plan 88 · myths-busted 99 · lock-it-down 75 ·
 > find-help-no-blame 86), generated **faithfully** from the scorecard-passed GDD 40 JSON, on the **shared v2
 > engine** (`components/games/v2-engine.tsx`). The old build is replaced by **seven typed play actions** (branch

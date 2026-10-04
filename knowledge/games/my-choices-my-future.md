@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 29 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The contraception / family-planning / services node (Thread F · SRH, ages 15-18) and the
-> **Chapter 5 opener** is now a **545-scenario typed library** (`content/games/my-choices.ts`: the-full-picture
+> **Chapter 5 opener** is now a **545-scenario typed library** (`content/games/my-choices.json`: the-full-picture
 > 91 · if-when-whether 91 · decide-it 103 · access-and-rights 76 · talk-it-through 94 · my-future-no-pressure 90),
 > generated **faithfully** from the scorecard-passed GDD 29 JSON, on the **shared v2 engine**
 > (`components/games/v2-engine.tsx`). **Seven typed play actions** (branch ×100 · strike-rewrite ×92 · reflect

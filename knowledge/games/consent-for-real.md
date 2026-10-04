@@ -18,7 +18,7 @@ plane_issues:
 > **Reworked to GDD 44 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > **The first Chapter-6 (adult, 18-22) node moved off the [ModesEngine](swipeed-game-patterns.md) onto the
 > shared v2 mechanic engine**. The adult journey now follows the same standard as the child journey. It is a
-> **524-scenario typed library** (`content/games/consent-real.ts`: real-situations 86 · drinks-and-capacity 85 ·
+> **524-scenario typed library** (`content/games/consent-real.json`: real-situations 86 · drinks-and-capacity 85 ·
 > spot-the-pressure 89 · after-harm-support 83 · consent-culture 89 · tools-and-help 92), with seven play actions
 > (branch ×109 · strike-rewrite ×86 · sort ×66 · reflect ×78 · role-play ×67 · spot ×54 · match ×64), **0% binary**,
 > led by branch (your move) + strike-rewrite (bust the myth) + role-play (say the line). **Consent in the messier

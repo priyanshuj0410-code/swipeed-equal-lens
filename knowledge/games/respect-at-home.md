@@ -19,7 +19,7 @@ plane_issues:
 > **The fourth Chapter-7 node and the chapter's highest-safeguarding node: its protective backbone.** It carries
 > the **consent thread into marriage and committed partnership: the place consent is most often assumed away.**
 > *Marriage doesn't cancel consent, and love is never control.* A **518-scenario typed library**
-> (`content/games/respect-at-home.ts`: respect-daily 83 · consent-inside 82 · spot-abuse-control 92 ·
+> (`content/games/respect-at-home.json`: respect-daily 83 · consent-inside 82 · spot-abuse-control 92 ·
 > safety-and-help 86 · never-your-fault 89 · tools-and-help 86), with seven play actions (branch ×86 · strike-rewrite
 > ×92 · sort ×69 · reflect ×76 · role-play ×68 · match ×67 · spot ×60), **0% binary**, led by strike-rewrite (bust
 > the myth) + branch (your move) + role-play (say it). Five modes: **respect daily** (mutual respect & an equal

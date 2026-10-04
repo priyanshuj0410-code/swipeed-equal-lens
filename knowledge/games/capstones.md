@@ -145,7 +145,7 @@ staged/fake online ([Reality Check](reality-check.md)). When all eleven shine, L
 ## Capstone 5: Ready for the World (rich, format v1), the final graduation
 The Chapter 5 (ages 15-18) graduation **and the final graduation of the whole 4-18 journey**. **Reworked to
 the rich [Capstone format v1](#rich-capstone-format-v1)** (replacing the old nine-star tap build), it runs on
-the shared rich engine (`capstone-rich.tsx`) from its Landing config (`content/games/capstone-5.ts`): **arrive
+the shared rich engine (`capstone-rich.tsx`) from its Landing config (`content/games/capstone-5.json`): **arrive
 → look back** (the "Ready for the World" constellation gallery, nine Chapter-5 stickers crowned by the
 whole-journey star) **→ play back** nine victory laps, each a chapter truth re-cued through a *different*
 mechanic: gallery, **swipe** (Mutual: mutual consent; My Choices: what's yours to decide), **spot** (Decoded:
@@ -164,7 +164,7 @@ are **built to their v2/rich standard**.
 ## Capstone 6: Standing on My Own (rich, format v1), the College graduation
 The Chapter 6 (ages 18-22, College) graduation. **Reworked to the rich [Capstone format v1](#rich-capstone-format-v1)**
 (replacing the old nine-star tap build on the simple `capstone-engine.tsx`), it runs on the shared rich engine
-(`capstone-rich.tsx`) from its Landing config (`content/games/capstone-6.ts`): **arrive → look back** (the
+(`capstone-rich.tsx`) from its Landing config (`content/games/capstone-6.json`): **arrive → look back** (the
 "Standing on My Own" constellation gallery, nine Chapter-6 stickers) **→ play back** nine victory laps, each a
 chapter truth re-cued through a *different* mechanic: gallery, **swipe** (My Choices-style affirmations),
 **branch**, **sort**, **strike-rewrite**, **match** (need → help route), **role-play** (Equal & Confident: amplify
@@ -183,7 +183,7 @@ now built to their v2/rich standard.
 ## Capstone 7: A Life, Built (rich, format v1), the Building-a-Life graduation
 The Chapter 7 (ages 22 → first child, "Building a Life") graduation. Built to the rich
 [Capstone format v1](#rich-capstone-format-v1), matching c1-c6 on the shared rich engine (`capstone-rich.tsx`)
-from its Landing config (`content/games/capstone-7.ts`): **arrive → look back** (the "A Life, Built" constellation
+from its Landing config (`content/games/capstone-7.json`): **arrive → look back** (the "A Life, Built" constellation
 gallery, eight Chapter-7 stickers) **→ play back** seven victory laps, each a chapter truth re-cued through a
 *different* mechanic: gallery, **sort** (deep green flag vs surface shine, from g53), **strike-rewrite** (helping
 vs owning, g55), **branch** (believe-and-help a friend, g56), **match** (money setup → purpose, g58), **swipe**
@@ -204,7 +204,7 @@ capstones) are now built to their v2/rich standard; only Chapter 8 (parenthood, 
 ## Capstone 8: Full Circle (rich, format v1), the FINAL graduation, the loop comes full circle
 The Chapter 8 (Parenthood) graduation **and the final capstone of the whole catalog**. Built to the rich
 [Capstone format v1](#rich-capstone-format-v1), matching c1-c7 on the shared rich engine (`capstone-rich.tsx`)
-from its Landing config (`content/games/capstone-8.ts`): **arrive → look back** (the "Full Circle" constellation
+from its Landing config (`content/games/capstone-8.json`): **arrive → look back** (the "Full Circle" constellation
 gallery, nine Chapter-8 stickers) **→ play back** eight victory laps, each a chapter truth re-cued through a
 *different* mechanic: gallery, **strike-rewrite** (a father isn't "babysitting", from g62), **branch** (pause →
 choose firm warmth → repair, g65), **role-play** (g64), **match** (g63/g66), **swipe** (shame drives it

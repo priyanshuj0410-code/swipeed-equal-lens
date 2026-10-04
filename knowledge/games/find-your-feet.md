@@ -19,7 +19,7 @@ plane_issues:
 > **Reworked to GDD 52 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The career/future-anxiety node, completing the College wellbeing cluster (g48, g49, g52) (Thread C · Feelings
 > & Life Skills), **moved off the [ModesEngine](swipeed-game-patterns.md) onto the shared v2 mechanic engine**
-> - a **451-scenario typed library** (`content/games/find-your-feet.ts`: comparison-trap 83 · not-all-sorted 85 ·
+> - a **451-scenario typed library** (`content/games/find-your-feet.json`: comparison-trap 83 · not-all-sorted 85 ·
 > bounce-from-setbacks 78 · worth-beyond-cv 74 · your-path 81 · tools-and-help 50) with seven play actions (branch
 > ×86 · strike-rewrite ×76 · sort ×69 · reflect ×66 · role-play ×52 · match ×55 · spot ×47), **0% binary**, led by
 > branch + strike-rewrite + sort. **Spoiler: no one has it figured out.** Five themes: the comparison trap

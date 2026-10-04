@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 45 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The College dating node (Thread D · Relationships) **moved off the [ModesEngine](swipeed-game-patterns.md)
-> onto the shared v2 mechanic engine**: a **503-scenario typed library** (`content/games/swipe-right.ts`:
+> onto the shared v2 mechanic engine**: a **503-scenario typed library** (`content/games/swipe-right.json`:
 > dating-now 81 · meeting-safely 87 · fakes-and-ghosts 83 · date-with-respect 87 · profiles-are-people 80 ·
 > tools-and-help 85) with seven play actions (branch ×88 · strike-rewrite ×75 · sort ×76 · reflect ×78 ·
 > role-play ×62 · spot ×57 · match ×67), **0% binary**, led by branch + strike-rewrite + role-play. **Dating now

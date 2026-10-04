@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 17 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The gender-stereotype node (and the **strike-and-rewrite (UN/RE) flagship** the strategy
-> names by name) is a **536-scenario typed library** (`content/games/flip-script.ts`: spot-it 94 · jobs-roles 84
+> names by name) is a **536-scenario typed library** (`content/games/flip-script.json`: spot-it 94 · jobs-roles 84
 > · feelings-strength 92 · looks-stuff 85 · flip-it 90 · call-it-out 91), generated **faithfully** from the
 > scorecard-passed GDD JSON, on the **shared v2 engine** (`components/games/v2-engine.tsx`). Every scenario is
 > one of **seven typed play actions** (strike-rewrite ×138 · spot ×89 · reflect ×61 · branch ×66 · role-play ×69 ·

@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 31 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The sexual-consent / legal-age / relationships node (Thread B · Safety, Consent & Boundaries) **at its adult
-> peak** is now a **510-scenario typed library** (`content/games/mutual.ts`: what-consent-is 86 ·
+> peak** is now a **510-scenario typed library** (`content/games/mutual.json`: what-consent-is 86 ·
 > reading-respecting 79 · pressure-coercion 80 · the-mutual-zone 89 · rights-and-law 88 · mutual-respect-equal
 > 88) on the **shared v2 engine**, with seven play actions (reflect ×100 · strike-rewrite ×92 · branch ×92 ·
 > role-play ×68 · sort ×61 · spot ×48 · match ×49), **0% binary**, led by branch (your move) + strike-rewrite

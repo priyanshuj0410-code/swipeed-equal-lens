@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 30 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The STI/HIV testing-&-treatment node (Thread F · SRH, ages 15-18) is now a **506-scenario typed library**
-> (`content/games/status-know-it.ts`: know-your-status 84 · prevention-stack 79 · talk-about-it 88 ·
+> (`content/games/status-know-it.json`: know-your-status 84 · prevention-stack 79 · talk-about-it 88 ·
 > treat-and-thrive 83 · dignity-no-stigma 84 · own-it-decide 88) on the **shared v2 engine**, with seven play
 > actions (strike-rewrite ×92 · branch ×91 · reflect ×86 · sort ×71 · match ×57 · role-play ×61 · spot ×48),
 > **0% binary**, led by strike-rewrite + branch + sort. **Testing is power, not shame**; build a prevention

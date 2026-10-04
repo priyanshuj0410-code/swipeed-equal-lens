@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 26 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The gender-equality **balancing-sim** node (Thread E, ages 12-15) is now a
-> **520-scenario typed library** (`content/games/equalize.ts`: belief-vs-practice 91 · unpaid-load 85 ·
+> **520-scenario typed library** (`content/games/equalize.json`: belief-vs-practice 91 · unpaid-load 85 ·
 > pay-and-power 81 · pays-off 82 · child-marriage 91 · rebalance-it 90), generated **faithfully** from the
 > scorecard-passed GDD 26 JSON, on the **shared v2 engine** (`components/games/v2-engine.tsx`). The old
 > balancing-sim build is replaced by **seven typed play actions** (branch ×110 · strike-rewrite ×93 · sort ×81 ·

@@ -11,7 +11,7 @@ registerHooks({
   resolve: (spec, ctx, next) => next(spec.startsWith("@/") ? new URL(`${spec.slice(2)}.ts`, SRC).href : spec, ctx),
 });
 const { NODES } = await import("../../src/content/path.ts");
-const { GLRL } = await import("../../src/content/games/glrl.ts");
+const { default: GLRL } = await import("../../src/content/games/glrl.json", { with: { type: "json" } });
 const { isNodeUnlocked, makeNodeCompleted, makeGameDone } = await import("../../src/lib/node-unlock.ts");
 
 const node = (id) => NODES.find((n) => n.id === id);

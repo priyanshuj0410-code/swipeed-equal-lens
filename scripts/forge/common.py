@@ -9,12 +9,13 @@ shipped wrong child-safety number.
 
 Allowlist last web-verified 2026-06-24 against india.gov.in/directory/helpline + childlineindia.org.
 """
-import json, os, re
+import glob, json, os, re
 from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 GAMES = os.path.join(REPO, "src", "content", "games")
+GAME_EXT = ".json"  # every game is a JSON data file since SWED-134 (they were TypeScript modules before)
 PATH_TS = os.path.join(REPO, "src", "content", "path.ts")
 
 FIELD_MAX = 160
@@ -246,10 +247,60 @@ BASE_FIELDS = {"id", "type", "cat"}
 def is_scenario_line(ls):
     return ls.startswith("{") and '"id":' in ls and '"type":' in ls
 
+# ── game files: one JSON data file per game (SWED-134) ──────────────────────────────────────────────────────
+# Canonical layout: top-level keys one per line, every list one item per line, scenarios last. One compact
+# scenario per line keeps diffs readable and keeps the line-based tools below working on the bank.
+
+def game_path(stem):
+    return os.path.join(GAMES, stem + GAME_EXT)
+
+def game_files(lessons=True, capstones=True):
+    out = []
+    for f in sorted(glob.glob(os.path.join(GAMES, "*" + GAME_EXT))):
+        cap = os.path.basename(f).startswith("capstone-")
+        if (cap and capstones) or (not cap and lessons):
+            out.append(f)
+    return out
+
+def compact(v):
+    return json.dumps(v, ensure_ascii=False, separators=(",", ":"))
+
+def dump_game(cfg):
+    keys = [k for k in cfg if k != "scenarios"] + (["scenarios"] if "scenarios" in cfg else [])
+    parts = []
+    for k in keys:
+        v = cfg[k]
+        if isinstance(v, list) and v:
+            parts.append(f"  {compact(k)}: [\n" + ",\n".join("    " + compact(x) for x in v) + "\n  ]")
+        else:
+            parts.append(f"  {compact(k)}: {compact(v)}")
+    return "{\n" + ",\n".join(parts) + "\n}\n"
+
+def load_game(path):
+    return json.load(open(path, encoding="utf8"))
+
+def write_game(path, cfg):
+    """Write cfg in the canonical layout, atomically, and refuse if the text would not read back as cfg."""
+    text = dump_game(cfg)
+    if json.loads(text) != cfg:
+        raise ValueError(f"{path}: canonical text does not round-trip")
+    tmp = path + ".write-tmp"
+    open(tmp, "w", encoding="utf8").write(text)
+    os.replace(tmp, path)
+
 def parse_file(path):
     """Return (scenarios, errors). NO bare-except silent skipping: a candidate line that fails to parse or
-    lacks base fields is an ERROR, not a skip. errors = list of (lineno, reason)."""
+    lacks base fields is an ERROR, not a skip. errors = list of (lineno, reason). The file must also load as
+    JSON with the same number of scenarios, so a broken bracket or a scenario off its own line is caught."""
     scns, errors = [], []
+    try:
+        whole = load_game(path)
+        if not isinstance(whole, dict) or not isinstance(whole.get("scenarios"), list):
+            errors.append((0, "game file has no scenarios list"))
+        else:
+            whole_n = len(whole["scenarios"])
+    except ValueError as e:
+        errors.append((0, f"game file is not valid JSON: {e}"))
     for n, raw in enumerate(open(path, encoding="utf8").read().splitlines(), 1):
         ls = raw.strip().rstrip(",")
         if not is_scenario_line(ls):
@@ -264,6 +315,8 @@ def parse_file(path):
             errors.append((n, f"missing base fields {missing}"))
             continue
         scns.append(o)
+    if not errors and len(scns) != whole_n:
+        errors.append((0, f"{whole_n} scenarios in the file but {len(scns)} on their own lines: rewrite it with write_game"))
     return scns, errors
 
 def load_plan(gid):
@@ -329,17 +382,18 @@ def game_to_chapter():
 
 def file_gameid(path):
     """The RUNTIME gameId from a content file's config: may differ from the filename stem (e.g.
-    feelings-friends.ts → gameId 'feelings'). path.ts keys off this runtime id, not the filename."""
+    feelings-friends.json → gameId 'feelings'). path.ts keys off this runtime id, not the filename."""
+    stem = os.path.splitext(os.path.basename(path))[0]
     if not os.path.exists(path):
-        return os.path.basename(path)[:-3]
-    m = re.search(r'gameId:\s*"([^"]+)"', open(path, encoding="utf8").read())
-    return m.group(1) if m else os.path.basename(path)[:-3]
+        return stem
+    m = re.search(r'"gameId":\s*"([^"]+)"', open(path, encoding="utf8").read())
+    return m.group(1) if m else stem
 
 def chapter_of(gid_or_path):
     """Chapter for a game by filename stem OR path: resolves the config gameId first so a file whose name
     differs from its gameId still gets the right chapter (hence the right band ceiling + band-mechanic guard)."""
     g2ch = game_to_chapter()
-    path = gid_or_path if gid_or_path.endswith(".ts") else os.path.join(GAMES, gid_or_path + ".ts")
+    path = gid_or_path if gid_or_path.endswith(GAME_EXT) else game_path(gid_or_path)
     return g2ch.get(file_gameid(path)) if os.path.exists(path) else g2ch.get(gid_or_path)
 
 # ── dedup normalization ─────────────────────────────────────────────────────────────────────────────────────
@@ -706,12 +760,9 @@ def scenario_errors(o, chapter=None, allowed=None, ceil=None, strict_shape=True,
 
 if __name__ == "__main__":
     # self-test: parse the whole bank, report parse errors + run shape (legacy mode) + helpline over it.
-    import glob
     total = 0; perr = 0; herr = 0
-    for f in sorted(glob.glob(os.path.join(GAMES, "*.ts"))):
+    for f in game_files(capstones=False):
         b = os.path.basename(f)
-        if b.startswith("capstone") or "schema" in b:
-            continue
         scns, errors = parse_file(f)
         total += len(scns); perr += len(errors)
         for n, reason in errors:

@@ -18,7 +18,7 @@ plane_issues:
 > **Reworked to GDD 13 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The puberty node (and the **first Chapter 3 node**, where the register turns
 > matter-of-fact, near-peer (Lensy grows up a little) and the play goes **private / solo**) is a
-> **446-scenario typed library** (`content/games/puberty-quest.ts`: whats-puberty 44 · girls-changes 83 ·
+> **446-scenario typed library** (`content/games/puberty-quest.json`: whats-puberty 44 · girls-changes 83 ·
 > boys-changes 93 · body-care-mood 78 · periods-no-shame 66 · where-to-find-out 82), generated **faithfully**
 > from the scorecard-passed GDD JSON, on the **shared v2 engine** (`components/games/v2-engine.tsx`). Every
 > scenario is one of **seven typed play actions** (strike-rewrite ×101 · reflect ×92 · branch ×89 · match ×41 ·

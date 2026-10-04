@@ -18,7 +18,7 @@ plane_issues:
 > **Reworked to GDD 27 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The teen bystander-to-upstander node (Thread B · Safety, ages 12-15), the gender
 > thread's **call to action** on GBV & harassment, is now a **538-scenario typed library**
-> (`content/games/stand-up.ts`: gbv-and-rights 90 · spot-harassment 99 · safety-first 91 · five-ds 87 ·
+> (`content/games/stand-up.json`: gbv-and-rights 90 · spot-harassment 99 · safety-first 91 · five-ds 87 ·
 > after-support 85 · be-the-upstander 86), generated **faithfully** from the scorecard-passed GDD 27 JSON, on
 > the **shared v2 engine** (`components/games/v2-engine.tsx`). The old 5-mode build is replaced by **seven typed
 > play actions** (branch ×121 · reflect ×70 · strike-rewrite ×78 · role-play ×75 · sort ×59 · spot ×87 · match

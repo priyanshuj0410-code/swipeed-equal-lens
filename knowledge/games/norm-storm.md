@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 18 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The social-norms node is a **512-scenario typed library**
-> (`content/games/norm-storm.ts`: what-is-a-norm 85 · helpful-norms 82 · harmful-norms 95 · where-from 82 ·
+> (`content/games/norm-storm.json`: what-is-a-norm 85 · helpful-norms 82 · harmful-norms 95 · where-from 82 ·
 > good-norm-test 79 · question-change 89), generated **faithfully** from the scorecard-passed GDD JSON, on the
 > **shared v2 engine** (`components/games/v2-engine.tsx`). Every scenario is one of **seven typed play actions**
 > (sort ×115 · strike-rewrite ×81 · branch ×72 · reflect ×71 · role-play ×67 · spot ×52 · match ×54; no build),

@@ -15,7 +15,7 @@ plane_issues:
 # Body Lab Juniors
 
 > **Reworked to GDD 06 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
-> and the build bible). The body-science game is a **537-scenario typed library** (`content/games/body-lab.ts`:
+> and the build bible). The body-science game is a **537-scenario typed library** (`content/games/body-lab.json`:
 > how-it-works 98 · same-inside 90 · different-good 84 · grow-change 85 · curiosity 92 · amazing-mine 88) on
 > the **shared v2 engine** (`components/games/v2-engine.tsx`), where a thin wrapper feeds the library + a
 > `V2GameConfig`. Every scenario is one of **eight typed play actions**, **0% binary tap**, led by the **new

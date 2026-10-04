@@ -18,7 +18,7 @@ plane_issues:
 > **Built to GDD 65 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > **The emotional core of the Parent Layer and the deepest [Unlearn→Relearn](swipeed-game-patterns.md) beat in the
 > whole app:** *we parent the way we were parented, until we choose not to.* A **416-scenario typed library**
-> (`content/games/break-the-cycle.ts`: how-you-were-raised 72 · discipline-differently 75 · the-repair 72 ·
+> (`content/games/break-the-cycle.json`: how-you-were-raised 72 · discipline-differently 75 · the-repair 72 ·
 > calm-yourself 49 · heal-your-wounds 74 · tools-and-help 74), with seven play actions (strike-rewrite ×70 · branch ×66
 > · reflect ×64 · role-play ×58 · sort ×56 · match ×54 · spot ×48), **0% binary**, led by strike-rewrite (bust the
 > myth) + branch (your move) + reflect. Six modes: **how you were raised** (gently surface inherited patterns:

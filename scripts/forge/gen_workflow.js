@@ -152,7 +152,7 @@ allocated to this category above every id in the bank. The gate rejects any othe
 shipped id that is not a reshape on the plan's worklist (assembly would otherwise overwrite a live scenario).
 
 1) GROUND: read ${REPO}/.forge/${GID}/GROUNDING.md (authoritative), ${REPO}/src/content/games/v2-schema.ts, and
-   EVERY existing scenario with "cat":"${c.cat}" in ${REPO}/src/content/games/${GID}.ts (match voice; AVOID making
+   EVERY existing scenario with "cat":"${c.cat}" in ${REPO}/src/content/games/${GID}.json (match voice; AVOID making
    near-duplicates of them or of each other).
 ${SHAPES}
 2) GENERATE up to the quota, all cat:"${c.cat}", all at the TARGET shapes above, genuinely DISTINCT (different
@@ -195,7 +195,7 @@ const assembled = await agent(
      python3 scripts/forge/forge_assemble.py --game ${GID} --batch .forge/${GID}/combined.ndjson --apply
 3) Run the BLOCKING merge gate over the whole committed file:
      python3 scripts/forge/forge_check.py --game ${GID}
-   If it FAILS, read the failures, FIX the offending scenarios directly in ${REPO}/src/content/games/${GID}.ts
+   If it FAILS, read the failures, FIX the offending scenarios directly in ${REPO}/src/content/games/${GID}.json
    (every sort must be 6 items + valence, spot 5/2, match 5; ≤160/field; under band ceiling), and re-run until PASS.
    Note: ALL legacy scenarios must now be at target shape too. If the gate flags an un-reshaped legacy sort/match,
    fix it in place.

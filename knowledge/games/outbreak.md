@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 23 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The STI + HIV public-health + anti-stigma node (Thread F · SRH) is now a **522-scenario
-> typed library** (`content/games/outbreak.ts`: how-stis-spread 92 · silent-part 75 · stop-the-spread 92 ·
+> typed library** (`content/games/outbreak.json`: how-stis-spread 92 · silent-part 75 · stop-the-spread 92 ·
 > test-and-treat 85 · bust-myths 92 · end-stigma 86), generated **faithfully** from the scorecard-passed GDD 23
 > JSON, on the **shared v2 engine** (`components/games/v2-engine.tsx`). The old containment-sim build is replaced
 > by **seven typed play actions** (branch ×106 · strike-rewrite ×98 · sort ×84 · reflect ×71 · match ×50 ·

@@ -161,8 +161,8 @@ def lint_fixtures():
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
     import content_gate as G
     tmp = tempfile.mkdtemp()
-    path = os.path.join(tmp, "choosing-building.ts")
-    shutil.copy(os.path.join(C.GAMES, "choosing-building.ts"), path)
+    path = os.path.join(tmp, "choosing-building.json")
+    shutil.copy(C.game_path("choosing-building"), path)
     clean = not any(" lint " in e for e in G.check_lesson(path, G.lead_mechanics(), lint=True)[1])
     text = open(path, encoding="utf8").read()
     open(path, "w", encoding="utf8").write(text.replace('"hook":"', '"hook":"Lensy: ', 1))
@@ -229,11 +229,10 @@ def regrowth_fixtures():
 
     fails = 0
     tmp = tempfile.mkdtemp()
-    game = os.path.join(tmp, "t.ts")
+    game = os.path.join(tmp, "t.json")
     batch = os.path.join(tmp, "batch.ndjson")
     shipped = [dict(VALID_SORT, id="t-001"), dict(VALID_STRIKE, id="t-002"), dict(VALID_REFLECT, id="t-003"), dict(VALID_REFLECT, id="t-004")]
-    body = ("import type { Scenario } from \"./v2-schema\";\n\nconst SCENARIOS: Scenario[] = [\n"
-            + "".join("  " + json.dumps(o) + ",\n" for o in shipped) + "];\n\nexport const T = { scenarios: SCENARIOS };\n")
+    body = C.dump_game({"gameId": "t", "scenarios": shipped})
     plan = {"allowed_mechanics": sorted(C.ALL_MECHANICS), "band_ceiling": None, "chapter": 9, "id_prefix": "t",
             "id_blocks": {"c": [100, 199]}, "reshape_legacy": {"sort": ["t-001"], "spot": [], "match": [], "lint": ["t-004"]},
             "convert": {"reflect:choose": ["t-003"]}}
@@ -249,7 +248,7 @@ def regrowth_fixtures():
         with redirect_stdout(io.StringIO()):
             gate_ok = FC.check_batch(batch, "t", plan=plan, game_path=game)
             try:
-                A.assemble("t", batch, True, ts=game, plan=plan)
+                A.assemble("t", batch, True, path=game, plan=plan)
                 assembled = True
             except SystemExit:
                 assembled = False
@@ -293,12 +292,11 @@ def blind_review_fixtures():
 
     fails = 0
     tmp = tempfile.mkdtemp()
-    game = os.path.join(tmp, "t.ts")
+    game = os.path.join(tmp, "t.json")
     match = {"id": "t-004", "cat": "c", "type": "match", "persona": "any", "source": "s", "relearn": "r", "hook": "Match them.",
              "pairs": [{"left": f"left {i}", "right": f"right {i}"} for i in range(5)]}
     shipped = [dict(VALID_CHOOSE), match, dict(VALID_SORT)]
-    open(game, "w", encoding="utf8").write("import type { Scenario } from \"./v2-schema\";\n\nconst SCENARIOS: Scenario[] = [\n"
-                                           + "".join("  " + json.dumps(o) + ",\n" for o in shipped) + "];\n")
+    open(game, "w", encoding="utf8").write(C.dump_game({"gameId": "t", "scenarios": shipped}))
 
     def result(name, ok):
         nonlocal fails
@@ -334,7 +332,9 @@ def blind_review_fixtures():
 def content_gate_fixtures():
     """The build-time content gate (scripts/content_gate.py, SWED-72) must pass real content and fail each planted
     problem: a wrong helpline in scenario prose, an emptied bank, an over-length reflect option, a broken line, a
-    wrong helpline in a capstone and on the help sheet, and a games folder short of the catalog minimum (SWED-133)."""
+    wrong helpline in a capstone and on the help sheet, a games folder short of the catalog minimum (SWED-133), and
+    a scenario outside the game's categories or a misspelt config key (SWED-134, now that TypeScript no longer
+    checks the data files)."""
     import json, re, shutil, tempfile
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
     import content_gate as G
@@ -342,7 +342,7 @@ def content_gate_fixtures():
     fails = 0
     tmp = tempfile.mkdtemp()
     leads = G.lead_mechanics()
-    src = os.path.join(C.GAMES, "feelings-friends.ts")
+    src = C.game_path("feelings-friends")
     text = open(src, encoding="utf8").read()
     lines = text.splitlines()
     first = next(i for i, l in enumerate(lines) if C.is_scenario_line(l.strip().rstrip(",")))
@@ -357,7 +357,7 @@ def content_gate_fixtures():
 
     def gate(name, body, expect_fail, needle):
         nonlocal fails
-        path = os.path.join(tmp, "feelings-friends.ts")
+        path = os.path.join(tmp, "feelings-friends.json")
         open(path, "w", encoding="utf8").write(body)
         _, errs = G.check_lesson(path, leads)
         passed = any(needle in e for e in errs) if expect_fail else not errs
@@ -373,9 +373,11 @@ def content_gate_fixtures():
     gate("a reflect option over 160 characters", with_line(reflect, lambda o: o["options"].__setitem__(0, "x" * 161)), True, "len:")
     broken = list(lines); broken[first] = broken[first].replace('"cat":', '"cat"', 1)
     gate("a broken scenario line", "\n".join(broken), True, "json.loads failed")
+    gate("a scenario whose cat is not one of the game's categories", with_line(first, lambda o: o.update(cat="no-such-cat")), True, "is not one of the game's categories")
+    gate("a misspelt config key", text.replace('  "greet":', '  "helpline": "Call Childline 1098.",\n  "greet":', 1), True, "unknown key helpline")
 
-    cap = os.path.join(tmp, "capstone-1.ts")
-    ctext = open(os.path.join(C.GAMES, "capstone-1.ts"), encoding="utf8").read()
+    cap = os.path.join(tmp, "capstone-1.json")
+    ctext = open(C.game_path("capstone-1"), encoding="utf8").read()
     open(cap, "w", encoding="utf8").write(ctext)
     ok_cap = not G.check_capstone(cap)
     open(cap, "w", encoding="utf8").write(re.sub(r'"frame":"[^"]*"', '"frame":"Call Childline 100 any time."', ctext, count=1))
@@ -474,8 +476,8 @@ def story_fixtures():
     result("best options and reasons are fact-checked, other options are not", "Choice 1b" in truths and "Reason 2." in truths and "Choice 1a" not in truths)
 
     tmp = tempfile.mkdtemp()
-    game = os.path.join(tmp, "t.ts")
-    open(game, "w", encoding="utf8").write("import type { Scenario } from \"./v2-schema\";\n\nconst SCENARIOS: Scenario[] = [\n  " + json.dumps(VALID_STORY) + ",\n];\n")
+    game = os.path.join(tmp, "t.json")
+    open(game, "w", encoding="utf8").write(C.dump_game({"gameId": "t", "scenarios": [VALID_STORY]}))
     B.make("t", tmp, [], game_path=game, seed=1)
     blind = open(os.path.join(tmp, "blind-story.ndjson"), encoding="utf8").read()
     result("the blind story row hides best and then", '"best"' not in blind and '"then"' not in blind and "Choice 2c" in blind)

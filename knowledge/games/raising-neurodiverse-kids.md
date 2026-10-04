@@ -19,7 +19,7 @@ plane_issues:
 > **The seventh Chapter-8 node, a Parent-Layer pillar and a warm callback to [Same Same, Different](same-same-different.md)
 > (g04): difference is wonderful, grown up for parents.** *It reframes neurodivergence as **difference, not
 > deficiency**, strengths-first and never deficit-shaming.* A **396-scenario typed library**
-> (`content/games/raising-neurodiverse-kids.ts`: understand-your-child 72 · accommodate 14 · advocate 14 ·
+> (`content/games/raising-neurodiverse-kids.json`: understand-your-child 72 · accommodate 14 · advocate 14 ·
 > drop-the-shame 69 · strengths-and-wellbeing 53 · support-and-you 75), with seven play actions (strike-rewrite ×81 ·
 > branch ×61 · sort ×50 · role-play ×61 · match ×46 · reflect ×54 · spot ×43), **0% binary**, led by strike-rewrite
 > (bust the myth) + branch (your move) + sort. Six modes: **understand your child** (the common neurodivergences,

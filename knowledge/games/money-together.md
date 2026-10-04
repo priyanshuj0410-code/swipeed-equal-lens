@@ -18,7 +18,7 @@ plane_issues:
 > **Built to GDD 58 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > **The sixth Chapter-7 node carries the Work & Money domain from [Money & Independence](money-independence.md)
 > (g48) into shared adult life:** *two incomes, one life, and a lot of decisions.* A **453-scenario typed library**
-> (`content/games/money-together.ts`: money-talk 77 · plan-together 73 · stay-independent 75 · fair-not-gendered 76
+> (`content/games/money-together.json`: money-talk 77 · plan-together 73 · stay-independent 75 · fair-not-gendered 76
 > · control-is-abuse 79 · tools-and-help 73), with seven play actions (strike-rewrite ×94 · branch ×76 · reflect ×60 ·
 > sort ×60 · match ×54 · spot ×53 · role-play ×56), **0% binary**, led by branch (your move) + strike-rewrite (bust
 > the myth) + sort. Six modes: **the money talk** (open, early, honest about incomes/debts/goals: *talking money

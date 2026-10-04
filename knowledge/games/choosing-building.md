@@ -25,7 +25,7 @@ plane_issues:
 > **The opener of Chapter 7 (Building a Life, 22 → first child) and the first genuinely-new node built after the
 > Ch.1-6 retrofit**, authored v2-native (no v1 to supersede), on the shared
 > [v2 mechanic engine](swipeed-game-patterns.md), same standard as the rest of the path. A **498-scenario typed
-> library** (`content/games/choosing-building.ts`: choosing-well 76 · what-it-takes 86 · love-and-arranged 78 ·
+> library** (`content/games/choosing-building.json`: choosing-well 76 · what-it-takes 86 · love-and-arranged 78 ·
 > commitment-clearly 91 · starting-strong 85 · tools-and-help 82), with eight play actions (branch ×90 ·
 > strike-rewrite ×79 · sort ×70 · match ×69 · role-play ×62 · spot ×61 · choose ×48 · reflect ×19, since the
 > 2026-09-15 pilot below), **0% binary**, led by branch

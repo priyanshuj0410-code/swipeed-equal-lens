@@ -61,10 +61,10 @@ def labels():
             by_id[g.group(1)] = lab.group(1)
     out = {}
     for f in os.listdir(C.GAMES):
-        if f.endswith(".ts"):
+        if f.endswith(C.GAME_EXT):
             gid = C.file_gameid(os.path.join(C.GAMES, f))
             if gid in by_id:
-                out[f[:-3]] = by_id[gid]
+                out[f[:-len(C.GAME_EXT)]] = by_id[gid]
     return out
 
 
@@ -74,7 +74,7 @@ def chapter_games(chapter):
 
 
 def singles(stem):
-    scns, errors = C.parse_file(os.path.join(C.GAMES, stem + ".ts"))
+    scns, errors = C.parse_file(C.game_path(stem))
     if errors:
         raise SystemExit(f"{stem}: parse errors {errors[:2]}")
     return sorted((o for o in scns if o.get("type") in C.STORY_TYPES and not C.is_story(o)),

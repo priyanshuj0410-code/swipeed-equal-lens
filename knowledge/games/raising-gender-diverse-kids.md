@@ -23,7 +23,7 @@ plane_issues:
 > (g32): dignity-first, never-out, child-safety-centred.** *The evidence is the spine: an affirming, accepting
 > parent is the single biggest protective factor in such a child's wellbeing and safety: **family acceptance
 > roughly halves the odds of suicidal thoughts and attempts** and raises self-esteem and health.* A **437-scenario
-> typed library** (`content/games/raising-gender-diverse-kids.ts`: acceptance-is-protection 74 · understand 14 ·
+> typed library** (`content/games/raising-gender-diverse-kids.json`: acceptance-is-protection 74 · understand 14 ·
 > if-they-come-out 74 · protect-and-affirm 70 · your-own-journey 72 · support-and-india 72), with seven play actions
 > (strike-rewrite ×77 · branch ×68 · reflect ×68 · role-play ×64 · sort ×56 · match ×52 · spot ×52), **0% binary**,
 > led by strike-rewrite (bust the myth) + branch (your move) + role-play (say it). Six modes: **acceptance is

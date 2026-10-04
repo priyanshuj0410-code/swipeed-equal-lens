@@ -18,7 +18,7 @@ plane_issues:
 
 > **Reworked to GDD 32 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The identity / orientation / respect node (Thread D · Relationships) is now a **508-scenario typed library**
-> (`content/games/spectrum.ts`: the-spectrum 91 · myths-and-respect 98 · dignity-for-all 87 · being-you 68 ·
+> (`content/games/spectrum.json`: the-spectrum 91 · myths-and-respect 98 · dignity-for-all 87 · being-you 68 ·
 > stand-against-bullying 79 · support-and-rights 85) on the **shared v2 engine**, with seven play actions (reflect
 > ×126 · branch ×91 · strike-rewrite ×83 · sort ×58 · role-play ×55 · match ×50 · spot ×45), **0% binary**, led by
 > strike-rewrite (bust the myth kindly) + branch (your move) + reflect. Built on **one non-negotiable: respect

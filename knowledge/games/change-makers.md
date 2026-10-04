@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 34 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The campaign / collective-change node (Thread E · Gender & Respect) is now a **512-scenario typed library**
-> (`content/games/change-makers.ts`: find-your-cause 86 · make-the-plan 85 · build-the-movement 86 ·
+> (`content/games/change-makers.json`: find-your-cause 86 · make-the-plan 85 · build-the-movement 86 ·
 > the-law-as-a-tool 83 · make-it-stick 87 · launch-it 85) on the **shared v2 engine**, with seven play actions
 > (branch ×132 · reflect ×84 · sort ×68 · strike-rewrite ×63 · match ×60 · role-play ×57 · spot ×48), **0% binary**,
 > led by branch (your move) + sort + strike-rewrite. **Scales [Lead the Way](lead-the-way.md) (g33) into

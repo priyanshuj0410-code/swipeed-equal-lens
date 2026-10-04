@@ -19,7 +19,7 @@ plane_issues:
 > **The second Chapter-7 node and the deliberate counterpoint to [Choosing & Building](choosing-building.md) (g53)
 > - the equity heart of the chapter:** g53 says "if you build a partnership, build it well and equal"; g54 says
 > **marriage and children are *one* valid path, not the measure of a life or a verdict on your worth.** A
-> **456-scenario typed library** (`content/games/your-path-your-call.ts`: script-and-choice 76 · not-marrying 42 ·
+> **456-scenario typed library** (`content/games/your-path-your-call.json`: script-and-choice 76 · not-marrying 42 ·
 > childfree-complete 82 · hold-your-ground 85 · worth-beyond-status 82 · tools-and-reflection 89), with seven play
 > actions (branch ×86 · strike-rewrite ×75 · sort ×57 · reflect ×65 · role-play ×64 · match ×57 · spot ×52),
 > **0% binary**, led by strike-rewrite (bust the stigma) + branch (your call) + role-play (hold your ground). Five

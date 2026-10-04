@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 14 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The reproduction node is a **502-scenario typed library**
-> (`content/games/amazing-journey.ts`: spark-of-life 83 · growing-a-baby 79 · being-born 80 · many-ways 78 ·
+> (`content/games/amazing-journey.json`: spark-of-life 83 · growing-a-baby 79 · being-born 80 · many-ways 78 ·
 > myths-busted 91 · amazing-and-mine 91), generated **faithfully** from the scorecard-passed GDD JSON, on the
 > **shared v2 engine** (`components/games/v2-engine.tsx`). Every scenario is one of **seven typed play actions**
 > (reflect ×135 · strike-rewrite ×96 · branch ×61 · match ×57 · sort ×48 · build ×51 · role-play ×54), **0% binary

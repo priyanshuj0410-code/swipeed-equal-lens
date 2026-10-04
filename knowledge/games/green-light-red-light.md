@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 24 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible): the **teen flagship** and namesake swipe game (relationships & consent). Now a
-> **517-scenario typed library** (`content/games/glrl.ts`: what-is-consent 103 · **flags 104** (green + red merged) ·
+> **517-scenario typed library** (`content/games/glrl.json`: what-is-consent 103 · **flags 104** (green + red merged) ·
 > read-any 105 · say-and-hear 104 · when-wrong 101), generated **faithfully** from the scorecard-passed GDD 24 JSON,
 > on the **shared v2 engine** (`components/games/v2-engine.tsx`). **Note (2026-06-23):** the original separate
 > `green-flags` / `red-flags` categories were **merged into one mixed `flags` ("Green or red?") category**: with
@@ -59,7 +59,7 @@ table has a "Teen version" column that **is** this game).
 > same shape as every other game**: Lensy header + a progress row + a 2-column **mode grid** (Story · Daily
 > · Quick Play · Boss Rush · Flag-pedia) on the shell body, with Story/Powers as native sub-screens. Only
 > the *run mechanic* stays bespoke: the **roguelike feel is intact**, but the home/chrome no longer differ
-> from the rest. (`components/games/glrl.tsx`. The `/decks` hub and `/play/mythbuster` swipe remain reachable.)
+> from the rest. (`src/content/games/glrl.json` on the shared engine. The `/decks` hub and `/play/mythbuster` swipe remain reachable.)
 
 A fast **swipe**: read a short relationship scenario (friends, crushes, family, online),
 **swipe right = green flag, left = red flag**, then the reveal names the behaviour and explains why.

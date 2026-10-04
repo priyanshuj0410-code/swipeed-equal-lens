@@ -18,7 +18,7 @@ plane_issues:
 
 > **Reworked to GDD 42 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The adult life-skills node (Thread C · Feelings & Life Skills), Chapter 5's penultimate lesson, is now a
-> **509-scenario typed library** (`content/games/life-ready.ts`: know-yourself 88 · decide-like-an-adult 79 ·
+> **509-scenario typed library** (`content/games/life-ready.json`: know-yourself 88 · decide-like-an-adult 79 ·
 > handle-the-big-stuff 84 · people-skills 84 · support-network 83 · life-ready-toolkit 91) on the **shared v2
 > engine**, with seven play actions (reflect ×130 · branch ×110 · strike-rewrite ×66 · sort ×49 · match ×48 · role-play
 > ×58 · spot ×48), **0% binary**, led by branch (your move) + reflect + strike-rewrite. The **culmination of the

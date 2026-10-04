@@ -76,7 +76,7 @@ Converting about 3,300 reflects, rewriting about 1,250 matches and sorts, and gr
 **1c. Match and sort layout** (feedback 2, engine half)
 - Add `derange(order)` next to `shuffle` (`src/content/games/v2-schema.ts:74-75`): the right column never puts a correct pair on the same row as its left, and at most one pair sits in an adjacent row. Use it in `MatchPlay` and `MatchLap`; shuffle the capstone left column too.
 - Shuffle sort bin order in `SortPlay` and `SortLap`, and items in `SortLap`.
-- Key match cells by pair index instead of label text, which fixes SWED-56; also fix its live capstone case (`capstone-3.ts` `c3-p8`, "Helps everyone" twice).
+- Key match cells by pair index instead of label text, which fixes SWED-56; also fix its live capstone case (`capstone-3.json` `c3-p8`, "Helps everyone" twice).
 
 **1d. Swipe foundations** (feedback 4, engine half)
 - Extract a `SwipeCard` core from `SwipePlay` (`v2-engine.tsx:335-401`): cue, two sides, answer, valence styles, nudge text, a done-guard, arrow keys, and two side buttons as the tap and screen-reader floor.

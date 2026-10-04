@@ -19,7 +19,7 @@ plane_issues:
 > **The keystone of the Parent Layer and the hinge of the generational loop:** a parent guided here becomes **the
 > trusted adult the kids' journey always assumed.** The core reframe: *it isn't one dreaded "talk", it's many
 > small, age-right conversations, and you can do them.* A **441-scenario typed library**
-> (`content/games/the-talks.ts`: how-to-talk 75 · early-years 74 · middle-years 72 · the-teen-talks 74 ·
+> (`content/games/the-talks.json`: how-to-talk 75 · early-years 74 · middle-years 72 · the-teen-talks 74 ·
 > facts-and-values 74 · tools-and-help 72), with seven play actions (strike-rewrite ×74 · branch ×67 · role-play ×70 ·
 > sort ×62 · reflect ×58 · match ×58 · spot ×52), **0% binary**, led by **role-play** (say it) + strike-rewrite
 > (bust the myth) + branch (your move). Six modes mapped to the child's journey: **how to talk** (start early, stay

@@ -8,13 +8,13 @@ generated to reach the >=400/game floor with the UPGRADED mechanic shapes:
     match -> 5 pairs        (was 3)
 and a healthy per-sub-topic depth (>= TARGET/ncats per category so a 6-beat session stays fresh on replay).
 
-It is REPORTING-only (no writes) and deterministic: it parses the live .ts banks the same way the engine
+It is REPORTING-only (no writes) and deterministic: it parses the live .json banks the same way the engine
 loads them (one JSON object per line). The generation step consumes its --json output per game.
 
 Usage:
   python3 scripts/bank_spec.py                      # fleet summary table (all 69 games)
-  python3 scripts/bank_spec.py <gameId|file.ts>     # one game, human detail
-  python3 scripts/bank_spec.py <gameId|file.ts> --json   # one game, machine-readable spec for the generator
+  python3 scripts/bank_spec.py <gameId|file.json>     # one game, human detail
+  python3 scripts/bank_spec.py <gameId|file.json> --json   # one game, machine-readable spec for the generator
 """
 import glob, json, os, re, sys, math
 from collections import Counter, defaultdict
@@ -42,7 +42,7 @@ def game_to_chapter():
 
 
 def scenarios_of(path):
-    """Every scenario object in a game .ts (one JSON per line, as the engine loads them)."""
+    """Every scenario object in a game data file (one JSON per line)."""
     out = []
     for line in open(path, encoding="utf8").read().splitlines():
         ls = line.strip().rstrip(",")
@@ -123,10 +123,10 @@ def spec_for(path, g2ch):
 
 
 def resolve(arg):
-    if arg.endswith(".ts"):
+    if arg.endswith(".json"):
         p = arg if os.path.isabs(arg) else os.path.join(GAMES, os.path.basename(arg))
     else:
-        p = os.path.join(GAMES, arg + ".ts")
+        p = os.path.join(GAMES, arg + ".json")
     return p if os.path.exists(p) else None
 
 
@@ -155,9 +155,8 @@ def main():
 
     # fleet table
     rows = []
-    for f in sorted(glob.glob(os.path.join(GAMES, "*.ts"))):
-        b = os.path.basename(f)
-        if b.startswith("capstone") or "schema" in b:
+    for f in sorted(glob.glob(os.path.join(GAMES, "*.json"))):
+        if os.path.basename(f).startswith("capstone"):
             continue
         rows.append(spec_for(f, g2ch))
     tot_gap = sum(r["gap"] for r in rows)
