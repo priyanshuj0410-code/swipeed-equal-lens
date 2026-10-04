@@ -63,6 +63,10 @@ Newest first. Every change that affects a game, the path, the engine or the ques
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
 
+## 2026-10-04 · brand: updated SwipeEd logo ([SWED-125](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c))
+
+The owner updated the SwipeEd logo files, which are now simpler SVGs with rotated cards. `public/brand/swipeed/` and every icon were rebuilt from them. `scripts/gen-icons.sh` now rasterises with headless Chrome, because ImageMagick's SVG reader ignored the rotations and scattered the cards. The dark version is still the black-background file without its square.
+
 ## 2026-10-03 · brand: the SwipeEd logo everywhere ([SWED-125](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c))
 
 The owner's official SwipeEd logo now appears everywhere:
