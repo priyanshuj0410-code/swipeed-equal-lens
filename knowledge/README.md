@@ -36,7 +36,7 @@ knowledge/
   README.md          this index
   design.md          design system
   plane.config.md    Plane workspace, project and state ids; ticket rules
-  architecture/      v2-engine.md (how games run), deployment.md (stack, build, hosting)
+  architecture/      v2-engine.md (how games run), deployment.md (stack, build, hosting), content-and-progress.md (decision)
   schemas/           question-bank.md (bank format, sources, gates, fleet numbers)
   games/             the catalog: one doc per game and capstone, plus the SwipeEd overview docs
   audits/            dated audits: design, question bank, forge pipeline, confidentiality, UX copy
@@ -51,7 +51,7 @@ knowledge/
 |---|---|
 | The app and its world | [SwipeEd](games/swipeed.md) · [path world](games/swipeed-world.md) · [world and art tokens](games/world-art-tokens.md) · [capstones](games/capstones.md) · [life-skills toolkit](games/life-skills-toolkit.md) |
 | Learning design | [core principle: Unlearn, Relearn, Grow](games/swipeed-core-principle.md) · [reusable game patterns](games/swipeed-game-patterns.md) · [interaction model](games/swipeed-interaction-model.md) |
-| Engine and code | [v2 engine](architecture/v2-engine.md) · [stack, build and deployment](architecture/deployment.md) · [extending SwipeEd](games/extending-swipeed.md) |
+| Engine and code | [v2 engine](architecture/v2-engine.md) · [stack, build and deployment](architecture/deployment.md) · [content in git, progress on the device](architecture/content-and-progress.md): why there is no server data layer ([SWED-133](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/bebd5a55-4403-44f5-866f-2a30d6e79f17)) · [extending SwipeEd](games/extending-swipeed.md) |
 | Content | [question bank](schemas/question-bank.md) · [content pipeline (forge)](games/swipeed-content-pipeline.md) · [game doc template](games/_game-template.md) |
 | Games | [games catalog](games/index.md): every game and capstone by chapter |
 | Design | [design system](design.md) · [design audit, 2026-09-14](audits/design-audit-2026-09-14.md) |

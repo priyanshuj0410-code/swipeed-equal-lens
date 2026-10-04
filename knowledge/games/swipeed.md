@@ -12,6 +12,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5f63c3db-0db3-4bb1-ab29-2806c72782cb  # SWED-83
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/73023a9c-e912-4e59-ab0a-b4028cacc7e7  # SWED-84
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/bebd5a55-4403-44f5-866f-2a30d6e79f17  # SWED-133
 ---
 
 # SwipeEd
@@ -30,7 +31,7 @@ it is self-contained: see [current state](#current-state-vs-the-plan)).
 ## Overview
 - **Type:** micro-learning **app** (Sections → Units → lessons on one path), with coins/XP, streaks, levels, spaced review
 - **Status:** live · https://swipeed.vercel.app
-- **Repo:** [github.com/priyanshuj0410-code/swipeed-equal-lens](https://github.com/priyanshuj0410-code/swipeed-equal-lens) (private)
+- **Repo:** [github.com/priyanshuj0410-code/swipeed-equal-lens](https://github.com/priyanshuj0410-code/swipeed-equal-lens) (public)
 - **Stack:** Next.js (App Router) + React + Tailwind v4 + vanilla shadcn + **React-Three-Fiber** (the 3D path) + PWA: see [stack, build and deployment](../architecture/deployment.md) and [design system](../design.md)
 - **Curriculum backbone:** UNESCO ITGSE concepts/topics; WHO Europe (ages 3-6); India: Ayushman Bharat, AEP, POCSO
 - **Audience:** ages 3 → parenthood across eight age-gated chapters (experience shifts parent-led → self-directed → adult)

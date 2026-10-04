@@ -12,6 +12,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543  # SWED-70
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/bebd5a55-4403-44f5-866f-2a30d6e79f17  # SWED-133
 ---
 
 # SwipeEd: Reusable Game Patterns
@@ -62,7 +63,7 @@ a **living doc**: see [keeping it current](#keeping-this-current).
    restraint, never every card. See the [core principle](swipeed-core-principle.md).
 
 10. **Accessibility is non-negotiable.** **Colour is never the only signal** (always icon + label +
-    position); every gesture has a large-button equivalent; text is resizable; **offline PWA**;
+    position); every gesture has a large-button equivalent; text is resizable; installable as a PWA but **not yet offline** (`public/sw.js` is a kill switch; see [content and progress](../architecture/content-and-progress.md));
     anonymous on-device state. **Audio narration** (the youngest, pre-literate games) lives in
     `src/lib/speak.ts` and has a contract: **strip emoji before speaking** (don't read "smiling face"),
     **hold transitions until the line finishes** (`onEnd`, with a length-based fallback when muted), and

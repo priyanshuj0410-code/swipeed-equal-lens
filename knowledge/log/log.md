@@ -56,6 +56,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9f70534d-efc0-4daf-a265-e3ea21e69687  # SWED-124
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c  # SWED-125
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/3b8d2f41-f968-476f-b8a4-867231ecbe8f  # SWED-127
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/bebd5a55-4403-44f5-866f-2a30d6e79f17  # SWED-133
 ---
 
 # SwipeEd project log
@@ -63,6 +64,12 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-04 · architecture: content stays in git, progress stays on the device ([SWED-133](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/bebd5a55-4403-44f5-866f-2a30d6e79f17))
+- **What.** A [decision record](../architecture/content-and-progress.md): SwipeEd does not adopt the Firebase data layer from Nivel's app-data-layers playbook (PARITY-79). Moving progress to a server would create a record of which sensitive games a child finished (DPDP section 9), and taking content out of git would leave the gates checking nothing.
+- **Gate.** `content_gate.py` now fails when there are fewer than 69 lesson games or 8 capstones, so an emptied or missing games folder can no longer pass. Two new fixtures in `test_gates.py`.
+- **KB fixes.** The overview no longer calls the repo private, and the patterns doc and deployment doc no longer claim an offline PWA (`public/sw.js` is a kill switch).
+- **For Nivel.** Implementation verdict "approve with fixes, no blockers"; the fixes and playbook corrections are filed in Nivel's Plane project as PARITY-84.
 
 ## 2026-10-04 · copy: UX copy standard and a whole-app copy audit ([SWED-127](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/3b8d2f41-f968-476f-b8a4-867231ecbe8f))
 - **What.** A [UX copy standard](../playbooks/ux-copy-standard.md) for every string a player or parent sees or hears, and an [audit of the whole app](../audits/ux-copy-audit-2026-10-04.md) against it. Six auditors took one area each and a skeptic re-read every finding against the code; 170 findings held.

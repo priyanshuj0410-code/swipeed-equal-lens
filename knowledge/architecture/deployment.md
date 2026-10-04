@@ -14,6 +14,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a211b3dc-b375-4701-ab93-7c8f4d948d6b  # SWED-108
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d2cb5ce0-217b-49cb-b993-b1f5b592dc0e  # SWED-109
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9b892973-658b-4376-962e-dde7a59e3a60  # SWED-110
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/bebd5a55-4403-44f5-866f-2a30d6e79f17  # SWED-133
 ---
 
 # Stack, build and deployment
@@ -27,7 +28,7 @@ plane_issues:
 | Brand package | `@equal-lens/brand` 0.1.0 from GitHub Packages, published as `@priyanshuj0410-code/equal-lens-brand` and aliased back | `package.json`, `.npmrc` |
 | 3D path | three 0.171, @react-three/fiber 9, @react-three/drei 10 | `src/components/path-scene.tsx` |
 | Games | one shared v2 engine and typed scenario banks | [v2 engine](v2-engine.md), [question bank](../schemas/question-bank.md) |
-| Installable app | web manifest and service worker | `src/app/manifest.ts`, `public/sw.js` |
+| Installable app | web manifest and service worker (a kill switch that clears old caches; no offline mode yet) | `src/app/manifest.ts`, `public/sw.js` |
 | Content tooling | Python 3 scripts (status, path generation, forge gates) | `scripts/` |
 
 `AGENTS.md` warns that this Next.js version has breaking changes from older releases: read the guide in `node_modules/next/dist/docs/` before writing framework code.

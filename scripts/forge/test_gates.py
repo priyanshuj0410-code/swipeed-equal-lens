@@ -334,7 +334,7 @@ def blind_review_fixtures():
 def content_gate_fixtures():
     """The build-time content gate (scripts/content_gate.py, SWED-72) must pass real content and fail each planted
     problem: a wrong helpline in scenario prose, an emptied bank, an over-length reflect option, a broken line, a
-    wrong helpline in a capstone and on the help sheet."""
+    wrong helpline in a capstone and on the help sheet, and a games folder short of the catalog minimum (SWED-133)."""
     import json, re, shutil, tempfile
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
     import content_gate as G
@@ -386,8 +386,11 @@ def content_gate_fixtures():
     ok_help = not G.check_help_sheet(help_path)
     open(help_path, "w", encoding="utf8").write(htext.replace("Call 1098", "Call 1099"))
     bad_help = bool(G.check_help_sheet(help_path))
+    full_catalog = not G.catalog_errors(G.MIN_LESSON_GAMES, G.MIN_CAPSTONES)
+    empty_catalog = len(G.catalog_errors(0, 0)) == 2
     for name, ok in (("the real capstone 1", ok_cap), ("a wrong Childline number in a capstone lap", bad_cap),
-                     ("the real help sheet", ok_help), ("a dialled number off the allowlist on the help sheet", bad_help)):
+                     ("the real help sheet", ok_help), ("a dialled number off the allowlist on the help sheet", bad_help),
+                     ("a full catalog", full_catalog), ("an empty games folder", empty_catalog)):
         if ok:
             print(f"  ✓ content gate right on: {name}")
         else:
