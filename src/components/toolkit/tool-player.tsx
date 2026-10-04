@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { X, Volume2, VolumeX, Wind } from "lucide-react";
 import { Sam } from "@/components/games/sam";
 import { BreathingSpace } from "@/components/toolkit/breathing-space";
+import { HelpLines } from "@/components/toolkit/help-lines";
 import { useProfile } from "@/lib/store";
 import { toolById, toolLevel } from "@/lib/toolkit";
 import { TOOL_GUIDE } from "@/content/toolkit";
@@ -12,7 +13,7 @@ import type { ToolId } from "@/lib/types";
 
 // A guided run of one toolkit tool: Sam hands it over, then each step is tap-to-hear. The Cool-Down
 // "breathe" step opens the Breathing space; the Help Map "helplines" step lists the real services
-// (reused from the global Get Help). Generic over all four tools (content lives in src/content/toolkit.ts).
+// (the same HelpLines rows as the help sheet). Generic over all four tools (content lives in src/content/toolkit.ts).
 export function ToolPlayer({ toolId, onClose }: { toolId: ToolId; onClose: () => void }) {
   const { profile } = useProfile();
   const guide = TOOL_GUIDE[toolId];
@@ -93,7 +94,7 @@ export function ToolPlayer({ toolId, onClose }: { toolId: ToolId; onClose: () =>
                 </button>
               )}
 
-              {/* the actual helpline numbers live in the toolkit's "Get help" view now: not duplicated here */}
+              {s.kind === "helplines" && <HelpLines entryAgeGate={profile.entryAgeGate} />}
             </div>
           ))}
         </div>

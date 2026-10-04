@@ -144,7 +144,7 @@ export function ReflectPlay({ sc, band, safety, ask, say, onSolved, done, help }
         <div className="glass-card flex flex-col gap-1.5 rounded-2xl px-4 py-3.5 text-left">
           <span className="text-[15px] font-bold leading-snug text-foreground">{supportLine(adult)}</span>
           <span className="text-sm font-semibold leading-snug text-foreground/80">
-            {adult ? "Get help at the top of the screen has free, confidential lines you can call." : "You can also tap Get help at the top of the screen."}
+            {adult ? "Get help at the top of the screen has free lines you can call." : "You can also tap Get help at the top of the screen."}
           </span>
         </div>
         {help}
