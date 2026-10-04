@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/02455c6c-fb84-4cc8-a691-58156ea1a13d  # SWED-104
 ---
 
 # Find Your Feet
@@ -51,3 +52,7 @@ of these years in India (the comparison spiral, the placement/exam cooker, worth
 
 ## Related
 - [Reusable Game Patterns](swipeed-game-patterns.md) · [Mind & Belonging](mind-belonging.md) · [Life Ready](life-ready.md) · [Games catalog](index.md)
+
+## Multi-step stories ([SWED-104](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/02455c6c-fb84-4cc8-a691-58156ea1a13d), 2026-10-04)
+
+All 86 branches and 52 role-plays are now 3 to 5 questions on one situation: 104 with 3, 30 with 4 and 4 with 5, 452 questions in all. Each question has 4 or 5 options and one best, revealed at the end. After a write, review and fix pass, a final certification ran up to four rounds of independent reviews: a blind best-option pick, a transition audit, and a safety and fidelity review. Round 1 found 117 blocking problems in this game. The stories the last fix changed were read in full before shipping. Five lines were fixed by hand: two wrong options were made plausible, and two prompts and a follow-up were clarified. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).

@@ -10,6 +10,7 @@ timestamp: 2026-06-22T12:00:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/02455c6c-fb84-4cc8-a691-58156ea1a13d  # SWED-104
 ---
 
 # Consent, For Real
@@ -64,3 +65,7 @@ the **UN → RE** beat used with restraint (#9); survivor-first, "it's never you
 
 ## Related
 - [Reusable Game Patterns](swipeed-game-patterns.md) · [Mutual](mutual.md) (#31) · [Games catalog](index.md) · [SwipeEd](swipeed.md)
+
+## Multi-step stories ([SWED-104](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/02455c6c-fb84-4cc8-a691-58156ea1a13d), 2026-10-04)
+
+All 109 branches and 67 role-plays are now 3 to 5 questions on one situation: 107 with 3, 62 with 4 and 7 with 5, 604 questions in all. Each question has 4 or 5 options and one best, revealed at the end. After a write, review and fix pass, a final certification ran up to four rounds of independent reviews: a blind best-option pick, a transition audit, and a safety and fidelity review. Round 1 found 179 blocking problems in this game. The stories the last fix changed were read in full before shipping. Every story with a safety or fidelity finding in any round, or naming a helpline, was read in full before shipping, and the owner reads the shipped stories on a review page. Five lines were fixed by hand. Two best answers promised unconditional secrecy to a friend who had been assaulted; they now keep it private unless she is in danger, as this game's own cr-1419 teaches. A best answer that kept from Shreya that a man tried to take her home now tells her plainly, without blame. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).
