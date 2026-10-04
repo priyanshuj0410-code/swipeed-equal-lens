@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 20 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The immune-system + infection-myth-busting + HIV anti-stigma node (and the game that
-> **closes Chapter 3**) is now a **514-scenario typed library** (`content/games/defenders.ts`: your-defenders 12 ·
+> **closes Chapter 3**) is now a **514-scenario typed library** (`content/games/defenders.json`: your-defenders 12 ·
 > how-germs-spread 91 · defend-yourself 80 · HIV-basics 12 · spreads-or-not 81 · kindness-not-fear 92),
 > generated **faithfully** from the scorecard-passed GDD 20 JSON, on the **shared v2 engine**
 > (`components/games/v2-engine.tsx`). The old tower-defence build is replaced by **seven typed play actions**

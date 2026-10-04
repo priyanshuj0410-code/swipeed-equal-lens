@@ -63,11 +63,8 @@ def struct_sig(o):
 def load_all():
     g2ch = C.game_to_chapter()
     recs = []
-    for f in sorted(glob.glob(os.path.join(C.GAMES, "*.ts"))):
-        b = os.path.basename(f)
-        if b.startswith("capstone") or "schema" in b:
-            continue
-        gid = b[:-3]
+    for f in C.game_files(capstones=False):
+        gid = os.path.basename(f)[:-len(C.GAME_EXT)]
         scns, _ = C.parse_file(f)
         for o in scns:
             recs.append({

@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 10 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The fairness game in the Gender & Respect thread is a **495-scenario typed library**
-> (`content/games/fair-play.ts`: what-is-fair 81 · chores-shared 73 · fair-opportunity 85 · equal-vs-equity 83
+> (`content/games/fair-play.json`: what-is-fair 81 · chores-shared 73 · fair-opportunity 85 · equal-vs-equity 83
 > · stand-up 83 · fair-everywhere 90), generated **faithfully** from the scorecard-passed GDD JSON, on the
 > **shared v2 engine** (`components/games/v2-engine.tsx`). Every scenario is one of **eight typed play actions**
 > (branch ×123 · reflect ×92 · strike-rewrite ×62 · sort ×66 · role-play ×57 · match ×47 · build ×48 · spot ×3),

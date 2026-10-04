@@ -18,7 +18,7 @@ plane_issues:
 > **Built to GDD 68 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > **The eighth Chapter-8 node: a high-care Parent-Layer pillar.** *The core insight: **shame and punishment drive
 > addiction underground, while calm, connection and the right help bring it into the light.*** A **435-scenario
-> typed library** (`content/games/navigating-addictions.ts`: spot-the-signs 74 · respond-dont-rupture 74 ·
+> typed library** (`content/games/navigating-addictions.json`: spot-the-signs 74 · respond-dont-rupture 74 ·
 > its-a-health-issue 72 · get-the-right-help 66 · screens-and-modelling 74 · tools-and-safety 75), with seven play
 > actions (strike-rewrite ×70 · branch ×68 · role-play ×71 · sort ×64 · match ×52 · reflect ×56 · spot ×54),
 > **0% binary**, led by strike-rewrite (bust the myth) + branch (your move) + role-play (say it). Six modes: **spot

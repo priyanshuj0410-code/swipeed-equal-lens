@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 01 v2: the "mechanic-embodying" standard** (see
 > [pattern #26](swipeed-game-patterns.md) and the build bible). The game is now a **488-scenario typed
-> library** (`content/games/feelings-friends.ts`: name-feelings · all-okay · calm-down · empathy ·
+> library** (`content/games/feelings-friends.json`: name-feelings · all-okay · calm-down · empathy ·
 > big-no-help · my-feelings) running on the **shared v2 engine** (`components/games/v2-engine.tsx`), where a
 > thin wrapper feeds the library + a `V2GameConfig`. Every scenario is one of **seven typed play actions**
 > (reflect · role-play · strike-rewrite · branch · sort · match · build), **0% binary tap**, run as the
@@ -67,7 +67,7 @@ feelings is the first "relearn".
 
 ## Status & roadmap
 - **Built:** all five modes (Mirror Me as pick-a-face), Feelings Family collection + the daily check-in,
-  Lensy's intro, shared juice; English (audio narration). Content in `src/content/games/feelings-friends.ts`.
+  Lensy's intro, shared juice; English (audio narration). Content in `src/content/games/feelings-friends.json`.
 - **Deferred (GDD Phase 2/3):** the live on-device **front-camera** in Mirror Me, **record/playback** in
   the Big No, the **"How Do You Feel?" song**, persisted Family album, the group/Anganwadi mode, a
   caregiver feelings-dashboard, and **Hindi** (with the app-wide l10n pass).

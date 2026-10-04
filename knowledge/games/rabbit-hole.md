@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 43 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The online-misogyny / manosphere node (Thread E/G · Gender & Media, ages 12-15) is now
-> a **519-scenario typed library** (`content/games/rabbit-hole.ts`: the-funnel 92 · follow-the-money 80 ·
+> a **519-scenario typed library** (`content/games/rabbit-hole.json`: the-funnel 92 · follow-the-money 80 ·
 > spot-the-hook 87 · real-strong 82 · have-each-others-backs 94 · the-need-underneath 84), generated
 > **faithfully** from the scorecard-passed GDD 43 JSON, on the **shared v2 engine**
 > (`components/games/v2-engine.tsx`). **Seven typed play actions** (branch ×88 · reflect ×82 · strike-rewrite

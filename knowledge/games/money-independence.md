@@ -18,7 +18,7 @@ plane_issues:
 > **Reworked to GDD 48 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The College "stand on your own feet" node (Thread C · Feelings & Life Skills, Work & Money) **moved off the
 > [ModesEngine](swipeed-game-patterns.md) onto the shared v2 mechanic engine**: a **456-scenario typed
-> library** (`content/games/money-independence.ts`: budget-it 75 · save-and-traps 66 · earn-and-ask 73 ·
+> library** (`content/games/money-independence.json`: budget-it 75 · save-and-traps 66 · earn-and-ask 73 ·
 > money-and-love 80 · money-is-freedom 77 · tools-and-help 85) with seven play actions (branch ×89 · sort ×62 ·
 > strike-rewrite ×74 · reflect ×69 · match ×55 · role-play ×61 · spot ×46), **0% binary**, led by branch + sort +
 > strike-rewrite. **Money isn't just money; it's independence, safety and choices:** budget it (a light sim),

@@ -6,7 +6,7 @@
                                        strict shape, helpline binding, <=160, band, band-mechanic membership,
                                        claim-sniffer). Every non-empty line must be a scenario. Prints
                                        ACCEPT/REJECT + reasons per line.
-  --game <gid>                         the BLOCKING merge gate over the committed <gid>.ts: parse-or-die,
+  --game <gid>                         the BLOCKING merge gate over the committed <gid>.json: parse-or-die,
                                        every per-scenario check (strict shapes), unique ids, mechanic-mix +
                                        share caps, and count vs the planned target (quality-first: a logged
                                        exhaustion at .forge/<gid>/exhaustion.json permits a dip).
@@ -46,7 +46,7 @@ def check_batch(batch_file, gid, plan=None, game_path=None):
     allowed = set(plan["allowed_mechanics"])
     ceil = plan.get("band_ceiling")
     chapter = plan.get("chapter")
-    shipped = {o["id"]: o for o in C.parse_file(game_path or os.path.join(C.GAMES, gid + ".ts"))[0]}
+    shipped = {o["id"]: o for o in C.parse_file(game_path or C.game_path(gid))[0]}
     reshapes, seen = C.reshape_ids(plan), set()
     bad = 0
     for n, raw in enumerate(open(batch_file, encoding="utf8"), 1):
@@ -77,7 +77,7 @@ def check_batch(batch_file, gid, plan=None, game_path=None):
 
 
 def check_game(gid):
-    path = os.path.join(C.GAMES, gid + ".ts")
+    path = C.game_path(gid)
     if not os.path.exists(path):
         raise SystemExit(f"no game file: {gid}")
     plan = C.load_plan(gid)

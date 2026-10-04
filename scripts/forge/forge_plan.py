@@ -39,7 +39,7 @@ def library_index():
 
 
 def plan(game_id, lib_idx, g2ch):
-    path = os.path.join(C.GAMES, game_id + ".ts")
+    path = C.game_path(game_id)
     if not os.path.exists(path):
         raise SystemExit(f"no game file: {game_id}")
     scns, errors = C.parse_file(path)

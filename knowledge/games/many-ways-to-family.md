@@ -18,7 +18,7 @@ plane_issues:
 > **Built to GDD 60 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > **The eighth and final Chapter-7 *lesson* node (before the c7 capstone), the equity node closing the chapter and
 > the counterpart to [If, When & Whether](if-when-whether.md) (g59):** for everyone whose route to parenthood isn't
-> the default biological one. A **441-scenario typed library** (`content/games/many-ways-to-family.ts`:
+> the default biological one. A **441-scenario typed library** (`content/games/many-ways-to-family.json`:
 > every-route-real 75 · the-routes 72 · the-real-path 72 · name-the-barriers 77 · your-family-your-way 71 ·
 > tools-and-help 74), with seven play actions (strike-rewrite ×82 · branch ×68 · match ×61 · reflect ×60 · sort ×60 ·
 > role-play ×58 · spot ×52), **0% binary**, led by strike-rewrite (bust the myth) + match + sort. Six modes: **every

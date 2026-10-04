@@ -18,7 +18,7 @@ plane_issues:
 
 > **Reworked to GDD 22 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The fertility + pregnancy + contraception node (Thread F · SRH) is now a **504-scenario
-> typed library** (`content/games/plan-it.ts`: how-it-happens 81 · bust-myths 93 · ways-to-prevent 83 ·
+> typed library** (`content/games/plan-it.json`: how-it-happens 81 · bust-myths 93 · ways-to-prevent 83 ·
 > delaying-valid 72 · plan-future 99 · facts-help 76), generated **faithfully** from the scorecard-passed GDD 22
 > JSON, on the **shared v2 engine** (`components/games/v2-engine.tsx`). The old life-sim build is replaced by
 > **seven typed play actions** (strike-rewrite ×101 · sort ×67 · reflect ×75 · branch ×80 · role-play ×72 ·

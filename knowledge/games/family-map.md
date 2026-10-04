@@ -19,7 +19,7 @@ plane_issues:
 > **The fifth Chapter-7 node and the full-circle callback to [My Family Garden](my-family-garden.md) (g03):** the
 > child who learned that families come in many shapes is now the adult who, *in India, doesn't just marry a person
 > - they join a family* (and so does their partner). A **447-scenario typed library**
-> (`content/games/family-map.ts`: web-you-join 74 · kind-boundaries 77 · couple-team 74 · respect-both-ways 74 ·
+> (`content/games/family-map.json`: web-you-join 74 · kind-boundaries 77 · couple-team 74 · respect-both-ways 74 ·
 > when-it-turns-harmful 77 · tools-and-help 71), with seven play actions (strike-rewrite ×88 · branch ×84 · reflect
 > ×59 · sort ×58 · match ×56 · spot ×52 · role-play ×50), **0% binary**, led by branch (your move) + strike-rewrite
 > (bust the myth) + sort. Six modes: **the web you join** (map the extended family and your new place: both

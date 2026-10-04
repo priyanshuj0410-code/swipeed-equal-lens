@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 51 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The Chapter-6 closer (Thread G · Values, Rights & Media) **moved off the [ModesEngine](swipeed-game-patterns.md)
-> onto the shared v2 mechanic engine**: a **451-scenario typed library** (`content/games/know-your-rights.ts`:
+> onto the shared v2 mechanic engine**: a **451-scenario typed library** (`content/games/know-your-rights.json`:
 > rights-at-work 78 · harassment-and-posh 74 · renting-and-consumer 71 · cyber-and-data 79 · claim-it 70 ·
 > tools-and-help 79) with seven play actions (branch ×88 · strike-rewrite ×80 · sort ×57 · reflect ×69 · match
 > ×51 · role-play ×54 · spot ×52), **0% binary**, led by branch + strike-rewrite + match (right → route). **Turns

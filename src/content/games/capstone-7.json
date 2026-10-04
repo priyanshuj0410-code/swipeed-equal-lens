@@ -1,0 +1,61 @@
+{
+  "$comment": [
+    "Capstone 7: \"A Life, Built\" (node c7, Chapter 7 graduation, ages 22+, Building a Life). NEW rich build to GDD",
+    "c7 (\"Capstone format v1\"), matching c1, c6, on the shared rich capstone engine (capstone-rich.tsx): its Landing",
+    "config drives arrive -> look back (the \"A Life, Built\" constellation gallery, eight Chapter-7 stickers) -> play",
+    "back (seven victory laps, each a chapter truth re-cued through a different mechanic: gallery -> sort ->",
+    "strike-rewrite -> branch -> match -> swipe -> role-play) -> reflect (five gentle prompts) -> celebrate",
+    "(constellation + an \"A Life, Built\" certificate). Recaps the eight Chapter-7 lessons (Choosing & Building ·",
+    "Your Path, Your Call · Equal Partners · Respect at Home · The Family Map · Money, Together · If, When & Whether ·",
+    "Many Ways to Family). Faithful transforms of a few loosely-specced Landing laps: c7-p3 gained its myth.why,",
+    "c7-p4 (branch) gained per-option consequences + a debrief, c7-p6 (swipe) was reframed from a v2-style",
+    "left/right read into the capstone's swipe-up-to-affirm, and the authored 8th \"reflect\" lap (an unsupported",
+    "CapLap type) folded into the reflect section as a fifth prompt. No score, no fail. gameId \"capstone-7\" (the",
+    "Landing's \"capstone-ch7\" is aspirational; the engine-host registry id is \"capstone-7\")."
+  ],
+  "gameId": "capstone-7",
+  "doneTitle": "🎓 A life, built!",
+  "coins": 50,
+  "capstone": "A Life, Built",
+  "node": "c7",
+  "chapter": 7,
+  "ages": "22+",
+  "arrival": "Lensy: look at what you've built, a partner chosen well or your own path held high, a fair home, your own footing. The turn to 'us', never losing the 'me'.",
+  "canvasPayoff": "The canvas blooms into a warm home, door open: chairs at a shared table, a family of any shape in the window, a path to your own horizon, lit by eight stickers.",
+  "threadsRecapped": [
+    "B",
+    "C",
+    "D",
+    "E",
+    "F"
+  ],
+  "recap": [
+    {"node":"g53","game":"Choosing & Building","thread":"D · Relationships","bigTruth":"You choose a partner on values, respect and how they handle conflict, not just sparks; lasting love is built daily through trust, repair and consent.","glyph":"choosing-building"},
+    {"node":"g54","game":"Your Path, Your Call","thread":"D/E · Relationships · Gender","bigTruth":"Marriage and children are one path, not the measure of a life; single, childfree or partnered, your worth is your own and the timeline is yours to set.","glyph":"your-path"},
+    {"node":"g55","game":"Equal Partners","thread":"E · Gender & Respect","bigTruth":"An equal home shares the whole load, the visible chores and the invisible mental load, and owning your share beats only helping; both partners' careers count.","glyph":"equal-partners"},
+    {"node":"g56","game":"Respect at Home","thread":"B · Safety, Consent & Boundaries","bigTruth":"Consent and respect live inside marriage too; abuse and coercive control are never your fault, and reaching for help is courage, not weakness.","glyph":"respect-home"},
+    {"node":"g57","game":"The Family Map","thread":"D · Relationships","bigTruth":"You join a family, so you set kind boundaries, stand together as a team, and honour elders while keeping your own voice, with help if it ever turns harmful.","glyph":"family-map"},
+    {"node":"g58","game":"Money, Together","thread":"C · Feelings & Life Skills","bigTruth":"Fair money is open and planned, with both partners independent and informed, and controlling a partner's money is abuse, never just a division of labour.","glyph":"money-together"},
+    {"node":"g59","game":"If, When & Whether","thread":"F · Sexual & Reproductive Health","bigTruth":"Whether, when and how many children is yours to decide, free of pressure; fertility facts stay calm, and difficulty conceiving is common and no one's shame.","glyph":"if-when-whether"},
+    {"node":"g60","game":"Many Ways to Family","thread":"F/D · SRH · Relationships","bigTruth":"Family is built in many ways, adoption, ART, solo, queer, blended, all real; you go in informed about the barriers and live your family with pride.","glyph":"many-ways-family"}
+  ],
+  "playback": [
+    {"id":"c7-p1","from":"all","type":"gallery","frame":"Your A Life, Built constellation: eight stickers from a whole chapter of building an adult life, with a partner or on your own terms. Tap any star to revisit.","stickers":["choosing-building","your-path","equal-partners","respect-home","family-map","money-together","if-when-whether","many-ways-family"],"celebrate":"Eight stars in your sky, and a life you are building under them. Look at what you can do."},
+    {"id":"c7-p2","from":"g53","type":"sort","frame":"Remember this? Sort what makes a partner a deep green flag from what is only surface shine.","items":[{"id":"a","text":"Treats people with kindness"},{"id":"b","text":"Looks great in photos"},{"id":"c","text":"Handles conflict calmly"},{"id":"d","text":"An impressive job title"}],"bins":[{"id":"green","label":"Deep green flag"},{"id":"surface","label":"Surface shine"}],"key":{"a":"green","b":"surface","c":"green","d":"surface"},"celebrate":"Still sharp, you read for what lasts, not what dazzles."},
+    {"id":"c7-p3","from":"g55","type":"strike-rewrite","frame":"Remember the flip? Erase the old line and write the truer one.","myth":{"un":"Helping out with chores means I share the home equally.","re":"Owning a share end-to-end, the planning and the remembering, is what equal really means.","why":"Helping waits to be asked; owning means carrying it, the planning and the remembering too."},"celebrate":"You see the invisible load now, and you own your half."},
+    {"id":"c7-p4","from":"g56","type":"branch","frame":"Remember the call? A friend hints that things at home feel controlling and frightening.","options":[{"text":"Believe her, say it's not her fault, and share that help exists","outcome":"supported","best":true,"consequence":"You believe her, refuse blame, and point her to real help."},{"text":"Tell her it's normal and to adjust","consequence":"'Just adjust' leaves her alone with it; believing her and naming that help exists is the supportive move."}],"celebrate":"You lead with belief and help, never blame.","debrief":"Belief, no blame, and a route to help. That's how you show up for someone."},
+    {"id":"c7-p5","from":"g58","type":"match","frame":"Remember the pairs? Match each money tool to the job it does.","pairs":[{"left":"Joint account","right":"Shared bills and goals"},{"left":"Personal accounts","right":"Each partner's independence"},{"left":"The help routes","right":"When money becomes control"}],"celebrate":"Open, planned, both independent, you've got the formula."},
+    {"id":"c7-p6","from":"g59","type":"swipe","frame":"Remember the calm read? Swipe up for the honest, panic-free truth about fertility and age.","cue":"Fertility changes gradually with age, for women and men alike, with no sudden cut-off, and a weaponised clock helps no one.","celebrate":"You keep the facts calm and the clock un-weaponised.","up":"Calm, honest facts, not panic."},
+    {"id":"c7-p7","from":"g60","type":"role-play","frame":"Remember the words? A friend on a non-default path asks how you see their family.","setup":"Affirm them warmly:","yourLine":[{"text":"\"Your family is every bit as real and worthy as anyone's, and I'm here for it.\"","best":true},{"text":"\"It's a bit unusual, isn't it?\""}],"celebrate":"Every family real, every one dignified, you say it without a blink."}
+  ],
+  "reflect": [
+    {"id":"c7-r1","prompt":"Lensy: this chapter was about building a life, with someone or on your own terms. What part of building feels most like yours now?","options":["Choosing well","Keeping it equal","Holding my own","Knowing where help is"],"affirm":"Whatever you named, you are the one building it, and that is a quietly huge thing."},
+    {"id":"c7-r2","prompt":"Lensy: a lot of this chapter was about staying yourself inside an 'us'. Where did that land for you?","options":["I can build us without losing me","I set kinder boundaries now","I share the load fairly","I keep my own footing"],"affirm":"Building a shared life while staying whole is one of the hardest, finest skills there is."},
+    {"id":"c7-r3","prompt":"Lensy: this chapter also said every path is valid, partnered, solo, childfree, many ways to family. How does that freedom sit with you?","options":["Freeing","Mine to choose","No more 'log kya kahenge'","I can breathe"],"affirm":"Your life is yours to design; no single shape was ever the only real one."},
+    {"id":"c7-r4","prompt":"Lensy: and you learned where the lines are, and where help lives, money, consent, safety. What feels different about knowing that?","options":["I can spot what's not okay","I know my rights","I'd reach for help","I feel safer"],"affirm":"Knowing the line and where help lives is what keeps a built life a safe one."},
+    {"id":"c7-r8","prompt":"Lensy: Remember the freedom? One path is one path, not the measure of a life. Which truth from this chapter do you most want to carry forward?","options":["My worth isn't my marital status","An equal home is a happier home","My family, my terms","Help is a strength, not a weakness"],"affirm":"Whatever you carry, you carry it as someone building a life on your own terms."}
+  ],
+  "celebration": {"glyph":"a-life-built-star","certificate":"This certifies you a graduate of Chapter 7: A Life, Built. You choose on values, share the load, keep money fair, live consent at home. Stand tall.","stickerBook":"All eight Chapter 7 stickers now glow in your A Life, Built constellation, crowned by a golden graduation star, every sticker since age 3 shining beneath it."},
+  "preview": "Next, Chapter 8: Parenthood, the final chapter, for those who parent. Raise a child with the equality, consent and warmth you've carried all along.",
+  "share": "Your call: if it feels right, tell someone you trust one thing you're proud of building, a fairer home, a clearer boundary, a choice of your own."
+}

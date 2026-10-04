@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 19 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The bystander-to-upstander node is a **558-scenario typed library**
-> (`content/games/speak-up.ts`: name-the-harm 95 · why-speak-up 91 · five-moves 92 · find-the-words 101 ·
+> (`content/games/speak-up.json`: name-the-harm 95 · why-speak-up 91 · five-moves 92 · find-the-words 101 ·
 > get-help 84 · be-the-upstander 95), generated **faithfully** from the scorecard-passed GDD JSON, on the
 > **shared v2 engine** (`components/games/v2-engine.tsx`). Every scenario is one of **seven typed play actions**
 > (branch ×120 · role-play ×96 · sort ×72 · spot ×79 · reflect ×61 · strike-rewrite ×72 · match ×58; no build),

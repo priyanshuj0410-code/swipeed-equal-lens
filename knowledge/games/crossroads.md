@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 16 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The decision-making node (and the **branching-dilemma flagship** of the whole app) is
-> a **518-scenario typed library** (`content/games/crossroads.ts`: stop-think 80 · see-options 92 ·
+> a **518-scenario typed library** (`content/games/crossroads.json`: stop-think 80 · see-options 92 ·
 > weigh-consequences 86 · decide-with-values 86 · friendship-crossroads 86 · own-your-choice 88), generated
 > **faithfully** from the scorecard-passed GDD JSON, on the **shared v2 engine**
 > (`components/games/v2-engine.tsx`). Every scenario is one of **seven typed play actions** (branch ×136 · reflect

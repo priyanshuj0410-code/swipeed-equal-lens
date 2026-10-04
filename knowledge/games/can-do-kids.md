@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 05 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The aspirations/careers game is a **503-scenario typed library**
-> (`content/games/can-do.ts`: anyone-be 87 · girls-can 88 · boys-can 85 · chores 11 · dream 15 · no-limit 84)
+> (`content/games/can-do.json`: anyone-be 87 · girls-can 88 · boys-can 85 · chores 11 · dream 15 · no-limit 84)
 > on the **shared v2 engine** (`components/games/v2-engine.tsx`), where a thin wrapper feeds the library + a
 > `V2GameConfig`. Every scenario is one of **seven typed play actions** (reflect · role-play · strike-rewrite
 > · branch · sort · match · build), **0% binary tap**, led by **erasing occupational gender myths**
@@ -59,5 +59,5 @@ audio-first contract (#10), the **shared inclusive builder** (#17), India framin
 design: challenges stereotypes, never children, and never says one gender is "better".
 
 ## Status & roadmap
-- **Built:** Lensy, all five modes, the Badge Book, the shared Make-a-Kid builder; English narration. Content in `src/content/games/can-do.ts`.
+- **Built:** Lensy, all five modes, the Badge Book, the shared Make-a-Kid builder; English narration. Content in `src/content/games/can-do.json`.
 - **Deferred (GDD Phase 2/3):** the "Anyone Can!" **song**, group/Anganwadi mode, a fuller role & myth bank, and **Hindi**.

@@ -18,7 +18,7 @@ plane_issues:
 > **Reworked to GDD 50 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The voice/leadership/allyship node (Thread E · Gender & Respect, Leadership & Confidence domain) **moved off the
 > [ModesEngine](swipeed-game-patterns.md) onto the shared v2 mechanic engine**: a **462-scenario typed
-> library** (`content/games/equal-confident.ts`: claim-your-voice 84 · lead-the-room 80 · spot-counter-bias 82 ·
+> library** (`content/games/equal-confident.json`: claim-your-voice 84 · lead-the-room 80 · spot-counter-bias 82 ·
 > be-the-ally 60 · equality-lifts-everyone 78 · tools-and-help 78) with seven play actions (branch ×85 ·
 > strike-rewrite ×71 · sort ×65 · reflect ×71 · role-play ×62 · spot ×58 · match ×50), **0% binary**, led by branch
 > + strike-rewrite + role-play. Takes the teen-years gender-equality & allyship work **into adult arenas where it

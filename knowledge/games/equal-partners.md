@@ -17,7 +17,7 @@ plane_issues:
 
 > **Built to GDD 55 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > **The third Chapter-7 node and the equal-home heart of the chapter:** the most unequal place in most lives is
-> the home. A **468-scenario typed library** (`content/games/equal-partners.ts`: see-the-load 76 ·
+> the home. A **468-scenario typed library** (`content/games/equal-partners.json`: see-the-load 76 ·
 > helping-vs-owning 71 · share-it-fairly 78 · two-careers 79 · keep-it-equal 82 · tools-and-help 82), with seven play
 > actions (branch ×89 · strike-rewrite ×83 · sort ×65 · reflect ×71 · role-play ×60 · match ×55 · spot ×45),
 > **0% binary**, led by branch (your move) + strike-rewrite (bust the myth) + role-play (say it). **The signature

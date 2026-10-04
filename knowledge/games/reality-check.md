@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 28 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The teen media-literacy peak (Thread G · Values, Rights & Media, ages 12-15) is now a
-> **566-scenario typed library** (`content/games/reality-check.ts`: real-vs-reel 99 · manipulation-files 99 ·
+> **566-scenario typed library** (`content/games/reality-check.json`: real-vs-reel 99 · manipulation-files 99 ·
 > media-love-sex 88 · fakes-and-rights 97 · finding-help 96 · think-for-yourself 87), generated **faithfully**
 > from the scorecard-passed GDD 28 JSON, on the **shared v2 engine** (`components/games/v2-engine.tsx`). **Eight
 > typed play actions** (spot ×84 · strike-rewrite ×90 · **swipe ×81** · branch ×80 · reflect ×62 · sort ×57 ·

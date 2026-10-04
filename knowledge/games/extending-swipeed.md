@@ -13,6 +13,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d8a2d7c-843d-4058-964b-83f8181fc21b  # SWED-72
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4  # SWED-69
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4  # SWED-134
 ---
 
 # Extending SwipeEd
@@ -28,14 +29,16 @@ Everything here was traced from real commits and verified against the code.
 
 Real precedent: **g53 "Choosing & Building"** (`a7b4798`): **6 files, +185/−1**.
 
-### The wiring (mechanical, ~20 lines)
-1. `src/content/games/<id>.ts`: the typed library. Largely a **transcription** of the Scenario Library
-   JSON (see below), plus a hand-authored `V2GameConfig` tail (categories, badge, greet, helpLine).
-   `gameId` must equal `node.game` *and* the engine-host key: the schema says **DO NOT RENAME**.
-2. `src/components/games/<id>.tsx`: the wrapper. ~17 lines, most of them comment. No scaffold exists;
-   all 77 are hand-written.
-3. `src/components/games/engine-host.tsx`: one `dynamic(...)` entry. `swipeed_status.py` **blocks the
-   commit** if a v2 game isn't registered here.
+### The wiring (mechanical, a few lines)
+1. `src/content/games/<id>.json`: the game's data file. Largely a **transcription** of the Scenario Library
+   JSON (see below), plus the hand-authored config keys (categories, badge, greet, helpLine). Write it with
+   `common.write_game` so it has the canonical one-scenario-per-line layout. `gameId` must equal `node.game`
+   *and* the engine-host key: **DO NOT RENAME**.
+2. `src/components/games/engine-host.tsx`: one line, `"<gameId>": lesson(() => import("@/content/games/<id>.json")),`
+   (or `capstone(...)`). There are no per-game wrapper components since [SWED-134](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4).
+   `swipeed_status.py` **blocks the commit** if a v2 game isn't registered here.
+3. `scripts/content_gate.py`: raise `MIN_LESSON_GAMES` (or `MIN_CAPSTONES`) by one, so the gate notices if the
+   new game ever goes missing.
 4. `scripts/gen-path.py`: a `GAME` entry and an `EMOJI` entry, then re-run it to regenerate
    `src/content/path.ts`.
 5. `.read-first/<gNN>.json`: via `read_first.py --require` then `--attest`.

@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 38 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The mental-wellbeing game is a **522-scenario typed library**
-> (`content/games/mind-matters.ts`: mind-matters-too 91 · stress-and-pressure 88 · handling-rejection 77 ·
+> (`content/games/mind-matters.json`: mind-matters-too 91 · stress-and-pressure 88 · handling-rejection 77 ·
 > mind-care-toolkit 91 · ask-for-help 91 · be-kind-to-mind 84), generated **faithfully** from the
 > scorecard-passed GDD JSON, on the **shared v2 engine** (`components/games/v2-engine.tsx`). Every scenario is
 > one of **seven typed play actions** (branch ×126 · strike-rewrite ×85 · sort ×64 · reflect ×65 · role-play ×65 ·

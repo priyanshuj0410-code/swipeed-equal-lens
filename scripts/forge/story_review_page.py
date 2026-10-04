@@ -41,7 +41,7 @@ def main():
     stem = a[0]
     out = a[a.index("--out") + 1] if "--out" in a else os.path.join(C.REPO, ".forge", stem, "review-page")
     name = W.labels().get(stem, stem)
-    scns, _ = C.parse_file(os.path.join(C.GAMES, stem + ".ts"))
+    scns, _ = C.parse_file(C.game_path(stem))
     safe = safety_ids(stem)
     stories = []
     for o in scns:

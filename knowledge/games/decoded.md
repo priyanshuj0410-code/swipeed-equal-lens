@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 36 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The media-literacy **FINALE and summit of the 3-18 journey** (Thread G · Values, Rights & Media) is now a
-> **489-scenario typed library** (`content/games/decoded.ts`: decode-the-algorithm 81 · decode-the-influence 75 ·
+> **489-scenario typed library** (`content/games/decoded.json`: decode-the-algorithm 81 · decode-the-influence 75 ·
 > decode-pornography 85 · decode-yourself 80 · the-decoder 82 · grow-the-journey 86) on the **shared v2 engine**,
 > with seven play actions (branch ×87 · strike-rewrite ×86 · reflect ×85 · sort ×67 · spot ×61 · match ×53 · role-play
 > ×50), **0% binary**, led by strike-rewrite (bust the myth) + branch (your move) + spot (catch the manipulation).

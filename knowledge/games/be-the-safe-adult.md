@@ -20,7 +20,7 @@ plane_issues:
 > *entire* kids' journey:** from [My Body, My Rules](my-body-my-rules.md) (g02) onward, every child node tells
 > children to *"tell a trusted adult"*. **This node makes sure that adult exists, notices, and responds right.**
 > *Maximum-care and trauma-informed; direct but never fear-mongering and never graphic.* A **406-scenario typed
-> library** (`content/games/be-the-safe-adult.ts`: be-tellable 74 · spot-the-signs 74 · if-they-tell-you 36 ·
+> library** (`content/games/be-the-safe-adult.json`: be-tellable 74 · spot-the-signs 74 · if-they-tell-you 36 ·
 > the-law-and-the-call 76 · safe-online-and-off 72 · tools-and-respond 74), with seven play actions (strike-rewrite
 > ×70 · role-play ×68 · branch ×63 · sort ×61 · match ×50 · spot ×47 · reflect ×47), **0% binary**, led by
 > strike-rewrite (bust the myth) + role-play (say it) + branch (your move). Six modes: **be tellable** (the biggest

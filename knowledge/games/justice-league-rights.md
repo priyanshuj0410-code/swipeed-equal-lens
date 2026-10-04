@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 35 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The rights-&-redress node (Thread G · Values, Rights & Media) is now a **492-scenario typed library**
-> (`content/games/justice-league.ts`: know-your-rights 90 · know-the-law 73 · get-justice 76 · rights-in-action
+> (`content/games/justice-league.json`: know-your-rights 90 · know-the-law 73 · get-justice 76 · rights-in-action
 > 78 · educational-not-advice 88 · your-rights-toolkit 87) on the **shared v2 engine**, with seven play actions
 > (branch ×91 · reflect ×91 · sort ×62 · match ×65 · strike-rewrite ×75 · spot ×57 · role-play ×51), **0% binary**,
 > led by branch (your move) + match (law → plain meaning) + strike-rewrite (bust the myth). **Empowerment through

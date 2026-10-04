@@ -18,7 +18,7 @@ plane_issues:
 > **Built to GDD 62 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > **The second Chapter-8 node takes the equal-home work of [Equal Partners](equal-partners.md) (g55) into raising
 > children, the stage where gendered defaults snap back hardest.** *Parenting isn't mum's job with dad "helping".*
-> A **446-scenario typed library** (`content/games/equal-parents.ts`: share-the-care 76 · parental-mental-load 68 ·
+> A **446-scenario typed library** (`content/games/equal-parents.json`: share-the-care 76 · parental-mental-load 68 ·
 > involved-dads 77 · kids-are-watching 74 · everyone-gains 74 · tools-and-help 77), with seven play actions
 > (strike-rewrite ×83 · branch ×79 · reflect ×62 · sort ×60 · match ×50 · role-play ×58 · spot ×54), **0% binary**,
 > led by strike-rewrite (bust the myth) + branch (your move) + sort. Six modes: **share the care** (split feeds,

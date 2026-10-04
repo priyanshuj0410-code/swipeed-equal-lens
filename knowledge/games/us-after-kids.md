@@ -18,7 +18,7 @@ plane_issues:
 > **Built to GDD 61 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > **The opener of Chapter 8 (Parenthood), the first node of the final chapter**, and it starts where parenting
 > strains most: **the couple's own relationship, and the self within it.** *A baby changes everything, including
-> you two.* A **438-scenario typed library** (`content/games/us-after-kids.ts`: the-big-shift 76 ·
+> you two.* A **438-scenario typed library** (`content/games/us-after-kids.json`: the-big-shift 76 ·
 > talk-through-tired 76 · share-dont-resent 72 · reconnecting 14 · you-still-matter 74 · tools-and-help 68), with seven
 > play actions (strike-rewrite ×78 · branch ×68 · role-play ×67 · sort ×57 · reflect ×63 · match ×58 · spot ×47),
 > **0% binary**, led by branch (your move) + strike-rewrite (bust the myth) + role-play (say it). Six modes: **the

@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 12 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The early media-literacy game is a **436-scenario typed library**
-> (`content/games/smart-screen.ts`: real-or-pretend 71 · spot-the-ad 67 · is-it-true 71 · screen-choices 74 ·
+> (`content/games/smart-screen.json`: real-or-pretend 71 · spot-the-ad 67 · is-it-true 71 · screen-choices 74 ·
 > screen-hygiene 74 · caring-online 79), generated **faithfully** from the scorecard-passed GDD JSON, on the
 > **shared v2 engine** (`components/games/v2-engine.tsx`). Every scenario is one of **seven typed play actions**
 > (branch ×115 · reflect ×91 · strike-rewrite ×76 · sort ×57 · spot ×7 · role-play ×48 · build ×49), **0% binary

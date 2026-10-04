@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 33 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The structural-equality → leadership node (Thread E · Gender & Respect) is now a **531-scenario typed library**
-> (`content/games/lead-the-way.ts`: the-gaps 91 · what-allyship-is 86 · lead-by-example 90 · lift-as-you-climb
+> (`content/games/lead-the-way.json`: the-gaps 91 · what-allyship-is 86 · lead-by-example 90 · lift-as-you-climb
 > 91 · call-in-not-out 72 · your-leadership-style 101) on the **shared v2 engine**, with seven play actions (reflect
 > ×126 · branch ×114 · strike-rewrite ×81 · sort ×56 · role-play ×65 · match ×44 · spot ×45), **0% binary**, led by
 > branch (your move) + strike-rewrite (bust the myth) + reflect. **You don't need a title or a megaphone to

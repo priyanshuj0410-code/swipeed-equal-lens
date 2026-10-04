@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 07 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The **root of the gender thread** (UNESCO 3.1) is a **501-scenario typed library**
-> (`content/games/what-makes-me.ts`: parts-of-me 85 · sex-and-gender 80 · not-what-you-like 85 · many-ways 83
+> (`content/games/what-makes-me.json`: parts-of-me 85 · sex-and-gender 80 · not-what-you-like 85 · many-ways 83
 > · respect-me 82 · be-yourself 86), generated **byte-identical** from the scorecard-passed GDD JSON, on the
 > **shared v2 engine** (`components/games/v2-engine.tsx`). Every scenario is one of **seven typed play actions**
 > (reflect ×98 · strike-rewrite ×92 · role-play ×72 · branch ×69 · sort ×55 · match ×58 · build ×57), **0% binary

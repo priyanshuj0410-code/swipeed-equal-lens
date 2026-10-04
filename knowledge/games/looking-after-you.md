@@ -20,7 +20,7 @@ plane_issues:
 > **Built to GDD 63 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > **The third Chapter-8 node: the parent's-own-wellbeing node and a high-care one** (the node
 > [Us, After Kids](us-after-kids.md) g61 and [Equal Parents](equal-parents.md) g62 route parental burnout to):
-> *you can't pour from an empty cup.* A **397-scenario typed library** (`content/games/looking-after-you.ts`:
+> *you can't pour from an empty cup.* A **397-scenario typed library** (`content/games/looking-after-you.json`:
 > empty-cup 41 · your-needs-count 72 · baby-blues-and-beyond 77 · reach-out 72 · healthy-coping 67 · tools-and-help
 > 68), with seven play actions (strike-rewrite ×81 · branch ×61 · reflect ×55 · sort ×52 · role-play ×54 · match ×49 ·
 > spot ×45), **0% binary**, led by strike-rewrite (bust the myth) + branch (your move) + reflect. Six modes: **the

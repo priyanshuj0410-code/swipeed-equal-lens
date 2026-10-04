@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 39 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The resilience + stress + teen-mental-health node (Thread C) is now a **518-scenario
-> typed library** (`content/games/bounce.ts`: what-resilience 84 · reframe-setback 89 · bounce-toolkit 89 ·
+> typed library** (`content/games/bounce.json`: what-resilience 84 · reframe-setback 89 · bounce-toolkit 89 ·
 > exam-pressure 85 · support-friend 87 · reach-out 84), generated **faithfully** from the scorecard-passed
 > GDD 39 JSON, on the **shared v2 engine** (`components/games/v2-engine.tsx`). The old 5-mode (UN & RE) build is
 > replaced by **seven typed play actions** (branch ×99 · strike-rewrite ×100 · reflect ×72 · sort ×53 ·

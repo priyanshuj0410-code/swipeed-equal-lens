@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """SwipeEd build status: the SINGLE SOURCE OF TRUTH for the path, each node's v2 build status, and the NEXT
 node to build. Derived from scripts/master-node-table.xlsx (the master node table: step 0 of the read-first
-hard rule) + the gen-path GAME map + the actual src/content/games/*.ts files.
+hard rule) + the gen-path GAME map + the actual src/content/games/*.json files.
 
 DO NOT state build progress or "the next node" from memory: run this. It exists because that exact mistake
 was made (claiming Chapter 2 was done / the next node was g13, when the table said g09 → g41).
@@ -56,14 +56,15 @@ def load_nodes():
 
 def v2_gids():
     """The set of runtime gameIds that are BUILT to v2: found by reading each content file's own
-    `gameId: "..."` (robust to filename ≠ gameId, e.g. feelings-friends.ts → gameId 'feelings')."""
+    `"gameId"` (robust to filename ≠ gameId, e.g. feelings-friends.json → gameId 'feelings'). Every lesson data
+    file with a scenarios list runs on the v2 engine (SWED-134)."""
     out = set()
     if not CONTENT.exists():
         return out
-    for f in CONTENT.glob("*.ts"):
+    for f in CONTENT.glob("*.json"):
         t = f.read_text()
-        if "v2-schema" in t and "V2GameConfig" in t:
-            m = re.search(r'gameId:\s*"([^"]+)"', t)
+        if '"scenarios": [' in t:
+            m = re.search(r'"gameId":\s*"([^"]+)"', t)
             if m:
                 out.add(m.group(1))
     return out
@@ -71,7 +72,7 @@ def v2_gids():
 
 def is_registered(gid, eh):
     """engine-host keys may be quoted ("clean-crew":) or unquoted (feelings:), match either."""
-    return bool(gid) and (f'"{gid}"' in eh or re.search(rf'(?<![\w-]){re.escape(gid)}\s*:\s*dynamic', eh) is not None)
+    return bool(gid) and (f'"{gid}"' in eh or re.search(rf'(?<![\w-]){re.escape(gid)}\s*:\s*(?:lesson|capstone)\(', eh) is not None)
 
 
 def compute():
@@ -87,7 +88,7 @@ def compute():
             n["status"] = "capstone"
         elif gid in v2:
             n["status"] = "v2"
-        elif gid and (n["registered"] or any((CONTENT / f"{gid}.ts").exists() for _ in [0])):
+        elif gid and (n["registered"] or (CONTENT / f"{gid}.json").exists()):
             n["status"] = "v1"
         else:
             n["status"] = "unbuilt"

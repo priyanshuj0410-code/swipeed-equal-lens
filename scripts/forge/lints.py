@@ -223,7 +223,7 @@ def main():
         raise SystemExit("usage: lints.py <game file stem>... [--review]")
     total = 0
     for gid in args:
-        scns, errors = C.parse_file(os.path.join(C.GAMES, gid + ".ts"))
+        scns, errors = C.parse_file(C.game_path(gid))
         if errors:
             raise SystemExit(f"{gid}: parse errors {errors[:3]}")
         found = [(o["id"], f) for o in scns for f in content_lints(o)]

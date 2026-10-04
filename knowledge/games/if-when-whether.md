@@ -20,7 +20,7 @@ plane_issues:
 > **The seventh Chapter-7 node, the reproductive-decision heart of the chapter and the adult version of
 > [My Choices, My Future](my-choices-my-future.md) (g29):** *whether to have children, when, and how many, made
 > with real knowledge, together, and free of pressure in **any** direction.* A **434-scenario typed library**
-> (`content/games/if-when-whether.ts`: whether-and-why 72 · fertility-for-real 75 · when-and-spacing 66 · if-its-hard
+> (`content/games/if-when-whether.json`: whether-and-why 72 · fertility-for-real 75 · when-and-spacing 66 · if-its-hard
 > 77 · free-of-pressure 75 · tools-and-help 69), with seven play actions (strike-rewrite ×100 · branch ×64 · reflect ×60
 > · sort ×51 · match ×51 · role-play ×58 · spot ×50), **0% binary**, led by strike-rewrite (bust the myth) + branch
 > (your move) + sort. Six modes: **whether & why** (children are an if/when/whether *choice*, not the assumed

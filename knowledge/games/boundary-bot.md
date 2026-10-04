@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 15 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The consent-and-boundaries node is a **486-scenario typed library**
-> (`content/games/boundary-bot.ts`: my-boundaries 78 · consent-mutual 84 · respect-others 80 · peer-pressure 80
+> (`content/games/boundary-bot.json`: my-boundaries 78 · consent-mutual 84 · respect-others 80 · peer-pressure 80
 > · online-boundaries 83 · crossed-support 81), generated **faithfully** from the scorecard-passed GDD JSON, on
 > the **shared v2 engine** (`components/games/v2-engine.tsx`). Every scenario is one of **seven typed play
 > actions** (branch ×108 · reflect ×91 · strike-rewrite ×80 · role-play ×62 · sort ×50 · spot ×47 · build ×48),

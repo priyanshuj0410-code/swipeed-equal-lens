@@ -15,7 +15,7 @@ plane_issues:
 # My Family Garden
 
 > **Reworked to GDD 03 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
-> and the build bible). The game is a **466-scenario typed library** (`content/games/family-garden.ts`:
+> and the build bible). The game is a **466-scenario typed library** (`content/games/family-garden.json`:
 > what-is-family 79 · family-shapes 80 · made-of-love 76 · all-real-good 79 · helping-belonging 71 ·
 > my-family 81) on the **shared v2 engine** (`components/games/v2-engine.tsx`), where a thin wrapper feeds the
 > library + a `V2GameConfig`. Every scenario is one of **seven typed play actions** (reflect · role-play ·
@@ -59,7 +59,7 @@ It opens the **Relationships** thread that deepens to Friend or Frenemy? → Cro
 
 ## Status & roadmap
 - **Built:** all five modes, the inclusive family-builder, the blooming Kindness Garden, Lensy reused;
-  English (audio narration). Content in `src/content/games/family-garden.ts`.
+  English (audio narration). Content in `src/content/games/family-garden.json`.
 - **Deferred (GDD Phase 2/3):** the "Love Is Caring" **song**, persisted family album + garden, group/
   Anganwadi mode, festival packs, a fuller family & scene bank, and **Hindi** (app-wide l10n pass).
 

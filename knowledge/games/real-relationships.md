@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 46 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The relationship heart of College (Thread D · Relationships) **moved off the [ModesEngine](swipeed-game-patterns.md)
-> onto the shared v2 mechanic engine**: a **503-scenario typed library** (`content/games/real-relationships.ts`:
+> onto the shared v2 mechanic engine**: a **503-scenario typed library** (`content/games/real-relationships.json`:
 > what-healthy-looks-like 84 · fight-right 84 · red-flags-grown-up 87 · leaving-safely 82 · breakups 13 ·
 > tools-and-help 90) with seven play actions (branch ×101 · sort ×74 · strike-rewrite ×76 · reflect ×78 ·
 > role-play ×61 · spot ×57 · match ×56), **0% binary**, led by branch + sort + strike-rewrite. **Good relationships

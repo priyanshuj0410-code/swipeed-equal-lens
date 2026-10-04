@@ -25,13 +25,14 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330  # SWED-102
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4b84c004-94c4-4487-9515-e467b32178ae  # SWED-64
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/20fb7ebd-51ba-4778-9b3c-77806ab99a70  # SWED-123
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4  # SWED-134
 ---
 
 # SwipeEd question bank
 
 ## Overview
 
-SwipeEd is not a quiz app. Its "question bank" is really a **typed scenario library**: for each of the 77 nodes on the learning path, one file under `src/content/games/<id>.ts` exports a typed array of scenario objects, each one an instance of one of ten play verbs (reflect, role-play, strike-rewrite, branch, sort, match, build, explore-label, spot, swipe). One shared v2 engine renders all ten, so the "question" is never a bare multiple-choice card; the mechanic itself is the lesson (rewrite the myth, catch the red flag, say the line).
+SwipeEd is not a quiz app. Its "question bank" is really a **typed scenario library**: for each of the 77 nodes on the learning path, one JSON data file under `src/content/games/<id>.json` holds an array of scenario objects, each one an instance of one of ten play verbs (reflect, role-play, strike-rewrite, branch, sort, match, build, explore-label, spot, swipe). One shared v2 engine renders all ten, so the "question" is never a bare multiple-choice card; the mechanic itself is the lesson (rewrite the myth, catch the red flag, say the line).
 
 The path is 77 nodes: 69 lesson games across 8 developmental chapters (ages 3 to parenthood) plus 8 chapter-closing capstones. Every lesson bank was grown by the "forge" content pipeline (`scripts/forge/`) from an original hand-authored library of roughly 84 scenarios toward a 400-per-game floor, at upgraded mechanic shapes (6-item sorts, 5-item/2-trick spots, 5-pair matches). The fleet finished 69/69 on 2026-06-29. As of 2026-09-14 the live fleet holds **33,542 lesson scenarios** across the 69 games plus **70 victory laps** across the 8 capstones (see Fleet numbers below for the full breakdown and the method used to count it).
 
@@ -62,15 +63,17 @@ Two parallel chains feed the live app: the **path** (which nodes exist, in what 
 | 4 | `.forge/<gameId>/GROUNDING.md` | **No** (gitignored). A grounding agent reads the plan, the GDD, the Scenario Library, the chapter personas and `v2-schema.ts`, then writes this: game purpose, exact age band, per-category teaching intent with 6-10 GDD-cited truth anchors, the persona voice roster, the **exact helpline string** for that game, and banned framings. |
 | 5 | `.forge/<gameId>/gen/<category>.ndjson` | **No** (gitignored). One generation agent per category writes newline-delimited JSON, one scenario object per line, self-validating against `forge_check.py --batch ... --game <gameId>` until it reports "0 rejected". New ids must sit in the category's block; a shipped id may appear only as a reshape on the worklist. Lines carry pipeline sidecar keys (`_evidence`, `_anchor`, `needsFact`). |
 | 6 | `.forge/<gameId>/combined.ndjson` | **No** (gitignored). The concatenation of every `gen/*.ndjson` for that game (`cat .forge/<gameId>/gen/*.ndjson > .forge/<gameId>/combined.ndjson`). |
-| 7 | `src/content/games/<gameId>.ts` | **Yes.** `forge_assemble.py --game <gameId> --batch combined.ndjson --apply` strips the sidecar keys and merges: a reshape (an id on the plan's worklist, same type and category, or a reflect on `convert["reflect:choose"]` becoming a choose) replaces its line in place; a new id is inserted just before the `SCENARIOS` array's closing `];`. It refuses the whole batch if any line is not a scenario, an id repeats, an id would overwrite a shipped scenario that is not on the worklist, a reshape changes type or category, or a new id is outside its block. The merge is written to a temp file, re-parsed, its count asserted, then moved over the game file, so a failure leaves the game untouched. |
+| 7 | `src/content/games/<gameId>.json` | **Yes.** `forge_assemble.py --game <gameId> --batch combined.ndjson --apply` strips the sidecar keys and merges: a reshape (an id on the plan's worklist, same type and category, or a reflect on `convert["reflect:choose"]` becoming a choose) replaces its line in place; a new id is appended to the end of the file's `scenarios` list. It refuses the whole batch if any line is not a scenario, an id repeats, an id would overwrite a shipped scenario that is not on the worklist, a reshape changes type or category, or a new id is outside its block. The merge is written to a temp file, re-parsed, its count asserted, then moved over the game file, so a failure leaves the game untouched. |
 | 8 | `.forge/<gameId>/exhaustion.json` | **No** (gitignored). Written only if a game lands under 400: `{"count", "target", "reason"}`, the one logged, deliberate exception to the floor. Two exist today (see Fleet numbers). |
 | 9 | `.read-first/<gXX>.json` | **Yes**, tracked. A hash-pinned attestation (doc paths + sha256 + byte size) that the 5 read-first docs were read before a **new** v2 build. |
 
-**What is hand-authored vs generated, inside one shipped `.ts` file.** The `SCENARIOS: Scenario[]` array body (the part between `const SCENARIOS: Scenario[] = [` and the matching `];`) is machine-written: either transcribed from the original Scenario Library JSON or produced/reshaped by forge. The trailing `V2GameConfig` object (`gameId`, `title`, `greet`, `scenarios: SCENARIOS`, `categories`, `badge`, `helpLine`, `helpLabel`, `reassure`, `reassureCats`) is hand-authored once per game and is outside the span `forge_assemble.py` ever touches.
+**The game data file (since [SWED-134](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4), 2026-10-04).** Each game is one JSON file in a fixed layout: top-level keys one per line, every list one item per line, and `scenarios` last, so each scenario sits on its own line as one compact JSON object (`common.dump_game` writes it, `common.write_game` writes it atomically and refuses text that does not read back). Diffs stay one line per changed scenario, and the line-based tools (`parse_file`, which also checks that the whole file loads as JSON with the same count) keep working. `"$comment"` holds the notes that used to be the file's header comment; the app never reads it. Until 2026-10-04 each game was a TypeScript module (`const SCENARIOS: Scenario[] = [...]` plus an exported `V2GameConfig`); the conversion was checked by evaluating every old module and comparing it with the new file, so the data is identical. TypeScript no longer type-checks the content, so `content_gate.py` checks the config instead: exactly the keys `V2GameConfig` or `CapstoneConfig` define, with their types, and every scenario's `cat` one of the game's categories.
 
-**What is gitignored and regenerable, and its real limit.** The whole `.forge/` tree, plus one-off working files that show up inside it (for example `.forge/my-body/overflow.json`, a leftover list of over-length scenario ids from a message-length trim pass), is disposable in principle: it can be regenerated from `Strategy/` plus the live `.ts`. In practice it is **not kept in sync** after the merge gate forces a hand-fix directly in the shipped `.ts`: the assemble step's own workflow instructions say to fix failures "directly in `src/content/games/<gameId>.ts`" (gen_workflow.js:162) with no step that writes the fix back into `.forge/`. This single fact is the root cause of both SWED-53 and SWED-54 below: `.forge/` is a point-in-time generation log, not a live mirror of the shipped bank.
+**What is hand-authored vs generated, inside one game file.** The `scenarios` list is machine-written: either transcribed from the original Scenario Library JSON or produced or reshaped by forge. The config keys above it (`gameId`, `title`, `greet`, `categories`, `badge`, `helpLine`, `helpLabel`, `reassure`, `reassureCats`) are hand-authored once per game, and `forge_assemble.py` never touches them.
 
-Capstones (`src/content/games/capstone-1.ts` ... `capstone-8.ts`) are **not** part of the forge pipeline at all: there is no `.forge/capstone-*` directory. Each is authored directly from its `SwipeEd - Capstone c<N> <Title> - Landing.json` design source under `Strategy/`, faithfully transcribed into `capstone-schema.ts`'s `CapstoneConfig` shape. `capstone-1.ts` through `capstone-4.ts` are written one lap object per line (matching the lesson-bank style); `capstone-5.ts` through `capstone-8.ts` are written pretty-printed, multi-line per object. Both are valid, equivalent JSON, just reflowed differently: a reader (or a script) parsing "one JSON object per line" alone will silently undercount `capstone-5` to `capstone-8`, which is why the fleet-counting method below balance-matches braces instead.
+**What is gitignored and regenerable, and its real limit.** The whole `.forge/` tree, plus one-off working files that show up inside it (for example `.forge/my-body/overflow.json`, a leftover list of over-length scenario ids from a message-length trim pass), is disposable in principle: it can be regenerated from `Strategy/` plus the live `.ts`. In practice it is **not kept in sync** after the merge gate forces a hand-fix directly in the shipped `.ts`: the assemble step's own workflow instructions say to fix failures "directly in `src/content/games/<gameId>.json`" (gen_workflow.js:162) with no step that writes the fix back into `.forge/`. This single fact is the root cause of both SWED-53 and SWED-54 below: `.forge/` is a point-in-time generation log, not a live mirror of the shipped bank.
+
+Capstones (`src/content/games/capstone-1.json` ... `capstone-8.json`) are **not** part of the forge pipeline at all: there is no `.forge/capstone-*` directory. Each is authored directly from its `SwipeEd - Capstone c<N> <Title> - Landing.json` design source under `Strategy/`, faithfully transcribed into `capstone-schema.ts`'s `CapstoneConfig` shape. `capstone-1.json` through `capstone-4.json` are written one lap object per line (matching the lesson-bank style); `capstone-5.json` through `capstone-8.json` are written pretty-printed, multi-line per object. Both are valid, equivalent JSON, just reflowed differently: a reader (or a script) parsing "one JSON object per line" alone will silently undercount `capstone-5` to `capstone-8`, which is why the fleet-counting method below balance-matches braces instead.
 
 ## Schema
 
@@ -81,7 +84,7 @@ Capstones (`src/content/games/capstone-1.ts` ... `capstone-8.ts`) are **not** pa
 | `gameId` | `string` | Must equal the path node's `game` id and the `engine-host` registry key. "DO NOT RENAME" (v2-schema.ts:60). |
 | `title` | `string` | |
 | `greet` | `string` | Lensy's opening line. |
-| `scenarios` | `Scenario[]` | The typed bank. |
+| `scenarios` | `Scenario[]` | The bank, last in the file, one scenario per line. |
 | `categories` | `GameCategory[]` | `{id, emoji, label}` (v2-schema.ts:56); home tiles + the sticker book. |
 | `badge` | `{title, blurb}` | |
 | `helpLine?` | `string` | A real-help route surfaced on every screen, spoken when tapped. |
@@ -109,7 +112,7 @@ Each row cites `v2-schema.ts` for the type, `common.py` for the required-payload
 | `ask` | `string` | optional ([SWED-97](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6969e7af-70f9-4c2c-b3cf-b3b8581b9ecc)): one question about the player's pick, asked after the tap; the band default when absent; lints `follow-up` (exactly one question) and `disclosure` (never asks about harm in the player's own life) |
 | `deeper` | `string` | optional: one perspective-taking question asked after the first answer; same lints and defaults |
 
-Example (`feelings-friends.ts`, ff-004): `prompt: "Point to your feeling."`, `options: ["Happy","Calm","A little wobbly","Excited"]`, `affirm: "Thank you for noticing your feeling. That's a real skill."`.
+Example (`feelings-friends.json`, ff-004): `prompt: "Point to your feeling."`, `options: ["Happy","Calm","A little wobbly","Excited"]`, `affirm: "Thank you for noticing your feeling. That's a real skill."`.
 
 **choose**: tap every option that fits, then Check ([SWED-69](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/80b520f8-46da-4703-82e7-0921d6d1ffa4), 2026-09-15). The right/wrong successor to reflect for lesson and values questions; feelings, personal choices and safety lines stay reflect
 
@@ -128,7 +131,7 @@ Example (`feelings-friends.ts`, ff-004): `prompt: "Point to your feeling."`, `op
 | `steps` | `StoryStep[]` | multi-step ([SWED-96](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9)), required for new content: 3 to 5 steps, each `{prompt, options, why}`; `prompt` is what the other person says, attributed with a verb; 4 or 5 `options` of `{text, then, best?}` (a line in double quotes and the other person's reply), exactly one `best: true`; `why` explains the best line in the end recap (`common.py` `story_errors`) |
 | `yourLine` | `{text: string; best?: boolean}[]` | single-step (legacy, never together with `steps`); exactly one `best: true` by the generation prompt only |
 
-Example (`feelings-friends.ts`, ff-002): `yourLine: [{"text":"\"I feel ___.\"","best":true},{"text":"Keep it hidden"}]`.
+Example (`feelings-friends.json`, ff-002): `yourLine: [{"text":"\"I feel ___.\"","best":true},{"text":"Keep it hidden"}]`.
 
 **strike-rewrite**: UN erases a myth, RE writes the truth with a reason (v2-schema.ts:21)
 
@@ -138,7 +141,7 @@ Example (`feelings-friends.ts`, ff-002): `yourLine: [{"text":"\"I feel ___.\"","
 
 **Myth cards ([SWED-70](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/f9b2ee4c-8681-47c0-bc98-fa7fefd55543)).** The scenario shape does not change: in a game with `mythCards` on, a strike-rewrite beat can play as a swipe card that shows `myth.un` (the player swipes Myth) or `myth.re` (True), followed by the usual UN/RE card. So `re` has to make sense without its myth. The `myth-context` lint rejects a truth that opens with a pronoun ("Both need...", "Those early conversations..."), and `un` should read as a claim someone might believe.
 
-Example (`be-the-safe-adult.ts` source, sa-900): `myth: {"un":"If something was really wrong, my child would just blurt it out at dinner.","re":"Children often hold the hardest things back the longest...","why":"Telling follows safety, not the other way round."}`.
+Example (`be-the-safe-adult.json` source, sa-900): `myth: {"un":"If something was really wrong, my child would just blurt it out at dinner.","re":"Children often hold the hardest things back the longest...","why":"Telling follows safety, not the other way round."}`.
 
 **branch**: choose what to do; a `debrief` reinforces the safe way (v2-schema.ts:23)
 
@@ -148,7 +151,7 @@ Example (`be-the-safe-adult.ts` source, sa-900): `myth: {"un":"If something was 
 | `options` | `{text, consequence, outcome?, best?}[]` | single-step (legacy, never together with `steps`); **exactly one** `best: true`; every non-`best` option must carry a `consequence` |
 | `debrief` | `string` | required |
 
-Example (`feelings-friends.ts`, ff-016): the `best` option is "Say 'I'm angry!' and take big breaths"; the non-best option "Hit the other kid" carries its own consequence.
+Example (`feelings-friends.json`, ff-016): the `best` option is "Say 'I'm angry!' and take big breaths"; the non-best option "Hit the other kid" carries its own consequence.
 
 **sort**: drop each item into the right bin (v2-schema.ts:25-31)
 
@@ -158,7 +161,7 @@ Example (`feelings-friends.ts`, ff-016): the `best` option is "Say 'I'm angry!' 
 | `bins` | `{id, label, valence?}[]` | required; every bin must be used by at least one `key` entry (common.py:321-323); every bin must declare an explicit `valence` for new content (common.py:324-325) |
 | `key` | `Record<string,string>` | required; maps every item id to a real bin id (common.py:315-319) |
 
-`valence` is one of `pos` (good/true/safe), `neg` (bad/false/unsafe), `tell` (speak up), `uhoh` (be careful), `neutral` (non-valenced category), so the engine colours a bin from data, never a label-regex guess (v2-schema.ts:26-29). Example (`be-the-safe-adult.ts`, sa-1394): a 6-item sort into `believe` (pos) / `calm` (tell) / `act` (uhoh) bins.
+`valence` is one of `pos` (good/true/safe), `neg` (bad/false/unsafe), `tell` (speak up), `uhoh` (be careful), `neutral` (non-valenced category), so the engine colours a bin from data, never a label-regex guess (v2-schema.ts:26-29). Example (`be-the-safe-adult.json`, sa-1394): a 6-item sort into `believe` (pos) / `calm` (tell) / `act` (uhoh) bins.
 
 **match**: connect each left to its right (v2-schema.ts:32-33)
 
@@ -186,7 +189,7 @@ No target count; `build` is not one of the three upgraded-shape mechanics.
 | `answer` | `string` | required; must be one of `parts` (common.py:387-388) |
 | `reveal` | `string` | required, the fun fact shown on a correct tap |
 
-A wrong tap warmly re-asks; no fail state. This is the signature verb of exactly one game, `body-lab.ts` (node g06): no other bank in the fleet uses it.
+A wrong tap warmly re-asks; no fail state. This is the signature verb of exactly one game, `body-lab.json` (node g06): no other bank in the fleet uses it.
 
 **spot**: tap the trick in the scene (v2-schema.ts:39-41)
 
@@ -206,7 +209,7 @@ A wrong tap warmly re-asks; no fail state. This is the signature verb of exactly
 | `answer` | `"left" \| "right"` | required (common.py:364-365) |
 | `leftValence?`, `rightValence?` | `BinValence` | required for new content (common.py:373-374); each must be a real `BinValence`; if both sides declare the same non-neutral valence the gate rejects it (they would render identically, common.py:377-379) |
 
-Undeclared valence used to be inferred from the label text by regex and got it wrong on 16 shipped scenarios (`"Not consent"` matches `/consent/`, `"Unsafe step"` matches `/safe/`), painting the negative side green (v2-schema.ts:46-49). Disallowed in Chapters 1-2 unless `leadMechanics` lists it. The signature verb of the teen flagship, `glrl.ts` (node g24, Green Light / Red Light); live in exactly two banks fleet-wide (`glrl`, `reality-check`).
+Undeclared valence used to be inferred from the label text by regex and got it wrong on 16 shipped scenarios (`"Not consent"` matches `/consent/`, `"Unsafe step"` matches `/safe/`), painting the negative side green (v2-schema.ts:46-49). Disallowed in Chapters 1-2 unless `leadMechanics` lists it. The signature verb of the teen flagship, `glrl.json` (node g24, Green Light / Red Light); live in exactly two banks fleet-wide (`glrl`, `reality-check`).
 
 ### Capstone schema (`src/content/games/capstone-schema.ts`)
 
@@ -240,7 +243,7 @@ Every lap carries `id`, `from` (the source node id, or `"all"` for the gallery),
 | Per-field cap | 160 real code points (emoji/curly quotes count as one) per player-visible bubble/pill/card | `common.py:20` (`FIELD_MAX`) |
 | Prose near-dup threshold | 0.82 Jaccard over normalized 3-shingles | `forge_dedup.py:23` (`PROSE_JACCARD`) |
 
-Categories themselves are per-game (6 for `be-the-safe-adult`, 5 for `glrl`, 6 for `body-lab`; see Fleet numbers) and come from that game's Scenario Library JSON `categories` map. They are not standardized fleet-wide. The chapter band (1-8) is what drives ceilings and the mechanic allowlist, read off `path.ts` by `chapter_of()` (common.py:230-235), which resolves the file's **runtime** `gameId` rather than trusting the filename stem (the one game where they differ is `feelings-friends.ts`, whose `gameId` is `"feelings"`).
+Categories themselves are per-game (6 for `be-the-safe-adult`, 5 for `glrl`, 6 for `body-lab`; see Fleet numbers) and come from that game's Scenario Library JSON `categories` map. They are not standardized fleet-wide. The chapter band (1-8) is what drives ceilings and the mechanic allowlist, read off `path.ts` by `chapter_of()` (common.py:230-235), which resolves the file's **runtime** `gameId` rather than trusting the filename stem (the one game where they differ is `feelings-friends.json`, whose `gameId` is `"feelings"`).
 
 ## Safety and quality gates
 
@@ -290,81 +293,81 @@ Childline (1098), Tele-MANAS (14416, 1-800-891-4416) and Cybercrime (1930) match
 
 ## Fleet numbers as of 2026-09-14
 
-**Method.** A one-off read-only count (not committed) parses every `src/content/games/*.ts` except the two schema files, using the same rule the engine and the forge gates use: a scenario is any line that, stripped and with a trailing comma removed, starts with `{` and contains both `"id":` and `"type":` (matching `common.py`'s `is_scenario_line`). Each such line is valid JSON on its own. Capstone laps are parsed differently, by balance-matching braces inside the `playback` array, because `capstone-5.ts` through `capstone-8.ts` are pretty-printed across multiple lines rather than one object per line. The method was validated against the two known counts before being trusted: `be-the-safe-adult.ts` = 406 and `glrl.ts` = 517, both matched exactly.
+**Method.** A one-off read-only count (not committed, run on 2026-09-14 against the TypeScript files of the time) parses every game file except the two schema files, using the same rule the engine and the forge gates use: a scenario is any line that, stripped and with a trailing comma removed, starts with `{` and contains both `"id":` and `"type":` (matching `common.py`'s `is_scenario_line`). Each such line is valid JSON on its own. Capstone laps are parsed differently, by balance-matching braces inside the `playback` array, because `capstone-5.json` through `capstone-8.json` are pretty-printed across multiple lines rather than one object per line. The method was validated against the two known counts before being trusted: `be-the-safe-adult.json` = 406 and `glrl.json` = 517, both matched exactly.
 
 ### Per game, per chapter, per mechanic (69 lesson games)
 
 | Ch | gameId | file | total | mechanics used |
 |---|---|---|---|---|
-| 1 | can-do | can-do.ts | 503 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 1 | clean-crew | clean-crew.ts | 436 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 1 | family-garden | family-garden.ts | 466 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 1 | feelings | feelings-friends.ts | 488 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 1 | my-body | my-body.ts | 486 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 1 | same-same | same-same.ts | 434 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 2 | body-lab | body-lab.ts | 537 | reflect, role-play, strike-rewrite, branch, sort, match, build, explore-label |
-| 2 | fair-play | fair-play.ts | 495 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 2 | friend-frenemy | friend-frenemy.ts | 506 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 2 | heart-smart | heart-smart.ts | 487 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 2 | not-funny | not-funny.ts | 463 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 2 | safety-squad | safety-squad.ts | 479 | reflect, role-play, strike-rewrite, branch, sort, build, spot |
-| 2 | smart-screen | smart-screen.ts | 436 | reflect, role-play, strike-rewrite, branch, sort, build |
-| 2 | what-makes-me | what-makes-me.ts | 501 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 3 | amazing-journey | amazing-journey.ts | 502 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 3 | boundary-bot | boundary-bot.ts | 486 | reflect, role-play, strike-rewrite, branch, sort, build, spot |
-| 3 | crossroads | crossroads.ts | 518 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 3 | defenders | defenders.ts | 514 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 3 | flip-script | flip-script.ts | 536 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 3 | mind-matters | mind-matters.ts | 522 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 3 | norm-storm | norm-storm.ts | 512 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 3 | puberty-quest | puberty-quest.ts | 446 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 3 | speak-up | speak-up.ts | 558 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 4 | body-confident | body-confident.ts | 509 | reflect, role-play, strike-rewrite, branch, sort, build, spot |
-| 4 | bounce | bounce.ts | 518 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 4 | equalize | equalize.ts | 520 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 4 | firewall | firewall.ts | 538 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 4 | glrl | glrl.ts | 517 | reflect, role-play, strike-rewrite, branch, sort, spot, swipe |
-| 4 | mythbuster-lab | mythbuster-lab.ts | 524 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 4 | outbreak | outbreak.ts | 522 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 4 | plan-it | plan-it.ts | 504 | reflect, role-play, strike-rewrite, branch, sort, match, build |
-| 4 | rabbit-hole | rabbit-hole.ts | 519 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 4 | reality-check | reality-check.ts | 566 | reflect, role-play, strike-rewrite, branch, sort, match, spot, swipe |
-| 4 | stand-up | stand-up.ts | 538 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 5 | change-makers | change-makers.ts | 512 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 5 | decoded | decoded.ts | 489 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 5 | justice-league | justice-league.ts | 492 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 5 | lead-the-way | lead-the-way.ts | 531 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 5 | life-ready | life-ready.ts | 509 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 5 | mutual | mutual.ts | 510 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 5 | my-choices | my-choices.ts | 545 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 5 | spectrum | spectrum.ts | 508 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 5 | status-know-it | status-know-it.ts | 506 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 6 | consent-real | consent-real.ts | 524 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 6 | equal-confident | equal-confident.ts | 462 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 6 | find-your-feet | find-your-feet.ts | 451 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 6 | know-your-rights | know-your-rights.ts | 451 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 6 | mind-belonging | mind-belonging.ts | 490 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 6 | money-independence | money-independence.ts | 456 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 6 | own-your-health | own-your-health.ts | 487 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 6 | real-relationships | real-relationships.ts | 503 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 6 | swipe-right | swipe-right.ts | 503 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 7 | choosing-building | choosing-building.ts | 498 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 7 | equal-partners | equal-partners.ts | 468 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 7 | family-map | family-map.ts | 447 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 7 | if-when-whether | if-when-whether.ts | 434 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 7 | many-ways-to-family | many-ways-to-family.ts | 441 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 7 | money-together | money-together.ts | 453 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 7 | respect-at-home | respect-at-home.ts | 518 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 7 | your-path-your-call | your-path-your-call.ts | 456 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 8 | be-the-safe-adult | be-the-safe-adult.ts | 406 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 8 | break-the-cycle | break-the-cycle.ts | 416 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 8 | equal-parents | equal-parents.ts | 446 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 8 | looking-after-you | looking-after-you.ts | 397 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 8 | navigating-addictions | navigating-addictions.ts | 435 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 8 | raising-gender-diverse-kids | raising-gender-diverse-kids.ts | 437 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 8 | raising-neurodiverse-kids | raising-neurodiverse-kids.ts | 396 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 8 | the-talks | the-talks.ts | 441 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
-| 8 | us-after-kids | us-after-kids.ts | 438 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 1 | can-do | can-do.json | 503 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 1 | clean-crew | clean-crew.json | 436 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 1 | family-garden | family-garden.json | 466 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 1 | feelings | feelings-friends.json | 488 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 1 | my-body | my-body.json | 486 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 1 | same-same | same-same.json | 434 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 2 | body-lab | body-lab.json | 537 | reflect, role-play, strike-rewrite, branch, sort, match, build, explore-label |
+| 2 | fair-play | fair-play.json | 495 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 2 | friend-frenemy | friend-frenemy.json | 506 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 2 | heart-smart | heart-smart.json | 487 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 2 | not-funny | not-funny.json | 463 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 2 | safety-squad | safety-squad.json | 479 | reflect, role-play, strike-rewrite, branch, sort, build, spot |
+| 2 | smart-screen | smart-screen.json | 436 | reflect, role-play, strike-rewrite, branch, sort, build |
+| 2 | what-makes-me | what-makes-me.json | 501 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 3 | amazing-journey | amazing-journey.json | 502 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 3 | boundary-bot | boundary-bot.json | 486 | reflect, role-play, strike-rewrite, branch, sort, build, spot |
+| 3 | crossroads | crossroads.json | 518 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 3 | defenders | defenders.json | 514 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 3 | flip-script | flip-script.json | 536 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 3 | mind-matters | mind-matters.json | 522 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 3 | norm-storm | norm-storm.json | 512 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 3 | puberty-quest | puberty-quest.json | 446 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 3 | speak-up | speak-up.json | 558 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 4 | body-confident | body-confident.json | 509 | reflect, role-play, strike-rewrite, branch, sort, build, spot |
+| 4 | bounce | bounce.json | 518 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 4 | equalize | equalize.json | 520 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 4 | firewall | firewall.json | 538 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 4 | glrl | glrl.json | 517 | reflect, role-play, strike-rewrite, branch, sort, spot, swipe |
+| 4 | mythbuster-lab | mythbuster-lab.json | 524 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 4 | outbreak | outbreak.json | 522 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 4 | plan-it | plan-it.json | 504 | reflect, role-play, strike-rewrite, branch, sort, match, build |
+| 4 | rabbit-hole | rabbit-hole.json | 519 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 4 | reality-check | reality-check.json | 566 | reflect, role-play, strike-rewrite, branch, sort, match, spot, swipe |
+| 4 | stand-up | stand-up.json | 538 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 5 | change-makers | change-makers.json | 512 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 5 | decoded | decoded.json | 489 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 5 | justice-league | justice-league.json | 492 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 5 | lead-the-way | lead-the-way.json | 531 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 5 | life-ready | life-ready.json | 509 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 5 | mutual | mutual.json | 510 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 5 | my-choices | my-choices.json | 545 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 5 | spectrum | spectrum.json | 508 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 5 | status-know-it | status-know-it.json | 506 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 6 | consent-real | consent-real.json | 524 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 6 | equal-confident | equal-confident.json | 462 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 6 | find-your-feet | find-your-feet.json | 451 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 6 | know-your-rights | know-your-rights.json | 451 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 6 | mind-belonging | mind-belonging.json | 490 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 6 | money-independence | money-independence.json | 456 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 6 | own-your-health | own-your-health.json | 487 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 6 | real-relationships | real-relationships.json | 503 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 6 | swipe-right | swipe-right.json | 503 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 7 | choosing-building | choosing-building.json | 498 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 7 | equal-partners | equal-partners.json | 468 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 7 | family-map | family-map.json | 447 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 7 | if-when-whether | if-when-whether.json | 434 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 7 | many-ways-to-family | many-ways-to-family.json | 441 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 7 | money-together | money-together.json | 453 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 7 | respect-at-home | respect-at-home.json | 518 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 7 | your-path-your-call | your-path-your-call.json | 456 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 8 | be-the-safe-adult | be-the-safe-adult.json | 406 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 8 | break-the-cycle | break-the-cycle.json | 416 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 8 | equal-parents | equal-parents.json | 446 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 8 | looking-after-you | looking-after-you.json | 397 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 8 | navigating-addictions | navigating-addictions.json | 435 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 8 | raising-gender-diverse-kids | raising-gender-diverse-kids.json | 437 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 8 | raising-neurodiverse-kids | raising-neurodiverse-kids.json | 396 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 8 | the-talks | the-talks.json | 441 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
+| 8 | us-after-kids | us-after-kids.json | 438 | reflect, role-play, strike-rewrite, branch, sort, match, spot |
 
 ### Per chapter x per mechanic (lesson scenarios only)
 
@@ -414,18 +417,18 @@ Verified read-only against the live repo on 2026-09-14, against a 2026-09-01 aud
 
 ### SWED-53: `.forge/` source lost `leftValence`/`rightValence` for swipe items (CONFIRMED)
 
-The shipped fleet carries declared valence on every swipe item: 201/201 in `src/content/games/*.ts` (across the only two games that use `swipe`: `glrl` 120, `reality-check` 81). The `.forge/` source snapshots carry it on **none**: 0/160 in `.forge/*/combined.ndjson` and 0/160 in the underlying `.forge/*/gen/*.ndjson` batches for those same two games. Root cause: `scripts/forge/migrate_swipe_valence.py` is a one-off migration that splices `leftValence`/`rightValence` into a line via a regex anchor on `"answer":"left|right"`, keyed off `swipe_valence_map.json`'s label-pair table (86 entries). Its own docstring describes exactly what it touches: `src/content/games/*.ts`, nothing under `.forge/`. It was run once, directly against the shipped files, and never back-ported to the generation snapshots, the same staleness pattern as SWED-54.
+The shipped fleet carries declared valence on every swipe item: 201/201 in `src/content/games/*.json` (across the only two games that use `swipe`: `glrl` 120, `reality-check` 81). The `.forge/` source snapshots carry it on **none**: 0/160 in `.forge/*/combined.ndjson` and 0/160 in the underlying `.forge/*/gen/*.ndjson` batches for those same two games. Root cause: `scripts/forge/migrate_swipe_valence.py` (removed with the TypeScript game files in SWED-134, its job long done) was a one-off migration that splices `leftValence`/`rightValence` into a line via a regex anchor on `"answer":"left|right"`, keyed off `swipe_valence_map.json`'s label-pair table (86 entries). Its own docstring describes exactly what it touches: `src/content/games/*.json`, nothing under `.forge/`. It was run once, directly against the shipped files, and never back-ported to the generation snapshots, the same staleness pattern as SWED-54.
 
 ### SWED-54: 14 scenario ids shared by two different scenarios (CONFIRMED, exact match)
 
-Not present in the shipped bank (0 duplicate ids within any single `src/content/games/*.ts`, verified two independent ways) and not present in any individual pre-combine `.forge/*/gen/<category>.ndjson` batch. All 14 live in `.forge/<gameId>/combined.ndjson`, the post-concatenation, pre-assembly file:
+Not present in the shipped bank (0 duplicate ids within any single `src/content/games/*.json`, verified two independent ways) and not present in any individual pre-combine `.forge/*/gen/<category>.ndjson` batch. All 14 live in `.forge/<gameId>/combined.ndjson`, the post-concatenation, pre-assembly file:
 
 | Game | Colliding ids | Count |
 |---|---|---|
 | `lead-the-way` | lw-990 through lw-997 | 8 |
 | `mutual` | mt-990 through mt-995 | 6 |
 
-Each pair comes from two **different** category batches independently generating a scenario at the same id (for example `lw-990` exists once as a `the-gaps` `spot` scenario and once as a `what-allyship-is` `strike-rewrite` scenario). Since each individual `gen/*.ndjson` file is clean, the collision is introduced specifically at the `cat gen/*.ndjson > combined.ndjson` step, at what looks like a category id-block boundary. The shipped `.ts` for both games has zero duplicate ids today: `forge_check.py`'s merge gate hard-fails on duplicate ids (`forge_check.py:91-93`), which would have forced a hand-fix in the `.ts` directly (`lead-the-way.ts` keeps only the `the-gaps`/`spot` version of `lw-990`), but, as with SWED-53, that fix was never carried back into `.forge/`.
+Each pair comes from two **different** category batches independently generating a scenario at the same id (for example `lw-990` exists once as a `the-gaps` `spot` scenario and once as a `what-allyship-is` `strike-rewrite` scenario). Since each individual `gen/*.ndjson` file is clean, the collision is introduced specifically at the `cat gen/*.ndjson > combined.ndjson` step, at what looks like a category id-block boundary. The shipped `.ts` for both games has zero duplicate ids today: `forge_check.py`'s merge gate hard-fails on duplicate ids (`forge_check.py:91-93`), which would have forced a hand-fix in the `.ts` directly (`lead-the-way.json` keeps only the `the-gaps`/`spot` version of `lw-990`), but, as with SWED-53, that fix was never carried back into `.forge/`.
 
 ### SWED-55: 52 duplicate or near-duplicate scenarios (directionally confirmed, order of magnitude match)
 
@@ -454,7 +457,7 @@ Both pairs sit in the original ~84-scenario hand-authored libraries of two *diff
 
 ## How to change a bank safely
 
-**Hand edit** (a typo, a wrong answer key, one scenario needs a rewrite): edit the scenario's single-line JSON object directly inside `src/content/games/<gameId>.ts`, keeping it valid JSON and respecting that mechanic's required fields and shape from the tables above. Then, before committing:
+**Hand edit** (a typo, a wrong answer key, one scenario needs a rewrite): edit the scenario's single-line JSON object directly inside `src/content/games/<gameId>.json`, keeping it valid JSON and respecting that mechanic's required fields and shape from the tables above. Then, before committing:
 
 ```
 python3 scripts/content_gate.py                                   # the whole-bank gate (also runs at pre-commit and before every build)

@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 11 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The gender-teasing & ally game is a **463-scenario typed library**
-> (`content/games/not-funny.ts`: fun-vs-mean 41 · just-a-joke 83 · gender-teasing 82 · how-it-feels 93 ·
+> (`content/games/not-funny.json`: fun-vs-mean 41 · just-a-joke 83 · gender-teasing 82 · how-it-feels 93 ·
 > be-an-ally 82 · my-own-jokes 82), generated **faithfully** from the scorecard-passed GDD JSON, on the
 > **shared v2 engine** (`components/games/v2-engine.tsx`). Every scenario is one of **eight typed play actions**
 > (branch ×105 · reflect ×105 · strike-rewrite ×72 · role-play ×52 · sort ×45 · build ×42 · spot ×3 · match ×42),

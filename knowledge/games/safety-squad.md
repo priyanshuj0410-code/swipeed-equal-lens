@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 08 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The personal-safety / child-protection game is a **479-scenario typed library**
-> (`content/games/safety-squad.ts`: safe-unsafe-touch 84 · secrets-surprises 83 · trusted-adults 75 ·
+> (`content/games/safety-squad.json`: safe-unsafe-touch 84 · secrets-surprises 83 · trusted-adults 75 ·
 > tricky-people 79 · lost-or-trouble 80 · online-safety 78), generated **byte-identical** from the
 > scorecard-passed GDD JSON, on the **shared v2 engine** (`components/games/v2-engine.tsx`). Every scenario is
 > one of **nine typed play actions** (branch ×103 · reflect ×82 · strike-rewrite ×67 · role-play ×62 · sort ×54

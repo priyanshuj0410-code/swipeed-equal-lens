@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 25 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible), a **flagship of the strike-and-rewrite signature**. The gender-myth-busting node
-> (Thread E) is now a **524-scenario typed library** (`content/games/mythbuster-lab.ts`: ability-myths 90 ·
+> (Thread E) is now a **524-scenario typed library** (`content/games/mythbuster-lab.json`: ability-myths 90 ·
 > role-myths 91 · emotion-leadership 83 · its-just-science 86 · equality-myths 82 · spot-and-flip 92),
 > generated **faithfully** from the scorecard-passed GDD 25 JSON, on the **shared v2 engine**
 > (`components/games/v2-engine.tsx`). The old 5-mode build is replaced by **seven typed play actions**

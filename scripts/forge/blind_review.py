@@ -34,7 +34,7 @@ import common as C  # noqa: E402
 
 
 def scenarios(gid, batches, game_path=None):
-    scns, errors = C.parse_file(game_path or os.path.join(C.GAMES, gid + ".ts"))
+    scns, errors = C.parse_file(game_path or C.game_path(gid))
     if errors:
         raise SystemExit(f"{gid}: parse errors {errors[:3]}")
     by = {o["id"]: o for o in scns}

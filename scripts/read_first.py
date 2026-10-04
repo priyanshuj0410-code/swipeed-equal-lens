@@ -138,18 +138,18 @@ def staged_new_v2_nodes():
     node_for = {v: k for k, v in st.load_game_map().items()}
     out = []
     for f in files:
-        if not (f.startswith("src/content/games/") and f.endswith(".ts")):
+        if not (f.startswith("src/content/games/") and f.endswith(".json")):
             continue
         staged = _git("show", f":{f}").stdout
-        if not ("v2-schema" in staged and "V2GameConfig" in staged):
+        if '"scenarios": [' not in staged:
             continue
-        m = re.search(r'gameId:\s*"([^"]+)"', staged)
+        m = re.search(r'"gameId":\s*"([^"]+)"', staged)
         node = node_for.get(m.group(1)) if m else None
         if not node:
             continue
         head = _git("show", f"HEAD:{f}")
         head_txt = head.stdout if head.returncode == 0 else ""
-        if not ("v2-schema" in head_txt and "V2GameConfig" in head_txt):  # was not already v2 → a NEW build
+        if '"scenarios": [' not in head_txt:  # was not already v2 → a NEW build
             out.append((node, m.group(1), f))
     return out
 

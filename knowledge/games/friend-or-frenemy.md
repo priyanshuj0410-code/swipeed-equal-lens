@@ -16,7 +16,7 @@ plane_issues:
 
 > **Reworked to GDD 09 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)
 > and the build bible). The healthy-friendship game, the **protocol's first reference implementation**, is a
-> **506-scenario typed library** (`content/games/friend-frenemy.ts`: real-friend 67 · frenemy-flags 75 ·
+> **506-scenario typed library** (`content/games/friend-frenemy.json`: real-friend 67 · frenemy-flags 75 ·
 > dilemmas 16 · stand-up 96 · repair 11 · good-friend 82), generated **byte-identical** from the
 > scorecard-passed GDD JSON, on the **shared v2 engine** (`components/games/v2-engine.tsx`). Every scenario is
 > one of **eight typed play actions** (branch ×135 · role-play ×80 · strike-rewrite ×65 · reflect ×65 · sort ×61

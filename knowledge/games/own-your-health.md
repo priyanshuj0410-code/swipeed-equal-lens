@@ -17,7 +17,7 @@ plane_issues:
 
 > **Reworked to GDD 47 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The College SRH-ownership node (Thread F · Sexual & Reproductive Health) **moved off the [ModesEngine](swipeed-game-patterns.md)
-> onto the shared v2 mechanic engine**: a **487-scenario typed library** (`content/games/own-your-health.ts`:
+> onto the shared v2 mechanic engine**: a **487-scenario typed library** (`content/games/own-your-health.json`:
 > protection-sorted 83 · know-your-status 79 · pleasure-and-wellbeing 82 · the-health-talk 85 ·
 > access-and-confidential 78 · tools-and-help 80) with seven play actions (branch ×100 · strike-rewrite ×82 ·
 > sort ×62 · reflect ×72 · spot ×52 · role-play ×62 · match ×57), **0% binary**, led by branch + strike-rewrite +

@@ -6,7 +6,10 @@ and the commit-time length guard missed scenario helplines, most fields and empt
 G2, G4, G5, G6, G18). This runs the deterministic checks over the whole bank in a few seconds, so `npm run build`
 (and therefore every Vercel preview and production deploy) fails on:
 
-  lesson games   parse errors · a bank under MIN_BANK · duplicate ids · every per-scenario check in
+  game files     every game is a JSON data file (SWED-134): it must load as JSON, and its config must have
+                 exactly the keys the engine reads, with the right types (TypeScript no longer checks them)
+  lesson games   parse errors · a bank under MIN_BANK · duplicate ids · a scenario whose cat is not one of
+                 the game's categories · every per-scenario check in
                  forge/common.py (required fields, strict shapes, helplines on every visible field, ≤160 per
                  field, the chapter band ceiling, band-mechanic membership with the library's lead mechanics)
                  · the mechanic-mix caps · config strings (greet, reassure, helpLine, helpLabel, badge blurb)
@@ -39,13 +42,20 @@ MAX_MECH_SHARE = 0.35     # the same caps forge_check.py enforces at merge
 EASY_VERBS = {"reflect", "role-play"}
 MAX_EASY_SHARE = 0.42
 CONFIG_FIELDS = ["greet", "reassure", "helpLine", "helpLabel"]
+# the keys each kind of game file may hold, and their types (V2GameConfig in v2-schema.ts, CapstoneConfig in
+# capstone-schema.ts); "$comment" carries the file's notes for people and is never read by the app
+LESSON_REQUIRED = {"gameId": str, "title": str, "greet": str, "categories": list, "badge": dict, "scenarios": list}
+LESSON_OPTIONAL = {"$comment": list, "helpLine": str, "helpLabel": str, "reassureCats": list, "reassure": str,
+                   "buildLabels": dict, "mythCards": bool}
+CAPSTONE_REQUIRED = {"gameId": str, "capstone": str, "node": str, "chapter": int, "ages": str, "arrival": str,
+                     "canvasPayoff": str, "threadsRecapped": list, "recap": list, "playback": list, "reflect": list,
+                     "celebration": dict, "preview": str, "share": str, "doneTitle": str}
+CAPSTONE_OPTIONAL = {"$comment": list, "coins": int}
 # capstone keys that hold structure, not words
 CAPSTONE_STRUCTURAL = {"id", "type", "from", "node", "glyph", "thread", "mode", "valence", "outcome", "gameId"}
 HELP_TS = os.path.join(C.REPO, "src", "content", "help.ts")
 STRATEGY = os.path.join(C.REPO, "Strategy")
 TS_STRING = re.compile(r'(\w+):\s*"((?:[^"\\]|\\.)*)"')
-KEYED_STRING = re.compile(r'"?(\w+)"?\s*:\s*"((?:[^"\\]|\\.)*)"')
-STRING_ARRAY = re.compile(r'"?(\w+)"?\s*:\s*\[((?:\s*"(?:[^"\\]|\\.)*"\s*,?\s*)+)\]')
 
 
 def decode(body):
@@ -65,11 +75,50 @@ def lead_mechanics():
     return out
 
 
+def key_errors(cfg, required, optional):
+    errs = []
+    for k, t in required.items():
+        if k not in cfg:
+            errs.append(f"config: missing {k}")
+        elif not isinstance(cfg[k], t) or (t is int and isinstance(cfg[k], bool)):
+            errs.append(f"config: {k} should be {t.__name__}")
+    for k, v in cfg.items():
+        if k in required:
+            continue
+        if k not in optional:
+            errs.append(f"config: unknown key {k} (the engine would ignore it)")
+        elif not isinstance(v, optional[k]):
+            errs.append(f"config: {k} should be {optional[k].__name__}")
+    return errs
+
+
+def lesson_config_errors(cfg):
+    errs = key_errors(cfg, LESSON_REQUIRED, LESSON_OPTIONAL)
+    cats = cfg.get("categories") if isinstance(cfg.get("categories"), list) else []
+    for c in cats:
+        if not (isinstance(c, dict) and set(c) == {"id", "emoji", "label"} and all(isinstance(v, str) for v in c.values())):
+            errs.append(f"config: category {c} should be {{id, emoji, label}}")
+    badge = cfg.get("badge")
+    if isinstance(badge, dict) and not (set(badge) == {"title", "blurb"} and all(isinstance(v, str) for v in badge.values())):
+        errs.append("config: badge should be {title, blurb}")
+    ids = {c.get("id") for c in cats if isinstance(c, dict)}
+    for o in cfg.get("scenarios") or []:
+        if isinstance(o, dict) and o.get("cat") not in ids:
+            errs.append(f"{o.get('id')}: cat {o.get('cat')!r} is not one of the game's categories")
+    return errs
+
+
 def check_lesson(path, leads, lint=False):
-    base = os.path.basename(path)
+    stem = os.path.basename(path)[:-len(C.GAME_EXT)]
     errs = []
     scns, perr = C.parse_file(path)
     errs += [f"line {n}: {reason}" for n, reason in perr]
+    try:
+        cfg = C.load_game(path)
+    except ValueError:
+        cfg = {}
+    if cfg:
+        errs += lesson_config_errors(cfg)
     if len(scns) < MIN_BANK:
         errs.append(f"bank has {len(scns)} scenarios, under the {MIN_BANK} floor")
     dupes = [i for i, c in Counter(o["id"] for o in scns).items() if c > 1]
@@ -78,7 +127,7 @@ def check_lesson(path, leads, lint=False):
     chapter = C.chapter_of(path)
     if chapter is None:
         errs.append("no chapter: the game's gameId is not on the path (src/content/path.ts)")
-    lead = leads.get(base[:-3]) or leads.get(C.file_gameid(path)) or []
+    lead = leads.get(stem) or leads.get(C.file_gameid(path)) or []
     allowed = C.allowed_mechanics(chapter, lead)
     ceil = C.BAND_CEIL.get(chapter)
     for o in scns:
@@ -94,28 +143,35 @@ def check_lesson(path, leads, lint=False):
     easy = sum(mix[t] for t in EASY_VERBS)
     if n and easy / n > MAX_EASY_SHARE:
         errs.append(f"mix: reflect and role-play are {easy}/{n} ({100 * easy / n:.0f}%), over {int(MAX_EASY_SHARE * 100)}%")
-    text = open(path, encoding="utf8").read()
     for field in CONFIG_FIELDS + ["blurb"]:
-        m = re.search(field + r':\s*"((?:[^"\\]|\\.)*)"', text)
-        if not m:
+        val = (cfg.get("badge") or {}).get("blurb") if field == "blurb" else cfg.get(field)
+        if not isinstance(val, str):
             continue
-        val = decode(m.group(1))
         if len(val) > C.FIELD_MAX:
             errs.append(f"config {field}: {len(val)} chars, over {C.FIELD_MAX}")
         errs += [f"config {e}" for e in C.helpline_errors_text(field, val)]
     return len(scns), errs
 
 
+def keyed_strings(v, key=""):
+    """Every string in a JSON value with the key it sits under (a string in a list takes the list's key)."""
+    if isinstance(v, str):
+        return [(key, v)]
+    if isinstance(v, list):
+        return [x for item in v for x in keyed_strings(item, key)]
+    if isinstance(v, dict):
+        return [x for k, item in v.items() if k != "$comment" for x in keyed_strings(item, k)]
+    return []
+
+
 def check_capstone(path):
-    """Capstone configs are TypeScript object literals (one JSON line per lap in capstones 1-4, pretty-printed in
-    5-8), so read their strings by pattern rather than parsing: every keyed string and every string in an array.
-    TypeScript itself (next build) rejects a malformed file."""
-    errs = []
-    text = re.sub(r"^\s*//.*$", "", open(path, encoding="utf8").read(), flags=re.M)
-    strings = [(m.group(1), decode(m.group(2))) for m in KEYED_STRING.finditer(text)]
-    for m in STRING_ARRAY.finditer(text):
-        strings += [(m.group(1), decode(s)) for s in re.findall(r'"((?:[^"\\]|\\.)*)"', m.group(2))]
-    for key, s in strings:
+    """Every string in a capstone's JSON data file: the ≤160 limit (structural keys aside) and the helplines."""
+    try:
+        cfg = C.load_game(path)
+    except ValueError as e:
+        return [f"capstone file is not valid JSON: {e}"]
+    errs = key_errors(cfg, CAPSTONE_REQUIRED, CAPSTONE_OPTIONAL) if isinstance(cfg, dict) else ["capstone file is not an object"]
+    for key, s in keyed_strings(cfg):
         if key not in CAPSTONE_STRUCTURAL and len(s) > C.FIELD_MAX:
             errs.append(f"{key}: {len(s)} chars, over {C.FIELD_MAX}: '{s[:40]}...'")
         errs += C.helpline_errors_text(key, s)
@@ -143,15 +199,13 @@ def main():
     leads = lead_mechanics()
     clean = set(L.clean_games())
     failures, lessons, scenarios, capstones = {}, 0, 0, 0
-    for path in sorted(glob.glob(os.path.join(C.GAMES, "*.ts"))):
+    for path in C.game_files():
         base = os.path.basename(path)
-        if base.endswith("-schema.ts"):
-            continue
         if base.startswith("capstone-"):
             errs = check_capstone(path)
             capstones += 1
         else:
-            n, errs = check_lesson(path, leads, lint=base[:-3] in clean)
+            n, errs = check_lesson(path, leads, lint=base[:-len(C.GAME_EXT)] in clean)
             lessons += 1
             scenarios += n
         if errs:

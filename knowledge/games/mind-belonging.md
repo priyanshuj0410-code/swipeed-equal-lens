@@ -18,7 +18,7 @@ plane_issues:
 
 > **Reworked to GDD 49 v2: the "mechanic-embodying" standard** (see [pattern #26](swipeed-game-patterns.md)).
 > The College wellbeing anchor (Thread C · Feelings & Life Skills) **moved off the [ModesEngine](swipeed-game-patterns.md)
-> onto the shared v2 mechanic engine**: a **490-scenario typed library** (`content/games/mind-belonging.ts`:
+> onto the shared v2 mechanic engine**: a **490-scenario typed library** (`content/games/mind-belonging.json`:
 > settling-in 76 · find-your-people 81 · cope-well 91 · mind-and-self-worth 82 · reach-out 79 · tools-and-help
 > 81) with seven play actions (branch ×96 · strike-rewrite ×79 · sort ×64 · reflect ×66 · role-play ×68 · spot
 > ×58 · match ×59), **0% binary**, led by branch + strike-rewrite + sort. **Leaving home is exciting and lonely
