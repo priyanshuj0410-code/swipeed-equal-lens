@@ -39,8 +39,8 @@ knowledge/
   architecture/      v2-engine.md (how games run), deployment.md (stack, build, hosting)
   schemas/           question-bank.md (bank format, sources, gates, fleet numbers)
   games/             the catalog: one doc per game and capstone, plus the SwipeEd overview docs
-  audits/            dated audits: design, question bank, forge pipeline
-  playbooks/         approved plans and how-tos (playtest-feedback-plan-2026-09-15.md, writing-without-dashes.md, multi-step-rollout.md)
+  audits/            dated audits: design, question bank, forge pipeline, confidentiality, UX copy
+  playbooks/         approved plans and how-tos (playtest-feedback-plan-2026-09-15.md, writing-without-dashes.md, multi-step-rollout.md, ux-copy-standard.md)
   research/          dated research: tools, evidence and options before a decision (visual answer options)
   log/               log.md, the dated project log, newest first
 ```
@@ -55,10 +55,10 @@ knowledge/
 | Content | [question bank](schemas/question-bank.md) · [content pipeline (forge)](games/swipeed-content-pipeline.md) · [game doc template](games/_game-template.md) |
 | Games | [games catalog](games/index.md): every game and capstone by chapter |
 | Design | [design system](design.md) · [design audit, 2026-09-14](audits/design-audit-2026-09-14.md) |
-| Audits | [design, 2026-09-14](audits/design-audit-2026-09-14.md) · [question bank, 2026-09-14](audits/question-bank-audit-2026-09-14.md) · [forge pipeline, 2026-09-14](audits/forge-pipeline-review-2026-09-14.md) |
+| Audits | [design, 2026-09-14](audits/design-audit-2026-09-14.md) · [question bank, 2026-09-14](audits/question-bank-audit-2026-09-14.md) · [forge pipeline, 2026-09-14](audits/forge-pipeline-review-2026-09-14.md) · [UX copy, 2026-10-04](audits/ux-copy-audit-2026-10-04.md): every string a player sees or hears, 170 findings |
 | Plans | [playtest feedback plan, 2026-09-15](playbooks/playtest-feedback-plan-2026-09-15.md): question focus, match and sort, reflect, myth cards · [multi-step rollout](playbooks/multi-step-rollout.md): turning every branch and role-play into a multi-step story, chapter by chapter |
 | On GitHub | The repo is public. Its [README](../README.md) summarises the app for visitors; `docs/` holds dated design records from June 2026, each marked historical and pointing back here. Personal and internal documents stay out of the repo and its history ([SWED-107](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/66768e21-f648-4c92-bbda-d30a084d9569)): `.gitignore` and the `scripts/private_files.py` gate keep them out |
-| Voice | [writing without dashes](playbooks/writing-without-dashes.md): the moves that replace em and en dashes, the comma splice trap, the gate ([SWED-92](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22)) |
+| Voice | [UX copy standard](playbooks/ux-copy-standard.md): word limits by chapter, safety rules first, shown and spoken, one glossary ([SWED-127](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/3b8d2f41-f968-476f-b8a4-867231ecbe8f)) · [writing without dashes](playbooks/writing-without-dashes.md): the moves that replace em and en dashes, the comma splice trap, the gate ([SWED-92](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/091ac0ac-dd11-425c-ba38-8187f00cdb22)) |
 | Research | [visual answer options, 2026-09-15](research/visual-answer-options-2026-09-15.md): pictures for pre-readers, reading evidence, Runway, Recraft and other tools ([SWED-89](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5)); [picture LoRAs, 2026-10-01](research/picture-loras-2026-10-01.md); [MIT Solve Learning challenge, 2026-10-03](research/mit-solve-learning-2026-10-03.md): eligibility, criteria scores and readiness ([SWED-124](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9f70534d-efc0-4daf-a265-e3ea21e69687)): character and comic-style LoRAs trained on the Lensy comic ([SWED-112](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/43fe632c-cf79-4e56-9d1e-0f22c747a055)) |
 | Tracking and history | [Plane configuration](plane.config.md) · [project log](log/log.md) |
 

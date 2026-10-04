@@ -22,6 +22,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587  # SWED-63
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/baa41435-d56c-487b-ac9b-7557d49c85f5  # SWED-87
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c  # SWED-125
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/3b8d2f41-f968-476f-b8a4-867231ecbe8f  # SWED-127
 ---
 
 # SwipeEd design system
@@ -197,6 +198,8 @@ in scenario content. [SWED-92](https://app.plane.so/the-equal-lens/projects/59d0
 a hyphen for ranges), redid the rewrites that had become comma splices, and added `scripts/no_dashes.py`, which fails
 the build and the commit on any em or en dash in a tracked text file. How to write around them, with before and after
 examples: [writing without dashes](playbooks/writing-without-dashes.md). A spaced hyphen is not a substitute.
+
+**The UX copy standard.** Every string a player or parent sees or hears follows the [UX copy standard](playbooks/ux-copy-standard.md) ([SWED-127](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/3b8d2f41-f968-476f-b8a4-867231ecbe8f)): word limits per chapter (8, 10, 14, 20 or 25 words a sentence), safety rules checked first, every safety line and every answer both shown and spoken, no symbol or emoji carrying meaning, and one name per thing. Two house rules that used to live only in the Equal Lens skill are part of it: ask where a feeling is, never why, and Lensy wonders and asks but is never the authority. The first audit against it is [UX copy audit, 2026-10-04](audits/ux-copy-audit-2026-10-04.md).
 
 **Age-banded tone.** SwipeEd spans 8 chapters from ages 3 to parenthood; there is no single "kid
 voice." Content is written per chapter/persona (see the [question bank](schemas/question-bank.md) for the `persona`
