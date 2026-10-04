@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 # App icons from the official SwipeEd logo (public/brand/swipeed/, from The Equal Lens/Solutions, SWED-125).
-# Run from the repo root after the logo changes: scripts/gen-icons.sh   (needs ImageMagick)
+# Run from the repo root after the logo changes: scripts/gen-icons.sh   (needs ImageMagick and Google Chrome)
 set -e
 L=public/brand/swipeed
 T=$(mktemp -d)
-magick -background none -density 300 $L/logo.svg -resize 1024x1024 $T/logo.png
-magick -background white -density 300 $L/logo-white-bg.svg -resize 1024x1024 $T/white.png
+# Rasterise with headless Chrome: ImageMagick's own SVG reader ignores rotate() transforms, which the logo uses.
+CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+raster() {  # raster <svg> <png>: 1024 px, transparent where the SVG is
+  printf '<!doctype html><html><head><style>html,body{margin:0;background:transparent}img{display:block;width:1024px;height:1024px}</style></head><body><img src="file://%s"></body></html>' "$PWD/$1" > $T/r.html
+  "$CHROME" --headless=new --disable-gpu --hide-scrollbars --default-background-color=00000000 --window-size=1024,1024 --screenshot="$2" "file://$T/r.html" >/dev/null 2>&1
+}
+raster $L/logo.svg $T/logo.png
+raster $L/logo-white-bg.svg $T/white.png
 # "any" icons: the transparent logo
 magick $T/logo.png -resize 192x192 public/icon-192.png
 magick $T/logo.png -resize 512x512 public/icon-512.png
