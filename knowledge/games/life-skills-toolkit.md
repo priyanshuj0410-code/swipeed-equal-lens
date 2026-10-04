@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/952350b7-ccd0-46b5-a0f5-65ae398e7141  # SWED-128
 ---
 
 # The Life-Skills Toolkit: Thread C Spine
@@ -60,7 +61,7 @@ the Thread-C games are the **dedicated home** where each tool is named, taught a
 |---|---|---|---|---|
 | Ch.1 · [Feelings Friends](feelings-friends.md) (3-6) | name a feeling; basic calm | a simple choice | say how I feel; say "no" | find a trusted adult |
 | Ch.2 · [Heart Smart](heart-smart.md) (6-9) | big feelings, small steps | stop, think, choose | sort out a squabble | ask a grown-up |
-| Ch.3 · [Mind Matters](mind-matters.md) (9-12) | full Cool-Down kit | health/relationship decisions | assertive communication | Childline 1098; Ask-It |
+| Ch.3 · [Mind Matters](mind-matters.md) (9-12) | full Cool-Down kit | health/relationship decisions | assertive communication | Childline 1098 |
 | Ch.4 · [Bounce](bounce.md) (12-15) | resilience-grade coping | decisions under pressure | boundaries & repair | Tele-MANAS; support a friend |
 | Ch.5 · [Life Ready](life-ready.md) (15-18) | adult stress management | the adult decision method | people skills at adult stakes | build a support network |
 
@@ -112,7 +113,7 @@ the myths that block these skills: "big kids don't cry", "asking for help is fai
 |---|---|---|
 | [Feelings Friends](feelings-friends.md) (g01) | 3-6 | naming feelings; first Cool-Down; saying "no"; trusted adults |
 | [Heart Smart](heart-smart.md) (g41) | 6-9 | empathy; Big-Feelings calm-down; first Talk-It-Out (squabbles); simple choices |
-| [Mind Matters](mind-matters.md) (g38) | 9-12 | full Cool-Down kit; resilience; stigma-busting; help-seeking (Ask-It, Childline) |
+| [Mind Matters](mind-matters.md) (g38) | 9-12 | full Cool-Down kit; resilience; stigma-busting; help-seeking (a trusted adult, Childline 1098) |
 | [Bounce](bounce.md) (g39) | 12-15 | resilience-grade coping; stress; supporting friends; Tele-MANAS |
 | [Life Ready](life-ready.md) (g42) | 15-18 | self-knowledge & values; adult decisions; people skills; a support network |
 
@@ -128,14 +129,17 @@ the myths that block these skills: "big kids don't cry", "asking for help is fai
   per-child collection; `Tool-moment` = an authored hook in any game referencing a tool id.
 - **Content & libs.** `src/content/toolkit.ts` (the four tools × age-banded levels × Lensy intros),
   `src/lib/toolkit.ts` (`ToolId`, registry, age→level mapping). The **Help Map reuses
-  [`get-help.tsx`](swipeed.md) / `help.ts`**, not a parallel help list.
+  `help.ts`** through the shared `HelpLines` rows (`src/components/toolkit/help-lines.tsx`), the same rows as
+  the help sheet, so the two can never list different numbers. Rows carry an audience: players who entered at
+  18 or over see an adult Childline row (call if a child needs help) and Women Helpline 181; younger players see
+  Childline as their own line. Emergency 112 is the first row for everyone ([SWED-128](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/952350b7-ccd0-46b5-a0f5-65ae398e7141)).
 
 ## Safeguarding & privacy (read first)
 - **Healthy-coping guardrail (hard rule).** The Cool-Down library is curated healthy-only (breathing,
   grounding, talking, movement, rest, creativity). No pain/shock/discomfort/restriction strategy can be
   authored in, enforced by the typed content set.
 - **Routes to real help.** The Help Map and mood check-in route any sign of crisis to real services (a
-  trusted adult, Childline 1098, Tele-MANAS 14416, cybercrime 1930). The spine
+  trusted adult, emergency 112, Childline 1098, Tele-MANAS 14416, cybercrime 1930, and Women Helpline 181 for adults). The spine
   **signposts and supports. It never claims to be therapy.**
 - **Privacy is paramount (DPDP-aligned).** The toolkit, mood check-ins and any notes are **on-device, never
   tied to an identity or uploaded**. Wellbeing data is the most sensitive in the app. (No mood *values* are

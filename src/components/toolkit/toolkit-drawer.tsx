@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X, Wind, Briefcase, LifeBuoy, Phone, ExternalLink, ChevronLeft } from "lucide-react";
+import { X, Wind, Briefcase, LifeBuoy, ChevronLeft } from "lucide-react";
 import { useProfile } from "@/lib/store";
 import { unlockedTools, toolLevel } from "@/lib/toolkit";
 import { ToolPlayer } from "@/components/toolkit/tool-player";
 import { BreathingSpace } from "@/components/toolkit/breathing-space";
-import { HELP } from "@/content/help";
+import { HELP, isAdultPlayer } from "@/content/help";
+import { HelpLines } from "@/components/toolkit/help-lines";
 import type { ToolId } from "@/lib/types";
 
 // The always-available Toolkit: the home base for the Life-Skills Toolkit AND the single Get-Help entry
@@ -101,18 +102,8 @@ export function ToolkitDrawer() {
       {open === "help" && sheet("You can get help", () => setOpen("drawer"), (
         <>
           <p className="mb-1 text-sm font-semibold text-foreground">{HELP.reassurance}</p>
-          <p className="mb-3 text-xs text-foreground/60">{HELP.prompt}</p>
-          <div className="flex flex-col gap-2">
-            {HELP.lines.map((line) => (
-              <a key={line.name} href={line.href} target={line.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="glass-card flex items-center justify-between gap-2 rounded-2xl px-4 py-2.5 backdrop-blur-[12px]">
-                <span className="flex flex-col">
-                  <span className="text-sm font-semibold text-foreground">{line.name}</span>
-                  <span className="text-xs text-foreground/60">{line.detail}</span>
-                </span>
-                {line.href.startsWith("tel:") ? <Phone className="size-4 shrink-0 text-foreground/70" aria-hidden /> : <ExternalLink className="size-4 shrink-0 text-foreground/70" aria-hidden />}
-              </a>
-            ))}
-          </div>
+          <p className="mb-3 text-xs text-foreground/60">{isAdultPlayer(profile.entryAgeGate) ? HELP.adultPrompt : HELP.prompt}</p>
+          <HelpLines entryAgeGate={profile.entryAgeGate} />
         </>
       ))}
 

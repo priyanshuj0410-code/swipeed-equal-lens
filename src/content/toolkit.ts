@@ -57,9 +57,9 @@ export const TOOL_GUIDE: Record<ToolId, ToolGuide> = {
     steps: [
       { emoji: "🧑", label: "A trusted adult", say: "Start with a trusted adult: a parent, teacher, or relative." },
       { emoji: "🩺", label: "A counsellor", say: "A school counsellor or doctor can help too." },
-      { emoji: "☎️", label: "Helplines", say: "Helplines are there for you, day and night.", kind: "helplines" },
+      { emoji: "☎️", label: "Helplines", say: "These helplines are free, day and night. Tap one to call.", kind: "helplines" },
       { emoji: "🧑‍🤝‍🧑", label: "Your people", say: "Build your support network: the people you can lean on, for life." },
     ],
-    levelLabels: ["Find a trusted adult", "Ask a grown-up", "Childline 1098 & Ask-It", "Tele-MANAS; support a friend", "Build a support network"],
+    levelLabels: ["Find a trusted adult", "Ask a grown-up", "Call Childline 1098", "Tele-MANAS; support a friend", "Build a support network"],
   },
 };

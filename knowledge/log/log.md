@@ -57,6 +57,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c  # SWED-125
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/3b8d2f41-f968-476f-b8a4-867231ecbe8f  # SWED-127
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/bebd5a55-4403-44f5-866f-2a30d6e79f17  # SWED-133
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/952350b7-ccd0-46b5-a0f5-65ae398e7141  # SWED-128
 ---
 
 # SwipeEd project log
@@ -64,6 +65,12 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-04 · safety: the help sheet and Help Map give the right lines to the right people ([SWED-128](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/952350b7-ccd0-46b5-a0f5-65ae398e7141), part 1)
+- **What.** From the [UX copy audit](../audits/ux-copy-audit-2026-10-04.md), problem 7. Emergency 112 is now the first row of the help sheet. Players who entered at 18 or over no longer see Childline as their own line: they see "call if a child needs help or protection" and the Women Helpline 181, and an adult prompt instead of "your school counsellor". Younger players are told to tell another adult if the first one doesn't help. The POCSO e-Box row no longer promises "safely and privately"; it says it is a government website that opens outside the app.
+- **Help Map.** Its helplines step said "Helplines are there for you, day and night" with no number. It now shows the same rows as the help sheet (one shared `HelpLines` component), and the level label "Childline 1098 & Ask-It" names a feature that was never built, so it now says "Call Childline 1098".
+- **Also.** The adult reflect support card no longer calls the lines "confidential".
+- **Next.** The rest of SWED-128 (capstone laps, privacy promises and help facts across the game banks, Chapter 1 to 3 word limits) comes from a sweep of the whole bank.
 
 ## 2026-10-04 · architecture: content stays in git, progress stays on the device ([SWED-133](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/bebd5a55-4403-44f5-866f-2a30d6e79f17))
 - **What.** A [decision record](../architecture/content-and-progress.md): SwipeEd does not adopt the Firebase data layer from Nivel's app-data-layers playbook (PARITY-79). Moving progress to a server would create a record of which sensitive games a child finished (DPDP section 9), and taking content out of git would leave the gates checking nothing.
