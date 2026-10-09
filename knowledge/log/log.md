@@ -63,6 +63,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061  # SWED-137
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5232d551-b27d-42cf-8bba-dffcb08c7a97  # SWED-139
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a879f9e-b1d2-4753-8dcc-ce250b3c6c00  # SWED-140
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2aed3a9a-9b61-44a2-bc3c-472d487be8ac  # SWED-101
 ---
 
 # SwipeEd project log
@@ -352,6 +353,21 @@ Results on 2026-10-02: the character LoRA drew Lensy, UN and RE on-model in comi
   [visual answer options research](../research/visual-answer-options-2026-09-15.md#local-flux-style-test-swed-91).
 - **Found.** Clean on-brand look; the Lensy style adds ground shadows; lavender hair, "fair" skin reading as not
   Indian, and five actions that do not read go into round two.
+
+## 2026-09-29 · product: a PRD for weekly themes ([SWED-101](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2aed3a9a-9b61-44a2-bc3c-472d487be8ac))
+- **Why.** Rashi proposed an adaptive programme for children: a picture check-in, weekly themes chosen from the
+  child's answers, stories with no right or wrong, levels instead of scores, and a weekly update for the parent. SwipeEd
+  already has the age bands, the storyline and the games, so it is specified as SwipeEd's next version, not a new app.
+- **What changed.** A new `product/` folder holds [the weekly themes PRD](../product/prd-weekly-themes.md), a draft.
+  It records the current version as read from the code on `main`, the rules that do not bend (nothing leaves the phone,
+  parents never see answers, nothing adapts on body safety or consent, no scores), 14 functional requirements with
+  acceptance criteria, four pilot themes for ages 6-9 built on Chapter 2's existing canvas myths, milestones, risks
+  and nine open questions. The index lists the folder. No code or content changed.
+- **Found on the way.** The build bible's "no coins, no streaks" stance and today's fixed 3 stars and 15 coins
+  disagree, no Chapter 1 to 3 game is playable by a child who cannot read without a grown-up, and there is no offline
+  support although the repo README says there is. All three are in the PRD.
+- **Committed late.** The draft sat uncommitted in a worktree until 2026-10-09, when it was moved onto current `main`
+  while the worktrees were closed ([SWED-136](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/11179754-01fe-4cee-956c-bfe245b125b9)).
 
 ## 2026-09-15 · engine and content: branch and role-play become multi-step ([SWED-96](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2c860719-ffbf-4c2a-8282-ea5ec6b1c3b9))
 - **Why.** The owner asked for at least 4 options, several questions (3 to 5) on the same scenario building on the
