@@ -10,6 +10,7 @@ timestamp: 2026-06-20T22:30:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f  # SWED-126
 ---
 
 # Decoded
@@ -83,3 +84,7 @@ the game itself (it models what it teaches).
   Badge Book; English narration. **This is the last lesson node built. Only Capstone 5 remains on the path.**
 - **Deferred (GDD Phase 2/3):** a live "decode this real feed" sandbox, a fuller manipulation/dark-pattern
   bank, crown levels, Classroom-Mode polish, calm mode, and **Hindi**.
+
+## Multi-step stories ([SWED-126](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f), 2026-10-11)
+
+All 87 branches and 50 role-plays are now 3 to 5 questions on one situation: 103 with 3, 31 with 4 and 3 with 5, 448 questions in all. Each question has 4 or 5 options and one best, revealed at the end. After a write, review and fix pass under the writer and minors briefs, a final certification ran up to four rounds of independent reviews: a blind best-option pick, a transition audit, and a safety and fidelity review. Round 1 found 209 blocking problems in this game. The stories the last fix changed, and every finding a fixer kept, were read in full before shipping. Four Decoded 01 stories whose last safety review looked rubber-stamped were read again as the safety reviewer would. The shipping read found nothing to fix. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).

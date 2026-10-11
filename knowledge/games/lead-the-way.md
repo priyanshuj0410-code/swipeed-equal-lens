@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/346e8997-2ede-4e3b-a749-f8e7da185355  # SWED-81
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f  # SWED-126
 ---
 
 # Lead the Way
@@ -79,3 +80,7 @@ audio contract (#10), the UN & RE move ([core principle](swipeed-core-principle.
 ## Safety fixes (2026-10-02)
 
 [SWED-81](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/346e8997-2ede-4e3b-a749-f8e7da185355): `lw-1035`'s model line, which calls a friend in privately, says "a quick word in private" instead of "just between us", so no model line in the bank asks for secrecy.
+
+## Multi-step stories ([SWED-126](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f), 2026-10-11)
+
+All 114 branches and 65 role-plays are now 3 to 5 questions on one situation: 110 with 3, 62 with 4 and 7 with 5, 613 questions in all. Each question has 4 or 5 options and one best, revealed at the end. After a write, review and fix pass under the writer and minors briefs, a final certification ran up to four rounds of independent reviews: a blind best-option pick, a transition audit, and a safety and fidelity review. Round 1 found 186 blocking problems in this game. The stories the last fix changed, and every finding a fixer kept, were read in full before shipping. The shipping read fixed four stories: a scholarship story no longer teaches giving up your own funding for a friend who needs it more; an audition story's wrong choices no longer all end in the same rescue; a follow-up line now fits every earlier path; and an option that appeased an angry boy who cornered the player became plain self-blame, since a survival response is never marked short of best. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).

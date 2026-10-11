@@ -59,6 +59,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/bebd5a55-4403-44f5-866f-2a30d6e79f17  # SWED-133
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/952350b7-ccd0-46b5-a0f5-65ae398e7141  # SWED-128
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4  # SWED-134
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f  # SWED-126
 ---
 
 # SwipeEd project log
@@ -66,6 +67,14 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-11 · content: Chapter 5 branches and role-plays become multi-step ([SWED-126](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f))
+- **What.** All 1454 single-step stories in the nine Chapter 5 games (908 branches, 546 role-plays) are now multi-step: 4947 questions, with 925 stories of 3 steps, 473 of 4 and 56 of 5. Chapter 5 has no single-step branch or role-play left. The players are 15 to 18, so the minors brief applied to every writer, reviewer and fixer.
+- **How it was checked.** The same write, review and fix pass and final certification as Chapters 6, 7 and 8. Round 1 found 1610 blocking problems. The wave paused twice for the weekly usage limit (Oct 5 to Oct 11) and resumed from its files.
+- **Shipping read.** A workflow read 393 stories in full: every story the last fix changed, every finding a fixer kept, and in the five safety-heavy games (Justice League: Rights Edition; Mutual; My Choices, My Future; Spectrum; Status: Know It) every story with a safety finding in any round or naming a helpline. A second reader re-checked each finding, and the 39 edits that held (27 stories) were applied by hand. Four Decoded stories whose last safety review looked rubber-stamped were read again and passed.
+- **Main themes of the hand fixes.** No unconditional confidentiality or privacy promises to a teen: each now says what stays private and that adults act to keep them safe, without scare copy. A trusted adult is plainly an adult (an aunt, not an older sister or cousin). Keeping quiet and appeasing someone threatening are never wrong options for the player. A very drunk, hard to wake friend routes to 112. A partner is tested too.
+- **Owner review pages.** [Justice League](https://claude.ai/artifact/QJHgMCauq7CmrwZXfVhzws), [Mutual](https://claude.ai/artifact/XhXbiJhhSPvszVeSpquZng), [My Choices](https://claude.ai/artifact/LyR8tMeUc4ESSLhPLPWuvB), [Spectrum](https://claude.ai/artifact/Tp1VnRPnV9VFVn6bHd2t7t), [Status: Know It](https://claude.ai/artifact/9nG1M3PaWEtDitTM6yWws8).
+- **Checks.** `forge_check.py` passes for all nine games. So do `forge_dedup.py --verify`, `content_gate.py`, `test_gates.py`, `no_dashes.py` and the build.
 
 ## 2026-10-04 · architecture: game content becomes JSON data files ([SWED-134](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4))
 - **What.** The 77 game files in `src/content/games/` (69 lesson games, 8 capstones) moved from TypeScript modules to JSON data files, and the 77 per-game wrapper components are gone: `engine-host.tsx` loads each game's data with its engine through one `lesson()` or `capstone()` loader, code-split as before. This is the first of the owner's three data separation steps after the [content and progress decision](../architecture/content-and-progress.md).
