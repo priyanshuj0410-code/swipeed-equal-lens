@@ -23,6 +23,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/baa41435-d56c-487b-ac9b-7557d49c85f5  # SWED-87
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c  # SWED-125
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/3b8d2f41-f968-476f-b8a4-867231ecbe8f  # SWED-127
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061  # SWED-137
 ---
 
 # SwipeEd design system
@@ -75,7 +76,7 @@ be able to repaint what correct looks like." A future brand retheme is allowed t
 | Token | Light | Dark (`[data-audience="adult"]`) | Role |
 |---|---|---|---|
 | `--color-brand` | `#553286` | `#C9B8E6` | Primary violet |
-| `--color-brandsoft` | `#7F65A4` | `#B3A4D6` | Muted violet |
+| `--color-brandsoft` | `#7F65A4` | `#B3A4D6` | Muted violet (pinned 0.1.0 value; `@equal-lens/brand` 0.1.1 moves light to `#735997`, 4.53:1 on mist, THEEQ-61. SwipeEd only uses it in dark, `--brand-600`, so nothing changes here until the pin is bumped) |
 | `--color-paper` | `#FBF9FF` | `#15101F` | Page background |
 | `--color-surface` | `#FFFFFF` | `#221A30` | Cards, notes |
 | `--color-mist` | `#E7E0F1` | `#3A2E4D` | Hairlines, hover fills |
@@ -99,16 +100,16 @@ the tarball existed.
 These are the "declared valence" system: a bin, chip, or branch option carries an explicit
 `pos`/`neg`/`tell`/`uhoh` meaning in its content schema (see the [question bank](schemas/question-bank.md) for the data
 model) rather than the engine guessing from English wording. Defined in `src/app/globals.css:82-105`
-(light) and `:170-171` (dark values shown; `--prx-pos`/`--prx-neg` are aliases and follow their flag
-tokens automatically):
+(light) and `:170-171` (dark values shown; `--prx-pos` is an alias and follows its flag token, and `--prx-neg`
+is an alias in dark only):
 
 | Token | Light | Dark | Usage rule |
 |---|---|---|---|
 | `--prx-pos` ("correct") | `oklch(0.68 0.16 150)` (~green) | `oklch(0.76 0.16 150)` | A declared-positive bin, a matched pair, a caught trick. Always paired with an emoji (💚/✓) or a token glyph, per the "colour is never the only signal" rule below, never colour alone. |
-| `--prx-neg` ("incorrect") | `oklch(0.62 0.20 22)` (~red) | `oklch(0.70 0.19 22)` | A declared-negative bin, a caught red flag. Same pairing rule. |
+| `--prx-neg` ("incorrect") | `oklch(0.64 0.20 22)` (~red, `#ED4952`) | `oklch(0.70 0.19 22)` (alias of `--prx-flag-red`) | A declared-negative bin, a caught red flag. Same pairing rule. Light is its own fill value, not the flag-red alias: it was `0.62` (on-fill 4.30:1) and moved to `0.64` (4.65:1) at the same hue and chroma ([SWED-137](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061)). `--prx-flag-red` (`0.62`) stays for red used as text or border on white. |
 | `--prx-tell` | `oklch(0.70 0.15 78)` | `oklch(0.80 0.15 80)` | A "tell someone" cue in Be the Safe Adult-style content, amber. |
 | `--prx-uhoh` | `oklch(0.64 0.16 45)` | `oklch(0.73 0.16 45)` | A caution cue, orange-red. |
-| `--prx-on-fill` | `#221436` fixed, does not flip | same | Text/icon colour placed on any of the four fills above. Deliberately **not** `var(--color-ink)`: the fills are mid-lightness in both themes, so the foreground must not flip with them (comment at `globals.css:104` records the measured range, white-on-fill scored 2.01 to 3.61, this scores 3.9 to 8.6; the fresh measurement in `design-findings.md` narrows that to 4.28 to 8.52, see Accessibility). |
+| `--prx-on-fill` | `#221436` fixed, does not flip | same | Text/icon colour placed on any of the four fills above. Deliberately **not** `var(--color-ink)`: the fills are mid-lightness in both themes, so the foreground must not flip with them (comment at `globals.css:104` records the measured range, white-on-fill scored 2.01 to 3.61, this scores 4.65 to 9.04 on the four fills in both themes, see Accessibility). |
 | `--prx-slot-1` … `--prx-slot-6` | six hues, non-semantic | six hues | Position-only wheel for an *undeclared* bin, so a bin with no declared valence still gets a distinct colour and emoji without asserting correctness. |
 
 **UN and RE** are not colour tokens, they are characters that borrow existing brand accents:
@@ -365,11 +366,35 @@ mostly orphaned per `games/world-art-tokens.md`) and `skin="canvas"` (hand-drawn
   This was the bold `UN:` and `RE:` label on every myth-bust in light mode. **Fixed 2026-10-03:** the
   labels now use `--un-ink` (`#058274`, 4.72:1 on white, 4.51:1 on paper) and `--re-ink` (`#BB543D`,
   4.72:1 and 4.52:1), the same hues darkened in OKLCH; dark mode keeps the accents. Tracked as [SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587).
-- `--prx-on-fill` on `--prx-neg` (the "incorrect" fill) measures 4.28:1 in light mode, just under the
-  4.5:1 normal-text AA threshold, though it clears the 3.0:1 large-text/UI-component threshold. Every
-  other `--prx-*` fill/on-fill pairing clears normal-text AA.
+- `--prx-on-fill` on `--prx-neg` (the "incorrect" fill) measured 4.30:1 in light mode (this doc recorded
+  4.28 from a different gamut mapping), just under the 4.5:1 normal-text AA threshold. **Fixed
+  ([SWED-137](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061)):**
+  the light fill moved from `oklch(0.62 0.20 22)` (`#E6424C`) to `oklch(0.64 0.20 22)` (`#ED4952`), same hue and chroma, and now
+  measures 4.65:1. The four declared fills now measure, light: neg 4.65, uhoh 4.79, tell 6.30, pos 6.39;
+  dark: neg 5.92, uhoh 6.83, pos 8.53, tell 9.04 (`oklch` converted to sRGB with CSS gamut mapping, ratios by the
+  WCAG formula). Debt: the six position-wheel slots in light measure 4.33 to 5.00 (`slot-3` 4.37 and `slot-6` 4.33 are
+  under 4.5, `slot-5` is 4.51); they carry no text today, so they are not fixed here.
 
-**Focus** (SWED-66, closing SWED-58). At the start of each beat or lap, focus moves to the question card
+**Focus ring** ([SWED-137](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061)).
+Before this the only default was shadcn's `outline-ring/50`, a translucent colour with no width or style, so most
+controls had no reliable indicator. Now `globals.css` has one unlayered rule, `:focus-visible { outline: 2px solid
+var(--ring); outline-offset: 2px }`, with `--ring` = `--color-brand`. It outranks `outline-none` and the shadcn
+translucent `ring-ring/50` halo, which stays as a soft extra. `tabindex="-1"` targets (the question card, dialog panels)
+keep no ring. Ratios against the ground behind the ring:
+
+| Ground | Light ring `#553286` | Dark ring `#C9B8E6` |
+|---|---|---|
+| paper | 9.19 (`#FBF9FF`) | 10.20 (`#15101F`) |
+| surface | 9.60 (`#FFFFFF`) | 9.12 (`#221A30`) |
+| mist / secondary | 7.47 (`#E7E0F1`) | 6.84 (`#3A2E4D`), 7.96 on `#2E2440` |
+| page gradient end | 8.51 (`#F3F0F6`) | 10.46 (`#120D1A`) |
+
+The path world is an illustrated ground (grass, path) where no single colour clears 3:1 in dark (the ring is 1.35 on the
+dark path and 2.90 on the dark grass). Path nodes therefore draw a paper halo around the ring (`ring-[6px]` in `--color-paper`,
+with the outline in the middle): violet sits between two paper bands, 9.19 (light) and 10.20 (dark) on either side, whatever is
+behind. The swipe and rub-out cards keep their own `ring-4` in ink (14:1 or better).
+
+**Focus order and moves** (SWED-66, closing SWED-58). At the start of each beat or lap, focus moves to the question card
 (`h2` with `tabIndex={-1}`, so a screen reader reads the question first; the capstone waits until the new
 lap's question is on the card). Tab from there reaches the reveal gate, then the answers; a keyboard reveal
 moves focus to the first answer. When the beat is solved, focus moves to Next. Focus moves use
@@ -377,10 +402,13 @@ moves focus to the first answer. When the beat is solved, focus moves to Next. F
 
 **Tap targets.** Most interactive controls are comfortably above the 24x24 CSS px WCAG AA minimum,
 game-done's primary actions are `h-11` (44px), the toolbar dock enforces `min-width: 2.5rem` (40px)
-per button (`globals.css:378-380`). The `GameShell` back button is `size-9` (36px,
-`game-shell.tsx`), which passes AA but sits under the 44px platform-guideline target that the rest of
-the chrome uses, worth a look given how much of the youngest chapter (ages 3 to 6) relies on tapping
-precisely.
+per button (`globals.css:378-380`). The round top-bar buttons are `size-9` (36px) and stay that size visually; as of
+[SWED-137](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061)
+they carry an invisible `::after` hit area from two utilities in `globals.css`: `.hit-48` (48px) on the back or leave
+button in `game-shell.tsx`, `path/page.tsx` and `glrl/run-host.tsx`, and `.hit-44` (44px) on the sound and "Hear it again"
+buttons in `v2-engine.tsx` and `capstone-rich.tsx`. The back button gets 48px in every chapter, not only ages 3 to 6, because
+the shared shell does not know the chapter (the 3 to 6 guideline is 48px). The two tool buttons sit 8px apart, so their 44px
+areas touch without overlapping. New small round controls use `.hit-44` rather than growing the visual size.
 
 **Audio-first for ages 3 to 6.** Every Lensy line is spoken (`speak()`/`replay()`,
 `src/lib/speak.ts`, wired through `v2-engine.tsx` and `capstone-rich.tsx`); "Hear it again" replays the

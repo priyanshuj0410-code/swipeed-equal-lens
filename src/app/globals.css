@@ -90,7 +90,10 @@
      deliberately avoid the green (~150), red (~22) and amber (~78) bands, so a neutral bin can
      never be mistaken for a declared one. */
   --prx-pos: var(--prx-flag-green);
-  --prx-neg: var(--prx-flag-red);
+  /* The "incorrect" FILL. Own value in light, not the flag-red alias: --prx-flag-red is also used as red text
+     and border on white, where a lighter red would lose contrast, but #221436 on oklch(0.62 0.2 22) was 4.30.
+     L 0.62 -> 0.64 (same hue and chroma) makes on-fill 4.65 (SWED-137). Dark follows the flag again. */
+  --prx-neg: oklch(0.64 0.2 22);
   --prx-tell: oklch(0.70 0.15 78);
   --prx-uhoh: oklch(0.64 0.16 45);
   --prx-slot-1: oklch(0.62 0.11 196);
@@ -101,7 +104,7 @@
   --prx-slot-6: oklch(0.62 0.16 346);
   /* Ink on a semantic fill. NOT var(--color-ink): every fill above is mid-lightness in BOTH
      themes, so the foreground must not flip. white-on-fill measured 2.01-3.61 (fails AA); this
-     scores 3.9-8.6. */
+     scores 4.65-9.04 on pos/neg/tell/uhoh (light: neg 4.65, uhoh 4.79, tell 6.30, pos 6.39). */
   --prx-on-fill: #221436;
   --prx-wash: 12%;
   --prx-wash-hover: 28%;
@@ -186,7 +189,9 @@
   --lip: color-mix(in srgb, var(--color-ink) 22%, var(--color-paper));
   --lip-brand: color-mix(in srgb, var(--color-brand) 55%, var(--color-paper));
   --lip-sun: color-mix(in srgb, var(--color-sun) 50%, #000);
-  /* --prx-pos/-neg are aliases and follow their flag tokens; --prx-on-fill deliberately does NOT flip. */
+  /* --prx-pos is an alias and follows its flag token; --prx-neg is an alias in dark only (light has its own
+     fill value, see :root); --prx-on-fill deliberately does NOT flip. */
+  --prx-neg: var(--prx-flag-red);
   --flame: var(--color-sun);
   --accent-amber: var(--color-sun);
   --path-fill: oklch(0.72 0.03 85);
@@ -225,9 +230,39 @@
    styles beat any selector and inherit everywhere, sidestepping the layer fight. The derived tokens
    above (--brand-500, --secondary, …) then resolve against those dark values automatically. */
 
+/* Focus ring (SWED-137). One solid 2px ring on every keyboard-focused control, in --ring (= --color-brand: #553286
+   light, #C9B8E6 dark): 7.4 to 9.6 on paper/surface/mist light, 6.8 to 10.5 dark. Unlayered on purpose so it
+   outranks the utilities layer (outline-none on shadcn parts and the games) and keeps one look everywhere.
+   tabindex="-1" is a programmatic focus target (the question card, dialog panels), not a control, so it keeps
+   no ring. The path world's illustrated ground is covered by a paper halo in path-scene.tsx. Same rule as
+   @equal-lens/brand 0.1.1, so bumping the pinned version changes nothing here. */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+:focus-visible[tabindex="-1"] { outline: none; }
+
+/* Touch targets (SWED-137): the visual size stays, the hit area grows. .hit-44 is the 44px floor for chrome
+   buttons; .hit-48 is the back/leave button (ages 3 to 6 chapter, the shell is shared so every chapter gets it). */
+@layer components {
+  .hit-44,
+  .hit-48 { position: relative; }
+  .hit-44::after,
+  .hit-48::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+  .hit-48::after { width: max(100%, 48px); height: max(100%, 48px); }
+}
+
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
