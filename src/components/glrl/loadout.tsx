@@ -120,7 +120,7 @@ export function Loadout({
                     </span>
                     {cleared && <Check className="size-4 shrink-0" style={{ color: "#62e08f" }} aria-hidden />}
                     {stars > 0 && (
-                      <span className="flex shrink-0 items-center gap-0.5 text-[10px] font-bold" style={{ color: "var(--accent-amber)" }} aria-label={`${stars} stars`}>
+                      <span className="flex shrink-0 items-center gap-0.5 text-xs font-bold" style={{ color: "var(--accent-amber)" }} aria-label={`${stars} stars`}>
                         <Star className="size-3" fill="currentColor" aria-hidden /> {stars}
                       </span>
                     )}
@@ -155,7 +155,7 @@ export function Loadout({
                     <span className="min-w-0">
                       <span className="block text-xs font-bold">{p.name}</span>
                       {!unlocked && (
-                        <span className="flex items-center gap-1 text-[10px] leading-tight text-foreground/55">
+                        <span className="flex items-center gap-1 text-xs leading-tight text-foreground/55">
                           <Lock className="size-2.5 shrink-0" aria-hidden /> {p.unlock}
                         </span>
                       )}

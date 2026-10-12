@@ -42,7 +42,7 @@ export function GetHelp() {
             >
               <span className="flex flex-col">
                 <span className="text-sm font-medium">{line.name}</span>
-                <span className="text-xs text-muted-foreground">{line.detail}</span>
+                <span className="text-sm text-muted-foreground">{line.detail}</span>
               </span>
               {line.href.startsWith("tel:") ? (
                 <Phone className="size-4 shrink-0" aria-hidden />

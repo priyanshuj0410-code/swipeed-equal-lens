@@ -479,11 +479,11 @@ html[data-playing="true"] .gethelp-label {
   touch-action: none;
   pointer-events: auto;
 }
-.myth-card .note__chip { font-size: 0.58rem; padding: 0.08rem 0.45rem; }
+.myth-card .note__chip { font-size: 0.75rem; padding: 0.08rem 0.45rem; }
 .myth-card .myth-text { margin-top: 4px; font-weight: 700; transition: opacity 0.1s ease, filter 0.1s ease; }
 .myth-card .myth-truth { color: var(--color-brand); }
-.myth-card .myth-hint { display: block; margin-top: 4px; font-size: 0.64rem; font-weight: 600; opacity: 0.5; }
-.myth-card .myth-expl { margin-top: 4px; font-size: 0.66rem; font-weight: 600; opacity: 0.72; }
+.myth-card .myth-hint { display: block; margin-top: 4px; font-size: 0.75rem; font-weight: 600; opacity: 0.5; }
+.myth-card .myth-expl { margin-top: 4px; font-size: 0.75rem; font-weight: 600; opacity: 0.72; }
 
 /* Path tool dock: the brand UN/RE toolbar, brand-docked bottom-centre. RESPONSIVE: full labels
    on web, icon-only on mobile. */

@@ -52,11 +52,11 @@ export function RunDebrief({
 
       <dl className="mt-5 grid grid-cols-2 gap-2 text-center">
         <div className="glass-pill rounded-xl px-2 py-2 backdrop-blur-md">
-          <dt className="text-[10px] uppercase tracking-wide text-foreground/65">Read right</dt>
+          <dt className="text-xs uppercase tracking-wide text-foreground/65">Read right</dt>
           <dd className="font-display text-lg font-bold">{result.correct}/{result.total}</dd>
         </div>
         <div className="glass-pill rounded-xl px-2 py-2 backdrop-blur-md">
-          <dt className="text-[10px] uppercase tracking-wide text-foreground/65">Disguised</dt>
+          <dt className="text-xs uppercase tracking-wide text-foreground/65">Disguised</dt>
           <dd className="font-display text-lg font-bold">{result.disgCorrect}/{result.disgSeen}</dd>
         </div>
       </dl>
@@ -69,7 +69,7 @@ export function RunDebrief({
       </div>
 
       {missedNames.length > 0 && (
-        <p className="mt-3 text-center text-xs text-foreground/70">
+        <p className="mt-3 text-center text-sm text-foreground/70">
           To look again: {missedNames.slice(0, 4).join(" · ")}
         </p>
       )}

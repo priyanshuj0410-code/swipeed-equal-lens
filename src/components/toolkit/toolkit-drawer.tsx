@@ -47,7 +47,7 @@ export function ToolkitDrawer() {
           </h2>
           <div className="flex items-center gap-2">
             {(profile.dailyStreak?.count ?? 0) >= 2 && (
-              <span className="rounded-full bg-foreground/15 px-2.5 py-1 text-[11px] font-semibold text-foreground/85">🔥 {profile.dailyStreak!.count}-day streak</span>
+              <span className="rounded-full bg-foreground/15 px-2.5 py-1 text-xs font-semibold text-foreground/85">🔥 {profile.dailyStreak!.count}-day streak</span>
             )}
             <button type="button" onClick={() => setOpen(null)} aria-label="Close" className="flex size-8 items-center justify-center rounded-full bg-foreground/10 transition-transform active:scale-95"><X className="size-4 text-foreground" aria-hidden /></button>
           </div>
@@ -72,7 +72,7 @@ export function ToolkitDrawer() {
 
       {open === "drawer" && sheet("Your Toolkit", null, (
         <>
-          <p className="mb-4 text-xs text-foreground/60">Skills you carry, and help any time you need it.</p>
+          <p className="mb-4 text-sm text-foreground/60">Skills you carry, and help any time you need it.</p>
           {/* Get Help: always present (folded in from the old top-corner pill) */}
           <button type="button" onClick={() => setOpen("help")} className="glass-card mb-2.5 flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-95">
             <LifeBuoy className="size-5" aria-hidden /> Get help
@@ -87,14 +87,14 @@ export function ToolkitDrawer() {
                   <span className="text-3xl" aria-hidden>{t.emoji}</span>
                   <span className="flex-1">
                     <span className="block text-sm font-bold text-foreground">{t.name}</span>
-                    <span className="block text-xs text-foreground/60">{t.tagline}</span>
+                    <span className="block text-sm text-foreground/60">{t.tagline}</span>
                   </span>
-                  <span className="rounded-full bg-foreground/15 px-2 py-0.5 text-[11px] font-semibold text-foreground/80">Lv {toolLevel(profile, t.id)}</span>
+                  <span className="rounded-full bg-foreground/15 px-2 py-0.5 text-xs font-semibold text-foreground/80">Lv {toolLevel(profile, t.id)}</span>
                 </button>
               ))}
             </div>
           ) : (
-            <p className="text-center text-xs text-foreground/55">More skills unlock as you play the feelings & life-skills games. 🌱</p>
+            <p className="text-center text-sm text-foreground/55">More skills unlock as you play the feelings & life-skills games. 🌱</p>
           )}
         </>
       ))}
@@ -102,7 +102,7 @@ export function ToolkitDrawer() {
       {open === "help" && sheet("You can get help", () => setOpen("drawer"), (
         <>
           <p className="mb-1 text-sm font-semibold text-foreground">{HELP.reassurance}</p>
-          <p className="mb-3 text-xs text-foreground/60">{isAdultPlayer(profile.entryAgeGate) ? HELP.adultPrompt : HELP.prompt}</p>
+          <p className="mb-3 text-sm text-foreground/60">{isAdultPlayer(profile.entryAgeGate) ? HELP.adultPrompt : HELP.prompt}</p>
           <HelpLines entryAgeGate={profile.entryAgeGate} />
         </>
       ))}

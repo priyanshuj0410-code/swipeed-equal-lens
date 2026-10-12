@@ -28,7 +28,7 @@ export default function SettingsPage() {
       <Card className="flex items-center justify-between gap-4 p-4">
         <div>
           <p className="text-sm font-medium">School-Comfort Mode</p>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             Hides the romantic “Crushes & Dating” deck. Keeps Friendship, Family, Online, Peer and
             Norm-Buster content.
           </p>
@@ -43,7 +43,7 @@ export default function SettingsPage() {
       <Card className="flex items-center justify-between gap-4 p-4">
         <div>
           <p className="text-sm font-medium">Sound effects</p>
-          <p className="text-xs text-muted-foreground">Swipe, combo and celebration sounds across every game.</p>
+          <p className="text-sm text-muted-foreground">Swipe, combo and celebration sounds across every game.</p>
         </div>
         <Switch
           checked={!profile.muted}
@@ -55,7 +55,7 @@ export default function SettingsPage() {
       <Card className="flex items-center justify-between gap-4 p-4">
         <div>
           <p className="text-sm font-medium">Calm Mode</p>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             A quieter, reduced-stimulation feel, with gentler motion and no confetti across the whole app.
           </p>
         </div>
@@ -69,7 +69,7 @@ export default function SettingsPage() {
       <Card className="flex items-center justify-between gap-4 p-4">
         <div>
           <p className="text-sm font-medium">Text size</p>
-          <p className="text-xs text-muted-foreground">Make everything bigger or smaller.</p>
+          <p className="text-sm text-muted-foreground">Make everything bigger or smaller.</p>
         </div>
         <div className="flex gap-1">
           {SCALES.map((s) => (
@@ -88,7 +88,7 @@ export default function SettingsPage() {
         </div>
       </Card>
 
-      <Card className="flex flex-col gap-2 p-4 text-xs text-muted-foreground">
+      <Card className="flex flex-col gap-2 p-4 text-sm text-muted-foreground">
         <p className="text-sm font-medium text-foreground">About</p>
         <p>
           A game about reading relationships: green flags and red flags. Content is behaviour-only.

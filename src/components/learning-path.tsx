@@ -193,7 +193,7 @@ export function LearningPath() {
         <div className="flex items-center gap-2">
           <Logo className="size-8" />
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">SwipeEd · The Equal Lens</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-primary">SwipeEd · The Equal Lens</p>
             <h1 className="text-lg font-bold leading-tight">Your path</h1>
           </div>
         </div>
@@ -247,7 +247,7 @@ export function LearningPath() {
               <span className="rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground shadow-sm">
                 {section.title}
               </span>
-              <span className="text-[11px] text-muted-foreground">{section.subtitle}</span>
+              <span className="text-xs text-muted-foreground">{section.subtitle}</span>
             </div>
             {section.nodes.map((node, ni) => {
               const index = SECTION_START[si] + ni;
@@ -264,7 +264,7 @@ export function LearningPath() {
             })}
           </div>
         ))}
-        <p className="relative z-10 mt-5 text-center text-xs text-muted-foreground">More lessons are on the way ✨</p>
+        <p className="relative z-10 mt-5 text-center text-sm text-muted-foreground">More lessons are on the way ✨</p>
       </div>
     </div>
   );
@@ -284,7 +284,7 @@ function NodeRow({
   const bubble = (
     <div className="relative flex flex-col items-center gap-1.5">
       {isActive && (
-        <span className="absolute -top-7 z-10 animate-bounce rounded-full bg-primary px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-primary-foreground shadow-md">
+        <span className="absolute -top-7 z-10 animate-bounce rounded-full bg-primary px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-primary-foreground shadow-md">
           {node.id === "glrl" ? "Start" : "Play"}
         </span>
       )}
@@ -317,12 +317,12 @@ function NodeRow({
           )}
         </div>
       </div>
-      <span className={`max-w-[8.5rem] text-center text-xs font-bold leading-tight ${isActive ? "" : "text-muted-foreground"}`}>
+      <span className={`max-w-[8.5rem] text-center text-sm font-bold leading-tight ${isActive ? "" : "text-muted-foreground"}`}>
         {node.title}
       </span>
-      <span className="text-[10px] uppercase tracking-wide text-muted-foreground">{isActive ? node.kind : "Soon"}</span>
+      <span className="text-xs uppercase tracking-wide text-muted-foreground">{isActive ? node.kind : "Soon"}</span>
       {node.tag === "gender" && (
-        <span className="rounded-full bg-primary/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-primary">
+        <span className="rounded-full bg-primary/10 px-1.5 py-0.5 text-xs font-bold uppercase tracking-wide text-primary">
           Equality
         </span>
       )}

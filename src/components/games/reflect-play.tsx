@@ -94,13 +94,13 @@ export function ReflectPlay({ sc, band, safety, ask, say, onSolved, done, help }
   const pickedCard = picked && (
     <div className="glass-card flex flex-col gap-0.5 rounded-2xl px-4 py-3 text-left" data-state="selected">
       <span className="text-xs font-bold text-foreground/60">Your pick</span>
-      <span className="text-[15px] font-bold leading-snug text-foreground">{picked}</span>
+      <span className="text-base font-bold leading-snug text-foreground">{picked}</span>
     </div>
   );
   const wrote = (text: string, i: number) => (
     <div key={i} className="glass-pill flex flex-col gap-0.5 rounded-2xl px-4 py-3 text-left">
       <span className="text-xs font-bold text-foreground/60">You wrote</span>
-      <span className="whitespace-pre-wrap break-words text-[15px] font-semibold leading-snug text-foreground">{text}</span>
+      <span className="whitespace-pre-wrap break-words text-base font-semibold leading-snug text-foreground">{text}</span>
     </div>
   );
 
@@ -108,7 +108,7 @@ export function ReflectPlay({ sc, band, safety, ask, say, onSolved, done, help }
     return (
       <div className="grid grid-cols-1 gap-2.5">
         {sc.options.map((o) => (
-          <button key={o} type="button" onClick={() => choose(o)} className="glass-card flex items-center justify-center rounded-2xl px-3 py-4 text-center text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.96]">{o}</button>
+          <button key={o} type="button" onClick={() => choose(o)} className="glass-card flex items-center justify-center rounded-2xl px-3 py-4 text-center text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.96]">{o}</button>
         ))}
       </div>
     );
@@ -122,7 +122,7 @@ export function ReflectPlay({ sc, band, safety, ask, say, onSolved, done, help }
     return (
       <div className="flex flex-col gap-2.5">
         {pickedCard}
-        <div className="glass-pill flex items-center gap-3 rounded-2xl px-4 py-3 text-left text-[15px] font-semibold leading-snug text-foreground">
+        <div className="glass-pill flex items-center gap-3 rounded-2xl px-4 py-3 text-left text-base font-semibold leading-snug text-foreground">
           <span className="text-2xl" aria-hidden>🗣️</span>
           <span>Say it out loud to a grown-up near you. They would love to hear it.</span>
         </div>
@@ -142,7 +142,7 @@ export function ReflectPlay({ sc, band, safety, ask, say, onSolved, done, help }
     return (
       <div className="flex flex-col gap-2.5">
         <div className="glass-card flex flex-col gap-1.5 rounded-2xl px-4 py-3.5 text-left">
-          <span className="text-[15px] font-bold leading-snug text-foreground">{supportLine(adult)}</span>
+          <span className="text-base font-bold leading-snug text-foreground">{supportLine(adult)}</span>
           <span className="text-sm font-semibold leading-snug text-foreground/80">
             {adult ? "Get help at the top of the screen has free lines you can call." : "You can also tap Get help at the top of the screen."}
           </span>
@@ -162,14 +162,14 @@ export function ReflectPlay({ sc, band, safety, ask, say, onSolved, done, help }
       {pickedCard}
       {turn === "deeper" && notes.map(wrote)}
       {turn === "deeper" && (
-        <div className="glass-pill rounded-2xl px-4 py-3 text-left text-[15px] font-semibold leading-snug text-foreground">💛 {sc.affirm}</div>
+        <div className="glass-pill rounded-2xl px-4 py-3 text-left text-base font-semibold leading-snug text-foreground">💛 {sc.affirm}</div>
       )}
       <label className="flex flex-col gap-1.5">
         <span className="sr-only">{turn === "write" ? sc.ask ?? ASK[band === "talk" ? "kids" : band] : sc.deeper ?? DEEPER[band === "talk" ? "kids" : band]}</span>
         <textarea ref={box} value={draft} maxLength={NOTE_MAX} rows={3} onChange={(e) => setDraft(e.target.value)} placeholder={(turn === "write" ? sc.ask : sc.deeper) ? "Write a few words…" : STARTER[turn]}
           className="w-full resize-none rounded-2xl border-[2.5px] border-[var(--color-ink)] bg-[var(--color-paper)] px-4 py-3 text-base font-semibold text-[var(--color-ink)] outline-none transition-colors placeholder:font-medium placeholder:text-[color-mix(in_oklch,var(--color-ink),transparent_55%)] focus-visible:border-[var(--color-brand)]" />
       </label>
-      <p className="flex justify-between gap-3 px-1 text-xs font-semibold text-foreground/60">
+      <p className="flex justify-between gap-3 px-1 text-sm font-semibold text-foreground/60">
         <span>Only you see this. It isn&apos;t saved or sent anywhere.</span>
         <span aria-hidden className="tabular-nums">{draft.length}/{NOTE_MAX}</span>
       </p>
