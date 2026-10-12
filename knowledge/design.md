@@ -55,7 +55,8 @@ Three layers, in order of authority:
    organisation-level usage rules (sticker pattern, voice, button variants). SwipeEd inherits these
    rules where they apply to a game, not a marketing site: the sticker/cut-out card language, the
    hyphens-not-dashes voice rule, and the `[data-audience="adult"]` light/dark mechanism all carry
-   over. Website-only concerns (the Gallery carousel, the blog embed sandbox, the canvas myth
+   over, as does the Equal Lens family rule (fixed core and per-product choices, in the website's `knowledge/design.md`).
+   Website-only concerns (the Gallery carousel, the blog embed sandbox, the canvas myth
    toolbar's desktop free-placement) do not apply to SwipeEd and are not inherited.
 3. **SwipeEd's own extensions**, documented here. SwipeEd may add tokens and components the brand
    does not define (the `--prx-*` declared-valence system, the thread/chapter colour taxonomy, the
@@ -107,12 +108,12 @@ is an alias in dark only):
 
 | Token | Light | Dark | Usage rule |
 |---|---|---|---|
-| `--prx-pos` ("correct") | `oklch(0.68 0.16 150)` (~green) | `oklch(0.76 0.16 150)` | A declared-positive bin, a matched pair, a caught trick. Always paired with an emoji (💚/✓) or a token glyph, per the "colour is never the only signal" rule below, never colour alone. |
+| `--prx-pos` ("correct") | `oklch(0.68 0.16 150)` (~green) | `oklch(0.76 0.16 150)` | A declared-positive bin, a matched pair, a caught trick. Always paired with its word (the bin label, the side word, the chip text), with an `aria-hidden` emoji beside it, per "Colour is never the only signal" in Interaction and motion; never colour alone. |
 | `--prx-neg` ("incorrect") | `oklch(0.64 0.20 22)` (~red, `#ED4952`) | `oklch(0.70 0.19 22)` (alias of `--prx-flag-red`) | A declared-negative bin, a caught red flag. Same pairing rule. Light is its own fill value, not the flag-red alias: it was `0.62` (on-fill 4.30:1) and moved to `0.64` (4.65:1) at the same hue and chroma ([SWED-137](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061)). `--prx-flag-red` (`0.62`) stays for red used as text or border on white. |
 | `--prx-tell` | `oklch(0.70 0.15 78)` | `oklch(0.80 0.15 80)` | A "tell someone" cue in Be the Safe Adult-style content, amber. |
 | `--prx-uhoh` | `oklch(0.64 0.16 45)` | `oklch(0.73 0.16 45)` | A caution cue, orange-red. |
 | `--prx-on-fill` | `#221436` fixed, does not flip | same | Text/icon colour placed on any of the four fills above. Deliberately **not** `var(--color-ink)`: the fills are mid-lightness in both themes, so the foreground must not flip with them (comment at `globals.css:104` records the measured range, white-on-fill scored 2.01 to 3.61, this scores 4.65 to 9.04 on the four fills in both themes, see Accessibility). |
-| `--prx-slot-1` … `--prx-slot-6` | six hues at `oklch` L 0.64, non-semantic | six hues at L 0.71 | Position-only wheel for an *undeclared* bin, so a bin with no declared valence still gets a distinct colour and emoji without asserting correctness. The match board also puts its pair number on them (`CornerBadge`, 12px extrabold `--prx-on-fill` text), so all six clear 4.5:1 with that ink in both themes (light 4.70 to 5.38, dark 6.18 to 7.00). They moved from L 0.62 to 0.64 at the same hue and chroma ([SWED-140](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a879f9e-b1d2-4753-8dcc-ce250b3c6c00)); L 0.64 is also the most they can rise, because a slot used as a bin border must stay 3:1 on paper and surface (lowest 3.06). |
+| `--prx-slot-1` … `--prx-slot-6` | six hues at `oklch` L 0.64, non-semantic | six hues at L 0.71 | Position-only wheel for an *undeclared* bin, so a bin with no declared valence still gets a distinct colour without asserting correctness. The match board also puts its pair number on them (`CornerBadge`, 12px extrabold `--prx-on-fill` text), so all six clear 4.5:1 with that ink in both themes (light 4.70 to 5.38, dark 6.18 to 7.00). They moved from L 0.62 to 0.64 at the same hue and chroma ([SWED-140](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a879f9e-b1d2-4753-8dcc-ce250b3c6c00)); L 0.64 is also the most they can rise, because a slot used as a bin border must stay 3:1 on paper and surface (lowest 3.06). |
 
 **UN and RE** are not colour tokens, they are characters that borrow existing brand accents:
 UN (the eraser, "unlearn") is teal and RE (the pencil, "relearn") is coral. Their bold `UN:` and
@@ -142,10 +143,13 @@ SwipeEd currently goes further than either: it points `--font-display`, `--font-
 the same Baloo 2 variable (`src/app/globals.css:16-18`) and sets every `h1`/`h2`/`h3` in Baloo 2
 (`globals.css:235-237`). Poppins survives only as `--font-ui` (`globals.css:19`) for UI labels.
 
-**Decision needed** (see [Divergences and debt](#divergences-and-debt), item 5): keep Baloo 2 headings as a
-documented SwipeEd exception for a child-facing game, or move headings back to Poppins. Until that is decided,
-do not spread Baloo 2 further: new heading styles go through the existing `h1`-`h3` rule or `--font-heading`,
-never a hardcoded Baloo family.
+**Decided 12 October 2026 ([SWED-140](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a879f9e-b1d2-4753-8dcc-ce250b3c6c00)): SwipeEd keeps Baloo 2 for every heading.** Two reasons.
+First, the register: SwipeEd starts at age 3, the first chapters are read aloud to children who cannot yet read
+(see Accessibility, audio-first), and its headings are in the same rounded, friendly face as Lensy's question card, so a
+young child meets one voice. Second, the pairing is allowed: Baloo 2 is on the Equal Lens family's approved type
+pairings (the canon pairs it with Mukta for Hindi), set out in the website's `knowledge/design.md`, section "Equal
+Lens family rule". This is a recorded SwipeEd choice under that rule, not a divergence to fix. New heading styles go
+through the existing `h1`-`h3` rule or `--font-heading`, never a hardcoded Baloo family.
 
 Fonts load via `next/font/google` in `src/app/layout.tsx:9-22` (self-hosted, not the brand's
 `fonts.css` `@import url(...)`), a reasonable Next.js-idiomatic substitution for the same three
@@ -231,6 +235,10 @@ in scenario content. [SWED-92](https://app.plane.so/the-equal-lens/projects/59d0
 a hyphen for ranges), redid the rewrites that had become comma splices, and added `scripts/no_dashes.py`, which fails
 the build and the commit on any em or en dash in a tracked text file. How to write around them, with before and after
 examples: [writing without dashes](playbooks/writing-without-dashes.md). A spaced hyphen is not a substitute.
+
+**Spelling is British** in copy, content and docs (colour, behaviour, organise, programme). The shipped content already
+follows it: `src/content` has no `color`, `behavior`, `organiz` or `favorite`. Code identifiers and CSS properties keep
+their standard names.
 
 **The UX copy standard.** Every string a player or parent sees or hears follows the [UX copy standard](playbooks/ux-copy-standard.md) ([SWED-127](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/3b8d2f41-f968-476f-b8a4-867231ecbe8f)): word limits per chapter (8, 10, 14, 20 or 25 words a sentence), safety rules checked first, every safety line and every answer both shown and spoken, no symbol or emoji carrying meaning, and one name per thing. Two house rules that used to live only in the Equal Lens skill are part of it: ask where a feeling is, never why, and Lensy wonders and asks but is never the authority. The first audit against it is [UX copy audit, 2026-10-04](audits/ux-copy-audit-2026-10-04.md).
 
@@ -329,11 +337,11 @@ design:
   buzzer, never a blocking modal. This is a considered departure from the category norm (see
   References): most swipe-card learning apps show a dedicated "here's why that's wrong" screen;
   SwipeEd keeps the same card on screen and lets the child try again.
-- **Colour is never the only signal.** Every declared-valence bin pairs its tint with an emoji and a
-  word, and a chip placed in it carries that emoji as a corner badge; a matched pair shares a numbered
-  corner badge on both cells, readable without colour and without the cord; swipe shows a
-  word-plus-flag-emoji edge badge while dragging. See Accessibility for where this rule is not actually
-  followed.
+- **Colour is never the only signal.** The meaning is in a word: a bin shows its label, a swipe side shows its word on
+  the card and on its button, and a placed chip names its zone in its `aria-label`. A matched pair also shares a
+  numbered corner badge on both cells, readable without colour and without the cord. Emoji and numbers are `aria-hidden`
+  beside the word and carry no meaning of their own, as the [UX copy standard](playbooks/ux-copy-standard.md) requires.
+  That is what `renderBin`, `SwipeCard` and `CornerBadge` do today (see Accessibility).
 - **The layout never gives the answer away.** A match board never puts a pair straight across, and from four
   pairs up at most one pair sits in a neighbouring row; sort shuffles both its items and its zones, so neither a
   row nor a zone's place (the good zone on top) is a tell.
@@ -407,7 +415,7 @@ mostly orphaned per `games/world-art-tokens.md`) and `skin="canvas"` (hand-drawn
   WCAG formula).
 - **The six position-wheel slots carry text, so they are held to 4.5:1 ([SWED-140](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a879f9e-b1d2-4753-8dcc-ce250b3c6c00)).** The match board's pair number
   badge (`CornerBadge` in `answer-cells.tsx`, pair 1 to 6 on `--prx-slot-1` to `-6`) sets 12px extrabold `--prx-on-fill`
-  text on them. In light, `slot-3` measured 4.38 and `slot-6` 4.34, and `slot-5` sat on the line at 4.49 to 4.51 depending
+  text on them, and the swipe card's edge badge does the same on slots 1 and 2 when a side falls back to the neutral bins. In light, `slot-3` measured 4.38 and `slot-6` 4.34, and `slot-5` sat on the line at 4.49 to 4.51 depending
   on the gamut mapping. All six light slots moved from `oklch` L 0.62 to 0.64 (same hue and chroma, so the wheel keeps one
   lightness and its hue spread) and now measure 5.38, 5.07, 4.75, 5.27, 4.87 and 4.70 with `--prx-on-fill`. The dark slots
   (L 0.71) already measured 6.18 to 7.00 and are unchanged. `knowledge/contrast.py` checks the text pairs and the bin-border
@@ -440,7 +448,7 @@ moves focus to the first answer. When the beat is solved, focus moves to Next. F
 
 **Tap targets.** Most interactive controls are comfortably above the 24x24 CSS px WCAG AA minimum,
 game-done's primary actions are `h-11` (44px), the toolbar dock enforces `min-width: 2.5rem` (40px)
-per button (`globals.css:378-380`). The round top-bar buttons are `size-9` (36px) and stay that size visually; as of
+per button (`.tb-pill .toolbar__btn` in `globals.css`). The round top-bar buttons are `size-9` (36px) and stay that size visually; as of
 [SWED-137](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061)
 they carry an invisible `::after` hit area from two utilities in `globals.css`: `.hit-48` (48px) on the back or leave
 button in `game-shell.tsx`, `path/page.tsx` and `glrl/run-host.tsx`, and `.hit-44` (44px) on the sound and "Hear it again"
@@ -455,8 +463,10 @@ the same lines reach screen readers and TTS-muted players from one call site rat
 plumbing (`swipeed-interaction-model.md`), and the tap path (never removed, see Interaction and motion) is
 what makes every mechanic playable before a child can read.
 
-**Colour is never the only signal, in principle** (see Interaction and motion); in practice this is
-broken in exactly the two places named as known gaps below plus the UN/RE contrast failure above.
+**Colour is never the only signal** (see Interaction and motion). The code does it: bins, swipe sides and placed chips are
+named by a word, and the emoji and pair numbers beside them are `aria-hidden` badges (`renderBin` in `v2-engine.tsx`,
+`SwipeCard`, `CornerBadge` in `answer-cells.tsx`). No gap against it is open: the three accessibility gaps filed on
+2026-09-14 are fixed (below), and so is the UN/RE contrast failure (above).
 
 **Known gaps filed on 2026-09-14, and their status:**
 
@@ -496,9 +506,9 @@ file and line where verifiable:
    `text-slate-900` seven times (`v2-engine.tsx:274,281,552,570,712,716,724`) instead of
    `var(--color-ink)`. Visually near-identical today (both measure above 11:1 on sun), but it will
    not track a brand ink change and is not itself the documented token.
-5. **Baloo 2 headings (decision needed).** Canon: Baloo 2 for Lensy only, never a heading. Website: headlines
-   too. SwipeEd: every `h1`/`h2`/`h3` app-wide (`globals.css:16-18,235-237`), with Poppins left for UI labels.
-   Keep it as a documented SwipeEd exception, or move headings to Poppins. See Typography.
+5. **Baloo 2 headings (decided 12 October 2026, [SWED-140](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a879f9e-b1d2-4753-8dcc-ce250b3c6c00)).** Canon: Baloo 2 for Lensy only, never a heading.
+   Website: headlines too. SwipeEd: every `h1`/`h2`/`h3` app-wide (`globals.css:16-18,235-237`), with Poppins left for
+   UI labels. Kept, for the young children's register and because Baloo 2 is on the family's approved list. See Typography.
 6. **A second, inert "capstone gold."** `#EAB308` in `src/content/path.ts` (thread metadata) versus
    `--color-sun` (`#FFC94D`, what actually renders). See Tokens.
 7. **Confetti and scenery colours are un-migrated raw hex.** `src/lib/confetti.ts:4`,
@@ -510,8 +520,8 @@ file and line where verifiable:
    fallback (`learning-path.tsx`) do not share a node-styling implementation; the 2D fallback draws
    its own organic grass/cobblestone scene independent of both 3D skins. Not necessarily wrong (they
    serve different fallback tiers) but undocumented as a deliberate two-track design before now.
-9. **UN/RE label contrast fails in light mode.** See Accessibility. Newly measured on 2026-09-14,
-   tracked as [SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587).
+9. **UN/RE label contrast failed in light mode. Fixed 2026-10-03, no longer a divergence.** See Accessibility. Measured on 2026-09-14,
+   fixed under [SWED-63](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/198fdeb2-d7c8-4462-bdf3-5636484e3587).
 10. **Voice rule violated at scale in shipped content.** Resolved on 2026-09-15 under SWED-92: no em or en dashes
     remain and a gate keeps it that way (see Voice and copy). The spaced hyphens left in older knowledge base prose were
     rewritten the same day under [SWED-98](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850);
