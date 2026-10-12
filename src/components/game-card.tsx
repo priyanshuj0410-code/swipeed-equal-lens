@@ -23,7 +23,7 @@ function PlayFace({ view, greenHint, redHint }: { view: GameView; greenHint: num
   const c = view.card;
   return (
     <>
-      <span className="flex w-fit items-center gap-1.5 rounded-full bg-foreground/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-foreground/95">
+      <span className="flex w-fit items-center gap-1.5 rounded-full bg-foreground/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-foreground/95">
         {c.context_tag}
       </span>
       <p className="flex flex-1 items-center text-balance text-center font-display text-[1.65rem] font-semibold leading-snug text-foreground">
@@ -64,7 +64,7 @@ function RevealFace({ view }: { view: GameView }) {
         </span>
         <p className="font-display text-2xl font-bold leading-tight text-foreground">This one&apos;s serious, and it&apos;s not your fault.</p>
         <p className="flex-1 text-sm leading-relaxed text-foreground/80">{c.feedback_short}</p>
-        <p className="text-xs text-foreground/70">Talk to an adult you trust · tap Get Help anytime.</p>
+        <p className="text-sm text-foreground/70">Talk to an adult you trust · tap Get Help anytime.</p>
       </div>
     );
   }
@@ -88,7 +88,7 @@ function RevealFace({ view }: { view: GameView }) {
       </p>
       <p className="flex-1 text-sm leading-relaxed text-foreground/85">{c.feedback_short}</p>
       {c.is_disguised && (
-        <span className="w-fit rounded-full bg-foreground/15 px-2 py-0.5 text-[10px] font-bold uppercase text-foreground/90">Disguised. Nice catch!</span>
+        <span className="w-fit rounded-full bg-foreground/15 px-2 py-0.5 text-xs font-bold uppercase text-foreground/90">Disguised. Nice catch!</span>
       )}
     </div>
   );

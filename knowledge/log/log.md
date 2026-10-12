@@ -60,6 +60,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/952350b7-ccd0-46b5-a0f5-65ae398e7141  # SWED-128
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4  # SWED-134
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061  # SWED-137
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5232d551-b27d-42cf-8bba-dffcb08c7a97  # SWED-139
 ---
 
 # SwipeEd project log
@@ -67,6 +68,12 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-12 · design: type scale with a floor for each age band ([SWED-139](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5232d551-b27d-42cf-8bba-dffcb08c7a97), CLAUD-21)
+- **What.** Audit gap `swipeed-type`. The design system now has one type scale table and a floor for each age band ([Typography](../design.md#type-scale-and-floors-swed-139-claud-21)). To meet it: answer text moved from 15px (`text-[15px]`, 22 places) to 16px (`text-base`); about 50 instruction, explanation, definition, help-detail and setting lines moved from 12px (`text-xs`) to 14px (`text-sm`); every 9, 10 and 11px label (29 places, plus the myth-card chip, hint and explanation in `globals.css`) moved to 12px; the 19px question and 20px swipe card moved from px to rem so the Text size setting scales them. Counters, badges and labels stay at 12px.
+- **Where.** `src/components/games/*`, `src/components/toolkit/*`, `src/components/glrl/*`, `swipe-deck.tsx`, `game-card.tsx`, `learning-path.tsx`, `path-scene.tsx`, `onboarding.tsx`, `settings/page.tsx`, `get-help.tsx`, `src/app/globals.css`.
+- **Measured.** Headless Chromium at 390px: answers compute to 16px and hints to 14px in the feelings, heart-smart, speak-up and rabbit-hole games; no new horizontal overflow on the game, settings, decks or Flag-pedia screens (`/classic` already scrolled sideways at 441px before this change).
+- **Not done.** Ages 3 to 6 and 6 to 9 keep the app-wide 16px answers: a larger band-specific size needs the chapter in the shell. The path world's HTML labels (13px, 16.5px) and `.canvas-scribble` (13px) are still fixed px.
 
 ## 2026-10-12 · design: P1 accessibility gaps from the design audit ([SWED-137](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061), CLAUD-17)
 - **What.** Three audit gaps closed in the chrome, none touching game content. (1) The light `--prx-neg` fill moved from `oklch(0.62 0.2 22)` to `oklch(0.64 0.2 22)`, so `--prx-on-fill` text on it goes from 4.30:1 to 4.65:1; `--prx-flag-red` is unchanged for red text and borders. (2) One solid 2px `:focus-visible` ring in `--ring` replaces the translucent `outline-ring/50`, 6.8 to 10.5:1 on paper, surface and mist in both themes, with a paper halo on path nodes. (3) The round top-bar buttons keep their 36px look but gain an invisible hit area: 48px on the back or leave button, 44px on the sound and "Hear it again" buttons.

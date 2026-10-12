@@ -65,7 +65,7 @@ export function Debrief({
       </p>
 
       {missedSigns.length > 0 && (
-        <div className="w-full rounded-xl bg-muted p-3 text-left text-xs">
+        <div className="w-full rounded-xl bg-muted p-3 text-left text-sm">
           <p className="mb-1 font-semibold">Worth another look:</p>
           <p className="text-muted-foreground">{missedSigns.join(" · ")}</p>
         </div>

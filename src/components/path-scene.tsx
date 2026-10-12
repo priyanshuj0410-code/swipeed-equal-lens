@@ -512,7 +512,7 @@ function Node({
             <NodeIcon state={node.state} capstone={cap} />
           </button>
           <span
-            className={`glass-pill pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded-md px-2 py-0.5 text-[11px] font-semibold backdrop-blur-md backdrop-saturate-150 transition-opacity duration-150 ${
+            className={`glass-pill pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded-md px-2 py-0.5 text-xs font-semibold backdrop-blur-md backdrop-saturate-150 transition-opacity duration-150 ${
               inView ? "opacity-100" : "opacity-0 peer-hover:opacity-100 peer-focus-visible:opacity-100"
             }`}
           >
@@ -546,7 +546,7 @@ function ChapterBanner({ ch, u, p, progress }: { ch: Chapter; u: number; p: THRE
         }`}
       >
         <span className="text-xs font-bold leading-tight">{ch.title}</span>
-        <span className="text-[10px] font-medium leading-tight opacity-85">{ch.subtitle}</span>
+        <span className="text-xs font-medium leading-tight opacity-85">{ch.subtitle}</span>
       </div>
     </Html>
   );

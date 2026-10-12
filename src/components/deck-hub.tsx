@@ -36,7 +36,7 @@ export function DeckHub() {
           <ArrowLeft className="size-5" aria-hidden />
         </Link>
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Green Light / Red Light</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-primary">Green Light / Red Light</p>
           <h1 className="text-xl font-bold tracking-tight">Pick a deck</h1>
         </div>
       </header>
@@ -88,7 +88,7 @@ export function DeckHub() {
               </span>
               <div className="min-w-0 flex-1">
                 <p className="font-semibold leading-tight">{d.title}</p>
-                <p className="truncate text-xs text-muted-foreground">{d.blurb}</p>
+                <p className="truncate text-sm text-muted-foreground">{d.blurb}</p>
               </div>
               {st > 0 ? (
                 <Stars value={st} />

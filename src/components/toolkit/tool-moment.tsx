@@ -24,7 +24,7 @@ export function ToolMoment({ tool, line }: { tool: ToolId; line?: string }) {
     <>
       <div className="glass-pill flex items-center gap-2.5 rounded-2xl px-3 py-2.5 backdrop-blur-md backdrop-saturate-150" style={{ color: "var(--color-ink)" }}>
         <span className="text-xl" aria-hidden>{t.emoji}</span>
-        <span className="flex-1 text-xs font-semibold leading-snug">
+        <span className="flex-1 text-sm font-semibold leading-snug">
           {line ?? `This is a ${t.name} moment. Want to use it?`}
         </span>
         <button

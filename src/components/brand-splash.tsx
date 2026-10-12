@@ -36,7 +36,7 @@ export function BrandSplash({
           --color-ink / --color-brand), and the path's ThemeController flips those to dark inline on <html> at
           night, which turned the wordmark + bar invisible. Hardcode the brand ink + purple here. */}
       <span className="font-display text-2xl font-extrabold tracking-tight" style={{ color: "#2a1a47" }}>SwipeEd</span>
-      <span className="-mt-1 text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: "#7c5cab" }}>by The Equal Lens</span>
+      <span className="-mt-1 text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: "#7c5cab" }}>by The Equal Lens</span>
       <div className="flex w-44 flex-col items-center gap-2">
         <div className="h-1.5 w-full overflow-hidden rounded-full" style={{ background: "rgba(42,26,71,0.16)" }}>
           {determinate ? (

@@ -24,6 +24,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/b8bc423b-e51b-4183-b03d-e9aa5327a56c  # SWED-125
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/3b8d2f41-f968-476f-b8a4-867231ecbe8f  # SWED-127
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061  # SWED-137
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5232d551-b27d-42cf-8bba-dffcb08c7a97  # SWED-139
 ---
 
 # SwipeEd design system
@@ -31,7 +32,7 @@ plane_issues:
 SwipeEd is The Equal Lens's Duolingo-style learning path: a 3D React Three Fiber path of 77 nodes
 (69 games plus 8 gold capstones) across 8 age-band chapters, ages 3 through parenthood. Games open
 over the path in a shared shell and finish on a shared completion card. Stack: Next.js 16, React 19,
-Tailwind v4, `@equal-lens/brand` 0.1.0 from GitHub Packages (see [deployment](architecture/deployment.md)).
+Tailwind v4, `@equal-lens/brand` 0.1.1 from GitHub Packages (see [deployment](architecture/deployment.md)).
 
 This document is descriptive as well as prescriptive: it states the brand rule where SwipeEd should
 simply follow it, and it states SwipeEd's own established pattern where the game has grown a
@@ -43,7 +44,7 @@ audit) are recorded in full in the [design audit of 2026-09-14](audits/design-au
 
 Three layers, in order of authority:
 
-1. **`@equal-lens/brand` (npm package from GitHub Packages, pinned at 0.1.0, installed at
+1. **`@equal-lens/brand` (npm package from GitHub Packages, pinned at 0.1.1, installed at
    `node_modules/@equal-lens/brand/`).** The organisation's single source of truth for colour, type
    and the base component classes. SwipeEd imports `tokens.css`, `tailwind.css` and `components.css`
    from it directly in `src/app/globals.css:5-7`. When the package changes, SwipeEd re-themes for
@@ -76,7 +77,7 @@ be able to repaint what correct looks like." A future brand retheme is allowed t
 | Token | Light | Dark (`[data-audience="adult"]`) | Role |
 |---|---|---|---|
 | `--color-brand` | `#553286` | `#C9B8E6` | Primary violet |
-| `--color-brandsoft` | `#7F65A4` | `#B3A4D6` | Muted violet (pinned 0.1.0 value; `@equal-lens/brand` 0.1.1 moves light to `#735997`, 4.53:1 on mist, THEEQ-61. SwipeEd only uses it in dark, `--brand-600`, so nothing changes here until the pin is bumped) |
+| `--color-brandsoft` | `#735997` | `#B3A4D6` | Muted violet (the package's 0.1.1 light value, `#735997`, 4.53:1 on mist, THEEQ-61; before the pin moved to 0.1.1 it was `#7F65A4`. SwipeEd only uses it in dark, `--brand-600`, so nothing changed here) |
 | `--color-paper` | `#FBF9FF` | `#15101F` | Page background |
 | `--color-surface` | `#FFFFFF` | `#221A30` | Cards, notes |
 | `--color-mist` | `#E7E0F1` | `#3A2E4D` | Hairlines, hover fills |
@@ -155,6 +156,36 @@ families and weights the brand specifies.
 | `--font-baloo` / `--font-display` / `--font-heading` / `--font-hand` | Baloo 2 | All headings, Lensy/UN/RE speech, mascot voice |
 | `--font-poppins` / `--font-ui` | Poppins | UI labels, wordmark (not headings, in practice) |
 
+### Type scale and floors ([SWED-139](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5232d551-b27d-42cf-8bba-dffcb08c7a97), CLAUD-21)
+
+One scale for the whole app, set in Tailwind's rem steps, so the Text size setting (it sets the root font size) and browser zoom scale every size. The shared shell does not know the chapter, so all eight chapters use the same sizes and the floors below are set by the youngest players who read for themselves. The age bands differ in how many words a line may hold (the [UX copy standard](playbooks/ux-copy-standard.md)), not in type size. Ages 3 to 6 are pre-readers: every line is also spoken and a picture carries each answer, so their floor protects the adult reading along.
+
+| Role | Size | Class | Face and weight |
+|---|---|---|---|
+| Deck or scenario card | 26 to 29px | `text-[1.65rem]` to `text-[1.8rem]` | Baloo 2 (`font-display`), semibold or bold |
+| Swipe card text | 20px | `text-[1.25rem]` | Nunito Sans, bold |
+| Question (Lensy's card, capstone cards) | 19px | `text-[1.1875rem]` | Baloo 2, semibold or bold. The largest type in the play area |
+| Screen title (`h1` to `h3`) | 16 to 30px | `text-base` to `text-3xl` | Baloo 2, semibold to extrabold |
+| Answer (card, pill, option, consequence) | 16px | `text-base` | Nunito Sans, bold or semibold (was 15px) |
+| Feedback line, hint, instruction, explanation, definition, help detail, setting description | 14px | `text-sm` | Nunito Sans, semibold or regular (hints and explanations were 12px) |
+| Counter, progress, badge, chip, label | 12px | `text-xs` | Nunito Sans, semibold or bold |
+
+**Floors by age band.** The floor is the smallest size at which a player in that band may be asked to read a line.
+
+| Band | Ages | Reads | Questions and answers | Hints, feedback, explanations, safety lines | Counters, badges, labels |
+|---|---|---|---|---|---|
+| 1 | 3-6 | The adult beside the child; every line also spoken | 16px, with a picture | 14px | 12px |
+| 2 | 6-9 | The child; audio on by default | 16px | 14px | 12px |
+| 3 | 9-12 | The child | 16px | 14px | 12px |
+| 4-5 | 12-18 | The player | 16px | 14px | 12px |
+| 6-8 | 18 to parents | The player | 16px | 14px | 12px |
+
+- **Nothing is set below 12px.** Every 9, 10 and 11px label (path chapter subtitles, "Soon" and "Start" tags, card kickers, stars) is now 12px, and the myth cards' chip, hint and explanation (9.3, 10.2 and 10.6px) are 12px. Lines that read as hints moved to 14px: the swipe-deck instructions, the toolkit level labels and the mood check-in labels.
+- **Meta text (12px) never carries the only copy of an instruction or a safety line.** If a player must act on it, set it at the hint size (14px) or larger.
+- A band-specific size would need the chapter in the shell, which it does not have today (`band` exists only inside `ReflectPlay`). If a playtest shows ages 3 to 6 or 6 to 9 need 18px answers, add a `data-band` on the game root and size from a custom property; do not hard-code a size in a component.
+- **Path-world notes** (`.myth-card` in `globals.css`) keep the 12px meta floor, not the 14px hint floor: the card is a fixed 10.5rem sticky note over the 3D world, so a 14px explanation would reflow every note. Body text on it is 12.5px (0.78rem). This is an exception, owner call.
+- Still fixed px, so they do not follow the Text size setting: the path world's HTML labels (13px and 16.5px in `path-scene.tsx`) and `.canvas-scribble` (13px).
+
 ### Spacing, radius, shadow, elevation
 
 The brand package defines no spacing scale, so SwipeEd inherits Tailwind v4's default spacing
@@ -218,7 +249,7 @@ precisely.
    plus `.question-card` (a 9% brand wash over the surface, 2.5px ink border, 24px radius, no shadow since
    [SWED-93](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/7c73c697-ebd9-49fe-862f-210febf8f2df)), text in `font-hand` (Baloo 2, Lensy's voice) at 19px semibold, capped at `38vh` and scrollable. It
    is the largest type and the only washed surface in the play area, so it reads first without floating
-   above the answer cards (`.glass-card`, 15px bold, 3px lip). The card keeps the beat's question for the whole beat.
+   above the answer cards (`.glass-card`, 16px bold, 3px lip). The card keeps the beat's question for the whole beat.
 2. **The feedback line.** A plain text line under the card (`text-sm`, semibold, `text-foreground/80`,
    `min-h-10`), `role="status" aria-live="polite" aria-atomic="true"`. Nudges ("Not a match. Try
    another.") and confirmations ("Kind words: builds trust ✔") go here and never replace the question.
@@ -353,7 +384,7 @@ mostly orphaned per `games/world-art-tokens.md`) and `skin="canvas"` (hand-drawn
 
 ## Accessibility
 
-**Measured contrast** (WCAG 2.1 formula, full table with method in the [design audit](audits/design-audit-2026-09-14.md)):
+**Measured contrast** (WCAG 2.1 formula, full table with method in the [design audit](audits/design-audit-2026-09-14.md)). `python3 knowledge/contrast.py` re-checks the token pairs below on paper, surface and mist in both themes (including the OKLCH `--prx-*` fills) and exits 1 on a failure. It also lists one known gap: `text-foreground/60` is 4.19 on mist and `/55`, `/50` and `/40` fail on light surfaces (3.90, 3.35, 2.52); 15 uses sit at 55% or below ([SWED-139](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5232d551-b27d-42cf-8bba-dffcb08c7a97)).
 
 - Ink-on-paper, ink-on-surface, and their dark-mode equivalents all measure 14.4:1 to 17.2:1, well
   past AAA.

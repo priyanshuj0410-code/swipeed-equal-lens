@@ -358,9 +358,9 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
               {sc.type === "strike-rewrite" ? (
                 <UnReBeat un={sc.myth.un} re={sc.myth.re} why={sc.myth.why} fill />
               ) : branchResolve ? (
-                <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold leading-relaxed backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{branchResolve.best ? "💚 " : "💛 "}{branchResolve.text}</div>
+                <div className="glass-pill rounded-2xl px-4 py-3 text-center text-base font-semibold leading-relaxed backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{branchResolve.best ? "💚 " : "💛 "}{branchResolve.text}</div>
               ) : (
-                <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold leading-relaxed backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {talked && sc.type === "reflect" ? sc.relearn : resolveLine(sc)}</div>
+                <div className="glass-pill rounded-2xl px-4 py-3 text-center text-base font-semibold leading-relaxed backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {talked && sc.type === "reflect" ? sc.relearn : resolveLine(sc)}</div>
               )}
               {reassure && isSafetyBeat(sc) && (
                 <div className="glass-pill rounded-2xl px-4 py-2.5 text-center text-sm font-medium backdrop-blur-md" style={{ color: "var(--color-ink)" }}>{reassure}</div>
@@ -466,7 +466,7 @@ function ChoosePlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "choo
   };
   return (
     <div className="flex flex-col gap-2.5">
-      <p className="min-h-4 text-center text-xs font-semibold leading-4 text-foreground/60" aria-hidden>{shown ? "" : "Tap every one that fits, then Check"}</p>
+      <p className="min-h-5 text-center text-sm font-semibold leading-5 text-foreground/60" aria-hidden>{shown ? "" : "Tap every one that fits, then Check"}</p>
       <div className="grid grid-cols-1 gap-2">
         {order.map((i) => {
           const o = sc.options[i], on = picked.includes(i);
@@ -477,10 +477,10 @@ function ChoosePlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "choo
               tint={result === "wrong" ? "var(--prx-neg)" : undefined}
               badge={result === "wrong" ? "✕" : result ? "✓" : undefined}
               badgeTint={result === "found" ? "var(--prx-pos)" : result === "wrong" ? "var(--prx-neg)" : undefined}
-              className="flex flex-col items-start gap-1 rounded-2xl px-4 py-3 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98] disabled:opacity-100">
+              className="flex flex-col items-start gap-1 rounded-2xl px-4 py-3 text-left text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98] disabled:opacity-100">
               <span>{o.text}</span>
               {(result === "missed" || result === "wrong") && (
-                <span className="text-xs font-semibold leading-snug text-foreground/80">{result === "missed" ? "This one fits too. " : "This one doesn't fit. "}{o.note}</span>
+                <span className="text-sm font-semibold leading-snug text-foreground/80">{result === "missed" ? "This one fits too. " : "This one doesn't fit. "}{o.note}</span>
               )}
             </AnswerCard>
           );
@@ -509,7 +509,7 @@ function RolePlayPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "ro
   return (
     <div className="flex flex-col gap-2.5">
       {lines.map((l, i) => (
-        <button key={i} type="button" onClick={() => choose(l)} aria-label={`Say: ${l.text}`} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
+        <button key={i} type="button" onClick={() => choose(l)} aria-label={`Say: ${l.text}`} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
           <span className="text-2xl" aria-hidden>🗣️</span><span className="flex-1">{l.text}</span>
         </button>
       ))}
@@ -539,10 +539,10 @@ function StrikePlay({ sc, onSolved, reduceMotion }: { sc: Extract<Scenario, { ty
       {/* a click with detail 0 comes from a keyboard or screen reader, never from a finger scrubbing the card */}
       <div tabIndex={0} role="button" aria-label={`Rub out the myth: ${sc.myth.un}`} onKeyDown={onKeyDown} onClick={(e) => { if (e.detail === 0) eraseNow(); }} {...drag.handlers}
         className="glass-card lift relative flex min-h-48 flex-1 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
-        <p className="text-[19px] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? (progress >= 1 ? 0.12 : 1) : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{sc.myth.un}</p>
+        <p className="text-[1.1875rem] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? (progress >= 1 ? 0.12 : 1) : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{sc.myth.un}</p>
         <span className="pointer-events-none absolute bottom-2 right-3 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>
       </div>
-      <p className="text-center text-xs font-semibold text-foreground/60">Scrub the myth away, or press Enter</p>
+      <p className="text-center text-sm font-semibold text-foreground/60">Scrub the myth away, or press Enter</p>
     </div>
   );
 }
@@ -576,7 +576,7 @@ function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "bran
   if (repick !== null) {
     return (
       <div className="flex flex-col gap-2.5">
-        <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {opts[repick].consequence}</div>
+        <div className="glass-pill rounded-2xl px-4 py-3 text-center text-base font-semibold backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {opts[repick].consequence}</div>
         <button type="button" onClick={() => setRepick(null)} className="glass-pill flex h-12 w-full items-center justify-center rounded-2xl text-base font-bold text-foreground backdrop-blur-md transition-transform active:scale-95">Let&apos;s find a better way →</button>
       </div>
     );
@@ -584,7 +584,7 @@ function BranchPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "bran
   return (
     <div className="flex flex-col gap-2.5">
       {opts.map((o, i) => (
-        <button key={i} type="button" onClick={() => pick(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
+        <button key={i} type="button" onClick={() => pick(i)} className="glass-card flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97]">
           <span className="text-2xl" aria-hidden>🔀</span><span className="flex-1">{o.text}</span>
         </button>
       ))}
@@ -652,7 +652,7 @@ function SortPlay({ sc, onSolved, say, reduceMotion }: { sc: Extract<Scenario, {
   };
   const chips = (
     <div className="flex flex-col gap-1.5">
-      <p className="line-clamp-2 min-h-8 text-center text-xs font-semibold leading-4 text-foreground/70" aria-hidden>{sel ? `Carrying “${itemText(sel)}”: drop it in a zone` : "Tap a card, then its zone"}</p>
+      <p className="line-clamp-2 min-h-10 text-center text-sm font-semibold leading-5 text-foreground/70" aria-hidden>{sel ? `Carrying “${itemText(sel)}”: drop it in a zone` : "Tap a card, then its zone"}</p>
       <div className="flex flex-wrap justify-center gap-2">
         {order.map((it) => {
           const bi = placed[it.id] ? sc.bins.findIndex((b) => b.id === placed[it.id]) : -1;
@@ -733,7 +733,7 @@ function BuildPlay({ sc, onSolved, say, labels, reduceMotion }: { sc: Extract<Sc
         <div className="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-sun)] px-3 py-1.5 text-sm font-bold text-slate-900 shadow-lg" style={{ left: drag.x, top: drag.y }}>{drag.piece}</div>
       )}
       <div ref={slate} className="glass-card flex min-h-40 flex-1 flex-wrap content-center justify-center gap-1.5 rounded-2xl p-3 backdrop-blur-[12px] transition-shadow" style={over ? { boxShadow: "inset 0 0 0 3px var(--color-ink)" } : undefined}>
-        {chosen.length === 0 ? <span className="text-xs font-semibold text-foreground/50">{over ? "Drop it here ⤵" : "Drag or tap pieces here…"}</span> :
+        {chosen.length === 0 ? <span className="text-sm font-semibold text-foreground/50">{over ? "Drop it here ⤵" : "Drag or tap pieces here…"}</span> :
           chosen.map((p, i) => <span key={p} className="rounded-full bg-[var(--color-sun)] px-3 py-1 text-sm font-bold text-slate-900">{sc.mode === "sequence" ? `${i + 1}. ` : ""}{p}</span>)}
       </div>
       <div className="flex flex-wrap justify-center gap-2">
@@ -820,7 +820,7 @@ function ExploreLabelPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type:
           const got = found === p;
           return (
             <AnswerCard key={p} disabled={!!found} onClick={() => choose(p)} state={got ? "done" : "idle"} badge={got ? "✓" : undefined}
-              className="flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-100">
+              className="flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-100">
               <span className="text-2xl" aria-hidden>{["💡", "🔆", "✨", "🌟"][i % 4]}</span><span className="flex-1">{p}</span>
             </AnswerCard>
           );
@@ -858,7 +858,7 @@ function SpotPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "spot" 
           const got = caught.has(it.id);
           return (
             <AnswerCard key={it.id} disabled={got || done} onClick={() => choose(it)} state={got ? "done" : "idle"} tint="var(--prx-neg)"
-              className="flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-100">
+              className="flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-100">
               <span className="text-2xl" aria-hidden>{got ? "🚩" : "🔎"}</span><span className="flex-1">{it.text}</span>
               {/* reserved even before it's caught, so the label appearing never re-wraps the line */}
               <span className={`text-xs font-extrabold text-[var(--prx-flag-red)] ${got ? "" : "invisible"}`}>Caught!</span>

@@ -18,7 +18,7 @@ export function UnReBeat({ un, re, why, fill = false }: { un: string; re: string
         <span><b style={{ color: "var(--re-ink)" }}>RE:</b> {re}</span>
       </p>
       {/* the reason, as its own quieter line so every text block stays short (the un/re text carries the beat) */}
-      {why ? <p className={`${fill ? "pl-[2.875rem] text-sm" : "pl-7 text-xs"} opacity-75`}>{why}</p> : null}
+      {why ? <p className={`${fill ? "pl-[2.875rem] text-sm" : "pl-7 text-sm"} opacity-75`}>{why}</p> : null}
     </div>
   );
 }
