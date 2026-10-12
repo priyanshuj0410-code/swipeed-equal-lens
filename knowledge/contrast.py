@@ -47,13 +47,13 @@ LIGHT = dict(paper="#FBF9FF", surface="#FFFFFF", mist="#E7E0F1", ink="#221436", 
              pos=oklch(0.68, 0.16, 150), neg=oklch(0.64, 0.20, 22), tell=oklch(0.70, 0.15, 78), uhoh=oklch(0.64, 0.16, 45),
              slot1=oklch(0.64, 0.11, 196), slot2=oklch(0.64, 0.16, 256), slot3=oklch(0.64, 0.16, 316),
              slot4=oklch(0.64, 0.12, 226), slot5=oklch(0.64, 0.16, 286), slot6=oklch(0.64, 0.16, 346),
-             un="#058274", re="#BB543D")
+             un="#058274", re="#BB543D", destructive="#A9442F")
 DARK = dict(paper="#15101F", surface="#221A30", mist="#3A2E4D", ink="#F1ECFA", brand="#C9B8E6",
             brandsoft="#B3A4D6", muted="#B3A4D6", muted_bg="#221A30", primary_fg="#15101F",
             pos=oklch(0.76, 0.16, 150), neg=oklch(0.70, 0.19, 22), tell=oklch(0.80, 0.15, 80), uhoh=oklch(0.73, 0.16, 45),
             slot1=oklch(0.71, 0.11, 196), slot2=oklch(0.71, 0.16, 256), slot3=oklch(0.71, 0.16, 316),
             slot4=oklch(0.71, 0.12, 226), slot5=oklch(0.71, 0.16, 286), slot6=oklch(0.71, 0.16, 346),
-            un="#2DD4BF", re="#FF7A5C")
+            un="#2DD4BF", re="#FF7A5C", destructive="#FF8A6E")
 ON_FILL = "#221436"  # --prx-on-fill, fixed in both themes
 SUN = "#FFC94D"
 
@@ -88,6 +88,8 @@ def themed(name, T):
             check(f"prx-slot-{n} as a bin border on {s}", T[f"slot{n}"], T[s], 3.0)
     check("UN label text on surface", T["un"], T["surface"], 4.5)
     check("RE label text on surface", T["re"], T["surface"], 4.5)
+    for s in ("paper", "surface"):
+        check(f"destructive text on {s} (the family danger red)", T["destructive"], T[s], 4.5)
     check("ink on sun (the .cta button)", ON_FILL, SUN, 4.5)
 
 def known_gaps():

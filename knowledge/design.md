@@ -100,6 +100,11 @@ the tarball existed.
 
 ### SwipeEd semantic tokens (not in the brand package)
 
+**Danger is the family red** ([THEEQ-64](https://app.plane.so/the-equal-lens/projects/131d7f73-411c-4a57-a1d3-3147617b2de9/issues/a2255819-9c27-4992-9440-1fd577afa1f0), [SWED-140](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a879f9e-b1d2-4753-8dcc-ce250b3c6c00)):
+`--destructive` is `#A9442F` for kids and `#FF8A6E` for adults, the one danger red every Equal Lens product shares.
+It is chrome only (errors, destructive actions, invalid fields). The gameplay reds below (`--prx-neg`,
+`--prx-flag-red`) are the answer key's colours, not danger, and stay where the engine needs them.
+
 These are the "declared valence" system: a bin, chip, or branch option carries an explicit
 `pos`/`neg`/`tell`/`uhoh` meaning in its content schema (see the [question bank](schemas/question-bank.md) for the data
 model) rather than the engine guessing from English wording. Defined in `src/app/globals.css:82-105`
