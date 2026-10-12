@@ -524,11 +524,11 @@ export function RichCapstone({ config, onExit }: { config: CapstoneConfig; onExi
   const tools = (
     <span className="flex items-center gap-2">
       {!muted && (
-        <button type="button" aria-label="Hear it again" onClick={() => (gated && !canNext ? speak(questionSpeech.current, { muted }) : replay())} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+        <button type="button" aria-label="Hear it again" onClick={() => (gated && !canNext ? speak(questionSpeech.current, { muted }) : replay())} className="glass-pill hit-44 flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
           <RotateCcw className="size-4" aria-hidden />
         </button>
       )}
-      <button type="button" aria-label={muted ? "Turn sound on" : "Turn sound off"} onClick={() => setMuted((m) => { const n = !m; if (n) stopSpeaking(); return n; })} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+      <button type="button" aria-label={muted ? "Turn sound on" : "Turn sound off"} onClick={() => setMuted((m) => { const n = !m; if (n) stopSpeaking(); return n; })} className="glass-pill hit-44 flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
         {muted ? <VolumeX className="size-4" aria-hidden /> : <Volume2 className="size-4" aria-hidden />}
       </button>
     </span>

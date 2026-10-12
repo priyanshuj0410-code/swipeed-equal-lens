@@ -259,14 +259,14 @@ export function V2Game({ config, onExit }: { config: V2GameConfig; onExit: () =>
 
   // ---- chrome ----
   const muteBtn = (
-    <button type="button" aria-label={muted ? "Turn sound on" : "Turn sound off"} onClick={() => setMuted((m) => { const n = !m; if (n) stopSpeaking(); return n; })} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+    <button type="button" aria-label={muted ? "Turn sound on" : "Turn sound off"} onClick={() => setMuted((m) => { const n = !m; if (n) stopSpeaking(); return n; })} className="glass-pill hit-44 flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
       {muted ? <VolumeX className="size-4" aria-hidden /> : <Volume2 className="size-4" aria-hidden />}
     </button>
   );
   const tools = (
     <span className="flex items-center gap-2">
       {!muted && (
-        <button type="button" aria-label="Hear it again" onClick={() => (view === "play" && phase === "play" && question ? speak(questionSpeech.current, { muted }) : replay())} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+        <button type="button" aria-label="Hear it again" onClick={() => (view === "play" && phase === "play" && question ? speak(questionSpeech.current, { muted }) : replay())} className="glass-pill hit-44 flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
           <RotateCcw className="size-4" aria-hidden />
         </button>
       )}
@@ -861,7 +861,7 @@ function SpotPlay({ sc, onSolved, say }: { sc: Extract<Scenario, { type: "spot" 
               className="flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-100">
               <span className="text-2xl" aria-hidden>{got ? "🚩" : "🔎"}</span><span className="flex-1">{it.text}</span>
               {/* reserved even before it's caught, so the label appearing never re-wraps the line */}
-              <span className={`text-xs font-extrabold text-[var(--prx-neg)] ${got ? "" : "invisible"}`}>Caught!</span>
+              <span className={`text-xs font-extrabold text-[var(--prx-flag-red)] ${got ? "" : "invisible"}`}>Caught!</span>
             </AnswerCard>
           );
         })}

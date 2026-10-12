@@ -59,6 +59,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/bebd5a55-4403-44f5-866f-2a30d6e79f17  # SWED-133
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/952350b7-ccd0-46b5-a0f5-65ae398e7141  # SWED-128
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4  # SWED-134
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061  # SWED-137
 ---
 
 # SwipeEd project log
@@ -66,6 +67,11 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-12 · design: P1 accessibility gaps from the design audit ([SWED-137](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061), CLAUD-17)
+- **What.** Three audit gaps closed in the chrome, none touching game content. (1) The light `--prx-neg` fill moved from `oklch(0.62 0.2 22)` to `oklch(0.64 0.2 22)`, so `--prx-on-fill` text on it goes from 4.30:1 to 4.65:1; `--prx-flag-red` is unchanged for red text and borders. (2) One solid 2px `:focus-visible` ring in `--ring` replaces the translucent `outline-ring/50`, 6.8 to 10.5:1 on paper, surface and mist in both themes, with a paper halo on path nodes. (3) The round top-bar buttons keep their 36px look but gain an invisible hit area: 48px on the back or leave button, 44px on the sound and "Hear it again" buttons.
+- **Where.** `src/app/globals.css` (tokens, focus rule, `.hit-44`/`.hit-48`), `game-shell.tsx`, `path/page.tsx`, `glrl/run-host.tsx`, `v2-engine.tsx`, `capstone-rich.tsx`, `path-scene.tsx`. Specified in [design system, Accessibility](../design.md#accessibility).
+- **Not done.** Light position-wheel slots 3 and 6 are under 4.5:1 with on-fill text (4.37, 4.33); they carry no text today. `@equal-lens/brand` is still pinned at 0.1.0; 0.1.1 (THEEQ-61) adds the same focus rule and darkens `brandsoft`.
 
 ## 2026-10-04 · architecture: game content becomes JSON data files ([SWED-134](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4))
 - **What.** The 77 game files in `src/content/games/` (69 lesson games, 8 capstones) moved from TypeScript modules to JSON data files, and the 77 per-game wrapper components are gone: `engine-host.tsx` loads each game's data with its engine through one `lesson()` or `capstone()` loader, code-split as before. This is the first of the owner's three data separation steps after the [content and progress decision](../architecture/content-and-progress.md).
