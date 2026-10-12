@@ -96,15 +96,16 @@
   --prx-neg: oklch(0.64 0.2 22);
   --prx-tell: oklch(0.70 0.15 78);
   --prx-uhoh: oklch(0.64 0.16 45);
-  --prx-slot-1: oklch(0.62 0.11 196);
-  --prx-slot-2: oklch(0.62 0.16 256);
-  --prx-slot-3: oklch(0.62 0.16 316);
-  --prx-slot-4: oklch(0.62 0.12 226);
-  --prx-slot-5: oklch(0.62 0.16 286);
-  --prx-slot-6: oklch(0.62 0.16 346);
+  --prx-slot-1: oklch(0.64 0.11 196);
+  --prx-slot-2: oklch(0.64 0.16 256);
+  --prx-slot-3: oklch(0.64 0.16 316);
+  --prx-slot-4: oklch(0.64 0.12 226);
+  --prx-slot-5: oklch(0.64 0.16 286);
+  --prx-slot-6: oklch(0.64 0.16 346);
   /* Ink on a semantic fill. NOT var(--color-ink): every fill above is mid-lightness in BOTH
      themes, so the foreground must not flip. white-on-fill measured 2.01-3.61 (fails AA); this
-     scores 4.65-9.04 on pos/neg/tell/uhoh (light: neg 4.65, uhoh 4.79, tell 6.30, pos 6.39). */
+     scores 4.65-9.04 on pos/neg/tell/uhoh (light: neg 4.65, uhoh 4.79, tell 6.30, pos 6.39) and
+     4.70-5.38 on the six light slots, which carry the match pair numbers (SWED-140). */
   --prx-on-fill: #221436;
   --prx-wash: 12%;
   --prx-wash-hover: 28%;

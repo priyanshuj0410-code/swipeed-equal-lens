@@ -61,6 +61,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4  # SWED-134
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061  # SWED-137
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5232d551-b27d-42cf-8bba-dffcb08c7a97  # SWED-139
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a879f9e-b1d2-4753-8dcc-ce250b3c6c00  # SWED-140
 ---
 
 # SwipeEd project log
@@ -68,6 +69,12 @@ plane_issues:
 Newest first. Every change that affects a game, the path, the engine or the question bank adds an entry here in the same piece of work (see [AGENTS.md](../../AGENTS.md)).
 
 Entries dated 2026-09-01 and earlier were written in the owhile-engine repo while SwipeEd's knowledge base lived there, and were copied here on 2026-09-14 under SWED-61. 6 Owhile engine and venture entries from that period, and everything Owhile logged after 2026-09-01, were left out; the full original is owhile-engine [`knowledge/log.md`](https://github.com/priyanshuj0410-code/owhile-engine/blob/c182048bd6c9f4f3c2ef73c6d08dfac8d5c8c1e2/knowledge/log.md). In older entries "Praxis" is the venture now called Owhile, "this repo" usually means owhile-engine, and some links point at owhile-engine.
+
+## 2026-10-12 · design: position-wheel slots clear 4.5:1 under on-fill text ([SWED-140](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a879f9e-b1d2-4753-8dcc-ce250b3c6c00), CLAUD wave 3)
+- **What.** Audit gap `swipeed-slots`. The six light `--prx-slot-1` to `-6` fills moved from `oklch` L 0.62 to 0.64, same hue and chroma, so the wheel keeps one lightness. With `--prx-on-fill` text they were 5.00, 4.68, 4.38, 4.88, 4.49 and 4.34; they are now 5.38, 5.07, 4.75, 5.27, 4.87 and 4.70. Dark slots (L 0.71) were already 6.18 to 7.00 and are unchanged. As a bin border each slot still clears 3:1 on paper and surface (lowest 3.06).
+- **Correction.** The SWED-137 entry below says the slots "carry no text today". They do: the match board's pair number badge (`CornerBadge` in `answer-cells.tsx`) sets 12px extrabold on-fill text on slots 1 to 6. The design system now says so.
+- **Where.** `src/app/globals.css`, `knowledge/contrast.py` (12 text pairs and 24 bin-border pairs across both themes), `knowledge/design.md` (Semantic tokens, Accessibility).
+- **Not checked.** No browser run: the worktree has no `node_modules`, and the change is token values only. The match board's tints, the sort and swipe neutral bins and the bin washes (9% and 24% mixes) all read the same tokens.
 
 ## 2026-10-12 · design: type scale with a floor for each age band ([SWED-139](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5232d551-b27d-42cf-8bba-dffcb08c7a97), CLAUD-21)
 - **What.** Audit gap `swipeed-type`. The design system now has one type scale table and a floor for each age band ([Typography](../design.md#type-scale-and-floors-swed-139-claud-21)). To meet it: answer text moved from 15px (`text-[15px]`, 22 places) to 16px (`text-base`); about 50 instruction, explanation, definition, help-detail and setting lines moved from 12px (`text-xs`) to 14px (`text-sm`); every 9, 10 and 11px label (29 places, plus the myth-card chip, hint and explanation in `globals.css`) moved to 12px; the 19px question and 20px swipe card moved from px to rem so the Text size setting scales them. Counters, badges and labels stay at 12px.

@@ -25,6 +25,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/3b8d2f41-f968-476f-b8a4-867231ecbe8f  # SWED-127
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061  # SWED-137
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5232d551-b27d-42cf-8bba-dffcb08c7a97  # SWED-139
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a879f9e-b1d2-4753-8dcc-ce250b3c6c00  # SWED-140
 ---
 
 # SwipeEd design system
@@ -111,7 +112,7 @@ is an alias in dark only):
 | `--prx-tell` | `oklch(0.70 0.15 78)` | `oklch(0.80 0.15 80)` | A "tell someone" cue in Be the Safe Adult-style content, amber. |
 | `--prx-uhoh` | `oklch(0.64 0.16 45)` | `oklch(0.73 0.16 45)` | A caution cue, orange-red. |
 | `--prx-on-fill` | `#221436` fixed, does not flip | same | Text/icon colour placed on any of the four fills above. Deliberately **not** `var(--color-ink)`: the fills are mid-lightness in both themes, so the foreground must not flip with them (comment at `globals.css:104` records the measured range, white-on-fill scored 2.01 to 3.61, this scores 4.65 to 9.04 on the four fills in both themes, see Accessibility). |
-| `--prx-slot-1` … `--prx-slot-6` | six hues, non-semantic | six hues | Position-only wheel for an *undeclared* bin, so a bin with no declared valence still gets a distinct colour and emoji without asserting correctness. |
+| `--prx-slot-1` … `--prx-slot-6` | six hues at `oklch` L 0.64, non-semantic | six hues at L 0.71 | Position-only wheel for an *undeclared* bin, so a bin with no declared valence still gets a distinct colour and emoji without asserting correctness. The match board also puts its pair number on them (`CornerBadge`, 12px extrabold `--prx-on-fill` text), so all six clear 4.5:1 with that ink in both themes (light 4.70 to 5.38, dark 6.18 to 7.00). They moved from L 0.62 to 0.64 at the same hue and chroma ([SWED-140](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a879f9e-b1d2-4753-8dcc-ce250b3c6c00)); L 0.64 is also the most they can rise, because a slot used as a bin border must stay 3:1 on paper and surface (lowest 3.06). |
 
 **UN and RE** are not colour tokens, they are characters that borrow existing brand accents:
 UN (the eraser, "unlearn") is teal and RE (the pencil, "relearn") is coral. Their bold `UN:` and
@@ -403,8 +404,14 @@ mostly orphaned per `games/world-art-tokens.md`) and `skin="canvas"` (hand-drawn
   the light fill moved from `oklch(0.62 0.20 22)` (`#E6424C`) to `oklch(0.64 0.20 22)` (`#ED4952`), same hue and chroma, and now
   measures 4.65:1. The four declared fills now measure, light: neg 4.65, uhoh 4.79, tell 6.30, pos 6.39;
   dark: neg 5.92, uhoh 6.83, pos 8.53, tell 9.04 (`oklch` converted to sRGB with CSS gamut mapping, ratios by the
-  WCAG formula). Debt: the six position-wheel slots in light measure 4.33 to 5.00 (`slot-3` 4.37 and `slot-6` 4.33 are
-  under 4.5, `slot-5` is 4.51); they carry no text today, so they are not fixed here.
+  WCAG formula).
+- **The six position-wheel slots carry text, so they are held to 4.5:1 ([SWED-140](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/9a879f9e-b1d2-4753-8dcc-ce250b3c6c00)).** The match board's pair number
+  badge (`CornerBadge` in `answer-cells.tsx`, pair 1 to 6 on `--prx-slot-1` to `-6`) sets 12px extrabold `--prx-on-fill`
+  text on them. In light, `slot-3` measured 4.38 and `slot-6` 4.34, and `slot-5` sat on the line at 4.49 to 4.51 depending
+  on the gamut mapping. All six light slots moved from `oklch` L 0.62 to 0.64 (same hue and chroma, so the wheel keeps one
+  lightness and its hue spread) and now measure 5.38, 5.07, 4.75, 5.27, 4.87 and 4.70 with `--prx-on-fill`. The dark slots
+  (L 0.71) already measured 6.18 to 7.00 and are unchanged. `knowledge/contrast.py` checks the text pairs and the bin-border
+  pairs (3:1 on paper and surface, lowest 3.06) in both themes.
 
 **Focus ring** ([SWED-137](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/37148de2-f03f-4921-9888-12329463f061)).
 Before this the only default was shadcn's `outline-ring/50`, a translucent colour with no width or style, so most
