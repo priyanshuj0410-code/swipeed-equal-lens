@@ -32,7 +32,7 @@ plane_issues:
 SwipeEd is The Equal Lens's Duolingo-style learning path: a 3D React Three Fiber path of 77 nodes
 (69 games plus 8 gold capstones) across 8 age-band chapters, ages 3 through parenthood. Games open
 over the path in a shared shell and finish on a shared completion card. Stack: Next.js 16, React 19,
-Tailwind v4, `@equal-lens/brand` 0.1.0 from GitHub Packages (see [deployment](architecture/deployment.md)).
+Tailwind v4, `@equal-lens/brand` 0.1.1 from GitHub Packages (see [deployment](architecture/deployment.md)).
 
 This document is descriptive as well as prescriptive: it states the brand rule where SwipeEd should
 simply follow it, and it states SwipeEd's own established pattern where the game has grown a
@@ -44,7 +44,7 @@ audit) are recorded in full in the [design audit of 2026-09-14](audits/design-au
 
 Three layers, in order of authority:
 
-1. **`@equal-lens/brand` (npm package from GitHub Packages, pinned at 0.1.0, installed at
+1. **`@equal-lens/brand` (npm package from GitHub Packages, pinned at 0.1.1, installed at
    `node_modules/@equal-lens/brand/`).** The organisation's single source of truth for colour, type
    and the base component classes. SwipeEd imports `tokens.css`, `tailwind.css` and `components.css`
    from it directly in `src/app/globals.css:5-7`. When the package changes, SwipeEd re-themes for
@@ -77,7 +77,7 @@ be able to repaint what correct looks like." A future brand retheme is allowed t
 | Token | Light | Dark (`[data-audience="adult"]`) | Role |
 |---|---|---|---|
 | `--color-brand` | `#553286` | `#C9B8E6` | Primary violet |
-| `--color-brandsoft` | `#7F65A4` | `#B3A4D6` | Muted violet (pinned 0.1.0 value; `@equal-lens/brand` 0.1.1 moves light to `#735997`, 4.53:1 on mist, THEEQ-61. SwipeEd only uses it in dark, `--brand-600`, so nothing changes here until the pin is bumped) |
+| `--color-brandsoft` | `#735997` | `#B3A4D6` | Muted violet (the package's 0.1.1 light value, `#735997`, 4.53:1 on mist, THEEQ-61; before the pin moved to 0.1.1 it was `#7F65A4`. SwipeEd only uses it in dark, `--brand-600`, so nothing changed here) |
 | `--color-paper` | `#FBF9FF` | `#15101F` | Page background |
 | `--color-surface` | `#FFFFFF` | `#221A30` | Cards, notes |
 | `--color-mist` | `#E7E0F1` | `#3A2E4D` | Hairlines, hover fills |
@@ -384,7 +384,7 @@ mostly orphaned per `games/world-art-tokens.md`) and `skin="canvas"` (hand-drawn
 
 ## Accessibility
 
-**Measured contrast** (WCAG 2.1 formula, full table with method in the [design audit](audits/design-audit-2026-09-14.md)):
+**Measured contrast** (WCAG 2.1 formula, full table with method in the [design audit](audits/design-audit-2026-09-14.md)). `python3 knowledge/contrast.py` re-checks the token pairs below on paper, surface and mist in both themes (including the OKLCH `--prx-*` fills) and exits 1 on a failure. It also lists one known gap: `text-foreground/60` is 4.19 on mist and `/55`, `/50` and `/40` fail on light surfaces (3.90, 3.35, 2.52); 15 uses sit at 55% or below ([SWED-139](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5232d551-b27d-42cf-8bba-dffcb08c7a97)).
 
 - Ink-on-paper, ink-on-surface, and their dark-mode equivalents all measure 14.4:1 to 17.2:1, well
   past AAA.
