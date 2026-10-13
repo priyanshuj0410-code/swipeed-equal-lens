@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/368de34e-fae5-48bc-b229-6844dee0ca7e  # SWED-66
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/533b7f5e-e740-46cf-bb6d-bd250addcbf5  # SWED-89
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2aed3a9a-9b61-44a2-bc3c-472d487be8ac  # SWED-101
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/1e640d0d-e504-4326-a2a8-a60d4a1886e2  # SWED-106
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/66768e21-f648-4c92-bbda-d30a084d9569  # SWED-107
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/43fe632c-cf79-4e56-9d1e-0f22c747a055  # SWED-112
@@ -41,6 +42,7 @@ knowledge/
   games/             the catalog: one doc per game and capstone, plus the SwipeEd overview docs
   audits/            dated audits: design, question bank, forge pipeline, confidentiality, UX copy
   playbooks/         approved plans and how-tos (playtest-feedback-plan-2026-09-15.md, writing-without-dashes.md, multi-step-rollout.md, ux-copy-standard.md)
+  product/           product requirements for what comes next (prd-weekly-themes.md, a draft)
   research/          dated research: tools, evidence and options before a decision (visual answer options)
   log/               log.md, the dated project log, newest first
 ```
@@ -52,6 +54,7 @@ knowledge/
 | The app and its world | [SwipeEd](games/swipeed.md) · [path world](games/swipeed-world.md) · [world and art tokens](games/world-art-tokens.md) · [capstones](games/capstones.md) · [life-skills toolkit](games/life-skills-toolkit.md) |
 | Learning design | [core principle: Unlearn, Relearn, Grow](games/swipeed-core-principle.md) · [reusable game patterns](games/swipeed-game-patterns.md) · [interaction model](games/swipeed-interaction-model.md) |
 | Engine and code | [v2 engine](architecture/v2-engine.md) · [stack, build and deployment](architecture/deployment.md) · [content in git, progress on the device](architecture/content-and-progress.md): why there is no server data layer ([SWED-133](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/bebd5a55-4403-44f5-866f-2a30d6e79f17)) · [extending SwipeEd](games/extending-swipeed.md) |
+| What comes next | [weekly themes PRD](product/prd-weekly-themes.md), a draft: a parent-led setup, a picture check-in, one theme a week, levels without scores and a parent card ([SWED-101](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2aed3a9a-9b61-44a2-bc3c-472d487be8ac)) |
 | Content | [question bank](schemas/question-bank.md) · [content pipeline (forge)](games/swipeed-content-pipeline.md) · [game doc template](games/_game-template.md) |
 | Games | [games catalog](games/index.md): every game and capstone by chapter |
 | Design | [design system](design.md) · [design audit, 2026-09-14](audits/design-audit-2026-09-14.md) |
