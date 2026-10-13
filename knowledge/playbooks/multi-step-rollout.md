@@ -7,6 +7,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4  # SWED-100
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/a211b3dc-b375-4701-ab93-7c8f4d948d6b  # SWED-108
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/02455c6c-fb84-4cc8-a691-58156ea1a13d  # SWED-104
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/ca07f624-4507-4721-8f15-d355df567d04  # SWED-141
 ---
 
 # Multi-step rollout
@@ -26,7 +27,7 @@ roles are described in the [question bank](../schemas/question-bank.md) ("Multi-
 | Ages 3 to 9 (Chapters 1 and 2) | Same rules as older players (3 or more questions, 4 or more options, short words). Convert one Chapter 1 game first (Feelings Friends) and show the owner before doing the rest. The rollout stops there until the owner signs off. |
 | After the usage guard pauses the rollout | Resume automatically after the limit resets, through the scheduled tasks below. |
 
-Earlier standing decisions still apply: pushing `main` after the gates and build pass is approved ("push and move on
+Earlier standing decisions still apply: shipping to `main` after the gates and build pass is approved, through a pull request whose checks pass (2026-10-13) ("push and move on
 the next phases"); commits carry the `priyanshuj0410-code` identity; no em or en dashes anywhere.
 
 ## Wave order and state
@@ -74,12 +75,15 @@ A batch's progress is never kept in a session's memory: `steps_wave.py status N`
 6. **Docs.** In each game's doc under `knowledge/games/`: a short "Multi-step stories" note (how many converted, the
    step split, review rounds and what they found) and the chapter's ticket in `plane_issues`. A `knowledge/log/log.md`
    entry (newest first) and the counts in the question bank.
-7. **Merge, push and release.** Run `python3 scripts/release.py --bump` on the chapter branch and commit
-   `[SWED-n] ...`; check `git worktree list` for where `main` lives and merge `--no-ff` there (rebase first if `main`
-   moved; `plane_issues` lists and the log's top entries conflict almost every time: keep both, newest first);
-   `npm run build`; `git push origin main`; wait for the Vercel status to succeed; then
-   `python3 scripts/release.py --publish` on `main` tags the release and creates its GitHub release
-   ([releases](../architecture/deployment.md#releases)).
+7. **Pull request and release.** Run `python3 scripts/release.py --bump` on the chapter branch and commit
+   `[SWED-n] ...`. If `origin/main` moved, merge it into the chapter branch (`plane_issues` lists and the log's top
+   entries conflict almost every time: keep both, newest first) and re-run the gates and `npm run build`. Push the
+   branch, open a pull request into `main` with `gh pr create`, and wait for its checks (`gh pr checks <n> --watch`:
+   `design-checks` and the Vercel preview). Once every check passes, merge it with `gh pr merge <n> --merge`, which
+   keeps a merge commit as `--no-ff` did. Wait for the Vercel status on the merge commit to succeed, fast-forward the
+   local `main`, then `python3 scripts/release.py --publish` on `main` tags the release and creates its GitHub
+   release ([releases](../architecture/deployment.md#releases)). A failed check is fixed on the branch, never merged
+   past.
 8. **Close.** Plane issue to Done with a one-line comment. For safety-heavy games, build the owner's review page with
    `python3 scripts/forge/story_review_page.py <game>` and publish it as an artifact with the `db` and `user`
    capabilities (verdicts land in its `reviews` collection), then send the link. Read the flags with the artifact's
