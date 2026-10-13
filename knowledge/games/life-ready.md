@@ -12,6 +12,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc  # SWED-122
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f  # SWED-126
 ---
 
 # Life Ready
@@ -87,3 +88,7 @@ thought"), and **UN & RE on the key unlearn** (the self-blame "asking for help i
 ## Safety fixes (2026-10-02)
 
 [SWED-122](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc): in `lr-1411` the trustworthy counsellor is one who explains what stays private, not one who keeps everything confidential. See the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md).
+
+## Multi-step stories ([SWED-126](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f), 2026-10-11)
+
+All 110 branches and 58 role-plays are now 3 to 5 questions on one situation: 112 with 3, 50 with 4 and 6 with 5, 566 questions in all. Each question has 4 or 5 options and one best, revealed at the end. After a write, review and fix pass under the writer and minors briefs, a final certification ran up to four rounds of independent reviews: a blind best-option pick, a transition audit, and a safety and fidelity review. Round 1 found 272 blocking problems in this game. The stories the last fix changed, and every finding a fixer kept, were read in full before shipping. The shipping read fixed two small wording slips: the best line now says who does the work, and a reply no longer contradicts the player. A re-run of the SWED-128 privacy, victim and help-fact checks on the assembled stories then changed 7 stories. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).

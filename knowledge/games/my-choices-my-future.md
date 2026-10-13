@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b  # SWED-80
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f  # SWED-126
 ---
 
 # My Choices, My Future
@@ -86,3 +87,7 @@ safe-helper box (#18)** now fully open.
 ## Safety fixes (2026-10-02)
 
 [SWED-80](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b): the game no longer says mandatory reporting is a myth. It now teaches the one legal limit on clinic confidentiality for under-18s: clinics don't tell your family, but if a clinician learns that someone under 18 is having sex or being abused, POCSO says they must tell the police. `mc-945`'s relearn was rewritten, and `mc-956`'s relearn names the limit. The "ask what stays private" role-plays (`mc-050`, `mc-904`, `mc-921`, `mc-1263`, `mc-1416`) say a clinician will explain, including that limit. `mc-931`, `mc-1320` and `mc-1375` no longer promise that everything stays private, and neither do the `helpLine` and the badge blurb. Every remaining confidential or private line is listed with a verdict in the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md).
+
+## Multi-step stories ([SWED-126](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f), 2026-10-11)
+
+All 100 branches and 81 role-plays are now 3 to 5 questions on one situation: 109 with 3, 65 with 4 and 7 with 5, 622 questions in all. Each question has 4 or 5 options and one best, revealed at the end. After a write, review and fix pass under the writer and minors briefs, a final certification ran up to four rounds of independent reviews: a blind best-option pick, a transition audit, and a safety and fidelity review. Round 1 found 179 blocking problems in this game. The stories the last fix changed, and every finding a fixer kept, were read in full before shipping. Every story with a safety or fidelity finding in any round, or naming a helpline, was read in full before shipping, and the owner reads the shipped stories on a [review page](https://claude.ai/artifact/LyR8tMeUc4ESSLhPLPWuvB). The shipping read fixed seven stories: two unconditional confidentiality promises now have their limit; an older sister and an older cousin offered as the trusted adult became an aunt; a contraception choice now names a trusted adult; a best option that gave itself away by length was shortened; and a clinic step now fits every path. A re-run of the SWED-128 privacy, victim and help-fact checks on the assembled stories then changed 47 stories. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).

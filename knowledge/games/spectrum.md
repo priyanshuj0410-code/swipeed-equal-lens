@@ -12,6 +12,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/785d53d2-2943-49b3-9cad-96dce0c54bfb  # SWED-62
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc  # SWED-122
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f  # SWED-126
 ---
 
 # Spectrum
@@ -85,3 +86,7 @@ including across disagreement), the **Ask-It / safe-helper box (#18)** (most car
 ## Safety fixes (2026-10-02)
 
 [SWED-122](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0c1b8795-8d5d-4208-92d0-e1365dd590bc): the game still teaches never outing a friend. Its model lines no longer promise secrecy "always": "It stays with me, and you decide who knows. If you're ever unsafe, I'll help you get support." The safe-support line in `sp-1325` is "It stays with me unless you're in danger." `sp-1282` describes a helpline as a caring listener who explains what stays private. See the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md).
+
+## Multi-step stories ([SWED-126](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f), 2026-10-11)
+
+All 91 branches and 55 role-plays are now 3 to 5 questions on one situation: 94 with 3, 47 with 4 and 5 with 5, 495 questions in all. Each question has 4 or 5 options and one best, revealed at the end. After a write, review and fix pass under the writer and minors briefs, a final certification ran up to four rounds of independent reviews: a blind best-option pick, a transition audit, and a safety and fidelity review. Round 1 found 135 blocking problems in this game. The stories the last fix changed, and every finding a fixer kept, were read in full before shipping. Every story with a safety or fidelity finding in any round, or naming a helpline, was read in full before shipping, and the owner reads the shipped stories on a [review page](https://claude.ai/artifact/Tp1VnRPnV9VFVn6bHd2t7t). The shipping read fixed two stories: a friend facing identity-based ragging is now taken to the warden together, and a debrief keeps a friend's confidence unless she is unsafe. A re-run of the SWED-128 privacy, victim and help-fact checks on the assembled stories then changed 19 stories. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).

@@ -26,6 +26,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/4b84c004-94c4-4487-9515-e467b32178ae  # SWED-64
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/20fb7ebd-51ba-4778-9b3c-77806ab99a70  # SWED-123
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/0b7954bd-c455-44f7-aa7a-130e61540ad4  # SWED-134
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f  # SWED-126
 ---
 
 # SwipeEd question bank
@@ -498,7 +499,7 @@ shipped scenario it finds ambiguous in `.forge/<gameId>/reshape.json` (`{"blind-
 review the rewrites blind again. Assemble when it reports none, and add the game to `lint_clean.json` once `lints.py` finds nothing. The planner refuses a
 convert file that names an unsupported conversion or an id that is not a shipped reflect.
 
-**Multi-step rollout** of a game's single-step branches and role-plays ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4), first run on Chapter 7, 967 stories; Chapter 8 in [SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330), 1,172 stories).
+**Multi-step rollout** of a game's single-step branches and role-plays ([SWED-100](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/8449d339-a540-489c-88e3-61d3d670fdd4), first run on Chapter 7, 967 stories; Chapter 8 in [SWED-102](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/495e4449-492b-44bc-9f8f-ef896a79e330), 1,172 stories; Chapter 6 in [SWED-104](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/02455c6c-fb84-4cc8-a691-58156ea1a13d), 1,391 stories; Chapter 5 in [SWED-126](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f), 1,454 stories).
 The per-wave procedure, the owner's decisions and the auto-resume are in the
 [multi-step rollout playbook](../playbooks/multi-step-rollout.md). `steps_wave.py` splits a chapter's stories into
 source files of about 50 under `.forge/<gameId>/steps/` and works out each batch's next stage from its files, and the

@@ -10,6 +10,7 @@ timestamp: 2026-06-20T23:50:00Z
 plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f  # SWED-126
 ---
 
 # Change Makers
@@ -73,3 +74,7 @@ a meter** sim shape (shared with [Outbreak](outbreak.md)'s containment), and **I
   It Stick, Launch It + Ask; the Badge Book; English narration.
 - **Deferred (GDD Phase 2/3):** a fuller campaign sim with stakeholder maps and tactic trade-offs, real
   launch templates, crown levels, Classroom-Mode team play, calm mode, and **Hindi**.
+
+## Multi-step stories ([SWED-126](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f), 2026-10-11)
+
+All 132 branches and 57 role-plays are now 3 to 5 questions on one situation: 119 with 3, 64 with 4 and 6 with 5, 643 questions in all. Each question has 4 or 5 options and one best, revealed at the end. After a write, review and fix pass under the writer and minors briefs, a final certification ran up to four rounds of independent reviews: a blind best-option pick, a transition audit, and a safety and fidelity review. Round 1 found 286 blocking problems in this game. The stories the last fix changed, and every finding a fixer kept, were read in full before shipping. The shipping read fixed two stories: a classmate's "too soft" question now follows every earlier path because a teacher has backed a helpline poster drive, a friend scared of harassment is taken to the counsellor that day instead of being asked whether she would like it, and one hook was reworded. A re-run of the SWED-128 privacy, victim and help-fact checks on the assembled stories then changed 6 stories. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).

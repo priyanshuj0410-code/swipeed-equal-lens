@@ -11,6 +11,7 @@ plane_issues:
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d0c7e8c6-12ce-49de-9247-6db797a309e7  # SWED-61
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/d5b7b622-1f59-42fa-8301-d7e985491850  # SWED-98
   - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b  # SWED-80
+  - https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f  # SWED-126
 ---
 
 # Status: Know It
@@ -78,3 +79,7 @@ School-Comfort (#14)** (NACO ICTC; condoms/PrEP gated; non-explicit).
 ## Safety fixes (2026-10-02)
 
 [SWED-80](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/5656f62f-d7dc-4f60-bdef-0e52c8a67b6b): `sk-1083`'s relearn names the POCSO limit for under-18s (clinics keep your visit from your family, but abuse or sex under 18 must be reported to police). `sk-1378` no longer says care is "fully confidential" (now "your HIV status is protected by law"), `sk-1315` drops "no matter what", and the `helpLine` no longer promises confidential testing. Every remaining line is recorded in the [confidentiality sweep](../audits/confidentiality-sweep-2026-10-02.md).
+
+## Multi-step stories ([SWED-126](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/6d170c7f-0041-4b4e-bc69-247964038d1f), 2026-10-11)
+
+All 91 branches and 61 role-plays are now 3 to 5 questions on one situation: 93 with 3, 51 with 4 and 8 with 5, 523 questions in all. Each question has 4 or 5 options and one best, revealed at the end. After a write, review and fix pass under the writer and minors briefs, a final certification ran up to four rounds of independent reviews: a blind best-option pick, a transition audit, and a safety and fidelity review. Round 1 found 117 blocking problems in this game. The stories the last fix changed, and every finding a fixer kept, were read in full before shipping. Every story with a safety or fidelity finding in any round, or naming a helpline, was read in full before shipping, and the owner reads the shipped stories on a [review page](https://claude.ai/artifact/9nG1M3PaWEtDitTM6yWws8). The shipping read fixed six stories: two unconditional privacy promises about clinics now say what stays private and that staff act to keep a teen safe, without scare copy; a chlamydia story now has the partner tested too; a PrEP story and a texting story now fit every path; and a cousin who gives the trusted-adult routing is now clearly an adult. A re-run of the SWED-128 privacy, victim and help-fact checks on the assembled stories then changed 42 stories. Procedure: [multi-step rollout](../playbooks/multi-step-rollout.md).
