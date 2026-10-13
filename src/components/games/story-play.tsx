@@ -67,13 +67,13 @@ export function StoryPlay({ sc, ask, say, onSolved, done }: {
           const got = mine === best;
           return (
             <li key={i} data-state={got ? "done" : undefined} className="glass-card flex flex-col gap-1 rounded-2xl px-4 py-3 text-left">
-              <p className="text-xs font-semibold leading-snug text-foreground/60">Question {i + 1}: {st.prompt}</p>
-              <p className="text-xs font-bold text-foreground/70">{got ? `✓ Your ${talk ? "line" : "pick"} was the best one` : `Your ${talk ? "line" : "pick"}`}</p>
-              <p className="text-[15px] font-bold leading-snug text-foreground">{mine?.text}</p>
+              <p className="text-sm font-semibold leading-snug text-foreground/60">Question {i + 1}: {st.prompt}</p>
+              <p className="text-sm font-bold text-foreground/70">{got ? `✓ Your ${talk ? "line" : "pick"} was the best one` : `Your ${talk ? "line" : "pick"}`}</p>
+              <p className="text-base font-bold leading-snug text-foreground">{mine?.text}</p>
               {!got && (
                 <>
                   <p className="mt-1 text-xs font-bold text-foreground/70">{talk ? "Best line" : "Best move"}</p>
-                  <p className="text-[15px] font-bold leading-snug text-foreground">{best.text}</p>
+                  <p className="text-base font-bold leading-snug text-foreground">{best.text}</p>
                 </>
               )}
               <p className="mt-1 text-sm font-semibold leading-snug text-foreground/80">{st.why}</p>
@@ -92,7 +92,7 @@ export function StoryPlay({ sc, ask, say, onSolved, done }: {
           <div className="grid grid-cols-1 gap-2.5">
             {order[step].map((i) => (
               <AnswerCard key={`${step}:${i}`} state="idle" onClick={() => pick(i)} aria-label={talk ? `Say: ${current.options[i].text}` : undefined}
-                className="flex items-center gap-3 rounded-2xl px-4 py-3.5 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">
+                className="flex items-center gap-3 rounded-2xl px-4 py-3.5 text-left text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.98]">
                 <span className="text-2xl" aria-hidden>{talk ? "🗣️" : "🔀"}</span><span className="flex-1">{current.options[i].text}</span>
               </AnswerCard>
             ))}
@@ -103,12 +103,12 @@ export function StoryPlay({ sc, ask, say, onSolved, done }: {
       ) : (
         <>
           <AnswerCard state="selected" disabled aria-label={`${talk ? "You said" : "You chose"}: ${current.options[picked].text}`}
-            className="flex items-center gap-3 rounded-2xl px-4 py-3.5 text-left text-[15px] font-bold text-foreground disabled:opacity-100">
+            className="flex items-center gap-3 rounded-2xl px-4 py-3.5 text-left text-base font-bold text-foreground disabled:opacity-100">
             <span className="text-2xl" aria-hidden>{talk ? "🗣️" : "🔀"}</span><span className="flex-1">{current.options[picked].text}</span>
           </AnswerCard>
           <div className="glass-pill flex flex-col gap-0.5 rounded-2xl px-4 py-3 text-left">
             <span className="text-xs font-bold text-foreground/60">{talk ? "They reply" : "What happens"}</span>
-            <span className="text-[15px] font-semibold leading-snug text-foreground">{current.options[picked].then}</span>
+            <span className="text-base font-semibold leading-snug text-foreground">{current.options[picked].then}</span>
           </div>
           <button ref={continueRef} type="button" onClick={advance}
             className="cta flex h-12 w-full items-center justify-center rounded-2xl bg-[var(--color-sun)] text-base font-extrabold text-slate-900 transition-transform active:scale-95">

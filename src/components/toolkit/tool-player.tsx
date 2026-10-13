@@ -53,12 +53,12 @@ export function ToolPlayer({ toolId, onClose }: { toolId: ToolId; onClose: () =>
             <p className="flex items-center gap-2 font-display text-lg font-bold text-foreground">
               <span aria-hidden>{tool.emoji}</span> {tool.name}
               {level > 0 && (
-                <span className="rounded-full bg-foreground/15 px-2 py-0.5 text-[11px] font-semibold text-foreground/80">
+                <span className="rounded-full bg-foreground/15 px-2 py-0.5 text-xs font-semibold text-foreground/80">
                   Lv {level}
                 </span>
               )}
             </p>
-            <p className="text-xs text-foreground/60">{tool.tagline}</p>
+            <p className="text-sm text-foreground/60">{tool.tagline}</p>
           </div>
         </div>
 

@@ -114,7 +114,7 @@ export function Onboarding() {
                 </button>
               ))}
             </div>
-            <span className="text-xs font-medium text-[color-mix(in_oklch,var(--color-ink),transparent_45%)]">We&apos;ll start you at the right chapter. Earlier ones stay open to revisit.</span>
+            <span className="text-sm font-medium text-[color-mix(in_oklch,var(--color-ink),transparent_45%)]">We&apos;ll start you at the right chapter. Earlier ones stay open to revisit.</span>
           </div>
 
           {/* language */}
@@ -132,7 +132,7 @@ export function Onboarding() {
 
           {/* safety note */}
           <p
-            className="rounded-2xl border-2 p-3 text-xs leading-relaxed text-[var(--color-ink)]"
+            className="rounded-2xl border-2 p-3 text-sm leading-relaxed text-[var(--color-ink)]"
             style={{
               borderColor: "color-mix(in oklch, var(--color-insight), transparent 55%)",
               background: "color-mix(in oklch, var(--color-insight), transparent 90%)",

@@ -71,7 +71,7 @@ export function MoodCheckIn() {
                     className="flex flex-1 flex-col items-center gap-1 rounded-2xl py-2 transition-transform active:scale-95"
                   >
                     <span className="text-3xl" aria-hidden>{m.e}</span>
-                    <span className="text-[11px] font-semibold text-foreground/70">{m.label}</span>
+                    <span className="text-sm font-semibold text-foreground/70">{m.label}</span>
                   </button>
                 ))}
               </div>
@@ -87,8 +87,8 @@ export function MoodCheckIn() {
               <button type="button" onClick={() => setBreathing(true)} className="cta flex h-11 items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-sm font-bold text-slate-900 transition-transform active:scale-95">
                 <Wind className="size-4" aria-hidden /> Breathing space
               </button>
-              <p className="text-center text-xs text-foreground/60">You can always talk to someone. The Get Help button is in the corner.</p>
-              <button type="button" onClick={() => setShow(false)} className="text-xs font-semibold text-foreground/70">I&apos;m okay for now</button>
+              <p className="text-center text-sm text-foreground/60">You can always talk to someone. The Get Help button is in the corner.</p>
+              <button type="button" onClick={() => setShow(false)} className="text-sm font-semibold text-foreground/70">I&apos;m okay for now</button>
             </div>
           )}
 

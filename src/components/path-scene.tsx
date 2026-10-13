@@ -431,7 +431,7 @@ function Node({
               onBlur={() => setHovered(false)}
               onClick={select}
               style={completed ? { transform: `rotate(${tilt}deg)` } : undefined}
-              className={`pointer-events-auto relative grid place-items-center rounded-full focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--violet-200)] disabled:cursor-default ${cap ? "size-40 bg-[var(--color-sun)]" : "size-32 bg-[var(--color-paper)]"} ${blocked ? "node-locked" : completed ? "sticker-soft" : "sticker-soft hover-pop"}`}
+              className={`pointer-events-auto relative grid place-items-center rounded-full focus:outline-none focus-visible:ring-[6px] focus-visible:ring-[var(--color-paper)] disabled:cursor-default ${cap ? "size-40 bg-[var(--color-sun)]" : "size-32 bg-[var(--color-paper)]"} ${blocked ? "node-locked" : completed ? "sticker-soft" : "sticker-soft hover-pop"}`}
             >
               <span className={`leading-none ${cap ? "text-[64px]" : "text-[52px]"} ${blocked ? "opacity-50 grayscale" : ""}`}>{node.emoji}</span>
               {/* up-next: a small Grow-Coral play mark. done: a coral 'earned' check badge stamped on the corner */}
@@ -507,12 +507,12 @@ function Node({
             onFocus={focus}
             onClick={select}
             style={{ background: st.badge }}
-            className={`peer pointer-events-auto flex items-center justify-center rounded-full text-foreground shadow-md ring-2 ring-foreground/85 transition-transform hover:scale-110 focus:outline-none focus-visible:scale-110 focus-visible:ring-4 focus-visible:ring-white disabled:cursor-default disabled:opacity-95 ${cap ? "size-10" : "size-8"}`}
+            className={`peer pointer-events-auto flex items-center justify-center rounded-full text-foreground shadow-md ring-2 ring-foreground/85 transition-transform hover:scale-110 focus:outline-none focus-visible:scale-110 focus-visible:ring-[6px] focus-visible:ring-[var(--color-paper)] disabled:cursor-default disabled:opacity-95 ${cap ? "size-10" : "size-8"}`}
           >
             <NodeIcon state={node.state} capstone={cap} />
           </button>
           <span
-            className={`glass-pill pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded-md px-2 py-0.5 text-[11px] font-semibold backdrop-blur-md backdrop-saturate-150 transition-opacity duration-150 ${
+            className={`glass-pill pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded-md px-2 py-0.5 text-xs font-semibold backdrop-blur-md backdrop-saturate-150 transition-opacity duration-150 ${
               inView ? "opacity-100" : "opacity-0 peer-hover:opacity-100 peer-focus-visible:opacity-100"
             }`}
           >
@@ -546,7 +546,7 @@ function ChapterBanner({ ch, u, p, progress }: { ch: Chapter; u: number; p: THRE
         }`}
       >
         <span className="text-xs font-bold leading-tight">{ch.title}</span>
-        <span className="text-[10px] font-medium leading-tight opacity-85">{ch.subtitle}</span>
+        <span className="text-xs font-medium leading-tight opacity-85">{ch.subtitle}</span>
       </div>
     </Html>
   );

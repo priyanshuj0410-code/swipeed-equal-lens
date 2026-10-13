@@ -42,7 +42,7 @@ export function GameShell({
           type="button"
           aria-label="Back to path"
           onClick={onExit}
-          className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95"
+          className="glass-pill hit-48 flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95"
         >
           <X className="size-5" aria-hidden />
         </button>

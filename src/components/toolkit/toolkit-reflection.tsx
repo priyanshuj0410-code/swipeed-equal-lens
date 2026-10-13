@@ -20,13 +20,13 @@ export function ToolkitReflection({ chapterLevel, final }: { chapterLevel: numbe
             <span className="text-xl" aria-hidden>{t.emoji}</span>
             <span className="flex-1">
               <span className="block text-xs font-bold text-foreground">{t.name}</span>
-              <span className="block text-[11px] leading-snug text-foreground/65">{TOOL_GUIDE[t.id].levelLabels[idx]}</span>
+              <span className="block text-sm leading-snug text-foreground/65">{TOOL_GUIDE[t.id].levelLabels[idx]}</span>
             </span>
           </div>
         ))}
       </div>
       {final && (
-        <p className="mt-3 text-center text-xs font-semibold text-foreground/80">
+        <p className="mt-3 text-center text-sm font-semibold text-foreground/80">
           Four skills, grown across the whole journey and yours for life. 💛
         </p>
       )}

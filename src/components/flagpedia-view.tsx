@@ -64,11 +64,11 @@ function Section({
           <Card key={s.id} className="flex flex-col gap-1 p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">{s.name}</span>
-              <span className="text-[11px] text-muted-foreground">
+              <span className="text-xs text-muted-foreground">
                 {acc === null ? "Not seen yet" : `${acc}% · ${m!.seen} seen`}
               </span>
             </div>
-            <p className="text-xs leading-relaxed text-muted-foreground">{s.definition}</p>
+            <p className="text-sm leading-relaxed text-muted-foreground">{s.definition}</p>
           </Card>
         );
       })}

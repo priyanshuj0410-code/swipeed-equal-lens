@@ -32,7 +32,7 @@ export function MakeAKid({ ctaLabel = "Add to my garden", onAdd }: { ctaLabel?: 
         <span className="text-6xl" aria-hidden>{`${KID_SKINS[skin]}${KID_ACCESSORIES[acc].emoji}`}</span>
         <span className="text-sm font-semibold text-foreground">They can {cando}</span>
       </div>
-      <p className="text-[11px] font-semibold uppercase tracking-wide text-foreground/65">Skin</p>
+      <p className="text-xs font-semibold uppercase tracking-wide text-foreground/65">Skin</p>
       <div className="grid grid-cols-3 gap-2">
         {KID_SKINS.map((s, i) => (
           <button key={i} type="button" onClick={() => setSkin(i)} className="glass-card rounded-2xl py-3 text-3xl backdrop-blur-[12px] transition-transform active:scale-95" style={skin === i ? { boxShadow: "inset 0 0 0 2px #7C5CFC" } : undefined}>
@@ -40,12 +40,12 @@ export function MakeAKid({ ctaLabel = "Add to my garden", onAdd }: { ctaLabel?: 
           </button>
         ))}
       </div>
-      <p className="text-[11px] font-semibold uppercase tracking-wide text-foreground/65">Add</p>
+      <p className="text-xs font-semibold uppercase tracking-wide text-foreground/65">Add</p>
       <div className="grid grid-cols-4 gap-2">
         {KID_ACCESSORIES.map((a, i) => (
           <button key={a.id} type="button" onClick={() => setAcc(i)} className="glass-card flex flex-col items-center gap-0.5 rounded-2xl py-2.5 backdrop-blur-[12px] transition-transform active:scale-95" style={acc === i ? { boxShadow: "inset 0 0 0 2px #7C5CFC" } : undefined}>
             <span className="text-xl" aria-hidden>{a.emoji || "🙂"}</span>
-            <span className="text-[10px] font-bold text-foreground">{a.label}</span>
+            <span className="text-xs font-bold text-foreground">{a.label}</span>
           </button>
         ))}
       </div>

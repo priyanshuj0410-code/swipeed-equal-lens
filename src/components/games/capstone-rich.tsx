@@ -77,7 +77,7 @@ function GalleryLap({ lap, recap, say, onSolved }: { lap: CapGalleryLap; recap: 
           </AnswerCard>
         ))}
       </div>
-      {lit.size < flags.length && <p className="text-center text-xs text-foreground/60">{lit.size} / {flags.length} · tap each flag</p>}
+      {lit.size < flags.length && <p className="text-center text-sm text-foreground/60">{lit.size} / {flags.length} · tap each flag</p>}
     </div>
   );
 }
@@ -88,7 +88,7 @@ function MatchLap({ lap, say, onSolved }: Omit<LapProps<CapMatchLap>, "reduceMot
   }, []);
   return (
     <div className="flex flex-1 flex-col justify-start gap-2.5">
-      <p className="text-center text-xs font-semibold text-foreground/60">draw a line from each card to its match</p>
+      <p className="text-center text-sm font-semibold text-foreground/60">draw a line from each card to its match</p>
       <MatchBoard
         pairs={lap.pairs}
         onMatch={(left, right, done) => { celebrate("small"); if (done) { celebrate("big"); say(lap.celebrate); onSolved(); } else say(pairLine(left, right)); }}
@@ -142,7 +142,7 @@ function SortLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSortLap>) {
   };
   const chips = (
     <div className="flex flex-col gap-1.5">
-      <p className="line-clamp-2 min-h-8 text-center text-xs font-semibold leading-4 text-foreground/70" aria-hidden>{sel ? `Carrying “${itemText(sel)}”: drop it in a zone` : "Tap a card, then its zone"}</p>
+      <p className="line-clamp-2 min-h-10 text-center text-sm font-semibold leading-5 text-foreground/70" aria-hidden>{sel ? `Carrying “${itemText(sel)}”: drop it in a zone` : "Tap a card, then its zone"}</p>
       <div className="flex flex-wrap justify-center gap-2">
         {order.map((it) => {
           const bi = placed[it.id] ? lap.bins.findIndex((b) => b.id === placed[it.id]) : -1;
@@ -213,7 +213,7 @@ function BuildLap({ lap, say, onSolved, reduceMotion }: LapProps<CapBuildLap>) {
           <button key={p} type="button" data-piece={p} onClick={() => add(p)} {...pointer.handlers} className={`glass-card touch-none rounded-2xl px-3 py-2.5 text-sm font-semibold text-foreground backdrop-blur-[12px] transition-transform active:scale-95 ${drag?.piece === p ? "opacity-30" : ""}`}>{p}</button>
         ))}
       </div>
-      <p aria-live="polite" className="text-center text-xs text-foreground/60">{added.length} / {lap.pieces.length} · tap or drag them all in</p>
+      <p aria-live="polite" className="text-center text-sm text-foreground/60">{added.length} / {lap.pieces.length} · tap or drag them all in</p>
     </div>
   );
 }
@@ -241,7 +241,7 @@ function SpotLap({ lap, say, onSolved }: Omit<LapProps<CapSpotLap>, "reduceMotio
           </AnswerCard>
         ))}
       </div>
-      {found.size < targets.length && <p className="text-center text-xs text-foreground/60">{found.size} / {targets.length} · tap the special ones</p>}
+      {found.size < targets.length && <p className="text-center text-sm text-foreground/60">{found.size} / {targets.length} · tap the special ones</p>}
     </div>
   );
 }
@@ -284,7 +284,7 @@ function SwipeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapSwipeLap>) {
     <div className="flex flex-1 flex-col gap-3">
       <div tabIndex={0} role="group" aria-roledescription="card you swipe up to cheer on"
         aria-label={`${lap.cue}. Press Up arrow to cheer it on.`} onKeyDown={onKeyDown} {...drag.handlers}
-        className="glass-card lift relative flex min-h-72 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[19px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
+        className="glass-card lift relative flex min-h-72 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[1.1875rem] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
         style={{ transform: `translateY(${flew ? -880 : dy}px) rotate(${flew ? -4 : 0}deg)`, transition: flew ? "transform 0.32s cubic-bezier(0.33,0,0.2,1)" : drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.2s ease-out", touchAction: "pan-x", boxShadow: lifting ? "0 -6px 0 0 var(--prx-pos)" : undefined }}>
         {lifting && (
           <>
@@ -319,7 +319,7 @@ function BranchLap({ lap, say, onSolved }: Omit<LapProps<CapBranchLap>, "reduceM
   if (picked !== null && !solved) {
     return (
       <div className="flex flex-1 flex-col justify-start gap-2.5">
-        <div className="glass-pill rounded-2xl px-4 py-3 text-center text-[15px] font-semibold backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {opts[picked].consequence}</div>
+        <div className="glass-pill rounded-2xl px-4 py-3 text-center text-base font-semibold backdrop-blur-md" style={{ color: "var(--color-ink)" }}>💛 {opts[picked].consequence}</div>
         <button type="button" onClick={() => setPicked(null)} className="glass-pill flex h-12 w-full items-center justify-center rounded-2xl text-base font-bold text-foreground backdrop-blur-md transition-transform active:scale-95">Try the values-led move →</button>
       </div>
     );
@@ -328,7 +328,7 @@ function BranchLap({ lap, say, onSolved }: Omit<LapProps<CapBranchLap>, "reduceM
     <div className="flex flex-1 flex-col justify-start gap-2.5">
       {opts.map((o, i) => (
         <AnswerCard key={i} disabled={solved} onClick={() => choose(i)} state={solved && picked === i ? "done" : "idle"} tint="var(--accent-amber)" badge={solved && picked === i ? "✓" : undefined}
-          className="flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-100">
+          className="flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-100">
           <span className="text-2xl" aria-hidden>🔀</span><span className="flex-1">{o.text}</span>
         </AnswerCard>
       ))}
@@ -367,10 +367,10 @@ function StrikeLap({ lap, say, onSolved, reduceMotion }: LapProps<CapStrikeLap>)
       {/* a click with detail 0 comes from a keyboard or screen reader, never from a finger scrubbing the card */}
       <div tabIndex={0} role="button" aria-label={`Rub out the myth: ${lap.myth.un}`} onKeyDown={onKeyDown} onClick={(e) => { if (e.detail === 0) eraseNow(); }} {...drag.handlers}
         className="glass-card lift relative flex min-h-48 flex-1 cursor-grab touch-none select-none items-center justify-center overflow-hidden rounded-3xl px-6 py-10 text-center focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing">
-        <p className="text-[19px] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? 1 : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{lap.myth.un}</p>
+        <p className="text-[1.1875rem] font-bold leading-snug text-foreground" style={{ opacity: reduceMotion ? 1 : 1 - progress * 0.85, filter: reduceMotion ? undefined : `blur(${progress * 2.5}px)`, textDecoration: progress > 0.4 ? "line-through" : undefined }}>{lap.myth.un}</p>
         <span className="pointer-events-none absolute bottom-2 right-3 text-xs font-semibold text-foreground/40" aria-hidden>✏️ rub it out</span>
       </div>
-      <p className="text-center text-xs font-semibold text-foreground/60">Scrub the myth away, or press Enter</p>
+      <p className="text-center text-sm font-semibold text-foreground/60">Scrub the myth away, or press Enter</p>
     </div>
   );
 }
@@ -390,7 +390,7 @@ function RolePlayLap({ lap, say, onSolved }: Omit<LapProps<CapRolePlayLap>, "red
     <div className="flex flex-1 flex-col justify-start gap-2.5">
       {lines.map((o, i) => (
         <AnswerCard key={i} disabled={solved} onClick={() => choose(i)} aria-label={`Say: ${o.text}`} state={solved && chosen === i ? "done" : "idle"} tint="var(--accent-amber)" badge={solved && chosen === i ? "✓" : undefined}
-          className="flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-[15px] font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-100">
+          className="flex items-center gap-3 rounded-2xl px-4 py-4 text-left text-base font-bold text-foreground backdrop-blur-[12px] transition-transform active:scale-[0.97] disabled:opacity-100">
           <span className="text-2xl" aria-hidden>🗣️</span><span className="flex-1">{o.text}</span>
         </AnswerCard>
       ))}
@@ -429,7 +429,7 @@ function ReflectView({ reflect, say, onSolved }: { reflect: CapReflect; say: (t:
             className="rounded-2xl backdrop-blur-[12px] backdrop-saturate-150 px-4 py-3 text-left text-sm font-semibold text-foreground transition-transform active:scale-[0.98]">{o}</AnswerCard>
         ))}
       </div>
-      {!picked && <p className="text-center text-xs text-foreground/60">{"there's no wrong answer 💛"}</p>}
+      {!picked && <p className="text-center text-sm text-foreground/60">{"there's no wrong answer 💛"}</p>}
     </div>
   );
 }
@@ -444,12 +444,12 @@ function CelebrationView({ config, say, onGraduate }: { config: CapstoneConfig; 
       <div className={`${card} flex flex-col items-center gap-3 px-5 py-7 text-center`}>
         <span className="text-7xl" aria-hidden>{glyphEmoji(config.celebration.glyph)}</span>
         <p className="text-sm font-semibold text-foreground">{config.celebration.certificate}</p>
-        <p className="text-xs text-foreground/70">{config.celebration.stickerBook}</p>
+        <p className="text-sm text-foreground/70">{config.celebration.stickerBook}</p>
       </div>
       <div className={`${card} px-4 py-3`}>
         <p className="text-xs font-bold uppercase tracking-wide text-foreground/60">{"What's next"}</p>
         <p className="text-sm text-foreground">{config.preview}</p>
-        <p className="mt-2 text-xs text-foreground/70">💬 {config.share}</p>
+        <p className="mt-2 text-sm text-foreground/70">💬 {config.share}</p>
       </div>
       <button type="button" onClick={onGraduate} className="cta flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[var(--color-sun)] text-lg font-bold text-slate-900 transition-transform active:scale-95">
         Get my graduation sticker! 🎓
@@ -524,11 +524,11 @@ export function RichCapstone({ config, onExit }: { config: CapstoneConfig; onExi
   const tools = (
     <span className="flex items-center gap-2">
       {!muted && (
-        <button type="button" aria-label="Hear it again" onClick={() => (gated && !canNext ? speak(questionSpeech.current, { muted }) : replay())} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+        <button type="button" aria-label="Hear it again" onClick={() => (gated && !canNext ? speak(questionSpeech.current, { muted }) : replay())} className="glass-pill hit-44 flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
           <RotateCcw className="size-4" aria-hidden />
         </button>
       )}
-      <button type="button" aria-label={muted ? "Turn sound on" : "Turn sound off"} onClick={() => setMuted((m) => { const n = !m; if (n) stopSpeaking(); return n; })} className="glass-pill flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
+      <button type="button" aria-label={muted ? "Turn sound on" : "Turn sound off"} onClick={() => setMuted((m) => { const n = !m; if (n) stopSpeaking(); return n; })} className="glass-pill hit-44 flex size-9 shrink-0 items-center justify-center rounded-full backdrop-blur-md backdrop-saturate-150 transition-transform active:scale-95">
         {muted ? <VolumeX className="size-4" aria-hidden /> : <Volume2 className="size-4" aria-hidden />}
       </button>
     </span>

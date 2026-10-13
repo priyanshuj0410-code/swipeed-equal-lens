@@ -181,7 +181,7 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete, labels }:
           style={{ transform: frontTransform, opacity: exiting ? 0 : 1, transition: frontTransition }}
           className="absolute inset-0 flex touch-none cursor-grab flex-col gap-4 rounded-[1.75rem] p-6 shadow-xl duration-200 animate-in fade-in zoom-in-95 active:cursor-grabbing"
         >
-          <span className="flex w-fit items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary">
+          <span className="flex w-fit items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
             <span aria-hidden>{deckEmoji}</span> {card.context_tag}
           </span>
 
@@ -195,11 +195,11 @@ export function SwipeDeck({ cards, deckId, mode = "score", onComplete, labels }:
           </span>
 
           {index === 0 && mode === "score" ? (
-            <span className="flex items-center justify-center gap-1.5 text-[11px] font-medium text-muted-foreground">
+            <span className="flex items-center justify-center gap-1.5 text-sm font-medium text-muted-foreground">
               <Hand className="size-3.5 -scale-x-100 animate-bounce" aria-hidden /> Swipe or tap: right = {L.right}, left = {L.left}
             </span>
           ) : (
-            <span className="text-center text-[11px] text-muted-foreground">Healthy or unhealthy? Swipe the card or use the buttons.</span>
+            <span className="text-center text-sm text-muted-foreground">Healthy or unhealthy? Swipe the card or use the buttons.</span>
           )}
         </Card>
 
@@ -249,7 +249,7 @@ function ScoredReveal({ card, correct, points, onNext }: { card: GameCard; corre
           {correct ? "Spot on" : "Look again"}
         </span>
         <div className="flex items-center gap-1.5">
-          {card.is_disguised && <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-bold uppercase text-primary">Disguised</span>}
+          {card.is_disguised && <span className="rounded-full bg-primary/15 px-2 py-0.5 text-xs font-bold uppercase text-primary">Disguised</span>}
           {correct && points > 0 && (
             <span className="flex animate-in zoom-in items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold text-foreground" style={{ background: color }}>
               <Sparkles className="size-3" aria-hidden /> +{points}
@@ -281,7 +281,7 @@ function SafeguardingReveal({ card, onNext }: { card: GameCard; onNext: () => vo
       </span>
       <p className="font-display text-2xl font-bold leading-tight">{card.sign}</p>
       <p className="flex-1 text-sm leading-relaxed text-muted-foreground">{card.feedback_short}</p>
-      <p className="text-xs text-muted-foreground">
+      <p className="text-sm text-muted-foreground">
         Tap <span className="font-semibold text-foreground">Get Help</span> (bottom-right) any time. This isn&apos;t scored.
       </p>
       <div className="flex justify-end">

@@ -74,7 +74,7 @@ export function SwipeCard({ cue, left, right, answer, styles, reduceMotion, onCo
         aria-label={`${cue}. Swipe left or press Left arrow for ${left}; swipe right or press Right arrow for ${right}.`}
         onKeyDown={onKeyDown}
         {...drag.handlers}
-        className="glass-card lift relative flex min-h-64 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[20px] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
+        className="glass-card lift relative flex min-h-64 w-full flex-1 cursor-grab select-none items-center justify-center overflow-hidden rounded-3xl px-7 py-12 text-center text-[1.25rem] font-bold leading-snug text-foreground backdrop-blur-[12px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-ink)] active:cursor-grabbing"
         style={{ transform: `translateX(${tx}px) rotate(${tx * 0.035}deg)`, transition: drag.dragging ? "none" : reduceMotion ? "none" : "transform 0.25s ease-out", touchAction: "pan-y", boxShadow: edge ? `6px 6px 0 0 ${edge.tint}` : undefined }}
       >
         {edge && (
