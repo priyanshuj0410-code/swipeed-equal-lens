@@ -14,7 +14,7 @@ plane_issues:
 
 **Status:** draft for review by Rashi and The Equal Lens team.
 **Ticket:** [SWED-101](https://app.plane.so/the-equal-lens/projects/59d0b01f-352e-4aee-bd3f-252cdf283a74/issues/2aed3a9a-9b61-44a2-bc3c-472d487be8ac).
-**Written:** 2026-09-29, from this knowledge base and the code on `main` at `f54d591`. Where the two disagree, this describes the code.
+**Written:** 2026-09-29, from this knowledge base and the code on `main` at `f54d591`. Rechecked against `main` at `7238a6c` on 2026-10-13, when the closed debts in [section 3.6](#36-debts-that-block-a-pilot-with-children) and the multi-step progress were updated. Where the knowledge base and the code disagree, this describes the code.
 **Decisions needed:** [section 15](#15-open-questions).
 
 ## 1. Summary
@@ -120,13 +120,12 @@ No child, family or school has used SwipeEd on record. The only outside use is f
 
 ### 3.6 Debts that block a pilot with children
 
-These are open today and must close before any child-facing pilot, whatever else ships.
+These are open as of 2026-10-13 and must close before any child-facing pilot, whatever else ships.
 
-1. **Get Help promises confidentiality.** `help.ts` line 10 calls Childline "confidential" (audit finding A4). The Equal Lens never promises confidentiality it cannot deliver.
-2. **Critical content findings** from the [question bank audit](../audits/question-bank-audit-2026-09-14.md) in any chapter a pilot child can reach, and the clinical-content decision (SWED-84) for any band where the programme runs.
-3. **Contrast.** The UN and RE labels fail WCAG AA in light mode (SWED-63).
-4. **Anatomical words** in the Chapter 1 to 3 body-safety games (audit finding A5), which is a curriculum decision.
-5. **Stars, coins and streaks** in the child's view ([section 3.2](#32-setup-rewards-and-parents-today)).
+1. **Anatomical words.** SWED-83 decided that Chapters 1 to 3 will use the correct body words. The content rewrite is still to come, and it has to land before a pilot child can reach those body-safety games.
+2. **Stars, coins and streaks** in the child's view ([section 3.2](#32-setup-rewards-and-parents-today)).
+
+Closed since this draft was first written: the Get Help sheet no longer calls Childline "confidential" (SWED-82), the critical findings of the [question bank audit](../audits/question-bank-audit-2026-09-14.md) are fixed (SWED-79 to SWED-81), the clinical-content question is decided (SWED-84: the app teaches health facts and refers people to care), and the UN and RE labels pass contrast (SWED-63).
 
 ### 3.7 Keep, change, add
 
@@ -158,7 +157,7 @@ These are open today and must close before any child-facing pilot, whatever else
 - Adapting on body safety, consent, puberty, abuse, mental health or clinical topics.
 - Free text, voice input, camera or location anywhere in the weekly programme.
 - Claims about behaviour. A before and after in one group supports claims about stated attitudes only.
-- Replacing The Equal Lens's facilitated programmes, or settling the clinical-content question (SWED-84).
+- Replacing The Equal Lens's facilitated programmes. Clinical topics follow SWED-84 (teach health facts, refer to care) and never enter a theme (S6).
 - Weekly programmes for Chapters 5 to 8.
 
 ## 5. Who it is for
@@ -189,7 +188,7 @@ Each rule is testable, and breaking one blocks a release.
 | S6 | Nothing adapts on body safety, consent, puberty, abuse, mental health or clinical topics. These stay in the path's fixed order. | The review; build bible: no "show a parent" on sensitive nodes |
 | S7 | Parents see the theme and the activity, never the child's answers or any result per child. | Structure doc: "Sees progress, not individual sensitive answers" |
 | S8 | Tap only in the weekly programme: no free text, no voice, no camera. | The review; safety beats are tap-only today |
-| S9 | Get Help is one tap away on every screen and promises nothing it cannot deliver. | Child-safety rules; audit finding A4 |
+| S9 | Get Help is one tap away on every screen and promises nothing it cannot deliver. | Child-safety rules; SWED-82 |
 | S10 | No photographs of children and no depicted harm in any picture. | Visual answer options research; the brand |
 | S11 | No scores, coins, stars, streaks or rankings. Stickers only. | Build bible, section 4 |
 | S12 | Lensy asks and never teaches in the check-in. Theme content puts a truer idea in place of a myth rather than just saying no. | Brand canon; [core principle](../games/swipeed-core-principle.md) |
@@ -357,7 +356,7 @@ SWED is work in this project. PRX means an Owhile ticket is needed too ([section
 
 ### FR-14 Safety surfaces (SWED)
 
-- AC1: Get Help sits on every weekly screen (S9), with the confidentiality line from audit finding A4 fixed.
+- AC1: Get Help sits on every weekly screen (S9).
 - AC2: No weekly screen has a text or voice field (S8).
 
 ## 9. Content requirements
@@ -434,7 +433,6 @@ The runtime and the forge live in this repo, and SWED-66 to SWED-100 changed the
 | Parent card; stickers instead of scores | Yes | No |
 | Research build and export | Yes | Yes: a learner record |
 | Offline cache | Yes | No |
-| Get Help fix (A4) | Yes | Yes, if the helpline registry changes |
 
 ## 13. Milestones
 
@@ -450,7 +448,7 @@ Each milestone ships with its knowledge base docs and a log entry ([AGENTS.md](.
 | M5 Widen | 3-6 co-play and 9-12, more themes, Hindi across the programme | Each band passes M3's checks |
 | M6 Teen mode | 12-15, with the Teen Compass themes | M3's checks, plus a teen privacy review |
 
-- **Alongside SWED-100.** The multi-step conversion runs chapter by chapter and has not reached Chapters 1 to 6. Level 3 uses single-step content until a game converts, so the two do not block each other.
+- **Alongside the multi-step conversion.** It runs chapter by chapter. Chapters 5 to 8 are done (SWED-100, SWED-102, SWED-104 and SWED-126); Chapters 1 to 4 are not. Level 3 uses single-step content until a game converts, so the two do not block each other.
 - **MIT Solve.** An application by 2 November 2026 can present SwipeEd as the working prototype and this PRD as the roadmap. It must say that no child has used SwipeEd yet.
 
 ## 14. Risks
@@ -472,7 +470,7 @@ Each milestone ships with its knowledge base docs and a log entry ([AGENTS.md](.
 
 1. **Equal Lens comics.** Do any exist? None were found in this workspace. If they do, where are they, and can their style carry the stories? (Rashi)
 2. **Rashi's view of the changes** in [section 2.2](#22-what-the-review-kept-and-changed): "both", counterbalancing, fixed coverage, on the phone only, and what the parent card holds. (Rashi)
-3. **The clinical-content decision** (SWED-84) and **anatomical words** (audit finding A5), which both decide which games can sit in a theme. (The Equal Lens)
+3. **The anatomical-words rewrite** (SWED-83) for Chapters 1 to 3: when will it land, since a pilot cannot start before it does? (The Equal Lens)
 4. **The pilot partner and families:** who, where, and which language besides English. (The Equal Lens)
 5. **The legal review:** who reviews compliance with section 9 of the DPDP Act, and by when. (The Equal Lens)
 6. **The third answer:** "both" or "anyone", and what its picture shows, including for a child whose family matches neither picture. (Content team, tested in the pilot)
